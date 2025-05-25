@@ -1,0 +1,23 @@
+{
+  "name": "Alyria",
+  "title": "Alyria System",
+  "description": "Un système Foundry VTT de base pour Alyria.",
+  "version": "1.0.0",
+  "author": "Sultranos, Cap'tain, Tsuyu",
+  "esmodules": [
+    "module/alyriasystem.js",
+    "module/arme-generator.js",
+    "module/data/traits.js",
+    "module/data/imperfections.js",
+    "module/data/degats-par-rarete.js",
+    "module/data/armes.js",
+    "module/data/adjectif.js"
+  ],
+  "styles": ["css/alyriasystem.css"],
+  "packs": [],
+  "system": true,
+  "compatibility": {
+    "minimum": "10",
+    "verified": "11"
+  }
+}

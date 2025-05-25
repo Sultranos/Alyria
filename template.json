@@ -1,0 +1,175 @@
+{
+  "author": "Sultranos",
+  "description": "Un système Foundry VTT de base pour Alyria.",
+  "version": "1.0.0",
+
+"actor": {
+  "types": ["personnages", "monstres", "pnj"],
+  "personnages": {
+    "type": "object",
+    "default": {},
+    "description": "Les personnages disponibles pour les joueurs dans le système Alyria.",
+    "schema": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "classe": { "type": "string" },
+          "niveau": { "type": "integer" },
+          "description": { "type": "string" },
+          "equipement": { 
+            "type": "object",
+            "properties": {
+              "armes": { "type": "array", "items": { "type": "string" } },
+              "armures": { "type": "array", "items": { "type": "string" } },
+              "accessoires": { "type": "array", "items": { "type": "string" } }
+            },
+            "required": ["armes", "armures", "accessoires"]
+          },
+          "PointVie": { 
+            "type": "object",
+            "properties": {
+              "value": { "type": "integer" },
+              "max": { "type": "integer" }
+            },
+            "required": ["value", "max"]
+          },
+          "PointPsy": { 
+            "type": "object",
+            "properties": {
+              "value": { "type": "integer" },
+              "max": { "type": "integer" }
+            },
+            "required": ["value", "max"]
+          },
+          "Majeurs": {
+            "type": "object",
+            "properties": {
+              "Force": { 
+                "type": "object",
+                "properties": {
+                  "value": { "type": "integer" },
+                  "Touche": { "type": "array", "items": { "type": "string" } }
+                     },
+                "required": ["value", "Touche"]
+              },
+              "Dexterite": { 
+                "type": "object",
+                "properties": {
+                  "value": { "type": "integer" },
+                  "Touche": { "type": "array", "items": { "type": "string" } }
+                     },
+                "required": ["value", "Touche"]
+              },
+              "Constitution": { "type": "integer" },
+              "Intelligence": { 
+                "type": "object",
+                "properties": {
+                  "value": { "type": "integer" },
+                  "Touche": { "type": "array", "items": { "type": "string" } }
+                     },
+                "required": ["value", "Touche"]
+              },
+              "Sagesse": { 
+                "type": "object",
+                "properties": {
+                  "value": { "type": "integer" },
+                  "Touche": { "type": "array", "items": { "type": "string" } }
+                     },
+                "required": ["value", "Touche"]
+              },
+              "Charisme": { 
+                "type": "object",
+                "properties": {
+                  "value": { "type": "integer" },
+                  "Touche": { "type": "array", "items": { "type": "string" } }
+                     },
+                "required": ["value", "Touche"]
+              },
+              "Chance": { 
+                "type": "object",
+                "properties": {
+                  "value": { "type": "integer" },
+                  "Critique": { "type": "array", "items": { "type": "string" } }
+                     },
+                "required": ["value", "Critique"]
+              },
+              "Defense": { 
+                "type": "object",
+                "properties": {
+                  "value": { "type": "integer" },
+                  "bloquage": { "type": "array", "items": { "type": "string" } }
+                     },
+                "required": ["value", "bloquage"]
+              }
+            },
+            "required": ["Force", "Dexterite", "Constitution", "Intelligence", "Sagesse", "Charisme", "Chance", "Defense"]
+          }
+
+        },
+        "required": ["name", "classe", "niveau", "description"]
+    }
+  }
+  },
+
+  "magies": {
+    "type": "object",
+    "default": {},
+    "description": "Archétype Magique du Héros.",
+    "schema": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "mecanique": { "type": "integer" },
+          "description": { "type": "string" }
+        },
+        "required": ["name", "mecanique", "description"]
+      }
+    }
+  },
+
+    "voie": {
+    "type": "object",
+    "default": {},
+    "description": "Archétype Physique du Héros.",
+    "schema": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "mecanique": { "type": "integer" },
+          "description": { "type": "string" }
+        },
+        "required": ["name", "mecanique", "description"]
+      }
+    }
+  }
+},
+"item": {
+  "types": ["arme", "armure", "accessoire"],
+  "arme": {
+    "type": "object",
+    "properties": {
+      "rarete": { "type": "string" },
+      "categorie": { "type": "string" },
+      "degatsType": { "type": "string" },
+      "mains": { "type": "integer" },
+      "touche": { "type": "string" },
+      "description": { "type": "string" },
+      "traits": { "type": "array", "items": { "type": "object" } },
+      "imperfections": { "type": "array", "items": { "type": "object" } },
+      "degats": { "type": "string" },
+      "bonusDegats": { "type": "integer" },
+      "valeur": { "type": "integer" }
+    },
+    "required": [
+      "rarete", "categorie", "degatsType", "mains", "description",
+      "traits", "imperfections", "degats", "bonusDegats", "touche", "valeur"
+    ]
+  }
+  }
+}
