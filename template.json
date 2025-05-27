@@ -1,175 +1,147 @@
 {
   "author": "Sultranos",
   "description": "Un système Foundry VTT de base pour Alyria.",
-  "version": "1.0.0",
+  "version": "0.0.1125",
 
-"actor": {
-  "types": ["personnages", "monstres", "pnj"],
-  "personnages": {
-    "type": "object",
-    "default": {},
-    "description": "Les personnages disponibles pour les joueurs dans le système Alyria.",
-    "schema": {
-      "type": "object",
-      "additionalProperties": {
-        "type": "object",
-        "properties": {
-          "name": { "type": "string" },
-          "classe": { "type": "string" },
-          "niveau": { "type": "integer" },
-          "description": { "type": "string" },
-          "equipement": { 
-            "type": "object",
-            "properties": {
-              "armes": { "type": "array", "items": { "type": "string" } },
-              "armures": { "type": "array", "items": { "type": "string" } },
-              "accessoires": { "type": "array", "items": { "type": "string" } }
-            },
-            "required": ["armes", "armures", "accessoires"]
-          },
-          "PointVie": { 
-            "type": "object",
-            "properties": {
-              "value": { "type": "integer" },
-              "max": { "type": "integer" }
-            },
-            "required": ["value", "max"]
-          },
-          "PointPsy": { 
-            "type": "object",
-            "properties": {
-              "value": { "type": "integer" },
-              "max": { "type": "integer" }
-            },
-            "required": ["value", "max"]
-          },
-          "Majeurs": {
-            "type": "object",
-            "properties": {
-              "Force": { 
-                "type": "object",
-                "properties": {
-                  "value": { "type": "integer" },
-                  "Touche": { "type": "array", "items": { "type": "string" } }
-                     },
-                "required": ["value", "Touche"]
-              },
-              "Dexterite": { 
-                "type": "object",
-                "properties": {
-                  "value": { "type": "integer" },
-                  "Touche": { "type": "array", "items": { "type": "string" } }
-                     },
-                "required": ["value", "Touche"]
-              },
-              "Constitution": { "type": "integer" },
-              "Intelligence": { 
-                "type": "object",
-                "properties": {
-                  "value": { "type": "integer" },
-                  "Touche": { "type": "array", "items": { "type": "string" } }
-                     },
-                "required": ["value", "Touche"]
-              },
-              "Sagesse": { 
-                "type": "object",
-                "properties": {
-                  "value": { "type": "integer" },
-                  "Touche": { "type": "array", "items": { "type": "string" } }
-                     },
-                "required": ["value", "Touche"]
-              },
-              "Charisme": { 
-                "type": "object",
-                "properties": {
-                  "value": { "type": "integer" },
-                  "Touche": { "type": "array", "items": { "type": "string" } }
-                     },
-                "required": ["value", "Touche"]
-              },
-              "Chance": { 
-                "type": "object",
-                "properties": {
-                  "value": { "type": "integer" },
-                  "Critique": { "type": "array", "items": { "type": "string" } }
-                     },
-                "required": ["value", "Critique"]
-              },
-              "Defense": { 
-                "type": "object",
-                "properties": {
-                  "value": { "type": "integer" },
-                  "bloquage": { "type": "array", "items": { "type": "string" } }
-                     },
-                "required": ["value", "bloquage"]
-              }
-            },
-            "required": ["Force", "Dexterite", "Constitution", "Intelligence", "Sagesse", "Charisme", "Chance", "Defense"]
-          }
-
+    "item": {
+        "types": ["arme", "armure", "objet", "accessoire", "consommable"],
+            "arme":{
+                "nom": "Arme",
+                "description": "Une arme utilisée pour le combat.",
+                "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
+                "maniement": "Mains",
+                "typeDegats": ["Mêlée Contondant", "Mélée Tranchant", "Mêlée Perçant", "Magique", "Archerie", "Arme à feu"],
+                "touche":["Sagesse", "Force", "Dextérité", "Charisme"],
+                "traits":[],
+                "imperfection": [],
+                "degats": "1d6",
+                "bonusDegats": 0,
+                "valeurOr": "piece d'Or"
+                },
+            "armure":{
+                "nom": "Armure",
+                "description": "Une armure utilisée pour la protection.",
+                "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
+                "typeArmure": ["Légère", "Moyenne", "Lourde"],
+                "traits": [],
+                "imperfection": [],
+                "bonusArmure": 0,
+                "valeurOr": "piece d'Or"
+                },
+            "objet":{
+                "nom": "Objet",
+                "description": "Un objet quelconque.",
+                "effet": [],
+                "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
+                "valeurOr": "piece d'Or"
+                },
+            "accessoire":{
+                "nom": "Accessoire",
+                "description": "Un accessoire utile.",
+                "traits": [],
+                "imperfection": [],
+                "effet": [],
+                "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
+                "valeurOr": "piece d'Or"
+                },
+            "consommable":{
+                "nom": "Consommable",
+                "description": "Un objet consommable.",
+                "effet": [],
+                "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
+                "valeurOr": "piece d'Or"
+            }
         },
-        "required": ["name", "classe", "niveau", "description"]
+    "Actor": {
+        "types": ["PNJ", "Personnage Joueur", "Monstre", "Bête"],
+            "monstre": {
+                "nom": "Monstre",
+                "race":"",
+                "description": "Une créature hostile.",
+                "majeurs": {
+                     "Force": 0 ,
+                     "Dextérité": 0,
+                     "Constitution": 0,
+                     "Intelligence": 0,
+                     "Sagesse": 0,
+                     "Charisme": 0
+                     },
+                "competences": [],
+                "capacites": [],
+                "psyque": ""
+            },
+            "PNJ": {
+                "nom": "PNJ",
+                "race": "",
+                "voie": "",
+                "magie": "",
+                "description": "Un personnage non-joueur.",
+                "majeures": {
+                     "Force": 0 ,
+                     "Dextérité": 0,
+                     "Constitution": 0,
+                     "Intelligence": 0,
+                     "Sagesse": 0,
+                     "Charisme": 0
+                     },
+                "mineurs": [],
+                "talentsVoie": [],
+                "talents": []                
+            },
+            "Personnage Joueur": {
+                "nom": "Personnage Joueur",
+                "race": "",
+                "voie": "",
+                "magie": "",
+                "description": "Un personnage joué par un joueur.",
+                "majeures": {
+                     "Force": 0 ,
+                     "Dextérité": 0,
+                     "Constitution": 0,
+                     "Intelligence": 0,
+                     "Sagesse": 0,
+                     "Charisme": 0
+                     },
+                "dsb": "",
+                "mineurs": {
+                      "connaissance monde":0,
+                      "connaissance mystique":0,
+                      "connaissance nature":0,
+                      "connaissance sacré":0,
+                      "robustesse":0,
+                      "calme":0,
+                      "marchandage":0,
+                      "persuasion":0,
+                      "art et musique":0,
+                      "commandement":0,
+                      "acrobatie":0,
+                      "discretion":0,
+                      "adresse":0,
+                      "artisanat":0,
+                      "hasard":0,
+                      "athlétisme":0,
+                      "puissance":0,
+                      "intimidation":0,
+                      "perception":0,
+                      "perception magique":0,
+                      "medecine": 0,
+                      "intuition": 0
+                },
+                "talentRace": "",
+                "talentsVoie": [],
+                "talents": [],
+                "mecaniques": [],
+                "inventaire": {
+                    "armes": "",
+                    "armures": "",
+                    "objets": [],
+                    "accessoires": [],
+                    "consommables": []
+                    },
+                "pointsDeVie": {"actuels": 0,"max": 0},
+                "pointsPsyque": {"actuels": 0,"max": 0},
+                "sortileges": [],
+                "sortilegeRace": ""
+            }
     }
-  }
-  },
-
-  "magies": {
-    "type": "object",
-    "default": {},
-    "description": "Archétype Magique du Héros.",
-    "schema": {
-      "type": "object",
-      "additionalProperties": {
-        "type": "object",
-        "properties": {
-          "name": { "type": "string" },
-          "mecanique": { "type": "integer" },
-          "description": { "type": "string" }
-        },
-        "required": ["name", "mecanique", "description"]
-      }
-    }
-  },
-
-    "voie": {
-    "type": "object",
-    "default": {},
-    "description": "Archétype Physique du Héros.",
-    "schema": {
-      "type": "object",
-      "additionalProperties": {
-        "type": "object",
-        "properties": {
-          "name": { "type": "string" },
-          "mecanique": { "type": "integer" },
-          "description": { "type": "string" }
-        },
-        "required": ["name", "mecanique", "description"]
-      }
-    }
-  }
-},
-"item": {
-  "types": ["arme", "armure", "accessoire"],
-  "arme": {
-    "type": "object",
-    "properties": {
-      "rarete": { "type": "string" },
-      "categorie": { "type": "string" },
-      "degatsType": { "type": "string" },
-      "mains": { "type": "integer" },
-      "touche": { "type": "string" },
-      "description": { "type": "string" },
-      "traits": { "type": "array", "items": { "type": "object" } },
-      "imperfections": { "type": "array", "items": { "type": "object" } },
-      "degats": { "type": "string" },
-      "bonusDegats": { "type": "integer" },
-      "valeur": { "type": "integer" }
-    },
-    "required": [
-      "rarete", "categorie", "degatsType", "mains", "description",
-      "traits", "imperfections", "degats", "bonusDegats", "touche", "valeur"
-    ]
-  }
-  }
 }

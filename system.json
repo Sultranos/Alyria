@@ -1,23 +1,35 @@
 {
   "name": "Alyria",
-  "title": "Alyria System",
-  "description": "Un système Foundry VTT de base pour Alyria.",
-  "version": "1.0.0",
-  "author": "Sultranos, Cap'tain, Tsuyu",
-  "esmodules": [
-    "module/alyriasystem.js",
-    "module/arme-generator.js",
-    "module/data/traits.js",
-    "module/data/imperfections.js",
-    "module/data/degats-par-rarete.js",
-    "module/data/armes.js",
-    "module/data/adjectif.js"
-  ],
-  "styles": ["css/alyriasystem.css"],
-  "packs": [],
+  "title": "Chroniques d'Alyria",
+  "description": "Un système Foundry VTT de base pour les Chroniques d'Alyria.",
+  "version": "0.0.1125",
   "system": true,
   "compatibility": {
     "minimum": "10",
-    "verified": "11"
-  }
+    "verified": "11"},
+  "author": "Sultranos, Cap'tain, Tsuyu",
+  "templateVersion": 1,
+  "scripts": [],
+  "esmodules": [
+    "module/alyria.js"    
+  ],
+  "styles": ["CSS/Alyriasystem.css"],
+  "packs": [],
+    "languages": [
+        {
+        "lang": "fr",
+        "name": "Français",
+        "path": ""
+        }
+    ],
+  "gridDistance": 5,
+  "gridUnits": "m",
+  "actorTypes": ["PNJ", "Personnage Joueur", "Monstre", "Bête"],
+  "itemTypes": ["arme", "armure", "objet", "accessoire", "consommable"],
+  "primaryToken": "",
+  "secondaryToken": "",
+  "url": "",
+  "manifest": "system.json",
+  "download": "",
+  "license": ""
 }

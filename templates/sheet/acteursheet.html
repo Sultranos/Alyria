@@ -1,0 +1,41 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="128" width="128"/>
+    <h1>
+        <input name="name" type="text" value="{{actor.name}}" placeholder="Nom de l'acteur"/>
+    </h1>
+    <p>Mon Personnage</p>
+    <div class="Majeures">
+        <label>Force
+            <input name="system.Force" type="number" value="{{system.Force}}" placeholder="Force"/>
+        </label>
+        <label>Dexterite
+            <input name="system.Dexterite" type="number" value="{{system.Dexterite}}" placeholder="Dexterite"/>
+        </label>
+        <label>Constitution
+            <input name="system.Constitution" type="number" value="{{system.Constitution}}" placeholder="Constitution"/>
+        </label>
+        <label>Intelligence
+            <input name="system.Intelligence" type="number" value="{{system.Intelligence}}" placeholder="Intelligence"/>
+        </label>
+        <label>Sagesse
+            <input name="system.Sagesse" type="number" value="{{system.Sagesse}}" placeholder="Sagesse"/>
+        </label>
+        <label>Charisme
+            <input name="system.Charisme" type="number" value="{{system.Charisme}}" placeholder="Charisme"/>
+        </label>
+        <label>Chance
+            <input name="system.Chance" type="number" value="{{system.Chance}}" placeholder="Chance"/>
+        </label>
+        <label>Defence
+            <input name="system.Defence" type="number" value="{{system.Defence}}" placeholder="Défense"/>
+        </label>
+    </div>
+    <div class="Etat">
+        <label>Points de vie
+            <input name="system.PointsVie" type="number" value="{{system.PointsVie}}" placeholder="Points de vie"/>
+        </label>
+        <label>Points de Psyqué
+            <input name="system.PointsPsy" type="number" value="{{system.PointsPsy}}" placeholder="Points de Psyqué"/>
+        </label>
+    </div>
+</form>
