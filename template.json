@@ -2,7 +2,49 @@
   "author": "Sultranos",
   "description": "Un système Foundry VTT de base pour Alyria.",
   "version": "0.0.1125",
+    "Race": {
+        "nom":"",
+        "description": "",
+        "caracteristiques": {
+            "Force": 0,
+            "Dextérité": 0,
+            "Constitution": 0,
+            "Intelligence": 0,
+            "Sagesse": 0,
+            "Charisme": 0,
+            "Defense": 0,
+            "Chance": 0
+            },
+        "talentRace": "",
+        "competenceRaciale": "",
+        "mineures": {
+            "monde": 0,
+            "mystique": 0,
+            "nature": 0,
+            "sacré": 0,
+            "robustesse": 0,
+            "calme": 0,
+            "marchandage": 0,
+            "persuasion": 0,
+            "art et musique": 0,
+            "commandement": 0,
+            "acrobatie": 0,
+            "discretion": 0,
+            "adresse": 0,
+            "artisanat": 0,
+            "hasard": 0,
+            "athlétisme": 0,
+            "puissance": 0,
+            "intimidation": 0,
+            "perception": 0,
+            "perception magique": 0,
+            "medecine": 0,
+            "intuition": 0
+            }
+        
 
+
+    },
     "item": {
         "types": ["arme", "armure", "objet", "accessoire", "consommable"],
             "arme":{
@@ -53,8 +95,8 @@
             }
         },
     "Actor": {
-        "types": ["PNJ", "Personnage Joueur", "Monstre", "Bête"],
-            "monstre": {
+        "types": ["PNJ", "Joueur", "Monstre", "Bête"],
+            "Monstre": {
                 "nom": "Monstre",
                 "race":"",
                 "description": "Une créature hostile.",
@@ -64,7 +106,9 @@
                      "Constitution": 0,
                      "Intelligence": 0,
                      "Sagesse": 0,
-                     "Charisme": 0
+                     "Charisme": 0,
+                     "Defense": 0,
+                     "Chance": 0
                      },
                 "competences": [],
                 "capacites": [],
@@ -76,72 +120,78 @@
                 "voie": "",
                 "magie": "",
                 "description": "Un personnage non-joueur.",
-                "majeures": {
-                     "Force": 0 ,
-                     "Dextérité": 0,
-                     "Constitution": 0,
-                     "Intelligence": 0,
-                     "Sagesse": 0,
-                     "Charisme": 0
-                     },
-                "mineurs": [],
+                "majeures":  {
+                    "Force": 0 ,
+                    "Dextérité": 0,
+                    "Constitution": 0,
+                    "Intelligence": 0,
+                    "Sagesse": 0,
+                    "Charisme": 0,
+                    "Defense": 0,
+                    "Chance": 0
+                },
+                "mineures": [],
                 "talentsVoie": [],
                 "talents": []                
             },
-            "Personnage Joueur": {
+            "Joueur": {
                 "nom": "Personnage Joueur",
                 "race": "",
                 "voie": "",
                 "magie": "",
                 "description": "Un personnage joué par un joueur.",
-                "majeures": {
-                     "Force": 0 ,
-                     "Dextérité": 0,
-                     "Constitution": 0,
-                     "Intelligence": 0,
-                     "Sagesse": 0,
-                     "Charisme": 0
-                     },
-                "dsb": "",
-                "mineurs": {
-                      "connaissance monde":0,
-                      "connaissance mystique":0,
-                      "connaissance nature":0,
-                      "connaissance sacré":0,
-                      "robustesse":0,
-                      "calme":0,
-                      "marchandage":0,
-                      "persuasion":0,
-                      "art et musique":0,
-                      "commandement":0,
-                      "acrobatie":0,
-                      "discretion":0,
-                      "adresse":0,
-                      "artisanat":0,
-                      "hasard":0,
-                      "athlétisme":0,
-                      "puissance":0,
-                      "intimidation":0,
-                      "perception":0,
-                      "perception magique":0,
-                      "medecine": 0,
-                      "intuition": 0
-                },
-                "talentRace": "",
-                "talentsVoie": [],
-                "talents": [],
-                "mecaniques": [],
-                "inventaire": {
-                    "armes": "",
-                    "armures": "",
-                    "objets": [],
-                    "accessoires": [],
-                    "consommables": []
+                "system": {
+                    "majeures": {
+                        "Force": 0 ,
+                        "Dextérité": 0,
+                        "Constitution": 0,
+                        "Intelligence": 0,
+                        "Sagesse": 0,
+                        "Charisme": 0,
+                        "Defense": 0,
+                        "Chance": 0
+                        },
+                    "dsb": "",
+                    "mineures": {
+                        "monde":0,
+                        "mystique":0,
+                        "nature":0,
+                        "sacré":0,
+                        "robustesse":0,
+                        "calme":0,
+                        "marchandage":0,
+                        "persuasion":0,
+                        "artmusique":0,
+                        "commandement":0,
+                        "acrobatie":0,
+                        "discretion":0,
+                        "adresse":0,
+                        "artisanat":0,
+                        "hasard":0,
+                        "athlétisme":0,
+                        "puissance":0,
+                        "intimidation":0,
+                        "perception":0,
+                        "perceptionmagique":0,
+                        "medecine": 0,
+                        "intuition": 0
                     },
-                "pointsDeVie": {"actuels": 0,"max": 0},
-                "pointsPsyque": {"actuels": 0,"max": 0},
-                "sortileges": [],
-                "sortilegeRace": ""
+                    "talentRace": "",
+                    "talentsVoie": [],
+                    "talents": [],
+                    "mecaniques": [],
+                    "inventaire": {
+                        "armes": "",
+                        "armures": "",
+                        "objets": [],
+                        "accessoires": [],
+                        "consommables": []
+                        },
+                    "pointsDeVie": {"actuels": 0,"max": 0},
+                    "pointsPsyque": {"actuels": 0,"max": 0},
+                    "sortileges": [],
+                    "competenceRace": ""
+                }
             }
     }
 }

@@ -1,0 +1,42 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="128" width="128"/>
+    <h1>
+        <input name="name" type="text" value="{{actor.name}}" placeholder="Nom de l'acteur"/>
+    </h1>
+    <p>Mon Personnage</p>
+    <div><h2><label>Caracteristiques Majeures</label></h2>
+        
+        <label>Force
+            <input name="system.majeures.Force" type="number" value="{{system.majeures.Force}}" placeholder="Force"/>
+        </label>
+        <label>Dexterite
+            <input name="system.majeures.Dexterite" type="number" value="{{system.majeures.Dexterite}}" placeholder="Dexterite"/>
+        </label>
+        <label>Constitution
+            <input name="system.majeures.Constitution" type="number" value="{{system.majeures.Constitution}}" placeholder="Constitution"/>
+        </label>
+        <label>Intelligence
+            <input name="system.majeures.Intelligence" type="number" value="{{system.majeures.Intelligence}}" placeholder="Intelligence"/>
+        </label>
+        <label>Sagesse
+            <input name="system.majeures.Sagesse" type="number" value="{{system.majeures.Sagesse}}" placeholder="Sagesse"/>
+        </label>
+        <label>Charisme
+            <input name="system.majeures.Charisme" type="number" value="{{system.majeures.Charisme}}" placeholder="Charisme"/>
+        </label>
+        <label>Chance
+            <input name="system.majeures.Chance" type="number" value="{{system.majeures.Chance}}" placeholder="Chance"/>
+        </label>
+        <label>Defense
+            <input name="system.majeures.Defense" type="number" value="{{system.majeures.Defense}}" placeholder="Défense"/>
+        </label>
+    </div>
+    <div class="Etat">
+        <label>Points de vie
+            <input name="system.PointsVie" type="number" value="{{system.PointsVie}}" placeholder="Points de vie"/>
+        </label>
+        <label>Points de Psyqué
+            <input name="system.PointsPsy" type="number" value="{{system.PointsPsy}}" placeholder="Points de Psyqué"/>
+        </label>
+    </div>
+</form>

@@ -1,5 +1,5 @@
 {
-  "name": "Alyria",
+  "name": "alyria",
   "title": "Chroniques d'Alyria",
   "description": "Un système Foundry VTT de base pour les Chroniques d'Alyria.",
   "version": "0.0.1125",
@@ -11,9 +11,11 @@
   "templateVersion": 1,
   "scripts": [],
   "esmodules": [
-    "module/alyria.js"    
+    "module/alyria.js", 
+    "module/AlyriaActor.js",
+    "module/AlyriaItem.js"   
   ],
-  "styles": ["CSS/Alyriasystem.css"],
+  "styles": ["CSS/alyriasystem.css"],
   "packs": [],
     "languages": [
         {
@@ -24,7 +26,7 @@
     ],
   "gridDistance": 5,
   "gridUnits": "m",
-  "actorTypes": ["PNJ", "Personnage Joueur", "Monstre", "Bête"],
+  "actorTypes": ["PNJ", "Joueur", "Monstre", "Bête"],
   "itemTypes": ["arme", "armure", "objet", "accessoire", "consommable"],
   "primaryToken": "",
   "secondaryToken": "",
