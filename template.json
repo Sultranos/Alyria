@@ -41,10 +41,57 @@
             "medecine": 0,
             "intuition": 0
             }
-        
-
-
+        },
+    "Voie": {
+        "description": "",
+        "majeures": {
+            "Force": 0,
+            "Dextérité": 0,
+            "Constitution": 0,
+            "Intelligence": 0,
+            "Sagesse": 0,
+            "Charisme": 0,
+            "Defense": 0,
+            "Chance": 0
+            },
+        "Mineures":  {
+            "monde": 0,
+            "mystique": 0,
+            "nature": 0,
+            "sacré": 0,
+            "robustesse": 0,
+            "calme": 0,
+            "marchandage": 0,
+            "persuasion": 0,
+            "artmusique": 0,
+            "commandement": 0,
+            "acrobatie": 0,
+            "discretion": 0,
+            "adresse": 0,
+            "artisanat": 0,
+            "hasard": 0,
+            "athlétisme": 0,
+            "puissance": 0,
+            "intimidation": 0,
+            "perception": 0,
+            "perceptionmagique": 0,
+            "medecine": 0,
+            "intuition": 0
+            },
+        "mecanique":[],
+        "talentVoie":{
+            "niveauJoueur":[1,2,3,4,5,6,7,8,9,10],
+            "talents":[]
+            },
+        "SortVoie": {
+            "niveau": ["Novice" , "Confirme" , "Expert" , "Maître"],
+                "SortNovice":[{}],
+                "SortConfirme": [{}],
+                "SortExpert": [{}],
+                "SortMaitre": [{}]
+            }
     },
+
     "item": {
         "types": ["arme", "armure", "objet", "accessoire", "consommable"],
             "arme":{
@@ -152,6 +199,8 @@
                         "Chance": 0
                         },
                     "dsb": "",
+                    "niveauJoueur": 1,
+                    "vitesse": 2,
                     "mineures": {
                         "monde":0,
                         "mystique":0,
