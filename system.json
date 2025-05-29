@@ -7,13 +7,15 @@
   "compatibility": {
     "minimum": "10",
     "verified": "11"},
-  "author": "Sultranos, Cap'tain, Tsuyu",
+  "author": "Sultranos, Cap'tain, Tsuyu, Meca",
   "templateVersion": 1,
   "scripts": [],
   "esmodules": [
     "module/alyria.js", 
     "module/AlyriaActor.js",
-    "module/AlyriaItem.js"   
+    "module/AlyriaItem.js",
+    "module/data/AlyriaRace.js",
+    "module/data/AlyriaVoies.js"   
   ],
   "styles": ["CSS/alyriasystem.css"],
   "packs": [],

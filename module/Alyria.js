@@ -21,3 +21,7 @@ Hooks.once("init", () => {
 
     console.log("Alyria | Fiches d'acteurs et d'objets enregistrées");
 });
+
+Handlebars.registerHelper('includes', function(array, value) {
+  return Array.isArray(array) && array.includes(value);
+});

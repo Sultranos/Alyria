@@ -2,245 +2,335 @@
   "author": "Sultranos",
   "description": "Un système Foundry VTT de base pour Alyria.",
   "version": "0.0.1125",
-    "Race": {
-        "nom":"",
-        "description": "",
-        "caracteristiques": {
-            "Force": 0,
-            "Dextérité": 0,
-            "Constitution": 0,
-            "Intelligence": 0,
-            "Sagesse": 0,
-            "Charisme": 0,
-            "Defense": 0,
-            "Chance": 0
-            },
-        "talentRace": "",
-        "competenceRaciale": "",
-        "mineures": {
-            "monde": 0,
-            "mystique": 0,
-            "nature": 0,
-            "sacré": 0,
-            "robustesse": 0,
-            "calme": 0,
-            "marchandage": 0,
-            "persuasion": 0,
-            "art et musique": 0,
-            "commandement": 0,
-            "acrobatie": 0,
-            "discretion": 0,
-            "adresse": 0,
-            "artisanat": 0,
-            "hasard": 0,
-            "athlétisme": 0,
-            "puissance": 0,
-            "intimidation": 0,
-            "perception": 0,
-            "perception magique": 0,
-            "medecine": 0,
-            "intuition": 0
-            }
-        },
-    "Voie": {
-        "description": "",
-        "majeures": {
-            "Force": 0,
-            "Dextérité": 0,
-            "Constitution": 0,
-            "Intelligence": 0,
-            "Sagesse": 0,
-            "Charisme": 0,
-            "Defense": 0,
-            "Chance": 0
-            },
-        "Mineures":  {
-            "monde": 0,
-            "mystique": 0,
-            "nature": 0,
-            "sacré": 0,
-            "robustesse": 0,
-            "calme": 0,
-            "marchandage": 0,
-            "persuasion": 0,
-            "artmusique": 0,
-            "commandement": 0,
-            "acrobatie": 0,
-            "discretion": 0,
-            "adresse": 0,
-            "artisanat": 0,
-            "hasard": 0,
-            "athlétisme": 0,
-            "puissance": 0,
-            "intimidation": 0,
-            "perception": 0,
-            "perceptionmagique": 0,
-            "medecine": 0,
-            "intuition": 0
-            },
-        "mecanique":[],
-        "talentVoie":{
-            "niveauJoueur":[1,2,3,4,5,6,7,8,9,10],
-            "talents":[]
-            },
-        "SortVoie": {
-            "niveau": ["Novice" , "Confirme" , "Expert" , "Maître"],
-                "SortNovice":[{}],
-                "SortConfirme": [{}],
-                "SortExpert": [{}],
-                "SortMaitre": [{}]
-            }
-    },
-
-    "item": {
-        "types": ["arme", "armure", "objet", "accessoire", "consommable"],
-            "arme":{
-                "nom": "Arme",
-                "description": "Une arme utilisée pour le combat.",
-                "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
-                "maniement": "Mains",
-                "typeDegats": ["Mêlée Contondant", "Mélée Tranchant", "Mêlée Perçant", "Magique", "Archerie", "Arme à feu"],
-                "touche":["Sagesse", "Force", "Dextérité", "Charisme"],
-                "traits":[],
-                "imperfection": [],
-                "degats": "1d6",
-                "bonusDegats": 0,
-                "valeurOr": "piece d'Or"
-                },
-            "armure":{
-                "nom": "Armure",
-                "description": "Une armure utilisée pour la protection.",
-                "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
-                "typeArmure": ["Légère", "Moyenne", "Lourde"],
-                "traits": [],
-                "imperfection": [],
-                "bonusArmure": 0,
-                "valeurOr": "piece d'Or"
-                },
-            "objet":{
-                "nom": "Objet",
-                "description": "Un objet quelconque.",
-                "effet": [],
-                "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
-                "valeurOr": "piece d'Or"
-                },
-            "accessoire":{
-                "nom": "Accessoire",
-                "description": "Un accessoire utile.",
-                "traits": [],
-                "imperfection": [],
-                "effet": [],
-                "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
-                "valeurOr": "piece d'Or"
-                },
-            "consommable":{
-                "nom": "Consommable",
-                "description": "Un objet consommable.",
-                "effet": [],
-                "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
-                "valeurOr": "piece d'Or"
-            }
-        },
-    "Actor": {
-        "types": ["PNJ", "Joueur", "Monstre", "Bête"],
-            "Monstre": {
-                "nom": "Monstre",
-                "race":"",
-                "description": "Une créature hostile.",
-                "majeurs": {
-                     "Force": 0 ,
-                     "Dextérité": 0,
-                     "Constitution": 0,
-                     "Intelligence": 0,
-                     "Sagesse": 0,
-                     "Charisme": 0,
-                     "Defense": 0,
-                     "Chance": 0
-                     },
-                "competences": [],
-                "capacites": [],
-                "psyque": ""
-            },
-            "PNJ": {
-                "nom": "PNJ",
-                "race": "",
-                "voie": "",
-                "magie": "",
-                "description": "Un personnage non-joueur.",
-                "majeures":  {
-                    "Force": 0 ,
-                    "Dextérité": 0,
-                    "Constitution": 0,
-                    "Intelligence": 0,
-                    "Sagesse": 0,
-                    "Charisme": 0,
-                    "Defense": 0,
-                    "Chance": 0
-                },
-                "mineures": [],
-                "talentsVoie": [],
-                "talents": []                
-            },
-            "Joueur": {
-                "nom": "Personnage Joueur",
-                "race": "",
-                "voie": "",
-                "magie": "",
-                "description": "Un personnage joué par un joueur.",
-                "system": {
-                    "majeures": {
-                        "Force": 0 ,
-                        "Dextérité": 0,
-                        "Constitution": 0,
-                        "Intelligence": 0,
-                        "Sagesse": 0,
-                        "Charisme": 0,
-                        "Defense": 0,
-                        "Chance": 0
-                        },
-                    "dsb": "",
-                    "niveauJoueur": 1,
-                    "vitesse": 2,
-                    "mineures": {
-                        "monde":0,
-                        "mystique":0,
-                        "nature":0,
-                        "sacré":0,
-                        "robustesse":0,
-                        "calme":0,
-                        "marchandage":0,
-                        "persuasion":0,
-                        "artmusique":0,
-                        "commandement":0,
-                        "acrobatie":0,
-                        "discretion":0,
-                        "adresse":0,
-                        "artisanat":0,
-                        "hasard":0,
-                        "athlétisme":0,
-                        "puissance":0,
-                        "intimidation":0,
-                        "perception":0,
-                        "perceptionmagique":0,
-                        "medecine": 0,
-                        "intuition": 0
+    
+"race": {
+    "nom":"",
+    "description": "",
+    "majeures": {
+        "force": 0 ,
+        "dexterite": 0,
+        "constitution": 0,
+        "intelligence": 0,
+        "sagesse": 0,
+        "charisme": 0,
+        "defense": 0,
+        "chance": 0
                     },
-                    "talentRace": "",
-                    "talentsVoie": [],
-                    "talents": [],
-                    "mecaniques": [],
-                    "inventaire": {
-                        "armes": "",
-                        "armures": "",
-                        "objets": [],
-                        "accessoires": [],
-                        "consommables": []
-                        },
-                    "pointsDeVie": {"actuels": 0,"max": 0},
-                    "pointsPsyque": {"actuels": 0,"max": 0},
-                    "sortileges": [],
-                    "competenceRace": ""
-                }
+    "talentRace": "",
+    "competenceRaciale": "",
+    "mineures": {
+        "monde": 0,
+        "mystique": 0,
+        "nature": 0,
+        "sacré": 0,
+        "robustesse": 0,
+        "calme": 0,
+        "marchandage": 0,
+        "persuasion": 0,
+        "art et musique": 0,
+        "commandement": 0,
+        "acrobatie": 0,
+        "discretion": 0,
+        "adresse": 0,
+        "artisanat": 0,
+        "hasard": 0,
+        "athlétisme": 0,
+        "puissance": 0,
+        "intimidation": 0,
+        "perception": 0,
+        "perception magique": 0,
+        "medecine": 0,
+        "intuition": 0
+        }
+    },
+"arcane":{
+    "description": "",
+    "mecanique":[],
+    "talentArcane":{
+        "niveauJoueur":[1,2,3,4,5,6,7,8,9,10],
+        "talents":[]
+        },
+    "sortArcane": {
+        "niveau": ["Novice" , "Confirme" , "Expert" , "Maître"],
+            "sortNovice":[{
+                    "nom": "",
+                    "description": "",
+                    "Psy": 0,
+                    "Zone": 0,
+                    "Distance": 0,
+                    "Action": "",
+                    "Touche": "",
+                    "effet": {}
+                     }],
+            "sortConfirme": [{
+                    "nom": "",
+                    "description": "",
+                    "Psy": 0,
+                    "Zone": 0,
+                    "Distance": 0,
+                    "Action": "",
+                    "Touche": "",
+                    "effet": {}
+                     }],
+            "sortExpert": [{
+                    "nom": "",
+                    "description": "",
+                    "Psy": 0,
+                    "Zone": 0,
+                    "Distance": 0,
+                    "Action": "",
+                    "Touche": "",
+                    "effet": {}
+                     }],
+            "sortMaitre": [{
+                    "nom": "",
+                    "description": "",
+                    "Psy": 0,
+                    "Zone": 0,
+                    "Distance": 0,
+                    "Action": "",
+                    "Touche": "",
+                    "effet": {}
+                     }]
+        }
+},
+"voie": {
+    "description": "",
+    "majeures": {
+        "force": 0,
+        "dexterite": 0,
+        "constitution": 0,
+        "intelligence": 0,
+        "sagesse": 0,
+        "charisme": 0,
+        "defense": 0,
+        "chance": 0
+        },
+    "mineures":  {
+        "monde": 0,
+        "mystique": 0,
+        "nature": 0,
+        "sacré": 0,
+        "robustesse": 0,
+        "calme": 0,
+        "marchandage": 0,
+        "persuasion": 0,
+        "artmusique": 0,
+        "commandement": 0,
+        "acrobatie": 0,
+        "discretion": 0,
+        "adresse": 0,
+        "artisanat": 0,
+        "hasard": 0,
+        "athlétisme": 0,
+        "puissance": 0,
+        "intimidation": 0,
+        "perception": 0,
+        "perceptionmagique": 0,
+        "medecine": 0,
+        "intuition": 0
+        },
+    "mecanique":[],
+    "talentVoie":{
+        "niveauJoueur":[1,2,3,4,5,6,7,8,9,10],
+        "talents":[]
+        },
+    "sortVoie": {
+        "niveau": ["Novice" , "Confirme" , "Expert" , "Maître"],
+            "sortNovice":[{
+                    "nom": "",
+                    "description": "",
+                    "Psy": 0,
+                    "Zone": 0,
+                    "Distance": 0,
+                    "Action": "",
+                    "Touche": "",
+                    "effet": {}
+                     }],
+            "sortConfirme": [{
+                    "nom": "",
+                    "description": "",
+                    "Psy": 0,
+                    "Zone": 0,
+                    "Distance": 0,
+                    "Action": "",
+                    "Touche": "",
+                    "effet": {}
+                     }],
+            "sortExpert": [{
+                    "nom": "",
+                    "description": "",
+                    "Psy": 0,
+                    "Zone": 0,
+                    "Distance": 0,
+                    "Action": "",
+                    "Touche": "",
+                    "effet": {}
+                     }],
+            "sortMaitre": [{
+                    "nom": "",
+                    "description": "",
+                    "Psy": 0,
+                    "Zone": 0,
+                    "Distance": 0,
+                    "Action": "",
+                    "Touche": "",
+                    "effet": {}
+                     }]
+        }
+},
+
+"item": {
+    "types": ["arme", "armure", "objet", "accessoire", "consommable"],
+        "arme":{
+            "nom": "Arme",
+            "description": "Une arme utilisée pour le combat.",
+            "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
+            "maniement": "Mains",
+            "typeDegats": ["Mêlée Contondant", "Mélée Tranchant", "Mêlée Perçant", "Magique", "Archerie", "Arme à feu"],
+            "touche":["Sagesse", "Force", "dexterite", "Charisme"],
+            "traits":[],
+            "imperfection": [],
+            "degats": "1d6",
+            "bonusDegats": 0,
+            "valeurOr": "piece d'Or"
+            },
+        "armure":{
+            "nom": "Armure",
+            "description": "Une armure utilisée pour la protection.",
+            "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
+            "typeArmure": ["Légère", "Moyenne", "Lourde"],
+            "traits": [],
+            "imperfection": [],
+            "bonusArmure": 0,
+            "valeurOr": "piece d'Or"
+            },
+        "objet":{
+            "nom": "Objet",
+            "description": "Un objet quelconque.",
+            "effet": [],
+            "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
+            "valeurOr": "piece d'Or"
+            },
+        "accessoire":{
+            "nom": "Accessoire",
+            "description": "Un accessoire utile.",
+            "traits": [],
+            "imperfection": [],
+            "effet": [],
+            "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
+            "valeurOr": "piece d'Or"
+            },
+        "consommable":{
+            "nom": "Consommable",
+            "description": "Un objet consommable.",
+            "effet": [],
+            "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
+            "valeurOr": "piece d'Or"
+        }
+    },
+"Actor": {
+    "types": ["PNJ", "Joueur", "Monstre", "Bête"],
+        "Monstre": {
+            "nom": "Monstre",
+            "race":"",
+            "description": "Une créature hostile.",
+            "majeures": {
+                    "force": 0 ,
+                    "dexterite": 0,
+                    "constitution": 0,
+                    "intelligence": 0,
+                    "sagesse": 0,
+                    "charisme": 0,
+                    "defense": 0,
+                    "chance": 0
+                    },
+            "competences": [],
+            "capacites": [],
+            "psyque": ""
+        },
+        "PNJ": {
+            "nom": "PNJ",
+            "race": "",
+            "voie": "",
+            "magie": "",
+            "description": "Un personnage non-joueur.",
+            "majeures":  {
+                    "force": 0 ,
+                    "dexterite": 0,
+                    "constitution": 0,
+                    "intelligence": 0,
+                    "sagesse": 0,
+                    "charisme": 0,
+                    "defense": 0,
+                    "chance": 0
+                    },
+            "mineures": [],
+            "talentsVoie": [],
+            "talents": []                
+        },
+        "Joueur": {
+            "nom": "Personnage Joueur",
+            "race": "",
+            "voie": "",
+            "magie": "",
+            "description": "Un personnage joué par un joueur.",
+            "system": {
+                "majeures": {
+                    "force": 0 ,
+                    "dexterite": 0,
+                    "constitution": 0,
+                    "intelligence": 0,
+                    "sagesse": 0,
+                    "charisme": 0,
+                    "defense": 0,
+                    "chance": 0
+                    },
+                "touche":["toucheForce","toucheDexterite", "toucheCharisme", "toucheSagesse"],
+                "dsb": "",
+                "niveauJoueur": 1,
+                "rang": "",
+                "vitesse": 2,
+                "mineures": {
+                    "monde":0,
+                    "mystique":0,
+                    "nature":0,
+                    "sacré":0,
+                    "robustesse":0,
+                    "calme":0,
+                    "marchandage":0,
+                    "persuasion":0,
+                    "artmusique":0,
+                    "commandement":0,
+                    "acrobatie":0,
+                    "discretion":0,
+                    "adresse":0,
+                    "artisanat":0,
+                    "hasard":0,
+                    "athlétisme":0,
+                    "puissance":0,
+                    "intimidation":0,
+                    "perception":0,
+                    "perceptionmagique":0,
+                    "medecine": 0,
+                    "intuition": 0
+                },
+                "talentRace": "",
+                "talentsVoie": [],
+                "talents": [],
+                "mecaniques": [],
+                "inventaire": {
+                    "armes": "",
+                    "armures": "",
+                    "objets": [],
+                    "accessoires": [],
+                    "consommables": []
+                    },
+                "pointsDeVie": {"actuels": 0,"max": 0},
+                "pointsPsyque": {"actuels": 0,"max": 0},
+                "arcane": [],
+                "competenceRace": ""
             }
-    }
+        }
+}
 }
