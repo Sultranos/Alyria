@@ -1,0 +1,74 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="128" width="128"/>
+    <h1>
+        <input name="name" type="text" value="{{actor.name}}" placeholder="Nom de l'acteur"/>
+    </h1>
+    <p>Mon Personnage</p>
+
+    <label>Race
+  <select name="system.race">
+    <option value="">-- Choisir --</option>
+    {{#each races as |race key|}}
+      <option value="{{key}}" {{#if (eq ../system.race key)}}selected{{/if}}>{{race.nom}}</option>
+    {{/each}}
+  </select>
+</label>
+<label>Voie
+  <select name="system.voie">
+    <option value="">-- Choisir --</option>
+    {{#each voies as |voie key|}}
+      <option value="{{key}}" {{#if (eq ../system.voie key)}}selected{{/if}}>{{voie.nom}}</option>
+    {{/each}}
+  </select>
+</label>
+<!-- À placer dans le formulaire de la fiche d’acteur -->
+<div class="alyria-sorts-selection">
+  <h3>Sorts à choisir ({{system.nbSortsAChoisir}})</h3>
+  <ul>
+    {{#each system.sortsDisponibles as |sort|}}
+      <li>
+        <label>
+          <input type="checkbox" name="sortsChoisis" value="{{sort.id}}" 
+            {{#if (includes ../system.sortsChoisis sort.id)}}checked{{/if}} />
+          {{sort.nom}}
+        </label>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+    <div><h2><label>Caracteristiques Majeures</label></h2>
+        
+        <label>Force
+            <input name="system.majeures.force" type="number" value="{{system.majeures.force}}" placeholder="Force"/>
+        </label>
+        <label>Dexterite
+            <input name="system.majeures.dexterite" type="number" value="{{system.majeures.dexterite}}" placeholder="Dexterite"/>
+        </label>
+        <label>Constitution
+            <input name="system.majeures.constitution" type="number" value="{{system.majeures.constitution}}" placeholder="Constitution"/>
+        </label>
+        <label>Intelligence
+            <input name="system.majeures.intelligence" type="number" value="{{system.majeures.intelligence}}" placeholder="Intelligence"/>
+        </label>
+        <label>Sagesse
+            <input name="system.majeures.sagesse" type="number" value="{{system.majeures.sagesse}}" placeholder="Sagesse"/>
+        </label>
+        <label>Charisme
+            <input name="system.majeures.charisme" type="number" value="{{system.majeures.charisme}}" placeholder="Charisme"/>
+        </label>
+        <label>Chance
+            <input name="system.majeures.chance" type="number" value="{{system.majeures.chance}}" placeholder="Chance"/>
+        </label>
+        <label>Defense
+            <input name="system.majeures.defense" type="number" value="{{system.majeures.defense}}" placeholder="Défense"/>
+        </label>
+    </div>
+    <div class="Etat">
+        <label>Points de vie
+            <input name="system.pointsDeVie" type="number" value="{{system.pointsDeVie}}" placeholder="Points de vie"/>
+        </label>
+        <label>Points de Psyqué
+            <input name="system.pointsPsy" type="number" value="{{system.pointsPsy}}" placeholder="Points de Psyqué"/>
+        </label>
+    </div>
+</form>
