@@ -1,3 +1,0 @@
-if (effet.conditionMonoCible(actor)) {
-  // Appliquer le bonus si il n'y a personne dans un rayon de 10m
-}
