@@ -1,0 +1,78 @@
+export const ARMES = [
+  // Mélée Contondant
+  { nom: "Fléau d'arme", categorie: "Mélée", degatsType: "Contondant", mains: 1, description: "Une arme qui a fait ses preuves chez tous les porteurs de bouclier, le fléau arrête net un coup et peut même être utilisé pour tirer une cible à soi, une arme parfaite pour la défense et qui broie les armures facilement. Celui-là est un fléau basique, il ne fera pas de vous une légende c’est sûr." },
+  { nom: "Masse d'arme", categorie: "Mélée", degatsType: "Contondant", mains: 1, description: "Arme emblématique des guerres rangées, une simple masse de fer au bout d'un manche." },
+  { nom: "Marteau de Guerre", categorie: "Mélée", degatsType: "Contondant", mains: 2, description: "Réservé au plus fort des guerriers, avec cette arme, tout devient un clou." },
+  { nom: "Marteau de Forge", categorie: "Mélée", degatsType: "Contondant", mains: 1, description: "Sa masse carrée au bout d'un manche court, reforger les casques ennemis avec soin." },
+  { nom: "Kanabo", categorie: "Mélée", degatsType: "Contondant", mains: 2, description: "Oui, cette arme fait bel et bien aussi mal qu’elle a l’air, gare à celui qui prendra un coup de Kanabo, ça sera la dernière chose qu’il prendra." },
+  { nom: "Matraque", categorie: "Mélée", degatsType: "Contondant", mains: 1 },
+  { nom: "Gourdin", categorie: "Mélée", degatsType: "Contondant", mains: 1, description: "Ce gourdin a été fait avec un gros morceau de racine et une pierre ficelée au bout." },
+  { nom: "Nunchaku", categorie: "Mélée", degatsType: "Contondant", mains: 2, description: "Ces Nunchakus ont déjà beaucoup servi lors de pas mal de sessions d’entrainement sur poteau." },
+  { nom: "Tonfa", categorie: "Mélée", degatsType: "Contondant", mains: 1, description: "Arme de close combat orientale qui protège les avant-bras." },
+  { nom: "Fracasse-tete", categorie: "Mélée", degatsType: "Contondant", mains: 1 },
+  { nom: "Bôukthou (Bô)", categorie: "Mélée", degatsType: "Contondant", mains: 2, description: "Bâton traditionnel nomade, conçu pour frapper très fort." },
+  { nom: "Baton Kali", categorie: "Mélée", degatsType: "Contondant", mains: 1 },
+  { nom: "Morgenstern", categorie: "Mélée", degatsType: "Contondant", mains: 1 },
+
+  // Mélée Tranchant
+  { nom: "Glaive", categorie: "Mélée", degatsType: "Tranchant", mains: 1, description: "Cette épée n’a pas l’air mauvaise mais en réalité elle n’est vraiment pas terrible." },
+  { nom: "Xiphos", categorie: "Mélée", degatsType: "Tranchant", mains: 1 },
+  { nom: "Cinquedea", categorie: "Mélée", degatsType: "Tranchant", mains: 1 },
+  { nom: "Wakizashi", categorie: "Mélée", degatsType: "Tranchant", mains: 1 },
+  { nom: "Epée longue", categorie: "Mélée", degatsType: "Tranchant", mains: 2, description: "Épée plus longue que la moyenne et plus lourde." },
+  { nom: "Epée Batarde", categorie: "Mélée", degatsType: "Tranchant", mains: 2, description: "Épée au long manche permettant une prise à 2 mains." },
+  { nom: "Katana", categorie: "Mélée", degatsType: "Tranchant", mains: 2, description: "Sabre oriental à lame courbe." },
+  { nom: "Sabre", categorie: "Mélée", degatsType: "Tranchant", mains: 2, description: "Épée à lame courbe évasée, souvent utilisée par les tribus orientales." },
+  { nom: "Cimeter", categorie: "Mélée", degatsType: "Tranchant", mains: 2 },
+  { nom: "Claymore", categorie: "Mélée", degatsType: "Tranchant", mains: 2, description: "Longue et lourde épée à 2 mains, prisée des armées lourdes." },
+  { nom: "Espadon", categorie: "Mélée", degatsType: "Tranchant", mains: 2, description: "Longue épée à lame large, son inertie rend ses coups surpuissants." },
+  { nom: "Shamshir", categorie: "Mélée", degatsType: "Tranchant", mains: 1 },
+  { nom: "Dao", categorie: "Mélée", degatsType: "Tranchant", mains: 1 },
+  { nom: "Poignard", categorie: "Mélée", degatsType: "Tranchant", mains: 1, description: "Courte lame de nombreux aspects." },
+  { nom: "Stiletto", categorie: "Mélée", degatsType: "Tranchant", mains: 1 },
+  { nom: "Karambit", categorie: "Mélée", degatsType: "Tranchant", mains: 1, description: "Lame courte courbe, prise en main inégalée et légèreté." },
+  { nom: "Machette", categorie: "Mélée", degatsType: "Tranchant", mains: 1 },
+  { nom: "Tanto", categorie: "Mélée", degatsType: "Tranchant", mains: 1 },
+  { nom: "Kris", categorie: "Mélée", degatsType: "Tranchant", mains: 1, description: "Dague cérémonielle ondulée." },
+  { nom: "Couteau Papillon", categorie: "Mélée", degatsType: "Tranchant", mains: 1 },
+  { nom: "Hache d'arme", categorie: "Mélée", degatsType: "Tranchant", mains: 2 },
+  { nom: "Francisque", categorie: "Mélée", degatsType: "Tranchant", mains: 2 },
+  { nom: "Tomahak", categorie: "Mélée", degatsType: "Tranchant", mains: 1 },
+  { nom: "Hachette de guerre", categorie: "Mélée", degatsType: "Tranchant", mains: 1, description: "Petites haches très utilisées par les peuples du nord, particulièrement par les Orcs." },
+  { nom: "Hallebarde", categorie: "Mélée", degatsType: "Tranchant", mains: 2, description: "Longue lance avec une hache en en-tête, arme de prédilection des gardes." },
+  { nom: "Fauchard", categorie: "Mélée", degatsType: "Tranchant", mains: 2, description: "L'arme anti-cavalerie par excellence, une lame rigide au bout d'une pique." },
+  { nom: "Guisarme", categorie: "Mélée", degatsType: "Tranchant", mains: 2 },
+  { nom: "Ningata", categorie: "Mélée", degatsType: "Tranchant", mains: 2, description: "Arme orientale, bonne portée et peut trancher des têtes mieux qu’une épée." },
+  { nom: "Bardiche", categorie: "Mélée", degatsType: "Tranchant", mains: 2 },
+  { nom: "Kama", categorie: "Mélée", degatsType: "Tranchant", mains: 1 },
+  { nom: "Faux", categorie: "Mélée", degatsType: "Tranchant", mains: 2, description: "Faux de combat, plus légère et coupante qu’une faux traditionnelle." },
+  { nom: "Bagh Nakh (griffe)", categorie: "Mélée", degatsType: "Tranchant", mains: 1 },
+  { nom: "Chakram", categorie: "Mélée", degatsType: "Tranchant", mains: 1 },
+  { nom: "Khopesh", categorie: "Mélée", degatsType: "Tranchant", mains: 1, description: "Arme typique des Nomades, redoutable entre de bonnes mains." },
+  { nom: "Kusarigama", categorie: "Mélée", degatsType: "Tranchant", mains: 2, description: "Kama reliée à une chaîne et un poids, excelle pour immobiliser les adversaires." },
+
+  // Mélée Perforant
+  { nom: "Lance", categorie: "Mélée", degatsType: "Perforant", mains: 2 },
+  { nom: "Epieu", categorie: "Mélée", degatsType: "Perforant", mains: 2 },
+  { nom: "Fleuret", categorie: "Mélée", degatsType: "Perforant", mains: 1 },
+  { nom: "Rapière", categorie: "Mélée", degatsType: "Perforant", mains: 1 },
+
+  // Archerie
+  { nom: "Arc Long", categorie: "Archerie", degatsType: "Perforant", mains: 2 },
+  { nom: "Arc court", categorie: "Archerie", degatsType: "Perforant", mains: 2 },
+  { nom: "Arc courbé", categorie: "Archerie", degatsType: "Perforant", mains: 2 },
+  { nom: "Arc de chasse", categorie: "Archerie", degatsType: "Perforant", mains: 2 },
+  { nom: "Arc composé", categorie: "Archerie", degatsType: "Perforant", mains: 2 },
+  { nom: "Arbalette légère", categorie: "Archerie", degatsType: "Perforant", mains: 2 },
+  { nom: "Arbalette lourde", categorie: "Archerie", degatsType: "Perforant", mains: 2 },
+  { nom: "Arbalette de poing", categorie: "Archerie", degatsType: "Perforant", mains: 1 },
+
+  // Magique
+  { nom: "Batôn", categorie: "Magique", degatsType: "Magique", mains: 2 },
+  { nom: "Baguette", categorie: "Magique", degatsType: "Magique", mains: 1 },
+  { nom: "Jeu de Carte", categorie: "Magique", degatsType: "Magique", mains: 1 },
+
+  // Arme à Feu
+  { nom: "Espingolle", categorie: "Arme à Feu", degatsType: "Perforant", mains: 1 },
+  { nom: "Mousquet", categorie: "Arme à Feu", degatsType: "Perforant", mains: 2 }
+];
