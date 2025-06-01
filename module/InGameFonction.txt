@@ -1,3 +1,19 @@
 if (effet.conditionMonoCible(actor)) {
   // Appliquer le bonus si il n'y a personne dans un rayon de 10m
 }
+
+<!-- À placer dans le formulaire de la fiche d’acteur -->
+<div class="alyria-sorts-selection">
+  <h3>Sorts à choisir ({{system.nbSortsAChoisir}})</h3>
+  <ul>
+    {{#each system.sortsDisponibles as |sort|}}
+      <li>
+        <label>
+          <input type="checkbox" name="sortsChoisis" value="{{sort.id}}" 
+            {{#if (includes ../system.sortsChoisis sort.id)}}checked{{/if}} />
+          {{sort.nom}}
+        </label>
+      </li>
+    {{/each}}
+  </ul>
+<div>

@@ -1,6 +1,6 @@
 export const AlyriaRaces = {
   hautElfe: {
-    nom: "Haut-Elfes",
+    nom: "Haut-Elfe",
     description: [
       "Race la plus grande d’Alyria, ils mesurent en moyenne 2m00 pour les hommes et 2m20 pour les femmes, possédant un physique très fins et élancé, de grands yeux aux larges pupilles et une peau de couleur ambré voire doré pour certains ils ont aussi évidemment les oreilles pointues caractéristiques des elfes. Leur longévité est sans pareille et ils vivent en moyenne 250 ans, certains atteignent presque les  400 ans.",
       "Assez fragiles physiquement et supportant mal les chocs et les coups directs ils privilégient la magie et la distance en combat, il faut noter en revanche qu’ils sont très résistants aux maladies et supporte presque aussi bien les pathologies que les Hommes-Lézards.",
@@ -19,11 +19,11 @@ export const AlyriaRaces = {
         "Vous pouvez augmenter une compétence  de la valeur de votre bonus DSB ou une attaque à l'arme de 2 fois le DSB. En contrepartie, lors du prochain coup reçu vous subirez un montant de dégâts supplémentaires égal à ceux que vous avez augmentés. Ne consomme pas d’action, utilisable une fois par combat ou scène.passage à 1 fois par combat ou par scène. Le boost concerne le DSB appliqué à la prochaine attaque = doublement du DSB + contrecoup en prenant le montant augmenté dans la tronche au prochain coup reçu..​"
     },
     majeures: {
-      force: 0,
-      dextérité: 2,
       constitution: -2,
       intelligence: 5,
-      sagesse: 2,
+      force: 0,
+      dextérité: 0,
+      sagesse: 4,
       charisme: 3,
       defense: 0,
       chance: 0
@@ -72,12 +72,12 @@ export const AlyriaRaces = {
         "Vous gagnez +10 mètres de portée et +10% de chances de réussir la prochaine attaque à distance et+10% de Critique. Ne consomme pas d’action, non cumulable. Utilisable une fois par combat ou scène."
     },
     majeures: {
-      force: 3,
-      dextérité: 5,
       constitution: 0,
-      intelligence: 2,
-      sagesse: 2,
-      charisme: -2,
+      intelligence: 1,
+      force: 2,
+      dextérité: 4,
+      sagesse: 3,
+      charisme: 0,
       defense: 0,
       chance: 0
     },
@@ -119,12 +119,12 @@ export const AlyriaRaces = {
       effect: ""
     },
     majeures: {
+      constitution: 2,
+      intelligence: 0,
       force: 3,
-      dextérité: 2,
-      constitution: 0,
-      intelligence: 2,
+      dextérité: 0,
       sagesse: 3,
-      charisme: -2,
+      charisme: 0,
       defense: 2,
       chance: 0
     },
@@ -155,7 +155,7 @@ export const AlyriaRaces = {
   },
 
   nomades: {
-    nom : "Les Nomades",
+    nom : "Nomade",
     description: [],
     talentRace: {
       nom: "",
@@ -166,14 +166,14 @@ export const AlyriaRaces = {
       effect: ""
     },
     majeures: {
+      constitution: 3,
+      intelligence: 0,
       force: 2,
       dextérité: 0,
-      constitution: 3,
-      intelligence: -2,
       sagesse: 0,
       charisme: 5,
       defense: 0,
-      chance: 2
+      chance: 0
     },
     mineures: {
       monde: 0,
@@ -202,7 +202,7 @@ export const AlyriaRaces = {
   },
 
   orientaux: {
-    nom: "Les Humains Orientaux",
+    nom: "Humain Oriental",
     description: [],
     talentRace: {
       nom: "",
@@ -213,11 +213,11 @@ export const AlyriaRaces = {
       effect: ""
     },
     majeures: {
-      force: 3,
-      dextérité: 0,
-      constitution: -2,
-      intelligence: 2,
-      sagesse: 3,
+      constitution: 1,
+      intelligence: 1,
+      force: 0,
+      dextérité: 1,
+      sagesse: 2,
       charisme: 0,
       defense: 4,
       chance: 0
@@ -249,7 +249,7 @@ export const AlyriaRaces = {
   },
 
   continentaux: {
-    nom: "Les Humains Continentaux",
+    nom: "Humain Continental",
     description: [],
     talentRace: {
       nom: "",
@@ -260,10 +260,10 @@ export const AlyriaRaces = {
       effect: ""
     },
     majeures: {
-      force: 1,
-      dextérité: 1,
       constitution: 2,
       intelligence: 1,
+      force: 1,
+      dextérité: 1,
       sagesse: 1,
       charisme: 2,
       defense: 1,
@@ -296,7 +296,7 @@ export const AlyriaRaces = {
   },
 
   gobelins: {
-    nom: "Les Gobelins",
+    nom: "Gobelin",
     description: [],
     talentRace: {
       nom: "",
@@ -307,11 +307,11 @@ export const AlyriaRaces = {
       effect: ""
     },
     majeures: {
+      constitution: -2,
+      intelligence: 0,
       force: -2,
       dextérité: 8,
-      constitution: 2,
-      intelligence: 0,
-      sagesse: -2,
+      sagesse: 0,
       charisme: 0,
       defense: -2,
       chance: 8
@@ -343,7 +343,7 @@ export const AlyriaRaces = {
   },
 
   gnomes: {
-    nom: "Les Gnômes",
+    nom: "Gnôme",
     description: [],
     talentRace: {
       nom: "",
@@ -354,10 +354,10 @@ export const AlyriaRaces = {
       effect: ""
     },
     majeures: {
-      force: 0,
-      dextérité: 2,
       constitution: 0,
       intelligence: 6,
+      force: 0,
+      dextérité: 2,
       sagesse: 0,
       charisme: 0,
       defense: -2,
@@ -401,14 +401,14 @@ export const AlyriaRaces = {
       effect: ""
     },
     majeures: {
+      constitution: 2,
+      intelligence: 0,
       force: 4,
-      dextérité: 0,
-      constitution: 0,
-      intelligence: 2,
-      sagesse: 4,
+      dextérité: 2,
+      sagesse: 0,
       charisme: 0,
-      defense: -4,
-      chance: 2
+      defense: 2,
+      chance: 0
     },
     mineures: {
       monde: 0,
@@ -448,10 +448,10 @@ export const AlyriaRaces = {
       effect: ""
     },
     majeures: {
+      constitution: 5,
+      intelligence: 0,
       force: 2,
       dextérité: -2,
-      constitution: 2,
-      intelligence: 0,
       sagesse: 0,
       charisme: 0,
       defense: 5,
@@ -484,7 +484,7 @@ export const AlyriaRaces = {
   },
 
   skaven: {
-    nom: "Les Skaven",
+    nom: "Skaven",
     description: [],
     talentRace: {
       nom: "",
@@ -495,10 +495,10 @@ export const AlyriaRaces = {
       effect: ""
     },
     majeures: {
+      constitution: -2,
+      intelligence: 0,
       force: 0,
       dextérité: 10,
-      constitution: 5,
-      intelligence: 0,
       sagesse: 2,
       charisme: -2,
       defense: 0,
@@ -531,7 +531,7 @@ export const AlyriaRaces = {
   },
 
   fushir: {
-    nom: "Les Fushirs",
+    nom: "Fushir",
     description: [],
     talentRace: {
       nom: "",
@@ -542,14 +542,14 @@ export const AlyriaRaces = {
       effect: ""
     },
     majeures: {
-      force: 3,
-      dextérité: 2,
-      constitution: -2,
+      constitution: -1,
       intelligence: 0,
-      sagesse: 1,
-      charisme: 8,
+      force: -1,
+      dextérité: 0,
+      sagesse: 0,
+      charisme: 6,
       defense: 0,
-      chance: 2
+      chance: 6
     },
     mineures: {
       monde: 0,
@@ -578,7 +578,7 @@ export const AlyriaRaces = {
   },
 
   sysalsis: {
-    nom: "Les Sizalsis",
+    nom: "Sizalsis",
     description: [],
     talentRace: {
       nom: "",
@@ -589,13 +589,13 @@ export const AlyriaRaces = {
       effect: ""
     },
     majeures: {
-      force: 4,
-      dextérité: 3,
-      constitution: 0,
+      constitution: 3,
       intelligence: 0,
-      sagesse: -1,
+      force: 3,
+      dextérité: 3,
+      sagesse: 1,
       charisme: 0,
-      defense: 2,
+      defense: 0,
       chance: 0
     },
     mineures: {
@@ -625,7 +625,7 @@ export const AlyriaRaces = {
   },
 
   orcs: {
-    nom: "Les Orcs",
+    nom: "Orc",
     description: [],
     talentRace: {
       nom: "",
@@ -636,12 +636,12 @@ export const AlyriaRaces = {
       effect: ""
     },
     majeures: {
-      force: 6,
-      dextérité: -1,
-      constitution: 3,
+      constitution: 7,
       intelligence: -2,
-      sagesse: 2,
-      charisme: 2,
+      force: 5,
+      dextérité: 0,
+      sagesse: -1,
+      charisme: 0,
       defense: 1,
       chance: 0
     },
@@ -683,13 +683,60 @@ export const AlyriaRaces = {
       effect: ""
     },
     majeures: {
-      force: 7,
-      dextérité: 0,
-      constitution: 2,
-      intelligence: -2,
-      sagesse: 2,
+      constitution: 3,
+      intelligence: -1,
+      force: 6,
+      dextérité: -2,
+      sagesse: 0,
       charisme: 2,
-      defense: 1,
+      defense: 2,
+      chance: 0
+    },
+    mineures: {
+      monde: 0,
+      mystique: 0,
+      nature: 0,
+      sacré: 0,
+      robustesse: 0,
+      calme: 0,
+      marchandage: 0,
+      persuasion: 0,
+      artmusique: 0,
+      commandement: 0,
+      acrobatie: 0,
+      discretion: 0,
+      adresse: 0,
+      artisanat: 0,
+      hasard: 0,
+      athlétisme: 0,
+      puissance: 0,
+      intimidation: 0,
+      perception: 0,
+      perceptionmagique: 0,
+      medecine: 0,
+      intuition: 0
+    }
+  },
+
+    nereide: {
+    nom:  "Néréide",
+    description: [],
+    talentRace: {
+      nom: "",
+      effect: ""
+    },
+    competenceRace: {
+      nom: "",
+      effect: ""
+    },
+    majeures: {
+      constitution: -2,
+      intelligence: 6,
+      force: -2,
+      dextérité: 0,
+      sagesse: 8,
+      charisme: 0,
+      defense: 0,
       chance: 0
     },
     mineures: {
@@ -718,3 +765,4 @@ export const AlyriaRaces = {
     }
   }
 };
+

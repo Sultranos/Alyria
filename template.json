@@ -7,14 +7,14 @@
     "nom":"",
     "description": "",
     "majeures": {
-        "force": 0 ,
-        "dexterite": 0,
-        "constitution": 0,
-        "intelligence": 0,
-        "sagesse": 0,
-        "charisme": 0,
-        "defense": 0,
-        "chance": 0
+                    "constitution": 0,
+                    "intelligence": 0,
+                    "force": 0 ,
+                    "dexterite": 0,
+                    "sagesse": 0,
+                    "charisme": 0,
+                    "defense": 0,
+                    "chance": 0
                     },
     "talentRace": "",
     "competenceRaciale": "",
@@ -27,7 +27,7 @@
         "calme": 0,
         "marchandage": 0,
         "persuasion": 0,
-        "art et musique": 0,
+        "artmusique": 0,
         "commandement": 0,
         "acrobatie": 0,
         "discretion": 0,
@@ -38,7 +38,7 @@
         "puissance": 0,
         "intimidation": 0,
         "perception": 0,
-        "perception magique": 0,
+        "perceptionmagique": 0,
         "medecine": 0,
         "intuition": 0
         }
@@ -97,15 +97,15 @@
 "voie": {
     "description": "",
     "majeures": {
-        "force": 0,
-        "dexterite": 0,
-        "constitution": 0,
-        "intelligence": 0,
-        "sagesse": 0,
-        "charisme": 0,
-        "defense": 0,
-        "chance": 0
-        },
+                    "constitution": 0,
+                    "intelligence": 0,
+                    "force": 0 ,
+                    "dexterite": 0,
+                    "sagesse": 0,
+                    "charisme": 0,
+                    "defense": 0,
+                    "chance": 0
+                    },
     "mineures":  {
         "monde": 0,
         "mystique": 0,
@@ -236,10 +236,10 @@
             "race":"",
             "description": "Une créature hostile.",
             "majeures": {
-                    "force": 0 ,
-                    "dexterite": 0,
                     "constitution": 0,
                     "intelligence": 0,
+                    "force": 0 ,
+                    "dexterite": 0,
                     "sagesse": 0,
                     "charisme": 0,
                     "defense": 0,
@@ -256,10 +256,10 @@
             "magie": "",
             "description": "Un personnage non-joueur.",
             "majeures":  {
-                    "force": 0 ,
-                    "dexterite": 0,
                     "constitution": 0,
                     "intelligence": 0,
+                    "force": 0 ,
+                    "dexterite": 0,
                     "sagesse": 0,
                     "charisme": 0,
                     "defense": 0,
@@ -277,16 +277,16 @@
             "description": "Un personnage joué par un joueur.",
             "system": {
                 "majeures": {
-                    "force": 0 ,
-                    "dexterite": 0,
                     "constitution": 0,
                     "intelligence": 0,
+                    "force": 0 ,
+                    "dexterite": 0,
                     "sagesse": 0,
                     "charisme": 0,
                     "defense": 0,
                     "chance": 0
                     },
-                "touche":["toucheForce","toucheDexterite", "toucheCharisme", "toucheSagesse"],
+                "touche":["toucheForce","toucheDexterite", "toucheCharisme", "toucheSagesse", "toucheCritique", "toucheDefense"],
                 "dsb": "",
                 "niveauJoueur": 1,
                 "rang": "",

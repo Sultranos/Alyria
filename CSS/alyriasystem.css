@@ -1,0 +1,204 @@
+:root {
+  --background-highlight: rgba(255, 255, 255, 0.25);
+  --clickable: red;
+  --form-background: rgba(0, 0, 0, 0.0392156863);
+  --inactive-control: #A0A09A;
+  --primary: black;
+  --secondary: #439b96;
+}
+
+.Dés {
+    cursor: pointer; /* Indique que l'élément est cliquable */
+    background: #49ec93; /* Fond de base */
+    border: 1px solid #e26932; /* Bordure légère */
+    padding: 5px 10px; /* Espacement interne */
+    border-radius: 3px; /* Coins légèrement arrondis */
+    text-align: center;
+    transition: background 0.2s ease, border-color 0.2s ease; /* Transition douce pour l'effet hover */
+    
+    /* Styles pour le "highlight" comme les onglets */
+    background: var(--secondary); /* Utilise ta couleur secondaire (comme les onglets actifs) */
+    color: white; /* Texte blanc sur le fond coloré */
+    border-color: var(--primary); /* Bordure de la même couleur */
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2); /* Légère ombre pour donner du relief */
+    font-weight: bold; /* Texte en gras pour le rendre plus visible */
+    
+    /* Si tu veux que le label à l'intérieur du Dés soit aussi surligné */
+    display: flex; /* Utilise flexbox pour centrer le label si tu as des icônes */
+    align-items: center;
+    justify-content: center;
+}
+
+.Dés:hover {
+    background: #5a3c61; /* Une teinte légèrement plus foncée au survol */
+    border-color: #5a3c61;
+}
+
+.form-group-inline {
+    display: flex;
+    align-items: right;
+    gap: 5px; /* Space between elements */
+    margin-bottom: 5px;
+}
+.form-group-inline label {
+    min-width: 100px; /* Adjust as needed */
+    text-align: right;
+    text-transform: capitalize; /* Pour afficher "force" en "Force" */
+}
+.carac-value, .touche-value {
+    width: 40px; /* Adjust input width as needed */
+    text-align: center;
+}
+.touche-label {
+    font-size: 0.8em;
+    color: #888;
+}
+.stat-section {
+    border: 1px solid #0d0d0e; /* Light border around sections */
+    padding: 10px;
+    border-radius: 5px;
+    background: #c1e7eea1;
+}
+
+.carac-value {
+  font-weight: bold;
+  margin-left: 0.5em;
+}
+
+/* --- Styles du Header (ceux que tu avais déjà) --- */
+.sheet-header {
+    display: flex;
+    flex-direction: row; /* Image and details side-by-side */
+    align-items: flex-start; /* Align items to the top */
+    margin-bottom: 10px;
+}
+
+.profile-img {
+    flex: 0 0 256px; /* Fixed width for image */
+    margin-right: 25px; /* Space between image and details */
+    border: 1px solid #ccc; /* Basic border for profile image */
+}
+
+.header-details {
+    flex: 1; /* Take remaining space */
+    display: flex;
+    flex-direction: column; /* Stack details vertically */
+    gap: 5px; /* Space between detail rows */
+}
+
+.header-details .form-group { /* Styling for name input */
+    margin-bottom: 0;
+    display: flex; /* Make label and input align */
+    align-items: center;
+    gap: 5px;
+}
+
+.header-details .form-group input[name="name"] {
+    flex: 1; /* Name input takes up remaining space */
+    font-size: 1.5em; /* Larger font for name */
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid #ccc;
+    padding: 2px 0;
+}
+
+.actor-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns for Race/Voie, Rang/Niveau */
+    gap: 5px 15px; /* Row and column gap */
+    align-items: center;
+}
+
+.actor-info-grid label {
+    white-space: nowrap; /* Prevent labels from wrapping */
+    text-align: right;
+}
+
+.actor-info-grid select,
+.actor-info-grid input {
+    width: 100%; /* Make select boxes and inputs fill their grid cell */
+}
+
+hr.section-divider {
+    border: 0;
+    height: 1px;
+    background: #020202; /* Light grey line */
+    margin: 15px 0;
+}
+
+
+/* --- NOUVEAUX STYLES pour la mise en page à deux colonnes et les onglets --- */
+
+.sheet-body {
+    display: flex; /* Active Flexbox pour les colonnes */
+    flex-direction: row; /* Aligne les éléments en ligne (côte à côte) */
+    gap: 15px; /* Espace entre les colonnes principales */
+    height: 100%; /* Important si les onglets doivent prendre toute la hauteur */
+}
+
+/* Colonne principale des Caractéristiques et État */
+.sheet-main-content {
+    flex: 2; /* Ou une valeur qui convient à votre design, ex: 2 parts */
+    overflow-y: auto; /* Permet le défilement si le contenu est trop long */
+    padding-right: 10px; /* Un peu d'espacement avec la colonne de droite */
+}
+
+/* Colonne de navigation à droite */
+.sheet-navigation {
+    flex: 0 0 150px; /* Largeur fixe pour la colonne de navigation (ajustez si besoin) */
+    display: flex;
+    flex-direction: column; /* Les boutons s'empilent verticalement */
+    gap: 5px; /* Espacement entre les boutons */
+    border-left: 1px solid #ccc; /* Séparateur visuel */
+    padding-left: 10px;
+    padding-top: 10px; /* Pour aligner avec le contenu principal */
+}
+
+.sheet-navigation .item {
+    background: #eee;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+    border-radius: 3px;
+    white-space: nowrap;
+    transition: background 0.2s ease, color 0.2s ease; /* Transition douce pour l'hover */
+}
+
+.sheet-navigation .item:hover {
+    background: #ddd;
+}
+
+.sheet-navigation .item.active {
+    background: var(--secondary); /* Utilise ta variable pour la couleur active */
+    color: white;
+    border-color: var(--secondary);
+}
+
+/* Conteneur des onglets */
+.sheet-content {
+    flex: 3; /* Prend la majorité de l'espace restant pour le contenu de l'onglet */
+    position: relative; /* Nécessaire pour le positionnement absolu des onglets */
+    height: 100%; /* Important pour que les onglets remplissent la hauteur */
+    padding-left: 10px; /* Espacement par rapport à la navigation */
+    overflow: hidden; /* Empêche le contenu de déborder du conteneur si un onglet est trop grand */
+}
+
+/* Styles des onglets individuels */
+.sheet-content .tab {
+    display: none; /* Cache tous les onglets par défaut */
+    position: absolute; /* Positionne les onglets les uns sur les autres */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto; /* Permet le défilement du contenu de l'onglet */
+    padding-right: 10px; /* Un petit padding pour le scrollbar si présent */
+    box-sizing: border-box; /* Inclut le padding dans la largeur/hauteur */
+}
+
+.sheet-content .tab.active {
+    display: block; /* Affiche l'onglet actif */
+}

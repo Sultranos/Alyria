@@ -15,12 +15,12 @@ guerrier: {
       "Dans de rares cas, les guerriers se joignent à des groupes d’aventuriers et détruisent les monstres ou les brigands qu’ils croisent. Autant dire qu’ils sont très recherchés pour former des groupes, car leur puissance et leur polyvalence sont sans égale.", 
       "Les maîtres guerriers peuvent frapper en zone, ignorer les armures, et même gagner d’importants bonus avec une catégorie d’arme spécifique"],
       majeures: {
-            force: 0,
-            dextérité: 0,
-            constitution: -2,
-            intelligence: 5,
-            sagesse: 4,
-            charisme: 3,
+            force: 2,
+            dexterite: 2,
+            constitution: 3,
+            intelligence: 0,
+            sagesse: 0,
+            charisme: 0,
             defense: 0,
             chance: 0
             },
@@ -87,10 +87,10 @@ guerrier: {
           },
           {
             nom: "Guerrier Véloce",
-            description: "Ajoute +1 en dextérité et +10 en acrobatie",
+            description: "Ajoute +1 en dexterite et +10 en acrobatie",
             niveauJoueur: 5,
             prerequis: ["Paladin de Pacotille"],
-            effet: { dextérité: 1, Acrobatie: 10 }
+            effet: { dexterite: 1, Acrobatie: 10 }
           },
           {
             nom: "Pugiliste Petits Bras",
@@ -158,7 +158,7 @@ pugiliste: {
             "Les maîtres pugilistes disposent de multiples bonus en statistique et d’attaque visant directement la PSY adverse. Ils ont aussi accès à l’attaque au plus gros potentiel de dégâts possibles."],
         majeures: {
             force: 3,
-            dextérité: 2,
+            dexterite: 2,
             constitution: 3,
             intelligence: 0,
             sagesse: 0,
@@ -193,25 +193,25 @@ pugiliste: {
         mecanique:[
             "Le Pugiliste suit la Voie du Poing, ce passif est débloqué automatiquement si vous avez sélectionné la voie et même si vous ne deviez pas utiliser sa mécanique :",
             "Voie du Poing : Ne peut pas utiliser d’arme, en contrepartie les attaques à mains nues font 1 dé 4 +1 dégâts. +1 dégât supplémentaire tous les 2 niveaux du Pugiliste.",
-            "Ceux qui suivent cette voie doivent être fort et rapide, Quand ils utilisent leur dextérité et leur force en simultané ils sont invincible :",
-            "Voler comme un papillon et frapper comme une abeille : Lorsque vous utilisez un sort de force APRES avoir utilisé un sort de dextérité vous infligez 1 dé 4 dégâts fixe supplémentaire sur ce sort, si vous utilisez un sort de dextérité APRES un sort de force vous gagnez 1 cran en vitesse et 10% de chance de toucher pour 1 tour",
-            "Les sorts ayant 'Réussite automatique' ne sont pas considérés comme des sorts de force ou de dextérité. Les attaques à mains nues quant à elle sont considérées comme des sorts de force Ou de dextérité pour le fonctionnement de la mécanique mais elles ne déclenchent aucune des augmentations.",],
+            "Ceux qui suivent cette voie doivent être fort et rapide, Quand ils utilisent leur dexterite et leur force en simultané ils sont invincible :",
+            "Voler comme un papillon et frapper comme une abeille : Lorsque vous utilisez un sort de force APRES avoir utilisé un sort de dexterite vous infligez 1 dé 4 dégâts fixe supplémentaire sur ce sort, si vous utilisez un sort de dexterite APRES un sort de force vous gagnez 1 cran en vitesse et 10% de chance de toucher pour 1 tour",
+            "Les sorts ayant 'Réussite automatique' ne sont pas considérés comme des sorts de force ou de dexterite. Les attaques à mains nues quant à elle sont considérées comme des sorts de force Ou de dexterite pour le fonctionnement de la mécanique mais elles ne déclenchent aucune des augmentations.",],
         talentVoie:{
             niveauJoueur:[1,2,3,4,5,6,7,8,9,10],
             talents:[
                 {
                     nom: "Vivacité Naturelle ",
-                    description: "Ajoute +1 en dextérité et +1 cran de vitesse au tour 1 de chaque combat et a chaque fois que vous tuer un ennemi.",
+                    description: "Ajoute +1 en dexterite et +1 cran de vitesse au tour 1 de chaque combat et a chaque fois que vous tuer un ennemi.",
                     niveauJoueur: 1,
                     prerequis: [],
-                    effet: { dextérité: 1, vitesse: 1 }
+                    effet: { dexterite: 1, vitesse: 1 }
                 },
                 {
                     nom: "Maîtrise des Arts Martiaux",
-                    description: "Ajoute +1 en force OU en dextérité. Chaque attaque à mains nues peuvent infliger ”Sonné” sur un coup critique",
+                    description: "Ajoute +1 en force OU en dexterite. Chaque attaque à mains nues peuvent infliger ”Sonné” sur un coup critique",
                     niveauJoueur: 2,
                     prerequis: ["Vivacité Naturelle"],
-                    effet: { force: +1 , dextérité: +1 , etat: "Sonné" },
+                    effet: { force: +1 , dexterite: +1 , etat: "Sonné" },
                 },
                 {
                     nom: "Bagarreur",
@@ -283,11 +283,11 @@ pugiliste: {
                 },
                 {
                     nom: "Souplesse du Luchador ",
-                    description: "Ajoute +1 en dextérité et +10 en Acrobatie. Si vous avez moins de 25% de PV restants, vous augmentez votre taux de blocage de 20%.",
+                    description: "Ajoute +1 en dexterite et +10 en Acrobatie. Si vous avez moins de 25% de PV restants, vous augmentez votre taux de blocage de 20%.",
                     niveauJoueur: 9,
                     prerequis: ["Vigilance totale"],
                     effet: { 
-                        dextérité: 1, 
+                        dexterite: 1, 
                         Acrobatie: 10, 
                         tauxBlocage: {
                             valeur: 20, 
@@ -322,7 +322,7 @@ changeForme: {
             "Les maîtres change-forme peuvent prendre les 5 formes élémentaires et sont donc d’une versatilité absolue, ils peuvent en plus augmenter les dégâts de leurs sorts élémentaires grâce à leurs affinités."],
         majeures: {
             force: 1,
-            dextérité: 2,
+            dexterite: 2,
             constitution: 1,
             intelligence: 1,
             sagesse: 2,
@@ -452,12 +452,12 @@ berserker: {
     nom:"Berserker",    
     description: "",
         majeures: {
-            force: 0,
-            dextérité: 0,
-            constitution: 0,
-            intelligence: 5,
-            sagesse: 4,
-            charisme: 3,
+            force: 2,
+            dexterite: 0,
+            constitution: 6,
+            intelligence: 0,
+            sagesse: 2,
+            charisme: 0,
             defense: 0,
             chance: 0
             },
@@ -505,12 +505,12 @@ paladin: {
     description: "",
         majeures: {
             force: 0,
-            dextérité: 0,
-            constitution: 0,
-            intelligence: 5,
-            sagesse: 4,
-            charisme: 3,
-            defense: 0,
+            dexterite: 0,
+            constitution: 2,
+            intelligence: 0,
+            sagesse: 0,
+            charisme: 2,
+            defense: 6,
             chance: 0
             },
         mineures:  {
@@ -939,7 +939,7 @@ paladin: {
             },
             {
                 nom: "Inquisition Impériale",
-                description: "Prend la valeur de votre statistique de défense et l'ajoute à celle de votre force et dextérité, votre valeur de défense devient 0. Tous vos bonus aux taux de blocage deviennent des bonus aux chances de toucher. Votre armure est réduite à 0 devient un bonus de dégâts équivalent à sa valeur. Ce sort reste actif jusqu’au K.O. du Paladin ou la fin du combat.",
+                description: "Prend la valeur de votre statistique de défense et l'ajoute à celle de votre force et dexterite, votre valeur de défense devient 0. Tous vos bonus aux taux de blocage deviennent des bonus aux chances de toucher. Votre armure est réduite à 0 devient un bonus de dégâts équivalent à sa valeur. Ce sort reste actif jusqu’au K.O. du Paladin ou la fin du combat.",
                 Psy: 7,
                 Zone: "CàC",
                 ZoneImage: "systems/alyria/module/data/images/cac.png",
@@ -970,12 +970,12 @@ moine: {
     nom:"Moine",    
     description: "",
         majeures: {
-            force: 0,
-            dextérité: 0,
-            constitution: 0,
-            intelligence: 5,
-            sagesse: 4,
-            charisme: 3,
+            force: 3,
+            dexterite: 0,
+            constitution: 2,
+            intelligence: 2,
+            sagesse: 3,
+            charisme: 0,
             defense: 0,
             chance: 0
             },
@@ -1023,13 +1023,13 @@ roublard: {
     description: "",
         majeures: {
             force: 0,
-            dextérité: 0,
+            dexterite: 6,
             constitution: 0,
-            intelligence: 5,
-            sagesse: 4,
-            charisme: 3,
+            intelligence: 0,
+            sagesse: 0,
+            charisme: 0,
             defense: 0,
-            chance: 0
+            chance: 4
             },
         mineures:  {
             monde: 0,
@@ -1075,12 +1075,12 @@ samourai: {
     description: "",
         majeures: {
             force: 0,
-            dextérité: 0,
+            dexterite: 4,
             constitution: 0,
-            intelligence: 5,
-            sagesse: 4,
-            charisme: 3,
-            defense: 0,
+            intelligence: 0,
+            sagesse: 2,
+            charisme: 0,
+            defense: 4,
             chance: 0
             },
         mineures:  {
@@ -1127,7 +1127,7 @@ cuisinier: {
     description: "",
         majeures: {
             force: 1,
-            dextérité: 1,
+            dexterite: 1,
             constitution: 3,
             intelligence: 0,
             sagesse: 1,
@@ -1227,7 +1227,7 @@ alchimiste: {
     description: "",
         majeures: {
             force: 0,
-            dextérité: 2,
+            dexterite: 2,
             constitution: 0,
             intelligence: 5,
             sagesse: 3,
@@ -1256,7 +1256,7 @@ erudit: {
     description: "",
         majeures: {
             force: 0,
-            dextérité: 0,
+            dexterite: 0,
             constitution: 0,
             intelligence: 5,
             sagesse: 5,
@@ -1285,7 +1285,7 @@ baroudeur: {
     description: "",
         majeures: {
             force: 1,
-            dextérité: 2,
+            dexterite: 2,
             constitution: 2,
             intelligence: 0,
             sagesse: 0,
@@ -1310,10 +1310,10 @@ baroudeur: {
             },
             {
                 nom: "Tout Terrain",
-                description: "Ajoute +2 en Dextérité, octroie un bonus de +15 en acrobatie pour se faufiler ou escalader.",
+                description: "Ajoute +2 en dexterite, octroie un bonus de +15 en acrobatie pour se faufiler ou escalader.",
                 niveauJoueur: 2,
                 prerequis: ["Transporteur"],
-                effet: { dextérité: 2, acrobatie: 15 }
+                effet: { dexterite: 2, acrobatie: 15 }
             },
             {
                 nom: "Marcheur Véloce",
@@ -1345,7 +1345,7 @@ baroudeur: {
             },
                 {
                 nom: "Infatigable",
-                description: "Le personnage ne ressent pas la fatigue, il ne peut plus être victime de désavantage lors d’un jet de statistiques liées à la Dextérité, à la Défense ou à la Force.",
+                description: "Le personnage ne ressent pas la fatigue, il ne peut plus être victime de désavantage lors d’un jet de statistiques liées à la dexterite, à la Défense ou à la Force.",
                 niveauJoueur: 7,
                 prerequis: ["Polyglotte"],
                 effet: { immuniteFatigue: true }
@@ -1359,10 +1359,10 @@ baroudeur: {
                 },
                 {
                 nom: "Voyageur Chevronné",
-                description: "A chaque fois que vous appliquez « Entrave » l’ennemi doit réussir son jet de sauvegarde avec un désavantage. Ajoute +1 en Dextérité ou en Charisme ou en Force.",
+                description: "A chaque fois que vous appliquez « Entrave » l’ennemi doit réussir son jet de sauvegarde avec un désavantage. Ajoute +1 en dexterite ou en Charisme ou en Force.",
                 niveauJoueur: 9,
                 prerequis: ["Barda Infini"],
-                effet: { choix: ["dextérité", "charisme", "force"], entraveDesavantage: true }
+                effet: { choix: ["dexterite", "charisme", "force"], entraveDesavantage: true }
                 },
                 {
                 nom: "L’important n’est pas la Destination",
@@ -1388,7 +1388,7 @@ forgeron: {
     description: "",
         majeures: {
             force: 4,
-            dextérité: 0,
+            dexterite: 0,
             constitution: 3,
             intelligence: 0,
             sagesse: 0,
@@ -1417,7 +1417,7 @@ barde: {
     description: "",
         majeures: {
             force: 0,
-            dextérité: 0,
+            dexterite: 0,
             constitution: 0,
             intelligence: 0,
             sagesse: 0,
@@ -1446,7 +1446,7 @@ voleur: {
     description: "",
         majeures: {
             force: 0,
-            dextérité: 8,
+            dexterite: 8,
             constitution: 0,
             intelligence: 0,
             sagesse: 0,
@@ -1475,7 +1475,7 @@ marchand: {
     description: "",
         majeures: {
             force: 0,
-            dextérité: 2,
+            dexterite: 2,
             constitution: 0,
             intelligence: 2,
             sagesse: 0,
@@ -1504,7 +1504,7 @@ danseur: {
     description: "",
         majeures: {
             force: 2,
-            dextérité: 5,
+            dexterite: 5,
             constitution: 0,
             intelligence: 0,
             sagesse: 0,
@@ -1519,17 +1519,17 @@ danseur: {
             talents: [
             {
                 nom: "Danseur étoile",
-                description: "Ajoute +1 en Dextérité et +10 en Art et Musique.",
+                description: "Ajoute +1 en dexterite et +10 en Art et Musique.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: { dextérité: 1, artmusique: 10 }
+                effet: { dexterite: 1, artmusique: 10 }
             },
             {
                 nom: "Danseur vedette",
-                description: "Ajoute +1 en Charisme OU Dextérité, et +10 en Connaissance Monde, vous obtenez un avantage sur vos jets de ciblage.",
+                description: "Ajoute +1 en Charisme OU dexterite, et +10 en Connaissance Monde, vous obtenez un avantage sur vos jets de ciblage.",
                 niveauJoueur: 2,
                 prerequis: ["Danseur étoile"],
-                effet: { choix: ["charisme", "dextérité"], monde: 10, avantageCiblage: true }
+                effet: { choix: ["charisme", "dexterite"], monde: 10, avantageCiblage: true }
             },
             {
                 nom: "Forte Fièvre",
@@ -1540,10 +1540,10 @@ danseur: {
             },
             {
                 nom: "Danseur infatigable",
-                description: "Ajoute +1 en Force OU Dextérité, et +10 en Athlétisme,  vous êtes immunisé à Entrave.",
+                description: "Ajoute +1 en Force OU dexterite, et +10 en Athlétisme,  vous êtes immunisé à Entrave.",
                 niveauJoueur: 4,
                 prerequis: ["Forte Fièvre"],
-                effet: { choix: ["force", "dextérité"], athlétisme: 10, immuniteEntrave: true }
+                effet: { choix: ["force", "dexterite"], athlétisme: 10, immuniteEntrave: true }
             },
             {
                 nom: "Performeur",
@@ -1671,7 +1671,7 @@ danseur: {
             },
             {
                 nom: "Mauvais Tempo",
-                description: "Vous désignez une cible, à chaque fois qu’elle se déplace elle doit faire un jet de sauvegarde de Dextérité avec avantage, si elle le loupe elle subit Entrave irrésistible",
+                description: "Vous désignez une cible, à chaque fois qu’elle se déplace elle doit faire un jet de sauvegarde de dexterite avec avantage, si elle le loupe elle subit Entrave irrésistible",
                 Psy: 2,
                 Zone: "Dist.",
                 ZoneImage: "systems/alyria/module/data/images/dist.png",
@@ -1884,7 +1884,7 @@ danseur: {
             },
             {
                 nom: "Limbo endiablé",
-                description: "Une barre enflammée apparait et descend petit à petit le lanceur et une cible à son corps à corps doivent consécutivement faire des jets de sauvegarde de Dextérité à tour de rôle pour passer en dessous jusqu’à ce que l’un rate, le danseur les fait avec avantage et sa cible avec désavantage. Si le danseur rate il subit 1 dé 6 dégâts mais devient enragé et gagne une action supplémentaire pour 2 tours, si la cible rate elle se fait carbonisé par la barre et subit 2 dé 6 + 4 dégâts et Brulure irrésistible",
+                description: "Une barre enflammée apparait et descend petit à petit le lanceur et une cible à son corps à corps doivent consécutivement faire des jets de sauvegarde de dexterite à tour de rôle pour passer en dessous jusqu’à ce que l’un rate, le danseur les fait avec avantage et sa cible avec désavantage. Si le danseur rate il subit 1 dé 6 dégâts mais devient enragé et gagne une action supplémentaire pour 2 tours, si la cible rate elle se fait carbonisé par la barre et subit 2 dé 6 + 4 dégâts et Brulure irrésistible",
                 Psy: 7,
                 Zone: "CàC",
                 ZoneImage: "systems/alyria/module/data/images/cac.png",
@@ -1937,12 +1937,41 @@ dresseur: {
     description: "",
         majeures: {
             force: 1,
-            dextérité: 2,
+            dexterite: 2,
             constitution: 3,
             intelligence: 0,
             sagesse: 1,
             charisme: 2,
             defense: 1,
+            chance: 0
+        },
+        mineures: {},
+        mecanique: [],
+        talentVoie: {
+            niveauJoueur: [1,2,3,4,5,6,7,8,9,10],
+            talents: []
+        },
+        sortVoie: {
+             niveau: ["Novice" , "Confirme" , "Expert" , "Maître"],
+            sortNovice: [{}],
+            sortConfirme: [{}],
+            sortExpert: [{}],
+            sortMaitre: [{}]
+        }
+    },
+
+prestidigitateur: {
+        
+    nom:"Prestidigitateur",    
+    description: "",
+        majeures: {
+            force: 0,
+            dexterite: 3,
+            constitution: 0,
+            intelligence: 4,
+            sagesse: 0,
+            charisme: 3,
+            defense: 0,
             chance: 0
         },
         mineures: {},
@@ -1966,10 +1995,10 @@ cartomancien: {
     description: "",
         majeures: {
             force: 0,
-            dextérité: 0,
-            constitution: 2,
-            intelligence: 2,
-            sagesse: 3,
+            dexterite: 0,
+            constitution: 0,
+            intelligence: 1,
+            sagesse: 0,
             charisme: 2,
             defense: 0,
             chance: 7
@@ -1988,10 +2017,10 @@ cartomancien: {
             },
             {
                 nom: "Destinée Magnifique",
-                description: "Ajoute +1 en Dextérité et en Charisme. Vous ignorez les tentatives de ciblage adverse, car votre destin vous appartient.",
+                description: "Ajoute +1 en dexterite et en Charisme. Vous ignorez les tentatives de ciblage adverse, car votre destin vous appartient.",
                 niveauJoueur: 2,
                 prerequis: ["Chance Insolente"],
-                effet: { dextérité: 1, charisme: 1, ignoreCiblage: true }
+                effet: { dexterite: 1, charisme: 1, ignoreCiblage: true }
             },
             {
                 nom: "Bonne Aventure",
@@ -2399,10 +2428,10 @@ animancien: {
     nom:"Animancien",    
     description: "",
         majeures: {
-            force: 0,
-            dextérité: 0,
-            constitution: 0,
-            intelligence: 7,
+            force: 3,
+            dexterite: 0,
+            constitution: 2,
+            intelligence: 2,
             sagesse: 3,
             charisme: 0,
             defense: 0,
@@ -2423,13 +2452,13 @@ animancien: {
         }
     },
 
-mage: {
+invocateur: {
         
-    nom:"Mage",    
+    nom:"Invocateur",      
     description: "",
         majeures: {
             force: 0,
-            dextérité: 1,
+            dexterite: 1,
             constitution: 0,
             intelligence: 4,
             sagesse: 2,
@@ -2452,13 +2481,13 @@ mage: {
         }
     },
 
-invocateur: {
+elementariste: {
         
-    nom:"Invocateur",    
+    nom:"Elémentariste",   
     description: "",
         majeures: {
             force: 2,
-            dextérité: 0,
+            dexterite: 0,
             constitution: 3,
             intelligence: 3,
             sagesse: 2,
@@ -2481,17 +2510,17 @@ invocateur: {
         }
     },
 
-elementariste: {
+mage: {
         
-    nom:"Elémentariste",    
+    nom:"Mage",
     description: "",
         majeures: {
             force: 0,
-            dextérité: 0,
+            dexterite: 0,
             constitution: 0,
-            intelligence: 4,
-            sagesse: 2,
-            charisme: 4,
+            intelligence: 7,
+            sagesse: 0,
+            charisme: 3,
             defense: 0,
             chance: 0
         },
@@ -2514,12 +2543,12 @@ chaman: {
         description: "",
         majeures: {
             force: 0,
-            dextérité: 0,
-            constitution: 3,
+            dexterite: 2,
+            constitution: 2,
             intelligence: 2,
-            sagesse: 2,
-            charisme: 4,
-            defense: 0,
+            sagesse: 1,
+            charisme: 0,
+            defense: 3,
             chance: 0
         },
         mineures: {},
@@ -2541,11 +2570,11 @@ prêtre: {
         description: "",
         majeures: {
             force: 0,
-            dextérité: 0,
+            dexterite: 0,
             constitution: 0,
-            intelligence: 3,
-            sagesse: 1,
-            charisme: 1,
+            intelligence: 4,
+            sagesse: 2,
+            charisme: 4,
             defense: 0,
             chance: 0
         },
@@ -2570,11 +2599,11 @@ cultiste: {
     description: "",
         majeures: {
             force: 2,
-            dextérité: 2,
+            dexterite: 0,
             constitution: 3,
-            intelligence: 2,
-            sagesse: 2,
-            charisme: 2,
+            intelligence: 3,
+            sagesse: 1,
+            charisme: 1,
             defense: 0,
             chance: 0
         },
@@ -2602,19 +2631,19 @@ magicka: {
 
             "Particularité : La voie de la Magicka ne peut être utilisée qu'en Monovoie."],
         majeures: {
-            force: 0,
-            dextérité: 0,
+            force: 2,
+            dexterite: 2,
             constitution: 0,
             intelligence: 2,
-            sagesse: 4,
-            charisme: 4,
+            sagesse: 2,
+            charisme: 2,
             defense: 0,
             chance: 0
         },
         mineures: {},
         mecanique: [
             "-Magicka Transformation !",
-            "- Forme rapide : +1 cran de vitesse et +15% de chances de toucher et aux jets de sauvegarde basés sur la dextérité. En contrepartie vous subissez 1 dégât en plus de toutes les attaques qui vous touchent sans que vous ne réussissiez un blocage. Octroie +15 dans toutes les statistiques mineures basées sur la dextérité.",
+            "- Forme rapide : +1 cran de vitesse et +15% de chances de toucher et aux jets de sauvegarde basés sur la dexterite. En contrepartie vous subissez 1 dégât en plus de toutes les attaques qui vous touchent sans que vous ne réussissiez un blocage. Octroie +15 dans toutes les statistiques mineures basées sur la dexterite.",
             "- Forme brutale : +2 aux dégâts, 15% de CC et aux jets de sauvegarde basés sur la Force. En contrepartie vous perdez 20% de chance de bloquer et -2 à l’armure. Octroie +15 dans toutes les statistiques mineures basées sur la Force",
             "- Forme bastion : +1 d’armure et +20% aux chances de bloquer et à tous les jets de sauvegarde. En contrepartie vous perdez un cran en vitesse et ne pouvez plus utilisez d’attaque qui ont une portée supérieure à 15 mètres. Octroie +15 dans toutes les statistiques mineures basées sur la Défense.",
             "- Forme sage : Toute vos attaques coûtent 1 PSY de moins (cet effet ne se cumul pas avec d’autres effets diminuant le coût en PSY) et gagnent +5 mètres de portée. En contrepartie vous ne pouvez plus effectuer de jets de sauvegarde. Octroie +15 dans toutes les statistiques mineures basées sur la Sagesse.",
@@ -2633,10 +2662,10 @@ magicka: {
             },
             {
                 nom: "Magicka Haste",
-                description: "Ajoute +1 en Dextérité. Vous pouvez choisir une transformation au tout début du combat avant même le placement. Cette forme est gratuite.",
+                description: "Ajoute +1 en dexterite. Vous pouvez choisir une transformation au tout début du combat avant même le placement. Cette forme est gratuite.",
                 niveauJoueur: 2,
                 prerequis: ["Entraînement de Magicka"],
-                effet: { dextérité: 1, transformationGratuite: true }
+                effet: { dexterite: 1, transformationGratuite: true }
             },
             {
                 nom: "Worldwide Magicka",
@@ -3045,11 +3074,11 @@ enchanteur: {
     description: "",
         majeures: {
             force: 0,
-            dextérité: 0,
+            dexterite: 0,
             constitution: 0,
-            intelligence: 0,
-            sagesse: 3,
-            charisme: 3,
+            intelligence: 2,
+            sagesse: 4,
+            charisme: 4,
             defense: 0,
             chance: 0
         },
@@ -3068,12 +3097,68 @@ enchanteur: {
         }
     },
 
+sorciere: {        
+    nom:"Sorcière",    
+    description: "",
+        majeures: {
+            force: 0,
+            dexterite: 0,
+            constitution: 0,
+            intelligence: 4,
+            sagesse: 3,
+            charisme: 3,
+            defense: 0,
+            chance: 0
+        },
+        mineures: {},
+        mecanique: [],
+        talentVoie: {
+            niveauJoueur: [1,2,3,4,5,6,7,8,9,10],
+            talents: []
+        },
+        sortVoie: {
+             niveau: ["Novice" , "Confirme" , "Expert" , "Maître"],
+            sortNovice: [{}],
+            sortConfirme: [{}],
+            sortExpert: [{}],
+            sortMaitre: [{}]
+        }
+    },
+
+dementien: {        
+    nom:"Démentien",    
+    description: "",
+        majeures: {
+            force: 2,
+            dexterite: 2,
+            constitution: 0,
+            intelligence: 0,
+            sagesse: 2,
+            charisme: 2,
+            defense: 0,
+            chance: 2
+        },
+        mineures: {},
+        mecanique: [],
+        talentVoie: {
+            niveauJoueur: [1,2,3,4,5,6,7,8,9,10],
+            talents: []
+        },
+        sortVoie: {
+             niveau: ["Novice" , "Confirme" , "Expert" , "Maître"],
+            sortNovice: [{}],
+            sortConfirme: [{}],
+            sortExpert: [{}],
+            sortMaitre: [{}]
+        }
+    },
+
 chasseur: {        
     nom:"Chasseur",    
     description: "",
         majeures: {
             force: 3,
-            dextérité: 4,
+            dexterite: 4,
             constitution: 0,
             intelligence: 0,
             sagesse: 3,
@@ -3101,7 +3186,7 @@ ninja: {
     description: "",
     majeures: {
         force: 0,
-        dextérité: 3,
+        dexterite: 3,
         constitution: 0,
         intelligence: 0,
         sagesse: 3,
@@ -3129,13 +3214,13 @@ pistolero: {
     description: "",
     majeures: {
         force: 3,
-        dextérité: 5,
+        dexterite: 3,
         constitution: 0,
         intelligence: 0,
         sagesse: 0,
         charisme: 0,
         defense: 0,
-        chance: 0
+        chance: 4
     },
     mineures: {},
     mecanique: [],
@@ -3157,10 +3242,10 @@ mecanicien: {
     description: "",
     majeures: {
         force: 3,
-        dextérité: 0,
-        constitution: 0,
+        dexterite: 0,
+        constitution: 2,
         intelligence: 0,
-        sagesse: 0,
+        sagesse: 2,
         charisme: 0,
         defense: 3,
         chance: 0
@@ -3184,9 +3269,9 @@ rodeur: {
     nom:"Rodeur",    
     description: "",
         majeures: {
-            force: 2,
-            dextérité: 0,
-            constitution: 0,
+            force: 3,
+            dexterite: 5,
+            constitution: 2,
             intelligence: 0,
             sagesse: 0,
             charisme: 0,
