@@ -8,6 +8,7 @@ export const AlyriaVoies = {
    
 guerrier: {
     nom:"Guerrier",      
+    image: "systems/alyria/module/data/image/voies/Guerrier.jpg",
     description: [
       "Les guerriers ne vivent que pour se battre, ils aiment l’odeur du champ de bataille, celle de la poudre, du sang et de la sueur. Ils sont redoutables dans les combats que ce soit en duel ou contre une armée entière. Ces personnes sont très recherchées dans les armées et rejoignent régulièrement celle de leur pays ou se font embaucher en tant que mercenaire.", 
       "Dans de rares cas, les guerriers se joignent à des groupes d’aventuriers et détruisent les monstres ou les brigands qu’ils croisent. Autant dire qu’ils sont très recherchés pour former des groupes, car leur puissance et leur polyvalence sont sans égale.", 
@@ -64,6 +65,7 @@ guerrier: {
         talents: [
           {
             nom: "Guerrier Puissant",
+            image: "",
             description: "Ajoute +1 en Force et 10 en Puissance.",
             niveauJoueur: 1,
             prerequis: [],
@@ -71,6 +73,7 @@ guerrier: {
           },
           {
             nom: "Samouraï Déshonoré",
+            image: "",
             description: "Vous pouvez choisir un des sorts Novice de la Monovoie de Samouraï. Utilisez le comme il est indiqué, vous pouvez aussi choisir un passif de niveau 2 ou moins avec cet effet.",
             niveauJoueur: 2,
             prerequis: ["Guerrier Puissant"],
@@ -78,6 +81,7 @@ guerrier: {
           },
           {
             nom: "Brute en Mêlée",
+            image: "",
             description: "Ajoute +1 dégâts avec les armes de type ’’Mêlée’’.",
             niveauJoueur: 3,
             prerequis: [], // Prerequis "Charge puissante" n'était pas défini dans les talents précédents, j'ai mis un tableau vide
@@ -85,6 +89,7 @@ guerrier: {
           },
           {
             nom: "Paladin de Pacotille",
+            image: "",
             description: "Vous pouvez choisir un des sorts Novice de la Monovoie de Paladin. Utilisez le comme il est indiqué, vous pouvez aussi choisir un passif de niveau 2 ou moins avec cet effet.",
             niveauJoueur: 4,
             prerequis: ["Brute en Mêlée"],
@@ -92,6 +97,7 @@ guerrier: {
           },
           {
             nom: "Guerrier Véloce",
+            image: "",
             description: "Ajoute +1 en Dextérité et +10 en acrobatie.",
             niveauJoueur: 5,
             prerequis: ["Paladin de Pacotille"],
@@ -99,6 +105,7 @@ guerrier: {
           },
           {
             nom: "Pugiliste Petits Bras",
+            image: "",
             description: "Vous pouvez choisir un des sorts Novice de la Monovoie de Pugiliste. Utilisez le comme il est indiqué, vous pouvez aussi choisir un passif de niveau 2 ou moins avec cet effet.",
             niveauJoueur: 6,
             prerequis: ["Guerrier Véloce"],
@@ -106,6 +113,7 @@ guerrier: {
           },
           {
             nom: "Guerrier Solide",
+            image: "",
             description: "Ajoute +1 en Constitution et +10 en Robustesse.",
             niveauJoueur: 7,
             prerequis: ["Pugiliste Petits Bras"],
@@ -113,6 +121,7 @@ guerrier: {
           },
           {
             nom: "Roublard des Bas Quartiers",
+            image: "",
             description: "Vous pouvez choisir un des sorts Novice de la Monovoie de Roublard. Utilisez le comme il est indiqué, vous pouvez aussi choisir un passif de niveau 2 ou moins avec cet effet.",
             niveauJoueur: 8,
             prerequis: ["Guerrier Solide"],
@@ -120,6 +129,7 @@ guerrier: {
           },
           {
             nom: "Expert du Maniement",
+            image: "",
             description: "Choisissez une catégorie entre Perforant, Tranchant et Contondant, vous gagnez + 2 dégâts et + 10 % de chances de toucher avec les armes de ce type.",
             niveauJoueur: 9,
             prerequis: ["Roublard des Bas Quartiers"],
@@ -128,6 +138,7 @@ guerrier: {
           },
           {
             nom: "Guerrier Prudent",
+            image: "",
             description: "Ajoute +1 en Défense. Il gagne 3 PB au début de chaque combat et la même somme lorsqu’il tombe sous les 50 % de vie, ce bonus est modifié par votre bonus bouclier.",
             niveauJoueur: 10,
             prerequis: ["Expert du Maniement"],
@@ -140,6 +151,7 @@ guerrier: {
         sortNovice:[
             {
                 nom: "Fureur Guerrière",
+                image: "",
                 description: "Arme contondante uniquement. Le lanceur inflige un coup si puissant avec son arme qu’il ignore l’armure et les boucliers de la cible.",
                 Psy: 3,
                 Zone: 0,
@@ -150,6 +162,7 @@ guerrier: {
             },
             {
                 nom: "Fente Verticale",
+                image: "",
                 description: "Arme Tranchante uniquement. Un puissant coup qui inflige 1 dé 4 dégâts en plus des dégâts de l’arme et applique \"Hémorragie\" de manière irrésistible.",
                 Psy: 2,
                 Zone: 0,
@@ -160,6 +173,7 @@ guerrier: {
             },
             {
                 nom: "Charge",
+                image: "",
                 description: "Arme Contondante ou Perforante uniquement. Le lanceur fonce de 15 mètres en ligne droite. S’il touche une entité sur le chemin, il s’arrête et inflige les dégâts de l’arme en main. Si c’est une arme contondante la cible est poussée du déplacement restant au moment de l’impact, si c’est une arme perforante vous poursuivez votre déplacement jusqu’au bout (vous ne touchez tout de même qu’une seule cible).",
                 Psy: 3,
                 Zone: 0, // Ceci est un déplacement avec impact, pas une zone d'effet circulaire
@@ -170,6 +184,7 @@ guerrier: {
             },
             {
                 nom: "Frappe Retenue",
+                image: "",
                 description: "Vous frappez sans faire trop de dégâts, inflige 1 dé 4 dégâts et ne peut pas tuer une cible, elle gardera toujours 1 PV. Selon l’arme en main, vous appliquez ‘’Sonné’’ avec les armes contondantes, ‘’Terreur’’ avec les armes tranchantes, ‘’Cécité’’ avec les armes Perforante.",
                 Psy: 1,
                 Zone: 0,
@@ -180,6 +195,7 @@ guerrier: {
             },
             {
                 nom: "Frappe Circulaire",
+                image: "",
                 description: "Arme Tranchante ou Contondante uniquement. Envoi un coup avec l’arme tout autour de lui, le lanceur est le centre de la zone. Inflige les dégâts de l’arme en mains à toutes les cibles, ne fonctionne qu’avec des armes de type mêlé.",
                 Psy: 4,
                 Zone: "autour", // Indique une zone autour du lanceur
@@ -190,6 +206,7 @@ guerrier: {
             },
             {
                 nom: "Ouverture de garde",
+                image: "",
                 description: "Arme Tranchante ou Perforante uniquement. Le guerrier effectue une passe avec l’adversaire à l’issue de laquelle il inflige les dégâts de son arme en main en ignorant le blocage, l’armure et les PB adverse, il applique ensuite \"Hémorragie\".",
                 Psy: 3,
                 Zone: 0,
@@ -200,6 +217,7 @@ guerrier: {
             },
             {
                 nom: "Embrochement",
+                image: "",
                 description: "Arme Tranchante ou Perforante uniquement. Inflige les dégâts de l’arme en main sur une ligne droite de 15 mètres devant le lanceur. Augmente les dégâts de 1 dé 4 pour chaque ennemi en plus du premier à être touché par ce sort.",
                 Psy: 4,
                 Zone: "ligne", // Indique une zone en ligne
@@ -210,6 +228,7 @@ guerrier: {
             },
             {
                 nom: "Abreuvement de sang",
+                image: "",
                 description: "Arme Tranchante uniquement. Vous frappez un ennemi au corps à corps en infligeant les dégâts de l’arme en main, s’il possède l’altération d’état \"Hémorragie\" vous la supprimez et récupérez 4 PV fixe.",
                 Psy: 2,
                 Zone: 0,
@@ -220,6 +239,7 @@ guerrier: {
             },
             {
                 nom: "Lancer Puissant",
+                image: "",
                 description: "Lance son arme en main pour infliger les dégâts jusqu’à 15 mètres, l’arme revient dans les mains du guerrier automatiquement.",
                 Psy: 2,
                 Zone: 0,
@@ -230,6 +250,7 @@ guerrier: {
             },
             {
                 nom: "Viser les jambes",
+                image: "",
                 description: "Arme Perforante uniquement. Le lanceur frappe dans les parties mobiles d’un adversaire, supprime le talent \"Volant\" tant qu’il n’a pas reçu de soin, inflige aussi Entrave en plus des dégâts de l’arme en main.",
                 Psy: 3,
                 Zone: 0,
@@ -240,6 +261,7 @@ guerrier: {
             },
             {
                 nom: "Swing de géant",
+                image: "",
                 description: "Arme Contondante uniquement. Frappe un ennemi et inflige les dégâts de l’arme en main tout en le faisant reculer de 10 mètres, les ennemis très grands reculent tout de même de 5 mètres.",
                 Psy: 3,
                 Zone: 0,
@@ -250,6 +272,7 @@ guerrier: {
             },
             {
                 nom: "Garde réflexe",
+                image: "",
                 description: "Vous pouvez utiliser ce sort après avoir reçu une attaque, vous faite votre jet de blocage avec un avantage.",
                 Psy: 3,
                 Zone: 0,
@@ -262,6 +285,7 @@ guerrier: {
         sortConfirme: [
             {
                 nom: "Saut Enragé",
+                image: "",
                 description: "Arme Contondante ou Tranchante uniquement. Le lanceur bondit sur une case jusqu’à 15 mètres de lui, il frappe un ennemi adjacent à cette case à l’atterrissage et inflige les dégâts de l’arme + 2.",
                 Psy: 3,
                 Zone: 0,
@@ -272,6 +296,7 @@ guerrier: {
             },
             {
                 nom: "Priorité à la Défense",
+                image: "",
                 description: "Focalise le guerrier sur la défense, vous gagnez +20% de taux de blocage et +2 d’armure. En contrepartie, vous diminuez vos dégâts de -2 pendant la durée de l’effet. Cet effet dure jusqu’à sa révocation, et ce sort ne consomme pas d'action.",
                 Psy: 3,
                 Zone: 0,
@@ -282,6 +307,7 @@ guerrier: {
             },
             {
                 nom: "Estocade Fatale",
+                image: "",
                 description: "Arme perforante uniquement. Le guerrier inflige un puissant coup d’estoc qui transperce l’adversaire, inflige deux fois les dégâts de l’arme en main et ignore les résistances adverses.",
                 Psy: 5,
                 Zone: 0,
@@ -292,6 +318,7 @@ guerrier: {
             },
             {
                 nom: "Main libre",
+                image: "",
                 description: "Arme à une main uniquement. Ce sort ne peut être lancé qu’après une attaque réussie avec une arme à une main. Vous pouvez utiliser un consommable sans consommer d’action. Ce sort ne consomme pas d'action.",
                 Psy: 2,
                 Zone: 0,
@@ -302,6 +329,7 @@ guerrier: {
             },
             {
                 nom: "Dégommage à la Masse",
+                image: "",
                 description: "Arme Contondante uniquement. Le lanceur frappe à répétition sur une cible qui subit deux fois les dégâts de l’arme en main. L’armure, les PB et le taux de blocage de la cible deviennent 0 jusqu’à la fin du prochain tour du guerrier.",
                 Psy: 6,
                 Zone: 0,
@@ -312,6 +340,7 @@ guerrier: {
             },
             {
                 nom: "Coup de pommeau",
+                image: "",
                 description: "Arme à deux mains uniquement. Ce sort ne peut être lancé qu’après une attaque réussie avec une arme. Vous frappez par surprise avec le pommeau de l’arme très rapidement, inflige 1 dé 4 dégâts fixe et ne peut pas être bloqué.",
                 Psy: 1,
                 Zone: 0,
@@ -322,6 +351,7 @@ guerrier: {
             },
             {
                 nom: "Invitation malicieuse",
+                image: "",
                 description: "Arme Tranchante ou Perforante uniquement. Le guerrier fait mine de baisser sa garde pour surprendre l’adversaire avec un contre bien senti, ce sort fini le tour en cours du guerrier. Si on l’attaque au corps à corps il fera son blocage avec un avantage, s’il est réussi le guerrier gagne une action à effectuer immédiatement pendant le tour adverse. Ce sort ne consomme pas d’action, il ne peut cibler qu’une fois par cible et par combat.",
                 Psy: 3,
                 Zone: 0,
@@ -332,6 +362,7 @@ guerrier: {
             },
             {
                 nom: "Décapitation",
+                image: "",
                 description: "Arme Tranchante uniquement. Le lanceur porte un coup horizontal violent en visant la nuque de la cible. Ce sort inflige deux fois les dégâts de l’arme en main, si ce coup tue sa cible le lanceur récupère 3 PB et tous les autres ennemis subissent \"Terreur\".",
                 Psy: 5,
                 Zone: 0,
@@ -342,6 +373,7 @@ guerrier: {
             },
             {
                 nom: "Prise en bout",
+                image: "",
                 description: "Arme Contondante et Perforante uniquement. Le lanceur saisi son arme par l’extrémité du manche et exécute un pas rapide en avant, cela permet d’infliger les dégâts de l’arme en main avec 5 mètres de portée supplémentaire. Après l’utilisation de ce sort vos attaques d’opportunités ont aussi une portée augmentée jusqu’à votre prochain tour.",
                 Psy: 4,
                 Zone: 0,
@@ -354,6 +386,7 @@ guerrier: {
         sortExpert: [
             {
                 nom: "Puissance Phénoménale",
+                image: "",
                 description: "Arme Contondante uniquement. Frappe si fort une cible qu’il fissure le sol autour. Inflige trois fois les dégâts de l’arme en main à la cible et 1 dé 6 dégâts fixes à tous les ennemis dans la zone, toutes les entités dans la zone subissent ‘’Entrave’’. ",
                 Psy: 6,
                 Zone: "autour", // Zone autour de la cible
@@ -364,6 +397,7 @@ guerrier: {
             },
             {
                 nom: "Posture du Guerrier",
+                image: "",
                 description: "Le guerrier prend une posture idéale pour frapper comme pour se défendre, vous gagnez 2 d’armure, +20% au blocage mais aussi 10% de chances de toucher et +2 aux dégâts. Pendant cet effet vous contre-attaquer et infligez 1 dé 6 dégâts fixe à chaque fois qu’on vous attaque au corps à corps. Ce sort ne consomme pas d’action et son effet dure 2 tours.",
                 Psy: 6,
                 Zone: 0,
@@ -374,6 +408,7 @@ guerrier: {
             },
             {
                 nom: "Averse de Percée",
+                image: "",
                 description: "Arme Perforante uniquement. Frappe si vite qu’il donne l’impression d’être à plusieurs endroits à la fois. Inflige trois fois les dégâts de l’arme et ignore toutes les défenses et les résistances, permet ensuite au lanceur de se positionner où il veut autour de la cible sans subir d’attaques d’opportunités.",
                 Psy: 6,
                 Zone: 0,
@@ -384,6 +419,7 @@ guerrier: {
             },
             {
                 nom: "Triple menace",
+                image: "",
                 description: "Vous ne pouvez utiliser ce sort que si vous avez une arme tranchante, contondante et perforante sur vous. Vous frappez une fois avec chacune des catégories d’arme sur une cible au corps à corps. Chaque attaque enclenche correctement le bonus de la mécanique.",
                 Psy: 6,
                 Zone: 0,
@@ -394,6 +430,7 @@ guerrier: {
             },
             {
                 nom: "Atomisation totale",
+                image: "",
                 description: "Arme à deux mains uniquement. Inflige 3 dés 6 +6 dégâts au corps-à-corps. Si la cible meurt, toutes les autres subissent ‘’Cécité’’ et ‘’Terreur’’. ",
                 Psy: 7,
                 Zone: 0,
@@ -404,6 +441,7 @@ guerrier: {
             },
             {
                 nom: "Taille démentielle",
+                image: "",
                 description: "Arme Tranchante uniquement. Frappe si fort qu’il fend l’air lui-même sur une ligne de 25 mètres face à lui ou en parallèle. Inflige trois fois les dégâts de l’arme en main à toutes les cibles touchées.",
                 Psy: 7,
                 Zone: "ligne", // Zone en ligne
@@ -414,6 +452,7 @@ guerrier: {
             },
             {
                 nom: "Gestes parfaits",
+                image: "",
                 description: "Arme à une main uniquement. A chaque fois que vous attaquez avec votre arme vous pouvez vous déplacer, vous ou votre cible de 5 mètres. Vous gagnez +10% de chances de bloquer, de toucher et de CC. Ce sort dure jusqu’à sa révocation, il se révoque aussi si vous frappez avec une arme à deux mains. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 Zone: 0,
@@ -424,6 +463,7 @@ guerrier: {
             },
             {
                 nom: "Guerre éclair",
+                image: "",
                 description: "Tant que ce sort est actif vous ne pouvez plus vous défendre, votre armure et votre résistance sont annulée, vous êtes faible à tous les éléments et au Neutre. Vous gagnez 1 cran en vitesse, 20% de chances de toucher et tous vos coups seront critiques s’ils touchent. Vous gagnez une action supplémentaire par tour et vos sorts infligeant des dégâts coûtent 1 PSY de moins à lancer. Si vous devez tomber K.O ou mourir alors que cet effet est actif vous gardez 1 PV et annulez les effets de l'attaque une seule fois. Ce sort est irrévocable, il ne consomme pas d’action.",
                 Psy: 8,
                 Zone: 0,
@@ -436,6 +476,7 @@ guerrier: {
         sortMaitre: [
             {
                 nom: "L’Art de la Guerre",
+                image: "",
                 description: "\"Tout le terrain\" Le guerrier maitrise tellement le champ de bataille qu’il l’élève en tant qu’art. Pendant 2 tours le lanceur comme ses alliés obtiennent le bonus de \"Posture du guerrier\", de plus ils sont insensibles aux attaques d’opportunités, gagnent un cran vitesse et 6 PB. Si une cible doit mourir par la main de quelqu’un sous l’effet de ce sort le tueur récupère 1 dé 10 PV fixe.",
                 Psy: 12,
                 Zone: "tout_le_terrain",
@@ -449,6 +490,7 @@ guerrier: {
 },
 pugiliste: {
     nom: "Pugiliste",
+    image: "systems/alyria/module/data/images/voies/Pugiliste.jpg",    
     description: [
         "Les pugilistes ont fait le choix de ne pas prendre d’arme, ils refusent d’utiliser des épées ou des arcs en combat, leur corps est cependant bien assez dangereux comme ça, la puissance de leur poing n’a rien à envier à la plus puissante des lames.",
         "Souvent venu d’orient, l’art du poing s’est répandu petit à petit en occident, mais reste une vocation rare. Les aventuriers pugilistes sont souvent incompris par les autres de par le risque fou qu’ils prennent en affrontant des créatures surpuissantes à mains nues. Mais les histoires les plus folles commencent toujours par un type qui étrangle un ours à mains nues non ?",
@@ -500,6 +542,7 @@ pugiliste: {
         talents: [
             {
                 nom: "Vivacité Naturelle",
+                image: "",
                 description: "Ajoute +1 en Dextérité et +1 cran en Vitesse le premier tour d’un combat et à chaque fois que vous tuez un ennemi.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -507,6 +550,7 @@ pugiliste: {
             },
             {
                 nom: "Maîtrise des Arts Martiaux",
+                image: "",
                 description: "Ajoute +1 en Force OU en Dextérité. Chaque attaque à mains nues peuvent infliger ”Sonné” sur un coup critique.",
                 niveauJoueur: 2,
                 prerequis: ["Vivacité Naturelle"],
@@ -514,6 +558,7 @@ pugiliste: {
             },
             {
                 nom: "Bagarreur",
+                image: "",
                 description: "Lorsque qu’un ennemi vous inflige des dégâts au corps-à-corps, vous lui faites subir 2 dégâts fixes.",
                 niveauJoueur: 3,
                 prerequis: ["Maîtrise des Arts Martiaux"],
@@ -521,6 +566,7 @@ pugiliste: {
             },
             {
                 nom: "Manœuvre d’Approche",
+                image: "",
                 description: "Lorsque vous subissez une attaque d’un ennemi situé à plus de 20 mètres, vous augmentez votre vitesse de 1 cran pour le prochain tour. Effet non cumulable.",
                 niveauJoueur: 4,
                 prerequis: ["Bagarreur"],
@@ -528,6 +574,7 @@ pugiliste: {
             },
             {
                 nom: "Phalange brutale",
+                image: "",
                 description: "Ajoute +1 en Force. Bonus de +20 en puissance pour détruire des objets.",
                 niveauJoueur: 5,
                 prerequis: ["Manœuvre d’Approche"],
@@ -535,6 +582,7 @@ pugiliste: {
             },
             {
                 nom: "Résistance de la Brute",
+                image: "",
                 description: "Ajoute +1 en Constitution et +10 en Robustesse. Si vous avez moins de 25% de PV restants, vous gagnez 2 PB modifié par votre bonus de bouclier. Une seule fois par combat.",
                 niveauJoueur: 6,
                 prerequis: ["Phalange brutale"],
@@ -542,6 +590,7 @@ pugiliste: {
             },
             {
                 nom: "Combat à la loyale",
+                image: "",
                 description: "Vous gagnez +2 aux dégâts et à l’armure si vous affrontez un ennemi sans avoir aucune autre entité à moins de 10 mètres de lui ou de vous.",
                 niveauJoueur: 7,
                 prerequis: ["Résistance de la Brute"],
@@ -549,6 +598,7 @@ pugiliste: {
             },
             {
                 nom: "Vigilance totale",
+                image: "",
                 description: "Si on vous a appliqué une altération d’état avec succès vous y devenez Immunisé pendant 3 tours, cet effet est cumulable sur autant d’altérations que possible mais ça ne vous guérit pas de l’effet de celle qui vous a était appliqué.",
                 niveauJoueur: 8,
                 prerequis: ["Combat à la loyale"],
@@ -556,6 +606,7 @@ pugiliste: {
             },
             {
                 nom: "Souplesse du Luchador",
+                image: "",
                 description: "Ajoute +1 en Dextérité et +10 en Acrobatie. Si vous avez moins de 25% de PV restants, vous augmentez votre taux de blocage de 20%.",
                 niveauJoueur: 9,
                 prerequis: ["Vigilance totale"],
@@ -563,6 +614,7 @@ pugiliste: {
             },
             {
                 nom: "Voler comme un Dragon et frapper comme un Troll",
+                image: "",
                 description: "Le bonus de \"Voler comme un papillon et frapper comme une abeille\" est doublé.",
                 niveauJoueur: 10,
                 prerequis: ["Souplesse du Luchador"],
@@ -575,6 +627,7 @@ pugiliste: {
         sortNovice: [
             {
                 nom: "Coude Perforant",
+                image: "",
                 description: "Frappe du coude qui inflige 1 dé 6 dégâts, ignore les boucliers, les résistances et l’armure adverse.",
                 Psy: 3,
                 Zone: 0,
@@ -585,6 +638,7 @@ pugiliste: {
             },
             {
                 nom: "High Kick",
+                image: "",
                 description: "Un coup de pied dans la mâchoire qui inflige 1 dé 6 +2 dégâts et fait reculer l’ennemi de 5 mètres. Si la cible ne peut pas reculer à cause d’une autre entité ou du bord du plateau, elle subit aussi ‘’Sonné’’.",
                 Psy: 3,
                 Zone: 0,
@@ -595,6 +649,7 @@ pugiliste: {
             },
             {
                 nom: "Poing Souple",
+                image: "",
                 description: "Cette attaque inflige des dégâts directement à la psyché. En plus, des dégâts en PV, infligez 1 dé 4 PV et 1 dé 4 PSY de dégâts. Si l’ennemi n’a pas (ou plus) de PSY, infligez 2 dés 4 PV de dégâts.",
                 Psy: 3,
                 Zone: 0,
@@ -605,6 +660,7 @@ pugiliste: {
             },
             {
                 nom: "Jab surprise",
+                image: "",
                 description: "Frappe un ennemi si rapidement qu’il ne peut pas bloquer cette attaque. Inflige 1 dé 6 dégâts fixes. Ce sort peut être lancé quand un adversaire arrive à votre corps à corps même en dehors de votre tour de jeu et, dans ce cas, il ne consommera pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -615,6 +671,7 @@ pugiliste: {
             },
             {
                 nom: "Clé de Bras",
+                image: "",
                 description: "Attrape une cible et la maintiens au corps-à-corps. La cible et le lanceur subissent ‘’Entrave’’ irrésistible tant que ce sort est actif. Le lanceur peut le rompre quand il le souhaite. A chaque fois que la cible finit son tour, elle perd 2 PV. Ce sort ne consomme pas d'action.",
                 Psy: 3,
                 Zone: 0,
@@ -625,6 +682,7 @@ pugiliste: {
             },
             {
                 nom: "Rien qu’une Egratignure",
+                image: "",
                 description: "La prochaine attaque subie n’infligera que 1 PV de dégâts quel qu’elle soit. Ce sort ne consomme pas d'action.",
                 Psy: 4,
                 Zone: 0,
@@ -635,6 +693,7 @@ pugiliste: {
             },
             {
                 nom: "Rafale de Poings",
+                image: "",
                 description: "Un déluge de coups de poings s’abat sur les ennemis face au lanceur en cône. Inflige 1 dé 6 dégâts à toutes les cibles.",
                 Psy: 4,
                 Zone: "cône",
@@ -645,6 +704,7 @@ pugiliste: {
             },
             {
                 nom: "Crochet destructeur",
+                image: "",
                 description: "Envoi un crochet lent mais terriblement dangereux à un ennemi, ce sort inflige 1 dé 6 +1 dégâts et \"Sonné\" à la cible. Si l’augmentation de dégâts de la mécanique doit se faire lors du lancement de ce sort, elle se fait deux fois.",
                 Psy: 4,
                 Zone: 0,
@@ -655,6 +715,7 @@ pugiliste: {
             },
             {
                 nom: "Full Mount",
+                image: "",
                 description: "Le lanceur applique \"Entrave\" à la cible, si l’état est correctement appliqué il peut immédiatement enchaîner avec un de ses sorts qui coûte 3 PSY ou moins, auquel cas le sort est gratuit. Si l’état n’est pas appliqué le lanceur peut enchaîner avec une attaque à main nue.",
                 Psy: 3,
                 Zone: 0,
@@ -665,6 +726,7 @@ pugiliste: {
             },
             {
                 nom: "Musculature saillante",
+                image: "",
                 description: "Le lanceur gonfle ses muscles, il gagne +1 d’armure et +10% de chances de blocage mais perd un cran en vitesse. Cet effet perdure jusqu’à sa révocation. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -675,6 +737,7 @@ pugiliste: {
             },
             {
                 nom: "Running Bulldog",
+                image: "",
                 description: "Le Lanceur agrippe une cible jusqu’à 15 mètres et écrase son visage au sol, l’attaque inflige 1 dé 6 dégâts et le lanceur s’approche de la cible jusqu’au corps à corps.",
                 Psy: 3,
                 Zone: 0,
@@ -685,6 +748,7 @@ pugiliste: {
             },
             {
                 nom: "Hurricanrana",
+                image: "",
                 description: "Le Pugiliste prend la tête de l’adversaire entre ses jambes et tourne dans tous les sens pour l’envoyer valdingué. Ce sort permet de se rapprocher d’une cible jusqu’à 10 mètres, puis de lui infliger 1 dé 6 +1 dégâts avant de la repousser de 10 mètres.",
                 Psy: 4,
                 Zone: 0,
@@ -697,6 +761,7 @@ pugiliste: {
         sortConfirme: [
             {
                 nom: "Souplesse Arrière",
+                image: "",
                 description: "Fait basculer l’ennemi au corps-à-corps derrière le lanceur, infligez 1 dé 8 +1 dégâts. Téléporte symétriquement la cible par rapport au lanceur.",
                 Psy: 4,
                 Zone: 0,
@@ -707,6 +772,7 @@ pugiliste: {
             },
             {
                 nom: "Descente du Coude",
+                image: "",
                 description: "Le lanceur prend de la hauteur et saute le coude en avant sur sa cible. Elle subit 1 dé 10 dégâts et le double si elle est sous l’un des états suivants : «Entrave’’, ‘’Sonné’’ ou ‘’Sommeil’’.",
                 Psy: 5,
                 Zone: 0,
@@ -717,6 +783,7 @@ pugiliste: {
             },
             {
                 nom: "Powerbomb",
+                image: "",
                 description: "Agrippe un ennemi et l’abat violemment au sol sur n’importe quelle case autour du pugiliste. Inflige 2 dés 6 dégâts à la cible et 1 dé 6 dégâts fixe à toutes les cibles dans le rayon de l'impact.",
                 Psy: 6,
                 Zone: "autour_impact", // Zone autour de la cible impactée
@@ -727,6 +794,7 @@ pugiliste: {
             },
             {
                 nom: "Bastion du Muscle",
+                image: "",
                 description: "Le lanceur donne l’impression d’avoir des muscles sur les muscles, il gagne +2 d’armure, +10% de chances de blocage et une résistance dans un élément choisi mais perd un cran en vitesse. Cet effet perdure jusqu’à sa révocation. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -737,6 +805,7 @@ pugiliste: {
             },
             {
                 nom: "Frappe sprintée",
+                image: "",
                 description: "Ce sort vous donne votre vitesse de sprint (vitesse de déplacement doublée au prix d’une action), vous purge de vos états affectant le déplacement et vous permet en plus d’infliger 1 dé 8 dégâts fixe à une cible au corps à corps à la fin de votre déplacement.",
                 Psy: 4,
                 Zone: 0,
@@ -747,6 +816,7 @@ pugiliste: {
             },
             {
                 nom: "Dropkick",
+                image: "",
                 description: "Enfonce les deux pieds à toute vitesse dans un ennemi. Il subit 1 dé 8 +2 dégâts et recule de 15 mètres. S’il touche une autre entité lors de son recul, il est arrêté et les deux subissent ‘’Sonné’’. S’il touche le bord du plateau, il subit ‘’Sonné’’.",
                 Psy: 5,
                 Zone: 0,
@@ -757,6 +827,7 @@ pugiliste: {
             },
             {
                 nom: "Coup de Boule",
+                image: "",
                 description: "Inflige un violent coup avec le crâne, le lanceur subit 3 PV et ‘’Sonné’. La cible subit 2 dés 8 dégâts et ‘’Sonné’’. ",
                 Psy: 5,
                 Zone: 0,
@@ -767,6 +838,7 @@ pugiliste: {
             },
             {
                 nom: "Hurlement des Poings",
+                image: "",
                 description: "Inflige ‘’Terreur’’ aux ennemis dans la zone, vous gagnez +2 dégâts et +10% de chances de toucher pendant 2 tours. Ne consomme pas d’action. Utilisable 1 fois par tour.",
                 Psy: 3,
                 Zone: "autour",
@@ -777,6 +849,7 @@ pugiliste: {
             },
             {
                 nom: "Uppercut fulgurant",
+                image: "",
                 description: "Le lanceur s’approche d’une cible jusqu’à 10 mètres, il lui assène un puissant coup sur le menton qui inflige 1 dé 6 et l’envoi en l’air. Pendant le tour prochain la cible est \"Sonné\" irrésistible et considérée comme \"Volant\". Au début du tour du Pugiliste la cible retombe lourdement et s’inflige 1 dé 6 dégâts. Ce sort ne fait pas décoller la cible si elle est trop lourde.",
                 Psy: 5,
                 Zone: 0,
@@ -789,6 +862,7 @@ pugiliste: {
         sortExpert: [
             {
                 nom: "Coup de la corde à Linge",
+                image: "",
                 description: "Avance de 15 mètres en ligne droite, inflige 1 dé 8 +4 dégâts à tous les ennemis sur le chemin et ‘’Entrave’’. Si un allié est sur la case d’arrivée du sort, il vous propulse et vous revenez à votre point de départ en ré infligeant 1 dé 6 dégâts à tous les ennemis.",
                 Psy: 6,
                 Zone: "ligne_deplacement",
@@ -799,6 +873,7 @@ pugiliste: {
             },
             {
                 nom: "Poing Final",
+                image: "",
                 description: "Concentre toute l’énergie du lanceur dans une seule attaque destructrice. Inflige x d 4 dégâts fixes (x nombre de PSY consommée pour attaquer), si ce sort à infliger plus de 30 points de dégâts à la cible le lanceur se retire 8 PV en plus du coût en PSY. Utilisable une fois par combat.",
                 Psy: "X", // Coût variable
                 Zone: 0,
@@ -809,6 +884,7 @@ pugiliste: {
             },
             {
                 nom: "Coup Spécial",
+                image: "",
                 description: "Utilise le coup fétiche du pugiliste, celui-ci inflige \"Brulure\" et \"Entrave\" et 3 dés 6 +4 dégâts sur une cible. Si la cible meurt la prochaine attaque du pugiliste consommera deux fois moins de PSY. Ce sort à un temps de recharge de 2 tours.",
                 Psy: 8,
                 Zone: 0,
@@ -819,6 +895,7 @@ pugiliste: {
             },
             {
                 nom: "Fracas Frontal",
+                image: "",
                 description: "Le lanceur frappe une cible au corps à corps de toute ses forces à multiples reprises, il inflige x dé 4 dégâts (X étant le nombre d’attaque à main nues ou de sort de Pugiliste lancés pendant le combat). Après la réception des dégâts, si la cible à subit 20 dégâts ou plus elle subit Folie, si c’est 40 ou plus elle le subit de manière irrésistible.",
                 Psy: 7,
                 Zone: 0,
@@ -829,6 +906,7 @@ pugiliste: {
             },
             {
                 nom: "Brise-nuque",
+                image: "",
                 description: "Tord le cou d’une cible proche, inflige 2 dés 6 dégâts et 1 dé 6 supplémentaire si un autre allié est au corps-à-corps de la cible. Si cette attaque fait tomber la cible sous 25% de sa vie, elle meurt instantanément. Certains monstres ne subissent pas l'effet de mort instantané.",
                 Psy: 6,
                 Zone: 0,
@@ -839,6 +917,7 @@ pugiliste: {
             },
             {
                 nom: "Enfer du Muscle",
+                image: "",
                 description: "Le lanceur concentre ses muscles si fort qu’il génère une intense chaleur, tous les coups à mains nues et les sorts du Pugiliste infligent ‘‘Brulure’’ en plus de leurs effets habituels, le lanceur applique \"Terreur\" sur tous les ennemis qui l’attaquent au corps à corps sans réussir à lui infliger de dégâts sur ses PV et gagne 4 PB. Cet effet perdure jusqu’à sa révocation. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -849,6 +928,7 @@ pugiliste: {
             },
             {
                 nom: "Second souffle",
+                image: "",
                 description: "Ce sort ne peut s’utiliser que si le lanceur à moins de 25% de ses PV ou de sa PSY max restant. Vous regagnez 1 dé 8 PV et PSY, ce sort à un temps de recharge de 2 tours.",
                 Psy: 0,
                 Zone: 0,
@@ -859,6 +939,7 @@ pugiliste: {
             },
             {
                 nom: "Atterrissage Fracassant",
+                image: "",
                 description: "Le lanceur saute dans les airs à une vitesse phénoménale, il s’écrase jusqu’à 25 mètres en infligeant 2 dé 6 dégâts et \"Entrave\" à tous les ennemis dans la zone d’impact.",
                 Psy: 6,
                 Zone: "zone_impact",
@@ -871,6 +952,7 @@ pugiliste: {
         sortMaitre: [
             {
                 nom: "Poing du Dragon céleste",
+                image: "",
                 description: "Le Pugiliste atteint une vitesse telle qu’il disparait, il frappe ensuite un adversaire de son choix et le projette dans les airs avant de lui mettre un ultime coup qui sépare l’âme du corps de la cible et le renvoi au sol. Ce sort inflige 4 dé 8 dégâts et la moitié en dégâts de PSY à une cible où qu’elle soit, si la cible tombe à 0 PV ou 0 PSY elle meurt.",
                 Psy: 13,
                 Zone: 0,
@@ -884,6 +966,7 @@ pugiliste: {
 },
 changeForme: {
     nom: "Change-Forme",
+    image: "systems/alyria/module/data/images/voies/Change_forme.jpg",    
     description: [
         "Cette voie n’a que très peu de pratiquants, il faut dire que l’on nés change forme et qu’il est très difficile de le devenir. La plupart des change-forme ne maitrise qu’une seule forme comme les loups-garous ou les vampires qui sont une catégorie spécifique de change-forme.",
         "Les plus doués peuvent prendre de multiples formes et sont donc de redoutables et imprévisibles combattants, certains d’entre eux rejoignent les armées ou les groupes d’aventuriers pour éprouver leurs compétences en combat.",
@@ -941,6 +1024,7 @@ changeForme: {
         talents: [
             {
                 nom: "Métamorphe habile",
+                image: "",
                 description: "Vous pouvez vous changer en n’importe quel être vivant de taille moyenne ou inférieure hors Humanoïde, cela vous coûte 2 PSY si vous utilisez une transformation qui est différente de celle que vous avez choisie pour chaque voie. La transformation est réussie automatiquement et vous possédez les mêmes caractéristiques physiques que la créature dans laquelle vous vous changer, tout en gardant votre intelligence et vos capacités mentales intacte.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -954,6 +1038,7 @@ changeForme: {
             },
             {
                 nom: "Polyvalence",
+                image: "",
                 description: "Vous donne +1 points de statistique majeure à répartir, ainsi que 10 point de statistique mineure.",
                 niveauJoueur: 2,
                 prerequis: ["Métamorphe habile"],
@@ -964,6 +1049,7 @@ changeForme: {
             },
             {
                 nom: "Accro de la Métamorphose",
+                image: "",
                 description: "Lorsque vous changez de forme alors que vous étiez dans une autre forme, vos sorts coûtent -1 PSY et infligent +1 dégât pour le tour en cours. Cet effet n’est pas cumulable.",
                 niveauJoueur: 3,
                 prerequis: ["Polyvalence"],
@@ -976,6 +1062,7 @@ changeForme: {
             },
             {
                 nom: "Polyvalence",
+                image: "",
                 description: "Vous donne +1 points de statistique majeure à répartir, ainsi que 10 point de statistique mineure.",
                 niveauJoueur: 4,
                 prerequis: ["Accro de la Métamorphose"],
@@ -986,6 +1073,7 @@ changeForme: {
             },
             {
                 nom: "Sosie parfait",
+                image: "",
                 description: "Vous pouvez vous changer en une créature Humanoïde que vous avez déjà rencontré, cela coutera 3 PSY pour réussir la transformation mais elle se fera automatiquement. Vous gardez vos propres souvenirs et vos capacités mentale en étant transformé et n’avait en aucun cas accès à ceux de la cible. Vous avez en revanche toutes les caractéristiques physiques que vous avez pu observer au détail près.",
                 niveauJoueur: 5,
                 prerequis: ["Polyvalence"],
@@ -999,6 +1087,7 @@ changeForme: {
             },
             {
                 nom: "Adaptabilité du Change-Forme",
+                image: "",
                 description: "Lors de l’utilisation d’une transformation, l’utilisateur gagne aussi +2 DSB sur tous les sorts qui frappent sur le même élément que sa forme.",
                 niveauJoueur: 6,
                 prerequis: ["Sosie parfait"],
@@ -1009,6 +1098,7 @@ changeForme: {
             },
             {
                 nom: "Métamorphose en chaine",
+                image: "",
                 description: "Si vous avez changez de forme deux fois dans le même tour de jeu ou en moins de 5 minutes hors combat vous gagnez un avantage sur votre prochain jet de dé.",
                 niveauJoueur: 7,
                 prerequis: ["Adaptabilité du Change-Forme"],
@@ -1019,6 +1109,7 @@ changeForme: {
             },
             {
                 nom: "Polyvalence",
+                image: "",
                 description: "Vous donne +1 points de statistique majeure à répartie, ainsi que 10 point de statistique mineure.",
                 niveauJoueur: 8,
                 prerequis: ["Métamorphose en chaine"],
@@ -1029,6 +1120,7 @@ changeForme: {
             },
             {
                 nom: "Voie du Moi",
+                image: "",
                 description: "En forme de base, sans transformation, vous gagnez un bonus de +5 dans toutes les statistiques mineures, ce bonus est doublé si vous avez changé de forme récemment (dans les 10 dernières minutes).",
                 niveauJoueur: 9,
                 prerequis: ["Polyvalence"],
@@ -1041,6 +1133,7 @@ changeForme: {
             },
             {
                 nom: "Clone indiscernable",
+                image: "",
                 description: "Vous pouvez vous changez en n’importe quelle créature et obtenez les mêmes statistiques qu’elles, vous avez aussi accès à ses souvenirs et sa conscience, néanmoins lorsque vous le faite vous alertez la cible de ce sort et elle saura que vous l’avez copiée. Cette transformation est particulièrement pénible pour le Change-Forme, elle coutera 6 PSY et vous devrait faire vos jets avec un désavantage tant que vous maintenez cette forme.",
                 niveauJoueur: 10,
                 prerequis: ["Voie du Moi"],
@@ -1060,6 +1153,7 @@ changeForme: {
         sortNovice: [
             {
                 nom: "Ondée Rafraîchissante",
+                image: "",
                 description: "Utilisable uniquement si Voie de l’Eau est active. Soigne 1 dé 6 PV à un allié jusqu’à 10 mètres. Le sort ricoche sur un autre allié à moins de 15 mètres de la cible pour le soigner de 1 dé 4 PV.",
                 Psy: 3,
                 Zone: 0,
@@ -1075,6 +1169,7 @@ changeForme: {
             },
             {
                 nom: "Prise de Boue",
+                image: "",
                 description: "Utilisable uniquement si Voie de la Terre est active. Frappe un ennemi au corps-à-corps pour 1 dé 4 +3 dégâts Terre et inflige ‘’Entrave’’. Si l’ennemi est à moins de 50% de PV max, il subit aussi ‘’Sonné’’.",
                 Psy: 3,
                 Zone: 0,
@@ -1091,6 +1186,7 @@ changeForme: {
             },
             {
                 nom: "Ignition",
+                image: "",
                 description: "Utilisable uniquement si Voie du Feu est active. Le lanceur s’enflamme et gagne 1 cran en vitesse et est insensible aux attaques d’opportunités pendant 2 tours. Ses attaques infligent toutes 1 dé 4 Dégâts Feu fixe supplémentaire quand cet effet est actif. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -1107,6 +1203,7 @@ changeForme: {
             },
             {
                 nom: "Souffle",
+                image: "",
                 description: "Utilisable uniquement si Voie du Vent est active. Repousse une cible de 5 mètres jusqu’à 30 mètres, si souffle est utilisé sur la même cible 2 fois dans le même tour il inflige 1 dé 6 dégâts Vent et rend la cible insensible à Souffle. Ce sort ne consomme pas d’action.",
                 Psy: 1,
                 Zone: 0,
@@ -1122,6 +1219,7 @@ changeForme: {
             },
             {
                 nom: "Frappe de Foudre",
+                image: "",
                 description: "Utilisable uniquement si Voie de la Foudre est active. Inflige 1 dé 10 dégâts Foudre à un ennemi, s’il a encaissé des dégâts Eau à ce tour de jeu ou le précédent, il subit 50% de dégâts en plus.",
                 Psy: 3,
                 Zone: 0,
@@ -1137,6 +1235,7 @@ changeForme: {
             },
             {
                 nom: "Paume secrète",
+                image: "",
                 description: "Pendant 2 tours, un sort de paume peut être utilisé sans consommé l’action une fois dans le tour, il infligera ses dégâts sans prendre en compte aucune augmentation. Cet effet peut être rallongé pour 1 PSY supplémentaire par tour et ce sort ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -1152,6 +1251,7 @@ changeForme: {
             },
             {
                 nom: "Courant Contraire",
+                image: "",
                 description: "Utilisable uniquement si Voie de l’Eau est active. Frappe un ennemi pour infliger 1 dé 6 +2 dégâts Eau et le pousser de 10 mètres. Sur un allié, ce sort l’attire de 10 mètres puis le soigne de 1 dé 6 PV.",
                 Psy: 4,
                 Zone: 0,
@@ -1169,6 +1269,7 @@ changeForme: {
             },
             {
                 nom: "Lame de Roche",
+                image: "",
                 description: "Utilisable uniquement si Voie de la Terre est active. Le lanceur frappe avec son bras recouvert d’une roche tranchante et solide, ce sort inflige 1 dé 6 +3 dégâts Terre, s’il est bloqué la cible voit tous ses PB et son armure tombés à 0 et ne pourra plus bloquer pendant son prochain tour.",
                 Psy: 4,
                 Zone: 0,
@@ -1185,6 +1286,7 @@ changeForme: {
             },
             {
                 nom: "Embrasement des cœurs",
+                image: "",
                 description: "Utilisable uniquement si Voie du Feu est active. Ce sort inflige 1 dé 4 dégâts Feu par altérations négatives appliquée à tous les ennemis sur le terrain, les alliés gagnent +2 dégâts par altération pour 1 tour. Les Altération \"Brulure\" compte double. Ce sort à un temps de recharge de 2 tours.",
                 Psy: 4,
                 Zone: "tout_le_terrain",
@@ -1202,6 +1304,7 @@ changeForme: {
             },
             {
                 nom: "Vent mauvais",
+                image: "",
                 description: "Utilisable uniquement si Voie du Vent est active. Un vent pestilentiel souffle sur le terrain, il inflige Poison et 1 dé 4 dégâts Vent à tous les ennemis.",
                 Psy: 4,
                 Zone: "tout_le_terrain",
@@ -1217,6 +1320,7 @@ changeForme: {
             },
             {
                 nom: "Téléport-éclair",
+                image: "",
                 description: "Utilisable uniquement si Voie de la Foudre est active. Le lanceur se téléporte en ignorant tous les effets impactant le déplacement jusqu’à 10 mètres où il le souhaite. Il peut utiliser 1 PSY supplémentaire pour allonger la portée de ce sort de 5 mètres. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -1232,6 +1336,7 @@ changeForme: {
             },
             {
                 nom: "Métamorphose possessive",
+                image: "",
                 description: "Vous ne pouvez plus changer de Forme tant que ce sort est actif, en revanche vous gagnez +2 DSB, +10% de chances de toucher et de CC avec tous les sorts liés à cette forme. Ce sort dure jusqu’à sa révocation, le révoquer coûte 2 PSY, il ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -1251,6 +1356,7 @@ changeForme: {
         sortConfirme: [
             {
                 nom: "Vitesse Eclair",
+                image: "",
                 description: "Utilisable uniquement si Voie de la Foudre est active. Avance en ligne de 15 mètres et passe à travers les entités. Tous les ennemis sur le chemin subissent 1 dé 12 dégâts Foudre.",
                 Psy: 5,
                 Zone: "ligne",
@@ -1266,6 +1372,7 @@ changeForme: {
             },
             {
                 nom: "Rempart Terrestre Réactif",
+                image: "",
                 description: "Utilisable uniquement si Voie de la Terre est active. Une fois lancé, ce sort vous protégera des prochaines attaques subies en érigeant un mur de terre qui réduira tous les dégâts de 2 et augmente votre propre taux de blocage de 20%. La levée du mur oblige l’adversaire au corps-à-corps à reculer de 5 mètres après son attaque. La réduction de dégâts est doublée sur les projectiles physiques. L’effet dure trois attaques, ce sort ne consomme pas d'action.",
                 Psy: 5,
                 Zone: 0,
@@ -1283,6 +1390,7 @@ changeForme: {
             },
             {
                 nom: "Soins d’Urgence",
+                image: "",
                 description: "Utilisable uniquement si Voie de l’Eau est active. Soigne un allié jusqu’à 25 mètres de 1 dé 8 PV. Si l'allié ciblé à moins de 50% de vie restante ce sort soigne 1 dé 4 PV supplémentaire, et ne consomme pas d'action.",
                 Psy: 4,
                 Zone: 0,
@@ -1298,6 +1406,7 @@ changeForme: {
             },
             {
                 nom: "Cisaille Aérienne",
+                image: "",
                 description: "Utilisable uniquement si Voie du Vent est active. Le lanceur se projette en avant sur 10 mètres et taillade une cible avec ses ailes, inflige 2 dé 6 dégâts perce armure.",
                 Psy: 5,
                 Zone: 0,
@@ -1313,6 +1422,7 @@ changeForme: {
             },
             {
                 nom: "Electrification",
+                image: "",
                 description: "Utilisable uniquement si Voie de la Foudre est active. Génère un champ électrique au corps à corps du Change-forme. Inflige 2 PV de dégâts Foudre + bonus DSB dès qu’une cible entre dans le champ pour la première fois du tour, augmente la vitesse d’un cran pendant l’effet et immunise aux attaques d’opportunités. L’effet dure 2 tours.",
                 Psy: 4,
                 Zone: "autour",
@@ -1331,6 +1441,7 @@ changeForme: {
             },
             {
                 nom: "Protection de Pierre",
+                image: "",
                 description: "Utilisable uniquement si Voie de la Terre est active. Octroie +2 d’armure et 4 PB à une cible jusqu’à 15 mètres pour 2 tours. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 Zone: 0,
@@ -1346,6 +1457,7 @@ changeForme: {
             },
             {
                 nom: "Projection revigorante",
+                image: "",
                 description: "Utilisable uniquement si Voie de l’Eau est active. Agrippe un allié au corps à corps et le projette jusqu’à 20 mètres dans n’importe qu’elle direction. Il est soigné de 1 dé 10 PV et repousse toutes les entités de 5 mètres autour de son point d’impact.",
                 Psy: 5,
                 Zone: "autour_impact_allie",
@@ -1361,6 +1473,7 @@ changeForme: {
             },
             {
                 nom: "Vent Arrière",
+                image: "",
                 description: "Utilisable uniquement si Voie du Vent est active. Un fort vent souffle dans le dos de l’utilisateur, s’il est volant augmente sa vitesse de 1 cran et octroie +2 dégâts aux attaques sur un ennemi à plus de 15 mètres pendant 2 tours. Ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -1377,6 +1490,7 @@ changeForme: {
             },
             {
                 nom: "Montée de Température",
+                image: "",
                 description: "Utilisable uniquement si Voie du Feu est active. Pendant la durée de l’effet, tous les ennemis autour du lanceur subissent ‘‘Brûlure’’. Si ‘‘Brûlure’’ est déjà active, cela relance son délai et inflige 1 dé 6 dégâts Feu fixe. Ce sort nécessite 2 PSY par tour pour rester actif. Ne consomme pas d’action.",
                 Psy: 3,
                 Zone: "autour",
@@ -1394,6 +1508,7 @@ changeForme: {
         sortExpert: [
             {
                 nom: "Volcan Gris",
+                image: "",
                 description: "Utilisable uniquement si Voie du Feu est active. Tous les ennemis dans la zone subissent 1 dé 6 +2 dégâts Feu et ‘’Entrave’’ Irrésistible s’ils étaient déjà affectés par ‘‘Brûlure’’.",
                 Psy: 5,
                 Zone: "autour",
@@ -1409,6 +1524,7 @@ changeForme: {
             },
             {
                 nom: "Flash-Bang",
+                image: "",
                 description: "Utilisable uniquement si Voie de la Foudre est active. Frappe un ennemi pour infliger 1 dé 12 dégâts Foudre, les autres ennemis à moins de 10 mètres de la cible et la cible subissent ‘’Cécité’’. Si vous avez appliqué ‘’Cécité’’ avec succès au moins une fois, vous obtenez Invisible jusqu’à votre prochain tour, vous empêchant d’être ciblé par une attaque.",
                 Psy: 5,
                 Zone: "autour_cible",
@@ -1426,6 +1542,7 @@ changeForme: {
             },
             {
                 nom: "Cascade des Fées",
+                image: "",
                 description: "Utilisable uniquement si la Voie de l’Eau est active. Créer un mur de 20 mètres de large sur lequel s’abat des trombes d’eau, les ennemis à l’intérieur subissent 2 dé 4 dégâts Eau et les alliés récupère 2 dé 4 PV, une fois par tour dès qu’ils y entrent où lorsqu’il commence leur tour à l’intérieur. La Cascade reste en place 2 tours et coûte 2 PSY par tour à maintenir plus longtemps.",
                 Psy: 5,
                 Zone: "mur",
@@ -1444,6 +1561,7 @@ changeForme: {
             },
             {
                 nom: "Métamorphose absolue",
+                image: "",
                 description: "Les bonus donnés par les Voies élémentaires sont doublés pendant l’effet de ce sort, de plus le Change-Forme gagne +10% de chances de toucher et de CC. Ce sort dure jusqu’à sa révocation, il se révoque si vous ne changez pas de forme pendant 1 tour.",
                 Psy: 3,
                 Zone: 0,
@@ -1460,6 +1578,7 @@ changeForme: {
             },
             {
                 nom: "Flammes extra-planaire",
+                image: "",
                 description: "Utilisable uniquement si Voie du Feu est active. Le lanceur invoque un portail qui crache des flammes dans une zone autour de lui, inflige 1d8+2 dégâts Feu et \"Brulure\" irrésistible à tous les ennemis dans la zone à chaque début de tour, pendant 2 tours.",
                 Psy: 7,
                 Zone: "autour",
@@ -1476,6 +1595,7 @@ changeForme: {
             },
             {
                 nom: "Lance des Cieux",
+                image: "",
                 description: "Utilisable uniquement si Voie du Vent est active. Une lance de vent tombe des cieux pour infliger 2 dé 8 dégâts Vent perce armure et impossible à bloquer à une cible sur le terrain où qu’elle soit. Si la Lance tue l’adversaire le vent se libère de la cible et repousse toutes les entités à moins de 10 mètres d’elle de 5 mètres.",
                 Psy: 7,
                 Zone: 0,
@@ -1493,6 +1613,7 @@ changeForme: {
             },
             {
                 nom: "Ecrasement Tectonique",
+                image: "",
                 description: "Utilisable uniquement si Voie de la Terre est active. Deux immenses bloc de terre s’entrechoque en frappant toutes les entités dans la zone et leur infligeant 1 dé 6 +6 dégâts et \"Entrave\".",
                 Psy: 6,
                 Zone: "zone",
@@ -1507,6 +1628,7 @@ changeForme: {
             },
             {
                 nom: "Double Face",
+                image: "",
                 description: "Le Change-Forme sacrifie son intégrité pour ne se transformer qu’à moitié. Tant que ce sort est actif vous pouvez choisir deux Voies en simultanées lorsque vous vous transformez, vous gardez les bonus et pouvez utiliser les sorts liés aux deux. Ce sort dure 2 tours ou jusqu’à sa révocation, il coûte 3 PV pour le maintenir 1 tour de plus.",
                 Psy: 4, // Coût en PV pour maintenir
                 Zone: 0,
@@ -1524,6 +1646,7 @@ changeForme: {
         sortMaitre: [
             {
                 nom: "Forme changeante",
+                image: "",
                 description: "Le Change-Forme devient une masse informe d’éléments et de membres divers. Sous cette forme il Inflige \"Terreur\" à tous les ennemis qui essaye de l’attaquer. Il peut utiliser tous les sorts de toutes les voies pour 1 PSY de moins que leur coût originel et frappent dans un élément choisis par le lanceur. Il cumule aussi les bonus de l’intégralité des Voies. Sous cette forme ses sorts de \"Paumes\" sont gratuits et peuvent être lancé sans consommer d’action une fois par tour. Cette Forme dure 1 tour et coûte 4 PSY par tour pour être maintenue, ce sort ne consomme pas d’action.",
                 Psy: 8,
                 Zone: 0,
@@ -1545,6 +1668,7 @@ changeForme: {
 },
 berseker: {
     nom: "Berseker",
+    image: "systems/alyria/module/data/images/voies/Berseker.jpg",
     description: [
         "Cette voie est très souvent choisie par les hommes du nord, ceux des tribus du froid, elle voue un culte au sang et à son utilisation. Les bersekers sont galvanisés par le sang et deviennent plus puissant que des bêtes sur un champ de bataille, ils n’aiment pas forcément tous faire couler le sang, mais ils n’hésitent pas si cela s’avère nécessaire.",
         "Beaucoup voient les bersekers comme des fous adorateurs de meurtres, mais il n’en est rien, tout est un rituel codifié et presque religieux. Les aventuriers venant du Nord connaissent souvent cette voie et sont assez populaires pour leur capacité à encaisser longtemps.",
@@ -1597,6 +1721,7 @@ berseker: {
         talents: [
             {
                 nom: "Sang Bouillant",
+                image: "",
                 description: "Ajoute +1 en constitution aux niveaux 2, 4, 6, 8, et 10 du Berseker.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -1604,6 +1729,7 @@ berseker: {
             },
             {
                 nom: "Encaisseur Chevronné",
+                image: "",
                 description: "Ajoute +1 en Défense OU en Force. Ajoute +10 en Robustesse.",
                 niveauJoueur: 2,
                 prerequis: ["Sang Bouillant"],
@@ -1611,6 +1737,7 @@ berseker: {
             },
             {
                 nom: "Bain de Sang",
+                image: "",
                 description: "Si un ennemi est achevé à votre corps-à-corps, de n’importe quelle manière, vous regagnez 1 PV (+1 par niveaux du Berserker).",
                 niveauJoueur: 3,
                 prerequis: ["Encaisseur Chevronné"],
@@ -1618,6 +1745,7 @@ berseker: {
             },
             {
                 nom: "Concentration de Bataille",
+                image: "",
                 description: "Ajoute +1 en Force OU en Sagesse.",
                 niveauJoueur: 4,
                 prerequis: ["Bain de Sang"],
@@ -1625,6 +1753,7 @@ berseker: {
             },
             {
                 nom: "Psyché Sanguine",
+                image: "",
                 description: "Si vous deviez tombez à 0 PV alors qu’il vous reste de la PSY vous convertissez la totalité de votre psyché restante en PB pour absorber l’attaque. Une fois par combat ou scène.",
                 niveauJoueur: 5,
                 prerequis: ["Concentration de Bataille"],
@@ -1632,6 +1761,7 @@ berseker: {
             },
             {
                 nom: "Bestialité",
+                image: "",
                 description: "Permet de parler le langage Animal, ajoute +10 en Puissance.",
                 niveauJoueur: 6,
                 prerequis: ["Psyché Sanguine"],
@@ -1639,6 +1769,7 @@ berseker: {
             },
             {
                 nom: "Frappez Moi !",
+                image: "",
                 description: "Si vous infligez des dégâts à un ennemi, il subira le ciblage sur vous pendant son prochain tour.",
                 niveauJoueur: 7,
                 prerequis: ["Bestialité"],
@@ -1646,6 +1777,7 @@ berseker: {
             },
             {
                 nom: "Intuable",
+                image: "",
                 description: "Si le lanceur devait mourir il garde 1 PV et joue un tour supplémentaire avant de tomber K.O. Cet effet s’applique si l’effet de \"Psyché Sanguine\" ne suffit pas où si vous n’avez plus de PSY. Une fois par combat ou scène.",
                 niveauJoueur: 8,
                 prerequis: ["Frappez Moi !"],
@@ -1653,6 +1785,7 @@ berseker: {
             },
             {
                 nom: "Sang Pur",
+                image: "",
                 description: "Immunité à ”Poison”. Vous ne pouvez pas être drogué ou empoisonné.",
                 niveauJoueur: 9,
                 prerequis: ["Intuable"],
@@ -1660,6 +1793,7 @@ berseker: {
             },
             {
                 nom: "Furie maîtrisée",
+                image: "",
                 description: "Vous obtenez un avantage lors de tous vos jets de sauvegarde de Sagesse, si vous devez subir Folie vous y êtes immunisé et gagnez une action supplémentaire à votre prochain tour.",
                 niveauJoueur: 10,
                 prerequis: ["Sang Pur"],
@@ -1672,6 +1806,7 @@ berseker: {
         sortNovice: [
             {
                 nom: "Massacre Bilatéral",
+                image: "",
                 description: "Vous infligez deux fois le dé de dégâts de votre arme de corps à corps consécutivement, mais l'ennemi aussi vous inflige son dé de dégâts d'arme après cette attaque.",
                 Psy: 3,
                 CoutAlternatifPV: 3,
@@ -1683,6 +1818,7 @@ berseker: {
             },
             {
                 nom: "Douleur Exquise",
+                image: "",
                 description: "Après chaque perte de PV vous récupérez 1 PSY, tous les dégâts que vous subissez sont augmentés de 1. Ce sort reste actif jusqu’à sa révocation qui peut se faire n’importe quand. Ce sort ne consomme pas d'action.",
                 Psy: 2,
                 CoutAlternatifPV: 2,
@@ -1694,6 +1830,7 @@ berseker: {
             },
             {
                 nom: "Sang-sationnel",
+                image: "",
                 description: "Vous infligez 1 dé 6 dégâts à un adversaire. Si le coup touche, vous déclenchez automatiquement le jet de ciblage sur vous pour cet adversaire.",
                 Psy: 2,
                 CoutAlternatifPV: 2,
@@ -1705,6 +1842,7 @@ berseker: {
             },
             {
                 nom: "Aspect de Buvard",
+                image: "",
                 description: "Le lanceur prend une partie des capacités d’un Buvard, lorsque vous attaquez vous récupérez la moitié des dégâts infligés en PV pour 1 tour, ce sort ne consomme pas d’action et peut être maintenu un tour de plus pour 2 PSY/PV supplémentaire.",
                 Psy: 4,
                 CoutAlternatifPV: 4,
@@ -1716,6 +1854,7 @@ berseker: {
             },
             {
                 nom: "Force primaire",
+                image: "",
                 description: "Hors combat ce sort octroie un avantage à tous les jets basés sur une statistique mineure liée à la Force pour une scène. En combat ce sort ajoute l’effet de pouvoir pousser une cible de 5 mètres dans n’importe quelle direction après qu’elle est subie des dégâts de la part du Berseker pendant 2 tours. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 CoutAlternatifPV: 2,
@@ -1731,6 +1870,7 @@ berseker: {
             },
             {
                 nom: "Saigner à Blanc",
+                image: "",
                 description: "Le lanceur inflige le dé de dégât de son arme en main et applique \"Hémorragie\" en plus des effets. Si l’arme devait déjà appliqué \"Hémorragie\" ce sort l’applique de manière irrésistible à la place.",
                 Psy: 2,
                 CoutAlternatifPV: 2,
@@ -1742,6 +1882,7 @@ berseker: {
             },
             {
                 nom: "Folie Sanguinaire",
+                image: "",
                 description: "Le lanceur s’applique \"Folie\" irrésistible, pendant ce tour il infligera tous ses dégâts comme s’ils étaient des coups critiques. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 CoutAlternatifPV: 4,
@@ -1753,6 +1894,7 @@ berseker: {
             },
             {
                 nom: "Sang pour Sang",
+                image: "",
                 description: "L’utilisateur frappe sa cible avec une force démesurée, le coup est si puissant qu’il se blesse lui-même. Inflige 1 dé 6 +4 dégâts et \"Hémorragie\", mais vous subissez 2 PV s'il touche.",
                 Psy: 3,
                 CoutAlternatifPV: 3,
@@ -1764,6 +1906,7 @@ berseker: {
             },
             {
                 nom: "Aspect de la Bête",
+                image: "",
                 description: "Le lanceur prend une partie des capacités d’une bête, lorsqu’il attaque il inflige des dégâts qui ignore toutes les défenses et applique \"Hémorragie\" pour 1 tour, ce sort ne consomme pas d’action et peut être maintenu un tour de plus pour 2 PSY /PV supplémentaire.",
                 Psy: 4,
                 CoutAlternatifPV: 4,
@@ -1775,6 +1918,7 @@ berseker: {
             },
             {
                 nom: "Eclaboussure",
+                image: "",
                 description: "Pendant 2 tours, le lanceur perd une quantité disproportionnée de sang en subissant des dégâts, cela applique \"Cécité\" à l’assaillant. Si Eclaboussure applique correctement \"Cécité\" le lanceur gagne un avantage sur son jet de touche contre la cible. Ce sort peut être lancé juste après avoir reçu des dégâts, auquel cas il ne consomme pas d’action.",
                 Psy: 4,
                 CoutAlternatifPV: 4,
@@ -1786,6 +1930,7 @@ berseker: {
             },
             {
                 nom: "Banque de sang",
+                image: "",
                 description: "Le lanceur supprime les effets Hémorragie sur tout le terrain et récupère 1 dé 4 PV et perd une altération négative par état ainsi supprimé. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 CoutAlternatifPV: 4,
@@ -1797,6 +1942,7 @@ berseker: {
             },
             {
                 nom: "Anémie",
+                image: "",
                 description: "Ce sort ne peut cibler qu’un ennemi avec \"Hémorragie\", la durée et la puissance d’hémorragie sont doublées sur cette cible et il subit un désavantage sur tous ses jets de touches tant que l’altération d’état persiste.",
                 Psy: 3,
                 CoutAlternatifPV: 3,
@@ -1810,6 +1956,7 @@ berseker: {
         sortConfirme: [
             {
                 nom: "Sang-sibilité",
+                image: "",
                 description: "La prochaine attaque au corps-à-corps frappera forcément sur la faiblesse de l’adversaire. S’il n’en a pas alors elle frappera normalement. Ne consomme pas d’action.",
                 Psy: 2,
                 CoutAlternatifPV: 2,
@@ -1821,6 +1968,7 @@ berseker: {
             },
             {
                 nom: "Sang Toxique",
+                image: "",
                 description: "Ce sort reste actif et coûte 1 PV par tour pour se maintenir. Pendant l’effet du sort toutes les attaques au corps-à-corps subies infligeront ‘’Poison’’ à l’assaillant. Ne consomme pas d’action.",
                 Psy: 2,
                 CoutAlternatifPV: 2,
@@ -1832,6 +1980,7 @@ berseker: {
             },
             {
                 nom: "Geyser de Sang",
+                image: "",
                 description: "Créer un geyser qui crache du sang à une puissance folle. Les ennemis dans la zone sont projetés de 10 mètres à l’opposé du centre et subissent 1 dé 8 dégâts.",
                 Psy: 5,
                 CoutAlternatifPV: 5,
@@ -1843,6 +1992,7 @@ berseker: {
             },
             {
                 nom: "Don du Sang",
+                image: "",
                 description: "Vous pouvez donner jusqu’à 10 PV à un allié au corps-à-corps, il subira 2 PV de dégâts pendant ses 2 prochains tours après l’utilisation de ce sort.",
                 Psy: 4,
                 CoutAlternatifPV: 4,
@@ -1854,6 +2004,7 @@ berseker: {
             },
             {
                 nom: "Sang-Ctification",
+                image: "",
                 description: "Créer une zone autour du lanceur qui baigne dans son sang sacré, chaque allié à l’intérieur ainsi que le lanceur récupère 1 dé 4 PV à chaque début de tour, la zone dure 2 tours.",
                 Psy: 5,
                 CoutAlternatifPV: 5,
@@ -1865,6 +2016,7 @@ berseker: {
             },
             {
                 nom: "Plaie Béante",
+                image: "",
                 description: "Frappe un ennemi en l’entaillant en profondeur pour causer le plus de saignement possible. Ce sort applique \"Hémorragie\" au double de sa durée et de sa puissance et inflige 1 dé 6 dégâts. Si l’ennemi y est immunisé il subit 1 dé 6 dégâts supplémentaires.",
                 Psy: 5,
                 CoutAlternatifPV: 5,
@@ -1876,6 +2028,7 @@ berseker: {
             },
             {
                 nom: "Soif de Sang",
+                image: "",
                 description: "Hurle pour vous enrager vous et tous les ennemis dans un rayon de 20 mètres. Toutes les cibles subissent ciblage sur le Berserker et infligent +2 dégât à ce dernier pendant l'effet. Le Berserker inflige +2 dégâts aux cibles touchées pendant l'effet. L’effet dure 2 tours.",
                 Psy: 3,
                 CoutAlternatifPV: 3,
@@ -1887,6 +2040,7 @@ berseker: {
             },
             {
                 nom: "Sang Bouillonnant",
+                image: "",
                 description: "Durcissez du sang pour faire une deuxième couche de peau. Ajoute +20% de blocage, 1 d’armure et octroie une résistance Feu et une immunité à \"Brulure\" pour 2 tours après l’utilisation de ce sort. Ce sort ne consomme pas d'action.",
                 Psy: 4,
                 CoutAlternatifPV: 4,
@@ -1898,6 +2052,7 @@ berseker: {
             },
             {
                 nom: "Eviscération Sanguinaire",
+                image: "",
                 description: "Le lanceur frappe une première cible à 10 mètres maximum. Si un autre ennemi est dans un périmètre de 10 mètres, il frappe aussi celui-ci et ainsi de suite, mais pas deux fois le même ennemi et jusqu’à 3 ennemis maximum. Inflige 1 dé 6 +1 dégâts et le lanceur récupère 2 PV fixe par ennemi touché.",
                 Psy: 4,
                 CoutAlternatifPV: 4,
@@ -1911,6 +2066,7 @@ berseker: {
         sortExpert: [
             {
                 nom: "Explosion Artérielle",
+                image: "",
                 description: "Fait exploser les artères d’un ennemi jusqu’à 25 mètres, il subit 3 dés 6 +6 dégâts et ‘’Hémorragie’’ Irrésistible.",
                 Psy: 8,
                 CoutAlternatifPV: 8,
@@ -1922,6 +2078,7 @@ berseker: {
             },
             {
                 nom: "Sang Froid",
+                image: "",
                 description: "Ralentit sa circulation sanguine pour devenir gelé, attaque un ennemi au corps-à-corps pour infliger 1 dé 8 +2 dégâts et ‘’Engelure’’. Octroie une résistance à l’Eau et une Immunité à \"Engelure\" pendant 2 tours après l’utilisation de ce sort.",
                 Psy: 5,
                 CoutAlternatifPV: 5,
@@ -1933,6 +2090,7 @@ berseker: {
             },
             {
                 nom: "Sacrifice Ultime",
+                image: "",
                 description: "Saisit un ennemi au corps-à-corps, inflige 2 dés 6 +x dégâts (x est le nombre de PV supplémentaires utilisés pour lancer cette attaque).",
                 Psy: 5,
                 CoutAlternatifPV: "5 + X", // Coût variable en PV
@@ -1944,6 +2102,7 @@ berseker: {
             },
             {
                 nom: "Leucémie fulgurante",
+                image: "",
                 description: "Le lanceur transforme chaque état \"Hémorragie\" en 3 Poisons, si la cible est insensible au Poison l’effet d’Hémorragie persiste, sauf sur le lanceur ou les alliés où il est dissipé malgré tout.",
                 Psy: 5,
                 CoutAlternatifPV: 5,
@@ -1955,6 +2114,7 @@ berseker: {
             },
             {
                 nom: "Déchaînement Bestial",
+                image: "",
                 description: "Frappe un ennemi au corps-à-corps à mains nues et déchaîne une violence absurde. Tous les ennemis dans un rayon de 15 mètres subissent ‘’Terreur’’ (y compris la cible), infligez 6 dés 4 dégâts.",
                 Psy: 7,
                 CoutAlternatifPV: 7,
@@ -1966,6 +2126,7 @@ berseker: {
             },
             {
                 nom: "Sang Rancune",
+                image: "",
                 description: "Si le lanceur subit une attaque qui lui inflige des PV il peut utiliser ce sort instantanément, il canalise l’énergie de son sang pour créer une lame avec laquelle il frappe son assaillant, à 15 mètres max, puis revient à sa position. Inflige 1 dé 8 + 2 dégâts et ne consomme pas d'action.",
                 Psy: 4,
                 CoutAlternatifPV: 4,
@@ -1977,6 +2138,7 @@ berseker: {
             },
             {
                 nom: "Aspect du Dieu du Sang",
+                image: "",
                 description: "Le lanceur cumul les bonus de \"Aspect de la Bête\" et \"Aspect de Buvard\" auxquels il ajoute le fait d’appliquer Terreur à chacune de ses attaques et de réduire de 2 PSY le coût de tous ses autres sorts. Ce sort ne consomme pas d’action et coûte 4 PSY/PV supplémentaire pour être maintenu.",
                 Psy: 8,
                 CoutAlternatifPV: 8,
@@ -1993,6 +2155,7 @@ berseker: {
             },
             {
                 nom: "Lune Rouge",
+                image: "",
                 description: "La Lune rougit pour répondre à la soif de sang du lanceur. Ce sort applique \"Hémorragie\" en plus à chaque fois qu’une entité subit une attaque qui retire des PV pendant 2 tours. A la fin de cet effet, si plus de 3 \"Hémorragie\" ont était dispensées alors le Berseker gagne 1 action supplémentaire pendant 2 tours.",
                 Psy: 7,
                 CoutAlternatifPV: 7,
@@ -2006,6 +2169,7 @@ berseker: {
         sortMaitre: [
             {
                 nom: "Rage et Carnage",
+                image: "",
                 description: "Le Berseker relâche toute sa colère et sa rage et s’adonne à un massacre sans état d’âme. Il devient immunisé à toutes les altérations d’états et ne peut jamais tomber K.O ou Mort pendant l’effet. Les bonus octroyé par la mécanique de voie sont doublés et il possède une action supplémentaire. L’effet dure 1 tour. En revanche, il ne peut rien faire d’autre qu’infliger des dégâts pendant l’effet et ne peut utiliser aucun sort non-offensif ni aucun objet.",
                 Psy: 13,
                 CoutAlternatifPV: 13,
@@ -2028,6 +2192,7 @@ berseker: {
 },
 paladin: {
     nom: "Paladin",
+    image: "systems/alyria/module/data/images/voies/Paladin.jpg",    
     description: [
         "Les paladins sont très souvent affiliés à la Lumière, mais en réalité, il peut y avoir des paladins de n’importe quelle classe ou éléments, ils sont juste moins bruyants et moins nombreux que ceux de la Lumière. Ces gens se vouent à protéger les faibles, à défendre les opprimés et à faire respecter les lois.",
         "Ils sont souvent intransigeants ce qui ne convient pas toujours pour rejoindre des groupes d’aventuriers, mais les paladins peuvent tout de même se faire violence ... Ou faire violence à leur groupe pour que la voie du bien soit parfaitement respectée.",
@@ -2076,6 +2241,7 @@ paladin: {
         talents: [
             {
                 nom: "Blocage Parfait",
+                image: "",
                 description: "Le Paladin peut augmenter son taux de blocage à 100% pour 1 tour. Utilisable 1 fois par combat.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -2087,6 +2253,7 @@ paladin: {
             },
             {
                 nom: "Ferveur Secourable",
+                image: "",
                 description: "Ajoute +1 en Défense et +10 en Robustesse et en connaissance sacré.",
                 niveauJoueur: 2,
                 prerequis: ["Blocage Parfait"],
@@ -2098,6 +2265,7 @@ paladin: {
             },
             {
                 nom: "Habilité au Bouclier",
+                image: "",
                 description: "Si vous tenez une arme secondaire de type Bouclier, vous gagnez +5% de chances de toucher et +5% de taux de blocage. Ajoute aussi un avantage à vos jets de Robustesse si vous portez un bouclier.",
                 niveauJoueur: 3,
                 prerequis: ["Ferveur Secourable"],
@@ -2110,6 +2278,7 @@ paladin: {
             },
             {
                 nom: "Fervent Protecteur",
+                image: "",
                 description: "Ajoute +1 aux soins. Blocage Parfait peut s’utiliser 2 fois par combat.",
                 niveauJoueur: 4,
                 prerequis: ["Habilité au Bouclier"],
@@ -2120,6 +2289,7 @@ paladin: {
             },
             {
                 nom: "Corps Saint",
+                image: "",
                 description: "Ajoute +1 en Constitution et en Défense. Donne l’immunité aux maladies et octroie un avantage pour éviter de se faire empoisonner.",
                 niveauJoueur: 5,
                 prerequis: ["Fervent Protecteur"],
@@ -2132,6 +2302,7 @@ paladin: {
             },
             {
                 nom: "Théologien",
+                image: "",
                 description: "Permet de parler la langue Ancienne. Ajoute un avantage lors des jets de connaissance sacré.",
                 niveauJoueur: 6,
                 prerequis: ["Corps Saint"],
@@ -2142,6 +2313,7 @@ paladin: {
             },
             {
                 nom: "Chevalier Saint",
+                image: "",
                 description: "Immunité à ‘’Chaos’’. Ajoute 1 dé 6 dégâts fixe si vous frappez un monstre Mort-Vivant ou Extra-Planaire.",
                 niveauJoueur: 7,
                 prerequis: ["Théologien"],
@@ -2152,6 +2324,7 @@ paladin: {
             },
             {
                 nom: "Béni",
+                image: "",
                 description: "Le Paladin gagne 1 dé 4 PB fixe à chaque début de tour.",
                 niveauJoueur: 8,
                 prerequis: ["Chevalier Saint"],
@@ -2161,6 +2334,7 @@ paladin: {
             },
             {
                 nom: "Esprit Saint",
+                image: "",
                 description: "Ajoute +1 en Intelligence et en Charisme. Ajoute Immunité à ‘’Terreur’’.",
                 niveauJoueur: 9,
                 prerequis: ["Béni"],
@@ -2172,6 +2346,7 @@ paladin: {
             },
             {
                 nom: "Ultime Rempart",
+                image: "",
                 description: "Si le Paladin est seul au combat avec au moins un des membres du groupe ayant était mis K.O ou Mort, il gagne +3 d’armure, +3 aux dégâts, +20% de CC, +10 PB et un avantage sur tous ses jets de sauvegarde.",
                 niveauJoueur: 10,
                 prerequis: ["Esprit Saint"],
@@ -2191,6 +2366,7 @@ paladin: {
         sortNovice: [
             {
                 nom: "Avancée Prudente",
+                image: "",
                 description: "Avance en prenant attention à bloquer un maximum de dégâts, augmente de 20% le taux de blocage mais perd 1 cran en vitesse et empêche d’effectuer des attaques d’opportunités tant que ce sort est actif. Peut-être révoqué n’importe quand. Ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -2206,6 +2382,7 @@ paladin: {
             },
             {
                 nom: "Zone Dégagée",
+                image: "",
                 description: "Pousse tous les ennemis autour du paladin de 5 mètres, inflige 1 dé 6 dégâts.",
                 Psy: 3,
                 Zone: "autour_lanceur",
@@ -2219,6 +2396,7 @@ paladin: {
             },
             {
                 nom: "Ferveur Combattante",
+                image: "",
                 description: "Le paladin dégage une aura puissante, déclenche le ciblage sur lui pour tous les ennemis dans un rayon de 10 mètres.",
                 Psy: 3,
                 Zone: "rayon",
@@ -2231,6 +2409,7 @@ paladin: {
             },
             {
                 nom: "Assistance",
+                image: "",
                 description: "Permet d’avancer en ligne de 10 mètres si un allié est sur la même ligne que vous. Si vous arriver au corps-à-corps de l’allié avec ce sort, vous le soignez de 1 dé 6 PV. Fonctionne aussi au corps-à-corps.",
                 Psy: 3,
                 Zone: 0,
@@ -2244,6 +2423,7 @@ paladin: {
             },
             {
                 nom: "Inébranlable",
+                image: "",
                 description: "Octroie +6 PB et Immunité à ‘’Entrave’’ pendant 2 tours. En contrepartie, vous infligez -2 dégâts pendant l’effet. Ce sort ne consomme pas d'action.",
                 Psy: 2,
                 Zone: 0,
@@ -2259,6 +2439,7 @@ paladin: {
             },
             {
                 nom: "Apposition des Mains",
+                image: "",
                 description: "Permet de soigner une cible de 1 dé 4 PV, ce sort ne consomme pas d'action, lançable une fois par tour.",
                 Psy: 2,
                 Zone: 0,
@@ -2272,6 +2453,7 @@ paladin: {
             },
             {
                 nom: "Répurgateur",
+                image: "",
                 description: "Ce sort inflige 1 dé 6 +3 dégâts et le double si la cible est de race Mort-Vivant ou Extra-Planaire.",
                 Psy: 3,
                 Zone: 0,
@@ -2285,6 +2467,7 @@ paladin: {
             },
             {
                 nom: "Levée de Bouclier",
+                image: "",
                 description: "Permet de diviser par 2 les dégâts des attaques à distance reçu pendant 1 tour pour vous et les alliés au corps-à-corps. Ne consomme pas d’action.",
                 Psy: 2,
                 Zone: "autour_lanceur_cc",
@@ -2299,6 +2482,7 @@ paladin: {
             },
             {
                 nom: "Lame imprégnée",
+                image: "",
                 description: "Le lanceur imprègne sa lame d'un élément choisi au déblocage de ce sort, cette attaque inflige le dé de dégâts de l’arme en main et frappe dans l’élément du serment plutôt que dans celui de l’arme.",
                 Psy: 3,
                 Zone: 0,
@@ -2313,6 +2497,7 @@ paladin: {
             },
             {
                 nom: "Défense partagée",
+                image: "",
                 description: "Octroie la même quantité d’armure et de PB que le lanceur possède à un allié au corps à corps. Ce sort dure 1 tour et ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -2326,6 +2511,7 @@ paladin: {
             },
             {
                 nom: "Aura de Protection",
+                image: "",
                 description: "Le lanceur et les alliés à moins de 10 mètres gagnent +20% au blocage et +2 à l’armure. Cet effet persiste jusqu’à sa révocation. Il est révoqué si le Paladin lance un autre sortilège d’Aura.",
                 Psy: 4,
                 Zone: "rayon_aura",
@@ -2340,6 +2526,7 @@ paladin: {
             },
             {
                 nom: "Aura de Châtiment",
+                image: "",
                 description: "Les ennemis à moins de 10 mètres du lanceur subissent 1 dé 4 dégâts fixe à chaque fois qu’ils lancent un sort consommant de la PSY. Ces dégâts doublent contre les Morts-Vivants ou les Extra-Planaire. Cet effet persiste jusqu’à sa révocation. Il est révoqué si le Paladin lance un autre sortilège d’Aura.",
                 Psy: 4,
                 Zone: "rayon_aura",
@@ -2356,6 +2543,7 @@ paladin: {
         sortConfirme: [
             {
                 nom: "Protéger et Sévir",
+                image: "",
                 description: "Vous ciblez un allié jusqu’à 15 mètres avec ce sort. Lors de la prochaine attaque au corps-à-corps qu’il subit, vous échangez de place avec lui pour encaisser les dégâts et vous infligez la totalité des dégâts que vous bloquez à l’assaillant. Ce sort ne consomme pas d'action",
                 Psy: 4,
                 Zone: 0,
@@ -2371,6 +2559,7 @@ paladin: {
             },
             {
                 nom: "Couverture Parfaite",
+                image: "",
                 description: "Vous pouvez défendre à la place des alliés autour de vous s’ils subissent un coup pendant le tour suivant, vous défendez autant de fois que nécessaire et vous subissez les dégâts à leur place si vous deviez en subir. Ce sort ne consomme pas d'action.",
                 Psy: 5,
                 Zone: "autour_lanceur",
@@ -2385,6 +2574,7 @@ paladin: {
             },
             {
                 nom: "Intimidation",
+                image: "",
                 description: "Utilise l’aura puissante du Paladin pour faire douter l’adversaire. Infligez ‘’Terreur’’ à la cible et 1 dé 8 +2 dégâts. Hors combat ce sort coûte 3 PSY de moins et octroie +20 à l’intimidation ainsi qu’un avantage.",
                 Psy: 5,
                 Zone: 0,
@@ -2403,6 +2593,7 @@ paladin: {
             },
             {
                 nom: "Défense groupée",
+                image: "",
                 description: "Ce sort ne peut s’utiliser que si un allié est au corps à corps du lanceur. Le Paladin et les alliés gagnent +2 d’armure et +10% de blocage par allié à leur corps à corps. Cet effet se rompt si le Paladin n’est plus adjacent à l'allié ou s’il n’a plus aucun allié à ses côté. Ce sort ne consomme pas d’action.",
                 Psy: 5,
                 Zone: "autour_lanceur_cc",
@@ -2418,6 +2609,7 @@ paladin: {
             },
             {
                 nom: "Prière Curative",
+                image: "",
                 description: "Soigne tous les alliés dans un rayon de 10 mètres autour du paladin de 1 dé 6 +2 PV.",
                 Psy: 4,
                 Zone: "rayon",
@@ -2430,6 +2622,7 @@ paladin: {
             },
             {
                 nom: "Coup de Bouclier",
+                image: "",
                 description: "Ce sort n’est utilisable que si vous avez un bouclier comme arme en main. Inflige 1 dé 6 +2 dégâts et repousse la cible de 10 mètres. Si la cible a moins de 50% de sa vie max, elle subit ‘’Sonné’’.",
                 Psy: 4,
                 Zone: 0,
@@ -2445,6 +2638,7 @@ paladin: {
             },
             {
                 nom: "Aura de Résilience",
+                image: "",
                 description: "Le lanceur et les alliés à moins de 15 mètres gagnent un avantage et +20% à tous leurs jets de sauvegarde. Cet effet persiste jusqu’à sa révocation. Il est révoqué si le Paladin lance un autre sortilège d’Aura.",
                 Psy: 4,
                 Zone: "rayon_aura",
@@ -2459,6 +2653,7 @@ paladin: {
             },
             {
                 nom: "Prière de Purge",
+                image: "",
                 description: "Tous les ennemis dans la zone subissent 1 dé 8 dégâts et s’applique \"Silence\". Ce sort double ses dégâts sur les Morts-Vivants et les Extra-Planaire.",
                 Psy: 5,
                 Zone: "zone",
@@ -2473,6 +2668,7 @@ paladin: {
             },
             {
                 nom: "Position défensive",
+                image: "",
                 description: "Le lanceur devient Immobile, dans le même temps il obtient une résistance à tous les éléments. Cet effet dure jusqu’à sa révocation.",
                 Psy: 6,
                 Zone: 0,
@@ -2489,6 +2685,7 @@ paladin: {
         sortExpert: [
             {
                 nom: "Inquisition Impériale",
+                image: "",
                 description: "Votre valeur de défense devient 0. Tous vos bonus aux taux de blocage deviennent des bonus aux chances de toucher. Votre armure est réduite à 0 devient un bonus de dégâts équivalent à sa valeur. Ce sort reste actif jusqu’au K.O. du Paladin ou la fin du combat.",
                 Psy: 7,
                 Zone: 0,
@@ -2504,6 +2701,7 @@ paladin: {
             },
             {
                 nom: "Armure Bénie",
+                image: "",
                 description: "Invoque une armure bénie qui vous octroie +2 d’armure, +20% de taux de blocage et 8 PB pendant 2 tours. Ce sort ne consomme pas d'action.",
                 Psy: 6,
                 Zone: 0,
@@ -2519,6 +2717,7 @@ paladin: {
             },
             {
                 nom: "Aura de bénédiction",
+                image: "",
                 description: "Le lanceur et les alliés à moins de 10 mètres gagnent un avantage sur tous leurs jets de touche et +10% au CC. Cet effet persiste jusqu’à sa révocation. Il est révoqué si le Paladin lance un autre sortilège d’Aura.",
                 Psy: 4,
                 Zone: "rayon_aura",
@@ -2533,6 +2732,7 @@ paladin: {
             },
             {
                 nom: "Résistance sacrée",
+                image: "",
                 description: "Le Paladin choisit un élément et y devient résistant jusqu’à la fin du combat ou la révocation de cet effet, cela peut aussi inclure le Neutre. Ce sort ne consomme pas d’action.",
                 Psy: 5,
                 Zone: 0,
@@ -2547,6 +2747,7 @@ paladin: {
             },
             {
                 nom: "Protéger les Faibles",
+                image: "",
                 description: "Rend tous les alliés sur le terrain Invulnérable pour 1 tour, les soigne de 1 dé 6 + 2 PV à la fin de l’effet.",
                 Psy: 6,
                 Zone: "tout_le_terrain",
@@ -2561,6 +2762,7 @@ paladin: {
             },
             {
                 nom: "Punir les Forts",
+                image: "",
                 description: "Un coup de la plus puissante des épées détruit complètement le mal. Inflige 3 dés 6 dégâts et 2 dés 6 de plus si la cible est un Mort-Vivant ou Extra-Planaire et supprime tous les bonus sur la cible. Ce sort a +25% de CC lors de sa première utilisation du combat.",
                 Psy: 7,
                 Zone: 0,
@@ -2576,6 +2778,7 @@ paladin: {
             },
             {
                 nom: "Serment inviolable",
+                image: "",
                 description: "Le Paladin renforce ses vœux, pendant 2 tours l’effet bonus ou malus octroyé par son serment est doublé. Ce sort ne consomme pas d'action.",
                 Psy: 4,
                 Zone: 0,
@@ -2589,6 +2792,7 @@ paladin: {
             },
             {
                 nom: "Sacrifice pour la cause",
+                image: "",
                 description: "Le Paladin peut lancer ce sort si un allié doit tomber K.O ou Mourir, il échange sa place avec cet allié et encaisse le coup final à sa place, l’allié se soigne d’autant de dégâts que le Paladin encaisse avec cet effet. Ce sort consomme l’action du Paladin pour son prochain tour.",
                 Psy: 5,
                 Zone: 0,
@@ -2606,6 +2810,7 @@ paladin: {
         sortMaitre: [
             {
                 nom: "Sanctuaire Sacré",
+                image: "",
                 description: "Le lanceur et ses alliés à moins de 10 mètres bénéficient de toutes les Auras du Paladin en simultané, ils gagnent donc : un avantage sur tous leurs jets de touche, +10% au CC, un avantage et +20% à tous leurs jets de sauvegarde, 20% au blocage et +2 à l’armure. Les ennemis à moins de 15 mètres du lanceur subissent 1 dé 4 dégâts fixe à chaque fois qu’ils lancent un sort consommant de la PSY. Ces dégâts doublent contre les Morts-Vivants ou les Extra-Planaire. Le Sanctuaire soigne aussi 1 dé 6 PV à chaque allié qui finit son tour à l’intérieur et inflige 1 dé 6 dégâts à chaque ennemis qui finit son tour à l’intérieur. Ce sort dure 2 tours et ne consomme pas d’action.",
                 Psy: 15,
                 Zone: "rayon_sanctuaire",
@@ -2633,6 +2838,7 @@ paladin: {
 },
 moine: {
     nom: "Moine",
+    image: "system/alyria/module/data/images/voies/Moine.jpg",    
     description: [
         "Les moines sont des fervents croyants, quels que soit le dieu qu’ils vénèrent ils le font en respectant la tradition et les rituels qui lui sont liés, ils sont souvent proche des éléments par lesquels ils communient avec les dieux. Leur voie de vie comprend aussi un bon entrainement au combat, aux arts martiaux et beaucoup d’études diverses de théologie ou de science. Ils représentent parfaitement le dicton : “un esprit sain dans un corps saint”",
         "Les moines sont souvent dans des temples, des monastères ou retirés du monde en ermite mais il peut arriver que certains suivent la voie de l’aventure et décide d’aller rependre la parole de leur dieu sur le monde, dans de plus rare cas encore ils rejoignent ou forment des compagnies d’aventuriers.",
@@ -2686,6 +2892,7 @@ moine: {
         talents: [
             {
                 nom: "Expert en Frappe",
+                image: "",
                 description: "Les Moines gagnent +1 aux dégâts et +5 % de chance de toucher avec les armes de type Contondant.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -2697,6 +2904,7 @@ moine: {
             },
             {
                 nom: "Monastère Affilié",
+                image: "",
                 description: "Vous obtenez 1 sort Novice dans l’élément d’affiliation du Moine. Vous en débloquez un autre au niveau 4 du Moine.",
                 niveauJoueur: 2,
                 prerequis: ["Expert en Frappe"],
@@ -2707,6 +2915,7 @@ moine: {
             },
             {
                 nom: "Entrainement Spirituel",
+                image: "",
                 description: "Ajoute +1 en Intelligence et en Sagesse.",
                 niveauJoueur: 3,
                 prerequis: ["Monastère Affilié"],
@@ -2717,6 +2926,7 @@ moine: {
             },
             {
                 nom: "Affiliation Monacale",
+                image: "",
                 description: "Le Moine gagne +5% aux chances de toucher et +1 DSB avec toutes les compétences de l'Arcane choisie par l'affiliation du moine. Ce bonus double au niveau 8 du Moine.",
                 niveauJoueur: 4,
                 prerequis: ["Entrainement Spirituel"],
@@ -2728,6 +2938,7 @@ moine: {
             },
             {
                 nom: "Temple Affiliée",
+                image: "",
                 description: "Vous obtenez 1 sort Confirmé dans l’élément de l’affiliation du moine. Vous en débloquez un autre au niveau 7 du Moine.",
                 niveauJoueur: 5,
                 prerequis: ["Affiliation Monacale"],
@@ -2738,6 +2949,7 @@ moine: {
             },
             {
                 nom: "Entrainement Physique",
+                image: "",
                 description: "Ajoute +1 en Constitution et en Force.",
                 niveauJoueur: 6,
                 prerequis: ["Temple Affiliée"],
@@ -2748,6 +2960,7 @@ moine: {
             },
             {
                 nom: "Affiliation d’arme",
+                image: "",
                 description: "Votre arme et vos attaques à mains nues peuvent frapper sur l’élément de la résistance offerte par votre affiliation plutôt que sur celui de base.",
                 niveauJoueur: 7,
                 prerequis: ["Entrainement Physique"],
@@ -2757,6 +2970,7 @@ moine: {
             },
             {
                 nom: "Harmonie Spirituelle",
+                image: "",
                 description: "La méditation ouvre la voie de l’élévation de l’esprit. Ajoute +1 en Sagesse. Octroie un avantage sur vos jets de Statistiques mineures liées à la Sagesse.",
                 niveauJoueur: 8,
                 prerequis: ["Affiliation d’arme"],
@@ -2767,6 +2981,7 @@ moine: {
             },
             {
                 nom: "Djinn élémentaire",
+                image: "",
                 description: "Ajoute +1 en Intelligence. Si vous possédez moins de 30% de votre vie max, vous devenez résistant à tous les éléments (sauf Neutre).",
                 niveauJoueur: 9,
                 prerequis: ["Harmonie Spirituelle"],
@@ -2778,6 +2993,7 @@ moine: {
             },
             {
                 nom: "Cathédrale affiliée",
+                image: "",
                 description: "Vous obtenez 2 sorts Expert dans l’élément de l’affiliation du moine.",
                 niveauJoueur: 10,
                 prerequis: ["Djinn élémentaire"],
@@ -2792,6 +3008,7 @@ moine: {
         sortNovice: [
             {
                 nom: "Paume du Singe",
+                image: "",
                 description: "Frappe l’adversaire avec la paume au thorax pour lui infliger 1 dé 6 dégâts et le pousser de 5 mètres.",
                 Psy: 2,
                 Zone: 0,
@@ -2805,6 +3022,7 @@ moine: {
             },
             {
                 nom: "Matraquage",
+                image: "",
                 description: "Frappe de multiples fois avec son arme de corps-à-corps. Infligez 1 dé 6 +2 dégâts et ‘’Sonné’’.",
                 Psy: 3,
                 Zone: 0,
@@ -2818,6 +3036,7 @@ moine: {
             },
             {
                 nom: "Retour de Bâton",
+                image: "",
                 description: "Le Moine se positionne pour riposter, il gagne 20% de taux de blocage et renverra la totalité des dégâts bloqués en dégâts à l’adversaire qui l’attaque. Ne consomme pas d’action peut être lancé juste avant la réception des dégâts.",
                 Psy: 4,
                 Zone: 0,
@@ -2832,6 +3051,7 @@ moine: {
             },
             {
                 nom: "Solitude",
+                image: "",
                 description: "Le moine se téléporte sur la case la plus proche située à plus de 10 mètres de toutes autres entités. Si un tel endroit n’existe pas sur la carte de bataille ce sort n’a aucun effet. Hors combat cela octroie un bonus de 10 à toutes les statistiques mineures du moine s’il est seul pendant une scène. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -2846,6 +3066,7 @@ moine: {
             },
             {
                 nom: "Pèlerinage",
+                image: "",
                 description: "Le lanceur gagne un cran en vitesse et ignore les attaques d’opportunité. Cet effet coûte 2 PSY par tour à maintenir et dure jusqu’à sa révocation. Il ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -2861,6 +3082,7 @@ moine: {
             },
             {
                 nom: "Maitre et Disciple",
+                image: "",
                 description: "Le moine désigne un allié au corps à corps comme son disciple, chaque soin et chaque augmentation que reçoit le moine sera répercuté à la moitié de sa valeur (arrondie au supérieur) au disciple. Le moine ne peut avoir qu’un seul disciple par combat ou par scène, si ce sort est relancé le disciple change et le précédent perd tous les bonus. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 Zone: 0,
@@ -2876,6 +3098,7 @@ moine: {
             },
             {
                 nom: "Frappe Elémentale",
+                image: "",
                 description: "La prochaine attaque avec votre arme infligera des dégâts dans l’élément de votre choix. Ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -2888,6 +3111,7 @@ moine: {
             },
             {
                 nom: "Foi Réconfortante",
+                image: "",
                 description: "Vous soignez de 1 dé 6 PV tous les alliés dans la zone. Les ennemis présents dans celle-ci subissent ‘’Cécité’’.",
                 Psy: 4,
                 Zone: "zone",
@@ -2901,6 +3125,7 @@ moine: {
             },
             {
                 nom: "Breuvage Monacale",
+                image: "",
                 description: "Le moine sort une flasque remplie d’un alcool produit par son temple. Boire ce breuvage nécessite un jet de sauvegarde de Force, s’il est réussi le Moine regagne 1 dé 6 PV et gagne +2 aux dégâts et 10% de chances de toucher pour 2 tours. S’il est loupé le moine s’enivre et gagne +10% de blocage et un avantage sur ses jets de sauvegarde pour 2 tours.",
                 Psy: 3,
                 Zone: 0,
@@ -2914,6 +3139,7 @@ moine: {
             },
             {
                 nom: "Ascétisme",
+                image: "",
                 description: "Si le lanceur de ce sort ne possède aucun bonus octroyé par des sorts temporaires il gagne un avantage pour lancer un sort d’augmentation temporaire immédiatement et sans consommer d'action. Ce sort ne consomme pas d'action.",
                 Psy: 2,
                 Zone: 0,
@@ -2928,6 +3154,7 @@ moine: {
             },
             {
                 nom: "Broyage d’hérétique",
+                image: "",
                 description: "Inflige 1 dé 6 dégâts au corps à corps du Moine, si la cible est faible à l’élément de frappe du moine elle subit le double plutôt que 50% de dégâts en plus.",
                 Psy: 4,
                 Zone: 0,
@@ -2942,6 +3169,7 @@ moine: {
             },
             {
                 nom: "Frakass’Bonze",
+                image: "",
                 description: "Une frappe sur la tête dans un angle parfait, spécialité des moines de tous horizons. Inflige 1 dé 6 +3 dégâts et inflige \"Sommeil\".",
                 Psy: 3,
                 Zone: 0,
@@ -2957,6 +3185,7 @@ moine: {
         sortConfirme: [
             {
                 nom: "Méditation",
+                image: "",
                 description: "Le lanceur rentre en transe et se guérit de tous les états nocifs qui l’affectent. Il récupère 5 PV fixe par effet ainsi supprimé. Ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -2970,6 +3199,7 @@ moine: {
             },
             {
                 nom: "Aumône",
+                image: "",
                 description: "‘’Tout le Terrain’’. Soigne 1 dé 6 PV à tous les alliés. Si l’allié est au corps-à-corps du moine, il soigne plutôt 1 dé 8 +2 PV.",
                 Psy: 5,
                 Zone: "tout_le_terrain",
@@ -2983,6 +3213,7 @@ moine: {
             },
             {
                 nom: "Soin Léger",
+                image: "",
                 description: "Vous soignez de 1 dé 6 +3 PV un allié à moins de 10 mètres.",
                 Psy: 4,
                 Zone: 0,
@@ -2995,6 +3226,7 @@ moine: {
             },
             {
                 nom: "Frappe Dévastatrice",
+                image: "",
                 description: "Nécessite une arme contondante. Le lanceur frappe l’ennemi si fort qu’il inflige deux fois le dé de dégâts de l’arme en main et ‘’Sonné’’ à l’adversaire.",
                 Psy: 5,
                 Zone: 0,
@@ -3009,6 +3241,7 @@ moine: {
             },
             {
                 nom: "Reliquaire",
+                image: "",
                 description: "Ce sort doit cibler un ennemi, il se fait percuter par un lourd reliquaire en pierre qui l’écrase, il subit 1 dé 8 + 1 dégâts et \"Sonné\" et est poussé de 5 mètres dans une direction aléatoire. Si l’ennemi meurt le moine peut payer 2 PSY de plus et cibler une nouvelle cible.",
                 Psy: 4,
                 Zone: 0,
@@ -3024,6 +3257,7 @@ moine: {
             },
             {
                 nom: "Confession",
+                image: "",
                 description: "Le lanceur écoute la confession d’un allié ou se confesse lui-même. Il se retire toutes les altérations d’état négatives. Hors combat ce sort coûte 2 PSY de moins et peut être utilisé pour obtenir un jet de persuader/tromper avec avantage dans le but d’obtenir des aveux.",
                 Psy: 4,
                 Zone: 0,
@@ -3040,6 +3274,7 @@ moine: {
             },
             {
                 nom: "Pénitence forcée",
+                image: "",
                 description: "Ce sort peut cibler un ennemi juste après qu’il est attaqué le Moine ou un allié, il doit faire un jet de sauvegarde sur sa pire statistique, s’il le loupe il perd son action et son déplacement pour ce tour et le suivant. En cas de réussite il subit tout de même \"Cécité\" irrésistible pour 2 tours. Ce sort consomme l’action du moine même si il est lancé hors de son tour.",
                 Psy: 5,
                 Zone: 0,
@@ -3054,6 +3289,7 @@ moine: {
             },
             {
                 nom: "Clémence",
+                image: "",
                 description: "Vous pouvez utiliser ce sort à chaque fois que vous, ou un de vos alliés, applique avec succès une altération d’état. Vous annulez l’altération et celui qui l’applique reçoit 1 dé 4 PV fixe de soin et 2 PB fixe à la place. Ce sort ne consomme pas d’action.",
                 Psy: 1,
                 Zone: 0,
@@ -3068,6 +3304,7 @@ moine: {
             },
             {
                 nom: "Frappe Bénie",
+                image: "",
                 description: "Inflige 1 dé 10 dégâts à une cible au corps à corps, les dégâts sont doublés si on frappe sur la faiblesse de la cible.",
                 Psy: 4,
                 Zone: 0,
@@ -3083,6 +3320,7 @@ moine: {
         sortExpert: [
             {
                 nom: "Posture Elémentaire",
+                image: "",
                 description: "Le Moine choisit un élément, il obtient ses faiblesses et résistances. Ses attaques frappent dans cet élément et gagnent +1 dégât. L’élément reste celui-ci jusqu’à un nouveau changement. Ne consomme pas d'action.",
                 Psy: 2,
                 Zone: 0,
@@ -3099,6 +3337,7 @@ moine: {
             },
             {
                 nom: "Robustesse de l’Ermite",
+                image: "",
                 description: "Le lanceur gagne un avantage sur tous ses jets de sauvegarde, autant de points d’armure qu’il a de bonus aux dégâts et une résistance dans un élément de son choix. Cet effet est révoqué automatiquement si un allié se trouve à moins de 10 mètres du lanceur. Ce sort ne consomme pas d’action.",
                 Psy: 6,
                 Zone: 0,
@@ -3114,6 +3353,7 @@ moine: {
             },
             {
                 nom: "Prière d’affiliation",
+                image: "",
                 description: "''Tout le terrain'' Octroie une résistance choisie du Moine à tous les alliés, octroie une faiblesse choisie du Moine à chaque ennemi. Cet effet dure 1 tour et ce sort ne consomme pas d’action.",
                 Psy: 4,
                 Zone: "tout_le_terrain",
@@ -3128,6 +3368,7 @@ moine: {
             },
             {
                 nom: "Magnifique Paume Sainte",
+                image: "",
                 description: "Frappe l’adversaire avec la paume au thorax pour lui infliger 3 dés 6 dégâts et le pousser de 25 mètres. Si l’ennemi touche une autre entité avec ce sort il lui inflige la moitié des dégâts et applique \"Sonné\" aux deux.",
                 Psy: 7,
                 Zone: 0,
@@ -3142,6 +3383,7 @@ moine: {
             },
             {
                 nom: "Home-run",
+                image: "",
                 description: "Nécessite une arme contondante. Vous catapultez un ennemi au corps-à-corps jusqu’à 20 mètres et lui infliger 2 dés 8 dégâts puis vous vous téléportez sur la case adjacente au point de chute la plus proche de vous.",
                 Psy: 6,
                 Zone: 0,
@@ -3157,6 +3399,7 @@ moine: {
             },
             {
                 nom: "Erudition sacrée",
+                image: "",
                 description: "Ce sort se change en n’importe quel sortilège de l'Arcane affiliée au Moine mais coûte 2 PSY supplémentaire à lancer.",
                 Psy: "variable", // Le coût de base du sort emprunté + 2
                 Zone: 0,
@@ -3170,6 +3413,7 @@ moine: {
             },
             {
                 nom: "Sanctification agressive",
+                image: "",
                 description: "L’arme en main du Moine est désormais modifiée par son DSB et frappe dans un élément de son choix à chaque attaque. Il récupère la moitié des dégâts infligé par celle-ci en PV. En revanche, tant que le sort est actif, le Moine ne peut pas utiliser de PSY et chaque attaque lui coûte 2 PSY. Ce sort est actif jusqu’à sa révocation.",
                 Psy: 6,
                 Zone: 0,
@@ -3187,6 +3431,7 @@ moine: {
             },
             {
                 nom: "Prêche de Salvation",
+                image: "",
                 description: "Les alliés dans la zone ne peuvent pas y mourir ou y tomber K.O, ils gardent toujours 1 PV, le Moine ne peut plus bouger ni agir tant qu’il canalise ce sort. Ce sort coûte 2 PSY par tour supplémentaire à canaliser, si le moine encaisse des dégâts sur ses PV ce sort se rompt.",
                 Psy: 5,
                 Zone: "zone",
@@ -3205,6 +3450,7 @@ moine: {
         sortMaitre: [
             {
                 nom: "Relique Fondatrice",
+                image: "",
                 description: "''Invocation'' Le Moine en appelle à la Relique qui a fondé son ordre, Dans un rayon de 10 mètres autour d’elle la relique empêche tout allié de tomber K.O ou de mourir, elle octroie un avantage aux jets de touche et annule l’application de n’importe qu’elle altération d’état. La relique possède 15 PV et 10 PB et est insoignable.",
                 Psy: 9,
                 Zone: "rayon_invocation",
@@ -3225,6 +3471,7 @@ moine: {
 },
 roublard: {
     nom: "Roublard",
+    image: "systems/alyria/module/data/images/voies/Roublard.jpg",    
     description: [
         "Les roublards suivent la voie ancestrale qui consiste à battre son adversaire en usant de toutes les bassesses possibles, l’essentiel est de gagner peu importe la manière. Beaucoup de guerriers ou de paladins considèrent que les roublards ne méritent même pas d’être appelés des combattants, mais quand ils se prennent en coup dans les valseuses suivit d’une dague dans la gorge, ils se rendent vite compte de l’efficacité des méthodes de ces hommes de l’ombre.",
         "Beaucoup de guerriers ou de paladins considèrent que les roublards ne méritent même pas d’être appelés des combattants, mais quand ils se prennent en coup dans les valseuses suivit d’une dague dans la gorge, ils se rendent vite compte de l’efficacité des méthodes de ces hommes de l’ombre.",
@@ -3273,6 +3520,7 @@ roublard: {
         talents: [
             {
                 nom: "Prudence Combative",
+                image: "",
                 description: "Le roublard est immunisé aux attaques d’opportunités adverses.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -3282,6 +3530,7 @@ roublard: {
             },
             {
                 nom: "Provocation de Chance",
+                image: "",
                 description: "Ajoute +1 en Chance. Bonus de hasard de +20 lors d’une situation délicate.",
                 niveauJoueur: 2,
                 prerequis: ["Prudence Combative"],
@@ -3292,6 +3541,7 @@ roublard: {
             },
             {
                 nom: "Loi de la Rue",
+                image: "",
                 description: "Ajoute +1 en Dextérité. Vous gagnez un avantage pour réussir vos jets de sauvegarde de dextérité.",
                 niveauJoueur: 3,
                 prerequis: ["Provocation de Chance"],
@@ -3302,6 +3552,7 @@ roublard: {
             },
             {
                 nom: "Manipulateur",
+                image: "",
                 description: "Le Roublard parle beaucoup et bien, il obtient toujours ce qu’il veut d’une manière ou d’une autre. Ajoute le bonus de Dextérité au Charisme pour un jet de Persuader/Tromper.",
                 niveauJoueur: 4,
                 prerequis: ["Loi de la Rue"],
@@ -3311,6 +3562,7 @@ roublard: {
             },
             {
                 nom: "Sadique",
+                image: "",
                 description: "Les adversaires doivent faire leurs jets de sauvegarde avec un désavantage quand le roublard leur applique une altération d’état.",
                 niveauJoueur: 5,
                 prerequis: ["Manipulateur"],
@@ -3320,6 +3572,7 @@ roublard: {
             },
             {
                 nom: "Loi des séries",
+                image: "",
                 description: "Ajoute +1 en Chance. Si vous faite 2 coup critiques consécutifs le prochain jet sera obligatoirement un coup critique.",
                 niveauJoueur: 6,
                 prerequis: ["Sadique"],
@@ -3330,6 +3583,7 @@ roublard: {
             },
             {
                 nom: "Menace Fantôme",
+                image: "",
                 description: "Ajoute + 1 en Dextérité. Le Roublard frappe toujours au pire moment pour l’ennemi. Ajoute + 2 dégâts aux attaques qui ciblent un ennemi qui a un allié au corps-à-corps.",
                 niveauJoueur: 7,
                 prerequis: ["Loi des séries"],
@@ -3340,6 +3594,7 @@ roublard: {
             },
             {
                 nom: "Charisme Malveillant",
+                image: "",
                 description: "Ajoute + 1 en Charisme. Si le Roublard trompe quelqu’un il gagne 1 Entourloupe supplémentaire.",
                 niveauJoueur: 8,
                 prerequis: ["Menace Fantôme"],
@@ -3350,6 +3605,7 @@ roublard: {
             },
             {
                 nom: "Exploitation des Faiblesses",
+                image: "",
                 description: "Lorsque vous frappez un ennemi qui est sous l’effet d’une altération d’état négatif, vous infligez +2 dégâts.",
                 niveauJoueur: 9,
                 prerequis: ["Charisme Malveillant"],
@@ -3359,6 +3615,7 @@ roublard: {
             },
             {
                 nom: "Roublardise lucrative",
+                image: "",
                 description: "Le Roublard peut utiliser des Entourloupes pour réduire de 1 le coût en PSY et augmenté son DSB de 1, par Entourloupe utilisée, lors du lancement d'un sort .",
                 niveauJoueur: 10,
                 prerequis: ["Exploitation des Faiblesses"],
@@ -3373,6 +3630,7 @@ roublard: {
         sortNovice: [
             {
                 nom: "Feinte",
+                image: "",
                 description: "Génère 1 Entourloupe. Le lanceur fait semblant d’attaquer, réduit le taux de blocage et l'armure de la cible à 0 pour l'attaque du roublard lancé dans le même tour que ce sort. Ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -3387,6 +3645,7 @@ roublard: {
             },
             {
                 nom: "Bombe Roublarde",
+                image: "",
                 description: "‘’Invocation’’. Invoque une bombe sur le terrain, elle ne peut pas bouger, mais peut être lancée jusqu’à 10 mètres par quelqu’un à son corps-à-corps sans que cela ne coûte d’action. Elle possède 5 PV. A chaque tour de jeu où elle est sur le terrain, la bombe gagne +3 dégâts lors de son déclenchement par le roublard. L’explosion de base fait 1 dé 6 dégâts, le Roublard peut la faire exploser n’importe quand même hors de son tour de jeu.",
                 Psy: 3,
                 Zone: "invocation",
@@ -3403,6 +3662,7 @@ roublard: {
             },
             {
                 nom: "Coup de Botte",
+                image: "",
                 description: "Le Roublard frappe du pied et recule de 5 mètres, fait aussi reculer l’adversaire de 5 mètres. Utilisable 1 fois par tour. Ne consomme pas d’action.",
                 Psy: 1,
                 Zone: 0,
@@ -3417,6 +3677,7 @@ roublard: {
             },
             {
                 nom: "Spray nauséabond",
+                image: "",
                 description: "Le lanceur asperge la cible avec un spray caché, elle subit 1 dé 4 dégâts perce armure et s’applique 2 \"Poison\".",
                 Psy: 4,
                 Zone: 0,
@@ -3431,6 +3692,7 @@ roublard: {
             },
             {
                 nom: "Coup Bas",
+                image: "",
                 description: "Consomme 1 Entourloupe. Le roublard peut utiliser ce sort juste avant de subir une attaque au corps à corps, il inflige alors le dé de dégâts de son arme avant que le coup adverse ne le touche. Si le coup touche les PV de la cible elle devra refaire son jet de touche avec un désavantage.",
                 Psy: 2,
                 consommeEntourloupe: 1,
@@ -3445,6 +3707,7 @@ roublard: {
             },
             {
                 nom: "Subjugation",
+                image: "",
                 description: "Le Roublard domine mentalement un adversaire jusqu’à 10 mètres et lui inflige \"Charme\". Si ce sort touche un ennemi ayant déjà une altération négative posée par le Roublard active, le charme est irrésistible.",
                 Psy: 4,
                 Zone: 0,
@@ -3458,6 +3721,7 @@ roublard: {
             },
             {
                 nom: "Feinte de Mort",
+                image: "",
                 description: "Génère 2 Entourloupes. Vous entrez dans l’état K.O. pour 1 tour, vous ne pouvez de ce fait pas être ciblé mais vous ne jouerez pas votre tour.",
                 Psy: 2,
                 Zone: 0,
@@ -3474,6 +3738,7 @@ roublard: {
             },
             {
                 nom: "Ecrase-godasse",
+                image: "",
                 description: "Génère 1 Entourloupe. Ecrabouille le pied de l’adversaire avec le talon puis frappe avec son arme. Inflige le dé de dégâts d’une de l’arme en main et applique “Entrave“.",
                 Psy: 1,
                 Zone: 0,
@@ -3488,6 +3753,7 @@ roublard: {
             },
             {
                 nom: "Malice",
+                image: "",
                 description: "Double votre taux de blocage pendant 1 tour. Si vous bloquez un coup, vous appliquez ‘’Entrave’’ à l’adversaire. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -3502,6 +3768,7 @@ roublard: {
             },
             {
                 nom: "Huile empoisonnée",
+                image: "",
                 description: "Consomme X Entourloupe. Enduit une lame d’un poison mortel et inflige 1 dé 4 dégâts + X \"Poison\" irrésistible. (X étant le nombre d’Entourloupe utilisée pour lancer ce sort)",
                 Psy: 3,
                 consommeEntourloupe: "X", // X est variable
@@ -3516,6 +3783,7 @@ roublard: {
             },
             {
                 nom: "Moquerie",
+                image: "",
                 description: "Génère 1 Entourloupe. Le Roublard se moque d’une cible jusqu’à 25 mètres, elle subit automatiquement le ciblage sur le roublard, si ce sort est réutilisé une seconde fois sur la même cible elle ne subit plus le ciblage mais \"Folie\" Irrésistible et gagne une deuxième action par tour pendant l’effet de la folie.",
                 Psy: 2,
                 Zone: 0,
@@ -3531,6 +3799,7 @@ roublard: {
             },
             {
                 nom: "Traquenard",
+                image: "",
                 description: "Consomme 2 Entourloupes. Le roublard se téléporte en ignorant les effets limitant le déplacement jusqu’à 15 mètres. A sa position d’origine il laisse un mécanisme étrange qui attire toutes les entités sur ses lignes de 10 mètres. Le mécanisme explose ensuite et inflige 2 dé 4 dégâts et Poison à toutes les cibles à moins de 10 mètres de lui.",
                 Psy: 4,
                 consommeEntourloupe: 2,
@@ -3549,6 +3818,7 @@ roublard: {
         sortConfirme: [
             {
                 nom: "Vol de Meurtre",
+                image: "",
                 description: "Consomme 1 Entourloupe. Si un allié frappe une cible qui est à votre corps-à-corps, vous pouvez ajouter votre bonus DSB aux dégâts de l’allié. Si vous achevez l’ennemi en utilisant ce sort, vous gagnez +1 aux dégâts pour le reste du combat. Peut-être lancé lors du tour d’un allié. Ne consomme pas d’action.",
                 Psy: 3,
                 consommeEntourloupe: 1,
@@ -3565,6 +3835,7 @@ roublard: {
             },
             {
                 nom: "Fourche Malvenue",
+                image: "",
                 description: "Génère 1 Entourloupe. Enfonce les doigts dans les yeux de l’adversaire en plus de lui porter un coup. Inflige le dé de dégâts de l’arme en main et applique “Cécité“.",
                 Psy: 2,
                 Zone: 0,
@@ -3579,6 +3850,7 @@ roublard: {
             },
             {
                 nom: "Run’n’Gun",
+                image: "",
                 description: "Vous tirez des projectiles magiques en vous déplaçant de 15 mètres. Infligez 1 dé 6 dégâts à tous les ennemis dans un rayon de 10 mètres autour de vous pendant le déplacement.",
                 Psy: 4,
                 Zone: "rayon_deplacement",
@@ -3593,6 +3865,7 @@ roublard: {
             },
             {
                 nom: "Centre d’attention",
+                image: "",
                 description: "Consomme 2 Entourloupes. Le roublard peut choisir un allié à moins de 10 mètres ou lui-même. Tous les ennemis sur le terrain subissent automatiquement un ciblage vers la cible pour 1 tour, si des ennemis sont sous l’effet d’une altération négatives posée par le roublard ils sont ciblés pour 2 tours. Ce sort ne consomme pas d'action.",
                 Psy: 3,
                 consommeEntourloupe: 2,
@@ -3609,6 +3882,7 @@ roublard: {
             },
             {
                 nom: "Tu Me Vois, Tu Me Vois Plus",
+                image: "",
                 description: "Génère 2 Entourloupes. Si aucun ennemi n’est à moins de 10 mètres de vous, vous devenez Invisible. Vous ne pouvez plus être ciblé et redevenez visible uniquement si vous attaquez. Si des ennemis sont dans le rayon de 10 mètres, vous infligez ‘’Cécité’’ et devenez Invisible si au moins un ennemi à subit l’effet. Ce sort ne consomme pas d'action.",
                 Psy: 3,
                 Zone: "autour_lanceur",
@@ -3625,6 +3899,7 @@ roublard: {
             },
             {
                 nom: "Fines Coupures",
+                image: "",
                 description: "Génère 1 Entourloupe. Inflige des petites coupures sanguinolentes en plus de porter un coup. Inflige le dé de dégâts de l’arme en main et applique “Hémorragie“.",
                 Psy: 2,
                 Zone: 0,
@@ -3639,6 +3914,7 @@ roublard: {
             },
             {
                 nom: "Surprise Mortelle",
+                image: "",
                 description: "Consomme 2 Entourloupes. Le Roublard utilise une lame cachée redoutable. Infligez 1 dé 12 dégâts et la première utilisation du combat à +50% de chances de CC. Chaque utilisation de ce sort baisse le bonus de 10%.",
                 Psy: 5,
                 consommeEntourloupe: 2,
@@ -3654,6 +3930,7 @@ roublard: {
             },
             {
                 nom: "Préméditation",
+                image: "",
                 description: "Ce sort doit être canalisé, pendant la canalisation le Roublard ne peut plus agir mais peut tout de même se déplacer. Génère 1 Entourloupe et augmente les chances de CC pour ce combat de 5% par tour de canalisation.",
                 Psy: 0,
                 Zone: 0,
@@ -3669,6 +3946,7 @@ roublard: {
             },
             {
                 nom: "Acharnement",
+                image: "",
                 description: "Consomme 1 Entourloupe. Le Roublard réinitialise la durée des altérations négatives n'infligeant pas de dégâts de la cible et double les dégâts des altérations en infligeant. L’effet de ce sort n’est pas cumulable avec d’autres effets augmentant les dégâts des altérations. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 consommeEntourloupe: 1,
@@ -3686,6 +3964,7 @@ roublard: {
         sortExpert: [
             {
                 nom: "Coup Très Mal Placé",
+                image: "",
                 description: "Génère 1 Entourloupe. Frappe les parties sensibles de l’adversaire et le frappe avec son arme. Inflige le dé de dégât de l’arme en main et applique ”Sonné”.",
                 Psy: 2,
                 Zone: 0,
@@ -3700,6 +3979,7 @@ roublard: {
             },
             {
                 nom: "Combustion spontanée",
+                image: "",
                 description: "Génère 1 Entourloupe. Embrase un ennemi avec un liquide spécial et le frappe avec son arme. Inflige le dé de dégâts de l’arme en main et applique ”Brulure”.",
                 Psy: 2,
                 Zone: 0,
@@ -3714,6 +3994,7 @@ roublard: {
             },
             {
                 nom: "Coup du Chapeau",
+                image: "",
                 description: "Génère 3 Entourloupes. Le lanceur détourne l’attention de la cible en lui envoyant un de ses vêtement, souvent son chapeau. Il perfore ensuite la cible en infligeant 2 dé 6 +2 dégâts perce armure et ignorant les résistances.",
                 Psy: 6,
                 Zone: 0,
@@ -3729,6 +4010,7 @@ roublard: {
             },
             {
                 nom: "Feinte Cosmique Phénoménale",
+                image: "",
                 description: "Génère 3 Entourloupes. Le Roublard utilise une puissante illusion pour faire croire à une attaque démentiellement puissante. Il Inflige Silence, puis Brulure puis Poison, puis Sommeil à la cible. A chaque altération appliquée grâce à cet effet elle subit 1 dé 8 dégâts fixes. Le lanceur finit par mettre 1 pichenette à l’adversaire qui inflige 1 dégâts fixe, si elle a subie TOUTES les altérations possibles elle perd 10 PV fixe perce armure.",
                 Psy: 7,
                 Zone: 0,
@@ -3748,6 +4030,7 @@ roublard: {
             },
             {
                 nom: "Danse des 1000 lames",
+                image: "",
                 description: "Consomme X Entourloupe. Piège l’ennemi dans un déluge d’attaques tranchantes, inflige X dé 6 dégâts, X étant le nombre d’Entourloupe utilisée pour lancer ce sort.",
                 Psy: "2 + X", // Coût variable
                 consommeEntourloupe: "X", // X est variable
@@ -3761,6 +4044,7 @@ roublard: {
             },
             {
                 nom: "Intelligence sournoise",
+                image: "",
                 description: "Le Roublard utilise toute son intelligence au service de sa mesquinerie, il gagne +30 % de chances de blocage pendant 2 tours. Pendant cet effet les altérations négatives appliquées par le Roublard ne sont pas affectée par les tours qui passent et reste en place.",
                 Psy: 6,
                 Zone: 0,
@@ -3775,6 +4059,7 @@ roublard: {
             },
             {
                 nom: "Apothéose Roublarde",
+                image: "",
                 description: "Consomme 5 Entourloupes. Le Roublard utilise tout ce qu’il sait faire pour infliger 1 dé 10 dégâts + les dégâts de son arme en main à une cible, tous ces dégâts seront perce armure. Il applique ensuite 2 altérations d’états choisies OU 4 « Poison » de manière irrésistible, enfin il se téléporte de 10 mètres s’il le souhaite.",
                 Psy: 7,
                 consommeEntourloupe: 5,
@@ -3792,6 +4077,7 @@ roublard: {
             },
             {
                 nom: "Etat critique",
+                image: "",
                 description: "Consomme 5 Entourloupes. Le Roublard inflige 2 dé 6 dégâts à une cible au corps à corps en doublant son taux de critique pour l’attaque. S’il fait un coup critique il ajoute 1 dé 6 dégâts par altérations actuellement sur la cible au lieu de multiplier les dégâts.",
                 Psy: 6,
                 consommeEntourloupe: 5,
@@ -3809,6 +4095,7 @@ roublard: {
         sortMaitre: [
             {
                 nom: "Prince des Magouilles",
+                image: "",
                 description: "Consomme 10 Entourloupes. Le lanceur devient l’élu(e) du Roi des Magouilles, l’autre nom du Dieu Mazul. Les deux prochaines attaques seront automatiquement des coups critiques, chaque attaque applique maintenant les altérations de manière irrésistible, si l’ennemi est immunisé à l’altération il prend 1 dé 6 dégâts fixe à la place. Le Roublard gagne également la possibilité d’annuler une attaque le visant directement par tour. La forme du Prince des Magouilles permet en outre de faire vos jets de charisme sur votre dextérité et inversement, hors combat elle octroie un avantage sur tous les jets pendant 1 scène. La forme dure 2 tours et peut être prolongé pour 5 Entourloupes par tour supplémentaire. Coût PSY: 5.",
                 Psy: 5, // Coût PSY fixé à 5
                 consommeEntourloupe: 10,
@@ -3832,6 +4119,7 @@ roublard: {
 },
 samourai: {
     nom: "Samouraï",
+    image: "systems/alyria/module/data/images/voies/Samourai.jpg",     
     description: [
         "Les samouraïs sont des guerriers honorables qui ont un code d’honneur très strict, ils n’attaquent jamais en traître, jamais dans le dos, toujours avec une arme tranchante conventionnelle (souvent un katana). Ils disent ne faire qu’un avec leur lame, vivent et meurt par les lames. Ce sont des combattants très redoutés surtout en duel où ils sont considérés comme invincibles.",
         "Ces combattants viennent le plus souvent des contrées orientales et sont affectés à la protection d’un seigneur, cependant ceux qui sont “déchus” peuvent parfois se retrouver dans des groupes d’aventuriers car c’est une manière de mettre leur compétence au service d’un travail un peu plus noble que mercenaire ou assassin.",
@@ -3886,6 +4174,7 @@ samourai: {
         talents: [
             {
                 nom: "Honorable",
+                image: "",
                 description: "Ajoute +1 en Charisme. Les jets de ciblage lancé sur un seul ennemi réussissent automatiquement.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -3896,6 +4185,7 @@ samourai: {
             },
             {
                 nom: "Fuite Honteuse",
+                image: "",
                 description: "Si un ennemi engagé au corps-à-corps avec vous veut frapper un allié, vous pouvez lui faire subir une attaque d’opportunité comme si il essayait de s’enfuir.",
                 niveauJoueur: 2,
                 prerequis: ["Honorable"],
@@ -3905,6 +4195,7 @@ samourai: {
             },
             {
                 nom: "Provocation en Duel",
+                image: "",
                 description: "Lors d’un jet de ciblage sur une seule cible vous ajoutez +2 dégâts et 10% de chances de CC à toute vos attaques tant que la cible est sous ciblage.",
                 niveauJoueur: 3,
                 prerequis: ["Fuite Honteuse"],
@@ -3915,6 +4206,7 @@ samourai: {
             },
             {
                 nom: "Vivre par l’Epée",
+                image: "",
                 description: "+5 % aux chances de toucher avec les armes de catégorie “Tranchant” +1 au dégât avec celle-ci.",
                 niveauJoueur: 4,
                 prerequis: ["Provocation en Duel"],
@@ -3925,6 +4217,7 @@ samourai: {
             },
             {
                 nom: "Expert de la Parade",
+                image: "",
                 description: "Ajoute +2 en Défense. Octroie un avantage sur un jet hors combat pour éviter de subir une attaque de la part d’une autre entité.",
                 niveauJoueur: 5,
                 prerequis: ["Vivre par l’Epée"],
@@ -3935,6 +4228,7 @@ samourai: {
             },
             {
                 nom: "Préparation au Combat",
+                image: "",
                 description: "Ajoute +1 en Défense et en Dextérité. Le Samouraï est insensible aux jets de ciblages.",
                 niveauJoueur: 6,
                 prerequis: ["Expert de la Parade"],
@@ -3946,6 +4240,7 @@ samourai: {
             },
             {
                 nom: "Les Temps de Guerre entraînent des Hommes Forts",
+                image: "",
                 description: "Lorsque vous tombez sous les 50% de PV restant, vous gagnez +2 dégâts et +10% de chances de CC.",
                 niveauJoueur: 7,
                 prerequis: ["Préparation au Combat"],
@@ -3957,6 +4252,7 @@ samourai: {
             },
             {
                 nom: "Les Temps de Paix entraînent des Hommes Faibles",
+                image: "",
                 description: "Si un ennemi n’a pas reçu d’attaque pendant 2 tours, vous vous téléportez immédiatement à ses côtés et lui infligez les dégâts d’une attaque à l’arme en main. Utilisable 1 fois par combat.",
                 niveauJoueur: 8,
                 prerequis: ["Les Temps de Guerre entraînent des Hommes Forts"],
@@ -3969,6 +4265,7 @@ samourai: {
             },
             {
                 nom: "Achèvement Rituel",
+                image: "",
                 description: "Lorsque vous tuez un ennemi, vous gagnez +2 dégâts pour le reste du combat.",
                 niveauJoueur: 9,
                 prerequis: ["Les Temps de Paix entraînent des Hommes Faibles"],
@@ -3979,6 +4276,7 @@ samourai: {
             },
             {
                 nom: "Volonté inébranlable",
+                image: "",
                 description: "Octroie une Immunité à toutes les altérations d’état liées au Charisme.",
                 niveauJoueur: 10,
                 prerequis: ["Achèvement Rituel"],
@@ -3993,6 +4291,7 @@ samourai: {
         sortNovice: [
             {
                 nom: "Entaille Précise",
+                image: "",
                 description: "Arme Tranchante Uniquement, entaille la cible sur ses points faibles, inflige le dé de dégâts de l’arme en main en augmentant de 10% les chances de CC et en infligeant \"Hémorragie\".",
                 Psy: 2,
                 Zone: 0,
@@ -4008,6 +4307,7 @@ samourai: {
             },
             {
                 nom: "Zone Dangereuse",
+                image: "",
                 description: "Le samouraï éveille son sixième sens et tranche tout ce qui rentre dans une zone de 10 mètres autour de lui pendant 2 tours. Tout ennemi qui entre dans cette zone pendant l’effet de ce sort subit le dé de dégâts de l’arme en main de la part du lanceur. Valable aussi si c’est le lanceur qui s’approche de la cible, ce sort ne consomme pas d'action, une seule fois par cible et par tour.",
                 Psy: 4,
                 Zone: "zone_autour_lanceur",
@@ -4022,6 +4322,7 @@ samourai: {
             },
             {
                 nom: "Frappe Supersonique",
+                image: "",
                 description: "Frappe si vite qu’il donne l’impression de ne pas avoir dégainé. Inflige 1 dé 6 + 1 dégât perce armure et se téléporte symétriquement par rapport à la cible.",
                 Psy: 3,
                 Zone: 0,
@@ -4036,6 +4337,7 @@ samourai: {
             },
             {
                 nom: "Soin des lames",
+                image: "",
                 description: "Augmente les dégâts de 2 et les chances de CC de 15% avec les sorts de la voie du samouraï et les attaques avec une arme Tranchante. Ce sort consomme tout le déplacement maximal en plus de l’action, il dure jusqu’à sa révocation.",
                 Psy: 4,
                 Zone: 0,
@@ -4050,6 +4352,7 @@ samourai: {
             },
             {
                 nom: "Plat de Lame",
+                image: "",
                 description: "Vous frappez avec le plat sur une partie sensible pour faire perdre connaissance à la cible, inflige 1 dé 6 +2 dégâts et applique ‘’Sonné’’.",
                 Psy: 3,
                 Zone: 0,
@@ -4063,6 +4366,7 @@ samourai: {
             },
             {
                 nom: "Riposte",
+                image: "",
                 description: "Ce sort peut se lancer au moment ou vous êtes la cible d'une attaque. L’utilisateur se positionne en défense. Lors de la prochaine attaque subie, il voit son taux de blocage augmenté de 30%. Le Samouraï inflige la quantité de dégâts bloqués à l’assaillant. Ce sort ne consomme pas d'action.",
                 Psy: 4,
                 Zone: 0,
@@ -4077,6 +4381,7 @@ samourai: {
             },
             {
                 nom: "Tanto salvateur",
+                image: "",
                 description: "Peut s’utiliser immédiatement après avoir raté une attaque au corps à corps, inflige 1 dé 4 dégâts à la cible avec une seconde lame courte, ces dégâts ne peuvent pas être bloqué. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -4091,6 +4396,7 @@ samourai: {
             },
             {
                 nom: "Calme intérieur",
+                image: "",
                 description: "Le Samouraï devient imperturbable, vous ne pouvez plus subir de désavantage, vous gagnez +20% de bonus pour réussir vos jets de sauvegardes et 10% de chances de toucher. Cet effet dure 2 tours et ce sort ne consomme pas d’action. Hors combat ce sort donne un avantage sur les jets de statistiques mineures liées à la Défense pendant 1 scène.",
                 Psy: 2,
                 Zone: 0,
@@ -4109,6 +4415,7 @@ samourai: {
             },
             {
                 nom: "Salut digne",
+                image: "",
                 description: "Le Samouraï salue un ennemi jusqu’à 15 mètres, celui-ci doit faire un jet de sauvegarde de Charisme. S’il réussit il avance de 5 mètres vers le Samouraï et a un désavantage sur tous ses jets pour le prochain tour. S’il échoue il avance jusqu’au corps à corps du Samouraï et subit le ciblage sur lui. Une fois par cible.",
                 Psy: 2,
                 Zone: 0,
@@ -4123,6 +4430,7 @@ samourai: {
             },
             {
                 nom: "Achèvement rituel",
+                image: "",
                 description: "Le Lanceur achève la cible avec un rituel très codifié, ce sort inflige 6 dégâts fixe. S’il tue la cible le Samouraï gagne +1 aux dégâts pour tout le reste du combat, il inflige aussi \"Terreur\" à tous les ennemis.",
                 Psy: 3,
                 Zone: 0,
@@ -4137,6 +4445,7 @@ samourai: {
             },
             {
                 nom: "Lâcheté réprimandée",
+                image: "",
                 description: "''Tout le Terrain'' Le lanceur inflige 1 dé 8 dégâts à tous les ennemis possédant l’altération \"Terreur\" et leur retire, Ils auront un désavantage sur tous leurs jets lors de leur prochain tour.",
                 Psy: 3,
                 Zone: "tout_le_terrain",
@@ -4151,6 +4460,7 @@ samourai: {
             },
             {
                 nom: "Katana ancestral du Dragon juvénile",
+                image: "",
                 description: "L’arme du Samouraï s’imprègne de l’énergie du plus jeune des Dragons du Cycle, impétueux et vif. Octroie 1 cran en vitesse et une action supplémentaire au lanceur pendant 2 tours. Les sorts \"Katana Ancestral\" se remplace et ne se cumul jamais, ce sort ne consomme pas d’action.",
                 Psy: 4,
                 Zone: 0,
@@ -4168,6 +4478,7 @@ samourai: {
         sortConfirme: [
             {
                 nom: "Vision de Mort",
+                image: "",
                 description: "Le samouraï projette son aura lors d’une attaque en marchant vers l’ennemi. Ce dernier voit sa mort arrivée et panique, applique ‘’Terreur’’ et inflige 1 dé 8 +2 dégâts. Si l’ennemi meurt de cette attaque applique ‘’Terreur’’ à tous ses alliés.",
                 Psy: 5,
                 Zone: 0,
@@ -4182,6 +4493,7 @@ samourai: {
             },
             {
                 nom: "Position Ferme",
+                image: "",
                 description: "Pendant 2 tours, votre blocage est augmenté de +20%, vous gagnez aussi +4 PB et +2 d'armure et ne pouvez plus être déplacé, vous subissez \"Entrave\" irrésistible même si vous y êtes immunisé. Ce sort ne consomme pas d'action.",
                 Psy: 4,
                 Zone: 0,
@@ -4199,6 +4511,7 @@ samourai: {
             },
             {
                 nom: "Position Leste",
+                image: "",
                 description: "Pendant 2 tours, votre vitesse augmente d'un cran, vous êtes immunisé aux attaques d'opportunités et ne subissez pas les effets \"Entrave\" et \"Engelure\". Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -4214,6 +4527,7 @@ samourai: {
             },
             {
                 nom: "Katana Ancestral du Dragon adulte",
+                image: "",
                 description: "L’arme du Samouraï s’imprègne de l’énergie du Dragon central du Cycle, colérique et destructeur. L’arme est modifiée par le DSB et tous les sorts et attaques du lanceur voient leur CC augmentés de 20% pendant 2 tours. Les sorts \"Katana Ancestral\" se remplace et ne se cumul jamais, ce sort ne consomme pas d’action.",
                 Psy: 4,
                 Zone: 0,
@@ -4229,6 +4543,7 @@ samourai: {
             },
             {
                 nom: "Arène de Duel",
+                image: "",
                 description: "Ce sort ne peut être utilisé que si le Samouraï possède un ennemi à son corps à corps. Empêche toutes les attaques et les sortilèges à distance sur la cible du sort ou sur le Samouraï, qu’ils viennent d’alliés ou d’ennemis. Seul les ennemis ou les alliés au corps à corps de la cible peuvent utiliser une capacité sur elle, si une capacité est utilisée avec succès de cette manière le sort est révoqué. Ce sort ne consomme pas d’action et l’effet dure jusqu’à sa révocation.",
                 Psy: 5,
                 Zone: 0,
@@ -4244,6 +4559,7 @@ samourai: {
             },
             {
                 nom: "Périr par l’Epée",
+                image: "",
                 description: "Un enchaînement de coup à l’épée parfaitement maîtrisé. Inflige 2 dés 6 dégâts perce armure et ignore les résistances et les boucliers de la cible.",
                 Psy: 5,
                 Zone: 0,
@@ -4259,6 +4575,7 @@ samourai: {
             },
             {
                 nom: "Déshonoré",
+                image: "",
                 description: "Ce sort ne peut être utilisé que si aucun bonus de la mécanique ne s’applique au Samouraï. Il devient Déshonoré, cet état est considéré comme une altération infinie et impossible à retirer. Les altérations d’états sur le lanceur soignent au lieu de blesser, celle ne faisant aucun dégâts n’ont aucun effet et augmentent même le DSB de 2. Tous les bonus deviennent des Malus et Inversement. Aucun bonus de la mécanique ne peut s’appliquer pendant cet effet, il perdure tant que tous les effets de la mécanique ne se réenclenche pas en simultané ou jusqu’à sa révocation. Révoquer ce sort coûte 4 PV et il ne consomme pas d’action.",
                 Psy: 6, // Coût PSY initial, mais le texte dit 6 PV pour révoquer
                 Zone: 0,
@@ -4277,6 +4594,7 @@ samourai: {
             },
             {
                 nom: "Salve de lames",
+                image: "",
                 description: "Le lanceur découpe devant lui si rapidement qu’il créer des lames de vents, ce sort tire 6 projectiles infligeant chacun 1 dé 4 dégâts, chaque projectiles qui frappent la même cible inflige la moitié des dégâts du précédent jusqu’à un minimum de 1 dégât. Les lames de vent peuvent cibler chacune une cible différente.",
                 Psy: 5,
                 Zone: "cone",
@@ -4292,6 +4610,7 @@ samourai: {
             },
             {
                 nom: "Enchaînement maîtrisé",
+                image: "",
                 description: "Arme Tranchante Uniquement. Enchaîne une série de coup avec l’arme en main, inflige deux fois le dé de dégâts de l’arme et applique \"Entrave\" et \"Hémorragie\" à la cible.",
                 Psy: 5,
                 Zone: 0,
@@ -4309,6 +4628,7 @@ samourai: {
         sortExpert: [
             {
                 nom: "Tranche-Lune",
+                image: "",
                 description: "Une technique imprévisible et difficile à réaliser qui tranche un ennemi en lui faisant subir 2 dés 6 + 6 dégâts. Le premier lancé du combat ce sort a +25% de chance de CC.",
                 Psy: 7,
                 Zone: 0,
@@ -4322,6 +4642,7 @@ samourai: {
             },
             {
                 nom: "Primauté de l’Honneur",
+                image: "",
                 description: "Double l’effet de toutes les facettes de la mécanique de Voie du Samouraï. Ce sort ne consomme pas d’action, l’effet dure 2 tour et 2 PSY par tour supplémentaire.",
                 Psy: 6, // Coût de base, +2 PSY par tour de maintien
                 Zone: 0,
@@ -4336,6 +4657,7 @@ samourai: {
             },
             {
                 nom: "Aucun Honneur",
+                image: "",
                 description: "Ce sort applique l’effet du Sort \"Déshonoré\" sur un ennemi jusqu’à 10 mètres. Cependant les altérations d’états restent inchangées et son effet dure 2 tour. De plus il s’applique tous les bonus de la mécanique du Samouraï avant l’inversion provoquée par ce sort.",
                 Psy: 7,
                 Zone: 0,
@@ -4351,6 +4673,7 @@ samourai: {
             },
             {
                 nom: "Shôgun suprême",
+                image: "",
                 description: "''Invocation'' Le Samouraï en appelle à l’esprit d’un Shogun légendaire, l’invocation peut utiliser tous les sorts de la Voie du Samouraï, possède 15 PV et 6 PB. Elle réussit automatiquement ses attaques et possède une infinité de PSY, elle disparait cependant après 5 actions. Le Shôgun double l’effet des bonus sur tous les alliés pendant 1 tour lorsqu’il disparait.",
                 Psy: 7,
                 Zone: "invocation",
@@ -4371,6 +4694,7 @@ samourai: {
             },
             {
                 nom: "Tranche-Soleil",
+                image: "",
                 description: "Une technique simple et facile à lire en apparence qui tranche l’ennemi en lui faisant subir 1 dégât. Pendant 2 tours, à chaque action, l’ennemi subira 1 dé 8 dégâts fixes et 1 dé 4 dégâts fixes par déplacement volontaire.",
                 Psy: 7,
                 Zone: 0,
@@ -4386,6 +4710,7 @@ samourai: {
             },
             {
                 nom: "Katana Ancestral du Dragon Ancien",
+                image: "",
                 description: "L’arme du Samouraï s’imprègne de l’énergie du plus vieux des Dragons du Cycle, Sage et Patient. Octroie +20% de chances de réussir les jets de sauvegarde et de blocage, +2 d’armure et 4 PB pendant 2 tours. Les sorts \"Katana Ancestral\" se remplace et ne se cumul jamais, ce sort ne consomme pas d’action.",
                 Psy: 4,
                 Zone: 0,
@@ -4403,6 +4728,7 @@ samourai: {
             },
             {
                 nom: "Tranche-Dimension",
+                image: "",
                 description: "Le Samouraï porte un coup si violent qu’il semble découper le plan d’existence lui-même. L’ennemi subit 1 dé 12 dégâts puis disparait dans un trou de réalité pendant 1 tour. Pendant ce tour il est Invulnérable, ne peut pas être la cible d’un sort et ne peut pas agir ou se déplacer. Au début du prochain tour du lanceur, l’ennemi réapparait et subit à nouveau 1 dé 12 dégâts en plus d’une altération d’états choisies par le lanceur.",
                 Psy: 8,
                 Zone: 0,
@@ -4421,6 +4747,7 @@ samourai: {
             },
             {
                 nom: "Volonté inflexible",
+                image: "",
                 description: "Ce sort peut être lancé n’importe quand et ne consomme pas d’action, il reste dormant jusqu’à ce que ses conditions soient remplies. Si le Samouraï devait tomber K.O ou mourir d’une attaque il revient à 5 PV. Si cette attaque à était porté par un ennemi avec lequel le Samouraï est en Duel Honorable, il revient à 10 PV et gagne 10 PB fixe. Ce sort coûte le double en PSY s’il est relancé une seconde fois pendant le combat.",
                 Psy: 6, // Coût de base
                 Zone: 0,
@@ -4437,6 +4764,7 @@ samourai: {
         sortMaitre: [
             {
                 nom: "Lame Honorifique des Trois Dragons",
+                image: "",
                 description: "Le lanceur frappe une cible au corps à corps avec une lame légendaire à la puissance divine. Ce sort inflige 2 dé 8 dégâts et le double si la cible est engagé dans un Duel Honorable avec le Samouraï. Ensuite le Samouraï rejoue immédiatement un nouveau tour, en profitant de l’effet des trois \"Katanas Ancestraux\" pendant celui-ci et jusqu’au début de son prochain.",
                 Psy: 16,
                 Zone: 0,
@@ -4456,6 +4784,7 @@ samourai: {
 },
 cuisinier: {
     nom: "Cuisinier",
+    image: "",    
     description: [
         "Cette voie est pour ceux qui aiment le sang, l’odeur du feu et les petits pois-carottes fumant dans une énorme marmite. Non ! Ce n’est pas une voie pour les guerriers végétariens, mais bien celle du cuisiner ! Les cuisiniers sont des compagnons très appréciés dans les groupes d’aventuriers, or, il est difficile d’improviser et d’adapter des recettes avec ce qu’on trouve en terre sauvage. Ainsi, la présence d’une personne maîtrisant cette voie permet de redonner courage et force même dans les situations les plus atroces.",
         "Cette voie vous donne accès à une régénération d’équipe en PV et en PSY, plus de place d’inventaire et divers bonus en social ou en ciblage. À haut niveau de maîtrise, elle permet de curer les altérations qui blessent vos compagnons, cela pour un coût minimal en PSY."
@@ -4504,6 +4833,7 @@ cuisinier: {
         talents: [
             {
                 nom: "Habitué du Coup de Rush",
+                image: "",
                 description: "Ajoute +1 en Force et +10 en Calme.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -4514,6 +4844,7 @@ cuisinier: {
             },
             {
                 nom: "Escalope Revigorante",
+                image: "",
                 description: "À la fin du combat vous et tous vos alliés regagnent automatiquement 2 PV et 2 PSY. (+1 PV / PSY par niveau du cuisinier).",
                 niveauJoueur: 2,
                 prerequis: ["Habitué du Coup de Rush"],
@@ -4525,6 +4856,7 @@ cuisinier: {
             },
             {
                 nom: "Bedaine Rembourrée",
+                image: "",
                 description: "Ajoute +1 en Constitution et +10 en Robustesse.",
                 niveauJoueur: 3,
                 prerequis: ["Escalope Revigorante"],
@@ -4535,6 +4867,7 @@ cuisinier: {
             },
             {
                 nom: "Sacoche de Cuisine",
+                image: "",
                 description: "Ajoute +5 places d’inventaire. Ajoute +1 aux soins prodigués.",
                 niveauJoueur: 4,
                 prerequis: ["Bedaine Rembourrée"],
@@ -4545,6 +4878,7 @@ cuisinier: {
             },
             {
                 nom: "Parfum d’Exotisme",
+                image: "",
                 description: "Le sort Parfum de Cuisson affecte maintenant tous les ennemis sur le terrain. Le ciblage ne dure cependant qu’1 tour. Si vous ne possédez pas ce sort vous ignorez cet effet et vous gagnez la possibilité d’utiliser ce sort à la place.",
                 niveauJoueur: 5,
                 prerequis: ["Sacoche de Cuisine"],
@@ -4556,6 +4890,7 @@ cuisinier: {
             },
             {
                 nom: "Sucrerie",
+                image: "",
                 description: "Ajoute +1 en Charisme. Bonus de 15 en Marchandage et Persuader/tromper avec tous les personnages d’alignement Neutre ou Bon.",
                 niveauJoueur: 6,
                 prerequis: ["Parfum d’Exotisme"],
@@ -4566,6 +4901,7 @@ cuisinier: {
             },
             {
                 nom: "Estomac d'Acier",
+                image: "",
                 description: "Immunité à “Poison“. “Restauration rapide” soigne maintenant “Poison“, “Brûlure“ et “Engelure“ sur la cible. Si vous ne possédez pas le sortilège, vous ignorez le dernier effet et vous obtenez le sortilège à la place.",
                 niveauJoueur: 7,
                 prerequis: ["Sucrerie"],
@@ -4577,6 +4913,7 @@ cuisinier: {
             },
             {
                 nom: "Haut Gastronome",
+                image: "",
                 description: "Ajoute +1 en Sagesse OU en Force et octroie un avantage lors de tous les jets concernant la cuisine. Immunité à ‘’Sommeil’’.",
                 niveauJoueur: 8,
                 prerequis: ["Estomac d'Acier"],
@@ -4588,6 +4925,7 @@ cuisinier: {
             },
             {
                 nom: "Au Fourneau",
+                image: "",
                 description: "Ajoute +1 en Constitution et octroie une résistance au Feu et une immunité à ‘‘Brûlure’’.",
                 niveauJoueur: 9,
                 prerequis: ["Haut Gastronome"],
@@ -4599,6 +4937,7 @@ cuisinier: {
             },
             {
                 nom: "Spécialiste en Gastronomie Locale",
+                image: "",
                 description: "Tous les sorts commençant par ‘’Spécialité’’ voient leurs soins et dégâts augmentés de 1 dé 4. Si vous n’en possédez aucun, vous ignorez cet effet et en choisissez deux pour les ajouter à vos sortilèges.",
                 niveauJoueur: 10,
                 prerequis: ["Au Fourneau"],
@@ -4614,6 +4953,7 @@ cuisinier: {
         sortNovice: [
             {
                 nom: "Spécialité Nomade",
+                image: "",
                 description: "\"Service\" Force un adversaire ou un allié au corps-à-corps à avaler un plat très relevé. Sur un ennemi, Inflige 1 dé 4 dégâts et ‘‘Brûlure’’. Sur un allié, soigne ‘’Engelure’’ et restaure 1 dé 4 PV à un allié.",
                 Psy: 2,
                 Zone: 0,
@@ -4634,6 +4974,7 @@ cuisinier: {
             },
             {
                 nom: "Spécialité Naine",
+                image: "",
                 description: "\"Service\" La meilleure et la plus forte des bières naines est servie. Sur un ennemi, Inflige ‘’Sommeil’’ et 1 dé 4 dégâts. Sur un allié, soigne ‘‘Brûlure’’ et restaure 1 dé 4 PV à un allié.",
                 Psy: 2,
                 Zone: 0,
@@ -4654,6 +4995,7 @@ cuisinier: {
             },
             {
                 nom: "Avec les moyens du bord",
+                image: "",
                 description: "Hors combat vous pouvez cuisiner même avec très peu de chose et redonner aux alliés 1 dé 6 PV et PSY même dans des zones où cuisiner semble presque impossible, cet effet n’est possible qu’une seule fois par jour. En combat, ce sort octroie deux charges Préparation et ne consomme pas d’action mais ne peut être utilisé qu’une fois par tour.",
                 Psy: 2,
                 Zone: 0,
@@ -4673,6 +5015,7 @@ cuisinier: {
             },
             {
                 nom: "Buffet à Volonté",
+                image: "",
                 description: "\"Invocation\" \"Service\" Même si ce n’est pas de la grande cuisine, au moins on peut se remplir la panse ! Créer une table qui se rempli en permanence de nourriture bon marché, cette invocation soigne l’allié le plus proche et à moins de 20 mètres de 1 dé 6 PV à chaque tour. L’invocation possède 8 PV, est immobile et est insensible à toutes les altérations d’état sauf Poison, si elle subit Poison elle inflige 1 dé 6 dégâts à l’ennemi le plus proche à la place de son effet de soin.",
                 Psy: 4,
                 Zone: "invocation",
@@ -4690,6 +5033,7 @@ cuisinier: {
             },
             {
                 nom: "Couteau de Cuisine",
+                image: "",
                 description: "\"Préparation\" Plante un ennemi avec votre couteau à viande à l’hygiène approximative. Inflige 1 dé 6 dégâts et ‘’Poison’’.",
                 Psy: 2,
                 Zone: 0,
@@ -4704,6 +5048,7 @@ cuisinier: {
             },
             {
                 nom: "Préparation des Ustensiles",
+                image: "",
                 description: "\"Préparation\" Augmente les chances de toucher de 10% pendant 2 tours pour vous ou un allié au corps-à-corps. Ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -4719,6 +5064,7 @@ cuisinier: {
             },
             {
                 nom: "Spécialité Orc",
+                image: "",
                 description: "\"Service\" Un très gros bout de viande qui ferait peur au plus grassouillet des hommes. Sur un ennemi, inflige 1 dé 4 dégâts et ‘’Terreur’’. Sur un allié, soigne ‘’Poison’’ et 1 dé 4 PV.",
                 Psy: 3,
                 Zone: 0,
@@ -4739,6 +5085,7 @@ cuisinier: {
             },
             {
                 nom: "Concassage",
+                image: "",
                 description: "\"Préparation\" Le lanceur tabasse avec violence une cible au corps à corps pour l’écrabouiller. Inflige 1 dé 6 + 3 dégâts, la deuxième fois du combat que vous lancez ce sort il inflige aussi \"Entrave\", la troisième fois du combat il inflige \"Sonné\".",
                 Psy: 3,
                 Zone: 0,
@@ -4754,6 +5101,7 @@ cuisinier: {
             },
             {
                 nom: "Papillote",
+                image: "",
                 description: "\"Préparation\" Emballe un ennemi et le fait chauffer, inflige 1 dé 6 +1 dégâts Feu, \"Brulure\" et \"Entrave\". Si la cible possède moins de 50% de ses PV au lancement de ce sort l’Entrave qu’elle subit est irrésistible et elle subit 1 dé 4 dégâts Feu supplémentaire.",
                 Psy: 4,
                 Zone: 0,
@@ -4774,6 +5122,7 @@ cuisinier: {
             },
             {
                 nom: "Court-Bouillon",
+                image: "",
                 description: "\"Préparation\" Ce sort ne peut être lancé qu’après un sort \"Service\" réussit. Le cuisinier récupère le jus du plat précédent ce qui permet de générer 1 charge de préparation supplémentaire en plus de celle donnée par ce sort.",
                 Psy: 2,
                 Zone: 0,
@@ -4788,6 +5137,7 @@ cuisinier: {
             },
             {
                 nom: "Garniture",
+                image: "",
                 description: "Ce sort est au choix un \"Service\" ou une \"Préparation\". S’il est lancé comme une préparation il octroie un avantage lors du lancement du prochain sortilège Service et diminue son coût de 2 PSY, s’il est lancé comme un Service il inflige 1 dé 6 dégâts d’un élément au choix à un ennemi jusqu’à 15 mètres ou soigne 1 dé 6 PV à un allié où qu’il soit sur le terrain.",
                 Psy: 3,
                 Zone: 0,
@@ -4808,6 +5158,7 @@ cuisinier: {
             },
             {
                 nom: "Lardage ininterrompu",
+                image: "",
                 description: "\"Préparation\" Ce sort doit être canalisé il coûte 1 PSY par tour à maintenir, le lanceur ne peut rien faire d’autre tant qu’il lance ce sortilège. Le lanceur crible de coup de couteau une cible au corps à corps. Ce sort génère une charge préparation à chaque tour où il est maintenu, il inflige 1 dé 6 dégâts multiplié par le nombre de tours où il a était canalisé. S’il est maintenu pendant 3 tours il divise par deux le coût du prochain sort Service. La canalisation s’interrompt si le lanceur du sort le décide, fait autre chose ou si la cible n’est plus au corps à corps ou meurt.",
                 Psy: 3,
                 Zone: 0,
@@ -4829,6 +5180,7 @@ cuisinier: {
         sortConfirme: [
             {
                 nom: "Restauration Rapide",
+                image: "",
                 description: "Ce sort peut-être une \"Préparation\" ou un \"Service\". Envoi un plat mijoté avec amour à un équipier jusqu'à 25 mètres, le soigne de 1 dé 6 PV. Utilisable 1 fois par allié et par tour. Ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -4843,6 +5195,7 @@ cuisinier: {
             },
             {
                 nom: "Huile de Friture",
+                image: "",
                 description: "\"Préparation\" Lance de l’huile bouillante en grande quantité devant le cuisinier. Inflige 1 dé 6 dégâts Feu et ‘‘Brûlure’’. Au tour suivant, les ennemis subissent ‘’Entrave’’, s’ils sont encore dans la zone.",
                 Psy: 4,
                 Zone: "devant_lanceur",
@@ -4859,6 +5212,7 @@ cuisinier: {
             },
             {
                 nom: "Spécialité Gobeline",
+                image: "",
                 description: "\"Service\" Moa pa savoir cé koi… Sur un ennemi, inflige 1 dé 6 +1 dégâts et ‘’Sonné’’. Sur un allié, soigne 1 dé 6 +1 PV et guérit ‘’Sommeil’’.",
                 Psy: 3,
                 Zone: 0,
@@ -4879,6 +5233,7 @@ cuisinier: {
             },
             {
                 nom: "Spécialité Elfique",
+                image: "",
                 description: "\"Service\" Un plat guindé et néfaste est servi. Sur un ennemi, inflige 1 dé 8 +1 dégâts et applique ’’Poison’’. Sur un allié, soigne 1 dé 8 +1 PV et guérit ‘’Cécité’’.",
                 Psy: 5,
                 Zone: 0,
@@ -4899,6 +5254,7 @@ cuisinier: {
             },
             {
                 nom: "Fricassé d’oignon",
+                image: "",
                 description: "\"Préparation\" Dans un rayon de 10 mètres autour du lanceur toutes les entités subissent \"Cécité\", les ennemis subissent en plus 1 dé 6 + 2 dégâts.",
                 Psy: 4,
                 Zone: "zone_autour_lanceur",
@@ -4913,6 +5269,7 @@ cuisinier: {
             },
             {
                 nom: "Spécialité Sylvaine",
+                image: "",
                 description: "\"Service\" Farandole de verdure spéciale sur son lit de salade. Sur un ennemi inflige 1 dé 8 dégâts et \"Sommeil\". Sur un allié soigne 1 dé 8 PV et guérit \"Sonné\".",
                 Psy: 4,
                 Zone: 0,
@@ -4933,6 +5290,7 @@ cuisinier: {
             },
             {
                 nom: "Parfum de Cuisson",
+                image: "",
                 description: "\"Préparation\" Une douce odeur de grillade sort de la sacoche du Cuisinier. Cette odeur déclenche le ciblage sur vous ou un allié où qu'il soit pour toutes les créatures de type Bête et Homme-Bête et les races humanoïdes.",
                 Psy: 2,
                 Zone: 0,
@@ -4946,6 +5304,7 @@ cuisinier: {
             },
             {
                 nom: "Bouquet garni",
+                image: "",
                 description: "\"Préparation\" Le prochain sortilège de \"Service\" pourra infliger ou retirer une altération d'état choisie au moment du lancement de ce sort. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -4959,6 +5318,7 @@ cuisinier: {
             },
             {
                 nom: "Croquembouche",
+                image: "",
                 description: "\"Service\" Dans un rayon de 25 mètres autour du lanceur celui-ci pose 3 bouchées spéciales qui infligeront 2 dé 4 dégâts à un ennemi ou soignerons 2 dé 4 PV à un allié. Si un adversaire peut se déplacer jusqu’à une bouchée sans que cela ne lui consomme d’action il le fera obligatoirement, deux bouchées ne peuvent pas être mise sur des cases adjacentes. Ce sortilège n’est pas modifié par le DSB.",
                 Psy: 5,
                 Zone: "zone_autour_lanceur",
@@ -4978,6 +5338,7 @@ cuisinier: {
         sortExpert: [
             {
                 nom: "All-Inclusive",
+                image: "",
                 description: "\"Service\" Attire un allié vers vous en ligne droite jusqu’à 15 mètres. Guérit celui-ci d’une altération d’état au choix, le soigne de 1 dé 8 PV et lui applique un bonus de 10% aux chances de toucher pour 1 tour. Ensuite, le repousse dans n’importe quelle direction jusqu’à 15 mètres de distance.",
                 Psy: 5,
                 Zone: 0,
@@ -4995,6 +5356,7 @@ cuisinier: {
             },
             {
                 nom: "Spécialité Fushir",
+                image: "",
                 description: "\"Service\" Avec un peu de poil dedans bien sûr… Sur un ennemi, inflige 1 dé 10 +2 dégâts et ‘’Cécité’’. Sur un allié, soigne 1 dé 10 +2 PV et guérit ‘’Terreur’’.",
                 Psy: 6,
                 Zone: 0,
@@ -5015,6 +5377,7 @@ cuisinier: {
             },
             {
                 nom: "Salaison à la Coudée",
+                image: "",
                 description: "\"Préparation\" Sur un ennemi, inflige 2 dés 6 dégâts et '’Cécité’’. Le prochain sort \"Service\" lancé augmentera le DSB d’un allié de 2 pour 2 tours.",
                 Psy: 6,
                 Zone: 0,
@@ -5031,6 +5394,7 @@ cuisinier: {
             },
             {
                 nom: "Technique du Haut Couteau",
+                image: "",
                 description: "\"Préparation\" Tranche un ennemi en un battement de cils pour le hacher finement façon brandade de morue. Inflige 2 dés 8 dégâts. Si l’ennemi meurt, la prochaine utilisation d’un \"Service\" aura des soins augmentés de 50%.",
                 Psy: 7,
                 Zone: 0,
@@ -5047,6 +5411,7 @@ cuisinier: {
             },
             {
                 nom: "Fumet puissant",
+                image: "",
                 description: "\"Préparation\" Le prochain sortilège service lancé infligera \"Charme\" irrésistible et, à la fin du charme, fera subir le ciblage sur un allié choisit par le lanceur. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 Zone: 0,
@@ -5061,6 +5426,7 @@ cuisinier: {
             },
             {
                 nom: "Spécialité Divine",
+                image: "",
                 description: "\"Service\" Une goutte d’ambroisie ça rehausse tous les plats ! Sur un ennemi inflige 1 dé 8 dégâts et \"Charme\". Sur un allié soigne 1 dé 8 PV et la prochaine attaque qu’il subit lui laissera obligatoirement 1 PV même s’il devait mourir.",
                 Psy: 5,
                 Zone: 0,
@@ -5081,6 +5447,7 @@ cuisinier: {
             },
             {
                 nom: "Commis obéissants",
+                image: "",
                 description: "\"Invocation\" \"Préparation\" Invoque trois créatures humanoïdes de taille moyenne, chacune d’entre elle possède 10 PV et inflige 1 dé 4 dégâts au corps à corps avec un couteau. A chaque fois qu’une invocation inflige des dégâts cela génère une charge Préparation pour le lanceur.",
                 Psy: 7,
                 Zone: "invocation",
@@ -5097,6 +5464,7 @@ cuisinier: {
             },
             {
                 nom: "Dégustation gastronomique",
+                image: "",
                 description: "\"Tout le terrain\" \"Service\" Le summum de la gastronomie Alyrienne est servie ! Ce sortilège soigne 1 dé 12 PV à tous les alliés sur le terrain et leur retire deux d’altérations négatives choisies. Sur les ennemis il inflige 1 dé 12 dégâts et leur applique deux altérations d’états choisies par le lanceur.",
                 Psy: 8,
                 Zone: "tout_le_terrain",
@@ -5115,6 +5483,7 @@ cuisinier: {
         sortMaitre: [
             {
                 nom: "Royaume des Saveurs",
+                image: "",
                 description: "''Tout le Terrain'' Transforme la zone pour que toute les choses inertes se transforme en nourriture de toutes sortes, tant que le Royaume des saveurs est actifs les ennemis se changent progressivement en nourriture, ils perdent 1 dé 6 PV fixe à la fin de leur tour et, s’ils meurent, ils sont changés en golem de nourriture. Les golems de nourriture deviennent des invocations du lanceur de ce sort et possèdent 15 PV, 6 PB, la vitesse lente et infligent 1 dé 6 +2 de dégâts jusqu’à 20 mètres. Les alliés peuvent récupérer 1 dé 6 PV fixe à la fin de leur tour de jeu tant qu’ils sont dans le royaume des saveurs. Ce sort ne consomme pas d’action, il dure 2 tour et coûte 2 PSY par tour supplémentaire pour le maintenir.",
                 Psy: 10,
                 Zone: "tout_le_terrain",
@@ -5143,6 +5512,7 @@ cuisinier: {
 },
 alchimiste: {
     nom: "Alchimiste",
+    image: "",    
     description: [
         "Les alchimistes vivent pour créer des mixtures étranges, faire des expériences, et tenter de guérir les maladies les plus horribles ... Ou les créer. Ils sont finalement assez proches des érudits, mais ils ne passent pas leur temps dans les livres, ils préfèrent largement expérimenter eux-mêmes.",
         "Ces personnes ont souvent tendance à arpenter les régions les plus éloignées et les plus dangereuses pour récupérer de précieuses ressources permettant de fabriquer leurs mixtures. De ce fait, ils accompagnent régulièrement des aventuriers dans leurs missions.",
@@ -5187,6 +5557,7 @@ alchimiste: {
         "L’alchimiste gagne aussi un sort automatiquement :",
         {
             nom: "Cueillette",
+            image: "",
             description: "Une fois ce sort possédé l’alchimiste peut enregistrer la recette d’une potion en sa possession en la détruisant. Une fois la recette acquise l’alchimiste peut lancer ce sort quand il est en milieu autre qu’urbain, cela lui permet de fabriquez une ou plusieurs potions qu’il a dans ses recettes connues, au bon vouloir du MJ. En milieu urbain et en présence de marchand ce sort peut être lancé pour obtenir le double de potion pour le même prix. Ce sort n’a aucune utilité en combat et échoue automatiquement s’il est lancé.",
             Psy: 2,
             Touche: "sagesse/dexterite",
@@ -5203,6 +5574,7 @@ alchimiste: {
         talents: [
             {
                 nom: "Mixture modifiée",
+                image: "",
                 description: "Les potions n’infligeant pas de dégâts inflige 1 dé 4 dégâts fixes ou soigne désormais 1 dé 4 PV fixes par niveau de rareté.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -5212,6 +5584,7 @@ alchimiste: {
             },
             {
                 nom: "Sacoche à Potion",
+                image: "",
                 description: "Octroie + 5 places d'inventaire. L’alchimiste peut lancer ses potions jusqu’à 20 mètres sur un jet de touche de dextérité réussi.",
                 niveauJoueur: 2,
                 prerequis: ["Mixture modifiée"],
@@ -5223,6 +5596,7 @@ alchimiste: {
             },
             {
                 nom: "Naturaliste",
+                image: "",
                 description: "Ajoute +1 en Intelligence. Permet de parler la langue Animal, le lancement du sort 'Cueillette' se fait avec avantage.",
                 niveauJoueur: 3,
                 prerequis: ["Sacoche à Potion"],
@@ -5234,6 +5608,7 @@ alchimiste: {
             },
             {
                 nom: "Laborantin",
+                image: "",
                 description: "Ajoute +1 en Sagesse. Vous gagnez un bonus de 20 lors de n’importe quel jet concernant des potions ou des breuvages.",
                 niveauJoueur: 4,
                 prerequis: ["Naturaliste"],
@@ -5244,6 +5619,7 @@ alchimiste: {
             },
             {
                 nom: "Connaissances Botaniques Avancées",
+                image: "",
                 description: "Ajoute +1 en Intelligence. Vous gagnez un bonus de 2 dégâts permanent contre les ennemis de type Plante. Vous gagnez un avantage sur tous vos jets de connaissances nature.",
                 niveauJoueur: 5,
                 prerequis: ["Laborantin"],
@@ -5255,6 +5631,7 @@ alchimiste: {
             },
             {
                 nom: "Testeur Volontaire",
+                image: "",
                 description: "Ajoute +1 en Constitution. Vous choisissez une altération d’état lors de l’obtention de ce passif, vous y êtes désormais immunisé (sauf K.O., Mort et Invulnérable). Vous gagnez +10 en Robustesse.",
                 niveauJoueur: 6,
                 prerequis: ["Connaissances Botaniques Avancées"],
@@ -5266,6 +5643,7 @@ alchimiste: {
             },
             {
                 nom: "Décoction",
+                image: "",
                 description: "Vous pouvez détruire une potion dans votre inventaire pour la remplacer par une potion de votre choix de même valeur ou de valeur inférieure. Vous obtenez un avantage pour tous les jets concernant des potions ou des breuvages.",
                 niveauJoueur: 7,
                 prerequis: ["Testeur Volontaire"],
@@ -5276,6 +5654,7 @@ alchimiste: {
             },
             {
                 nom: "Fabrique à Potion",
+                image: "",
                 description: "Vous pouvez simplement fabriquer une potion sans avoir besoin d’un marchand, pour ce faire vous sacrifier la moitié du prix habituel de la potion.",
                 niveauJoueur: 8,
                 prerequis: ["Décoction"],
@@ -5286,6 +5665,7 @@ alchimiste: {
             },
             {
                 nom: "Expert en breuvage",
+                image: "",
                 description: "Vous ne pouvez plus subir aucun effet négatif venant d’une potion ou d’un breuvage, y compris de l’alcool. Les potions et breuvage que vous fabriquez sont indétectables et votre DSB s’ajoute à leur dégâts ou soin.",
                 niveauJoueur: 9,
                 prerequis: ["Fabrique à Potion"],
@@ -5297,6 +5677,7 @@ alchimiste: {
             },
             {
                 nom: "Maître Alchimiste",
+                image: "",
                 description: "Ajoute +1 en Intelligence, et +1 en Sagesse. À chaque fois que vous fabriquez une potion vous en créez une autre de même rareté de façon aléatoire.",
                 niveauJoueur: 10,
                 prerequis: ["Expert en breuvage"],
@@ -5313,6 +5694,7 @@ alchimiste: {
         sortNovice: [
             {
                 nom: "Décoction de Fragilité",
+                image: "",
                 description: "Ce sort inflige 1 dé 4 dégâts à un ennemi jusqu’à 15 mètres. Si celui-ci est victime d’un effet négatif, vous appliquez ‘’Poison’’ en plus. Ce sort ne consomme pas d'action, utilisable une fois par ennemi et par tour.",
                 Psy: 2,
                 Zone: 0,
@@ -5327,6 +5709,7 @@ alchimiste: {
             },
             {
                 nom: "Mixture Fumeuse",
+                image: "",
                 description: "Les ennemis au corps-à-corps de l’Alchimiste subissent 1 dé 4 dégâts et ‘’Cécité’’. Le lanceur devient Invisible pour 1 tour ce qui l’empêchera d’être pris pour cible.",
                 Psy: 3,
                 Zone: "corps_a_corps",
@@ -5341,6 +5724,7 @@ alchimiste: {
             },
             {
                 nom: "Fiole Fragile",
+                image: "",
                 description: "La prochaine potion de votre inventaire que vous lancez sur un ennemi infligera 1 dé 6 dégâts perce armure supplémentaire. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -5353,6 +5737,7 @@ alchimiste: {
             },
             {
                 nom: "Potion de Réinitialisation",
+                image: "",
                 description: "La cible voit tous ses effets négatifs doublés en durée, elle peut faire un jet de sauvegarde de sagesse pour éviter cet effet. Ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -5366,6 +5751,7 @@ alchimiste: {
             },
             {
                 nom: "Souffle en Bouteille",
+                image: "",
                 description: "Touche un ennemi jusqu’à 10 mètres, cette potion repousse ce dernier de 10 mètres dans la direction voulue. Inflige 1 dé 6 dégâts.",
                 Psy: 3,
                 Zone: 0,
@@ -5379,6 +5765,7 @@ alchimiste: {
             },
             {
                 nom: "Rien ne se perd",
+                image: "",
                 description: "La prochaine altération d’état que vous infligez grâce à une potion de votre inventaire durera éternellement, l’adversaire pourra faire un jet de sauvegarde à chaque début de tour pour essayer de se débarrasser de l’effet. Ce sort ne consomme pas d’action. Une seule altération d’état peut être affectée par Rien ne se perd, si vous relancer ce sort alors qu’une altération modifiée par celui-ci est toujours active elle est supprimée au profit de la nouvelle.",
                 Psy: 2,
                 Zone: 0,
@@ -5393,6 +5780,7 @@ alchimiste: {
             },
             {
                 nom: "Mitraillage de Potion",
+                image: "",
                 description: "Vous pouvez lancer deux potions identiques de votre inventaire à des cibles jusqu’à 25 mètres, vous pouvez choisir deux cibles différentes, une seule des deux potions est consommée. Vous ne pouvez pas lancer d’autres potions pendant le tour d’utilisation de ce sort.",
                 Psy: 4,
                 Zone: 0,
@@ -5407,6 +5795,7 @@ alchimiste: {
             },
             {
                 nom: "Rien ne se crée",
+                image: "",
                 description: "L’adversaire ciblé ne peut plus recevoir aucune amélioration ou soin d’aucune manière que ce soit, cela l’empêche aussi d’invoquer. L’effet perdure jusqu’à ce qu’il réussisse un jet de sauvegarde sur sa statistique la plus haute avec désavantage au début de son tour.",
                 Psy: 3,
                 Zone: 0,
@@ -5421,6 +5810,7 @@ alchimiste: {
             },
             {
                 nom: "Alcool trafiqué",
+                image: "",
                 description: "L’alchimiste créé et utilise un alcool aux vertus étrange. Hors combat ce sort donne un bonus de 20 dans 2 statistiques mineures au détriment de deux autres qui subissent un malus de 20. En combat cet alcool augmente ou diminue les chances de toucher de 10% pendant 2 tours. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -5440,6 +5830,7 @@ alchimiste: {
             },
             {
                 nom: "Flasque d’huile",
+                image: "",
                 description: "Le lanceur crée une zone en brisant une potion remplie de mixture huileuse au sol. Si une entité marche dans la zone elle doit faire un jet de sauvegarde de Dextérité si elle loupe elle glisse et subit 1 dé 6 dégâts et Sonné, si elle réussit elle voit tout de même sa vitesse réduite d’un cran.",
                 Psy: 3,
                 Zone: "zone",
@@ -5455,6 +5846,7 @@ alchimiste: {
             },
             {
                 nom: "Lancé faramineux",
+                image: "",
                 description: "Le lanceur utilise une potion de son inventaire sur un allié ou un ennemi jusqu’à 40 mètres.",
                 Psy: 2,
                 Zone: 0,
@@ -5467,6 +5859,7 @@ alchimiste: {
             },
             {
                 nom: "Solution Avancée de Médecine d’Urgence",
+                image: "",
                 description: "Ce sort peut être lancé que si un allié à moins de 15 mètres vient de tomber sous la moitié de ses PV maximum. Le lanceur utilise une solution secrète qui empêche l’allié ciblé de mourir pendant 1 tour, quoiqu’il arrive ce dernier gardera 1 PV, à la fin de l’effet il regagne en plus 1 dé 4 PV fixe. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 Zone: 0,
@@ -5484,6 +5877,7 @@ alchimiste: {
         sortConfirme: [
             {
                 nom: "Malchance en Bouteille",
+                image: "",
                 description: "Lors du prochain coup au corps-à-corps que vous recevez, vous pouvez appliquer, sans la consommer, l’effet d’une de vos potions dans l’inventaire. Vous subissez seulement la moitié des dégâts. Ce sort ne consomme pas d'action, il peut être lancé n'importe quand.",
                 Psy: 4,
                 Zone: 0,
@@ -5498,6 +5892,7 @@ alchimiste: {
             },
             {
                 nom: "Fiole Louche",
+                image: "",
                 description: "Vous lancez 1 dé 12 selon le résultat vous infligez l’altération d’état qui correspond dans l’ordre de cette liste : Brûlure, Sonné, Entrave, Engelure, Poison, Charme, Cécité, Terreur, Sommeil, Chaos, Silence, Folie. Vous infligez ensuite 1 dé 6 dégâts.",
                 Psy: 4,
                 Zone: 0,
@@ -5511,6 +5906,7 @@ alchimiste: {
             },
             {
                 nom: "Dosage Colossal",
+                image: "",
                 description: "Vous lancez une potion de votre inventaire sur une cible jusqu’à 20 mètres. Les dégâts des effets sont doublés pour les altérations qui infligent des dégâts ou les soins. La durée des autres altérations est doublée, si la cible réussie son jet de sauvegarde elle s’applique quand même l’effet normal de la potion.",
                 Psy: 4,
                 Zone: 0,
@@ -5525,6 +5921,7 @@ alchimiste: {
             },
             {
                 nom: "Embouteillage",
+                image: "",
                 description: "Vous “enfermez” un état nocif qui vous affecte vous ou un allié au corps-à-corps dans une potion, celui-ci est purgé. Vous gagnez 2 potions Rares qui appliqueront cet état dans votre inventaire. Utilisable 1 fois par tour. Ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -5539,6 +5936,7 @@ alchimiste: {
             },
             {
                 nom: "Usinage Répété",
+                image: "",
                 description: "Vous pouvez utiliser ce sort si vous avez lancé une potion de votre inventaire au tour précédent. Permet de réutiliser cette potion une nouvelle fois de manière immédiate sans la consommer. Si ce sort est relancé après lui-même vous continuez de réutiliser la même potion, mais le sort coûte 1 PSY supplémentaire.",
                 Psy: 4,
                 Zone: 0,
@@ -5553,6 +5951,7 @@ alchimiste: {
             },
             {
                 nom: "Potion gazeuse",
+                image: "",
                 description: "Remplissez de gaz toxique et instable une potion de votre inventaire et secouez là fermement, vous la donnez à un adversaire au corps à corps qui subira son courroux ! Inflige l’effet de la potion choisie ainsi que Cécité, Poison et 1 dé 8 dégâts.",
                 Psy: 4,
                 Zone: 0,
@@ -5569,6 +5968,7 @@ alchimiste: {
             },
             {
                 nom: "Solution d’Amnésie",
+                image: "",
                 description: "Hors combat cette potion permet de faire oublier la dernière heure vécue par une personne, elle reviendra à son état de pensée et de fonctionnement une heure avant d’avoir bu cette potion. En combat cette potion fait perdre tous ses moyens à un adversaire qui fera tous ses jets avec un désavantage pour 1 tour s’il réussit son jet de sauvegarde de Sagesse, s’il le loupe l’effet dure 2 tours.",
                 Psy: 3,
                 Zone: 0,
@@ -5588,6 +5988,7 @@ alchimiste: {
             },
             {
                 nom: "Tout se transforme",
+                image: "",
                 description: "Vous ne pouvez utiliser ce sort que si la cible est sous l’effet des sorts 'Rien ne se perd' ET 'Rien ne se crée'. La cible se transforme en mouton pour 1 tour, sous cette forme elle ne peut plus agir et à une vitesse normale, elle essaye de fuir le combat et possède 6 PV. Si la cible est tuée sous cette forme elle meurt aussi sous sa vraie forme à moins que celle-ci ne puisse pas mourir auquel cas elle est réduite à 1 PV.",
                 Psy: 5,
                 Zone: 0,
@@ -5604,6 +6005,7 @@ alchimiste: {
             },
             {
                 nom: "Jubilation Malveillante",
+                image: "",
                 description: "'Tout le Terrain' Ce sort n’est utilisable que si au moins une entité sur le terrain est affectée par une altération d’état. Vous purgez toutes les altérations d’état de toutes les entités sur le terrain, ce sort inflige 1 dé 4 dégâts fixes par altération d’état supprimée de cette manière à chacune des cibles. Hors combat vous pouvez utiliser ce sort pour la moitié de son coût, vous obtenez un avantage à tous vos jets visant une entité sous l’effet d’une de vos potions ou un de vos breuvages.",
                 Psy: 6,
                 Zone: "tout_le_terrain",
@@ -5622,6 +6024,7 @@ alchimiste: {
         sortExpert: [
             {
                 nom: "Grosse Fiole",
+                image: "",
                 description: "Vous lancez une potion de votre inventaire, son effet sera appliqué dans une zone en croix autour et sur le point d’impact. Si un ennemi est au centre du point d’impact il subit 1 dé 8 dégâts et Sonné en plus.",
                 Psy: 5,
                 Zone: "zone_en_croix",
@@ -5635,6 +6038,7 @@ alchimiste: {
             },
             {
                 nom: "Ultime Liquide Alchimique",
+                image: "",
                 description: "Vous lancez une étrange fiole brillante sur un ennemi, vous appliquez deux altérations négatives de votre choix et doublez leurs durées et leurs dégâts. Inflige 1 dé 8 +2 dégâts.",
                 Psy: 7,
                 Zone: 0,
@@ -5649,6 +6053,7 @@ alchimiste: {
             },
             {
                 nom: "Solution Ultra Concentrée",
+                image: "",
                 description: "Ce sort doit être canalisé au moins 1 tour. À chaque tour où ce sort est canalisé une potion de votre inventaire voit ses effets doublés en durée et en puissance, au bout de deux tours de canalisation la potion se lance automatiquement sur une entité où qu’elle soit sur le terrain et applique ses effets. Si vous relâchez la canalisation avant vous ne pouvez lancer la potion que jusqu’à 30 mètres. Pendant la canalisation vous pouvez encore lancer vos potions bonus mais vous ne pouvez plus faire d’action ou vous déplacer.",
                 Psy: 6,
                 Zone: 0,
@@ -5666,6 +6071,7 @@ alchimiste: {
             },
             {
                 nom: "Transmutation",
+                image: "",
                 description: "Le lanceur peut transformer n’importe quelle matière solide et non vivante en une autre sur un périmètre de 2 mètre carré à moins de 20 mètres de lui. Cet effet est soumis à l’approbation du MJ. En combat cela peut permettre de rendre inutilisable une arme, de changer le sol pour appliquer Entrave etc…",
                 Psy: 5,
                 Zone: "perimetre",
@@ -5680,6 +6086,7 @@ alchimiste: {
             },
             {
                 nom: "Cuve à Mixture",
+                image: "",
                 description: "‘Tout le Terrain’. Vous utilisez une potion de votre inventaire pour appliquer ses effets à tous les ennemis ou les alliés sur le terrain.",
                 Psy: 6,
                 Zone: "tout_le_terrain",
@@ -5692,6 +6099,7 @@ alchimiste: {
             },
             {
                 nom: "Transsubstantiation",
+                image: "",
                 description: "Vous transformez une potion de votre inventaire pour lui octroyer un cran de rareté supérieure, vous pouvez augmenter de deux crans en payant 2 PSY supplémentaire en plus du coût de ce sort. Ce sort est utilisable hors combat mais une seule fois par jour.",
                 Psy: 4,
                 Zone: 0,
@@ -5706,6 +6114,7 @@ alchimiste: {
             },
             {
                 nom: "Potion bondissante",
+                image: "",
                 description: "La prochaine potion de votre inventaire que vous lancez appliquera ses effets à une autre entité à moins de 10 mètres de la première, cet effet se répète 2 fois et, s’il n’y a pas de nouvelles cibles, il frappe à nouveau une cible déjà affectée. Ce sort échoue si une seule entité est présente dans la zone d’effet.",
                 Psy: 5,
                 Zone: 0,
@@ -5720,6 +6129,7 @@ alchimiste: {
             },
             {
                 nom: "Fiolie Furieuse",
+                image: "",
                 description: "L’alchimiste s’injecte un liquide qui décuple sa puissance et sa rage. Pendant 2 tours à la place de lancer une potion bonus il peut frapper une fois supplémentaire avec son arme, il gagne 1 cran en vitesse et son DSB s’applique à ses attaques à l’arme. Dans cet état il ne peut plus rien faire d’autre que frapper avec son arme mais celle-ci possède, en plus de ses effets habituel, l’effet du sort 'Fiole louche' gratuitement et à chaque fois qu’elle touche. À la fin de l’effet il subit Sonné irrésistible et perd autant de PV que ce sort coûte de PSY à lancer.",
                 Psy: 8,
                 Zone: 0,
@@ -5741,6 +6151,7 @@ alchimiste: {
         sortMaitre: [
             {
                 nom: "Pierre Philosophale",
+                image: "",
                 description: "Le rêve de tous les alchimistes entre ses mains le lanceur peut utiliser toutes les potions sans les consommer et peut utiliser tous les sorts de la voie de l’alchimiste même s’il ne les a pas appris. L’effet dure jusqu’à ce que l’alchimiste ait utilisé 6 sorts ou potions confondus, pendant l’effet les sorts ne coûtent pas de PSY.",
                 Psy: 18,
                 Zone: 0,
@@ -5759,6 +6170,7 @@ alchimiste: {
 },
 erudit: {
     nom: "Érudit",
+    image: "",    
     description: [
         "Les érudits sont la catégorie de personnes qui réfléchissent, s’instruisent et recherche, ils le font tous pour des raisons différentes où sur des sujets différents, mais ils sont réunis par la volonté de découvrir la vérité du monde.",
         "Ils sont une classe sociale très respectée, en général quand un érudit parle, on l’écoute, car ses connaissances peuvent renverser le cours d’une bataille ou permettre de se sortir de situations diplomatiques épineuses.",
@@ -5823,6 +6235,7 @@ erudit: {
         },
         {
             nom: "Savoir Ancestral",
+            image: "",
             description: "Ce sortilège prend la forme de n’importe quel sortilège de n’importe quelle voie ou branche de sortilège, le coût de ce sort sera identique au sort choisi.",
             Psy: "???"
         }
@@ -5832,6 +6245,7 @@ erudit: {
         talents: [
             {
                 nom: "Linguiste",
+                image: "",
                 description: "Ajoute +1 en Charisme. Permet de parler une deuxième langue. Au niveau 6 de l’Érudit vous apprenez une troisième langue supplémentaire.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -5843,6 +6257,7 @@ erudit: {
             },
             {
                 nom: "Magicien Théoricien",
+                image: "",
                 description: "Octroie un sort Novice de n’importe quelle Arcane aux niveaux 2, 4, 7 et 9.",
                 niveauJoueur: 2,
                 prerequis: ["Linguiste"],
@@ -5852,6 +6267,7 @@ erudit: {
             },
             {
                 nom: "Bibliothécaire",
+                image: "",
                 description: "Ajoute +1 en Intelligence. Vous gagnez un bonus de 20 dans n'importe quelle 'connaissance' si le jet concerne un ouvrage quelconque.",
                 niveauJoueur: 3,
                 prerequis: ["Magicien Théoricien"],
@@ -5862,6 +6278,7 @@ erudit: {
             },
             {
                 nom: "Cerveau imperturbable",
+                image: "",
                 description: "Ajoute +1 en Intelligence et en Sagesse. Vous ne pouvez plus subir de désavantage lors d’un jet de statistiques mineures basées sur l'intelligence.",
                 niveauJoueur: 4,
                 prerequis: ["Bibliothécaire"],
@@ -5873,6 +6290,7 @@ erudit: {
             },
             {
                 nom: "Détecteur de Psyché",
+                image: "",
                 description: "Ajoute +1 en Sagesse. Bonus de 20 en perception magique lors d’une tentative de détection ou d’identification de sortilège.",
                 niveauJoueur: 5,
                 prerequis: ["Cerveau imperturbable"],
@@ -5883,6 +6301,7 @@ erudit: {
             },
             {
                 nom: "Bulle d’Étudiant",
+                image: "",
                 description: "Ajoute +1 en Sagesse. Permet de relancer un jet de touche Sagesse une fois par combat et donne 5% aux chances de CC des jets de sagesse.",
                 niveauJoueur: 6,
                 prerequis: ["Détecteur de Psyché"],
@@ -5894,6 +6313,7 @@ erudit: {
             },
             {
                 nom: "Grimoire Ancestral",
+                image: "",
                 description: "Ce sort modifie l’invocation de Grimoire Magique. Elle possède désormais 3 PV et 12 PSY et coûte 6 PSY à utiliser. Le grimoire peut lancer les sorts à leurs coûts originels. Si vous ne possédez pas le sort vous ignorez l’effet et débloquez le sort à la place.",
                 niveauJoueur: 7,
                 prerequis: ["Bulle d’Étudiant"],
@@ -5908,6 +6328,7 @@ erudit: {
             },
             {
                 nom: "Connaissances Approfondies",
+                image: "",
                 description: "Modifie le sort Connaissances Utiles en doublant le nombre de PSY récupéré. Si vous ne possédez pas ce sort vous ignorez cet effet et débloquez le sort à la place.",
                 niveauJoueur: 8,
                 prerequis: ["Grimoire Ancestral"],
@@ -5919,6 +6340,7 @@ erudit: {
             },
             {
                 nom: "Spécialiste en Espèce Rare",
+                image: "",
                 description: "Lors de l’obtention de ce sort, vous choisissez deux types parmi les suivants : Morts-Vivants, Extra-planaire, Humanoïde, Élémentaire, Bête, Homme-bête, Machine, Plante. Tous les ennemis de ce type subissent +2 dégâts de toutes les attaques de la part de tous les alliés tant que l’Érudit est sur le terrain.",
                 niveauJoueur: 9,
                 prerequis: ["Connaissances Approfondies"],
@@ -5930,6 +6352,7 @@ erudit: {
             },
             {
                 nom: "Puits de Connaissances",
+                image: "",
                 description: "En combat, vous récupérez 1 PSY à chaque fin de tour. Vous pouvez réussir automatiquement un jet de sagesse ou d’intelligence hors combat, une fois par scène.",
                 niveauJoueur: 10,
                 prerequis: ["Spécialiste en Espèce Rare"],
@@ -5946,6 +6369,7 @@ erudit: {
         sortNovice: [
             {
                 nom: "Étude sur le Terrain",
+                image: "",
                 description: "Permet d’identifier un ennemi jusqu'à 25 mètres. Tous les dégâts que cet ennemi subit pendant 2 tours sont augmentés de la valeur de la moitié de votre bonus DSB (arrondie à l'inférieur). Ce sort ne consomme pas d'action, non cumulable.",
                 Psy: 2,
                 Zone: 0,
@@ -5961,6 +6385,7 @@ erudit: {
             },
             {
                 nom: "Lecture Soporifique",
+                image: "",
                 description: "Vous lisez un de vos meilleurs ouvrages à une cible mais cela ne l’intéresse pas. Inflige ‘’Sommeil’’ Irrésistible. Si la cible est immunisée à ‘’Sommeil’’, elle subit ‘’Entrave’’ à la place.",
                 Psy: 3,
                 Zone: 0,
@@ -5974,6 +6399,7 @@ erudit: {
             },
             {
                 nom: "Connaissances Utiles",
+                image: "",
                 description: "Vous permet d’obtenir une information sur un ennemi jusqu'à 15 mètres : cela peut être un sort qu’il utilise, ses résistances ou ses faiblesses (Au choix du joueur ou du MJ). De plus, lors de la prochaine attaque subie, l’attaquant récupère 1 PSY tous les 6 points de dégâts infligés. Ce sort ne consomme pas d'action.",
                 Psy: 2,
                 Zone: 0,
@@ -5987,6 +6413,7 @@ erudit: {
             },
             {
                 nom: "Planificateur",
+                image: "",
                 description: "Prépare soigneusement un plan de bataille. Ce sort booste les dégâts d’un allié jusqu'à 15 mètres de 100% pour une attaque.",
                 Psy: 3,
                 Zone: 0,
@@ -6000,6 +6427,7 @@ erudit: {
             },
             {
                 nom: "Grimoire Magique",
+                image: "",
                 description: "‘’Invocation’’. Invoque un livre qui possède 2 PV et 8 PSY. Celui-ci peut lancer des sorts à votre place et consomme sa propre PSY pour cela. Il a accès à tous les sorts NOVICE disponibles, mais ceux-ci coûtent +1 PSY à lancer et il se détruit s’il n’a plus de PSY.",
                 Psy: 4,
                 Zone: 0,
@@ -6021,6 +6449,7 @@ erudit: {
             },
             {
                 nom: "Précaution",
+                image: "",
                 description: "Vous connaissez l’adversaire, vous avez mentalement fait le combat 100 fois, la prochaine attaque qui vous cible ne fera aucun dégât et ne vous appliquera pas d’effet. Ce sort ne consomme pas d’action mais ne peut pas être utilisé deux tours de suite.",
                 Psy: 3,
                 Zone: 0,
@@ -6034,6 +6463,7 @@ erudit: {
             },
             {
                 nom: "Réserve d’urgence",
+                image: "",
                 description: "Ce sort génère 3 charges d’Erudition si on a obtenu des informations sur l’ennemi qu’il cible avec des sortilèges de la voie de l’Erudit. Chaque attaque contre la cible du sort rendra 1 dé 4 PSY à son attaquant. Cet effet dure 1 tour et ne peut pas être utilisé deux tours de suite. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 Zone: 0,
@@ -6049,6 +6479,7 @@ erudit: {
             },
             {
                 nom: "Savoir spécifique",
+                image: "",
                 description: "Hors combat ce sortilège permet d’octroyer 1 dé 20 supplémentaire lors d’un jet de statistiques mineures au lanceur ou à un allié, l’effet n’est pas cumulable. En combat la prochaine attaque de la cible se fera avec un avantage. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -6067,6 +6498,7 @@ erudit: {
             },
             {
                 nom: "Connaissance des gestes et postures",
+                image: "",
                 description: "Ce sort octroie 1 dé 4 supplémentaire au jet de dégâts d’un allié ciblé pour 1 tour. Ce sort ne consomme pas d’action, son effet n’est pas cumulable.",
                 Psy: 2,
                 Zone: 0,
@@ -6081,6 +6513,7 @@ erudit: {
             },
             {
                 nom: "Eureka",
+                image: "",
                 description: "Le lanceur ou un allié à son corps à corps est pris d’une illumination, son prochain jet de dégât sera augmenté de 1 par tranche de 5 points d’Erudition. Si une cible est tuée quand cet effet est actif il reste actif encore une attaque supplémentaire. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -6094,6 +6527,7 @@ erudit: {
             },
             {
                 nom: "Lancer secret du bouquiniste",
+                image: "",
                 description: "Ce sort ne peut être lancé qu’après avoir subie une attaque ou à la place d’une attaque d’opportunité. Le lanceur jette un livre caché dans sa manche au visage de l’assaillant, inflige 1 dé 4 et Sonné. Si le sort applique Sonné avec succès vous pouvez infliger le dé de dégât de votre arme en main immédiatement.",
                 Psy: 4,
                 Zone: 0,
@@ -6109,6 +6543,7 @@ erudit: {
             },
             {
                 nom: "Bouquinage",
+                image: "",
                 description: "L’Érudit s’arrête un instant pour consulter ses notes, il gagne 5 charges d’Erudition mais subit Entrave irrésistible et ne peut pas agir ce tour.",
                 Psy: 1,
                 Zone: 0,
@@ -6125,6 +6560,7 @@ erudit: {
         sortConfirme: [
             {
                 nom: "Faiblesse Exposée",
+                image: "",
                 description: "Vous permet d’obtenir une information sur l’ennemi. En outre, la prochaine attaque qui lui sera infligée ignore les armures et les boucliers et ne peut pas être esquivée ou bloquée. Ce sort ne consomme pas d'action.",
                 Psy: 4,
                 Zone: 0,
@@ -6139,6 +6575,7 @@ erudit: {
             },
             {
                 nom: "Colloque Soporifique",
+                image: "",
                 description: "Vous ouvrez le débat sur un sujet très intéressant… Pour vous du moins. Dans la zone, tous les ennemis subissent ‘’Sommeil’’ Irrésistible, la prochaine attaque subie par un ennemi affecté par Sommeil verra sa puissance augmentée de 50%.",
                 Psy: 5,
                 Zone: "zone",
@@ -6152,6 +6589,7 @@ erudit: {
             },
             {
                 nom: "Silence de Bibliothèque",
+                image: "",
                 description: "Applique ‘’Silence’’ à tous les ennemis dans la zone, la prochaine attaque qu’ils subiront ne pourra pas être bloquée.",
                 Psy: 5,
                 Zone: "zone",
@@ -6165,6 +6603,7 @@ erudit: {
             },
             {
                 nom: "Bibliothèque ravageuse",
+                image: "",
                 description: "''Invocation'' Créer une bibliothèque qui possède 16 PV, une faiblesse Feu et une résistance Neutre. Cette invocation est immobile en toute circonstance mais peut lancer des livres avec véhémence jusqu’à 15 mètres en infligeant 1 dé 6 +1 dégâts à une cible. Si un ennemi attaque une entité dans le rayon d’action de la Bibliothèque ravageuse elle lui inflige une attaque gratuite.",
                 Psy: 4,
                 Zone: 0,
@@ -6187,6 +6626,7 @@ erudit: {
             },
             {
                 nom: "Supériorité théorique",
+                image: "",
                 description: "''Tout le Terrain'' Les alliés gagnent 1 dé 6 supplémentaire pour leur prochain lancer de dégâts OU les alliés gagnent 1 dé 20 supplémentaire sur une statistique choisie pour leur prochain jet de sauvegarde ou jet de touche. L’Érudit gagne ces deux bonus.",
                 Psy: 5,
                 Zone: "tout_le_terrain",
@@ -6203,6 +6643,7 @@ erudit: {
             },
             {
                 nom: "Force de l’intellect",
+                image: "",
                 description: "Jusqu’à 2 alliés dans un rayon de 10 mètres autour du lanceur voient 1 dé 6 être rajouté à leur jet de dégâts pendant 1 tour.",
                 Psy: 4,
                 Zone: 0,
@@ -6217,6 +6658,7 @@ erudit: {
             },
             {
                 nom: "Parchemin de capture",
+                image: "",
                 description: "Ce sort ne peut être lancé que lorsque vous êtes la cible d’un sortilège coûtant de la PSY à lancer. Vous annulez tous les effets du sort et vous l’apprenez, vous pouvez vous en servir pour le reste du combat. Si parchemin de capture est réutilisé il absorbe un nouveau sort et remplace donc le précédent.",
                 Psy: 5,
                 Zone: 0,
@@ -6233,6 +6675,7 @@ erudit: {
             },
             {
                 nom: "Base de savoir étendue",
+                image: "",
                 description: "Hors combat un allié choisi bénéficie d’un avantage sur tous ses jets de statistiques mineures pour 1 heure. En combat ce sortilège permet à un allié du lanceur d’obtenir la même statistique de Sagesse que lui pour 2 tours.",
                 Psy: 4,
                 Zone: 0,
@@ -6252,6 +6695,7 @@ erudit: {
             },
             {
                 nom: "Héritage des sages",
+                image: "",
                 description: "Vous choisissez une statistique majeure au moment du lancement de ce sort, à chaque jet dans cette caractéristique ou dans une des statistiques mineures qui lui sont associées la cible ajoute 1 dé 10 à sa statistique. En combat cet effet est permanent mais n’est pas cumulable et ce sort ne consomme pas d’action. Hors combat cet effet dure 1 heure.",
                 Psy: 4,
                 Zone: 0,
@@ -6269,6 +6713,7 @@ erudit: {
         sortExpert: [
             {
                 nom: "Théorie Irréfutable",
+                image: "",
                 description: "Ce sort n’est utilisable que sur un ennemi dont vous possédez toutes les informations. L’adversaire devient faible à tous les éléments et voit son taux de blocage, son armure et ses boucliers réduits à 0 pour une attaque. Ce sort ne consomme pas d'action.",
                 Psy: 6,
                 Zone: 0,
@@ -6284,6 +6729,7 @@ erudit: {
             },
             {
                 nom: "Analyse Parfaite",
+                image: "",
                 description: "Vous permet d’obtenir la fiche Bestiaire du monstre cible et toutes ses informations. La prochaine attaque sur lui infligera des dégâts doublés et ignore l’armure et les boucliers.",
                 Psy: 5,
                 Zone: 0,
@@ -6298,6 +6744,7 @@ erudit: {
             },
             {
                 nom: "Copiste Professionnel",
+                image: "",
                 description: "Ce sort devient le même que le dernier sort ou la dernière attaque que la cible a lancé mais garde son coût actuel.",
                 Psy: 5,
                 Zone: 0,
@@ -6311,6 +6758,7 @@ erudit: {
             },
             {
                 nom: "Choc des cerveaux",
+                image: "",
                 description: "L’adversaire pris pour cible se prend une décharge mentale, il devra alors réussir un jet de sauvegarde de sagesse avec désavantage, s’il le loupe il subit 1 dégât par charge d’Erudition possédée par l’Érudit au moment du lancement de ce sort, s’il réussit il subit tout de même la moitié des dégâts.",
                 Psy: 8,
                 Zone: 0,
@@ -6325,6 +6773,7 @@ erudit: {
             },
             {
                 nom: "Étude approfondie",
+                image: "",
                 description: "Ce sort ne peut être utilisé que si l’on a déjà obtenu des informations sur la cible du sort, pendant 1 tour la cible subit tous les dégâts comme s’il était sur sa faiblesse et on ajoute 1 dé 4 dégâts à tous les jets de dégâts joué contre elle. Ce sort ne consomme pas d’action.",
                 Psy: 6,
                 Zone: 0,
@@ -6340,6 +6789,7 @@ erudit: {
             },
             {
                 nom: "Coordination planifiée",
+                image: "",
                 description: "L’Érudit prépare ce sort pendant un tour. Au début de son prochain tour de jeu il octroie une action supplémentaire à chacun de ses alliés. Si les alliés infligent des dégâts grâce à cette action bonus, la moitié des dégâts infligés généreront des charges d’Erudition.",
                 Psy: 6,
                 Zone: 0,
@@ -6354,6 +6804,7 @@ erudit: {
             },
             {
                 nom: "Esprit de ruche",
+                image: "",
                 description: "Pendant 2 tours, tous les alliés à moins de 10 mètres du lanceur et lui-même partagent toutes leurs statistiques, la meilleure statistique dans chaque domaine sera utilisée pour les jets de chacun des individus dans la zone d’effet de ce sort. Ce sort peut aussi être utilisé hors combat et garde le même effet mais dure 20 minutes.",
                 Psy: 7,
                 Zone: 0,
@@ -6369,6 +6820,7 @@ erudit: {
             },
             {
                 nom: "Savoir céleste",
+                image: "",
                 description: "Ce sort peut être utilisé après un jet raté par un allié ou le lanceur. Le jet est considéré comme réussi, si c’était un échec critique il sera considéré comme un coup critique à la place.",
                 Psy: 6,
                 Zone: 0,
@@ -6385,6 +6837,7 @@ erudit: {
         sortMaitre: [
             {
                 nom: "Savoir Interdit",
+                image: "",
                 description: "L’Érudit en appelle aux connaissances interdites, pendant 2 tours il obtient 'Invulnérable' et il regagne 2 dés 20 PSY, il peut jouer deux actions et réussit automatiquement tous ses jets de sauvegarde. Pendant l’utilisation de ce sort il prend la forme et dégage l’aura d’un démon, à la fin de ce sort il est banni dans un autre plan pendant 1 tour puis il revient sur le terrain avec 0 PSY.",
                 Psy: 11,
                 Zone: 0,
@@ -6407,6 +6860,7 @@ erudit: {
 },
 baroudeur: {
     nom: "Baroudeur",
+    image: "",    
     description: [
         "Les aventuriers ne sont pas les seuls à courir les chemins et battre la campagne. Ceux qui sont les plus à l’aise là-dedans sont les Baroudeurs, ils vont et viennent partout et en tout endroit du monde, ils n’ont pas peur des montagnes ou des marais ni même des volcans ou des forêts.",
         "Ils sont la plupart du temps utilisés comme messagers, les baroudeurs sont rares, car ils voyagent en terres hostiles et peu s’en sortent. Cependant, certains n’hésitent pas à s’associer avec des aventuriers de passage dans la zone pour passer plus facilement.",
@@ -6455,6 +6909,7 @@ baroudeur: {
         talents: [
             {
                 nom: "Transporteur",
+                image: "",
                 description: "Ajoute +5 places d'inventaire et ajoute +1 en Force.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -6465,6 +6920,7 @@ baroudeur: {
             },
             {
                 nom: "Tout Terrain",
+                image: "",
                 description: "Ajoute +1 en Dextérité, octroie un bonus de +15 en acrobatie pour se faufiler ou escalader.",
                 niveauJoueur: 2,
                 prerequis: ["Transporteur"],
@@ -6475,6 +6931,7 @@ baroudeur: {
             },
             {
                 nom: "Marcheur Véloce",
+                image: "",
                 description: "Immunité à ‘’Entrave’’. Si vous appliquez ‘’Entrave’’ à un ennemi, vous lui infligez l’équivalent de la moitié de votre bonus DSB en dégâts supplémentaires.",
                 niveauJoueur: 3,
                 prerequis: ["Tout Terrain"],
@@ -6485,6 +6942,7 @@ baroudeur: {
             },
             {
                 nom: "Connu Partout",
+                image: "",
                 description: "Ajoute +1 en Charisme. Bonus de 10 dans toutes les statistiques liées au charisme lors d’une discussion visant à obtenir des informations sur un lieu.",
                 niveauJoueur: 4,
                 prerequis: ["Marcheur Véloce"],
@@ -6495,6 +6953,7 @@ baroudeur: {
             },
             {
                 nom: "Vadrouilleur de Banquise",
+                image: "",
                 description: "Immunité à ‘’Engelure’’. Lorsque vous faites un CC pour toucher avec votre arme, vous appliquez ‘’Engelure’’.",
                 niveauJoueur: 5,
                 prerequis: ["Connu Partout"],
@@ -6505,6 +6964,7 @@ baroudeur: {
             },
             {
                 nom: "Polyglotte",
+                image: "",
                 description: "Ajoute +1 en Charisme. Permet de parler deux langues supplémentaires (sauf Ancien).",
                 niveauJoueur: 6,
                 prerequis: ["Vadrouilleur de Banquise"],
@@ -6516,6 +6976,7 @@ baroudeur: {
             },
             {
                 nom: "Infatigable",
+                image: "",
                 description: "Le personnage ne ressent pas la fatigue, il ne peut plus être victime de désavantage lors d’un jet de statistiques liées à la Dextérité, à la Défense ou à la Force. Il n'a besoin que de 4 heures de sommeil.",
                 niveauJoueur: 7,
                 prerequis: ["Polyglotte"],
@@ -6527,6 +6988,7 @@ baroudeur: {
             },
             {
                 nom: "Barda Infini",
+                image: "",
                 description: "Ajoute 10 places d’inventaire et +1 en Force.",
                 niveauJoueur: 8,
                 prerequis: ["Infatigable"],
@@ -6537,6 +6999,7 @@ baroudeur: {
             },
             {
                 nom: "Voyageur Chevronné",
+                image: "",
                 description: "À chaque fois que vous appliquez 'Entrave' l’ennemi doit réussir son jet de sauvegarde avec un désavantage. Ajoute +1 en Dextérité ou en Charisme ou en Force.",
                 niveauJoueur: 9,
                 prerequis: ["Barda Infini"],
@@ -6547,6 +7010,7 @@ baroudeur: {
             },
             {
                 nom: "L’important n’est pas la Destination",
+                image: "",
                 description: "Accorde un bonus permanent de +10% de chances de toucher et +2 dégât au Baroudeur s’il a deux alliés ou plus à moins de 10 mètres, les alliés gagnent +2 d'armure et 10% de blocage si le baroudeur est à moins de 10 mètres.",
                 niveauJoueur: 10,
                 prerequis: ["Voyageur Chevronné"],
@@ -6566,6 +7030,7 @@ baroudeur: {
         sortNovice: [
             {
                 nom: "Voyage, Voyage",
+                image: "",
                 description: "Permet de doubler votre déplacement ou celui d'un allié pour ce tour. Ne consomme pas d’action, non cumulable.",
                 Psy: 2,
                 Zone: 0,
@@ -6579,6 +7044,7 @@ baroudeur: {
             },
             {
                 nom: "Terrain Impraticable",
+                image: "",
                 description: "Le terrain devient chaotique autour du lanceur et tous les ennemis dans la zone subissent ‘’Entrave’’ et 1 dé 6 dégâts.",
                 Psy: 4,
                 Zone: "autour_lanceur",
@@ -6592,6 +7058,7 @@ baroudeur: {
             },
             {
                 nom: "Mollet d’Acier",
+                image: "",
                 description: "Augmente votre Vitesse d’un cran pour 2 tours. Immunise à n’importe quel effet cherchant à vous déplacer ou limiter votre capacité de déplacement pendant la durée de l’effet. Guérit ‘’Entrave’’ au lancement du sort. Ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -6607,6 +7074,7 @@ baroudeur: {
             },
             {
                 nom: "Livraison Chronométrée",
+                image: "",
                 description: "Ce sort permet d’utiliser un consommable sur une cible jusqu’à 20 mètres. Vous vous téléportez alors sur la cible en ignorant ‘’Entrave’’, ‘’Engelure’’ ou les attaques d’opportunités et utilisez le consommable voulu au corps-à-corps.",
                 Psy: 3,
                 Zone: 0,
@@ -6621,6 +7089,7 @@ baroudeur: {
             },
             {
                 nom: "Compagnon de Route",
+                image: "",
                 description: "Vous désignez une entité au corps-à-corps avant votre déplacement de ce tour. Lorsque vous vous déplacez, l’entité vous suit en se plaçant derrière vous, elle subit toutes les attaques d’opportunités ou les effets négatifs pendant cet effet (mais une seule fois de chaque source).",
                 Psy: 3,
                 Zone: 0,
@@ -6635,6 +7104,7 @@ baroudeur: {
             },
             {
                 nom: "Débrouillard",
+                image: "",
                 description: "Ce sort est utilisable hors combat, quand vous utilisez un consommable vous pouvez utiliser ce sort. Lancez un jet de hasard, si vous réussissez vous récupérez l’objet. Ne fonctionne pas avec les consommables épiques et légendaires, en combat ce sort ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -6650,6 +7120,7 @@ baroudeur: {
             },
             {
                 nom: "Maladie des Transports",
+                image: "",
                 description: "Pendant 1 tour, vous utilisez l’effet du passif de la magie spatiale 'Mal des Transports'. À chaque fois que le Baroudeur bouge un ennemi de 2 cases ou moins, il applique 1 ‘’Poison’’. S’il le bouge de 3 cases ou plus, il applique 2 ‘’Poison’’. Ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -6665,6 +7136,7 @@ baroudeur: {
             },
             {
                 nom: "On ne s’arrête pas !",
+                image: "",
                 description: "Ce sort ne peut cibler qu’une créature qui ne peut pas se déplacer, soit parce qu’elle est immobile soit parce qu’elle victime d’une altération d’état l’empêchant de bouger. Si c’est un allié il est purgé de tous les effets impactant son déplacement, si c’est un ennemi il subit 2 dé 4 dégâts.",
                 Psy: 3,
                 Zone: 0,
@@ -6679,6 +7151,7 @@ baroudeur: {
             },
             {
                 nom: "Survivaliste",
+                image: "",
                 description: "Si le Baroudeur ou un allié à moins de 15 mètres de lui devait tomber à 0 PV alors on peut lancer ce sort. L’allié ou le lanceur du sort ignore totalement l’effet de l’attaque et devient Invisible pendant 1 tour. Ce sort ne peut pas avoir la même cible deux fois dans le même combat ou dans la même scène.",
                 Psy: 4,
                 Zone: 0,
@@ -6694,6 +7167,7 @@ baroudeur: {
             },
             {
                 nom: "Itinéraire noir",
+                image: "",
                 description: "Le prochain déplacement que le lanceur effectuera laissera une traînée noire derrière lui, cette zone infligera 1 dé 4 dégâts et 'Entrave' à tous les ennemis qui essaient de la traverser, si l’ennemi réussit son jet de sauvegarde contre 'Entrave' il voit tout de même sa vitesse diminuée d’un cran. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 Zone: "trainee",
@@ -6709,6 +7183,7 @@ baroudeur: {
             },
             {
                 nom: "Connaître toutes les routes",
+                image: "",
                 description: "Hors combat ce sort donne un avantage à tous les jets du baroudeur qui relèvent de la connaissance des lieux lors d'un voyage sur des sentiers balisés. En combat ce sort permet au lanceur ou à un allié d’ignorer les effets des zones au sol et des attaques d’opportunités pour 2 tours, il ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -6727,6 +7202,7 @@ baroudeur: {
             },
             {
                 nom: "Calotte du bourlingueur",
+                image: "",
                 description: "Le lanceur inflige un coup de poing terrible à une cible au corps à corps, celle-ci est projetée de 15 mètres en ligne droite dans la direction opposée au lanceur et subit 1 dé 6 dégâts.",
                 Psy: 3,
                 Zone: 0,
@@ -6742,6 +7218,7 @@ baroudeur: {
         sortConfirme: [
             {
                 nom: "Ressources Insoupçonnées",
+                image: "",
                 description: "Augmente votre taux de blocage de 20% pendant 2 tours. Pendant cet effet, si vous ratez un blocage, vous pouvez relancer le dé pour le réussir une fois pendant la durée de l'effet. Ne consomme pas d’action.",
                 Psy: 5,
                 Zone: 0,
@@ -6756,6 +7233,7 @@ baroudeur: {
             },
             {
                 nom: "Destination Finale",
+                image: "",
                 description: "Vous désignez une case à plus de 40 mètres, lorsque vous arriverez sur cette case vous récupérerez 1 dé 6 PV et augmenterez les dégâts de votre prochaine attaque de 1 dé 6. Si vous parvenez à atteindre la case dans le même tour que le lancement de ce sort, vous doublez l’effet. Ne consomme pas d’action.",
                 Psy: 5,
                 Zone: 0,
@@ -6770,6 +7248,7 @@ baroudeur: {
             },
             {
                 nom: "Voyage rapide",
+                image: "",
                 description: "Le lanceur se téléporte au côté d’un allié où qu’il soit sur le terrain en ignorant tous les effets limitant le déplacement et les attaques d’opportunités, il ne peut pas se retrouver adjacent à un ennemi en utilisant ce sort. Ce sort ne consomme pas d’action et n’active aucun autre effet de sort du lanceur.",
                 Psy: 4,
                 Zone: 0,
@@ -6785,6 +7264,7 @@ baroudeur: {
             },
             {
                 nom: "Marche forcée",
+                image: "",
                 description: "Le lanceur charge en ligne droite sur 15 mètres, toutes les entités touchées se décalent d’une case dans la direction opposée et subissent Entrave, si elles ne peuvent pas elles subissent Sonné irrésistible. Le lanceur du sort peut payer 1 PSY supplémentaire pour revenir à sa position de départ. Ce sort inflige 1 dé 6 dégâts à toutes les entités touchées et 1 dé 6 supplémentaire sur les cibles Sonnné lors du retour.",
                 Psy: 4,
                 Zone: "ligne_droite",
@@ -6804,6 +7284,7 @@ baroudeur: {
             },
             {
                 nom: "Guide du Croutard",
+                image: "",
                 description: "Permet à un allié de se déplacer d’autant de cases que vous pendant ce tour et de gagner +10% de blocage. Lancé sur un ennemi, applique ‘’Entrave’’ et 1 dé 6 +1 dégâts.",
                 Psy: 4,
                 Zone: 0,
@@ -6819,6 +7300,7 @@ baroudeur: {
             },
             {
                 nom: "Détour",
+                image: "",
                 description: "Ciblez un ennemi jusqu’à 15 mètres, celui-ci verra son déplacement inversé lors de son tour de jeu. Il subit 1 dé 4 dégâts par case parcourue et s’il percute une autre entité avec cet effet, il subit ‘’Sonné’’.",
                 Psy: 3,
                 Zone: 0,
@@ -6833,6 +7315,7 @@ baroudeur: {
             },
             {
                 nom: "Préparer le voyage",
+                image: "",
                 description: "Le lanceur doit canaliser ce sort pendant un tour puis il désigne une cible au corps à corps, celle-ci voit sa vitesse augmentée d’un cran, son taux de blocage, de critique et ses chances de toucher augmentées de 10%, son armure et ses dégâts augmentés de 2, elle gagne 4 PB et un avantage sur tous ses jets de sauvegarde. Cet effet dure 2 tours.",
                 Psy: 5,
                 Zone: 0,
@@ -6855,6 +7338,7 @@ baroudeur: {
             },
             {
                 nom: "Halte !",
+                image: "",
                 description: "Ordonne à une cible de s’arrêter, celle-ci subit 'Entrave' irrésistible et perd le vol. Si la cible est immunisée à Entrave elle subit 2 dé 4 dégâts à la place, cet effet s’applique automatiquement en cas de coup critique et se cumule à l’entrave.",
                 Psy: 4,
                 Zone: 0,
@@ -6871,6 +7355,7 @@ baroudeur: {
             },
             {
                 nom: "Promenade revigorante",
+                image: "",
                 description: "Ce sort ne peut désigner autre chose que son lanceur. À chaque fois qu’il traverse une case pendant que ce sort est actif le lanceur gagne 1 PV fixe. Ce sort ne consomme pas d’action et dure 2 tours.",
                 Psy: 3,
                 Zone: 0,
@@ -6887,6 +7372,7 @@ baroudeur: {
         sortExpert: [
             {
                 nom: "Crevasse",
+                image: "",
                 description: "Appliquez ‘’Entrave’’ à tous les ennemis dans la zone et infligez 1 dé 8 + 4 dégâts.",
                 Psy: 5,
                 Zone: "zone",
@@ -6900,6 +7386,7 @@ baroudeur: {
             },
             {
                 nom: "Suivez-Moi !",
+                image: "",
                 description: "Déclenche le ciblage pour tous les ennemis dans une zone de 10 mètres autour du Baroudeur. Si le Baroudeur se déplace pendant ses 2 prochains tours, les ennemis se déplaceront de la même manière dans la mesure du possible. Si ce n’est pas possible car une entité (ou le bord du plateau) bloque le chemin, l’ennemi subit 6 dégâts fixes et ‘’Entrave’’ irrésistible et l’effet est annulé sur lui (mais pas le ciblage).",
                 Psy: 6,
                 Zone: 10,
@@ -6916,6 +7403,7 @@ baroudeur: {
             },
             {
                 nom: "Chemin de pénitence",
+                image: "",
                 description: "Le lanceur choisit une cible au corps à corps, lorsque vous vous déplacez, l’entité vous suit en se plaçant derrière vous, elle subit toutes les attaques d’opportunités ou les effets négatifs pendant cet effet. De plus elle subit aussi 1 dé 4 dégâts à chaque case traversée. À la fin de l’effet elle subit Entrave irrésistible.",
                 Psy: 7,
                 Zone: 0,
@@ -6932,6 +7420,7 @@ baroudeur: {
             },
             {
                 nom: "Retour chez soi",
+                image: "",
                 description: "La cible désignée retourne à sa position initiale de début de combat de la manière la plus courte et subit 1 dé 4 dégâts fixes par case parcourue avec cet effet, si c’est un allié il se soigne de 1 dé 4 PV fixes par case parcourue.",
                 Psy: 7,
                 Zone: 0,
@@ -6946,6 +7435,7 @@ baroudeur: {
             },
             {
                 nom: "Tir de Barda",
+                image: "",
                 description: "Ce sort inflige x dégâts à un ennemi jusqu’à 10 mètres. Le coût de ce sort augmente de 3 PSY à chaque utilisation (x nombre de place d'inventaire occupée/2 arrondie au supérieur).",
                 Psy: 6,
                 Zone: 0,
@@ -6960,6 +7450,7 @@ baroudeur: {
             },
             {
                 nom: "Migration Instantanée",
+                image: "",
                 description: "'Tout le Terrain' Ce sort peut désigner tous les alliés ou tous les ennemis, permet de bouger toutes les cibles désignées de 10 mètres dans la direction voulue. Si ce sort cible les alliés, ils sont guéris des altérations négatives et gagnent +20% au blocage pendant les 2 prochains tours (y compris le lanceur). Si le sort cible les ennemis, ils subissent ‘’Engelure’’ puis se déplacent puis subissent ‘’Entrave’’.",
                 Psy: 5,
                 Zone: "tout_le_terrain",
@@ -6982,6 +7473,7 @@ baroudeur: {
             },
             {
                 nom: "Résilience de Baroudeur",
+                image: "",
                 description: "Le Baroudeur reçoit un bonus de 2 à l’armure, 20% de chance de bloquer et une résistance à tous les éléments pendant 1 tour. Ce sort ne consomme pas d’action.",
                 Psy: 6,
                 Zone: 0,
@@ -6997,6 +7489,7 @@ baroudeur: {
             },
             {
                 nom: "Dernier Voyage",
+                image: "",
                 description: "Ce sort reste dormant tant que la cible n’a pas l’état K.O ou Mort. Une fois que la cible meurt ou tombe K.O elle récupère tous ses points de vie, ses points de psyché et ses capacités et est considérée comme un Mort-Vivant. Pendant 2 tours, elle combat au côté du lanceur de ce sort même s’ils étaient ennemis. À la fin du sort la cible reprend son état normal mais son âme est définitivement partie, empêchant toute résurrection ou retour à la vie.",
                 Psy: 7,
                 Zone: 0,
@@ -7017,6 +7510,7 @@ baroudeur: {
         sortMaitre: [
             {
                 nom: "L’important c’est le Voyage",
+                image: "",
                 description: "Pendant 2 tours les sorts 'Résilience de Baroudeur', 'Promenade revigorante', 'Maladie des transports' et 'Itinéraire noir' sont actifs. Les sorts de la voie du Baroudeur voient leur coût réduit de 2 PSY pendant la durée de l’effet.",
                 Psy: 16,
                 Zone: 0,
@@ -7034,6 +7528,7 @@ baroudeur: {
 },
 forgeron: {
     nom: "Forgeron",
+    image: "",    
     description: [
         "Les forgerons sont les meilleurs amis des aventuriers, ce sont eux qui doivent réparer les épées vieilles de 30 ans ou les lances brisées en mille morceaux de leurs compagnons. Ce n’est pas un travail facile et en général, ils préfèrent l’exercer dans un atelier fixe.",
         "Certains rejoignent des groupes d’aventuriers fixes pour réparer leurs équipements pendant leurs aventures et à dire vrai pratiquement tous les groupes d’aventuriers célèbres ont au moins un membre avec des compétences de forgeron.",
@@ -7078,22 +7573,27 @@ forgeron: {
         "Les rebuts peuvent avoir plusieurs utilisations pour le forgeron :",
         {
             nom: "Réduire coût en PSY",
+            image: "",
             description: "Le Forgeron peut utiliser 1 rebut pour réduire le coût en PSY d’un de ses sorts de voie de 1 PSY cet effet est cumulable."
         },
         {
             nom: "Bonus Artisanat",
+            image: "",
             description: "Le Forgeron peut utiliser 1 Rebut pour s’octroyer un bonus de +10 en artisanat. Cet effet se cumule."
         },
         {
             nom: "Ajouter trait équipement",
+            image: "",
             description: "Le Forgeron peut utiliser 2 Rebuts pour ajouter gratuitement un trait positif de rareté inférieure à celle d'un équipement OU un trait de rareté égale en créant au passage une imperfection. Cette création est choisie mais l'imperfection est aléatoire. Cet effet n'est pas cumulable."
         },
         {
             nom: "Créer arme",
+            image: "",
             description: "Le Forgeron peut utiliser 2 rebuts pour créer aléatoirement une arme, principale ou secondaire, de rareté commune. Pour 6 Rebuts il peut créer une arme rare. Il a aussi besoin d’un atelier pour pouvoir la forger."
         },
         {
             nom: "Créer armure/accessoire",
+            image: "",
             description: "Le Forgeron peut utiliser 3 rebuts pour créer aléatoirement une armure ou un accessoire de rareté commune. Pour 8 Rebuts il peut créer une armure rare. Il a aussi besoin d’un atelier pour pouvoir la forger."
         },
         "Certains sorts du Forgeron utilisent eux aussi les Rebuts et octroient des effets supplémentaires.",
@@ -7104,6 +7604,7 @@ forgeron: {
         talents: [
             {
                 nom: "Fort-geron",
+                image: "",
                 description: "Ajoute +1 en Constitution et +5 places d'inventaire.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -7114,6 +7615,7 @@ forgeron: {
             },
             {
                 nom: "Polyvalence artisanale",
+                image: "",
                 description: "Ajoute +10 en Artisanat, lors d’un jet pour réparer ou détruire quelque chose on ajoute +10 dans la statistique souhaitée.",
                 niveauJoueur: 2,
                 prerequis: ["Fort-geron"],
@@ -7124,6 +7626,7 @@ forgeron: {
             },
             {
                 nom: "Amélioration d’arme",
+                image: "",
                 description: "Hors combat, le Forgeron peut ajuster une arme, principale ou secondaire, afin d’augmenter les dégâts qu’elle fait de +1, cet effet dure un combat et nécessite un long moment calme pour être appliqué. Au niveau 5 ce bonus est porté à +2 et au niveau 9 à +3, l’effet n’est pas cumulable sur une seule personne mais peut concerner autant de personnes en simultané que voulu.",
                 niveauJoueur: 3,
                 prerequis: ["Polyvalence artisanale"],
@@ -7140,6 +7643,7 @@ forgeron: {
             },
             {
                 nom: "Arme Entretenue",
+                image: "",
                 description: "Ajoute +1 en Force et 1 en Défense.",
                 niveauJoueur: 4,
                 prerequis: ["Amélioration d’arme"],
@@ -7150,6 +7654,7 @@ forgeron: {
             },
             {
                 nom: "Fin Connaisseur",
+                image: "",
                 description: "Ajoute +1 en Défense. Lorsqu’un butin doit vous faire récupérer une arme principale ou secondaire, vous pouvez ajouter un trait positif d'une rareté inférieure à celle de l'objet en plus gratuitement.",
                 niveauJoueur: 5,
                 prerequis: ["Arme Entretenue"],
@@ -7160,6 +7665,7 @@ forgeron: {
             },
             {
                 nom: "Expert en Armement",
+                image: "",
                 description: "Obtient un bonus de 30 en marchandage lors de la vente et de l'achat d'armes principales ou secondaires et d’armure. Si le marchand n’est pas lui-même un forgeron vous obtenez en plus en avantage.",
                 niveauJoueur: 6,
                 prerequis: ["Fin Connaisseur"],
@@ -7170,6 +7676,7 @@ forgeron: {
             },
             {
                 nom: "Réarmement",
+                image: "",
                 description: "Vous pouvez sacrifier une arme (secondaire ou principale) de votre inventaire. Lancez 1 dé 6. Sur 2 ou moins, elle se transforme en une autre arme commune aléatoire. Sur 3 à 5, elle se transforme en une autre arme rare aléatoire, sur 6 elle se transforme en une autre arme épique. Les armes obtenues via cet effet ont toutes le trait 'Doré' en plus de leurs autres traits et ne peuvent pas être ciblées à nouveau par l’effet.",
                 niveauJoueur: 7,
                 prerequis: ["Expert en Armement"],
@@ -7187,6 +7694,7 @@ forgeron: {
             },
             {
                 nom: "Solide et Fiable",
+                image: "",
                 description: "Ajoute +1 en Force et en Constitution. Octroie un bonus de +30 lors d'un jet de connaissance lié à une arme ou une armure.",
                 niveauJoueur: 8,
                 prerequis: ["Réarmement"],
@@ -7198,6 +7706,7 @@ forgeron: {
             },
             {
                 nom: "Chaleur de la Forge",
+                image: "",
                 description: "Octroie une Immunité à Brûlure et une résistance au Feu. Augmente la Robustesse de +10.",
                 niveauJoueur: 9,
                 prerequis: ["Solide et Fiable"],
@@ -7209,6 +7718,7 @@ forgeron: {
             },
             {
                 nom: "Maître Artisan",
+                image: "",
                 description: "Tous les jets concernant une armure ou une arme se font avec avantage. En combat, si un bonus lié à un sort de forgeron modifie l’arme en main, tous les jets de touche se feront avec un avantage.",
                 niveauJoueur: 10,
                 prerequis: ["Chaleur de la Forge"],
@@ -7224,6 +7734,7 @@ forgeron: {
         sortNovice: [
             {
                 nom: "Poigne du Forgeron",
+                image: "",
                 description: "Attrape un ennemi au corps-à-corps, inflige 1 dé 6 +1 dégâts et ‘’Entrave’’.",
                 Psy: 3,
                 Zone: 0,
@@ -7238,6 +7749,7 @@ forgeron: {
             },
             {
                 nom: "Flamme de la Forge",
+                image: "",
                 description: "Le forgeron frappe le sol devant lui et inflige 1 dé 6 dégâts Feu et ‘‘Brûlure’’ aux ennemis dans la zone.",
                 Psy: 3,
                 Zone: "devant_lanceur",
@@ -7251,6 +7763,7 @@ forgeron: {
             },
             {
                 nom: "Aiguisage",
+                image: "",
                 description: "Aiguise une arme alliée ou celle du lanceur qui fera 1 dé 4 dégâts supplémentaires pendant 2 tours. Ne consomme pas d’action et ne se cumule pas.",
                 Psy: 2,
                 Zone: 0,
@@ -7265,6 +7778,7 @@ forgeron: {
             },
             {
                 nom: "Expertise",
+                image: "",
                 description: "Choisissez un ennemi, vous repérez les points faibles de son arme pour mieux anticiper ses attaques. Cet ennemi infligera -1 dégât et subit un malus de 10% de chances de toucher lorsqu’il attaque. Ce sort dure jusqu’à sa révocation ou jusqu’à sa réutilisation et ne consomme pas d'action.",
                 Psy: 3,
                 Zone: 0,
@@ -7279,6 +7793,7 @@ forgeron: {
             },
             {
                 nom: "Métal en Fusion",
+                image: "",
                 description: "Chauffe de manière spectaculaire l’arme en main d’un ennemi au corps à corps, il doit faire un jet de sauvegarde de Force, s’il réussit il subit 1 dé 4 dégâts Feu et Brulure, s’il loupe il lâche son arme en main en plus et devra consommer une action pour la récupérer.",
                 Psy: 3,
                 Zone: 0,
@@ -7295,6 +7810,7 @@ forgeron: {
             },
             {
                 nom: "Flamberge ardente",
+                image: "",
                 description: "Frappe un ennemi au corps à corps avec une épée de flamme, inflige 1 dé 6 +3 dégâts Feu et Brulure. Si l’ennemi est déjà sous l’effet Brulure il devient faible au Feu pour cette attaque.",
                 Psy: 4,
                 Zone: 0,
@@ -7309,6 +7825,7 @@ forgeron: {
             },
             {
                 nom: "Golem de Forge",
+                image: "",
                 description: "''Invocation'' Crée un golem qui possède 8 PV, x PB, x armure et qui frappe 2 fois x dégâts fixes Feu ou Terre au choix lors de l’attaque. (x est le montant de rebut utilisé pour lancer ce sort).",
                 Psy: 5,
                 Zone: 0,
@@ -7329,6 +7846,7 @@ forgeron: {
             },
             {
                 nom: "Renforcement de Bouclier",
+                image: "",
                 description: "Ne peut s’utiliser que si la cible a un bouclier. Augmente l’armure de la cible de 1 et son taux de blocage de 10% pour le reste du combat. Ne consomme pas d’action.",
                 Psy: 1,
                 Zone: 0,
@@ -7344,6 +7862,7 @@ forgeron: {
             },
             {
                 nom: "Refonte Tactique",
+                image: "",
                 description: "Pendant un combat, vous pouvez transformer votre arme ou celle d’un allié au corps-à-corps en une autre aléatoire de la même rareté, le jet de touche se fait sur celui de l’arme initiale. L’arme reprend sa forme initiale après 1 tour sinon vous pouvez payer 1 PSY supplémentaire pour la maintenir sous sa nouvelle forme, ce sort ne consomme pas d'action.",
                 Psy: 2,
                 Zone: 0,
@@ -7360,6 +7879,7 @@ forgeron: {
             },
             {
                 nom: "Apprentissage",
+                image: "",
                 description: "Le lanceur crée un Rebut en plus de celui octroyé par ce sort. Il sacrifie pour cela tout son déplacement pour ce tour, ce sort n’a aucun effet si une partie du déplacement a déjà été utilisée avant son lancement.",
                 Psy: 2,
                 Zone: 0,
@@ -7374,6 +7894,7 @@ forgeron: {
             },
             {
                 nom: "Ajustement",
+                image: "",
                 description: "Vous ajustez l’armure d’un allié au corps à corps, celui-ci gagne +10% de chance de toucher et de coup critique pendant 2 tours. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -7388,6 +7909,7 @@ forgeron: {
             },
             {
                 nom: "Double tranchant",
+                image: "",
                 description: "Peut cibler une arme de la catégorie 'Tranchant' jusqu’à la fin du combat celle-ci inflige 'Hémorragie' quand elle touche. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -7404,6 +7926,7 @@ forgeron: {
         sortConfirme: [
             {
                 nom: "Armure de Pacotille",
+                image: "",
                 description: "Vous attaquez un ennemi avec l’arme en main et brisez son armure et ses boucliers. Pour 1 tour, l’ennemi a une valeur d’armure et des PB égaux à 0. Inflige les dégâts de l’arme en main après l’effet.",
                 Psy: 3,
                 Zone: 0,
@@ -7419,6 +7942,7 @@ forgeron: {
             },
             {
                 nom: "Trempe brutale",
+                image: "",
                 description: "Refroidit d’un seul coup la cible, l’ennemi subit 1 dé 4 dégâts Eau et subit Engelure. S’il était sous l’effet d’une Brûlure, celle-ci disparaît et l’ennemi subit le triple de dégâts et Sonné.",
                 Psy: 4,
                 Zone: 0,
@@ -7433,6 +7957,7 @@ forgeron: {
             },
             {
                 nom: "Marteau de la Première forge",
+                image: "",
                 description: "Utilise le marteau légendaire des forgerons pour frapper un ennemi et lui réduire à 0 son armure pour 2 tours. Inflige 2 dés 6 dégâts Feu et ‘‘Brûlure’’ Irrésistible.",
                 Psy: 6,
                 Zone: 0,
@@ -7448,6 +7973,7 @@ forgeron: {
             },
             {
                 nom: "Agglomération de rebut",
+                image: "",
                 description: "Ce sort ne peut cibler qu’une arme de la catégorie 'contondante' il faut aussi payer 1 rebut pour pouvoir utiliser ce sort. L’arme ignore l’armure et les PB d’un adversaire lorsqu’elle frappe pour le reste du combat. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -7463,6 +7989,7 @@ forgeron: {
             },
             {
                 nom: "Armure Solide",
+                image: "",
                 description: "Octroie +2 d’armure et +20% de blocage à un allié ou soi-même pour 2 tours, non-cumulable.",
                 Psy: 4,
                 Zone: 0,
@@ -7478,6 +8005,7 @@ forgeron: {
             },
             {
                 nom: "Tapure fatale",
+                image: "",
                 description: "Fragilise fortement l’arme d’une cible désignée. Lors de sa prochaine utilisation celle-ci se brisera et sera inutilisable pour 2 tours tout en infligeant 2 dé 4 dégâts à son utilisateur et en lui faisant automatiquement rater son attaque.",
                 Psy: 5,
                 Zone: 0,
@@ -7494,6 +8022,7 @@ forgeron: {
             },
             {
                 nom: "Oubli de Brevetage",
+                image: "",
                 description: "Vous copiez l’arme en main d’une cible désignée, celle-ci sera en tout point égale à l’originale mais elle sera beaucoup plus fragile. Au bout de 2 utilisations elle se brisera complètement. Ce sort ne peut pas copier des armes modifiées par un autre sort du forgeron.",
                 Psy: 4,
                 Zone: 0,
@@ -7509,6 +8038,7 @@ forgeron: {
             },
             {
                 nom: "Haut Fourneau",
+                image: "",
                 description: "''Invocation'' Invoque un fourneau qui possède 15 PV et est immunisé au Feu. Cette invocation est en outre immobile en toute circonstance. Le fourneau inflige Brulure et 1 dé 4 dégâts Feu à tous les ennemis qui se situent à moins de 10 mètres de lui, il crée un rebut à chaque tour de jeu pour le Forgeron.",
                 Psy: 5,
                 Zone: 0,
@@ -7530,6 +8060,7 @@ forgeron: {
             },
             {
                 nom: "Refonte supérieure",
+                image: "",
                 description: "Pendant un combat, vous pouvez transformer votre arme ou celle d’un allié au corps-à-corps en une autre aléatoire d’un cran supérieur rareté sauf Légendaire, le jet de touche se fait sur celui de l’arme initiale. L’arme reprend sa forme initiale après 1 tour sinon vous pouvez payer 1 PSY supplémentaire pour la maintenir sous sa nouvelle forme, ce sort ne consomme pas d'action, il coûte 1 Rebut à lancer et ne crée pas de Rebut.",
                 Psy: 4,
                 Zone: 0,
@@ -7551,6 +8082,7 @@ forgeron: {
         sortExpert: [
             {
                 nom: "Armure de Secours",
+                image: "",
                 description: "Une fois ce sort lancé sur un allié, il octroie 2 fois la somme de PV perdus par l’allié lors de la prochaine attaque en PB. L’allié ne peut, quoi qu’il arrive, pas mourir de la prochaine attaque, il garde 1 PV minimum.",
                 Psy: 6,
                 Zone: 0,
@@ -7565,6 +8097,7 @@ forgeron: {
             },
             {
                 nom: "Refonte Légendaire",
+                image: "",
                 description: "Pendant un combat, vous pouvez transformer votre arme ou celle d’un allié au corps-à-corps en une arme légendaire aléatoire, le jet de touche se fait sur celui de l’arme initiale. L’arme reprend sa forme initiale après 1 tour, l’effet coûte 2 PSY supplémentaires par tour pour être maintenu.",
                 Psy: 6,
                 Zone: 0,
@@ -7580,6 +8113,7 @@ forgeron: {
             },
             {
                 nom: "Forgeron Légendaire",
+                image: "",
                 description: "“Tout le Terrain”. Tous les alliés et le lanceur gagnent +2 d’armure et +2 dégâts, les ennemis perdent 2 d’armure et leurs armes, s’ils en possèdent, infligent la moitié de leurs dégâts. L’effet dure 2 tours et ce sort ne consomme pas d’action.",
                 Psy: 6,
                 Zone: "tout_le_terrain",
@@ -7596,6 +8130,7 @@ forgeron: {
             },
             {
                 nom: "Esprit de la Forge",
+                image: "",
                 description: "Le lanceur devient un élémentaire de flamme, ce faisant il gagne une immunité au Feu et à Brûlure et une faiblesse à l’Eau. Toutes ses attaques infligeant des dégâts frappent Feu et appliquent Brûlure en plus de leurs effets habituels, son attaque à mains nues devient 'Boule De Feu' un sort Novice de Feu et ne coûte rien. Sous cette forme le lanceur possède 20 PV, une fois ceux-ci réduits à 0 il reprend sa forme et ses PV d’origine.",
                 Psy: 7,
                 Zone: 0,
@@ -7615,6 +8150,7 @@ forgeron: {
             },
             {
                 nom: "Arme Rutilante de Perfection Céleste Absolue",
+                image: "",
                 description: "Invoque l’arme la plus puissante créée. Celle-ci frappe à 3 dé 8 de dégâts dans un élément choisi au moment de l’attaque et applique une altération d’état choisie de manière irrésistible en cas de coup critique. Inflige ‘’Cécité’’ et ‘’Terreur’’ à tous les ennemis qui commencent leur tour au corps-à-corps du porteur. L’arme dure 2 tours puis disparaît.",
                 Psy: 8,
                 Zone: 0,
@@ -7633,6 +8169,7 @@ forgeron: {
             },
             {
                 nom: "Armure Valeureuse Automatique de Sécurité Temporaire",
+                image: "",
                 description: "Invoque l’armure la plus puissante jamais créée. Octroie au lanceur ou à un allié l’état 'Invulnérable', le guérit de tous ses effets négatifs. Inflige ‘’Cécité’’ et ‘’Terreur’’ à tous les ennemis qui commencent leur tour au corps-à-corps du porteur. L’armure dure 2 tours.",
                 Psy: 8,
                 Zone: 0,
@@ -7649,6 +8186,7 @@ forgeron: {
             },
             {
                 nom: "Mise au Rebut",
+                image: "",
                 description: "Ce sort peut toucher une cible jusqu’à 15 mètres, il sacrifie tous les Rebuts présents dans l’inventaire du Forgeron au moment de son lancement et inflige x dés 6 où x est le nombre de rebuts sacrifié pour cette attaque. Si la cible de l’attaque meurt le forgeron récupère un tiers des rebuts utilisés arrondi au supérieur.",
                 Psy: 6,
                 Zone: 0,
@@ -7663,6 +8201,7 @@ forgeron: {
             },
             {
                 nom: "Pointe profilée",
+                image: "",
                 description: "Ce sort ne peut cibler que des armes de la catégorie 'Perforant', l’arme modifiée sera influencée par le DSB de son utilisateur jusqu’à la fin du combat.",
                 Psy: 4,
                 Zone: 0,
@@ -7679,6 +8218,7 @@ forgeron: {
         sortMaitre: [
             {
                 nom: "Marteau d’Oroun",
+                image: "",
                 description: "''Tout le terrain'' Invoque le marteau du créateur de mondes. Celui-ci s’abat avec la puissance d’un météore et inflige 3 dé 8 dégâts sur tous les ennemis, les alliés et le lanceur se voient octroyer l’effet de 'Refonte légendaire' pendant 1 tour. Ce sort génère autant de Rebuts qu’il y a de cibles sur le terrain.",
                 Psy: 18,
                 Zone: "tout_le_terrain",
@@ -7698,6 +8238,7 @@ forgeron: {
 },
 barde: {
     nom: "Barde",
+    image: "",    
     description: [
         "Les bardes sont des chanteurs de rues, ils officient dans les tavernes ou dans les réunions de village. Certains, néanmoins, deviennent de véritables stars et sont prisés des plus grands de ce monde, ils sont très talentueux avec les mots et savent brosser dans le sens du poil.",
         "Ils sont aussi appréciés dans certains groupes d’aventuriers grâce au soutien qu’ils apportent en combat, cela reste assez rare cela dit, car les aventuriers n’ont pas vraiment besoin de chanteurs selon eux.",
@@ -7752,6 +8293,7 @@ barde: {
         talents: [
             {
                 nom: "Charismatique",
+                image: "",
                 description: "Ajoute +1 en Charisme et +10 en Art et Musique.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -7762,6 +8304,7 @@ barde: {
             },
             {
                 nom: "Musicien Émérite",
+                image: "",
                 description: "Si le Barde est équipé d’une arme qui est un instrument. Il gagne +1 aux soins et aux dégâts.",
                 niveauJoueur: 2,
                 prerequis: ["Charismatique"],
@@ -7773,6 +8316,7 @@ barde: {
             },
             {
                 nom: "Tête d’Affiche",
+                image: "",
                 description: "Double la valeur du charisme du barde lors d'un jet de ciblage sur lui-même.",
                 niveauJoueur: 3,
                 prerequis: ["Musicien Émérite"],
@@ -7782,6 +8326,7 @@ barde: {
             },
             {
                 nom: "Célébrité",
+                image: "",
                 description: "Ajoute +1 en Charisme. Ajoute un bonus de +10 dans les statistiques liées au charisme avec un personnage de la même race que le barde.",
                 niveauJoueur: 4,
                 prerequis: ["Tête d’Affiche"],
@@ -7792,6 +8337,7 @@ barde: {
             },
             {
                 nom: "Fan Numéro 1",
+                image: "",
                 description: "Choisissez un allié au moment de l’acquisition de ce sort (cela peut être une invocation). Lorsque l’allié est à moins de 10 mètres du Barde, ce dernier gagne +1 aux soins et dégâts.",
                 niveauJoueur: 5,
                 prerequis: ["Célébrité"],
@@ -7804,6 +8350,7 @@ barde: {
             },
             {
                 nom: "Charmant",
+                image: "",
                 description: "Ajoute +1 en Charisme. Le Barde immunise ses alliés et lui-même à 'Charme'.",
                 niveauJoueur: 6,
                 prerequis: ["Fan Numéro 1"],
@@ -7814,6 +8361,7 @@ barde: {
             },
             {
                 nom: "Star Internationale",
+                image: "",
                 description: "Permet de parler 2 langues supplémentaires (sauf Animal et Ancien). Ajoute +10 dans toutes les statistiques liées au charisme lors d'une discussion amicale.",
                 niveauJoueur: 7,
                 prerequis: ["Charmant"],
@@ -7825,6 +8373,7 @@ barde: {
             },
             {
                 nom: "Habitué des Scènes",
+                image: "",
                 description: "Immunité à ‘’Terreur’’. Si un effet doit vous appliquer ‘’Terreur’’, vous augmentez vos dégâts et soins de +2 pour un tour.",
                 niveauJoueur: 8,
                 prerequis: ["Star Internationale"],
@@ -7836,6 +8385,7 @@ barde: {
             },
             {
                 nom: "Monstre Charismatique",
+                image: "",
                 description: "Ajoute +2 en Charisme. Cela vous permet aussi de dépasser le palier de 30 en charisme de la répartition. Au-delà du trentième point obtenu en Charisme le Barde gagne +1 PSY et PV à chaque point obtenu.",
                 niveauJoueur: 9,
                 prerequis: ["Habitué des Scènes"],
@@ -7847,6 +8397,7 @@ barde: {
             },
             {
                 nom: "Légende bardique",
+                image: "",
                 description: "Octroie un avantage sur tous les jets basés sur les statistiques mineures liées au charisme. Si le barde loupe un jet de charisme pur il peut relancer le dé une fois par combat et garde le résultat obtenu.",
                 niveauJoueur: 10,
                 prerequis: ["Monstre Charismatique"],
@@ -7862,6 +8413,7 @@ barde: {
         sortNovice: [
             {
                 nom: "Gargarisme",
+                image: "",
                 description: "\"Répétition\" Ajoute +3 DSB pour le prochain sort de la voie du barde lancé. Temps de recharge de 1 tour. Ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -7876,6 +8428,7 @@ barde: {
             },
             {
                 nom: "Balade Romantique",
+                image: "",
                 description: "\"Ouverture\" Soigne un allié de 1 dé 6 PV jusqu'à 15 mètres.",
                 Psy: 3,
                 Zone: 0,
@@ -7889,6 +8442,7 @@ barde: {
             },
             {
                 nom: "Requiem",
+                image: "",
                 description: "\"Climax\" Désigne un ennemi jusqu’à 25 mètres. Tous les dégâts infligés à cet ennemi seront augmentés de +2. L’effet dure 1 tour et demande 1 PSY par tour pour le maintenir actif. Il ne peut être lancé que sur une cible à la fois, ce sort ne consomme pas d'action.",
                 Psy: 3,
                 Zone: 0,
@@ -7905,6 +8459,7 @@ barde: {
             },
             {
                 nom: "Voix Baryton",
+                image: "",
                 description: "\"Répétition\" Tous les sorts de Barde augmentent les dégâts subis par les ennemis ciblés de 1 ou augmentent les dégâts des alliés ciblés de 1. Cet effet dure 2 tours ou jusqu’à l’utilisation d’un autre sort voix. Ne consomme pas d’action.",
                 Psy: 1,
                 Zone: 0,
@@ -7921,6 +8476,7 @@ barde: {
             },
             {
                 nom: "Entracte",
+                image: "",
                 description: "Ce sort est, au choix du lanceur, une Répétition, une Ouverture ou un Climax. Le lanceur se soigne lui-même ou un allié au corps à corps de 1 dé 4 PV.",
                 Psy: 2,
                 Zone: 0,
@@ -7934,6 +8490,7 @@ barde: {
             },
             {
                 nom: "Enka spirituel",
+                image: "",
                 description: "\"Climax\" Le lanceur ou un allié jusqu’à 10 mètres voit les prochains dégâts subis annulés. Ce sort ne consomme pas d’action et coûte la moitié des dégâts annulés en PSY au lanceur.",
                 Psy: "variable",
                 Zone: 0,
@@ -7948,6 +8505,7 @@ barde: {
             },
             {
                 nom: "Encore",
+                image: "",
                 description: "\"Final\" Ce sort répète le dernier sort utilisé en payant 2 PSY de plus pour le lancer et ce dernier est considéré comme un 'Final' aux yeux de la mécanique. Au lieu de reprendre sa mécanique à zéro, le barde reste à 'Climax'.",
                 Psy: "variable",
                 Zone: 0,
@@ -7964,6 +8522,7 @@ barde: {
             },
             {
                 nom: "Glissade du guitariste",
+                image: "",
                 description: "\"Répétition\" Le lanceur glisse sur les genoux en chauffant son instrument avec vigueur. Ce sort permet d’avancer en ligne droite de 15 mètres, toutes les entités sur cette ligne sont repoussées sur un côté, si elles ne peuvent pas elles subissent 'Sonné'. Le lanceur et les alliés pris dans ce sort gagnent +1 au DSB et +10% de CC pour 1 tour. Les ennemis pris dans la zone d’effet subissent 'Entrave' et 1 dé 4 dégâts.",
                 Psy: 3,
                 Zone: "ligne_droite",
@@ -7984,6 +8543,7 @@ barde: {
             },
             {
                 nom: "Groove imperturbable",
+                image: "",
                 description: "\"Climax\" 'Tout le terrain' Octroie une immunité à toutes les altérations d’état pour 1 tour aux alliés et au lanceur, si une altération devait être subie elle sera infligée au lanceur de cette dernière à la place.",
                 Psy: 3,
                 Zone: "tout_le_terrain",
@@ -7999,6 +8559,7 @@ barde: {
             },
             {
                 nom: "Mort sur scène",
+                image: "",
                 description: "\"Final\" Le lanceur entre dans l’état Mort pour 1 tour, il ne peut donc plus subir aucuns dégâts, aucun malus, aucun effet d’état et est purgé de ceux-ci. Il donne une dernière tirade dramatique à un ennemi au corps à corps avant de mourir, celui-ci subit 'Charme' irrésistible, puis, lorsque le barde reprend ses esprits, il subit un ciblage automatique sur ce dernier. Ce sort ne fonctionne pas deux fois sur le même ennemi, il ne consomme pas d’action.",
                 Psy: 4,
                 Zone: 0,
@@ -8017,6 +8578,7 @@ barde: {
             },
             {
                 nom: "Cantique funèbre",
+                image: "",
                 description: "\"Ouverture\" Une sombre mélodie pour apaiser l’âme des défunts, inflige 1 dé 6 dégâts dans la zone et applique 'Poison' aux créatures vivantes. Les Morts-Vivants ennemis subissent le double de dégâts, les Morts-Vivants alliés se voient appliqués 3 'Poisons' à la place.",
                 Psy: 3,
                 Zone: "zone",
@@ -8033,6 +8595,7 @@ barde: {
             },
             {
                 nom: "Présence scénique",
+                image: "",
                 description: "\"Répétition\" Tous les ennemis à moins de 10 mètres du lanceur ne voient plus que lui, s’ils essaient de frapper quelqu’un d’autre ils subissent d’abord 'Cécité', si ils frappent le lanceur celui-ci peut leur infliger une attaque d’opportunité à chaque fois. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -8050,6 +8613,7 @@ barde: {
         sortConfirme: [
             {
                 nom: "Mur du Son",
+                image: "",
                 description: "\"Ouverture\" Invoque un mur intangible de 15 mètres de large devant le Barde. Ce mur divise les dégâts des projectiles qui passent à travers par deux et applique 'Silence' aux ennemis qui marchent dedans. Il reste en place 2 tours.",
                 Psy: 4,
                 Zone: "invocation",
@@ -8067,6 +8631,7 @@ barde: {
             },
             {
                 nom: "Trompette de l’Apocalypse",
+                image: "",
                 description: "''Tout le terrain'' \"Final\". Applique ‘’Terreur’’ et ‘’Engelure’’ à tous les ennemis et leur inflige 1 dé 4 dégâts, les dégâts infligés de cette manière sont impossible à résister ou à bloquer et sont perce armure.",
                 Psy: 4,
                 Zone: "tout_le_terrain",
@@ -8083,6 +8648,7 @@ barde: {
             },
             {
                 nom: "Voix Soprano",
+                image: "",
                 description: "\"Répétition\" Tous les sorts de barde réduisent les dégâts subis par les alliés ciblés de -1 et augmente les soins des sorts du lanceur de +1 pour 1 tour. Cet effet dure 2 tours ou jusqu’à l’utilisation d’un autre sort voix. Ne consomme pas d’action.",
                 Psy: 1,
                 Zone: 0,
@@ -8099,6 +8665,7 @@ barde: {
             },
             {
                 nom: "Chant de Guerre",
+                image: "",
                 description: "''Tout le Terrain'' \"Ouverture\" Braille un air qui redonne courage aux alliés au combat, +2 aux dégâts et à l’armure pour 2 tours. Immunité à “Terreur“, supprime l’état “Terreur“, ce sort ne consomme pas d'action.",
                 Psy: 5,
                 Zone: "tout_le_terrain",
@@ -8116,6 +8683,7 @@ barde: {
             },
             {
                 nom: "Percussion Forte",
+                image: "",
                 description: "\"Climax\" Frappe un ennemi sur la tête en rythme. Inflige 2 dés 6 dégâts et ‘’Sonné’’.",
                 Psy: 5,
                 Zone: 0,
@@ -8130,6 +8698,7 @@ barde: {
             },
             {
                 nom: "Grognement guttural",
+                image: "",
                 description: "\"Ouverture\" Le lanceur fait des vocalises avec une voix terrifiante, pendant 2 tours, à chaque fois qu’un ennemi situé à moins de 10 mètres du lanceur doit faire un jet il le fait avec un désavantage, s’il le loupe il subit Terreur.",
                 Psy: 5,
                 Zone: 0,
@@ -8145,6 +8714,7 @@ barde: {
             },
             {
                 nom: "Solo Enflammé",
+                image: "",
                 description: "\"Final\" Inflige 2 dé 8 dégâts à une cible au corps-à-corps et applique ‘‘Brûlure’’ à celle-ci et au Barde. Si ‘‘Brûlure’’ est appliquée avec succès sur le Barde, les autres ennemis subissent ‘’Terreur’’.",
                 Psy: 5,
                 Zone: 0,
@@ -8160,6 +8730,7 @@ barde: {
             },
             {
                 nom: "Scat infini",
+                image: "",
                 description: "\"Ouverture\" Assomme un ennemi avec un flot interminable d’onomatopées, la cible subit Sonné, si elle résiste elle subit Folie irrésistible. Au début du tour où la cible peut jouer normalement elle subit un désavantage sur tous ses jets.",
                 Psy: 4,
                 Zone: 0,
@@ -8175,6 +8746,7 @@ barde: {
             },
             {
                 nom: "Coach Vocal",
+                image: "",
                 description: "\"Répétition\" Au lancement de ce sort vous désignez un allié, lorsque l'allié utilise une compétence il peut faire un jet d’Art et Musique, s’il réussit le coût en PSY est divisé par 2 arrondi au supérieur. L’effet de Coach vocal persiste jusqu’à ce qu’un jet d’Art et Musique soit loupé. Ce sort ne consomme pas d’action.",
                 Psy: 5,
                 Zone: 0,
@@ -8192,6 +8764,7 @@ barde: {
         sortExpert: [
             {
                 nom: "Chant des Partisans",
+                image: "",
                 description: "''Tout le Terrain'' \"Climax\" Les alliés gagnent +6 PB, +1 d’armure et +20% de chances de bloquer pendant 2 tours.",
                 Psy: 6,
                 Zone: "tout_le_terrain",
@@ -8208,6 +8781,7 @@ barde: {
             },
             {
                 nom: "Valse à Mille Temps",
+                image: "",
                 description: "\"Ouverture\" Oblige un ennemi jusqu’à 25 mètres à danser au rythme d’une mélodie effrénée. L’ennemi est ‘’Sonné’’ Irrésistible pour un tour et subit 8 dégâts fixes et irrésistibles au premier et second tour. Quand l’effet se termine, il subit ‘’Cécité’’ pour un tour.",
                 Psy: 6,
                 Zone: 0,
@@ -8225,6 +8799,7 @@ barde: {
             },
             {
                 nom: "Dernier concert",
+                image: "",
                 description: "Ce sort est, au choix du lanceur, une Répétition, une Ouverture, Un climax ou un Final. Ce sort inflige ou soigne 1 dé 8 dégâts multiplié par le nombre de fois où un sortilège de la même catégorie que lui a été lancé pendant le combat. Une fois utilisé il remet tous les compteurs d’utilisation à zéro.",
                 Psy: 8,
                 Zone: 0,
@@ -8239,6 +8814,7 @@ barde: {
             },
             {
                 nom: "Clash Fatal",
+                image: "",
                 description: "\"Ouverture\" Une cible au corps à corps se retrouve la cible d’une poésie particulièrement longue et douloureuse pour son égo. Elle subit automatiquement le ciblage sur le barde ainsi que Silence et 2 dés 6 dégâts.",
                 Psy: 6,
                 Zone: 0,
@@ -8254,6 +8830,7 @@ barde: {
             },
             {
                 nom: "Tessiture Exceptionnelle",
+                image: "",
                 description: "\"Répétition\" Ce sort est un sort de 'voix'. Cumule les effets de la voix Soprano et voix Baryton tout en ajoutant l’effet suivant : les sorts de Bardes qui ciblent des alliés retirent toutes les altérations d’état basées sur le Charisme ou la Sagesse à ceux-ci. Les sorts de Bardes ciblant des ennemis appliquent tous ‘’Silence’’ à ceux-ci. Cet effet dure 2 tours ou jusqu’à l’utilisation d’un autre sort voix. Ne consomme pas d’action.",
                 Psy: 4,
                 Zone: 0,
@@ -8271,6 +8848,7 @@ barde: {
             },
             {
                 nom: "Ode Céleste",
+                image: "",
                 description: "\"Climax\" Chante une mélodie portée par les cieux. La cible obtient Immunité à K.O. et Mort pour 1 tour. Si elle subit des dégâts qui doivent la faire passer dans le négatif en PV, elle les annule et garde 1 PV quoiqu’il arrive. Temps de recharge de 2 tours, peut s'utiliser juste avant l'application des dégâts à la cible.",
                 Psy: 5,
                 Zone: 0,
@@ -8288,6 +8866,7 @@ barde: {
             },
             {
                 nom: "Note Sombre",
+                image: "",
                 description: "''Final'' Le barde entonne une note qu’il réverbère partout autour de lui. Elle est si grave que le sol en tremble et se déchire. Inflige ‘’Entrave’’ aux ennemis dans la zone pendant 2 tours et 2 dés 6 dégâts.",
                 Psy: 6,
                 Zone: "zone",
@@ -8303,6 +8882,7 @@ barde: {
             },
             {
                 nom: "Je suis Musique",
+                image: "",
                 description: "\"Final\" Le Barde entonne une note qu’il canalise sur un seul ennemi jusqu’à 30 mètres. Elle est si aiguë que l’ennemi subit ‘’Sonné’’ au tour du sort puis ‘’Cécité’’ et ‘’Silence’’. Inflige aussi 2 dés 8 +2 dégâts.",
                 Psy: 7,
                 Zone: 0,
@@ -8321,6 +8901,7 @@ barde: {
         sortMaitre: [
             {
                 nom: "Suivre LA Voix",
+                image: "",
                 description: "''Final'' Ce sort est un sort de voix. Le Barde choisi un allié au lancement de ce sort, tous les effets du barde octroyant des bonus à ce personnage sont doublés, toutes les attaques à l’arme de ce personnage appliquent Charme et tous ses sorts appliquent Silence en plus de leurs effets habituels. Ce sort dure 2 tours ou jusqu’à l’utilisation d’un autre sort voix et ne consomme pas d’action, à la fin de son effet l’allié ciblé subit Sonné irrésistible.",
                 Psy: 10,
                 Zone: 0,
@@ -8343,6 +8924,7 @@ barde: {
 },
 voleur: {
     nom: "Voleur",
+    image: "",    
     description: [
         "Les voleurs ne sont pas très appréciés de la population pourtant la plupart du temps, il s’agit juste de pauvres personnes qui n’ont pas d’autres choix... Ou d’une sordide vocation indéfendable.",
         "Les voleurs sont souvent des aventuriers par définition, ils ne peuvent pas rester longtemps au même endroit à cause de leur mauvaise réputation, ils voyagent beaucoup et savent se tirer de situations délicates. Ils sont donc souvent dans les mêmes groupes que des aventuriers et n’hésitent pas à se servir lors des combats et sur les cadavres.",
@@ -8393,6 +8975,7 @@ voleur: {
         talents: [
             {
                 nom: "Attachement Matériel",
+                image: "",
                 description: "Si vous utilisez une arme volée lors du combat ou de la scène en cours (de n’importe quelle manière), vous ajoutez votre DSB aux dégâts de l’arme. Cette amélioration ne se cumule pas si vous ajoutez déjà votre DSB à une compétence.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -8403,6 +8986,7 @@ voleur: {
             },
             {
                 nom: "Discrétion",
+                image: "",
                 description: "Ajoute +1 en Dextérité et +10 en Discrétion. La Dextérité du Voleur est ajoutée deux fois à sa discrétion s’il est dans l’ombre ou la nuit.",
                 niveauJoueur: 2,
                 prerequis: ["Attachement Matériel"],
@@ -8414,6 +8998,7 @@ voleur: {
             },
             {
                 nom: "Crochetage",
+                image: "",
                 description: "Ajoute +1 en Dextérité. Ajoute +20 à tous les jets pour ouvrir des portes, des coffres, des serrures ou qui concerne des mécanismes.",
                 niveauJoueur: 3,
                 prerequis: ["Discrétion"],
@@ -8424,6 +9009,7 @@ voleur: {
             },
             {
                 nom: "Faire les Poches",
+                image: "",
                 description: "Ajoute +1 en Dextérité et +15 en Adresse.",
                 niveauJoueur: 4,
                 prerequis: ["Crochetage"],
@@ -8434,6 +9020,7 @@ voleur: {
             },
             {
                 nom: "Rien dans la Manche",
+                image: "",
                 description: "Le voleur peut cacher un équipement de son choix, il ne sera jamais enlevé même lors d’une fouille. Le voleur voit les dégâts de sa première attaque du combat doublée.",
                 niveauJoueur: 5,
                 prerequis: ["Faire les Poches"],
@@ -8444,6 +9031,7 @@ voleur: {
             },
             {
                 nom: "Discret comme une Ombre",
+                image: "",
                 description: "Ajoute +1 en Dextérité OU en Sagesse. Octroie Invisible au début du combat vous empêchant donc d’être ciblé.",
                 niveauJoueur: 6,
                 prerequis: ["Rien dans la Manche"],
@@ -8455,6 +9043,7 @@ voleur: {
             },
             {
                 nom: "Amour du risque",
+                image: "",
                 description: "Ajoute +1 en Chance, les jets de statistiques mineures liées à la chance se font en ajoutant la dextérité du Voleur en situation critique.",
                 niveauJoueur: 7,
                 prerequis: ["Discret comme une Ombre"],
@@ -8465,6 +9054,7 @@ voleur: {
             },
             {
                 nom: "Diversion Appropriée",
+                image: "",
                 description: "Ajoute +1 en Charisme. Ajoute +20 en Persuader/Tromper pour faire diversion ou attirer l'attention.",
                 niveauJoueur: 8,
                 prerequis: ["Amour du risque"],
@@ -8475,6 +9065,7 @@ voleur: {
             },
             {
                 nom: "Roi des Baratineurs",
+                image: "",
                 description: "Ajoute 10% de CC avec tous les sorts de la voie du voleur, le taux de critique des statistiques mineures basées sur le charisme devient 10%. Si vous vous faites attraper pour un vol vous avez avantage pour un jet de Persuader/Tromper pour vous sortir de cette situation, cet effet est utilisable une fois par scène.",
                 niveauJoueur: 9,
                 prerequis: ["Diversion Appropriée"],
@@ -8487,6 +9078,7 @@ voleur: {
             },
             {
                 nom: "Roi des Voleurs",
+                image: "",
                 description: "Ajoute 10% de chance de toucher avec tous les sorts de la voie du voleur, le taux de critique des statistiques mineures basées sur la dextérité devient 10%.",
                 niveauJoueur: 10,
                 prerequis: ["Roi des Baratineurs"],
@@ -8502,6 +9094,7 @@ voleur: {
         sortNovice: [
             {
                 nom: "A Moi !",
+                image: "",
                 description: "Permet de voler l'arme d'un ennemi ou l’arme d’un allié au corps-à-corps et d'infliger immédiatement le dé de dégâts de l'arme à un adversaire, l’arme retourne à son propriétaire après utilisation.",
                 Psy: 1,
                 Zone: 0,
@@ -8516,6 +9109,7 @@ voleur: {
             },
             {
                 nom: "Brouillard de Dissimulation",
+                image: "",
                 description: "Inflige ‘’Cécité’’ et 1dé 4 dégâts aux ennemis autour du lanceur. Le Voleur devient Invisible pour un tour et ne pourra donc pas être ciblé ni subir d’attaque d’opportunité.",
                 Psy: 3,
                 Zone: "autour_lanceur",
@@ -8532,6 +9126,7 @@ voleur: {
             },
             {
                 nom: "Prise de Position",
+                image: "",
                 description: "Le Voleur prend la place d’une cible jusqu’à 10 mètres. La cible se décale de 5 mètres dans la direction voulue. Ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -8545,6 +9140,7 @@ voleur: {
             },
             {
                 nom: "Larcin Inopportun",
+                image: "",
                 description: "Vole un équipement adverse, cela peut être une arme ou un objet et le garde définitivement. Si le vol réussit l’adversaire subit un ciblage sur le Voleur.",
                 Psy: 2,
                 Zone: 0,
@@ -8558,6 +9154,7 @@ voleur: {
             },
             {
                 nom: "Disciple de l’Embrouille",
+                image: "",
                 description: "Lorsque qu’un ennemi tente de faire subir le ciblage à un allié, vous pouvez utiliser ce sort. Permet d’annuler le ciblage lancé par l’ennemi et d’en déclencher un pour votre équipe en obligeant l’ennemi à attaquer l’allié de votre choix. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -8573,6 +9170,7 @@ voleur: {
             },
             {
                 nom: "Vol planifié",
+                image: "",
                 description: "Le prochain sort de vol que vous utilisez volera obligatoirement l’objet voulu, sans prendre en compte le jet de sauvegarde adverse. Ce sort ne consomme pas d’action mais doit être obligatoirement lancé au début de votre tour et consomme tout votre déplacement.",
                 Psy: 2,
                 Zone: 0,
@@ -8587,6 +9185,7 @@ voleur: {
             },
             {
                 nom: "Distraction efficace",
+                image: "",
                 description: "Ce sort ne peut cibler qu’un ennemi avec un autre allié au corps à corps, vous profitez de la diversion pour lui dérober un objet et l’attaquer, si l’attaque touche votre allié a lui aussi le droit à une attaque avec son arme en main.",
                 Psy: 4,
                 Zone: 0,
@@ -8601,6 +9200,7 @@ voleur: {
             },
             {
                 nom: "Délestage",
+                image: "",
                 description: "Permet de voler un petit objet jusqu’à une distance de 30 mètres sans que le voleur ne se déplace grâce à un petit sort de télékinésie cela demande tout de même un jet d'Adresse, si ce sort est utilisé en combat il ne consomme pas d'action.",
                 Psy: 2,
                 Zone: 0,
@@ -8616,6 +9216,7 @@ voleur: {
             },
             {
                 nom: "Fuite Couverte",
+                image: "",
                 description: "Le Voleur peut reculer de 10 mètres en ignorant les attaques d’opportunités ou les effets influents sur le déplacement et les altérations d’état. Si un ennemi est au corps-à-corps lors du lancement de l’attaque il subit ‘’Entrave’’ et ‘’Engelure’’. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -8629,6 +9230,7 @@ voleur: {
             },
             {
                 nom: "Code du Voleur",
+                image: "",
                 description: "Hors combat ce sort donne un bonus de +15 à toutes les statistiques liées au Charisme au Voleur pour des jets avec des voleurs, des brigands, des bandits, des recéleurs ou d’autres personnes malhonnêtes. En combat il vous immunise contre toute tentative de vol et octroie un malus au jet de sauvegarde de dextérité d’un adversaire ciblé. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -8643,6 +9245,7 @@ voleur: {
             },
             {
                 nom: "Alibi en béton",
+                image: "",
                 description: "Hors combat ce sort peut être utilisé si le voleur a été pris la main dans le sac en train de voler, il donne un avantage aux jets de Persuader/Tromper pour se sortir de cette mauvaise passe. En combat ce sort peut être utilisé pour annuler un ciblage vous affectant ou pour en déclencher un automatiquement si vous venez de voler un objet. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -8656,6 +9259,7 @@ voleur: {
             },
             {
                 nom: "Escamotage tape à l’œil",
+                image: "",
                 description: "Le voleur organise un vrai petit spectacle pour dérober l’objet d’un ennemi, celui-ci devra faire un jet de Sauvegarde de Charisme pour empêcher le vol. La cible subit Silence et Entrave que le vol soit réussi ou pas. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 Zone: 0,
@@ -8672,6 +9276,7 @@ voleur: {
         sortConfirme: [
             {
                 nom: "Œil du Voleur",
+                image: "",
                 description: "En combat, ce sort ajoute +10% aux chances de toucher et au CC pendant 2 tours. Hors combat, permet de doubler la valeur de la dextérité du voleur pour un jet de perception ou permet de donner la valeur de dextérité du voleur à un allié en plus de la sienne lors d'un jet de perception. Ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -8687,6 +9292,7 @@ voleur: {
             },
             {
                 nom: "Vol à l’arraché",
+                image: "",
                 description: "Le lanceur avance en ligne droite sur 15 mètres, la première cible qu’il percute subit 1 dé 8 dégâts, recule de 5 mètres et le Voleur lui dérobe un objet de son choix.",
                 Psy: 4,
                 Zone: 0,
@@ -8702,6 +9308,7 @@ voleur: {
             },
             {
                 nom: "Voleur d’Etat",
+                image: "",
                 description: "Permet de ‘’voler’’ l’altération d’état d’un allié ou d’un ennemi l’appliquer à l’arme du voleur. La cible à qui l’altération a été prise se la retire, l’arme en main du voleur applique désormais cette altération à chaque fois qu’elle touche. Ce sort ne consomme pas d'action.",
                 Psy: 3,
                 Zone: 0,
@@ -8717,6 +9324,7 @@ voleur: {
             },
             {
                 nom: "Dépouillage",
+                image: "",
                 description: "Inflige 1 dé 6 +3 dégâts à une cible au corps à corps, si elle a déjà été volée ce combat elle subit le double de dégâts et si le Voleur est en possession d’un objet lui appartenant le taux de critique de ce sort est fixé à 50%.",
                 Psy: 5,
                 Zone: 0,
@@ -8731,6 +9339,7 @@ voleur: {
             },
             {
                 nom: "Diversion fatale",
+                image: "",
                 description: "Le voleur choisit une cible au corps à corps, elle subit le ciblage sur le Voleur pendant 1 tour. Pendant ce tour, toutes les attaques provenant des alliés du voleur verront leurs dégâts augmentés de 50% sur cette cible.",
                 Psy: 4,
                 Zone: 0,
@@ -8745,6 +9354,7 @@ voleur: {
             },
             {
                 nom: "Vol de Lien",
+                image: "",
                 description: "Permet au Voleur de prendre le contrôle d’une invocation ennemie, celle-ci combattra pour le voleur comme si elle avait 'Charme' et ne peut pas se soustraire de cet effet à moins d’être désinvoquée.",
                 Psy: 5,
                 Zone: 0,
@@ -8759,6 +9369,7 @@ voleur: {
             },
             {
                 nom: "Vol de Magie",
+                image: "",
                 description: "Ce sort ne peut se lancer que si l’adversaire utilise une capacité qui coûte de la PSY, le Voleur peut utiliser cette capacité jusqu’à la fin du combat et la cible ne peut plus s'en servir.",
                 Psy: 6,
                 Zone: 0,
@@ -8774,6 +9385,7 @@ voleur: {
             },
             {
                 nom: "Braquage",
+                image: "",
                 description: "Menace une cible avec une arme pour lui voler un objet, la cible ne peut pas faire de jet de sauvegarde pour se prémunir de ce vol. Le Voleur inflige ensuite le dé de dégâts de son arme et applique Terreur en plus de ses effets habituels, si cet état s’applique comme il faut le voleur gagne +20% de CC pendant 2 tours.",
                 Psy: 5,
                 Zone: 0,
@@ -8790,6 +9402,7 @@ voleur: {
             },
             {
                 nom: "Partenaire de Crime",
+                image: "",
                 description: "''Invocation'' Créer un double du lanceur de sort qui lui est en tout point égal au moment de son invocation mais qui n’a que 8 PV et est Invisible. Cette invocation possède les mêmes sorts et la même arme que le Voleur et peut s’en servir comme elle l’entend.",
                 Psy: 6,
                 Zone: "invocation",
@@ -8806,6 +9419,7 @@ voleur: {
         sortExpert: [
             {
                 nom: "Vol d’Esprit",
+                image: "",
                 description: "Vous “empruntez” les statistiques d’une cible. Pendant 2 tours, vous possédez les mêmes statistiques qu'elle, y compris les bonus aux dégâts et les résistances et faiblesses mais pas les PV ou la PSY. Utilisable hors combat. Ne consomme pas d’action.",
                 Psy: 7,
                 Zone: 0,
@@ -8822,6 +9436,7 @@ voleur: {
             },
             {
                 nom: "Kidnapping Dimensionnel",
+                image: "",
                 description: "Ce sort ne peut cibler qu’un ennemi et à moins de 10 mètres. Le Voleur ouvre un portail et y pousse l’adversaire, pendant 1 tour il est hors du jeu et est donc Invulnérable et incapable d’agir ou de se déplacer. L’ennemi revient sur le terrain au début du tour du Voleur et subit 2 dé 6 dégâts. Ce sort ne fonctionne pas face aux ennemis attachés au sol, très lourds ou très grands.",
                 Psy: 6,
                 Zone: 0,
@@ -8838,6 +9453,7 @@ voleur: {
             },
             {
                 nom: "Dépossession de masse",
+                image: "",
                 description: "Vous volez un objet à tous les ennemis dans un rayon de 15 mètres autour de vous et leur infligez 1 dé 10 dégâts perce armure. Si vous parvenez à récupérer deux objets ou plus de cette manière votre taux de coup critique est augmenté de 20% pendant 2 tours.",
                 Psy: 6,
                 Zone: "rayon",
@@ -8853,6 +9469,7 @@ voleur: {
             },
             {
                 nom: "Extorsion d’âme",
+                image: "",
                 description: "Le Voleur s’empare de l’âme de la cible au corps à corps. Ce sort inflige 4 dés 6 dégâts mais seulement la moitié si la cible réussit son jet de Sagesse. Si la cible doit mourir à cause de ce sort le Voleur récupère 2 dés 4 PV.",
                 Psy: 7,
                 Zone: 0,
@@ -8868,6 +9485,7 @@ voleur: {
             },
             {
                 nom: "Incrimination",
+                image: "",
                 description: "Vole l’arme d’un ennemi et désigne un autre ennemi à moins de 10 mètres. L’ennemi à qui l’arme a été dérobée subit ‘’Charme’’ irrésistible et ciblera l’ennemi désigné. Vous gardez l’arme ennemie pendant 2 tours et pouvez vous en servir.",
                 Psy: 5,
                 Zone: 0,
@@ -8885,6 +9503,7 @@ voleur: {
             },
             {
                 nom: "Voler aux riches",
+                image: "",
                 description: "''Tout le Terrain'' Le voleur s’empare de la meilleure statistique de touche de chaque ennemi sur le terrain. Il peut utiliser ces statistiques plutôt que les siennes quand il le souhaite pendant 2 tours.",
                 Psy: 4,
                 Zone: "tout_le_terrain",
@@ -8899,6 +9518,7 @@ voleur: {
             },
             {
                 nom: "Donner aux pauvres",
+                image: "",
                 description: "''Tout le Terrain'' Octroie la meilleure statistique du voleur à tous les alliés sur le terrain, ils peuvent effectuer leurs jets en utilisant cette statistique plutôt que la leur quand il le souhaite. Si 'Voler aux riches' a été utilisé ce sort donne toutes les statistiques volées plutôt que celle du lanceur. Cet effet dure 2 tours et ne consomme pas d’action.",
                 Psy: 3,
                 Zone: "tout_le_terrain",
@@ -8914,6 +9534,7 @@ voleur: {
             },
             {
                 nom: "Garder pour soi",
+                image: "",
                 description: "Ce sort ne peut être utilisé que si 'Voler aux riches' et 'Donner au pauvres' sont actifs sur au moins une cible. Le voleur intègre les statistiques volées à la place des siennes définitivement. Le voleur gagne 1 DSB et +5% de CC par dizaine d’écart entre les nouvelles et les anciennes statistiques du voleur en positif comme en négatifs. Cet effet dure 2 tours. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
@@ -8931,6 +9552,7 @@ voleur: {
         sortMaitre: [
             {
                 nom: "L’Heure du Crime",
+                image: "",
                 description: "''Tout le Terrain'' La nuit la plus noire et le brouillard le plus dense tombe soudainement sur le terrain. Les ennemis subissent tous 'Cécité', les alliés obtiennent 'Invisible' au début de leur tour. Le Voleur gagne 2 crans en Vitesse, 20% de chances de coup critique et l’invisibilité persistante, ses vols ne peuvent pas être résistés et appliquent 'Terreur' en plus de leurs effets habituels. Ce sort dure 2 Tours et ne consomme pas d’action.",
                 Psy: 9,
                 Zone: "tout_le_terrain",
@@ -8954,6 +9576,7 @@ voleur: {
 },
 marchand: {
     nom: "Marchand",
+    image: "",   
     description: [
         "Vous aimez l’argent ? Ça tombe bien les marchands aussi, surtout le vôtre. Ceux qui marchent sur cette voie veulent que ça brille, ils veulent les objets les plus clinquants, les tas d’or les plus hauts et surtout ne pas trop dépenser.",
         "Les marchands s’associent parfois à des groupes d’aventuriers, leurs compétences sont très utiles, car ils permettent facilement de gagner beaucoup d’or et donc beaucoup d’équipements surpuissants.",
@@ -9007,6 +9630,7 @@ marchand: {
         talents: [
             {
                 nom: "Laissez moi Négocier",
+                image: "",
                 description: "Ajoute +1 en Charisme. Vous permet de faire un jet de marchandage à la place de l’un des membres du groupe même s’il vient de le louper.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -9017,6 +9641,7 @@ marchand: {
             },
             {
                 nom: "Polyglotte",
+                image: "",
                 description: "Ajoute +1 en Charisme. Permet de parler une langue supplémentaire (sauf ancien et animal).",
                 niveauJoueur: 2,
                 prerequis: ["Laissez moi Négocier"],
@@ -9027,6 +9652,7 @@ marchand: {
             },
             {
                 nom: "Marchandage Aberrant",
+                image: "",
                 description: "Le marchand double son Charisme lors d’un jet de marchandage.",
                 niveauJoueur: 3,
                 prerequis: ["Polyglotte"],
@@ -9036,6 +9662,7 @@ marchand: {
             },
             {
                 nom: "Promotion Déguisée",
+                image: "",
                 description: "Lors d’un jet de vente vous gonflez la valeur d’un objet, double le prix de vente obtenu après le jet de marchandage. Utilisable 1 fois par scène.",
                 niveauJoueur: 4,
                 prerequis: ["Marchandage Aberrant"],
@@ -9046,6 +9673,7 @@ marchand: {
             },
             {
                 nom: "Camelote",
+                image: "",
                 description: "Peuh ! C’est tout ? Ça ne vaut rien ! Le marchand peut relancer un butin aléatoire. Utilisable 1 fois par butin.",
                 niveauJoueur: 5,
                 prerequis: ["Promotion Déguisée"],
@@ -9056,6 +9684,7 @@ marchand: {
             },
             {
                 nom: "Négociateur",
+                image: "",
                 description: "Le marchand parle souvent et beaucoup. Ajoute +1 Charisme. Permet de relancer un jet de Persuader/Tromper ou de Marchandage une fois par scène.",
                 niveauJoueur: 6,
                 prerequis: ["Camelote"],
@@ -9067,6 +9696,7 @@ marchand: {
             },
             {
                 nom: "Roulotte Itinérante",
+                image: "",
                 description: "Ajoute +10 places d’inventaire. Si vous avez deux fois le même objet, il ne prend qu’une seule place.",
                 niveauJoueur: 7,
                 prerequis: ["Négociateur"],
@@ -9077,6 +9707,7 @@ marchand: {
             },
             {
                 nom: "Réévaluation Attentive",
+                image: "",
                 description: "Ajoute +1 en Dextérité, permet de relancer un trait positif ou une imperfection sur un équipement obtenu lors d'un butin. Une fois par butin.",
                 niveauJoueur: 8,
                 prerequis: ["Roulotte Itinérante"],
@@ -9088,6 +9719,7 @@ marchand: {
             },
             {
                 nom: "Marketing international",
+                image: "",
                 description: "Ajoute +1 en Charisme OU en Dextérité, permet de parler deux langues supplémentaires (Sauf Animal).",
                 niveauJoueur: 9,
                 prerequis: ["Réévaluation Attentive"],
@@ -9098,6 +9730,7 @@ marchand: {
             },
             {
                 nom: "Prince Marchand",
+                image: "",
                 description: "Votre taux de coup critique sur vos jets de marchandage devient la moitié de votre statistique de marchandage. Si vous faites un coup critique en marchandant vous vendez l'objet au double du prix initial ou l'achetez à moitié prix.",
                 niveauJoueur: 10,
                 prerequis: ["Marketing international"],
@@ -9113,6 +9746,7 @@ marchand: {
         sortNovice: [
             {
                 nom: "Corruption",
+                image: "",
                 description: "Vous faites miroiter des merveilles à l’adversaire, il subit ‘’Charme’’, ne fonctionne que sur les Humanoïdes.",
                 Psy: 3,
                 Zone: 0,
@@ -9125,10 +9759,12 @@ marchand: {
                 },
                 magotEffects: {
                     petitMagot: {
+                        image: "",        
                         description: "Inflige 1 dé 4 dégâts à la cible",
                         degatsFixe: "1d4"
                     },
                     beauMagot: {
+                        image: "",        
                         description: "Inflige 1 dé 6 dégâts à la cible et l’effet de Charme peut être maintenu pour 1 PSY par tour tant que la cible rate ses jets de sauvegarde.",
                         degatsFixe: "1d6",
                         maintienCharme: true,
@@ -9138,6 +9774,7 @@ marchand: {
             },
             {
                 nom: "Libre Echange",
+                image: "",
                 description: "Vous donnez une arme à un adversaire au corps-à-corps et récupérez la sienne en échange jusqu’à la fin du combat. Vous infligez immédiatement le dé de dégâts de la nouvelle arme à l'adversaire.",
                 Psy: 3,
                 Zone: 0,
@@ -9150,6 +9787,7 @@ marchand: {
                 },
                 magotEffects: {
                     petitMagot: {
+                        image: "",        
                         description: "Si l’échange vous est défavorable vous alignez les dégâts de l’arme reçue avec ceux de l’arme donnée",
                         alignementDegats: true
                     }
@@ -9157,6 +9795,7 @@ marchand: {
             },
             {
                 nom: "Graisser la patte",
+                image: "",
                 description: "Vous octroyez une coquette somme à une cible ce qui la rend plus malléable. Ce sort échoue si vous n’utilisez aucun magot pour le lancer. Hors combat chaque rang de Magot octroie +10 aux statistiques du marchand lors d’un jet contre la cible de ce sort. L’effet dure 1 tour en combat et une scène hors combat.",
                 Psy: 3,
                 Zone: 0,
@@ -9171,17 +9810,20 @@ marchand: {
                 },
                 magotEffects: {
                     petitMagot: {
+                        image: "",        
                         description: "La cible perd 10% de chance de toucher et 2 dégâts sur toutes ses attaques.",
                         malusChanceToucher: 10,
                         malusDegats: 2
                     },
                     beauMagot: {
+                        image: "",        
                         description: "La cible perd toute son armure et ses PB ainsi que 20% de chances de toucher et 4 dégâts sur toutes ses attaques.",
                         perteArmurePB: true,
                         malusChanceToucher: 20,
                         malusDegats: 4
                     },
                     prodigieuxMagot: {
+                        image: "",        
                         description: "La cible subit un désavantage sur tous ses jets, ne peut plus bloquer, perd toute son armure et ses PB, perd 30% de chances de toucher et -6 à tous ses dégâts.",
                         desavantageTousJets: true,
                         nePeutPlusBloquer: true,
@@ -9193,6 +9835,7 @@ marchand: {
             },
             {
                 nom: "Intérêts variables",
+                image: "",
                 description: "Sacrifie un magot, pendant 2 tours le marchand lance un dé 6 au début de son tour : s’il fait 1 à 2 rien ne se passe, s’il fait 3 à 4 il gagne 1 magot de la même valeur que celui sacrifié, s’il fait 5 ou 6 il récupère 2 magots de la valeur de celui sacrifié. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -9207,6 +9850,7 @@ marchand: {
             },
             {
                 nom: "Pluie de pièce",
+                image: "",
                 description: "Une pluie de pièces factices s’abat sur la zone, les ennemis pris dedans subissent 1 dé 4 dégâts et 'Folie'.",
                 Psy: 4,
                 Zone: "zone",
@@ -9219,6 +9863,7 @@ marchand: {
                 },
                 magotEffects: {
                     beauMagot: {
+                        image: "",        
                         description: "Les ennemis qui résistent à Folie subissent 6 dégâts fixes supplémentaires de la part de ceux qui l’ont échoué jusqu'à la fin de la Folie.",
                         degatsSupplementairesSiResisteFolie: 6
                     }
@@ -9226,6 +9871,7 @@ marchand: {
             },
             {
                 nom: "Assurance vie",
+                image: "",
                 description: "Soigne 1 dé 4 PV à une cible jusqu’à 15 mètres.",
                 Psy: 3,
                 Zone: 0,
@@ -9237,10 +9883,12 @@ marchand: {
                 },
                 magotEffects: {
                     petitMagot: {
+                        image: "",        
                         description: "Soigne 2 PV fixe supplémentaires.",
                         soinsSupplementaires: 2
                     },
                     prodigieuxMagot: {
+                        image: "",        
                         description: "Soigne 10 PV fixes supplémentaires.",
                         soinsSupplementaires: 10
                     }
@@ -9248,6 +9896,7 @@ marchand: {
             },
             {
                 nom: "Petit profits",
+                image: "",
                 description: "Vous sacrifiez jusqu’à 5 petits magots, ce sort inflige x dés 2 dégâts ou X est le nombre de petits magots sacrifié, si vous utilisez la somme maximale possible le sort inflige aussi Charme à la cible. Ce sort a un temps de recharge de 1 tour.",
                 Psy: 4,
                 Zone: 0,
@@ -9263,6 +9912,7 @@ marchand: {
             },
             {
                 nom: "Dépensez sans Compter",
+                image: "",
                 description: "Vous utilisez un magot pour gagner un bonus pour le reste du combat. Utilisable 1 fois maximum par combat. Ne consomme pas d’action et ne peut cibler que le lanceur.",
                 Psy: 2,
                 Zone: 0,
@@ -9275,16 +9925,19 @@ marchand: {
                 },
                 magotEffects: {
                     petitMagot: {
+                        image: "",        
                         description: "Augmente les chances de toucher de 5% et les dégâts de 1.",
                         bonusChanceToucher: 5,
                         bonusDegats: 1
                     },
                     beauMagot: {
+                        image: "",        
                         description: "Augmente les chances de toucher de 10% et les dégâts de 2.",
                         bonusChanceToucher: 10,
                         bonusDegats: 2
                     },
                     prodigieuxMagot: {
+                        image: "",        
                         description: "Augmente les chances de toucher de 20% et les dégâts de 4.",
                         bonusChanceToucher: 20,
                         bonusDegats: 4
@@ -9293,6 +9946,7 @@ marchand: {
             },
             {
                 nom: "Tirelire d’Urgence",
+                image: "",
                 description: "Octroie au marchand l’équivalent de 2 petits magots, si ce sort est utilisé alors que le marchand a utilisé plus de trois magots pendant ce combat il récupère aussi un des magots utilisé. Utilisable une fois par combat.",
                 Psy: 1,
                 Zone: 0,
@@ -9307,6 +9961,7 @@ marchand: {
             },
             {
                 nom: "Emprunt facilité",
+                image: "",
                 description: "Le lanceur s’empare d’un effet d’amélioration dont bénéficie la cible. L’effet est donc transféré de la cible vers le lanceur mais se réinitialise en durée.",
                 Psy: 4,
                 Zone: 0,
@@ -9319,6 +9974,7 @@ marchand: {
                 },
                 magotEffects: {
                     petitMagot: {
+                        image: "",        
                         description: "La cible conserve l’effet actif.",
                         cibleConserveEffet: true
                     }
@@ -9326,6 +9982,7 @@ marchand: {
             },
             {
                 nom: "Crash boursier",
+                image: "",
                 description: "Frappe une cible avec une bourse pleine de pièce, inflige 1 dé 6 +3 dégâts.",
                 Psy: 3,
                 Zone: 0,
@@ -9337,6 +9994,7 @@ marchand: {
                 },
                 magotEffects: {
                     prodigieuxMagot: {
+                        image: "",        
                         description: "Les dégâts sont doublés.",
                         doubleDegats: true
                     }
@@ -9344,6 +10002,7 @@ marchand: {
             },
             {
                 nom: "Société écran",
+                image: "",
                 description: "Vous désignez un allié au corps à corps, celui-ci encaisse la moitié des dégâts que vous êtes censé subir tant qu’il reste à moins de 10 mètres de vous. Les dégâts encaissés par la cible de cette manière ne peuvent être amortis d’aucune façon.",
                 Psy: 4,
                 Zone: 0,
@@ -9356,6 +10015,7 @@ marchand: {
                 },
                 magotEffects: {
                     petitMagot: {
+                        image: "",        
                         description: "Vous faites vos jets de défense avec le taux de blocage de la cible de ce sort pendant toute la durée de l’effet.",
                         jetDefenseAvecTauxBlocageCible: true
                     }
@@ -9365,6 +10025,7 @@ marchand: {
         sortConfirme: [
             {
                 nom: "Beaux profits",
+                image: "",
                 description: "Vous sacrifiez jusqu’à 5 beaux magots, ce sort inflige x dés 4 dégâts où X est le nombre de beaux magots sacrifié, si vous utilisez la somme maximale possible le sort inflige aussi Charme à la cible. Ce sort a un temps de recharge de 1 tour.",
                 Psy: 6,
                 Zone: 0,
@@ -9380,6 +10041,7 @@ marchand: {
             },
             {
                 nom: "Bonne affaire",
+                image: "",
                 description: "Hors combat ce sort peut se lancer à la place d’un jet de marchandage, même s’il échoue il n’empêche pas de retenter un jet de marchandage ou même de réutiliser ce sort. En combat un adversaire où qu’il soit sur le terrain subit le ciblage sur une cible désignée à moins de 10 mètres de lui par le marchand. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
@@ -9392,6 +10054,7 @@ marchand: {
                 },
                 magotEffects: {
                     petitMagot: {
+                        image: "",        
                         description: "Le ciblage peut concerner une cible jusqu’à 20 mètres.",
                         distanceCiblage: 20
                     }
@@ -9399,6 +10062,7 @@ marchand: {
             },
             {
                 nom: "Coffre à Magot",
+                image: "",
                 description: "''Invocation'' Un coffre dimensionnel qui possède 10 PV et 4 d’armure apparaît sur le terrain, il peut infliger 1 dé 6 dégâts à une cible au corps à corps et se téléporter avec elle 10 mètres dans la direction de son choix. S’il est détruit le lanceur gagne 3 beaux Magots.",
                 Psy: 5,
                 Zone: "invocation",
@@ -9416,6 +10080,7 @@ marchand: {
             },
             {
                 nom: "Démarchage à Domicile",
+                image: "",
                 description: "Vous pouvez arriver au corps-à-corps d’un ennemi jusqu’à 15 mètres sans utiliser de déplacement. Inflige 1 dé 8 dégâts, applique ‘’Charme’’ si l’ennemi a moins de 50% de sa vie, ou double les dégâts, si l’ennemi a déjà ‘’Charme’’ actif et lui retire l’état.",
                 Psy: 4,
                 Zone: 0,
@@ -9431,14 +10096,17 @@ marchand: {
                 },
                 magotEffects: {
                     petitMagot: {
+                        image: "",        
                         description: "Le sort a une portée de 20 mètres.",
                         portee: 20
                     },
                     beauMagot: {
+                        image: "",        
                         description: "Le sort repousse la cible de 10 mètres après l’effet.",
                         repousseCible: 10
                     },
                     prodigieuxMagot: {
+                        image: "",        
                         description: "L’application de 'Charme' est irrésistible, les dégâts sont doublés même si l’ennemi n’a pas déjà Charme.",
                         charmeIrresistible: true,
                         doubleDegatsToujours: true
@@ -9447,6 +10115,7 @@ marchand: {
             },
             {
                 nom: "OPA Hostile",
+                image: "",
                 description: "Le marchand lance une quantité de monnaie à une cible. L’effet dépend de la somme utilisée, ce sort échoue si on n’utilise aucun magot lors de son lancement.",
                 Psy: 4,
                 Zone: 0,
@@ -9459,16 +10128,19 @@ marchand: {
                 },
                 magotEffects: {
                     petitMagot: {
+                        image: "",        
                         description: "Applique 'Folie' et inflige 1 dé 6 dégâts.",
                         appliqueFolie: true,
                         degatsFixe: "1d6"
                     },
                     beauMagot: {
+                        image: "",        
                         description: "Applique 'Charme' et inflige 1 dé 6 +3 dégâts",
                         appliqueCharme: true,
                         degatsFixe: "1d6 + 3"
                     },
                     prodigieuxMagot: {
+                        image: "",        
                         description: "Applique 'Charme', si la cible résiste applique 'Folie', inflige 2 dés 6 +2 dégâts.",
                         appliqueCharme: true,
                         siResisteAppliqueFolie: true,
@@ -9478,6 +10150,7 @@ marchand: {
             },
             {
                 nom: "Surplus de liquidité",
+                image: "",
                 description: "Inflige 1 dé 8 dégâts et 'Entrave' à toutes les cibles dans la zone. Si une cible meurt elle se transforme en statue d’Or ce qui octroie un Beau magot au lanceur et applique 'Terreur' à tous les ennemis sur le terrain.",
                 Psy: 5,
                 Zone: "zone",
@@ -9492,6 +10165,7 @@ marchand: {
                 },
                 magotEffects: {
                     beauMagot: {
+                        image: "",        
                         description: "L’Entrave est irrésistible.",
                         entraveIrresistible: true
                     }
@@ -9499,6 +10173,7 @@ marchand: {
             },
             {
                 nom: "Le Temps c’est de l’Argent",
+                image: "",
                 description: "Ce sort coûte 1 Beau Magot à lancer, il octroie une action supplémentaire pour le prochain tour à la cible.",
                 Psy: 3,
                 Zone: 0,
@@ -9512,6 +10187,7 @@ marchand: {
             },
             {
                 nom: "Retombée bénéfique",
+                image: "",
                 description: "Ce sort peut s’utiliser après avoir utilisé un magot. Augmente le DSB et l’armure d'une cible jusqu'à 30 mètres de 1 pour chaque niveau du magot utilisé juste avant de lancer ce sort. Ce sort ne consomme pas d’action, l’effet dure 2 tours.",
                 Psy: 4,
                 Zone: 0,
@@ -9526,6 +10202,7 @@ marchand: {
             },
             {
                 nom: "Investissement obscur",
+                image: "",
                 description: "Le marchand devient Invisible pendant 2 tours, s’il attaque avec son arme pendant qu’il est invisible il redevient visible, fait son jet de touche avec un avantage et ajoute son DSB en plus des dégâts de son attaque.",
                 Psy: 5,
                 Zone: 0,
@@ -9541,6 +10218,7 @@ marchand: {
                 },
                 magotEffects: {
                     petitMagot: {
+                        image: "",        
                         description: "Pendant qu’il est Invisible le marchand ne subit que la moitié des dégâts en cas de dégâts encaissés.",
                         subitMoitieDegatsInvisible: true
                     }
@@ -9550,6 +10228,7 @@ marchand: {
         sortExpert: [
             {
                 nom: "Appât du Gain",
+                image: "",
                 description: "Fait tomber une quantité impressionnante d’or un peu spécial dans un carré de 10 mètres. Tous les ennemis dans la zone subissent 1 dé 6 dégâts. Les ennemis hors de la zone sont attirés de 10 mètres vers le centre de celle-ci, ensuite toutes les cibles dans la zone subissent 'Entrave'. Au début du prochain tour, l’or explose en infligeant 2 dés 4 +4 dégâts et ‘‘Brûlure’’ aux ennemis.",
                 Psy: 7,
                 Zone: "carre",
@@ -9566,6 +10245,7 @@ marchand: {
                 },
                 magotEffects: {
                     beauMagot: {
+                        image: "",        
                         description: "L’or explose instantanément après l’application d’Entrave.",
                         explosionInstantanee: true
                     }
@@ -9573,6 +10253,7 @@ marchand: {
             },
             {
                 nom: "Générosité Attentiste",
+                image: "",
                 description: "Vous soignez une cible de 1 dé 4 PV et lui retirez ses altérations d’états négatives. Il subit ‘’Charme’’ Irrésistible. Lorsque l’effet se termine, vous lui réappliquez les altérations au double de leur durée et puissance et infligez 2 dés 6 dégâts.",
                 Psy: 5,
                 Zone: 0,
@@ -9588,10 +10269,12 @@ marchand: {
                 },
                 magotEffects: {
                     petitMagot: {
+                        image: "",        
                         description: "Ne soigne plus la cible.",
                         neSoignePlusCible: true
                     },
                     prodigieuxMagot: {
+                        image: "",        
                         description: "Transforme les dégâts en soins et ne réapplique plus les altérations après leur purge. Au lieu de 'Charme' la cible subit 'Entrave' irrésistible.",
                         degatsEnSoins: true,
                         neReappliquePlusAlterations: true,
@@ -9601,6 +10284,7 @@ marchand: {
             },
             {
                 nom: "Récession",
+                image: "",
                 description: "Le marchand perd l’équivalent d’un Magot à chaque début de tour, il ne peut plus utiliser de PSY mais gagne d’importants bonus selon le Magot utilisé, en plus toutes ses attaques à l’arme prennent l’effet d’Avarice sans consommer de PSY. L’effet de Récession dure 1 tour et coûte 2 PSY par tour supplémentaire pour être maintenu.",
                 Psy: 5,
                 Zone: 0,
@@ -9616,6 +10300,7 @@ marchand: {
                 },
                 magotEffects: {
                     petitMagot: {
+                        image: "",        
                         description: "Bonus de +10% de Blocage et 5% aux chances de toucher ainsi que +1 d’armure et de DSB",
                         bonusBlocage: 10,
                         bonusChanceToucher: 5,
@@ -9623,6 +10308,7 @@ marchand: {
                         bonusDSB: 1
                     },
                     beauMagot: {
+                        image: "",        
                         description: "Bonus de 20% en Blocage et 10% aux chances de toucher, 2 d’armure et de DSB et 1 cran en vitesse. Chaque coup porté avec une arme applique Terreur en plus de ses effets habituels.",
                         bonusBlocage: 20,
                         bonusChanceToucher: 10,
@@ -9632,6 +10318,7 @@ marchand: {
                         coupArmeAppliqueTerreur: true
                     },
                     prodigieuxMagot: {
+                        image: "",        
                         description: "Bonus de 30% en Blocage et 15% aux chances de toucher, 3 d’armure et de DSB, 1 cran en vitesse et le lanceur se soigne 1 dé 6 PV fixe à chaque fin de tour. Chaque coup porté avec une arme applique Terreur et est perce armure en plus de ses effets habituels.",
                         bonusBlocage: 30,
                         bonusChanceToucher: 15,
@@ -9645,6 +10332,7 @@ marchand: {
             },
             {
                 nom: "Fond de Marchandise international",
+                image: "",
                 description: "Hors combat le marchand peut faire apparaître une boutique itinérante pour acheter ou vendre des objets, cette boutique est en tout point comme un marchand normal et vend toutes les catégories d’objets. En combat il peut se défausser du prix d’un objet et le faire apparaître pour pouvoir s'en servir immédiatement. L’objet obtenu est gardé si ce n’est pas un consommable. Hors combat ce sort coûte 2 PSY de moins à lancer.",
                 Psy: 6,
                 Zone: 0,
@@ -9660,6 +10348,7 @@ marchand: {
             },
             {
                 nom: "Import-Export",
+                image: "",
                 description: "Le marchand peut se téléporter à côté d’une cible ou faire venir une cible à son corps à corps où qu’elle soit sur le terrain.",
                 Psy: 6,
                 Zone: 0,
@@ -9671,10 +10360,12 @@ marchand: {
                 },
                 magotEffects: {
                     beauMagot: {
+                        image: "",        
                         description: "La cible subit 1 dé 6 dégâts ou récupère 1 dé 6 PV.",
                         degatsOuSoins: "1d6"
                     },
                     prodigieuxMagot: {
+                        image: "",        
                         description: "La cible subit 2 dé 6 dégâts ou récupère 2 dé 6 PV.",
                         degatsOuSoins: "2d6"
                     }
@@ -9682,6 +10373,7 @@ marchand: {
             },
             {
                 nom: "Sanctions Financière",
+                image: "",
                 description: "''Tout le terrain'' Ce sort peut cibler n’importe quelle entité sur le terrain et peut en cibler jusqu’à 3. Une fois les cibles désignées elles sont marquées pour 3 tours, pendant la durée de l’effet, à chaque fois que le marchand utilise un sort consommant un magot pour toucher une cible marquée il fera son jet de touche avec avantage et la cible subit un désavantage à tous ses jets de sauvegarde. De plus, si le sort réussit la cible subit 1 dé 4 dégâts ou récupère 1 dé 4 PV supplémentaire par catégorie de Magot utilisé selon le choix du lanceur. Si ce sort est relancé il désigne de nouvelles cibles et coûte 4 PSY de moins mais les cibles précédentes ne subissent plus son effet. Ce sort ne consomme pas d’action.",
                 Psy: 7,
                 Zone: "tout_le_terrain",
@@ -9699,6 +10391,7 @@ marchand: {
             },
             {
                 nom: "Faillite",
+                image: "",
                 description: "Utilisable si vous avez dépensé 8 Magots ou plus durant le combat. Vous abattez la fureur d’un commerçant ruiné sur un ennemi au corps-à-corps, lui inflige 4 dés 8 dégâts, le Marchand subit ‘’Sonné’’ irrésistible après cette attaque. Cette attaque a un temps de recharge de 3 tours, le compte de Magots utilisées en combat se réinitialise après le lancement de ce sort.",
                 Psy: 6,
                 Zone: 0,
@@ -9714,6 +10407,7 @@ marchand: {
                 },
                 magotEffects: {
                     prodigieuxMagot: {
+                        image: "",        
                         description: "Le marchand ne subit plus Sonné après l’attaque et son temps de recharge est diminué d’un tour.",
                         lanceurNeSubitPlusSonne: true,
                         tempsRechargeDiminue: 1
@@ -9722,6 +10416,7 @@ marchand: {
             },
             {
                 nom: "Marché démoniaque",
+                image: "",
                 description: "Le marchand fait une offre qui ne se refuse pas… Ce sort ne peut cibler qu’un ennemi qui a moins de 25% de sa vie restante, il subit Charme irrésistible et récupère toute sa vie et ses capacités, le Charme dure éternellement sauf s’il est purgé mais la cible est désormais considérée comme une invocation. Si la cible est libérée du Charme elle tombe K.O.",
                 Psy: 7,
                 Zone: 0,
@@ -9738,10 +10433,12 @@ marchand: {
                 },
                 magotEffects: {
                     petitMagot: {
+                        image: "",        
                         description: "Le sort coûte 1 PSY de moins à lancer",
                         coutPSYReduit: 1
                     },
                     beauMagot: {
+                        image: "",        
                         description: "Le sort coûte 2 PSY de moins à lancer.",
                         coutPSYReduit: 2
                     }
@@ -9751,6 +10448,7 @@ marchand: {
         sortMaitre: [
             {
                 nom: "Empire Financier",
+                image: "",
                 description: "''Tout le Terrain'' Transforme la zone en un marché ambulant rassemblant les meilleurs marchands de toutes les dimensions, les ennemis pris dedans subissent Folie Irrésistible et une altération d’état aléatoire au début de leur tour, s’ils ont des moyens financiers ils dépensent tout dans les boutiques et l’argent sera récupéré par le marchand à la fin de l’effet, faire des achats leur prend leur tour de jeu. Tous les bonus et les Malus subis par les alliés sont mis en commun pendant la durée de ce sort et sont appliqués à tous de la même manière. Ce sort dure 2 tours et, à la fin de son effet, les Marchands utilisent leurs magies et leurs armes pour infliger 4 dé 4 dégâts à tous les ennemis.",
                 Psy: 14,
                 Zone: "tout_le_terrain",
@@ -9774,6 +10472,7 @@ marchand: {
 },
 danseur: {
     nom: "Danseur",
+    image: "",    
     description: [
         "Parmi les artistes d'Alyria on trouve quantité de danseurs et de danseuses, cette profession, pourtant souvent ignorée, est d'une importance capitale dans la culture de ce monde. Chaque peuple possède des danses particulières qui, une fois maîtrisées, peuvent montrer leur incroyable efficacité même pendant un affrontement direct.",
         "Il suffit de voir la quantité non négligeable de danseur qui sont devenus aventuriers pour comprendre que l'entraînement physique hors du commun, la souplesse et la grâce de ceux qui pratiquent cette voie ont très largement convaincu des groupes de les prendre avec eux.",
@@ -9821,6 +10520,7 @@ danseur: {
         talents: [
             {
                 nom: "Danseur étoile",
+                image: "",
                 description: "Ajoute +1 en Dextérité et +10 en Art et Musique.",
                 niveau: 1,
                 effet: {
@@ -9830,6 +10530,7 @@ danseur: {
             },
             {
                 nom: "Danseur vedette",
+                image: "",
                 description: "Ajoute +1 en Charisme OU Dextérité, et +10 en Connaissance Monde, vous obtenez un avantage sur vos jets de ciblage.",
                 niveau: 2,
                 effet: {
@@ -9840,6 +10541,7 @@ danseur: {
             },
             {
                 nom: "Forte Fièvre",
+                image: "",
                 description: "Modifie le sort 'Fièvre du disco', l’effet s’applique à CHAQUE déplacement hors du tour de jeu de la cible. Si vous ne possédez pas ce sort vous ignorez cet effet et débloquez le sort.",
                 niveau: 3,
                 effet: {
@@ -9850,6 +10552,7 @@ danseur: {
             },
             {
                 nom: "Danseur infatigable",
+                image: "",
                 description: "Ajoute +1 en Force OU Dextérité, et +10 en Athlétisme, vous êtes immunisé à Entrave.",
                 niveau: 4,
                 effet: {
@@ -9860,6 +10563,7 @@ danseur: {
             },
             {
                 nom: "Performeur",
+                image: "",
                 description: "Ajoute +1 en Charisme OU Force. Le Danseur obtient un avantage sur ses jets d’Art et Musique.",
                 niveau: 5,
                 effet: {
@@ -9869,6 +10573,7 @@ danseur: {
             },
             {
                 nom: "Danse hypnotique",
+                image: "",
                 description: "Donne l’immunité à Charme, tous les sorts de Danseur coûtant plus de 5 PSY appliquent aussi Silence en plus de leurs effets.",
                 niveau: 6,
                 effet: {
@@ -9878,6 +10583,7 @@ danseur: {
             },
             {
                 nom: "Entrer dans la Danse",
+                image: "",
                 description: "Les alliés peuvent utiliser un sort de que le Danseur vient d’utiliser pendant leur tour de jeu, dans ce cas il n’effectuera que la moitié des dégâts ou des soins possibles mais gardera tous ses effets et consommera autant de PSY.",
                 niveau: 7,
                 effet: {
@@ -9888,6 +10594,7 @@ danseur: {
             },
             {
                 nom: "Phénomène de la scène",
+                image: "",
                 description: "Le Danseur gagne +1 DSB à chaque tour ou une compétence de la voie du danseur est utilisée dans le combat.",
                 niveau: 8,
                 effet: {
@@ -9896,6 +10603,7 @@ danseur: {
             },
             {
                 nom: "Gala de clôture inoubliable",
+                image: "",
                 description: "Le sort 'Ballet de clôture' inflige également 1 dé 6 dégâts par sort de danse utilisé avant son lancement à tous les ennemis. Si vous ne possédez pas ce sort vous le débloquez à la place et ignorez cet effet.",
                 niveau: 9,
                 effet: {
@@ -9905,6 +10613,7 @@ danseur: {
             },
             {
                 nom: "Chorégraphe Professionnel",
+                image: "",
                 description: "Après l’utilisation d’un sort de la voie du Danseur vous pouvez bouger toutes les entités à votre corps à corps de 5 mètres dans la direction voulue. Si un allié bouge de cette manière il gagne le même bonus que vous octroie 'Phénomène de la scène' pendant un tour.",
                 niveau: 10,
                 effet: {
@@ -9918,6 +10627,7 @@ danseur: {
         novice: [
             {
                 nom: "Valse à trois temps",
+                image: "",
                 description: "Vous attrapez un ennemi au corps à corps et dansez une valse avec lui, à ce titre vous lui infligez 1 dé 6 dégâts et vous pouvez déplacez de 10 mètres tout en prenant la cible avec vous.",
                 psy: 2,
                 portee: "CAC",
@@ -9930,6 +10640,7 @@ danseur: {
             },
             {
                 nom: "Charleston communicatif",
+                image: "",
                 description: "Vous vous lancez dans un charleston rapide et qui donne furieusement envie de vous rejoindre, toutes les entités au corps à corps se mettent à danser jusqu’à l’épuisement, ils subissent 1 dé 6 +1 dégâts et Entrave.",
                 psy: 4,
                 portee: "CAC",
@@ -9940,6 +10651,7 @@ danseur: {
             },
             {
                 nom: "Numéro de claquette",
+                image: "",
                 description: "Vous frappez des pieds en rythme ce qui augmente votre vitesse d’un cran pour 2 tours et vous permet aussi d’ignorer les attaques d’opportunités et les effets limitant le déplacement pendant cet effet. Ce sort ne consomme pas d’action.",
                 psy: 3,
                 action: "aucune",
@@ -9953,6 +10665,7 @@ danseur: {
             },
             {
                 nom: "Makahaka",
+                image: "",
                 description: "Le lanceur pratique une danse Orc guerrière qui consiste entre autre à mettre des baffes puissantes à son voisin direct. Un adversaire au corps à corps subit 1 dé 6 +2 dégâts et recule de 5 mètres.",
                 psy: 3,
                 portee: "CAC",
@@ -9964,6 +10677,7 @@ danseur: {
             },
             {
                 nom: "Danse-Danse Gnomulesque",
+                image: "",
                 description: "Vous exécutez une danse Gnome extrêmement rapide et qui consiste en une petite série de mouvements répétés en boucle. Vous vous déplacez de 5 mètres en ignorant les effets négatifs et les attaques d’opportunités jusqu’à 2 fois quand vous voulez pendant le tour où a été lancé ce sort, à chaque déplacement les ennemis au corps à corps de la case de départ subissent Entrave. Ce sort ne consomme pas d’action.",
                 psy: 3,
                 action: "aucune",
@@ -9980,6 +10694,7 @@ danseur: {
             },
             {
                 nom: "Danse du ventre",
+                image: "",
                 description: "Lors d’une attaque subie au corps à corps, le danseur augmente son taux de blocage de 20%, s’il réussit à bloquer il se déplace de 5 mètres comme il le désire sans subir les attaques d’opportunité. Cet effet dure 2 tours et ne consomme pas d’action.",
                 psy: 4,
                 action: "aucune",
@@ -9993,6 +10708,7 @@ danseur: {
             },
             {
                 nom: "Mauvais Tempo",
+                image: "",
                 description: "Vous désignez une cible, à chaque fois qu’elle se déplace elle doit faire un jet de sauvegarde de Dextérité avec avantage, si elle le loupe elle subit Entrave irrésistible. Cet effet dure 2 tours.",
                 psy: 2,
                 portee: "cible",
@@ -10005,6 +10721,7 @@ danseur: {
             },
             {
                 nom: "Tempo Perso",
+                image: "",
                 description: "Vous pouvez retirer une altération d’état basée sur la Sagesse à vous ou un allié au corps à corps, pendant 2 tours la cible de ce sort est immunisée à toutes les altérations d’état basées sur la Sagesse. Ce sort ne consomme pas d’action.",
                 psy: 2,
                 portee: "CAC",
@@ -10018,6 +10735,7 @@ danseur: {
             },
             {
                 nom: "Fièvre du disco",
+                image: "",
                 description: "''Tout le terrain'' Une frénésie étrange s’empare de tous les ennemis sur le terrain, à chaque fois qu’un ennemi est déplacé hors de son tour de jeu il subit 1 dé 4 dégâts fixe, cet effet n’a d’occurrence qu’une seule fois par tour. Ce sort ne consomme pas d’action et son effet dure 3 tours ou jusqu’à ce qu’il soit révoqué.",
                 psy: 3,
                 portee: "tout_le_terrain",
@@ -10033,6 +10751,7 @@ danseur: {
             },
             {
                 nom: "Bachata rapide",
+                image: "",
                 description: "Vous vous déplacez vous, ou une cible au corps à corps, de 5 mètres dans la direction voulue. Ce sort ne consomme pas d’action mais ne peut être lancé qu’une fois par tour et par cible.",
                 psy: 1,
                 portee: "CAC",
@@ -10045,6 +10764,7 @@ danseur: {
             },
             {
                 nom: "Pas rapide",
+                image: "",
                 description: "Vous augmentez votre vitesse de 1 cran, cet effet coûte 1 PSY de plus par tour pour être maintenu. Ce sort ne consomme pas d’action.",
                 psy: 1,
                 action: "aucune",
@@ -10056,6 +10776,7 @@ danseur: {
             },
             {
                 nom: "Ecraseur de Godasse",
+                image: "",
                 description: "Technique inventée par un célèbre danseur nain, elle consiste simplement à aplatir les pieds de ceux avec qui vous dansez. Inflige 1 dé 6 +1 dégâts et 'Entrave' à un ennemi au corps à corps.",
                 psy: 3,
                 portee: "CAC",
@@ -10067,6 +10788,7 @@ danseur: {
         confirme: [
             {
                 nom: "Capoeira intimidante",
+                image: "",
                 description: "Vous dansez en faisant mine de donner des coups de poings et de pieds à votre adversaire, il ne pourra plus se défendre lors de ce tour, et voit ses points de bouclier tomber à 0. Ce sort ne consomme pas d’action.",
                 psy: 2,
                 portee: "cible",
@@ -10079,6 +10801,7 @@ danseur: {
             },
             {
                 nom: "La chenille",
+                image: "",
                 description: "Vous empoignez une cible au corps à corps et la faites avancer de dix mètres dans une direction voulue, si la cible arrive au corps à corps d’une autre cible elle l’attrape et vous avancez à nouveau de dix mètres et ainsi de suite jusqu’à ce qu’aucune cible ne reste ou que vous ne parveniez pas à en attraper une autre. Quand l’effet se termine vous infligez 1 dé 4 dégâts par cible touchée par l’effet du sort à tous les ennemis pris dans la chenille.",
                 psy: 5,
                 portee: "CAC",
@@ -10094,6 +10817,7 @@ danseur: {
             },
             {
                 nom: "La Gob-Gob mania",
+                image: "",
                 description: "Le lanceur se lance dans une danse gobeline interminable et impossible à prédire, il gagne +20% en blocage et +2 d’armure. S’il fait un blocage pendant l’effet de ce sort il inflige 1 dé 6 dégâts à la cible bloquée et la déplace de 5 mètres. Ce sort dure 2 tours.",
                 psy: 5,
                 duree: 2,
@@ -10107,6 +10831,7 @@ danseur: {
             },
             {
                 nom: "Tango brûlant",
+                image: "",
                 description: "Le lanceur se lance dans un tango endiablé avec une cible au corps à corps, il peut se déplacer de 10 mètres avec la cible dans la direction souhaitée. Si c’est un ennemi il subit 1 dé 6 +2 dégâts Feu et 'Brûlure', si c’est un allié il guérit 'Entrave', 'Sonné' et 'Engelure', gagne 1 cran en vitesse et +10% de chances de toucher pour 2 tours.",
                 psy: 4,
                 portee: "CAC",
@@ -10130,6 +10855,7 @@ danseur: {
             },
             {
                 nom: "Danse interdite",
+                image: "",
                 description: "Le lanceur pratique une danse elfe des bois interdite et langoureuse, il inflige 1 dé 6 dégâts et 'Charme' à une cible jusqu’à 15 mètres et cette dernière est attirée jusqu’à son corps à corps.",
                 psy: 4,
                 portee: 15,
@@ -10142,6 +10868,7 @@ danseur: {
             },
             {
                 nom: "Sens du Rythme",
+                image: "",
                 description: "''Tout le Terrain'' ce sort soigne 1 dé 4 PV fixe à tous les alliés s’étant déplacés ce tour ci, vous soignez 1 dé 4 PV fixe supplémentaires si ils se sont déplacés en dehors de leur tour de jeu. Les ennemis qui se sont déplacés subissent 1 dé 6 dégâts, les ennemis n’ayant pas bougé subissent le double de dégâts. Le lanceur, s’il a bougé ou fait bouger plus de trois fois lors de ce tour gagne 20% en Blocage pour 2 tours, et se soigne de 1 dé 6+2 PV.",
                 psy: 6,
                 portee: "tout_le_terrain",
@@ -10164,6 +10891,7 @@ danseur: {
             },
             {
                 nom: "Danse des célestes",
+                image: "",
                 description: "Le Danseur devient 'Volant' pour 2 tours, ce sort ne consomme pas d’action.",
                 psy: 5,
                 duree: 2,
@@ -10175,6 +10903,7 @@ danseur: {
             },
             {
                 nom: "Smurf Robotique",
+                image: "",
                 description: "Le Danseur exécute des pas entrecoupés de blocages comme un robot défaillant, la prochaine attaque encaissée sera totalement annulée et, s’il aurait dû subir des dégâts, le lanceur gagne 1 cran en vitesse. Ce sort ne consomme pas d’action.",
                 psy: 4,
                 action: "aucune",
@@ -10186,6 +10915,7 @@ danseur: {
             },
             {
                 nom: "Pas torrides",
+                image: "",
                 description: "Le danseur fait monter la chaleur d’un cran, il inflige 1 dé 8 + 2 et Brulure à tous les ennemis à son corps à corps, pendant 2 tours après l’utilisation de ce sort le Danseur est Immunisé à 'Brûlure' et résiste au Feu mais est faible à L’Eau.",
                 psy: 5,
                 portee: "CAC",
@@ -10202,6 +10932,7 @@ danseur: {
         expert: [
             {
                 nom: "Gigue aux dingues",
+                image: "",
                 description: "Danse Occidentale réputée pour sa vitesse frénétique, il faut une endurance hors du commun pour la tenir jusqu’au bout. Le danseur doit faire un jet de sauvegarde en force et tous les ennemis à moins de 10 mètres de lui doivent faire un jet de sauvegarde de force avec désavantage. S’ils le loupent ils subissent 1 dé 10 dégâts en PV et en PSY et la moitié s’ils le réussissent, si le lanceur le loupe il se retire 4 PV en plus du coût de ce sort.",
                 psy: 5,
                 portee: 10,
@@ -10218,6 +10949,7 @@ danseur: {
             },
             {
                 nom: "Ballet de clôture",
+                image: "",
                 description: "''Tout le terrain'' Le lanceur force tous les ennemis sur le terrain à suivre ses pas, la prochaine capacité de Danseur qu’il utilisera verra alors tous ses effets doublés, que ce soit les bonus, les malus, ou les dégâts et elle appliquera ses effets sur toutes les entités sur le terrain. Ce sort met le lanceur dans l’état Sonné irrésistible pour le tour suivant l’utilisation de la capacité augmentée, il ne consomme pas d’action et ne peut être utilisé qu’une fois par combat.",
                 psy: 6,
                 portee: "tout_le_terrain",
@@ -10232,6 +10964,7 @@ danseur: {
             },
             {
                 nom: "Communion du Butô",
+                image: "",
                 description: "Le lanceur danse pour communier avec les esprits et les forces naturelles. Ce sort frappe dans un élément choisi au moment de son lancement et infligera 2 dé 8 dégâts à un ennemi où qu’il soit sur le terrain.",
                 psy: 7,
                 portee: "partout_terrain",
@@ -10241,6 +10974,7 @@ danseur: {
             },
             {
                 nom: "Pas fantômes",
+                image: "",
                 description: "Pendant 2 tours le lanceur peut traverser les entités lors de ses déplacements, s’il en traverse un ennemi il lui inflige Terreur et 1 dé 4 dégâts, cet effet ne peut se produire qu’une fois par tour et par cible.",
                 psy: 5,
                 duree: 2,
@@ -10256,6 +10990,7 @@ danseur: {
             },
             {
                 nom: "Danse dimensionnelle",
+                image: "",
                 description: "Le danseur et jusqu’à 2 cibles choisies à moins de 15 mètres de lui se téléportent où il le désire sur le terrain. Chaque cible se voit choisir une destination par le danseur. Une fois à destination les ennemis subissent 1 dé 8 dégâts et les alliés se soignent de 1 dé 8 PV.",
                 psy: 6,
                 portee: 15,
@@ -10271,6 +11006,7 @@ danseur: {
             },
             {
                 nom: "Meurtrier Tecktonik",
+                image: "",
                 description: "Le danseur exécute des mouvements qui perturbent les énergies d’une cible jusqu’à 15 mètres, elle subit 1 dé 8 dégâts et PV et en PSY, perd toutes ses chances de blocages, voit son armure et son DSB réduits à 0, subit un désavantage sur tous ses jets de sauvegarde et de touche pour un tour et subit 'Entrave' et 'Engelure'.",
                 psy: 7,
                 portee: 15,
@@ -10287,6 +11023,7 @@ danseur: {
             },
             {
                 nom: "Hymne des cendres",
+                image: "",
                 description: "Danse rituelle des elfes noirs, elle met le danseur dans une transe combattante pleine de grâce et d’agressivité. Pendant 2 tours, le lanceur et toutes les entités alliées à son corps à corps gagnent +2 au DSB, +10% aux chances de toucher et déplacent toutes les cibles qu’elles frappent de 5 mètres dans la direction voulue.",
                 psy: 7,
                 duree: 2,
@@ -10300,6 +11037,7 @@ danseur: {
             },
             {
                 nom: "Limbo endiablé",
+                image: "",
                 description: "Une barre enflammée apparaît et descend petit à petit le lanceur et une cible à son corps à corps doivent consécutivement faire des jets de sauvegarde de Dextérité à tour de rôle pour passer en dessous jusqu’à ce que l’un rate, le danseur les fait avec avantage et sa cible avec désavantage. Si le danseur rate il subit 1 dé 6 dégâts mais devient enragé et gagne une action supplémentaire pour 2 tours, si la cible rate elle se fait carbonisée par la barre et subit 2 dé 6 + 4 dégâts et Brûlure irrésistible.",
                 psy: 7,
                 portee: "CAC",
@@ -10325,6 +11063,7 @@ danseur: {
         maitre: [
             {
                 nom: "Salsa de Santis",
+                image: "",
                 description: "Le lanceur danse comme Santis incarné, il obtient alors la puissance du Dieu jumeau de la beauté. Pendant 2 tours, le lanceur crée une copie de lui-même de sexe opposé avec les exactes mêmes statistiques que lui, cette invocation peut jouer son tour juste après lui et est totalement autonome. L’invocation et le lanceur ne peuvent utiliser que les sorts de Danseur pendant l’utilisation de ce sort mais ils ne coûtent que la moitié de leur PSY habituelle. Ce sort ne consomme pas d’action, utilisable une seule fois par combat, si le lanceur doit mourir pendant l’effet il sacrifie son invocation à la place et conserve 1 PV.",
                 psy: 15,
                 duree: 2,
@@ -10347,6 +11086,7 @@ danseur: {
 },
 dresseur: {
     nom: "Dresseur",
+    image: "",    
     description: [
         "Les dresseurs et dresseuses d'Alyria peuvent être capables de véritables prouesses, pouvant dompter les animaux et les créatures les plus dangereuses qui peuplent les endroits reculés de ce monde.",
         "Métier très difficile, réservé à quelques initiés, il faudra se montrer très patient et particulièrement robuste pour se faire respecter par les monstres et faire en sorte qu'ils suivent les ordres qu'on leur donne. Le mauvais dresseur capture tout ce qu'il croise et dompte à tout va alors que le bon dresseur, il capture tout ce qu'il croise et dompte à tout va mais… C'est un bon dresseur.",
@@ -10410,6 +11150,7 @@ dresseur: {
         talents: [
             {
                 nom: "Elevage sélectif",
+                image: "",
                 description: "Le dresseur choisit à chaque début de combat entre : Ajoute +1 DSB et +1 d’armure au dresseur s’il possède plusieurs invocations sur le terrain OU Le dresseur gagne +1 d’armure et +1 DSB si une et une seule invocation est présente sur le terrain.",
                 niveau: 1,
                 effet: {
@@ -10428,6 +11169,7 @@ dresseur: {
             },
             {
                 nom: "Dresseur réputé",
+                image: "",
                 description: "Ajoute +1 en charisme, ajoute +10 en connaissance monde.",
                 niveau: 2,
                 effet: {
@@ -10437,6 +11179,7 @@ dresseur: {
             },
             {
                 nom: "Adepte de l’auto-dressage",
+                image: "",
                 description: "Ajoute +1 en Dextérité, en Sagesse et en Force.",
                 niveau: 3,
                 effet: {
@@ -10447,6 +11190,7 @@ dresseur: {
             },
             {
                 nom: "Ordre clair",
+                image: "",
                 description: "Ajoute +1 en charisme, si un sortilège modifie les statistiques d’une créature elle ne peut qu’obéir au dresseur même quand elle a le même niveau que lui.",
                 niveau: 4,
                 effet: {
@@ -10457,6 +11201,7 @@ dresseur: {
             },
             {
                 nom: "Humaniste",
+                image: "",
                 description: "Si le sort Dressage d’Humanoïde est utilisé il soignera la cible de 3 PV fixe par tour en plus de son effet. Si vous ne possédez pas ce sort vous ignorez cet effet et débloquez ce sort à la place.",
                 niveau: 5,
                 effet: {
@@ -10469,6 +11214,7 @@ dresseur: {
             },
             {
                 nom: "Ethique du Dresseur",
+                image: "",
                 description: "Ajoute +1 en Sagesse OU Dextérité, si un sortilège modifie les statistiques d’un allié qui n’est pas considéré comme une invocation il modifie aussi celle du dresseur.",
                 niveau: 6,
                 effet: {
@@ -10478,6 +11224,7 @@ dresseur: {
             },
             {
                 nom: "Pro de l’élevage",
+                image: "",
                 description: "Double le bonus octroyé par élevage sélectif",
                 niveau: 7,
                 effet: {
@@ -10486,6 +11233,7 @@ dresseur: {
             },
             {
                 nom: "Bichonnage",
+                image: "",
                 description: "Si une invocation finit son tour au corps à corps du Dresseur elle regagne 4 PV fixe.",
                 niveau: 8,
                 effet: {
@@ -10497,6 +11245,7 @@ dresseur: {
             },
             {
                 nom: "Une vie pour le maître",
+                image: "",
                 description: "Si le dresseur doit mourir il peut sacrifier une de ses invocations à la place même si celle-ci n’est pas sur le terrain, celle-ci ne pourra plus jamais être ré-invoquée. Cet effet peut être utilisé jusqu’à ce que le dresseur ne possède plus aucune invocation.",
                 niveau: 9,
                 effet: {
@@ -10507,6 +11256,7 @@ dresseur: {
             },
             {
                 nom: "Chouchou du Maître",
+                image: "",
                 description: "Le Dresseur choisit une invocation parmi celle qu’il a de disponible au moment de l’obtention de ce passif. Elle devient sa favorite et le sort 'Asservissement' sera gratuit pour la lancer, tous les sorts de Dresseur la visant coûteront 1 PSY de moins à utiliser. Le Dresseur peut aussi choisir un Humanoïde au moment de l’obtention de ce passif.",
                 niveau: 10,
                 effet: {
@@ -10522,6 +11272,7 @@ dresseur: {
         novice: [
             {
                 nom: "Fouet motivant",
+                image: "",
                 description: "Fouette la créature ciblée pour la rendre plus efficace, pendant 2 tours elle gagne +2 aux dégâts et +1 cran en vitesse. Ce sort ne peut normalement cibler que des créatures invoquées par le dresseur, si on cible autre chose avec il coûte 1 PSY de plus à lancer.",
                 psy: 2,
                 portee: "cible",
@@ -10536,6 +11287,7 @@ dresseur: {
             },
             {
                 nom: "Va chercher !",
+                image: "",
                 description: "Une des invocations du dresseur avance de 10 mètres et, si elle touche un ennemi de cette manière, elle lui inflige les dégâts de son attaque basique. Ce sort peut cibler un allié et coûtera alors le double en PSY à lancer.",
                 psy: 2,
                 portee: "invocation",
@@ -10551,6 +11303,7 @@ dresseur: {
             },
             {
                 nom: "Fouet cinglant",
+                image: "",
                 description: "Inflige 1 dé 6 +3 dégâts à une cible jusqu’à 10 mètres à l’aide du fouet du dresseur.",
                 psy: 3,
                 portee: 10,
@@ -10559,6 +11312,7 @@ dresseur: {
             },
             {
                 nom: "Illusion de la Meute",
+                image: "",
                 description: "Ce sort doit cibler une de vos invocations, vous créez 2 copies d’elle dans un périmètre de 15 mètres. Ces copies disparaissent au moindre dégât pris mais seront considérées comme des vraies cibles par les ennemis. Ce sort ne consomme pas d’action et n’est pas cumulable.",
                 psy: 2,
                 portee: "invocation",
@@ -10574,6 +11328,7 @@ dresseur: {
             },
             {
                 nom: "Loup solitaire",
+                image: "",
                 description: "''Tout le terrain'' Si le dresseur ne possède qu’une invocation et qu’elle se situe à plus de 10 mètres de lui, elle gagne un avantage sur ses jets de touche, +2 DSB et 20% de chances de CC. Cet effet dure jusqu’à la fin du combat ou jusqu’à ce que les conditions ne soient plus remplies mais n’est pas cumulable.",
                 psy: 3,
                 portee: "tout_le_terrain",
@@ -10590,6 +11345,7 @@ dresseur: {
             },
             {
                 nom: "Soumission absolue",
+                image: "",
                 description: "Ce sort octroie l’immunité à toutes les altérations d’état basées sur la Sagesse à un allié. Si la cible est une invocation elle gagne aussi +20% de CC. Ce sort ne consomme pas d’action.",
                 psy: 2,
                 action: "aucune",
@@ -10602,6 +11358,7 @@ dresseur: {
             },
             {
                 nom: "Rugissement",
+                image: "",
                 description: "Le dresseur pousse un cri qui inflige Terreur à tous les ennemis dans la zone et retire cet état sur tous les alliés et invocations. Les invocations alliées dans la zone gagnent aussi 2 PB.",
                 psy: 2,
                 portee: "zone",
@@ -10614,6 +11371,7 @@ dresseur: {
             },
             {
                 nom: "Soin animal",
+                image: "",
                 description: "Soigne une invocation de 1 dé 6 PV et lui octroie 2 PB. Ce sort peut cibler un allié et coûtera alors 1 PSY en plus à lancer.",
                 psy: 3,
                 portee: "invocation",
@@ -10627,6 +11385,7 @@ dresseur: {
             },
             {
                 nom: "Injonction d’arrêt",
+                image: "",
                 description: "Ordonne à la cible de s’arrêter, elle subit 'Entrave' irrésistible, si la cible est une invocation du Dresseur elle gagne 4 PB pour un tour.",
                 psy: 2,
                 portee: "cible",
@@ -10639,6 +11398,7 @@ dresseur: {
             },
             {
                 nom: "Force du Troupeau",
+                image: "",
                 description: "''Tout le terrain'' Si le Dresseur possède plus de deux fois la même invocation sur le terrain elles gagnent toutes un avantage sur leur jet de blocage et +2 d’armure. Cet effet dure jusqu’à la fin du combat ou jusqu’à ce que les conditions ne soient plus remplies mais n’est pas cumulable.",
                 psy: 3,
                 portee: "tout_le_terrain",
@@ -10654,6 +11414,7 @@ dresseur: {
             },
             {
                 nom: "Pouponnage",
+                image: "",
                 description: "Le dresseur prend grand soin d’une invocation au corps à corps, elle devient tape à l’œil et déclenchera le ciblage sur tous les ennemis à son corps à corps pour les deux prochains tours. Ce sort soigne aussi 1 dé 8 PV.",
                 psy: 3,
                 portee: "CAC_invocation",
@@ -10667,6 +11428,7 @@ dresseur: {
             },
             {
                 nom: "Dressage protectif",
+                image: "",
                 description: "Ordonne à l’invocation ciblée de passer sur une posture défensive, elle gagnera +20% de blocage, 4 PB et +1 d’armure pour 2 tours. Ce sort peut être lancé sur un allié et coûtera alors 2 PSY de plus à lancer.",
                 psy: 3,
                 portee: "invocation",
@@ -10685,6 +11447,7 @@ dresseur: {
         confirme: [
             {
                 nom: "Asservissement momentané",
+                image: "",
                 description: "Le dresseur plie à sa volonté une cible au corps à corps, il lui inflige Charme irrésistible pour 1 tour, à la fin de ce tour elle doit faire un jet de sauvegarde de Sagesse, si elle le loupe elle subit encore Charme pour 1 tour supplémentaire.",
                 psy: 5,
                 portee: "CAC",
@@ -10698,6 +11461,7 @@ dresseur: {
             },
             {
                 nom: "Au pied !",
+                image: "",
                 description: "Téléporte une invocation quelle que soit au corps à corps du lanceur sur la case voulue. Pendant le tour du lancement de ce sort, l’invocation téléportée subira tous les dégâts à la place du dresseur. Ce sort peut être lancé sur un allié et coûtera alors 2 PSY en plus à lancer.",
                 psy: 3,
                 portee: "invocation",
@@ -10716,6 +11480,7 @@ dresseur: {
             },
             {
                 nom: "Dressage d’Humanoïde",
+                image: "",
                 description: "Jusqu’à la fin du combat ou la révocation de ce sort, l’allié ciblé est considéré comme une invocation du dresseur, en conséquence les sorts le ciblant ne coûteront pas plus cher à lancer et en contrepartie il ne peut y avoir d’autres invocations du dresseur sur le terrain. Ce sort ne consomme pas d’action, il ne peut être actif que sur une cible à la fois.",
                 psy: 6,
                 portee: "allié",
@@ -10731,6 +11496,7 @@ dresseur: {
             },
             {
                 nom: "Fouet d’étranglement",
+                image: "",
                 description: "Le Dresseur attrape une cible jusqu’à 10 mètres et lui applique, ainsi qu’à lui-même Entrave irrésistible et infinie. Ce sort inflige 1 dé 6 +2 dégâts à l’impact puis 3 dégâts fixe à chaque fin de tour où la cible est sous Entrave à cause de ce sort. Le lanceur peut rompre n’importe quand pour retirer l’Entrave, la cible peut tenter un jet de sauvegarde de Force à partir du deuxième tour pour faire lever le sort.",
                 psy: 4,
                 portee: 10,
@@ -10746,6 +11512,7 @@ dresseur: {
             },
             {
                 nom: "Fait le beau !",
+                image: "",
                 description: "L’invocation ciblée par ce sort sera la cible de tous les ennemis pendant 1 tour, ils ne pourront attaquer aucune autre cible, sauf si l’invocation désignée meurt.",
                 psy: 5,
                 portee: "invocation",
@@ -10759,6 +11526,7 @@ dresseur: {
             },
             {
                 nom: "Agilité bestiale",
+                image: "",
                 description: "Le lanceur gagne +1 cran en vitesse et 20% de chances de blocage, il peut aussi se déplacer de 5 mètres dans n’importe quelle direction après avoir bloqué un coup. Cet effet dure 2 tours.",
                 psy: 4,
                 duree: 2,
@@ -10771,6 +11539,7 @@ dresseur: {
             },
             {
                 nom: "Confiance Totale",
+                image: "",
                 description: "''Tout le terrain'' Ce sort permet au Dresseur d’utiliser les statistiques d’une des invocations présente sur le terrain pour effectuer ses jets à loisir pendant son effet et vice-versa. Ce sort ne peut cibler qu’une seule invocation à la fois, son effet dure 2 tours et il ne consomme pas d’action.",
                 psy: 5,
                 portee: "tout_le_terrain",
@@ -10785,6 +11554,7 @@ dresseur: {
             },
             {
                 nom: "Rappel",
+                image: "",
                 description: "''Tout le terrain'' Ce sort peut être utilisé tout de suite après qu’une invocation du dresseur meurt, même en dehors du tour de jeu du dresseur. L’invocation ressuscite avec 50% de ses PV max instantanément. Ce sort coûte 2 PSY supplémentaire à lancer à chacune de ses utilisations dans le même combat.",
                 psy: 4,
                 portee: "tout_le_terrain",
@@ -10798,6 +11568,7 @@ dresseur: {
             },
             {
                 nom: "Injonction d’éloignement",
+                image: "",
                 description: "Ordonne à la cible de s’éloigner, elle reculera de 10 mètres et ne pourra plus se tenir au corps à corps du Dresseur pendant 2 tours. Si elle est coincée et obligée de rester au corps à corps elle subit 1 dé 10 dégâts fixes à chaque fin de tour. Sur une invocation ce sort augmente sa vitesse d’un cran et la portée de toutes ses attaques de 5 mètres.",
                 psy: 3,
                 portee: "cible",
@@ -10817,6 +11588,7 @@ dresseur: {
         expert: [
             {
                 nom: "Enragement",
+                image: "",
                 description: "Fait entrer une invocation ciblée dans une rage qui lui fera perdre 50% de sa vie maximale à chaque fin de tour, pendant ce délai elle double son DSB, gagne +20% de chances de toucher et une action supplémentaire. Ce sort peut cibler un allié auquel cas le sort lui infligera seulement 25% de sa vie maximale par tour mais il coûtera 2 PSY de plus à lancer. Cet effet dure deux tours.",
                 psy: 6,
                 portee: "invocation",
@@ -10834,6 +11606,7 @@ dresseur: {
             },
             {
                 nom: "Numéro fétiche",
+                image: "",
                 description: "Le lanceur du sort peut choisir de déplacer un nombre voulu d’invocations jusqu’au corps à corps de la cible. Le Dresseur ses invocations font leur numéro star, ils infligent alors 2 dé 8 dégâts à une cible et lui appliquent une altération d’état choisie par le lanceur. Si un allié sous l’effet de 'Dressage d’Humanoïde' est choisi pour être déplacé il inflige en plus le dé de dégâts de son arme en main à la cible.",
                 psy: 7,
                 portee: "cible",
@@ -10851,6 +11624,7 @@ dresseur: {
             },
             {
                 nom: "Lien inébranlable",
+                image: "",
                 description: "Le lanceur se lie à une de ses invocations, tant que celle-ci est en vie il ne peut pas tomber K.O et gardera 1 PV quoiqu’il arrive et inversement. Tous les bonus appliqués via d’autres sorts que ceux du dresseur à la cible l’affectent lui aussi et inversement. Le lien dure 3 tours, ce sort ne peut être utilisé qu’une fois par combat.",
                 psy: 8,
                 portee: "invocation",
@@ -10865,6 +11639,7 @@ dresseur: {
             },
             {
                 nom: "Tourbillon de fouet",
+                image: "",
                 description: "Inflige 1 dé 6 +2 dégâts à tous les ennemis dans la zone et les repousse de 5 mètres dans la direction opposée au lanceur.",
                 psy: 5,
                 zone: "zone",
@@ -10877,6 +11652,7 @@ dresseur: {
             },
             {
                 nom: "Ordre incontestable",
+                image: "",
                 description: "''Tout le terrain'' Pendant les deux prochains tours les invocations du dresseur infligent une altération d’état choisie au moment du lancement de ce sort aux ennemis qu’elles touchent. Si ce sort cible un ennemi il lui inflige une altération d’état voulue de manière irrésistible, les altérations n’infligeant pas de dégâts verront leur durée doublée, celle infligeant des dégâts verront leurs dégâts doublés si elles sont appliqués via ce sort. Si ce sort cible les alliés il octroie le même bonus qu’aux invocations du Dresseur mais coûte 2 PSY de plus à lancer.",
                 psy: 5,
                 portee: "tout_le_terrain",
@@ -10897,6 +11673,7 @@ dresseur: {
             },
             {
                 nom: "Dressage express",
+                image: "",
                 description: "Ce sort peut cibler un monstre avec deux niveaux de moins ou plus que le lanceur. Ce monstre est instantanément ajouté aux invocations du lanceur et retiré du camp de l’adversaire. Ce sort ne peut être utilisé qu’une fois par combat.",
                 psy: 5,
                 portee: "monstre",
@@ -10910,6 +11687,7 @@ dresseur: {
             },
             {
                 nom: "Injonction de pacifisme",
+                image: "",
                 description: "Ordonne à la cible d’arrêter de se battre, elle doit faire ses jets de touche avec un désavantage et inflige seulement la moitié des dégâts qu’elle devait faire pour 1 tour. Sur une invocation ce sort la rend 'Invulnérable' pour 1 tour mais elle perd l’état si elle attaque quelque chose.",
                 psy: 4,
                 portee: "cible",
@@ -10926,6 +11704,7 @@ dresseur: {
             },
             {
                 nom: "Hybridation abominable",
+                image: "",
                 description: "''Tout le terrain'' Le lanceur fusionne deux invocations sur le terrain, elles ne deviennent qu’une seule entité, capable d’utiliser tous les sorts et les capacités des deux monstres en simultané. Elle possède les statistiques les plus avantageuses dans chaque catégorie et le cumul des PV et de la PSY restante des deux au moment de la fusion. Quand cette créature attaque elle inflige 'Terreur' en plus de l’effet de son sort.",
                 psy: 7,
                 portee: "tout_le_terrain",
@@ -10943,6 +11722,7 @@ dresseur: {
         maitre: [
             {
                 nom: "Symbiose parfaite",
+                image: "",
                 description: "Le Dresseur se fusionne avec toutes ses invocations disponibles. Si des invocations étaient présentes sur le terrain au moment du lancement de ce sort elles meurent. Le dresseur récupère la possibilité d’utiliser la totalité des capacités de toutes ses invocations disponibles, il possède les statistiques les plus avantageuses dans chaque catégorie y compris en armure, en PV et en PSY parmi les siennes et celles de ses invocations. La symbiose le fait se considérer lui-même comme une invocation pour l’effet de ses autres sorts de Dresseur. L’effet dure 2 tours et pendant celui-ci les sorts de Dresseur coûtent tous 2 PSY de moins à lancer et le lanceur possède deux actions par tour.",
                 psy: 18,
                 duree: 2,
@@ -10963,6 +11743,7 @@ dresseur: {
 },
 prestidigitateur: {
     nom: "Prestidigitateur",
+    image: "",    
     description: [
         "Considérés par les mages comme des charlatans sans talents, les prestidigitateurs ont fait le choix d'une magie spectaculaire, faite de coup d'éclat et de disparition. Une magie pas toujours destructrice mais souvent inattendue qui saura impressionner les petits et les grands.",
         "Opérant dans les villes, souvent en compagnie d'autres artistes de cirque ou de bardes, les prestidigitateurs aiment la scène et le spectacle bien plus que les bibliothèques et les salles d'études.",
@@ -10980,6 +11761,7 @@ prestidigitateur: {
         talents: [
             {
                 nom: "Magicien de rue",
+                image: "",
                 description: "Vous pouvez faire un jet d’Art et Musique pour exécuter un petit tour de magie qui permet de captiver l’attention, d’impressionner quelqu’un ou de faire diversion selon la situation. Cela peut être un tour de carte, faire disparaître ou apparaître un petit objet ou un petit animal, ou tout autre tour de magie de faible envergure.",
                 niveau: 1,
                 effet: {
@@ -10992,6 +11774,7 @@ prestidigitateur: {
             },
             {
                 nom: "Professionnel de la scène",
+                image: "",
                 description: "Ajoute +1 en Charisme et en Dextérité. Ajoute +20 en Art et Musique. Vous avez l’avantage sur vos jets de statistiques mineures si vous êtes sur une scène devant un public.",
                 niveau: 2,
                 effet: {
@@ -11003,6 +11786,7 @@ prestidigitateur: {
             },
             {
                 nom: "Disparition surprise",
+                image: "",
                 description: "Une fois par combat ou par scène, vous pouvez éviter totalement une attaque de zone en vous téléportant sur un chapeau magique hors de la zone ciblée. Cet effet ne peut pas être utilisé si vous êtes entravé ou dans l’impossibilité de vous téléporter, il ne peut avoir lieu que si vous avez un chapeau magique posé quelque part.",
                 niveau: 3,
                 effet: {
@@ -11014,6 +11798,7 @@ prestidigitateur: {
             },
             {
                 nom: "Supercherie",
+                image: "",
                 description: "Vous êtes très doué pour repérer les tricheries ou les manipulations, vous gagnez un avantage en calme face à quelqu’un qui cache quelque chose ou qui essaye de vous tromper. Vous maîtrisez vous-même cet art bien sûr et ajoutez +10 en Persuader/Tromper et en Adresse.",
                 niveau: 4,
                 effet: {
@@ -11024,6 +11809,7 @@ prestidigitateur: {
             },
             {
                 nom: "Personnalité captivante",
+                image: "",
                 description: "Vous êtes toujours le premier à vous faire remarquer. En combat vous avez l’avantage pour tous les jets de ciblages. Hors combat vous pouvez capter l’attention d’une foule ou faire diversion avec avantage.",
                 niveau: 5,
                 effet: {
@@ -11033,6 +11819,7 @@ prestidigitateur: {
             },
             {
                 nom: "Véritable magicien",
+                image: "",
                 description: "Ajoute +2 en Intelligence ainsi que +10 en Connaissance mystique et en perception magique.",
                 niveau: 6,
                 effet: {
@@ -11043,6 +11830,7 @@ prestidigitateur: {
             },
             {
                 nom: "Chapelier",
+                image: "",
                 description: "Vous gagnez +1 au DSB pour chaque chapeau magique présent dans un rayon de 100 mètres de vous. Cet effet ne s’applique qu’en combat.",
                 niveau: 7,
                 effet: {
@@ -11053,6 +11841,7 @@ prestidigitateur: {
             },
             {
                 nom: "Ventriloquie imitatrice",
+                image: "",
                 description: "Vous pouvez vous exprimer sans bouger les lèvres, personne ne peut précisément déterminer la source de la parole et vous pouvez imiter à la perfection la voix de quelqu’un d’autres que vous avez déjà entendu avec cet effet.",
                 niveau: 8,
                 effet: {
@@ -11063,6 +11852,7 @@ prestidigitateur: {
             },
             {
                 nom: "Grand illusionniste",
+                image: "",
                 description: "Ajoute +1 en Charisme et en Dextérité. A chaque fois que vous faites un tour de magie ou utilisez un sortilège de la voie hors combat vous récupérez 1 PSY. Effet limité à 2 fois par scène.",
                 niveau: 9,
                 effet: {
@@ -11074,6 +11864,7 @@ prestidigitateur: {
             },
             {
                 nom: "Public conquis",
+                image: "",
                 description: "Après avoir exécuté un sortilège coûtant 6 PSY ou plus vous appliquez 'Charme' à l’ennemi le plus proche. Hors combat ne fonctionne que si vous avez utilisé votre propre psyché pour lancer le sort et applique 'Charme' à toute l’assistance pendant 30 minutes.",
                 niveau: 10,
                 effet: {
@@ -11093,6 +11884,7 @@ prestidigitateur: {
         novice: [
             {
                 nom: "Coup du lapin",
+                image: "",
                 description: "Vous sortez un lapin de votre chapeau. L’animal enragé saute sur une cible jusqu’à 10 mètres et lui inflige 1 dé 6 dégâts et Poison. Ce sort peut avoir un Chapeau Magique pour origine.",
                 psy: 3,
                 portee: 10,
@@ -11103,6 +11895,7 @@ prestidigitateur: {
             },
             {
                 nom: "Cordage magique",
+                image: "",
                 description: "Vous utilisez une corde qui s’allonge magiquement, un ennemi jusqu’à 15 mètres est complètement ligoté et subit 'Entrave' irrésistible et ne peut plus faire d’action jusqu’à ce qu’il réussisse un jet de Force pour se dégager. Si une attaque est portée sur la cible elle se libère automatiquement. Ce sort peut avoir un Chapeau Magique pour origine.",
                 psy: 3,
                 portee: 15,
@@ -11117,6 +11910,7 @@ prestidigitateur: {
             },
             {
                 nom: "Téléporto-chapeau",
+                image: "",
                 description: "Vous pouvez apparaître sortant d’un chapeau magique sur le terrain, où qu’il soit mais il est détruit au passage. Ce sort ne consomme pas d’action et n’enclenche pas la mécanique, limité à 2 fois par tour.",
                 psy: 2,
                 portee: "n_importe_ou_chapeau",
@@ -11130,6 +11924,7 @@ prestidigitateur: {
             },
             {
                 nom: "Manche pleine",
+                image: "",
                 description: "Vous faites apparaître une arme de petite taille sortie de votre manche au moment d’une attaque au corps à corps avec votre arme. Inflige les dégâts de cette arme cachée en plus de vos dégâts d’arme et ajoute votre DSB au total. Les dégâts de l’arme cachée et du DSB ne sont pas réduits par le blocage.",
                 psy: 4,
                 portee: "CAC_arme",
@@ -11143,6 +11938,7 @@ prestidigitateur: {
             },
             {
                 nom: "Ta-Da !",
+                image: "",
                 description: "Ce sort inflige x dé 2 dégâts à une cible au corps à corps. X est le nombre de sorts de la voie du prestidigitateur lancé ce combat. Le lancement de ce sort réinitialise le compte. Ce sort ne consomme pas d’action.",
                 psy: 2,
                 portee: "CAC",
@@ -11156,6 +11952,7 @@ prestidigitateur: {
             },
             {
                 nom: "Tour de l’esprit",
+                image: "",
                 description: "Vous subjuguez un ennemi avec un peu d’hypnose. Inflige 'Charme' à une créature à moins de 10 mètres pour 1 tour.",
                 psy: 2,
                 portee: 10,
@@ -11165,6 +11962,7 @@ prestidigitateur: {
             },
             {
                 nom: "Changement express",
+                image: "",
                 description: "Vous profitez d’un grand rideau pour vous changer instantanément, vous pouvez optez pour n’importe quelle tenue mais celle-ci ne peut pas être une armure et reste purement cosmétique. Ce sort n’a normalement pas d’effet particulier en combat, mais le MJ peut en décider autrement. Ne consomme pas d’action.",
                 psy: 2,
                 action: "aucune",
@@ -11178,6 +11976,7 @@ prestidigitateur: {
             },
             {
                 nom: "Cape voleuse",
+                image: "",
                 description: "Ce sort reste dormant jusqu’à ce que vous subissiez une attaque à l’arme de mêlée. L’attaque ne vous fera aucun dégât et l’arme de l’adversaire se retrouvera attachée dans votre cape, le dépossédant donc de son arme. Ce sort ne consomme pas d’action.",
                 psy: 4,
                 action: "aucune",
@@ -11191,6 +11990,7 @@ prestidigitateur: {
             },
             {
                 nom: "Lancer de chapeau",
+                image: "",
                 description: "Vous lancez votre chapeau magique sur une cible jusqu’à 15 mètres, elle subit 1 dé 6 +2 dégâts et vous posez un Chapeau Magique en plus de l’effet de la mécanique. Ce sort peut avoir un Chapeau Magique pour origine.",
                 psy: 3,
                 portee: 15,
@@ -11203,6 +12003,7 @@ prestidigitateur: {
             },
             {
                 nom: "Tu es un Poulet",
+                image: "",
                 description: "Vous hypnotisez un ennemi à moins de 10 mètres pour lui faire croire qu’il est un inoffensif poulet de ferme pendant 2 tours. L’ennemi fait un jet de sauvegarde de Charisme pour éviter de se laisser prendre et le relance chaque tour pour rompre l’effet prématurément.",
                 psy: 3,
                 portee: 10,
@@ -11216,6 +12017,7 @@ prestidigitateur: {
             },
             {
                 nom: "Coffre magique",
+                image: "",
                 description: "Vous vous enfermez dans un coffre magique et devenez invulnérable pour 1 tour, vous pouvez en sortir pendant le tour de n’importe quelle cible qui se tiendrait à son corps à corps pour l’enfermer à l’intérieur à votre place et lui infligez 1 dé 6 +2 dégâts et Sonné pour 1 tour.",
                 psy: 4,
                 duree: 1,
@@ -11230,6 +12032,7 @@ prestidigitateur: {
             },
             {
                 nom: "Grande évasion",
+                image: "",
                 description: "Vous êtes immunisé à Entrave pendant le reste du combat. Hors combat ce sort permet de se libérer de n’importe quel type de lien ou menotte et permet d’ouvrir les cages ou les prisons non magiques. Ce sort ne consomme pas d’action.",
                 psy: 2,
                 action: "aucune",
@@ -11246,6 +12049,7 @@ prestidigitateur: {
         confirme: [
             {
                 nom: "Assistant magique",
+                image: "",
                 description: "''Invocation'' Vous invoquez un assistant qui peut être n’importe quelle créature de taille moyenne ou moins, il peut communiquer mais est ésotérique et sera facilement vu comme étant un sortilège. Tant qu’il est à votre corps à corps il vous octroie l’avantage sur tous vos sorts de prestidigitateur et ajoute 1 dé 4 dégâts au sort infligeant des dégâts. L’invocation possède une vitesse normale, 14 PV et la possibilité d’utiliser Téléporto-chapeau à loisir et gratuitement sans détruire le chapeau.",
                 psy: 6,
                 type: "invocation",
@@ -11265,6 +12069,7 @@ prestidigitateur: {
             },
             {
                 nom: "Boite magique",
+                image: "",
                 description: "Vous enfermez une entité au corps à corps dans une boite que vous sciez en deux. Si c’est un ennemi il subit 2 dé 6 dégâts et 'Hémorragie' et sautera son prochain tour de jeu pour se réassembler magiquement. Si c’est un allié il est séparé en deux versions de lui-même possédant la moitié de ses statistiques et de sa taille chacune, il peut jouer les deux entités l’une après l’autre. Après deux tours il fusionne en une seule entité.",
                 psy: 5,
                 portee: "CAC",
@@ -11286,6 +12091,7 @@ prestidigitateur: {
             },
             {
                 nom: "Traversée",
+                image: "",
                 description: "Vous pouvez passer à travers les obstacles et les entités pendant 2 tours en combat. Hors combat vous pouvez passer à travers une surface comme un mur ou le sol et vous retrouvez de l’autre côté sans qu’aucune trace d’effraction ne soit visible. Ce sort ne consomme pas d’action.",
                 psy: 4,
                 duree: 2,
@@ -11301,6 +12107,7 @@ prestidigitateur: {
             },
             {
                 nom: "Réapparition inexplicable",
+                image: "",
                 description: "Ce sort reste dormant jusqu’à ce que vous subissiez une attaque à distance sous forme de projectile. Juste avant de vous toucher vous enveloppez les projectiles dans votre cape et ceux-ci réapparaissent pour toucher l’ennemi qui les a envoyés. Ce sort annule tous dégâts que vous deviez subir et les renvoient à l’assaillant à la place.",
                 psy: 5,
                 conditions: ["subitAttaqueDistanceProjectile"],
@@ -11312,6 +12119,7 @@ prestidigitateur: {
             },
             {
                 nom: "Envol de colombes",
+                image: "",
                 description: "Un nuage d’oiseaux sortent de votre chapeau, ils infligent 1 dé 8 dégâts à tous les ennemis dans un cône en face de vous. Les oiseaux volent ensuite en tous sens sur le terrain imposant un désavantage à tous les jets d’attaques à distances pendant 1 tour. Si ce sort est un CC les oiseaux sont des corbeaux et ils infligent forcément dégâts maximaux et appliquent 'Cécité'. Ce sort peut avoir un Chapeau Magique pour origine.",
                 psy: 5,
                 portee: "cone",
@@ -11330,6 +12138,7 @@ prestidigitateur: {
             },
             {
                 nom: "Pots magiques",
+                image: "",
                 description: "''Tout le Terrain'' Vous enfermez jusqu’à 4 entités sur le terrain sous d’immenses pots magiques, et vous les mélangez, les entités peuvent toutes échanger de place l’une avec l’autre selon vos désirs grâce à cet effet.",
                 psy: 4,
                 portee: "tout_le_terrain",
@@ -11343,6 +12152,7 @@ prestidigitateur: {
             },
             {
                 nom: "Lévitation truquée",
+                image: "",
                 description: "Vous lévitez et devenez 'Volant' pendant 2 tours en combat. Hors combat vous lévitez à 3 mètres du sol pendant 20 minutes, cela ne vous permet pas voler et ne vous immunise pas à la chute. Ce sort ne consomme pas d’action.",
                 psy: 5,
                 action: "aucune",
@@ -11358,6 +12168,7 @@ prestidigitateur: {
             },
             {
                 nom: "Abracadabra",
+                image: "",
                 description: "Ce sort ne peut être lancé qu’après un sortilège de prestidigitateur n’infligeant pas de dégâts. Vous pouvez vous téléporter derrière un ennemi à moins de 10 mètres et lui infligez 1 dé 6 dégâts fixes et irréductibles. Ce sort ne consomme pas d’action, limité à une fois par tour.",
                 psy: 2,
                 action: "aucune",
@@ -11371,6 +12182,7 @@ prestidigitateur: {
             },
             {
                 nom: "Coup du chapeau",
+                image: "",
                 description: "Rassemble tous les chapeaux magiques dans le vôtre qui grossit en conséquence et voit sa masse drastiquement augmentée. Vous frappez alors un ennemi en l’écrasant avec et il subit x dé 6 dégâts ou X est le nombre de chapeaux magiques sur le terrain au moment du lancement de ce sort. Les chapeaux sont tous détruits à l’utilisation de ce sort. Si ce sort inflige plus de 20 points de dégâts l’ennemi subit également 'Sonné'.",
                 psy: 6,
                 degats: "x d6",
@@ -11387,6 +12199,7 @@ prestidigitateur: {
         expert: [
             {
                 nom: "Disparition rocambolesque",
+                image: "",
                 description: "Vous pouvez faire disparaître un objet ou individu pouvant mesurer jusqu’à 10 mètres. En combat applique Invisible sur un allié ou vous-même pour 2 tours ou jusqu’à ce que vous infligiez des dégâts. Ce sort peut cibler une cible supplémentaire pour 2 PSY par cible de plus. Ce sort peut avoir un Chapeau Magique pour origine.",
                 psy: 5,
                 tailleCibleMax: 10,
@@ -11402,6 +12215,7 @@ prestidigitateur: {
             },
             {
                 nom: "Amnésie",
+                image: "",
                 description: "Vous plongez un ennemi à moins de 10 mètres dans un état de confusion mentale où il ne se souvient de rien. Pendant 2 tours (ou 1 heure hors combat) il erre sur le terrain sans comprendre ce qui s’y passe. Cet effet ne peut pas être résisté mais ne peut pas être réappliqué à une cible déjà touchée pendant ce combat ou cette scène.",
                 psy: 6,
                 portee: 10,
@@ -11416,6 +12230,7 @@ prestidigitateur: {
             },
             {
                 nom: "Déluge de vraie fausse lames",
+                image: "",
                 description: "Des centaines de lames de toutes tailles sortent de votre cape magique et foncent sur les ennemis alentours, elles infligent 3 dé 6 dégâts et 'Hémorragie' à tous les ennemis mais se plantent dans les alliés sans leur faire aucun dégâts. Si un allié est dans la zone du sort l’effet est encore plus impressionnant et les ennemis subissent en plus 'Terreur'. Les lames disparaissent quelques secondes après l’impact. Ce sort peut avoir un Chapeau Magique pour origine.",
                 psy: 7,
                 portee: "zone",
@@ -11434,6 +12249,7 @@ prestidigitateur: {
             },
             {
                 nom: "Clou du spectacle",
+                image: "",
                 description: "Ce sort inflige 1 dégât pour chaque PSY utilisée par le prestidigitateur pendant le combat, on ajoute également 1 dégât par chapeau magique présent au lancement de ce sort. La cible du sort disparaît en s’effondrant sur elle-même et il n’en reste rien si elle meurt de cette attaque. Les dégâts de ce sort sont perce-armure, ignorent les résistances et ne sont pas blocables. Une utilisation par combat.",
                 psy: 8,
                 degats: "1 par PSY + 1 par chapeau magique",
@@ -11448,6 +12264,7 @@ prestidigitateur: {
             },
             {
                 nom: "Hocus Pocus",
+                image: "",
                 description: "Vous pouvez lancer ce sort après avoir utilisé un sortilège de prestidigitateur qui inflige des dégâts. Vous infligez un désavantage à tous les jets de la cible pour 1 tour. Ce sort ne consomme pas d’action, limité à une fois par tour.",
                 psy: 2,
                 action: "aucune",
@@ -11461,6 +12278,7 @@ prestidigitateur: {
             },
             {
                 nom: "C’était moi !",
+                image: "",
                 description: "Vous prenez la place d’une entité ciblée jusqu’à 25 mètres, celle-ci disparaît complètement inexplicablement pendant 1 tour et est Invulnérable et Sonné de manière irrésistible pendant ce laps de temps. Ce sort peut être lancé juste avant qu’une entité attaque, auquel cas vous jouez votre tour à sa place.",
                 psy: 6,
                 portee: 25,
@@ -11477,6 +12295,7 @@ prestidigitateur: {
             },
             {
                 nom: "Chapeau Pass",
+                image: "",
                 description: "Un allié à portée gagne le sort Téléporto-chapeau et peut l’utiliser comme un prestidigitateur pendant 2 tours. Ce sort ne consomme pas d’action et n’enclenche pas la mécanique.",
                 psy: 3,
                 action: "aucune",
@@ -11490,6 +12309,7 @@ prestidigitateur: {
             },
             {
                 nom: "Magie du spectacle",
+                image: "",
                 description: "Crée une grande scène devant le lanceur. Sur cette scène le prestidigitateur peut utiliser ses sorts pour 2 PSY de moins tant qu’ils ciblent une entité elle-même sur la scène. Une fois par tour le prestidigitateur peut faire un appel et téléporter une entité à ses côtés sur scène sans consommer d’action ni de PSY. Tant qu’il est sur scène le lanceur gagne également l’avantage sur ses jets de blocage et de sauvegarde. La scène reste en place pendant 2 tours. Ce sort ne consomme pas d’action.",
                 psy: 6,
                 action: "aucune",
@@ -11509,6 +12329,7 @@ prestidigitateur: {
         maitre: [
             {
                 nom: "Show-Time !",
+                image: "",
                 description: "''Tout le Terrain'' Ce sort a le même effet que 'Magie du Spectacle' mais la scène fait la taille du terrain tout entier. Ce sort octroie également l’effet de 'Chapeau Pass' à tous les alliés. Pendant l’effet de ce sort les chapeaux magiques crachent du brouillard qui inflige 2 'Poison' et 'Cécité' aux ennemis à leur corps à corps à chaque début de tour. Ce sort dure 2 tours mais son effet est prolongé de 1 tour si un ou plusieurs ennemis meurent pendant l’effet. Ce sort ne consomme pas d’action.",
                 psy: 14,
                 portee: "tout_le_terrain",
@@ -11531,6 +12352,8 @@ prestidigitateur: {
     }
 },
 cartomancien: {
+    nom: "Cartomancien",
+    image: "",    
     description: [
         "Les cartomanciens sont des magiciens un peu spéciaux, ils peuvent voir l’avenir dans les cartes et elles leur donnent divers pouvoirs mystiques. Cependant, ils sont soumis aux hasards, mais si certains d’entre eux essayent de la manipuler, la plupart s’y plie comme s’il était une volonté divine.",
         "Parmi les mages, ils ne sont pas très respectés et ils sont souvent mal considérés, la plupart d’entre eux officient dans des petits villages en dispensant leurs visions du futur aux habitants. D’autres choisissent la voie des aventuriers et utilisent leurs pouvoirs pour se sortir de situations hasardeuses.",
@@ -11593,6 +12416,7 @@ cartomancien: {
         talents: [
             {
                 nom: "Chance Insolente",
+                image: "",
                 description: "Ajoute +1 en Chance. Bonus +20 au hasard en situation critique ou lors d'un jeu de hasard.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -11604,6 +12428,7 @@ cartomancien: {
             },
             {
                 nom: "Destinée Magnifique",
+                image: "",
                 description: "Ajoute +1 en Dextérité et en Charisme. Vous ignorez les tentatives de ciblage adverse, car votre destin vous appartient.",
                 niveauJoueur: 2,
                 prerequis: ["Chance Insolente"],
@@ -11615,6 +12440,7 @@ cartomancien: {
             },
             {
                 nom: "Bonne Aventure",
+                image: "",
                 description: "Lors d'un butin aléatoire, le Cartomancien tire une carte. Si c’est une reine ou un roi, il peut trouver un équipement supplémentaire.",
                 niveauJoueur: 3,
                 prerequis: ["Destinée Magnifique"],
@@ -11625,6 +12451,7 @@ cartomancien: {
             },
             {
                 nom: "Prédiction",
+                image: "",
                 description: "Quitte ou double devient : si vous faites 1 ou 2, vous ne subissez rien. Si vous faites 6, vous prenez le double de dégâts. Sinon rien ne se passe. Si vous ne possédez pas ce sort vous ignorez l’effet et le débloquez à la place.",
                 niveauJoueur: 4,
                 prerequis: ["Bonne Aventure"],
@@ -11639,6 +12466,7 @@ cartomancien: {
             },
             {
                 nom: "Tricherie",
+                image: "",
                 description: "Le sort 'Lancer de Carte' Permet désormais de tirer deux cartes mais vous n’en gardez qu’une seule pour appliquer son effet et celle qui n’est pas retenue ne compte pas pour les effets de combinaison.",
                 niveauJoueur: 5,
                 prerequis: ["Prédiction"],
@@ -11650,6 +12478,7 @@ cartomancien: {
             },
             {
                 nom: "Bonne Etoile",
+                image: "",
                 description: "Ajoute +2 en Chance. Si vous devez mourir d’une attaque, vous encaissez avec 1 PV et subissez ''Sommeil'' à la place. Utilisable 1 fois par combat.",
                 niveauJoueur: 6,
                 prerequis: ["Tricherie"],
@@ -11661,6 +12490,7 @@ cartomancien: {
             },
             {
                 nom: "Mains sur le Destin",
+                image: "",
                 description: "Immunité à ''Charme'' et ''Silence''.",
                 niveauJoueur: 7,
                 prerequis: ["Bonne Etoile"],
@@ -11671,6 +12501,7 @@ cartomancien: {
             },
             {
                 nom: "Maître des Cartes",
+                image: "",
                 description: "Les effets des cartes sont doublés. Si vous avez déjà un effet doublé vous le triplez et le sort octroie +10% de chances de CC pendant l’effet de la carte. La carte Joker octroie une résistance élémentaire au choix pendant un tour en plus que son effet.",
                 niveauJoueur: 8,
                 prerequis: ["Mains sur le Destin"],
@@ -11683,6 +12514,7 @@ cartomancien: {
             },
             {
                 nom: "Astrologue",
+                image: "",
                 description: "Ajoute +1 en Intelligence. Bonus de +30 en connaissance sacrée, monde et mystique pour tout ce qui concerne les cartes, les astres et la Divinité Scélenis.",
                 niveauJoueur: 9,
                 prerequis: ["Maître des Cartes"],
@@ -11694,6 +12526,7 @@ cartomancien: {
             },
             {
                 nom: "Chance Infinie",
+                image: "",
                 description: "Si vous avez plus de 50% de chances de CC lors de la réalisation d’une attaque, vous transformez votre chance d’EC en échec simple. Vous gagnez aussi un avantage lors de tous vos jets de hasard et d'intuition.",
                 niveauJoueur: 10,
                 prerequis: ["Astrologue"],
@@ -11709,6 +12542,7 @@ cartomancien: {
         sortNovice: [
             {
                 nom: "Quitte ou Double",
+                image: "",
                 description: "Lors de la prochaine attaque que vous recevez, vous lancez 1 dé 6. Si vous faites 1, vous ne subissez rien. Si vous faites 6, vous prenez le double de dégâts, sinon rien ne se passe. Ne consomme pas d’action.",
                 Psy: 2,
                 Zone: "personnel",
@@ -11723,6 +12557,7 @@ cartomancien: {
             },
             {
                 nom: "Bord Tranchant",
+                image: "",
                 description: "Le lanceur utilise ses cartes pour taillader un ennemi, inflige 1 dé 6 +3 dégâts.",
                 Psy: 3,
                 Zone: "cible_unique",
@@ -11735,6 +12570,7 @@ cartomancien: {
             },
             {
                 nom: "Ratage Partiel",
+                image: "",
                 description: "Ce sort atténue les échecs critiques en les transformant en échec normal. Vous obtenez aussi +20% au blocage. L'effet dure 1 tour. Ce sort ne consomme pas d’action et peut être lancé n'importe quand.",
                 Psy: 2,
                 Zone: "personnel",
@@ -11749,6 +12585,7 @@ cartomancien: {
             },
             {
                 nom: "Tarot Chanceux",
+                image: "",
                 description: "Vous désignez un allié à jusqu’à 25 mètres, l’effet des cartes qui vous sont appliqués lui sont appliqués aussi. L’effet de ce sort reste actif jusqu’à la mort de la cible ou la réutilisation du sort sur une autre cible. Ce sort ne consomme pas d'action.",
                 Psy: 3,
                 Zone: "cible_unique",
@@ -11762,6 +12599,7 @@ cartomancien: {
             },
             {
                 nom: "Mauvaise pioche",
+                image: "",
                 description: "L’adversaire tire une carte, son effet et sa durée sont doublés et appliqués en tant que Malus, il prend ensuite 1 dé 6 +1 dégâts. La carte tirée compte pour les combinaisons de la mécanique.",
                 Psy: 4,
                 Zone: "cible_unique",
@@ -11777,6 +12615,7 @@ cartomancien: {
             },
             {
                 nom: "Main pleine",
+                image: "",
                 description: "Vous pouvez tirer une carte de plus avec 'Lancer de Carte', mais vous n’en garderez qu’une seule pour appliquer ses effets et jouer les combinaisons. Ce sort dure jusqu’à sa révocation et coûte 1 PSY par tour à maintenir.",
                 Psy: 2,
                 Zone: "personnel",
@@ -11792,6 +12631,7 @@ cartomancien: {
             },
             {
                 nom: "Coup de Bol",
+                image: "",
                 description: "Octroie un bonus de 10% au CC mais aussi d’EC pendant les 3 prochains tours. Ce sort ne consomme pas d'action et son effet est cumulable deux fois maximum.",
                 Psy: 1,
                 Zone: "personnel",
@@ -11806,6 +12646,7 @@ cartomancien: {
             },
             {
                 nom: "Tarot Malchanceux",
+                image: "",
                 description: "Vous pouvez choisir une cible jusqu’à 25 mètres. À chaque fois que vous piochez une carte et que son effet s’applique à vous, la cible subira le même effet en négatif pendant la même durée. L’effet de ce sort reste actif jusqu’à la mort de la cible ou la réutilisation du sort sur une autre cible. Ce sort ne consomme pas d'action.",
                 Psy: 3,
                 Zone: "cible_unique",
@@ -11819,6 +12660,7 @@ cartomancien: {
             },
             {
                 nom: "Ratage Total",
+                image: "",
                 description: "Influez sur un adversaire au corps-à-corps, celui-ci voit son taux de CC diminué à 0 et son taux d’EC augmenter de 20% pendant 2 tours. Ce sort lui inflige aussi 1 dé 6 dégâts.",
                 Psy: 3,
                 Zone: "cible_unique",
@@ -11834,6 +12676,7 @@ cartomancien: {
             },
             {
                 nom: "Heureux hasard",
+                image: "",
                 description: "Vous pouvez lancer ce sort juste après avoir raté un jet de dé, vous pouvez relancer le jet et garderez le résultat obtenu même s’il est pire. Ce sort ne peut pas être utilisé deux fois pour le même jet. En combat, ce sort ne consomme pas d’action.",
                 Psy: 2,
                 Zone: "personnel",
@@ -11849,6 +12692,7 @@ cartomancien: {
             },
             {
                 nom: "Carte Forte",
+                image: "",
                 description: "Si vous avez appliqué l’effet d’une Reine ou un Valet en dernier ce sort soigne 1 dé 6+2 PV si vous avez appliqué l’effet d’un As ou d’un Roi en dernier ce sort inflige 1 dé 6+2 dégâts. Peut cibler jusqu'à 15 mètres.",
                 Psy: 3,
                 Zone: "cible_unique",
@@ -11862,6 +12706,7 @@ cartomancien: {
             },
             {
                 nom: "Flot de Cartes",
+                image: "",
                 description: "Le lanceur fait sortir un déluge de cartes tranchantes de ses mains, inflige 1 dé 6 dégâts dans la zone et permet de tirer une carte par ennemi touché.",
                 Psy: 4,
                 Zone: "zone",
@@ -11877,6 +12722,7 @@ cartomancien: {
         sortConfirme: [
             {
                 nom: "Dans la Manche",
+                image: "",
                 description: "Le lanceur tire 2 cartes et s’applique les deux effets. Si l’une des deux est un As, l’effet dure 2 tours au lieu d’un. Utilisable 1 fois par tour et compte comme un tirage de carte. Ne consomme pas d’action.",
                 Psy: 3,
                 Zone: "personnel",
@@ -11893,6 +12739,7 @@ cartomancien: {
             },
             {
                 nom: "Pioche de Défausse",
+                image: "",
                 description: "Vous pouvez réappliquer l’effet de la carte tirée au tour précédent. Ce sort compte comme un tirage de carte normal. Utilisable 1 fois par tour. Ne consomme pas d’action.",
                 Psy: 2,
                 Zone: "personnel",
@@ -11907,6 +12754,7 @@ cartomancien: {
             },
             {
                 nom: "Âme des Cartes",
+                image: "",
                 description: "Vous tirez une carte, l’effet de la carte et de la combinaison appliquée grâce à ce sort est doublé et dure 2 tours. Ce sort compte comme un tirage de carte et ce sort ne consomme pas d’action.",
                 Psy: 2,
                 Zone: "personnel",
@@ -11922,6 +12770,7 @@ cartomancien: {
             },
             {
                 nom: "C’est votre Carte ?",
+                image: "",
                 description: "Utilisable uniquement si vous avez un ou plusieurs effets de cartes actifs. Alors, l’adversaire lance 1 dé 6, s’il fait le résultat correspondant à une carte active, il subit 2 dés 6 +4 dégâts sinon 1 dé 6 +2 dégâts.",
                 Psy: 5,
                 Zone: "cible_unique",
@@ -11937,6 +12786,7 @@ cartomancien: {
             },
             {
                 nom: "Joker Fou",
+                image: "",
                 description: "''Tout le Terrain''. Si vous avez déjà pioché un Joker durant ce combat, vous pouvez utiliser ce sort. Il inflige X dé 6 dégâts (X est le nombre de cartes Joker piochées pendant ce combat) à tous les adversaires où qu’ils soient en faisant pleuvoir des cartes. Le compte des cartes joker piochées se réinitialise à l'utilisation de ce sort et à la fin du combat.",
                 Psy: 6,
                 Zone: "tout_le_terrain",
@@ -11952,6 +12802,7 @@ cartomancien: {
             },
             {
                 nom: "Carte-Pharnaüm",
+                image: "",
                 description: "Ce sort ne peut s’utiliser que si vous avez pioché au moins 4 cartes et qu’aucune combinaison ne s’est réalisée. Vous pouvez choisir entre déclencher l’effet d’une combinaison au choix en doublant sa durée et son effet OU Infligez X dé 2 dégâts (ou X est le nombre de cartes piochées) à une cible jusqu’à 30 mètres.",
                 Psy: 4,
                 Zone: "variable",
@@ -11967,6 +12818,7 @@ cartomancien: {
             },
             {
                 nom: "Cocu",
+                image: "",
                 description: "Vous infligez 1 dé 6 +1 dégât et Charme à un adversaire. Si vous faites un CC avec ce sort, un second adversaire de votre choix subit Charme également.",
                 Psy: 4,
                 Zone: "cible_unique",
@@ -11981,6 +12833,7 @@ cartomancien: {
             },
             {
                 nom: "Pari Truqué",
+                image: "",
                 description: "Vous désignez une cible avec ce sort où qu’elle soit, si elle est la prochaine cible à tomber K.O ou Mort pendant ce combat vous gagnez +10% de chances de CC, de toucher et +1 DSB jusqu’à la fin du combat. Si la cible de ce sort est un allié, juste après être tombé K.O il revient à la vie avec 1 PV. Si la cible de ce sort est un ennemi et qu’il n’est pas le premier à tomber K.O vous lui infligez 1 dé 8 dégâts, si ces dégâts le tue vous gagnez tout de même le bonus comme s’il était K.O en premier.",
                 Psy: 4,
                 Zone: "cible_unique",
@@ -11996,6 +12849,7 @@ cartomancien: {
             },
             {
                 nom: "Croupier féérique",
+                image: "",
                 description: "''Invocation'' Le lanceur invoque une fée ou un petit élémentaire qui tient le rôle de croupier. À chaque fois que le Cartomancien pioche une carte le croupier en pioche une aussi. Toutes les améliorations du croupier sont aussi appliquées au lanceur. L’invocation possède 8 PV et une résistance dans un élément choisit, elle inflige 1 dé 4 dégâts à distance en tirant des cartes.",
                 Psy: 5,
                 Zone: "invocation",
@@ -12015,6 +12869,7 @@ cartomancien: {
         sortExpert: [
             {
                 nom: "Mélange Maîtrisé",
+                image: "",
                 description: "Le lanceur choisit une carte, il s’applique le double des effets de la carte et de la combinaison obtenue. Compte comme un tirage de carte. Utilisable 1 fois par tour. Ne consomme pas d’action.",
                 Psy: 3,
                 Zone: "personnel",
@@ -12030,6 +12885,7 @@ cartomancien: {
             },
             {
                 nom: "Carte Maîtresse",
+                image: "",
                 description: "Vous choisissez une de vos cartes, son effet est quadruplé de manière permanente, mais pas sa durée, elle ne subit plus aucune augmentation d’une autre sorte. Cet effet dure jusqu’à ce que vous relanciez ce sort pour une autre carte ou jusqu’à sa révocation.",
                 Psy: 4,
                 Zone: "personnel",
@@ -12045,6 +12901,7 @@ cartomancien: {
             },
             {
                 nom: "Ultime Tapis",
+                image: "",
                 description: "Le Cartomancien pioche 6 cartes, les effets de ces cartes sont doublés y compris celui des combinaisons éventuelles et leur durée est infinie. Il ne pourra plus jamais piocher de cartes du combat d’aucune manière, de plus il perd 3 PV à chaque début de tour. Ce sort ne consomme pas d’action et ne s’interrompt que si le lanceur meurt ou tombe K.O.",
                 Psy: 6,
                 Zone: "personnel",
@@ -12062,6 +12919,7 @@ cartomancien: {
             },
             {
                 nom: "Tour de carte",
+                image: "",
                 description: "''Tout le terrain'' Tous les effets de cartes et de combinaison du lanceur sont appliqués à tous les alliés sur le terrain pendant 1 tour. Ce sort ne consomme pas d’action.",
                 Psy: 5,
                 Zone: "tout_le_terrain",
@@ -12075,6 +12933,7 @@ cartomancien: {
             },
             {
                 nom: "Transfert de Chance",
+                image: "",
                 description: "Vous pouvez utiliser ce sort immédiatement après avoir fait un CC. Transférez la moitié de votre taux de critique à un allié à moins de 15 mètres. Utilisable 1 fois par tour. Ne consomme pas d’action.",
                 Psy: 2,
                 Zone: "cible_unique",
@@ -12089,6 +12948,7 @@ cartomancien: {
             },
             {
                 nom: "Prendre la Main",
+                image: "",
                 description: "Vous pouvez lancer ce sort n’importe quand hors de votre tour de jeu, vous obtenez un tour supplémentaire que vous jouez immédiatement après l’entité en train de jouer. Au début de ce tour vous piochez deux cartes et leurs effets sont doublés. Ce sort ne consomme pas d’action.",
                 Psy: 7,
                 Zone: "personnel",
@@ -12104,6 +12964,7 @@ cartomancien: {
             },
             {
                 nom: "Baraka de Scélenis",
+                image: "",
                 description: "Le lanceur devient aussi chanceux que la déesse du Destin. Pendant ce tour il est 'Invulnérable' et il fait un coup critique sur tous ses sorts automatiquement s’il les réussit. Tous les effets d’augmentation ou de malus qu’il applique sur une autre cible que lui le sont pour 1 tour supplémentaire. Ce sort ne consomme pas d’action et coûte 4 PSY de plus à lancer à chacune de ses utilisations dans le même combat.",
                 Psy: 6,
                 Zone: "personnel",
@@ -12119,6 +12980,7 @@ cartomancien: {
             },
             {
                 nom: "Pile ou Face Mortel",
+                image: "",
                 description: "Le lanceur choisit un ennemi et lance 1 dé 2. S’il fait 1 l’adversaire subit 4 dés 8 dégâts, s’il fait 2 le lanceur subit 2 dé 8 dégâts. Si ce sort doit tuer ou mettre K.O une cible le survivant récupère 1 dé 10 PV.",
                 Psy: 7,
                 Zone: "cible_unique",
@@ -12136,634 +12998,7 @@ cartomancien: {
         sortMaitre: [
             {
                 nom: "Hérault du Hasard",
-                description: "Pendant 2 tours, vous ne pouvez plus rater de jet. Les chances d’EC deviennent des chances de CC. Les adversaires qui veulent vous frapper doivent lancer 1 dé 2. S’ils font 2, ils ne vous infligent aucun dégât sinon ils attaquent normalement. Tous les effets et la durée des cartes et des combinaisons sont triplés peu importe la manière de tirage mais vous ne prenez plus en compte aucune augmentation d'effet supplémentaire. Vous gagnez +20% de chances de CC.",
-                Psy: 10,
-                Zone: "personnel",
-                Distance: "0m",
-                Action: "aucune",
-                Touche: "CHA/DEX",
-                effet: {
-                    duree_tours: 2,
-                    ne_peut_plus_rater_jet: true,
-                    ec_deviennent_cc: true,
-                    adversaires_lancent_1d2_pour_degats: {
-                        si_resultat_2: "aucun_degat",
-                        sinon: "attaquent_normalement"
-                    },
-                    effets_duree_cartes_combinaisons_triples: true,
-                    pas_augmentation_effet_supplementaire: true,
-                    bonus_cc: 20
-                }
-            }
-        ]
-    }
-},
-cartomancien: {
-    description: [
-        "Les cartomanciens sont des magiciens un peu spéciaux, ils peuvent voir l’avenir dans les cartes et elles leur donnent divers pouvoirs mystiques. Cependant, ils sont soumis aux hasards, mais si certains d’entre eux essayent de la manipuler, la plupart s’y plie comme s’il était une volonté divine.",
-        "Parmi les mages, ils ne sont pas très respectés et ils sont souvent mal considérés, la plupart d’entre eux officient dans des petits villages en dispensant leurs visions du futur aux habitants. D’autres choisissent la voie des aventuriers et utilisent leurs pouvoirs pour se sortir de situations hasardeuses.",
-        "Les maîtres cartomanciens possèdent des effets de cartes puissants, ils peuvent aussi piocher plusieurs cartes ou les choisir directement en pliant le destin."
-    ],
-    majeures: {
-        constitution: 0,
-        intelligence: 1,
-        defense: 0,
-        charisme: 2,
-        dexterite: 0,
-        chance: 7,
-        force: 0,
-        sagesse: 0
-    },
-    mineures: {
-        monde: 0,
-        mystique: 10,
-        sacré: 10,
-        nature: 0,
-        robustesse: 0,
-        calme: 0,
-        marchandage: 0,
-        persuasion: 0, // Ancien Persuader/Tromper
-        artmusique: 0, // Ancien Art et Musique
-        commandement: 0,
-        acrobatie: 0,
-        discretion: 0,
-        adresse: 0,
-        artisanat: 0,
-        hasard: 30,
-        athletisme: 0,
-        puissance: 0,
-        intimidation: 0,
-        medecine: 0,
-        perception: 0,
-        perceptionmagique: 20, // Ancien Perception magique
-        intuition: 30
-    },
-    mecanique: [
-        "Le cartomancien peut tirer une carte si un effet lui indique, les cartes sont tirées en lançant 1 dé 6, elles ont les effets suivants :",
-        "6 = Vierge : Relancer le dé",
-        "5 = Valet : + 1 à l’Armure pour 1 tour.",
-        "4 = Reine : + 1 au soin et +2 PB pour 1 tour.",
-        "3 = Roi : + 1 au dégât pour 1 tour.",
-        "2 = As : +5 % aux chances de toucher pour 1 tour.",
-        "1 = Joker : Choisissez un des bonus des autres cartes.",
-        "Selon la Combinaison de cartes qu’il pioche on peut ajouter des effets supplémentaires, ces effets sont permanents et ne se dissipent que si on déclenche une autre combinaison de carte :",
-        "Paire : Vous avez pioché deux fois la même carte consécutivement. Vous gagnez +1 au DSB.",
-        "Brelan : Vous avez pioché trois fois la même carte consécutivement. Vous gagnez +20% de chance de réussir vos jets de sauvegarde et de chance de blocage.",
-        "Carré : Vous avez pioché 4 fois la même carte consécutivement. Vous gagnez un avantage sur tous vos jets.",
-        "Flush : Vous avez pioché un brelan puis une paire consécutivement ou inversement. Vous gagnez une immunité à toutes les altérations d’état et les purgez au déclenchement de cette combinaison.",
-        "Quinte : Vous avez pioché 5 cartes dans cet ordre : Vierge, Valet, Reine, Roi, As. Toutes vos attaques sont des CC.",
-        "Un seul combo peut être actif en simultané, si vous piochez deux paires consécutives de la même carte vous allez donc aussi enclencher un Carré en même temps que la deuxième paire, vous gardez un seul des deux effets de combo. Si vous faites un CC en utilisant un sort qui permet de tirer une carte, vous piochez une carte de plus.",
-        "Il lance aussi automatiquement le sort suivant au début de son tour :",
-        "Lancer de Carte (Réussite automatique) : Le lanceur tire une carte, l’effet s’applique. Utilisable 1 fois par tour. Ne consomme pas d’action. 0 PSY"
-    ],
-    talentVoie: {
-        niveauJoueur: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        talents: [
-            {
-                nom: "Chance Insolente",
-                description: "Ajoute +1 en Chance. Bonus +20 au hasard en situation critique ou lors d'un jeu de hasard.",
-                niveauJoueur: 1,
-                prerequis: [],
-                effet: {
-                    bonus_chance: 1,
-                    bonus_hasard: 20,
-                    condition_hasard: "situation critique ou jeu de hasard"
-                }
-            },
-            {
-                nom: "Destinée Magnifique",
-                description: "Ajoute +1 en Dextérité et en Charisme. Vous ignorez les tentatives de ciblage adverse, car votre destin vous appartient.",
-                niveauJoueur: 2,
-                prerequis: ["Chance Insolente"],
-                effet: {
-                    bonus_dexterite: 1,
-                    bonus_charisme: 1,
-                    ignore_ciblage_adverse: true
-                }
-            },
-            {
-                nom: "Bonne Aventure",
-                description: "Lors d'un butin aléatoire, le Cartomancien tire une carte. Si c’est une reine ou un roi, il peut trouver un équipement supplémentaire.",
-                niveauJoueur: 3,
-                prerequis: ["Destinée Magnifique"],
-                effet: {
-                    butin_aleatoire_tire_carte: true,
-                    si_reine_ou_roi_equipement_supplementaire: true
-                }
-            },
-            {
-                nom: "Prédiction",
-                description: "Quitte ou double devient : si vous faites 1 ou 2, vous ne subissez rien. Si vous faites 6, vous prenez le double de dégâts. Sinon rien ne se passe. Si vous ne possédez pas ce sort vous ignorez l’effet et le débloquez à la place.",
-                niveauJoueur: 4,
-                prerequis: ["Bonne Aventure"],
-                effet: {
-                    modification_quitte_ou_double: {
-                        resultat_1_ou_2: "aucun_degat",
-                        resultat_6: "double_degats",
-                        sinon: "rien"
-                    },
-                    debloque_sort: "Quitte ou Double"
-                }
-            },
-            {
-                nom: "Tricherie",
-                description: "Le sort 'Lancer de Carte' Permet désormais de tirer deux cartes mais vous n’en gardez qu’une seule pour appliquer son effet et celle qui n’est pas retenue ne compte pas pour les effets de combinaison.",
-                niveauJoueur: 5,
-                prerequis: ["Prédiction"],
-                effet: {
-                    lancer_de_carte_tire_deux_cartes: true,
-                    garde_une_seule_carte: true,
-                    carte_non_retenue_pas_combinaison: true
-                }
-            },
-            {
-                nom: "Bonne Etoile",
-                description: "Ajoute +2 en Chance. Si vous devez mourir d’une attaque, vous encaissez avec 1 PV et subissez ''Sommeil'' à la place. Utilisable 1 fois par combat.",
-                niveauJoueur: 6,
-                prerequis: ["Tricherie"],
-                effet: {
-                    bonus_chance: 2,
-                    encaisse_1_pv_et_sommeil_si_mort: true,
-                    utilisation_par_combat: 1
-                }
-            },
-            {
-                nom: "Mains sur le Destin",
-                description: "Immunité à ''Charme'' et ''Silence''.",
-                niveauJoueur: 7,
-                prerequis: ["Bonne Etoile"],
-                effet: {
-                    immunite_charme: true,
-                    immunite_silence: true
-                }
-            },
-            {
-                nom: "Maître des Cartes",
-                description: "Les effets des cartes sont doublés. Si vous avez déjà un effet doublé vous le triplez et le sort octroie +10% de chances de CC pendant l’effet de la carte. La carte Joker octroie une résistance élémentaire au choix pendant un tour en plus que son effet.",
-                niveauJoueur: 8,
-                prerequis: ["Mains sur le Destin"],
-                effet: {
-                    effets_cartes_doubles: true,
-                    si_deja_double_triple: true,
-                    bonus_cc_pendant_effet_carte: 10,
-                    joker_resistance_elementaire_en_plus: true
-                }
-            },
-            {
-                nom: "Astrologue",
-                description: "Ajoute +1 en Intelligence. Bonus de +30 en connaissance sacrée, monde et mystique pour tout ce qui concerne les cartes, les astres et la Divinité Scélenis.",
-                niveauJoueur: 9,
-                prerequis: ["Maître des Cartes"],
-                effet: {
-                    bonus_intelligence: 1,
-                    bonus_connaissance_sacre_monde_mystique: 30,
-                    concerne: "cartes, astres et Divinité Scélenis"
-                }
-            },
-            {
-                nom: "Chance Infinie",
-                description: "Si vous avez plus de 50% de chances de CC lors de la réalisation d’une attaque, vous transformez votre chance d’EC en échec simple. Vous gagnez aussi un avantage lors de tous vos jets de hasard et d'intuition.",
-                niveauJoueur: 10,
-                prerequis: ["Astrologue"],
-                effet: {
-                    si_plus_50_cc_echec_critique_echec_simple: true,
-                    avantage_jets_hasard_intuition: true
-                }
-            }
-        ]
-    },
-    sortVoie: {
-        niveau: ["Novice", "Confirme", "Expert", "Maître"],
-        sortNovice: [
-            {
-                nom: "Quitte ou Double",
-                description: "Lors de la prochaine attaque que vous recevez, vous lancez 1 dé 6. Si vous faites 1, vous ne subissez rien. Si vous faites 6, vous prenez le double de dégâts, sinon rien ne se passe. Ne consomme pas d’action.",
-                Psy: 2,
-                Zone: "personnel",
-                Distance: "0m",
-                Action: "aucune",
-                Touche: "CHA",
-                effet: {
-                    resultat_de_1: "aucun_degat",
-                    resultat_de_6: "double_degats",
-                    autre_resultat: "rien"
-                }
-            },
-            {
-                nom: "Bord Tranchant",
-                description: "Le lanceur utilise ses cartes pour taillader un ennemi, inflige 1 dé 6 +3 dégâts.",
-                Psy: 3,
-                Zone: "cible_unique",
-                Distance: "mêlée",
-                Action: "standard",
-                Touche: "CHA",
-                effet: {
-                    degats: "1d6+3"
-                }
-            },
-            {
-                nom: "Ratage Partiel",
-                description: "Ce sort atténue les échecs critiques en les transformant en échec normal. Vous obtenez aussi +20% au blocage. L'effet dure 1 tour. Ce sort ne consomme pas d’action et peut être lancé n'importe quand.",
-                Psy: 2,
-                Zone: "personnel",
-                Distance: "0m",
-                Action: "aucune",
-                Touche: "CHA",
-                effet: {
-                    echec_critique_devient_normal: true,
-                    bonus_blocage: 20,
-                    duree_tours: 1
-                }
-            },
-            {
-                nom: "Tarot Chanceux",
-                description: "Vous désignez un allié à jusqu’à 25 mètres, l’effet des cartes qui vous sont appliqués lui sont appliqués aussi. L’effet de ce sort reste actif jusqu’à la mort de la cible ou la réutilisation du sort sur une autre cible. Ce sort ne consomme pas d'action.",
-                Psy: 3,
-                Zone: "cible_unique",
-                Distance: "25m",
-                Action: "aucune",
-                Touche: "CHA",
-                effet: {
-                    partage_effets_cartes_avec_allie: true,
-                    duree_effet: "jusqu'a_mort_cible_ou_reutilisation"
-                }
-            },
-            {
-                nom: "Mauvaise pioche",
-                description: "L’adversaire tire une carte, son effet et sa durée sont doublés et appliqués en tant que Malus, il prend ensuite 1 dé 6 +1 dégâts. La carte tirée compte pour les combinaisons de la mécanique.",
-                Psy: 4,
-                Zone: "cible_unique",
-                Distance: "mêlée", // Spécifié comme CAC dans l'énoncé de l'exercice pour Ratage Total, donc supposé pour cet effet aussi
-                Action: "standard",
-                Touche: "CHA",
-                effet: {
-                    adversaire_tire_carte: true,
-                    effets_et_duree_doubles_en_malus: true,
-                    degats: "1d6+1",
-                    carte_compte_pour_combinaisons: true
-                }
-            },
-            {
-                nom: "Main pleine",
-                description: "Vous pouvez tirer une carte de plus avec 'Lancer de Carte', mais vous n’en garderez qu’une seule pour appliquer ses effets et jouer les combinaisons. Ce sort dure jusqu’à sa révocation et coûte 1 PSY par tour à maintenir.",
-                Psy: 2,
-                Zone: "personnel",
-                Distance: "0m",
-                Action: "maintenir",
-                Touche: "CHA",
-                effet: {
-                    tire_carte_supplementaire_lancer_de_carte: true,
-                    garde_une_seule_pour_effets_combinaisons: true,
-                    cout_maintien_psy_par_tour: 1,
-                    duree: "jusqu'a_revocation"
-                }
-            },
-            {
-                nom: "Coup de Bol",
-                description: "Octroie un bonus de 10% au CC mais aussi d’EC pendant les 3 prochains tours. Ce sort ne consomme pas d'action et son effet est cumulable deux fois maximum.",
-                Psy: 1,
-                Zone: "personnel",
-                Distance: "0m",
-                Action: "aucune",
-                Touche: "CHA",
-                effet: {
-                    bonus_cc_ec: 10,
-                    duree_tours: 3,
-                    cumulable_max: 2
-                }
-            },
-            {
-                nom: "Tarot Malchanceux",
-                description: "Vous pouvez choisir une cible jusqu’à 25 mètres. À chaque fois que vous piochez une carte et que son effet s’applique à vous, la cible subira le même effet en négatif pendant la même durée. L’effet de ce sort reste actif jusqu’à la mort de la cible ou la réutilisation du sort sur une autre cible. Ce sort ne consomme pas d'action.",
-                Psy: 3,
-                Zone: "cible_unique",
-                Distance: "25m",
-                Action: "aucune",
-                Touche: "CHA",
-                effet: {
-                    cible_subit_effet_negatif_cartes_piochees: true,
-                    duree_effet: "jusqu'a_mort_cible_ou_reutilisation"
-                }
-            },
-            {
-                nom: "Ratage Total",
-                description: "Influez sur un adversaire au corps-à-corps, celui-ci voit son taux de CC diminué à 0 et son taux d’EC augmenter de 20% pendant 2 tours. Ce sort lui inflige aussi 1 dé 6 dégâts.",
-                Psy: 3,
-                Zone: "cible_unique",
-                Distance: "CAC",
-                Action: "standard",
-                Touche: "CHA",
-                effet: {
-                    taux_cc_diminue_a_0: true,
-                    taux_ec_augmente_de_20: true,
-                    duree_tours: 2,
-                    degats: "1d6"
-                }
-            },
-            {
-                nom: "Heureux hasard",
-                description: "Vous pouvez lancer ce sort juste après avoir raté un jet de dé, vous pouvez relancer le jet et garderez le résultat obtenu même s’il est pire. Ce sort ne peut pas être utilisé deux fois pour le même jet. En combat, ce sort ne consomme pas d’action.",
-                Psy: 2,
-                Zone: "personnel",
-                Distance: "0m",
-                Action: "aucune",
-                Touche: "CHA",
-                effet: {
-                    relance_jet_de_rate: true,
-                    garde_resultat_meme_si_pire: true,
-                    pas_deux_fois_meme_jet: true,
-                    combat_pas_action: true
-                }
-            },
-            {
-                nom: "Carte Forte",
-                description: "Si vous avez appliqué l’effet d’une Reine ou un Valet en dernier ce sort soigne 1 dé 6+2 PV si vous avez appliqué l’effet d’un As ou d’un Roi en dernier ce sort inflige 1 dé 6+2 dégâts. Peut cibler jusqu'à 15 mètres.",
-                Psy: 3,
-                Zone: "cible_unique",
-                Distance: "15m",
-                Action: "standard",
-                Touche: "CHA",
-                effet: {
-                    si_derniere_carte_reine_ou_valet: "soigne_1d6+2_pv",
-                    si_derniere_carte_as_ou_roi: "inflige_1d6+2_degats"
-                }
-            },
-            {
-                nom: "Flot de Cartes",
-                description: "Le lanceur fait sortir un déluge de cartes tranchantes de ses mains, inflige 1 dé 6 dégâts dans la zone et permet de tirer une carte par ennemi touché.",
-                Psy: 4,
-                Zone: "zone",
-                Distance: "personnel",
-                Action: "standard",
-                Touche: "CHA",
-                effet: {
-                    degats: "1d6",
-                    tire_carte_par_ennemi_touche: true
-                }
-            }
-        ],
-        sortConfirme: [
-            {
-                nom: "Dans la Manche",
-                description: "Le lanceur tire 2 cartes et s’applique les deux effets. Si l’une des deux est un As, l’effet dure 2 tours au lieu d’un. Utilisable 1 fois par tour et compte comme un tirage de carte. Ne consomme pas d’action.",
-                Psy: 3,
-                Zone: "personnel",
-                Distance: "0m",
-                Action: "aucune",
-                Touche: "CHA",
-                effet: {
-                    tire_2_cartes: true,
-                    applique_2_effets: true,
-                    si_une_as_duree_2_tours: true,
-                    utilisation_par_tour: 1,
-                    compte_tirage_carte: true
-                }
-            },
-            {
-                nom: "Pioche de Défausse",
-                description: "Vous pouvez réappliquer l’effet de la carte tirée au tour précédent. Ce sort compte comme un tirage de carte normal. Utilisable 1 fois par tour. Ne consomme pas d’action.",
-                Psy: 2,
-                Zone: "personnel",
-                Distance: "0m",
-                Action: "aucune",
-                Touche: "CHA",
-                effet: {
-                    reapplique_effet_carte_tour_precedent: true,
-                    compte_tirage_carte_normal: true,
-                    utilisation_par_tour: 1
-                }
-            },
-            {
-                nom: "Âme des Cartes",
-                description: "Vous tirez une carte, l’effet de la carte et de la combinaison appliquée grâce à ce sort est doublé et dure 2 tours. Ce sort compte comme un tirage de carte et ce sort ne consomme pas d’action.",
-                Psy: 2,
-                Zone: "personnel",
-                Distance: "0m",
-                Action: "aucune",
-                Touche: "CHA",
-                effet: {
-                    tire_carte: true,
-                    effet_carte_combinaison_double: true,
-                    duree_tours: 2,
-                    compte_tirage_carte: true
-                }
-            },
-            {
-                nom: "C’est votre Carte ?",
-                description: "Utilisable uniquement si vous avez un ou plusieurs effets de cartes actifs. Alors, l’adversaire lance 1 dé 6, s’il fait le résultat correspondant à une carte active, il subit 2 dés 6 +4 dégâts sinon 1 dé 6 +2 dégâts.",
-                Psy: 5,
-                Zone: "cible_unique",
-                Distance: "mêlée", // Non spécifié, supposé CAC
-                Action: "standard",
-                Touche: "CHA",
-                effet: {
-                    condition_effets_cartes_actifs: true,
-                    adversaire_lance_1d6: true,
-                    si_resultat_carte_active: "2d6+4_degats",
-                    sinon: "1d6+2_degats"
-                }
-            },
-            {
-                nom: "Joker Fou",
-                description: "''Tout le Terrain''. Si vous avez déjà pioché un Joker durant ce combat, vous pouvez utiliser ce sort. Il inflige X dé 6 dégâts (X est le nombre de cartes Joker piochées pendant ce combat) à tous les adversaires où qu’ils soient en faisant pleuvoir des cartes. Le compte des cartes joker piochées se réinitialise à l'utilisation de ce sort et à la fin du combat.",
-                Psy: 6,
-                Zone: "tout_le_terrain",
-                Distance: "illimitée",
-                Action: "standard",
-                Touche: "CHA",
-                effet: {
-                    condition_joker_pioché_ce_combat: true,
-                    degats: "X_d6",
-                    x_est_nb_jokers_pioches: true,
-                    reinitialise_compteur_joker_utilisation_fin_combat: true
-                }
-            },
-            {
-                nom: "Carte-Pharnaüm",
-                description: "Ce sort ne peut s’utiliser que si vous avez pioché au moins 4 cartes et qu’aucune combinaison ne s’est réalisée. Vous pouvez choisir entre déclencher l’effet d’une combinaison au choix en doublant sa durée et son effet OU Infligez X dé 2 dégâts (ou X est le nombre de cartes piochées) à une cible jusqu’à 30 mètres.",
-                Psy: 4,
-                Zone: "variable",
-                Distance: "30m",
-                Action: "standard",
-                Touche: "CHA",
-                effet: {
-                    condition_4_cartes_piochees_aucune_combinaison: true,
-                    choix_declencher_combinaison: "duree_effet_doubles",
-                    choix_degats: "X_d2",
-                    x_est_nb_cartes_piochees: true
-                }
-            },
-            {
-                nom: "Cocu",
-                description: "Vous infligez 1 dé 6 +1 dégât et Charme à un adversaire. Si vous faites un CC avec ce sort, un second adversaire de votre choix subit Charme également.",
-                Psy: 4,
-                Zone: "cible_unique",
-                Distance: "mêlée", // Non spécifié, supposé CAC
-                Action: "standard",
-                Touche: "CHA",
-                effet: {
-                    degats: "1d6+1",
-                    applique_charme: true,
-                    si_cc_deuxieme_charme: true
-                }
-            },
-            {
-                nom: "Pari Truqué",
-                description: "Vous désignez une cible avec ce sort où qu’elle soit, si elle est la prochaine cible à tomber K.O ou Mort pendant ce combat vous gagnez +10% de chances de CC, de toucher et +1 DSB jusqu’à la fin du combat. Si la cible de ce sort est un allié, juste après être tombé K.O il revient à la vie avec 1 PV. Si la cible de ce sort est un ennemi et qu’il n’est pas le premier à tomber K.O vous lui infligez 1 dé 8 dégâts, si ces dégâts le tue vous gagnez tout de même le bonus comme s’il était K.O en premier.",
-                Psy: 4,
-                Zone: "cible_unique",
-                Distance: "illimitée",
-                Action: "standard",
-                Touche: "CHA",
-                effet: {
-                    si_prochaine_cible_ko_ou_mort: "bonus_cc_10_toucher_10_dsb_1_fin_combat",
-                    si_cible_allie: "revient_vie_1_pv_apres_ko",
-                    si_cible_ennemi_non_premier_ko_degats: "1d8",
-                    si_degats_tuent_gagne_bonus_comme_premier_ko: true
-                }
-            },
-            {
-                nom: "Croupier féérique",
-                description: "''Invocation'' Le lanceur invoque une fée ou un petit élémentaire qui tient le rôle de croupier. À chaque fois que le Cartomancien pioche une carte le croupier en pioche une aussi. Toutes les améliorations du croupier sont aussi appliquées au lanceur. L’invocation possède 8 PV et une résistance dans un élément choisit, elle inflige 1 dé 4 dégâts à distance en tirant des cartes.",
-                Psy: 5,
-                Zone: "invocation",
-                Distance: "0m",
-                Action: "standard",
-                Touche: "CHA",
-                effet: {
-                    type_invocation: "fée_ou_petit_elementaire_croupier",
-                    pv_invocation: 8,
-                    resistance_elementaire_invocation: "choisie",
-                    degats_distance_invocation: "1d4",
-                    croupier_pioche_avec_cartomancien: true,
-                    ameliorations_croupier_appliquees_lanceur: true
-                }
-            }
-        ],
-        sortExpert: [
-            {
-                nom: "Mélange Maîtrisé",
-                description: "Le lanceur choisit une carte, il s’applique le double des effets de la carte et de la combinaison obtenue. Compte comme un tirage de carte. Utilisable 1 fois par tour. Ne consomme pas d’action.",
-                Psy: 3,
-                Zone: "personnel",
-                Distance: "0m",
-                Action: "aucune",
-                Touche: "CHA",
-                effet: {
-                    choisit_carte: true,
-                    double_effets_carte_combinaison: true,
-                    compte_tirage_carte: true,
-                    utilisation_par_tour: 1
-                }
-            },
-            {
-                nom: "Carte Maîtresse",
-                description: "Vous choisissez une de vos cartes, son effet est quadruplé de manière permanente, mais pas sa durée, elle ne subit plus aucune augmentation d’une autre sorte. Cet effet dure jusqu’à ce que vous relanciez ce sort pour une autre carte ou jusqu’à sa révocation.",
-                Psy: 4,
-                Zone: "personnel",
-                Distance: "0m",
-                Action: "standard",
-                Touche: "CHA",
-                effet: {
-                    choisit_carte: true,
-                    effet_quadruple_permanent: true,
-                    pas_augmentation_autre_sorte: true,
-                    duree: "jusqu'a_relance_ou_revocation"
-                }
-            },
-            {
-                nom: "Ultime Tapis",
-                description: "Le Cartomancien pioche 6 cartes, les effets de ces cartes sont doublés y compris celui des combinaisons éventuelles et leur durée est infinie. Il ne pourra plus jamais piocher de cartes du combat d’aucune manière, de plus il perd 3 PV à chaque début de tour. Ce sort ne consomme pas d’action et ne s’interrompt que si le lanceur meurt ou tombe K.O.",
-                Psy: 6,
-                Zone: "personnel",
-                Distance: "0m",
-                Action: "aucune",
-                Touche: "CHA",
-                effet: {
-                    pioche_6_cartes: true,
-                    effets_combinaisons_doubles: true,
-                    duree_infinie: true,
-                    ne_peut_plus_piocher_cartes_combat: true,
-                    perd_3_pv_debut_tour: true,
-                    interruption_mort_ou_ko: true
-                }
-            },
-            {
-                nom: "Tour de carte",
-                description: "''Tout le terrain'' Tous les effets de cartes et de combinaison du lanceur sont appliqués à tous les alliés sur le terrain pendant 1 tour. Ce sort ne consomme pas d’action.",
-                Psy: 5,
-                Zone: "tout_le_terrain",
-                Distance: "illimitée",
-                Action: "aucune",
-                Touche: "CHA",
-                effet: {
-                    effets_cartes_combinaison_appliques_alliés: true,
-                    duree_tours: 1
-                }
-            },
-            {
-                nom: "Transfert de Chance",
-                description: "Vous pouvez utiliser ce sort immédiatement après avoir fait un CC. Transférez la moitié de votre taux de critique à un allié à moins de 15 mètres. Utilisable 1 fois par tour. Ne consomme pas d’action.",
-                Psy: 2,
-                Zone: "cible_unique",
-                Distance: "15m",
-                Action: "aucune",
-                Touche: "CHA",
-                effet: {
-                    condition_apres_cc: true,
-                    transfert_moitie_taux_critique_allie: true,
-                    utilisation_par_tour: 1
-                }
-            },
-            {
-                nom: "Prendre la Main",
-                description: "Vous pouvez lancer ce sort n’importe quand hors de votre tour de jeu, vous obtenez un tour supplémentaire que vous jouez immédiatement après l’entité en train de jouer. Au début de ce tour vous piochez deux cartes et leurs effets sont doublés. Ce sort ne consomme pas d’action.",
-                Psy: 7,
-                Zone: "personnel",
-                Distance: "0m",
-                Action: "aucune",
-                Touche: "CHA",
-                effet: {
-                    lance_hors_tour_de_jeu: true,
-                    obtient_tour_supplementaire: true,
-                    debut_tour_pioche_deux_cartes: true,
-                    effets_cartes_doubles: true
-                }
-            },
-            {
-                nom: "Baraka de Scélenis",
-                description: "Le lanceur devient aussi chanceux que la déesse du Destin. Pendant ce tour il est 'Invulnérable' et il fait un coup critique sur tous ses sorts automatiquement s’il les réussit. Tous les effets d’augmentation ou de malus qu’il applique sur une autre cible que lui le sont pour 1 tour supplémentaire. Ce sort ne consomme pas d’action et coûte 4 PSY de plus à lancer à chacune de ses utilisations dans le même combat.",
-                Psy: 6,
-                Zone: "personnel",
-                Distance: "0m",
-                Action: "aucune",
-                Touche: "CHA",
-                effet: {
-                    invulnerable: true,
-                    cc_automatique_sorts_reussis: true,
-                    effets_augmentation_malus_sur_autre_cible_duree_plus_1_tour: true,
-                    cout_psy_plus_4_par_utilisation_combat: true
-                }
-            },
-            {
-                nom: "Pile ou Face Mortel",
-                description: "Le lanceur choisit un ennemi et lance 1 dé 2. S’il fait 1 l’adversaire subit 4 dés 8 dégâts, s’il fait 2 le lanceur subit 2 dé 8 dégâts. Si ce sort doit tuer ou mettre K.O une cible le survivant récupère 1 dé 10 PV.",
-                Psy: 7,
-                Zone: "cible_unique",
-                Distance: "mêlée", // Non spécifié
-                Action: "standard",
-                Touche: "CHA",
-                effet: {
-                    lance_1d2: true,
-                    si_resultat_1_degats_adversaire: "4d8",
-                    si_resultat_2_degats_lanceur: "2d8",
-                    si_tue_ou_ko_survivant_recupere_1d10_pv: true
-                }
-            }
-        ],
-        sortMaitre: [
-            {
-                nom: "Hérault du Hasard",
+                image: "",
                 description: "Pendant 2 tours, vous ne pouvez plus rater de jet. Les chances d’EC deviennent des chances de CC. Les adversaires qui veulent vous frapper doivent lancer 1 dé 2. S’ils font 2, ils ne vous infligent aucun dégât sinon ils attaquent normalement. Tous les effets et la durée des cartes et des combinaisons sont triplés peu importe la manière de tirage mais vous ne prenez plus en compte aucune augmentation d'effet supplémentaire. Vous gagnez +20% de chances de CC.",
                 Psy: 10,
                 Zone: "personnel",
@@ -12787,6 +13022,8 @@ cartomancien: {
     }
 },
 invocateur: {
+    nom: "Invocateur",
+    image: "",    
     description: [
         "Les invocateurs sont très demandés, en effet, leur art est parmi les plus difficiles à maîtriser et ils sont donc excessivement peu nombreux à savoir pratiquer l’invocation. Ils sont extrêmement polyvalents et aussi bons défenseurs qu’attaquants. Ils sont très respectés par les autres mages et la simple invocation de petits mammifères suscite déjà l’émoi chez beaucoup d’érudits.",
         "Ils ne rejoignent pour ainsi dire jamais de groupes d’aventuriers et en voir un loin d’un laboratoire est déjà un petit événement, mais il ne faut jamais dire jamais ! Les maîtres invocateurs sont capables d’appeler tout un tas de créatures à leurs côtés dont les terribles immortels, des créatures invincibles et surpuissantes."
@@ -12837,6 +13074,7 @@ invocateur: {
         talents: [
             {
                 nom: "Focalisation Tranquille",
+                image: "",
                 description: "Ajoute +1 en Sagesse. Augmente de 5% vos chances de toucher tant qu’une de vos invocations est sur le terrain. Ce bonus est porté à 10% au niveau 5 de l’invocateur.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -12848,6 +13086,7 @@ invocateur: {
             },
             {
                 nom: "Lâcheté Pratique",
+                image: "",
                 description: "Ajoute +1 en Défense. Bonus de +10 en Acrobatie.",
                 niveauJoueur: 2,
                 prerequis: ["Focalisation Tranquille"],
@@ -12858,6 +13097,7 @@ invocateur: {
             },
             {
                 nom: "Donneur d’Ordre",
+                image: "",
                 description: "Ajoute +1 en Charisme. Bonus de +10 en Commandement.",
                 niveauJoueur: 3,
                 prerequis: ["Lâcheté Pratique"],
@@ -12868,6 +13108,7 @@ invocateur: {
             },
             {
                 nom: "Spécialiste de la planque",
+                image: "",
                 description: "Ajoute +1 en Charisme OU en Défense. L’Invocateur ne peut pas être ciblé avec un jet de ciblage.",
                 niveauJoueur: 4,
                 prerequis: ["Donneur d’Ordre"],
@@ -12878,6 +13119,7 @@ invocateur: {
             },
             {
                 nom: "Convocation Ferme",
+                image: "",
                 description: "Les invocations peuvent encaisser les coups à la place de l’invocateur si elles sont à son corps-à-corps. L’inverse est aussi possible. Si une invocation encaisse un coup à la place de son utilisateur elle meurt, peu importe combien elle avait de PV.",
                 niveauJoueur: 5,
                 prerequis: ["Spécialiste de la planque"],
@@ -12889,6 +13131,7 @@ invocateur: {
             },
             {
                 nom: "Armée disciplinée",
+                image: "",
                 description: "Si vous avez 3 invocations ou plus sur le terrain sous votre contrôle vous gagnez un avantage sur tous vos jets de blocage, de plus votre taux de blocage est partagé avec les invocations à votre corps à corps.",
                 niveauJoueur: 6,
                 prerequis: ["Convocation Ferme"],
@@ -12899,6 +13142,7 @@ invocateur: {
             },
             {
                 nom: "Lien Explosif",
+                image: "",
                 description: "Quand une de vos invocations meurt, elle explose en infligeant 1 dé 8 dégâts fixes à tous les ennemis à son corps à corps.",
                 niveauJoueur: 7,
                 prerequis: ["Armée disciplinée"],
@@ -12911,6 +13155,7 @@ invocateur: {
             },
             {
                 nom: "Minions dévoués",
+                image: "",
                 description: "Ajoute +1 en Défense. Si vous encaissez un coup qui devait vous faire tomber K.O. et que vous avez une invocation sur le terrain, échangez de place avec l’invocation et détruisez celle-ci. Vous ne subirez aucun dégât de l’attaque.",
                 niveauJoueur: 8,
                 prerequis: ["Lien Explosif"],
@@ -12923,6 +13168,7 @@ invocateur: {
             },
             {
                 nom: "Réserve Inépuisable",
+                image: "",
                 description: "L’invocateur peut sacrifier une invocation alliée à moins de 15 mètres, il récupère la moitié des PV restants de l’invocation en PSY. Cet effet ne peut être utilisé qu’une fois par combat et ne consomme pas d’action.",
                 niveauJoueur: 9,
                 prerequis: ["Minions dévoués"],
@@ -12934,6 +13180,7 @@ invocateur: {
             },
             {
                 nom: "Roi des Invocateurs",
+                image: "",
                 description: "L’invocateur ne peut subir aucun dégât ni aucune altération de statut de la part d’invocations adverses. Ses invocations infligent le double de dégâts sur des invocations adverses.",
                 niveauJoueur: 10,
                 prerequis: ["Réserve Inépuisable"],
@@ -12949,6 +13196,7 @@ invocateur: {
         sortNovice: [
             {
                 nom: "Invocation d’Assistant",
+                image: "",
                 description: "''Invocation''. Invoque une créature de taille Très petite. Hors combat cette créature dispose de bonus dans les statistiques mineures par rapport au palier utilisé pour l’invoquer. Ce sort coûte 1+X PSY où X est le palier auquel on a invoqué. Si on invoque au palier 2 ou moins ce sort ne consomme pas d’action.",
                 Psy: "1+X",
                 PV: "N/A",
@@ -12992,6 +13240,7 @@ invocateur: {
             },
             {
                 nom: "Invocation de Combattant",
+                image: "",
                 description: "''Invocation''. Invoque créature de taille moyenne, elle est spécialisée dans le combat au corps à corps. Ce sort coûte 2+X PSY où X est le palier auquel on a invoqué. Si on invoque au palier 1 ou moins ce sort ne consomme pas d’action.",
                 Psy: "2+X",
                 PV: "N/A",
@@ -13038,6 +13287,7 @@ invocateur: {
             },
             {
                 nom: "Invocation de Défenseur",
+                image: "",
                 description: "''Invocation''. Invoque créature de taille Moyenne, elle est spécialisée dans la défense, elle ne peut donc pas attaquer mais peut bloquer et encaisser à la place de tous ses alliés au corps à corps. Ce sort coûte 2+X PSY où X est le palier auquel on a invoqué. Si on invoque au palier 1 ou moins ce sort ne consomme pas d’action.",
                 Psy: "3+X",
                 PV: "N/A",
@@ -13079,6 +13329,7 @@ invocateur: {
             },
             {
                 nom: "Révocation Express",
+                image: "",
                 description: "Vous pouvez cibler une invocation jusqu’à 25 mètres. Si vous visez une invocation ennemie, le sort inflige 2 dés 6 dégâts. Si vous visez une invocation alliée, le sort la tue sur le coup et rend son coût en PSY à l’invocateur initial. Ce sort ne consomme pas d'action.",
                 Psy: 2,
                 PV: "N/A",
@@ -13093,6 +13344,7 @@ invocateur: {
             },
             {
                 nom: "Hurlement",
+                image: "",
                 description: "Hurle violemment pour appliquer Terreur et infliger 1 dé 4 dégâts dans la zone.",
                 Psy: 3,
                 PV: "N/A",
@@ -13107,6 +13359,7 @@ invocateur: {
             },
             {
                 nom: "Convocation",
+                image: "",
                 description: "Ce sort cible un ennemi ou un allié à distance, un portail s’ouvre et le téléporte jusqu’à votre corps à corps.",
                 Psy: 3,
                 PV: "N/A",
@@ -13120,6 +13373,7 @@ invocateur: {
             },
             {
                 nom: "Vague de Lueur",
+                image: "",
                 description: "Le lanceur ouvre un portail et une vague de Lueur éthérée en sort, ces créatures infligent 1 dé 6 +1 dégâts à toutes les entités dans la zone et applique Chaos.",
                 Psy: 4,
                 PV: "N/A",
@@ -13134,6 +13388,7 @@ invocateur: {
             },
             {
                 nom: "Frappe de Golem",
+                image: "",
                 description: "Un Golem se forme à la va vite et frappe une cible au corps à corps pour infliger 1 dé 6 +2 dégâts et pousser la cible de 5 mètres.",
                 Psy: 3,
                 PV: "N/A",
@@ -13148,6 +13403,7 @@ invocateur: {
             },
             {
                 nom: "Rappel",
+                image: "",
                 description: "Téléporte une de vos invocations (où qu’elle soit) à votre corps-à-corps. Ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -13161,6 +13417,7 @@ invocateur: {
             },
             {
                 nom: "Présence effacée",
+                image: "",
                 description: "Vous devenez Invisible pendant 2 tours, vous ne pouvez plus être ciblé directement, cette invisibilité se rompt dès que vous attaquez mais pas si vous utilisez des sortilèges non offensifs.",
                 Psy: 4,
                 PV: "N/A",
@@ -13178,6 +13435,7 @@ invocateur: {
             },
             {
                 nom: "Pacte Alyrien",
+                image: "",
                 description: "Le lanceur scelle un pacte avec une cible, le DSB, le taux de critique et les statistiques de touches seront alors mis en commun et chacun des deux pourra utiliser la meilleure statistique dans chaque domaine. Cet effet dure 1 tour, 2 si la cible est une invocation. Si une des cibles du pacte meurt ou tombe K.O, ou si un autre sort de pacte est lancé, le pacte est rompu.",
                 Psy: 4,
                 PV: "N/A",
@@ -13194,6 +13452,7 @@ invocateur: {
             },
             {
                 nom: "Présence affirmée",
+                image: "",
                 description: "Une de vos invocations déclenche le ciblage sur elle-même automatiquement pour 2 ennemis à moins de 10 mètres d’elle. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -13209,6 +13468,7 @@ invocateur: {
         sortConfirme: [
             {
                 nom: "Invocation de Tireur",
+                image: "",
                 description: "''Invocation''. Invoque créature de taille moyenne ou moins, elle est spécialisée dans le combat à distance. Ce sort coûte 3+X PSY où X est le palier auquel on a invoqué. Si on invoque au palier 1 ou moins ce sort ne consomme pas d’action.",
                 Psy: "3+X",
                 PV: "N/A",
@@ -13251,6 +13511,7 @@ invocateur: {
             },
             {
                 nom: "Invocation de Soigneur",
+                image: "",
                 description: "''Invocation''. Invoque créature de taille moyenne ou moins, elle est spécialisée dans le soin et n’inflige donc pas de dégâts en revanche, s’il soigne une cible dont la vie est pleine, il donne l’équivalent du surplus de soin en PB pour 1 tour. Ce sort coûte 3+X PSY où X est le palier auquel on a invoqué. Si on invoque au palier 1 ou moins ce sort ne consomme pas d’action.",
                 Psy: "3+X",
                 PV: "N/A",
@@ -13292,6 +13553,7 @@ invocateur: {
             },
             {
                 nom: "Invocation d’Assassin",
+                image: "",
                 description: "''Invocation''. Invoque créature de taille moyenne ou moins, elle est spécialisée dans l’assassinat, elle est Invisible lors de son invocation et redevient Invisible au début de son tour. Ce sort coûte 4+X PSY où X est le palier auquel on a invoqué. Ce sort ne consomme pas d’action, mais si on l’utilise pour le lancer il coûte 2 PSY de moins à lancer.",
                 Psy: "4+X",
                 PV: "N/A",
@@ -13335,6 +13597,7 @@ invocateur: {
             },
             {
                 nom: "Pacte Céleste",
+                image: "",
                 description: "Le lanceur scelle un pacte avec une cible imprégné de la puissance des célestes. Les deux cibles mettent leur taux de blocage et leur armure en commun, ils utilisent la meilleure statistique dans chaque domaine. De plus ils gagnent tous les deux la capacité de prendre les dégâts à la place de l’autre et ce, peu importe la distance qui les séparent. Cet effet dure 1 tour, 2 si la cible est une invocation. Si une des cibles du pacte meurt ou tombe K.O, ou si un autre sort de pacte est lancé, le pacte est rompu.",
                 Psy: 4,
                 PV: "N/A",
@@ -13352,6 +13615,7 @@ invocateur: {
             },
             {
                 nom: "Coup du Coffre",
+                image: "",
                 description: "Le lanceur invoque un coffre du chaos devant lui, ce dernier applique ''Charme'' à une cible jusqu’à 15 mètres et la téléporte à sa place en lui infligeant 1 dé 8 dégâts puis disparaît.",
                 Psy: 4,
                 PV: "N/A",
@@ -13368,6 +13632,7 @@ invocateur: {
             },
             {
                 nom: "Renforcement de Lien",
+                image: "",
                 description: "Ce sort octroie 6 PB fixes à une invocation jusqu’à 25 mètres puis la soigne de 1 dé 4 PV. Les PB persistent jusqu’à la fin du combat s’ils ne sont pas utilisés.",
                 Psy: 4,
                 PV: "N/A",
@@ -13383,6 +13648,7 @@ invocateur: {
             },
             {
                 nom: "Lien du phénix",
+                image: "",
                 description: "Ce sort reste dormant sur la cible lorsqu’il a été lancé. La cible doit forcément être une invocation, si l’invocation meurt elle ressuscite instantanément et récupère 6 PV. Ce sort ne peut pas cibler deux fois la même invocation, il ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -13399,6 +13665,7 @@ invocateur: {
             },
             {
                 nom: "Essaim de Frelon Tueur",
+                image: "",
                 description: "Le lanceur fait apparaître un grand essaim de frelons qui s’en prend à tous les ennemis dans la zone. Inflige 1 dé 6 + 1 dégâts perce armure et 2 ''Poisons'' à chaque cible.",
                 Psy: 5,
                 PV: "N/A",
@@ -13414,6 +13681,7 @@ invocateur: {
             },
             {
                 nom: "Contrôle étendu",
+                image: "",
                 description: "Pour ce combat, votre limite maximale d’invocation augmente de 1. Cet effet est cumulable une seule fois, dure tout le combat et ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -13431,6 +13699,7 @@ invocateur: {
         sortExpert: [
             {
                 nom: "Invocation d’Immortel",
+                image: "",
                 description: "''Invocation''. Invoque une créature (au choix), de taille Très grande ou moins, elle est ''Invulnérable'' et reste sur le terrain 2 tours après quoi elle meurt. Cette créature ne peut être lancée qu’au palier 3.",
                 Psy: 7,
                 PV: "N/A",
@@ -13458,6 +13727,7 @@ invocateur: {
             },
             {
                 nom: "Invocation de Mage",
+                image: "",
                 description: "''Invocation''. Invoque créature de taille moyenne ou moins, elle est spécialisée dans la magie et peut lancer des sorts de n’importe quelle Arcane choisie. Elle meurt si elle n’a plus de PSY. Ce sort coûte 4+X PSY où X est le palier auquel on a invoqué. Si on invoque au palier 1 ou moins ce sort ne consomme pas d’action.",
                 Psy: "4+X",
                 PV: "N/A",
@@ -13498,6 +13768,7 @@ invocateur: {
             },
             {
                 nom: "Invocation de Soutien",
+                image: "",
                 description: "''Invocation''. Invoque créature de taille moyenne ou moins, elle est spécialisée dans le soutien et ne fait pas de dégâts. Ce sort coûte 4+X PSY où X est le palier auquel on a invoqué. Si on invoque au palier 1 ou moins ce sort ne consomme pas d’action.",
                 Psy: "4+X",
                 PV: "N/A",
@@ -13541,6 +13812,7 @@ invocateur: {
             },
             {
                 nom: "Contrôle Maximal",
+                image: "",
                 description: "Pour ce combat, votre limite maximale d’invocation devient 6. Cet effet dure tout le combat et ce sort ne consomme pas d’action.",
                 Psy: 6,
                 PV: "N/A",
@@ -13555,6 +13827,7 @@ invocateur: {
             },
             {
                 nom: "Gueule du Roi des Marais",
+                image: "",
                 description: "L’Invocateur convoque un gigantesque Roi des Marais qui mord une cible au corps à corps en lui infligeant 2 dés 8 dégâts, si la cible meurt tous les autres ennemis s’appliquent ''Terreur''.",
                 Psy: 6,
                 PV: "N/A",
@@ -13569,6 +13842,7 @@ invocateur: {
             },
             {
                 nom: "Moissonneur Horrifiant",
+                image: "",
                 description: "''Tout le terrain'' Un Moissonneur déverse un flot de magie malsaine sur tout le terrain, cela inflige 1 dé 10 dégâts à tous les ennemis et leur applique 2 Poison irrésistibles. Si un ennemi possédant moins de 25% de sa vie maximale est touché par ce sort et s’applique correctement les Poisons, il meurt.",
                 Psy: 7,
                 PV: "N/A",
@@ -13584,6 +13858,7 @@ invocateur: {
             },
             {
                 nom: "Pacte démonique",
+                image: "",
                 description: "Le lanceur scelle le pacte interdit des démons. Il perd toute possibilité d’invoquer et augmente son propre DSB de 3, ses sorts d’Invocateur infligeant des dégâts s’imprègnent de l’énergie du plan démonique et infligent 1 dé 6 supplémentaire et applique ''Brûlure'' en plus de leurs effets habituels. Le lanceur gagne la possibilité de relancer un dé en payant 2 PV. L’effet de ce sort est irrévocable et dure tout le combat ou la scène, les autres pactes n’annulent pas celui-ci mais ne peuvent plus être lancés sous son effet.",
                 Psy: 4,
                 PV: 4,
@@ -13604,6 +13879,7 @@ invocateur: {
             },
             {
                 nom: "Triple souffle volcanique",
+                image: "",
                 description: "Un Trio Volcanique souffle un déluge de flammes devant le lanceur, il inflige 1 dé 10 +2 dégâts Feu et applique ''Brûlure'' à tous les ennemis dans la zone.",
                 Psy: 7,
                 PV: "N/A",
@@ -13621,6 +13897,7 @@ invocateur: {
         sortMaitre: [
             {
                 nom: "Armée d’un seul Homme",
+                image: "",
                 description: "L’Invocateur fait sauter toutes les retenues et convoque une quantité infinie de créatures sous son contrôle. Pendant l’effet de ce sort les sorts d’Invocation coûtent 3 PSY de moins à lancer et ne consomment jamais d’action. Les Créatures peuvent être invoquées jusqu’à 15 mètres du lanceur et possèdent toutes une augmentation de DSB de 2. L’invocateur ne possède plus aucune limite au nombre de créatures invoquées en simultané. Les invocations appelées pendant cet effet meurent à la fin du prochain tour de l'invocateur. L'effet de ce sort est permanent et peut être révoqué n'importe quand.",
                 Psy: 10,
                 PV: "N/A",
@@ -13641,6 +13918,8 @@ invocateur: {
     }
 },
 elementariste: {
+    nom: "Élémentariste",
+    image: "",    
     description: [
         "Les élémentaristes sont des personnes qui ont choisi la voie des éléments, souvent d’un seul, mais parfois de tous à la fois, ils sont bien plus puissants avec les sorts que les mages ou les utilisateurs lambda. Ils sont réputés assez monastiques dans leur fonctionnement interne, mais beaucoup d’entre eux parcourent le monde après avoir maîtrisé les bases dans le but de développer de nouveaux sortilèges puissants.",
         "Les élémentaristes sont de puissants combattants avec leurs sortilèges, ils peuvent complètement rôtir un ennemi imprudent et sont particulièrement doués pour frapper là où ça fait mal.",
@@ -13687,6 +13966,7 @@ elementariste: {
         {
             nom: "Déflagration élémentaire",
             type: "sort_special",
+            image: "",
             description: "Ce sort consomme 1 charge de chacun des 5 éléments. Crée une explosion de magie élémentaire qui inflige 1 dé 8 +2 dégâts et frappe automatiquement sur la faiblesse si les cibles en ont une.",
             Psy: 3,
             PV: "N/A",
@@ -13706,6 +13986,7 @@ elementariste: {
         talents: [
             {
                 nom: "Variance",
+                image: "",
                 description: "Vous octroie +1 dégât et +5% de chances de toucher à chaque fois que vous infligez des dégâts dans un élément différent que les précédents dégâts que vous avez infligés.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -13717,6 +13998,7 @@ elementariste: {
             },
             {
                 nom: "Touche à Tout",
+                image: "",
                 description: "Vous gagnez trois sorts Novices, chacun dans une Arcane élémentaire différente.",
                 niveauJoueur: 2,
                 prerequis: ["Variance"],
@@ -13726,6 +14008,7 @@ elementariste: {
             },
             {
                 nom: "Adaptabilité",
+                image: "",
                 description: "Ajoute +1 dans deux statistiques majeures.",
                 niveauJoueur: 3,
                 prerequis: ["Touche à Tout"],
@@ -13735,6 +14018,7 @@ elementariste: {
             },
             {
                 nom: "Spécialiste en sortilège",
+                image: "",
                 description: "Octroie un avantage lors d’un jet de perception magique pour déterminer la nature d’un sort.",
                 niveauJoueur: 4,
                 prerequis: ["Adaptabilité"],
@@ -13744,6 +14028,7 @@ elementariste: {
             },
             {
                 nom: "Confirmé Elémentaire",
+                image: "",
                 description: "Vous gagnez deux sorts Confirmés dans deux Arcanes élémentaires différentes.",
                 niveauJoueur: 5,
                 prerequis: ["Spécialiste en sortilège"],
@@ -13753,6 +14038,7 @@ elementariste: {
             },
             {
                 nom: "Variance vénérable",
+                image: "",
                 description: "Double le bonus du passif ''Variance''.",
                 niveauJoueur: 6,
                 prerequis: ["Confirmé Elémentaire"],
@@ -13762,6 +14048,7 @@ elementariste: {
             },
             {
                 nom: "Résilience Absolue",
+                image: "",
                 description: "Ajoute une Résistance à l’élément de votre choix.",
                 niveauJoueur: 7,
                 prerequis: ["Variance vénérable"],
@@ -13771,6 +14058,7 @@ elementariste: {
             },
             {
                 nom: "Adaptabilité", // Nom du passif identique au niveau 3, mais effet potentiellement différent ou cumulatif
+                image: "",
                 description: "Ajoute +1 dans deux statistiques majeures.",
                 niveauJoueur: 8,
                 prerequis: ["Résilience Absolue"],
@@ -13780,6 +14068,7 @@ elementariste: {
             },
             {
                 nom: "Préférence Elémentaire",
+                image: "",
                 description: "Vous pouvez choisir un élément quand vous le souhaitez au cours d’un combat ou d’une scène, tous vos sorts peuvent désormais être modifiés pour frapper dans cet élément, vous perdez 2 dégâts avec tous les autres éléments. Cet effet ne peut pas être annulé une fois enclenché.",
                 niveauJoueur: 9,
                 prerequis: ["Adaptabilité"],
@@ -13791,6 +14080,7 @@ elementariste: {
             },
             {
                 nom: "Maîtrise Elémentaire Totale",
+                image: "",
                 description: "Vous choisissez deux sorts de Maître parmi celui de cette voie et ceux des 5 Arcanes élémentaires. Vous les apprenez tous les deux à la place de celui que vous débloquez au niveau 10.",
                 niveauJoueur: 10,
                 prerequis: ["Préférence Elémentaire"],
@@ -13805,6 +14095,7 @@ elementariste: {
         sortNovice: [
             {
                 nom: "Pierre Brûlante",
+                image: "",
                 description: "Fait tomber des pierres volcaniques brûlantes dans une zone. Ce sort inflige des dégâts Terre ou Feu au choix. Le sort inflige 1 dé 6 dégâts. Le tour suivant si l’ennemi subit une attaque d’élément Feu il subit ''Brûlure''. S’il subit une attaque d’élément Terre il subit ‘’Sonné’’.",
                 Psy: 3,
                 PV: "N/A",
@@ -13821,6 +14112,7 @@ elementariste: {
             },
             {
                 nom: "Pichenette Educative",
+                image: "",
                 description: "Lance un sort qui inflige 1 dégât dans chacun des 5 éléments, si l’ennemi dispose d’une Faiblesse, ou d’une Résistance à un des éléments, ce sort le détectera. Ce sort génère une charge élémentaire au choix au lieu de la génération habituelle.",
                 Psy: 3,
                 PV: "N/A",
@@ -13837,6 +14129,7 @@ elementariste: {
             },
             {
                 nom: "Pluie de Pierre",
+                image: "",
                 description: "Utilise une puissante bourrasque pour faire tomber des nombreuses pierres dans une vaste zone. Ce sort inflige des dégâts Terre ou Vent au choix et inflige 1 dé 6 dégâts aux ennemis à l’intérieur.",
                 Psy: 4,
                 PV: "N/A",
@@ -13851,6 +14144,7 @@ elementariste: {
             },
             {
                 nom: "Foudre brûlante",
+                image: "",
                 description: "Frappe un ennemi à distance avec un éclair qui met le feu à la cible. Inflige 1 dé 6 dégâts Foudre ou Feu et applique ''Brûlure''. Si un ennemi sous ''Brûlure'' à cause de ce sort subit une attaque Eau la ''Brûlure'' est supprimée mais il devient faible à la Foudre pendant 2 tours.",
                 Psy: 3,
                 PV: "N/A",
@@ -13867,6 +14161,7 @@ elementariste: {
             },
             {
                 nom: "Lame de surface",
+                image: "",
                 description: "Imprègne les bras du lanceur d’eau poussée à haute pression par un puissant vent. Ce sort inflige 1 dé 6 +3 dégâts perce armure au corps à corps Eau ou Vent.",
                 Psy: 4,
                 PV: "N/A",
@@ -13882,6 +14177,7 @@ elementariste: {
             },
             {
                 nom: "Ébullition",
+                image: "",
                 description: "Tire un jet d’eau bouillante sur un adversaire jusqu’à 30 mètres. Inflige 1 dé 6 +1 dégâts Feu ou Eau. Si la cible subit un sort Eau au prochain tour elle s’applique ''Brûlure'' irrésistible.",
                 Psy: 3,
                 PV: "N/A",
@@ -13897,6 +14193,7 @@ elementariste: {
             },
             {
                 nom: "Bourrasque Electrisante",
+                image: "",
                 description: "Frappe un ennemi avec du vent et de la foudre entremêlés. Ce sort inflige des dégâts Vent ou Foudre au choix. Le sort inflige 1 dé 6 +1 dégâts. Au tour suivant si l’ennemi subit une attaque d’élément Foudre il subit ‘’Cécité'', s’il subit une attaque d’élément Vent il est poussé de 10 mètres.",
                 Psy: 3,
                 PV: "N/A",
@@ -13913,6 +14210,7 @@ elementariste: {
             },
             {
                 nom: "Prisme Elémentaire",
+                image: "",
                 description: "Lorsque vous subissez une attaque élémentaire, vous imprégnez votre prochaine attaque de l’élément ce qui a pour effet de la faire frapper dans l’élément reçu et de générer une charge de cet élément. Ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -13927,6 +14225,7 @@ elementariste: {
             },
             {
                 nom: "Coulée de Boue",
+                image: "",
                 description: "Une grande coulée de boue balaye le terrain en infligeant 1 dé 4 dégâts Eau ou Terre et en appliquant ''Entrave'' à toutes les cibles. Si les cibles sous ''Entrave'' subissent une attaque Feu pendant l’effet ils subissent 1 dé 6 dégâts fixe supplémentaire et la durée d’Entrave est remise à zéro.",
                 Psy: 4,
                 PV: "N/A",
@@ -13943,6 +14242,7 @@ elementariste: {
             },
             {
                 nom: "Variance contrôlée",
+                image: "",
                 description: "Change l’élément de frappe de votre prochaine attaque à l'arme dans celui de votre choix. Ne consomme pas d’action.",
                 Psy: 1,
                 PV: "N/A",
@@ -13956,6 +14256,7 @@ elementariste: {
             },
             {
                 nom: "Canalisation élémentaire",
+                image: "",
                 description: "Le lanceur se concentre pour récupérer la psyché naturelle et la convertir. Ce sortilège consomme l’action et le mouvement, à chaque tour où il est maintenu il rend 1 dé 4 PSY fixe et génère 2 charges élémentaires au choix. Hors combat, si vous utilisez ce sort pour activez son effet deux fois d’affilé ou plus vous déclenchez la table de folie psychique.",
                 Psy: "N/A", // Coût en PV
                 PV: 2, // Coût en PV
@@ -13971,6 +14272,7 @@ elementariste: {
             },
             {
                 nom: "Affinité renforcée",
+                image: "",
                 description: "Ce sort consomme trois charges du même élément. Octroie une résistance à cet élément pendant 3 tours. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -13987,6 +14289,7 @@ elementariste: {
         sortConfirmé: [
             {
                 nom: "Résistance Adaptative",
+                image: "",
                 description: "Vous permet de gagner la résistance dans l’élément de frappe de la prochaine attaque qui vous touche, vous gagnez cette résistance pendant 2 tours. Ne fonctionne pas avec les frappes Neutre. Ce sort ne consomme pas d'action.",
                 Psy: 3,
                 PV: "N/A",
@@ -14002,6 +14305,7 @@ elementariste: {
             },
             {
                 nom: "Courant Electrisant",
+                image: "",
                 description: "Invoque un fort courant qui repousse les ennemis devant le lanceur de 5 mètres puis une décharge électrique vient leur infliger 1 dé 6 +1 dégâts et ‘’Entrave’’. Ce sort inflige des dégâts Eau ou Foudre au choix.",
                 Psy: 4,
                 PV: "N/A",
@@ -14018,6 +14322,7 @@ elementariste: {
             },
             {
                 nom: "Décharge Elémentaire",
+                image: "",
                 description: "Tire un rayon de magie primordiale en concentrant les éléments. Ce sort inflige x dés 4 dégâts (x est le nombre de charges élémentaires possédées au lancement de ce sort). Ce sort consomme toutes les charges et frappe dans l’élément de la charge présente en plus grande quantité, vous choisissez en cas d’égalité.",
                 Psy: 5,
                 PV: "N/A",
@@ -14033,6 +14338,7 @@ elementariste: {
             },
             {
                 nom: "Torrent de Cendre",
+                image: "",
                 description: "Invoque un torrent bouillant sur une ligne devant le lanceur, il reste 2 tours et fait 15 mètres. Ce sort fonctionne comme un mur intangible, si un ennemi marche dedans, il subit 1 dé 6 dégâts Feu ou Eau au choix et s’applique ‘’Brûlure’’. Si un allié marche dedans, il récupère 1 dé 6 PV. Cet effet ne s’enclenche qu’une fois par tour et par entité.",
                 Psy: 4,
                 PV: "N/A",
@@ -14052,6 +14358,7 @@ elementariste: {
             },
             {
                 nom: "Vol Elémentaire",
+                image: "",
                 description: "Choisissez une résistance sur un ennemi au corps-à-corps (nécessite impérativement de connaître la résistance ennemi), vous gagnez vous-même cette résistance pendant 2 tours et la cible la perd. Ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -14068,6 +14375,7 @@ elementariste: {
             },
             {
                 nom: "Décrépitude Elémentaire",
+                image: "",
                 description: "Ce sort consomme 3 charges du même élément. Octroie une faiblesse à l’élément des charges consommées pendant 3 tours à une cible au corps à corps. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -14082,6 +14390,7 @@ elementariste: {
             },
             {
                 nom: "Montée de voltage",
+                image: "",
                 description: "Une puissante énergie électrique sort violemment du sol en le fendant en tous sens. Inflige 1 dé 8 +2 dégâts Terre ou Foudre à tous les ennemis et génère un champ magnétique si fort que les alliés dans la zone gagnent ''Volant'' pendant 1 tour.",
                 Psy: 5,
                 PV: "N/A",
@@ -14097,6 +14406,7 @@ elementariste: {
             },
             {
                 nom: "Orage de Désespoir",
+                image: "",
                 description: "Créer une zone orageuse qui inflige 1 dé 6 +2 dégâts Vent ou Foudre à tous les ennemis, ceux-ci sont soudain pris d’un grand sentiment de désespoir et subissent aussi Terreur.",
                 Psy: 6,
                 PV: "N/A",
@@ -14112,6 +14422,7 @@ elementariste: {
             },
             {
                 nom: "Canon à Caillasse",
+                image: "",
                 description: "Projette une petite pierre à une vitesse supersonique et inflige 2 dé 6 dégâts perce armure à une cible jusqu’à 50 mètres. Ce sort inflige des dégâts Vent ou Terre.",
                 Psy: 5,
                 PV: "N/A",
@@ -14129,6 +14440,7 @@ elementariste: {
         sortExpert: [
             {
                 nom: "Tourment des Eléments",
+                image: "",
                 description: "Ce sort nécessite 6 charges élémentaires de n’importe quelle sorte pour être lancé. Frappe un ennemi avec la puissance des 5 forces, inflige 5 dé 4 dégâts, chaque dé frappe dans un élément différent. Si l’ennemi a une faiblesse ou une résistance ce sort permet de la mettre en avant. Ce sort génère 2 charges élémentaires au choix au lieu de la génération habituelle.",
                 Psy: 7,
                 PV: "N/A",
@@ -14146,6 +14458,7 @@ elementariste: {
             },
             {
                 nom: "Éruption Sous-Marine",
+                image: "",
                 description: "Un volcan sort du sol tout en créant une grande quantité d’eau, le volcan explose infligeant 2 dé 6 dégâts Feu ou Terre dans la zone. Les vagues générées par l’explosion s’étendent sur 10 mètres autour de la zone du Volcan et infligent 1 dé 6 +2 dégâts Eau tout en repoussant les cibles jusqu’au bord de la zone d’effet.",
                 Psy: 7,
                 PV: "N/A",
@@ -14164,6 +14477,7 @@ elementariste: {
             },
             {
                 nom: "Rayon Plasmique",
+                image: "",
                 description: "Le lanceur canalise l’énergie du Vent, du Feu et de la Foudre pour tirer une boule de plasma sur une cible jusqu’à 40 mètres. La boule inflige 3 dés 6 dégâts et réduit l’armure et les PB de la cible à 0 avant le calcul de dégâts. Cette réduction dure 1 tour. Ce sort inflige des dégâts Vent, Feu, ou Foudre, il génère 2 charges élémentaires choisies entre ces trois éléments.",
                 Psy: 7,
                 PV: "N/A",
@@ -14181,6 +14495,7 @@ elementariste: {
             },
             {
                 nom: "Cataclysme orageux",
+                image: "",
                 description: "''Tout le terrain'' Une pluie enflammée tombe sur le terrain en infligeant 1 dé 8 dégâts Feu ou Eau à tous les ennemis et en soignant 1 dé 8 PV à tous les alliés. Des éclairs frappent tous les ennemis en leur infligeant 1 dé 10 dégâts Foudre.",
                 Psy: 8,
                 PV: "N/A",
@@ -14198,6 +14513,7 @@ elementariste: {
             },
             {
                 nom: "Transfert de Résistance",
+                image: "",
                 description: "Choisissez une de vos Résistances, vous pouvez octroyer la même à un allié au corps à corps pendant 2 tours. Ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -14212,6 +14528,7 @@ elementariste: {
             },
             {
                 nom: "Partage de faiblesse",
+                image: "",
                 description: "Vous pouvez choisir deux cibles, dont vous-même, jusqu’à 20 mètres de vous, les deux partagent alors toutes leurs faiblesses pendant 2 tours. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -14226,6 +14543,7 @@ elementariste: {
             },
             {
                 nom: "Les 3 Piliers des Martyrs",
+                image: "",
                 description: "Ce sort projette jusqu’à 3 cibles dans un rayon de 10 mètres autour du lanceur. Elles sont envoyées dans les airs en subissant 1 dé 6 dégâts Vent, ensuite elles sont soufflées violemment vers le sol en direction de 4 piliers de roches qui les empalent en infligeant 1 dé 4 + 4 dégâts Terre et ''Entrave'', enfin un éclair vient frapper le pilier et la cible et inflige 1 dé 10 dégâts Foudre et ''Cécité''. Ce sort peut cibler moins de cibles mais garde le même effet.",
                 Psy: 8,
                 PV: "N/A",
@@ -14247,6 +14565,7 @@ elementariste: {
             },
             {
                 nom: "Esprit élémentaire",
+                image: "",
                 description: "''Invocation'' Vous choisissez un élément au lancement de ce sort. Invoque un élémentaire de l’élément choisi disposant de 14 PV, et d’une vitesse Normale. L'élémentaire se soigne s'il subit des dégâts de son élément. Il inflige 1 dé 6 +3 dégâts jusqu’à 20 mètres dans l’élément choisi lors de son lancement. Il génère une charge de cet élément à chacune de ses attaques. S’il meurt il explose en infligeant 1 dé 8 +2 dégâts à son corps à corps et en générant 2 charges.",
                 Psy: 6,
                 PV: "N/A",
@@ -14272,6 +14591,7 @@ elementariste: {
         sortMaitre: [
             {
                 nom: "Pureté élémentaire",
+                image: "",
                 description: "Le lanceur prend la forme d’un demi élémentaire quand il obtient l’affinité d’un élément grâce à la mécanique. Cela transforme la résistance qu’il obtient en Immunité et la faiblesse en neutralité. De plus, s’il lance des sorts dans le même élément ceux-ci coûtent 2 PSY de moins, s’il change d’élément de frappe il gagne +2 au DSB pendant 1 tour. La forme pure peut être maintenue pour 3 PV par tour supplémentaire et dure 2 tours. Ce sort ne consomme pas d’action.",
                 Psy: 9,
                 PV: "N/A",
@@ -14292,6 +14612,8 @@ elementariste: {
     }
 },
 mage: {
+    nom: "Mage",
+    image: "",    
     description: [
         "Le terme mage est devenu un terme générique qui désigne quiconque utilise de la magie, mais les vrais mages sont ceux qui maîtrisent la magie dans sa forme la plus pure, qui manipule la psyché pure et ceux-là sont extrêmement rares.",
         "Ils sont en outre la catégorie de magicien la plus respectée, car la plus ancienne, on dit que c’est un des leurs qui aurait plié la psyché pour la convertir en éléments.",
@@ -14341,6 +14663,7 @@ mage: {
         talents: [
             {
                 nom: "Puits de Psyché",
+                image: "",
                 description: "Ajoute +1 en Intelligence aux niveaux 2, 4, 6, 8 et 10 du mage.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -14350,6 +14673,7 @@ mage: {
             },
             {
                 nom: "Grand Lecteur",
+                image: "",
                 description: "Permet de parler une langue supplémentaire, sauf Animal et Ancien. Ajoute +15 lors d'un jet de connaissance sur l’Histoire.",
                 niveauJoueur: 2,
                 prerequis: ["Puits de Psyché"],
@@ -14360,6 +14684,7 @@ mage: {
             },
             {
                 nom: "Récupération Rapide",
+                image: "",
                 description: "Si vous achevez un ennemi avec un sort, la moitié de son coût est rendue.",
                 niveauJoueur: 3,
                 prerequis: ["Grand Lecteur"],
@@ -14369,6 +14694,7 @@ mage: {
             },
             {
                 nom: "Nourrissage Esotérique",
+                image: "",
                 description: "Le sort Frappe ésotérique vole désormais la totalité des PV et PSY infligés à l’adversaire pour les rendre au lanceur du sort. Si vous ne possédez pas ce sort vous ignorez cet effet et le débloquez à la place.",
                 niveauJoueur: 4,
                 prerequis: ["Récupération Rapide"],
@@ -14379,6 +14705,7 @@ mage: {
             },
             {
                 nom: "Prestance Magique",
+                image: "",
                 description: "Permet de parler une langue supplémentaire, sauf Animal. Ajoute +10 aux statistiques liées au charisme lors d’un jet face à une personne non-noble ou non-magicienne.",
                 niveauJoueur: 5,
                 prerequis: ["Nourrissage Esotérique"],
@@ -14389,6 +14716,7 @@ mage: {
             },
             {
                 nom: "Focalisation du Mage",
+                image: "",
                 description: "Ajoute +1 en Sagesse et +10 en Perception magique.",
                 niveauJoueur: 6,
                 prerequis: ["Prestance Magique"],
@@ -14399,6 +14727,7 @@ mage: {
             },
             {
                 nom: "Barrière Renforcée",
+                image: "",
                 description: "Le sort Barrière Magique bloque maintenant toutes les attaques qui veulent passer à travers et fait 5 mètres de plus. Si vous ne possédez pas ce sort vous ignorez cet effet et le débloquez à la place.",
                 niveauJoueur: 7,
                 prerequis: ["Focalisation du Mage"],
@@ -14410,6 +14739,7 @@ mage: {
             },
             {
                 nom: "Surpuissance Magique",
+                image: "",
                 description: "Tous les sorts se lançant sur la sagesse voient leurs dégâts augmentés de 1. Les dégâts de ces sorts sont augmentés de 50% quand ils touchent des PB.",
                 niveauJoueur: 8,
                 prerequis: ["Barrière Renforcée"],
@@ -14420,6 +14750,7 @@ mage: {
             },
             {
                 nom: "Destructeur Magique",
+                image: "",
                 description: "Tous les sorts infligeant des dégâts sur la PSY voient ce type de dégâts augmentés de 2.",
                 niveauJoueur: 9,
                 prerequis: ["Surpuissance Magique"],
@@ -14428,7 +14759,8 @@ mage: {
                 }
             },
             {
-                nom: "Archimage",
+                nom: "Archimage: ",
+                image: "",
                 description: "Vous pouvez sélectionner un sort Expert ou Maître que vous possédez, celui-ci devient votre sort fétiche et à chaque fois qu’il est utilisé vous pouvez choisir entre : le sort coûte moitié moins de PSY OU le sort compte deux fois votre DSB. En revanche ce sort possède désormais un temps de recharge de 2 tours si cet effet a été utilisé.",
                 niveauJoueur: 10,
                 prerequis: ["Destructeur Magique"],
@@ -14445,6 +14777,7 @@ mage: {
         sortNovice: [
             {
                 nom: "Economie Spirituelle",
+                image: "",
                 description: "Le lanceur se concentre intensément pour économiser la psyché, le prochain sort que vous, ou un allié au corps à corps lancera verra son coût en PSY divisé par 2. Ne consomme pas d’action.",
                 Psy: "N/A", // Coût en PV
                 PV: 3,
@@ -14458,6 +14791,7 @@ mage: {
             },
             {
                 nom: "Psyché Douloureuse",
+                image: "",
                 description: "Désigne une cible à moins de 15 mètres, si celle-ci utilise de la PSY à son prochain tour elle subit X dégâts fixes (X est le nombre de PSY dépensée). Ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -14471,6 +14805,7 @@ mage: {
             },
             {
                 nom: "Frappe Esotérique",
+                image: "",
                 description: "Le mage envoie un projectile fantomatique qui frappe l’adversaire en lui retirant 1 dé 4 PV et 1 dé 4 PSY et récupère la moitié des dégâts infligés sur la PSY.",
                 Psy: 3,
                 PV: "N/A",
@@ -14486,6 +14821,7 @@ mage: {
             },
             {
                 nom: "Déferlement Psychique",
+                image: "",
                 description: "Le lanceur perturbe les flux de magie d’un adversaire jusqu'à 20 mètres, inflige 1 dé 6 +1 dégâts et ''Silence''.",
                 Psy: 4,
                 PV: "N/A",
@@ -14500,6 +14836,7 @@ mage: {
             },
             {
                 nom: "Forme Spirituelle",
+                image: "",
                 description: "Le lanceur se transforme en une pure forme de Psyché. Le prochain coup encaissé par le lanceur fera des dégâts sur la PSY et non sur les PV. Ce sort ne consomme pas d'action.",
                 Psy: 2,
                 PV: "N/A",
@@ -14513,6 +14850,7 @@ mage: {
             },
             {
                 nom: "Protection Mentale",
+                image: "",
                 description: "Vous gagnez +30% de chance de réussir vos jets de sauvegarde de sagesse et +6 PB pendant 2 tours, ces PB protègent aussi votre PSY de subir des dégâts ennemis. Ce sort ne consomme pas d'action.",
                 Psy: 4,
                 PV: "N/A",
@@ -14529,6 +14867,7 @@ mage: {
             },
             {
                 nom: "Canalisation magique",
+                image: "",
                 description: "Sacrifie le déplacement et l’action du lanceur tant que ce sort est canalisé. À chaque tour de canalisation le Mage récupère 4 PSY fixes. La canalisation de ce sort peut être rompue à tout moment et l’est automatiquement s’il reçoit une attaque.",
                 Psy: "N/A", // Coût en PV
                 PV: 2,
@@ -14544,6 +14883,7 @@ mage: {
             },
             {
                 nom: "Concentration : Forme Naturelle",
+                image: "",
                 description: "Le lanceur transforme sa magie en canalisant plutôt la psyché naturelle. Cela réduit le coût de tous ses sorts de 1 PSY et augmente leur chance de toucher de 5 %. Cet effet perdure jusqu’à ce qu’une autre 'Forme' soit lancée, jusqu’à la fin du combat ou jusqu’à sa révocation. Il ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -14559,6 +14899,7 @@ mage: {
             },
             {
                 nom: "Extraction opportune",
+                image: "",
                 description: "Lorsqu’une entité à moins de 10 mètres du lanceur lance un sort utilisant de la PSY, le lanceur ponctionne 3 PSY à moins que le sort en ait coûté moins, auquel cas il ponctionne autant que le coût du sort. Cet effet dure 1 tour.",
                 Psy: 4,
                 PV: "N/A",
@@ -14574,6 +14915,7 @@ mage: {
             },
             {
                 nom: "Sacrifice de chair",
+                image: "",
                 description: "Le lanceur sacrifie autant de PV qu’il le souhaite pour les convertir en PSY. Ce sort ne consomme pas d’action et ne coûte rien à lancer.",
                 Psy: 0,
                 PV: "N/A",
@@ -14588,6 +14930,7 @@ mage: {
             },
             {
                 nom: "Choc psychique",
+                image: "",
                 description: "Le lanceur frappe une cible au corps à corps avec une décharge psychique, il lui inflige 1 dé 6 +2 dégâts et la repousse de 5 mètres. Si une Surcharge de Psyché a déjà été enclenchée l’ennemi subit aussi ''Silence''.",
                 Psy: 3,
                 PV: "N/A",
@@ -14603,6 +14946,7 @@ mage: {
             },
             {
                 nom: "Orbe de Psyché",
+                image: "",
                 description: "Un orbe inflige 1 dé 6 dégâts aux ennemis dans la zone. Si une Forme est active l’orbe inflige 2 dégâts supplémentaires pour chaque ennemi dans la zone.",
                 Psy: 4,
                 PV: "N/A",
@@ -14619,6 +14963,7 @@ mage: {
         sortConfirme: [
             {
                 nom: "Barrière Magique",
+                image: "",
                 description: "Invoque un mur magique de 15 mètres de long sur les cases face au lanceur. Si un ennemi se situe sur une case de mur, il recule. Le mur encaisse toutes les attaques élémentaires qui devaient passer au travers tant qu’il est dressé, il dispose de 14 PV.",
                 Psy: 4,
                 PV: "N/A",
@@ -14634,6 +14979,7 @@ mage: {
             },
             {
                 nom: "Siphon de Psyché",
+                image: "",
                 description: "Tous les ennemis dans la zone subissent 2 dés 4 dégâts sur leur PSY, s’ils tombent sous les 0 ils subissent le montant négatif en PV à la place, le lanceur récupère 3 PSY par ennemi touché.",
                 Psy: 5,
                 PV: "N/A",
@@ -14649,6 +14995,7 @@ mage: {
             },
             {
                 nom: "Mentorat Psychique",
+                image: "",
                 description: "Permet de transférer 2 dés 4 PSY du lanceur vers un allié au corps-à-corps. Ne consomme pas d’action.",
                 Psy: "N/A", // Coût en PV
                 PV: 4,
@@ -14662,6 +15009,7 @@ mage: {
             },
             {
                 nom: "Rayon pur",
+                image: "",
                 description: "Ce sort touche une ligne infinie en partant du lanceur, il inflige 1 dé 8 + 2 dégâts perce armure à toutes les entités sur la ligne.",
                 Psy: 6,
                 PV: "N/A",
@@ -14676,6 +15024,7 @@ mage: {
             },
             {
                 nom: "Concentration : Forme Pure",
+                image: "",
                 description: "Le lanceur transforme sa magie en ne canalisant que sa source intérieure la plus pure. Cela augmente le coût en PSY des sorts de 1 et augmente leurs dégâts de 2 et leurs chances de critique de 10%, cela double aussi la durée des altérations qu’ils appliquent. Cet effet perdure jusqu’à ce qu’une autre 'Forme' soit lancée, jusqu’à la fin du combat ou jusqu’à sa révocation. Il ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -14693,6 +15042,7 @@ mage: {
             },
             {
                 nom: "Mort de l’Ame",
+                image: "",
                 description: "Ce sort inflige moitié moins de dégâts à la PSY de la cible que la dernière attaque qu’elle a subie a infligé de PV. Si la cible tombe à 0 de PSY avec cette attaque, elle subit ''Sommeil'' irrésistible.",
                 Psy: 5,
                 PV: "N/A",
@@ -14707,6 +15057,7 @@ mage: {
             },
             {
                 nom: "Sanctuaire Magique",
+                image: "",
                 description: "Invoque une zone en croix dont le lanceur est le centre. Dans cette zone, les chances de toucher et les chances de critiques augmentent de 10% pour les sorts basés sur la sagesse, les dégâts de ces derniers augmentent aussi de 2. La zone dure tant que le lanceur ne bouge pas. Ce sort ne consomme pas d'action.",
                 Psy: 4,
                 PV: "N/A",
@@ -14723,6 +15074,7 @@ mage: {
             },
             {
                 nom: "Glouton de Psyché",
+                image: "",
                 description: "''Invocation'' Le glouton est une créature qui ne peut subir aucun dégât autre que des dégâts sur la PSY. Elle possède simplement 6 PSY et utilise 2 à chacune de ses attaques, elle meurt quand elle n’a plus de PSY. À chaque fois que le glouton attaque une cible jusqu’à 20 mètres il retire 3 PSY à la cible et la donne au Mage où qu’il soit sur le terrain, si la cible n’a plus de PSY elle subit 1 dé 6 +1 dégâts perce armure en PV à la place.",
                 Psy: 5,
                 PV: "N/A",
@@ -14743,6 +15095,7 @@ mage: {
             },
             {
                 nom: "Bannissement mental",
+                image: "",
                 description: "La cible du sort voit sa PSY considérée comme étant 0 pour 1 tour, elle est aussi considérée comme insensible à tous les sorts coûtant de la PSY pendant ce temps. Ce sort ne consomme pas d’action.",
                 Psy: 5,
                 PV: "N/A",
@@ -14759,6 +15112,7 @@ mage: {
         sortExpert: [
             {
                 nom: "Domination Mentale",
+                image: "",
                 description: "Le lanceur agrippe la tête d’un ennemi et le surcharge de PSY. Ce sort inflige 2 dé 6 dégâts sur les PV et la PSY de la cible et ''Sonné''.",
                 Psy: 6,
                 PV: "N/A",
@@ -14774,6 +15128,7 @@ mage: {
             },
             {
                 nom: "Secousse psychique",
+                image: "",
                 description: "''Tout le terrain'' Inflige 1 dé 6+1 dégâts et ''Silence'' à tous les ennemis, les alliés récupèrent 1 dé 4 PSY fixes.",
                 Psy: 6,
                 PV: "N/A",
@@ -14789,6 +15144,7 @@ mage: {
             },
             {
                 nom: "Repousser les limites",
+                image: "",
                 description: "Ce sort ne peut s’utiliser que si vous avez moins de 4 PSY restante au total. Vous récupérez 4 dés 4 PSY.",
                 Psy: "N/A", // Coût en PV
                 PV: 8,
@@ -14803,6 +15159,7 @@ mage: {
             },
             {
                 nom: "Décrépitude spirituelle",
+                image: "",
                 description: "Vous sélectionnez une cible jusqu’à 25 mètres, elle subit autant de dégâts que la différence entre sa PSY maximale et sa PSY restante, si ce sort tue la cible vous récupérez la moitié des dégâts infligés en PSY.",
                 Psy: 5,
                 PV: "N/A",
@@ -14817,6 +15174,7 @@ mage: {
             },
             {
                 nom: "Goinfrerie Psychique",
+                image: "",
                 description: "Le lanceur inflige 2 dé 6 +2 dégâts à la PSY d’un adversaire et en récupère la moitié, si la cible n’a pas assez de PSY pour absorber les dégâts de ce sort vous infligez le double des dégâts restants sur ses PV.",
                 Psy: 7,
                 PV: "N/A",
@@ -14832,6 +15190,7 @@ mage: {
             },
             {
                 nom: "Magie Totale",
+                image: "",
                 description: "Vous pouvez lancer un sort basé sur la Sagesse de n’importe quelle Arcane existante. Le sort lancé coûtera 2 PSY de plus à utiliser mais ne consommera pas d’action. Ce sort a un temps de recharge de 1 tour.",
                 Psy: "variable", // Coût variable
                 PV: "N/A",
@@ -14848,6 +15207,7 @@ mage: {
             },
             {
                 nom: "Bombe à Psyché",
+                image: "",
                 description: "Lance une occurrence de Surcharge Psychique au lancement de ce sort. Les dégâts de cette occurrence sont infligés sur la PSY du lanceur plutôt que sur ses PV mais s’il n’a plus de PSY le reste des dégâts sera doublé et infligé à ses PV tout de même.",
                 Psy: 5,
                 PV: "N/A",
@@ -14863,6 +15223,7 @@ mage: {
             },
             {
                 nom: "Concentration : Forme noire",
+                image: "",
                 description: "Le lanceur transforme sa magie en ne canalisant que les énergies les plus négatives. Cela permet au lanceur d’appliquer l’état 'Chaos' comme il le souhaite avec ses sorts, et augmente son armure de 2 et son blocage de 10%. Cet effet perdure jusqu’à ce qu’une autre 'Forme' soit lancée, jusqu’à la fin du combat ou jusqu’à sa révocation. Il coûte 2 PV par tour à maintenir et ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A", // Coût en PV pour maintenance
@@ -14882,6 +15243,7 @@ mage: {
         sortMaitre: [
             {
                 nom: "Harmonie du Corps et de l’Âme",
+                image: "",
                 description: "Le lanceur harmonise sa PSY et ses PV, ils sont toujours considérés comme deux choses différentes mais peuvent être utilisés à la place l’un de l’autre selon la volonté du Mage. Le Mage récupère 1 dé 6 PV OU PSY à la fin du tour et augmente sa vitesse d’un cran, il peut aussi relancer un jet de dé une fois par tour. Cet effet dure 2 tours et ce sort ne consomme pas d’action.",
                 Psy: 14,
                 PV: "N/A",
@@ -14901,6 +15263,8 @@ mage: {
     }
 },
 chaman: {
+    nom: "Chaman",
+    image: "",    
     description: [
         "Les chamans sont souvent issus de races tels que les gobelins, les hommes-lézards, les hommes-rats ou encore les elfes des bois. Ils sont souvent liés à la nature et aux plantes, ils tirent leur pouvoir de la force vitale du monde.",
         "Ils sont généralement mal vus car considérés comme des paysans par les autres mages, de ce fait, ils rejoignent souvent les rangs des aventuriers qui portent beaucoup moins de préjugés, surtout qu’ils sont de très bons soigneurs et peuvent faire toute la différence dans les situations désespérées.",
@@ -14951,6 +15315,7 @@ chaman: {
         talents: [
             {
                 nom: "Naturaliste",
+                image: "",
                 description: "Ajoute +1 aux soins et +1 en Dextérité.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -14961,6 +15326,7 @@ chaman: {
             },
             {
                 nom: "Amis de la Forêt",
+                image: "",
                 description: "Ajoute +1 en Charisme. Permet de parler le langage Animal. Ajoute un bonus de 20 en statistique liée au charisme lors d’une discussion avec une bête.",
                 niveauJoueur: 2,
                 prerequis: ["Naturaliste"],
@@ -14972,6 +15338,7 @@ chaman: {
             },
             {
                 nom: "Novice des Plantes",
+                image: "",
                 description: "Permet d’apprendre un sort de niveau Novice de l'Arcane Plante et de s’en servir quand bon vous semble.",
                 niveauJoueur: 3,
                 prerequis: ["Amis de la Forêt"],
@@ -14981,6 +15348,7 @@ chaman: {
             },
             {
                 nom: "Sentience Naturelle",
+                image: "",
                 description: "Ajoute +1 en Sagesse et en Dextérité. Vous gagnez +10 aux jets de connaissances sur la faune et la flore.",
                 niveauJoueur: 4,
                 prerequis: ["Novice des Plantes"],
@@ -14992,6 +15360,7 @@ chaman: {
             },
             {
                 nom: "Forestier",
+                image: "",
                 description: "Donne un avantage à tous les jets de statistiques mineures en survie, connaissance nature, perception, perception magique, médecine, acrobatie, athlétisme, calme et adresse tant que vous êtes en forêt.",
                 niveauJoueur: 5,
                 prerequis: ["Sentience Naturelle"],
@@ -15001,6 +15370,7 @@ chaman: {
             },
             {
                 nom: "Confirmé des Plantes",
+                image: "",
                 description: "Permet d’apprendre un sort de niveau Confirmé de l'Arcane Plante et de s’en servir quand bon vous semble.",
                 niveauJoueur: 6,
                 prerequis: ["Forestier"],
@@ -15010,6 +15380,7 @@ chaman: {
             },
             {
                 nom: "Guide Spirituel",
+                image: "",
                 description: "Ajoute +2 aux soins sur une cible à moins de 50% de vie maximale. Ajoute +1 en Intelligence.",
                 niveauJoueur: 7,
                 prerequis: ["Confirmé des Plantes"],
@@ -15020,6 +15391,7 @@ chaman: {
             },
             {
                 nom: "Repiquage rapide",
+                image: "",
                 description: "Lorsque le Chaman doit mourir ou tomber K.O, il entre dans la terre et peut choisir n’importe quel endroit sur la carte de bataille, il ressort à cet endroit avec 1 PV et 4 PB. Cet effet ne s’enclenche qu’une fois par combat.",
                 niveauJoueur: 8,
                 prerequis: ["Guide Spirituel"],
@@ -15032,6 +15404,7 @@ chaman: {
             },
             {
                 nom: "Esprit ancestraux",
+                image: "",
                 description: "Double les bonus passifs des Esprits.",
                 niveauJoueur: 9,
                 prerequis: ["Repiquage rapide"],
@@ -15041,6 +15414,7 @@ chaman: {
             },
             {
                 nom: "Parle-Nature",
+                image: "",
                 description: "Tous les sorts de la voie du chaman coûtent 1 PSY de moins à lancer, Immunité à ''Poison''.",
                 niveauJoueur: 10,
                 prerequis: ["Esprit ancestraux"],
@@ -15056,6 +15430,7 @@ chaman: {
         sortNovice: [
             {
                 nom: "Garde de Coton",
+                image: "",
                 description: "Crée une grosse boule de coton qui amortit les coups. Augmente l’armure de +3 et rend la cible ''Indéplaçable'' pour 1 tour. Ce sort ne consomme pas d'action.",
                 Psy: 2,
                 PV: "N/A",
@@ -15071,6 +15446,7 @@ chaman: {
             },
             {
                 nom: "Psyché Naturelle",
+                image: "",
                 description: "Choisissez un allié où qu’il soit, le prochain sort qu’il utilisera coûtera 1 PSY de moins et utilisera votre PSY. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -15085,6 +15461,7 @@ chaman: {
             },
             {
                 nom: "Soins Botaniques",
+                image: "",
                 description: "Entrelace des racines d’arbres qui suintent de sève régénératrice. Applique “Entrave“ irrésistible à la cible tant que l’effet dure, soigne 3 PV fixe par tour.",
                 Psy: 3,
                 PV: "N/A",
@@ -15099,6 +15476,7 @@ chaman: {
             },
             {
                 nom: "Transformation Loup Alpha",
+                image: "",
                 description: "Nécessite l’Esprit Animal. Le lanceur se transforme en Loup Alpha, cette forme possède les exactes mêmes capacités passives et actives que le monstre, le Chaman garde ses statistiques et ses autres sorts utilisables tout en étant transformé. Tant qu’il est transformé il ne peut plus changer d’Esprit, cette forme lui octroie +1 cran en vitesse tant qu’elle est active. Le Lanceur peut rompre la transformation quand il le souhaite, elle se rompt automatiquement s’il tombe K.O ou Mort.",
                 Psy: 3,
                 PV: "N/A",
@@ -15118,6 +15496,7 @@ chaman: {
             },
             {
                 nom: "Remède rapide",
+                image: "",
                 description: "Soigne 1 dé 6 PV à une cible jusqu’à 10 mètres.",
                 Psy: 2,
                 PV: "N/A",
@@ -15131,6 +15510,7 @@ chaman: {
             },
             {
                 nom: "Animalisation",
+                image: "",
                 description: "Nécessite l’Esprit Animal. Le Chaman devient de plus en plus bestial, il augmente ses dégâts de +1 et gagne +5% de chances de toucher par tour consécutif où il maintient l’Esprit Animal actif. Ce sort ne consomme pas d’action, son effet s’interrompt si le Chaman change d’esprit.",
                 Psy: 3,
                 PV: "N/A",
@@ -15148,6 +15528,7 @@ chaman: {
             },
             {
                 nom: "Méditation Apaisante",
+                image: "",
                 description: "Ne s’utilise que sur le lanceur du sort, celui-ci entre dans l’état ‘’Sommeil’’ pendant 2 tours, il récupère 4 PSY et PV à la fin de son tour s’il est dans l’état ‘’Sommeil’’. Ne consomme pas d’action. Hors combat ce sort peut s’utiliser 1 fois par jour maximum, au-delà il déclenche la table de folie psychique.",
                 Psy: 2,
                 PV: "N/A",
@@ -15165,6 +15546,7 @@ chaman: {
             },
             {
                 nom: "Transformation Pollueuse",
+                image: "",
                 description: "Nécessite l’Esprit Végétal. Le lanceur se transforme en Pollueuse, cette forme possède les exactes mêmes capacités passives et actives que le monstre, le Chaman garde ses statistiques et ses autres sorts utilisables tout en étant transformé. Tant qu’il est transformé il ne peut plus changer d’Esprit, cette forme lui octroie 3 PB fixes pour 1 tour à chaque début de tour. Le Lanceur peut rompre la transformation quand il le souhaite, elle se rompt automatiquement s’il tombe K.O ou Mort.",
                 Psy: 3,
                 PV: "N/A",
@@ -15185,6 +15567,7 @@ chaman: {
             },
             {
                 nom: "Charge bestiale",
+                image: "",
                 description: "Le Chaman fonce tout droit sur 15 mètres, s’il percute une cible il la repousse jusqu’au bout de la zone d’effet et lui inflige 1 dé 6 +2 dégâts. Si la première cible se fait pousser sur une autre entité cela stoppe le déplacement de tout le monde et inflige 1 dé 6 +2 dégâts aux deux entités ainsi que Sonné.",
                 Psy: 4,
                 PV: "N/A",
@@ -15201,6 +15584,7 @@ chaman: {
             },
             {
                 nom: "Puissance naturelle",
+                image: "",
                 description: "Le Chaman frappe une cible à son corps à corps pour la repousser de 5 mètres et lui infliger 1 dé 6 +2 dégâts.",
                 Psy: 3,
                 PV: "N/A",
@@ -15215,6 +15599,7 @@ chaman: {
             },
             {
                 nom: "Végétalisation",
+                image: "",
                 description: "''Tout le terrain'' Nécessite l’Esprit Végétal. Transforme le terrain en y ajoutant plus de végétaux, cela a pour effet de rendre 1 dé 6 PV fixe à tous les alliés et de les immuniser à Entrave et Poison à chaque tour tant que l’Esprit végétal est actif. Ce sort ne consomme pas d’action, son effet s’interrompt si le Chaman change d’esprit.",
                 Psy: 3,
                 PV: "N/A",
@@ -15231,6 +15616,7 @@ chaman: {
             },
             {
                 nom: "Morsure Cinglante",
+                image: "",
                 description: "Le Chaman mord une cible avec une mâchoire animale. Il lui inflige 1 dé 6 dégâts et ''Hémorragie'' OU ''Poison''. En coup critique ce sort triple le nombre de Poison ou double la durée d’hémorragie.",
                 Psy: 3,
                 PV: "N/A",
@@ -15248,6 +15634,7 @@ chaman: {
         sortConfirmé: [
             {
                 nom: "Remède d’Herboriste",
+                image: "",
                 description: "Soigne 1 dé 8 PV et guérit ''Poison'', ''Brûlure'' et ''Cécité'' à une cible à moins de 25 mètres.",
                 Psy: 4,
                 PV: "N/A",
@@ -15262,6 +15649,7 @@ chaman: {
             },
             {
                 nom: "Leader Chamanique",
+                image: "",
                 description: "Choisissez un allié au corps à corps, lors de la prochaine utilisation de PSY il utilisera celle du chaman à la place de la sienne et se soignera de 1 dé 4 PV. Ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -15276,6 +15664,7 @@ chaman: {
             },
             {
                 nom: "Bouclier Feuillu",
+                image: "",
                 description: "Un énorme amas de feuille se crée, bloque 50% des dégâts initiaux que la cible doit recevoir pendant 1 tour. L'effet peut être étendu à plusieurs cibles pour 2 PSY par cible supplémentaire. Peut aussi servir à éviter les dégâts d’une chute.",
                 Psy: 3,
                 PV: "N/A",
@@ -15292,6 +15681,7 @@ chaman: {
             },
             {
                 nom: "Pollen Mystérieux",
+                image: "",
                 description: "Lance du pollen étrange dans une zone, vous lancez 1 dé 4 si le résultat est 1 appliquez ''Poison'' aux ennemis, si c’est 2 appliquez ''Sommeil'', si c’est 3 appliquez ''Charme'', si c'est 4 appliquez ''Terreur''. Les ennemis subissent aussi 1 dé 6 +1 dégâts.",
                 Psy: 5,
                 PV: "N/A",
@@ -15310,6 +15700,7 @@ chaman: {
             },
             {
                 nom: "Frappe d’Opiacé",
+                image: "",
                 description: "Le chaman frappe un ennemi pour 1 dé 6 +2 dégâts et lui injecte une dose d’un poison étrange, l’ennemi subit ''Sonné'' le premier tour, puis ''Sommeil'' le second, puis ''Cécité'' le dernier. À chaque fois qu’un état de ce sort est évité par la cible elle perd 1 dé 4 PV fixe supplémentaire.",
                 Psy: 5,
                 PV: "N/A",
@@ -15325,6 +15716,7 @@ chaman: {
             },
             {
                 nom: "Esprit Jumeaux",
+                image: "",
                 description: "''Invocation'' Nécessite d’avoir un esprit actif. Le Chaman invoque l’esprit qu’il ne possède pas sous la forme d’une créature végétale ou animale. Si le Chaman change d’esprit la forme et les effets de la créature changent également mais pas ses PV. L’invocation possède toujours 12 PV et une vitesse Rapide.",
                 Psy: 4,
                 PV: "N/A",
@@ -15357,6 +15749,7 @@ chaman: {
             },
             {
                 nom: "Transformation Guerrier d’Ecorce",
+                image: "",
                 description: "Nécessite l’Esprit Végétal. Le lanceur se transforme en Guerrier d’Ecorce, cette forme possède les exactes mêmes capacités passives et actives que le monstre, le Chaman garde ses statistiques et ses autres sorts utilisables tout en étant transformé. Tant qu’il est transformé il ne peut plus changer d’Esprit, cette forme lui octroie 2 d’armure. Le Lanceur peut rompre la transformation quand il le souhaite, elle se rompt automatiquement s’il tombe K.O ou Mort.",
                 Psy: 5,
                 PV: "N/A",
@@ -15376,6 +15769,7 @@ chaman: {
             },
             {
                 nom: "Transformation Mordegivre",
+                image: "",
                 description: "Nécessite l’Esprit Animal. Le lanceur se transforme en Mordegivre, cette forme possède les exactes mêmes capacités passives et actives que le monstre, le Chaman garde ses statistiques et ses autres sorts utilisables tout en étant transformé. Tant qu’il est transformé il ne peut plus changer d’Esprit, cette forme lui octroie +2 dégâts tant qu’elle est active. Le Lanceur peut rompre la transformation quand il le souhaite, elle se rompt automatiquement s’il tombe K.O ou Mort.",
                 Psy: 5,
                 PV: "N/A",
@@ -15395,6 +15789,7 @@ chaman: {
             },
             {
                 nom: "Régénération bestiale",
+                image: "",
                 description: "Le lanceur regagne 4 PV fixe à chaque début de tour pendant 3 tours. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 PV: "N/A",
@@ -15411,6 +15806,7 @@ chaman: {
         sortExpert: [
             {
                 nom: "Hurlement de la Nature",
+                image: "",
                 description: "''Tout le Terrain''. Nécessite l’Esprit Animal. Le chaman pousse un cri terrible qui inflige ''Terreur'' à tous les ennemis et 1 dé 8 +4 dégâts.",
                 Psy: 6,
                 PV: "N/A",
@@ -15426,6 +15822,7 @@ chaman: {
             },
             {
                 nom: "Transformation Trio Volcanique",
+                image: "",
                 description: "Nécessite l’Esprit Animal. Le lanceur se transforme en Trio Volcanique, cette forme possède les exactes mêmes capacités passives et actives que le monstre, le Chaman garde ses statistiques et ses autres sorts utilisables tout en étant transformé. Tant qu’il est transformé il ne peut plus changer d’Esprit, cette forme lui octroie +20% CC tant qu’elle est active. Le Lanceur peut rompre la transformation quand il le souhaite, elle se rompt automatiquement s’il tombe K.O ou Mort. Le Chaman, s’il se scinde à l’aide de la capacité ''Dissociation'' est considéré comme les trois entités et ne meurt que si les trois tombent mortes ou K.O.",
                 Psy: 7,
                 PV: "N/A",
@@ -15446,6 +15843,7 @@ chaman: {
             },
             {
                 nom: "Transcendance spirituelle",
+                image: "",
                 description: "Pendant 2 tours, les deux Esprits cohabitent et octroient tous deux leurs bonus au Chaman. Ce sort tue automatiquement toutes les Invocations sous le contrôle du Chaman et lui empêche d’invoquer. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 PV: "N/A",
@@ -15461,6 +15859,7 @@ chaman: {
             },
             {
                 nom: "Transformation Moissonneur",
+                image: "",
                 description: "Nécessite l’Esprit Végétal. Le lanceur se transforme en Moissonneur, cette forme possède les exactes mêmes capacités passives et actives que le monstre, le Chaman garde ses statistiques et ses autres sorts utilisables tout en étant transformé. Tant qu’il est transformé il ne peut plus changer d’Esprit, cette forme réduit tous ses coûts en PSY de 1. Le Lanceur peut rompre la transformation quand il le souhaite, elle se rompt automatiquement s’il tombe K.O ou Mort. Lorsque la transformation se rompt les invocations obtenues avec elle disparaissent aussi.",
                 Psy: 7,
                 PV: "N/A",
@@ -15481,6 +15880,7 @@ chaman: {
             },
             {
                 nom: "Renaissance de la Nature",
+                image: "",
                 description: "Nécessite l’Esprit Végétal. Soigne une cible ou le lanceur de 3 dés 6 PV et la rend ''Invulnérable'' pour 1 tour. Peut cibler un allié Mort, si cela lui rend assez de PV il peut revenir dans le combat.",
                 Psy: 6,
                 PV: "N/A",
@@ -15497,6 +15897,7 @@ chaman: {
             },
             {
                 nom: "Enragement animal",
+                image: "",
                 description: "Vous gagnez 1 action supplémentaire pour ce tour et augmentez vos dégâts de 2. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 PV: "N/A",
@@ -15511,6 +15912,7 @@ chaman: {
             },
             {
                 nom: "Résilience Végétale",
+                image: "",
                 description: "Vous ou un allié au corps à corps gagnez +4 d’armure, 30% de blocage et 6 PB pour ce tour. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 PV: "N/A",
@@ -15527,6 +15929,7 @@ chaman: {
             },
             {
                 nom: "Incarnation spirituelle ancienne",
+                image: "",
                 description: "Nécessite d’avoir un Esprit actif. Ce sort invoque l’Esprit actif du Chaman sous sa première forme antique. L’invocation dépend de l’Esprit actif, le Chaman ne possède plus cet Esprit et ne peut plus l’activer tant que l’invocation est présente.",
                 Psy: 6,
                 PV: "N/A",
@@ -15564,6 +15967,7 @@ chaman: {
         sortMaitre: [
             {
                 nom: "Fleur de Mort Originel",
+                image: "",
                 description: "''Invocation'' Invoque une Fleur de Mort, un monstre mi-Bête et mi-Plante. Cependant il s’agit là d’une version antique de cette créature, beaucoup plus grande, agressive et redoutable que sa version moderne, elle ne reste cependant que 3 tours sur le terrain. L'invocation possède 30 PV, 5 d'armure, la vitesse Lente, une taille Très grande et inflige 2 dé 6 +4 dégâts et applique 4 Poisons irrésistibles avec ses attaques au corps à corps.",
                 Psy: 14,
                 PV: "N/A",
@@ -15586,6 +15990,8 @@ chaman: {
     }
 },
 pretre: {
+    nom: "Prêtre",
+    image: "",    
     description: [
         "Les prêtres sont le pendant plus “intellectuels” des paladins, ils luttent aussi contre le chaos mais ils sont plus dans la guérison que dans la protection. Ils sont assez nombreux surtout ceux affiliés à l’élément lumière, il peut exister des prêtres de l’eau, de la terre ...",
         "Ils vont parfois sur les routes et rejoignent des aventuriers pour convertir de lointaines populations à leurs rites et croyances, ils sont souvent convaincus qu’ils doivent apporter la “vraie” foi.",
@@ -15638,6 +16044,7 @@ pretre: {
         talents: [
             {
                 nom: "Piété",
+                image: "",
                 description: "Ajoute +1 aux soins prodigués, soigner un allié K.O. lui donne 3 PB fixes pour 1 tour.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -15649,6 +16056,7 @@ pretre: {
             },
             {
                 nom: "Evangéliste",
+                image: "",
                 description: "Ajoute +1 en Intelligence. Ajoute la connaissance d’une langue autre qu’Ancien et Animal.",
                 niveauJoueur: 2,
                 prerequis: ["Piété"],
@@ -15659,6 +16067,7 @@ pretre: {
             },
             {
                 nom: "Monastère Affilié",
+                image: "",
                 description: "Vous obtenez 1 sort Novice dans une Arcane choisie.",
                 niveauJoueur: 3,
                 prerequis: ["Evangéliste"],
@@ -15668,6 +16077,7 @@ pretre: {
             },
             {
                 nom: "Ritualiste",
+                image: "",
                 description: "Ajoute +1 en Sagesse. Ajoute bonus de 20 pour des jets en rapports avec des rituels religieux quels qu’ils soient.",
                 niveauJoueur: 4,
                 prerequis: ["Monastère Affilié"],
@@ -15678,6 +16088,7 @@ pretre: {
             },
             {
                 nom: "Temple Affilié",
+                image: "",
                 description: "Vous obtenez 1 sort Confirmé dans une Arcane, si vous avez déjà choisi un sort grâce à 'Monastère affilié' vous le choisissez obligatoirement dans la même arcane.",
                 niveauJoueur: 5,
                 prerequis: ["Ritualiste"],
@@ -15688,6 +16099,7 @@ pretre: {
             },
             {
                 nom: "Faveur Papale",
+                image: "",
                 description: "Ajoute +1 en Intelligence et en Charisme. Ajoute un bonus de +20 en Persuader/Tromper face à quelqu’un qui n’est pas d’alignement BON.",
                 niveauJoueur: 6,
                 prerequis: ["Temple Affilié"],
@@ -15699,6 +16111,7 @@ pretre: {
             },
             {
                 nom: "Cathédrale affiliée",
+                image: "",
                 description: "Vous obtenez 1 sort Expert dans une Arcane, si vous avez déjà choisi un sort grâce à 'Monastère affilié' ou 'Temple affilié' vous le choisissez obligatoirement dans la même arcane.",
                 niveauJoueur: 7,
                 prerequis: ["Faveur Papale"],
@@ -15709,6 +16122,7 @@ pretre: {
             },
             {
                 nom: "Ecclésiastique",
+                image: "",
                 description: "Permet de parler la langue Ancien et ajoute +1 en Intelligence.",
                 niveauJoueur: 8,
                 prerequis: ["Cathédrale affiliée"],
@@ -15719,6 +16133,7 @@ pretre: {
             },
             {
                 nom: "Foi Inexpugnable",
+                image: "",
                 description: "Immunité à ”Terreur” et ”Chaos”.",
                 niveauJoueur: 9,
                 prerequis: ["Ecclésiastique"],
@@ -15729,6 +16144,7 @@ pretre: {
             },
             {
                 nom: "Piété Supérieure",
+                image: "",
                 description: "Triple le bonus du passif 'Piété'.",
                 niveauJoueur: 10,
                 prerequis: ["Foi Inexpugnable"],
@@ -15743,6 +16159,7 @@ pretre: {
         sortNovice: [
             {
                 nom: "Guérison Rapide",
+                image: "",
                 description: "Soigne un allié de 1 dé 4 PV. Ne consomme pas d’action, ne peut cibler que 2 fois la même cible sur un seul tour.",
                 Psy: 2,
                 PV: "N/A",
@@ -15757,6 +16174,7 @@ pretre: {
             },
             {
                 nom: "Premier Psaume",
+                image: "",
                 description: "Le prêtre psalmodie et octroie une bénédiction sur tous les alliés dans la zone, soigne 1 dé 4 PV et octroie 2 PB. Le lanceur est le centre de la zone.",
                 Psy: 3,
                 PV: "N/A",
@@ -15771,6 +16189,7 @@ pretre: {
             },
             {
                 nom: "Répurgateur",
+                image: "",
                 description: "Ce sort inflige 1 dé 6 +3 dégâts et le double si la cible est de race Mort-Vivant ou Extra-Planaire.",
                 Psy: 4,
                 PV: "N/A",
@@ -15785,6 +16204,7 @@ pretre: {
             },
             {
                 nom: "Repos Réparateur",
+                image: "",
                 description: "Applique l’état ‘’Sommeil’’ à une cible de manière irrésistible, la cible sera soignée de 1 dé 8 PV au début de son tour de jeu tant qu’elle reste dans l’état ‘’Sommeil’’ pour 2 tours. Hors combat ce sort endort la cible pendant 4 heures avant qu’elle ne récupère tous les PV du sort à la fin du Sommeil.",
                 Psy: 3,
                 PV: "N/A",
@@ -15801,6 +16221,7 @@ pretre: {
             },
             {
                 nom: "Deuxième Psaume",
+                image: "",
                 description: "Le lanceur psalmodie pour renforcer et soigne un allié au contact, octroie +2 dégâts et 20% de chance de CC à la prochaine attaque et soigne 1 dé 4 PV à l’allié cible.",
                 Psy: 3,
                 PV: "N/A",
@@ -15816,6 +16237,7 @@ pretre: {
             },
             {
                 nom: "Dernier Sacrement",
+                image: "",
                 description: "Ce sort inflige 1 dé 6 +2 dégâts, s’il tue la cible vous soignez 1 dé 6 PV à l’allié le plus proche.",
                 Psy: 3,
                 PV: "N/A",
@@ -15830,6 +16252,7 @@ pretre: {
             },
             {
                 nom: "Confesse",
+                image: "",
                 description: "Soulage un allié de ses péchés pour l’aider à avancer et lui octroie le pardon. Purge les altérations d’états négatives et octroie une immunité à celles-ci pendant 1 tour.",
                 Psy: 3,
                 PV: "N/A",
@@ -15844,6 +16267,7 @@ pretre: {
             },
             {
                 nom: "Encensoir sacré",
+                image: "",
                 description: "Le prêtre fait de la fumée terriblement nocive avec son encensoir mais ni lui ni ses alliés n’en subissent l’effet. Les ennemis s’infligent 1 dé 6 +1 dégâts et ''Cécité''.",
                 Psy: 4,
                 PV: "N/A",
@@ -15859,6 +16283,7 @@ pretre: {
             },
             {
                 nom: "Sermon puissant",
+                image: "",
                 description: "''Tout le Terrain'' Soigne les alliés de 1 dé 6 PV.",
                 Psy: 4,
                 PV: "N/A",
@@ -15872,6 +16297,7 @@ pretre: {
             },
             {
                 nom: "Désignation d’infidèle",
+                image: "",
                 description: "Vous choisissez une cible où qu’elle soit sur le terrain, elle subit 1 dégât de plus de toutes les attaques alliées pendant la durée de l’effet. Ce sort dure jusqu’à ce que la cible meure et ne peut pas désigner une autre cible, son effet est cumulable 3 fois. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -15888,6 +16314,7 @@ pretre: {
             },
             {
                 nom: "Veilleur Saint",
+                image: "",
                 description: "Ce sort nécessite l’action pour être canalisé. Pendant chaque tour où il est maintenu il soigne une cible de 1 dé 6 PV et lui retire une altération négative. La canalisation est rompue si vous prenez des dégâts ou si la cible sort de la portée maximale du sort.",
                 Psy: 3,
                 PV: "N/A",
@@ -15903,6 +16330,7 @@ pretre: {
             },
             {
                 nom: "Bénédicité",
+                image: "",
                 description: "Ce sort touche tous les alliés au corps à corps du lanceur, mais aussi ceux étant au contact d’un allié lui-même déjà touché par ce sort. Le prêtre fait se joindre les mains et récite une prière. Soigne 1 dé 6 PV et octroie +2 aux dégâts pour 1 tour. Hors combat, ce sort peut être lancé juste avant un repas et double alors la récupération octroyée par celui-ci.",
                 Psy: 4,
                 PV: "N/A",
@@ -15920,6 +16348,7 @@ pretre: {
         sortConfirmé: [
             {
                 nom: "Unique Vérité",
+                image: "",
                 description: "Le prêtre convainc un ennemi de se battre pour la seule vraie foi, inflige ''Charme'', l’effet dure tant que l’ennemi ne réussit pas un jet de sauvegarde au début de son tour de jeu, tant qu'il est sous cet effet l'adversaire subit 1 dé 6 dégâts fixe au début de son tour.",
                 Psy: 4,
                 PV: "N/A",
@@ -15935,6 +16364,7 @@ pretre: {
             },
             {
                 nom: "Ferveur Réconfortante",
+                image: "",
                 description: "Place un état de régénération sur un allié ou le lanceur. Si la cible subit des dégâts sur ses PV elle se soigne de 3 PV fixe. Cet effet dure 3 tours, ce sort ne consomme pas d’action.",
                 Psy: 4,
                 PV: "N/A",
@@ -15950,6 +16380,7 @@ pretre: {
             },
             {
                 nom: "Miracle",
+                image: "",
                 description: "Guérit un allié de toutes les altérations d’état négatives, lui rend 1 dé 4 PV par altération supprimée. Ce sort ne consomme pas d'action.",
                 Psy: 3,
                 PV: "N/A",
@@ -15964,6 +16395,7 @@ pretre: {
             },
             {
                 nom: "Marche du Pêcheur",
+                image: "",
                 description: "Ce sort inflige 1 dé 6 +1 dégâts puis applique ''Engelure'' sur un ennemi et le fait avancer de 10 mètres vers l’utilisateur. S’il meurt de cet effet, le prêtre récupère le coût du sort.",
                 Psy: 4,
                 PV: "N/A",
@@ -15980,6 +16412,7 @@ pretre: {
             },
             {
                 nom: "Absolution",
+                image: "",
                 description: "Utilisable sur un allié à qui il reste moins de 50% de sa vie, le fait entrer dans l’état ''Invulnérable'' pour un tour et le soigne de 1 dé 10 PV à la fin de l’effet.",
                 Psy: 5,
                 PV: "N/A",
@@ -15995,6 +16428,7 @@ pretre: {
             },
             {
                 nom: "Testament Inviolable",
+                image: "",
                 description: "''Invocation''. Invoque un livre saint qui possède 10 PB et 1 PV. Choisissez une altération d’état, celle-ci sera appliquée au début de chaque tour en permanence à tous les adversaires dans un périmètre de 15 mètres autour du livre. L’altération ainsi appliquée ne sera pas cumulée, mais se réapplique si on essaie de la retirer tant que la cible est dans le rayon d’action.",
                 Psy: 4,
                 PV: "N/A",
@@ -16013,6 +16447,7 @@ pretre: {
             },
             {
                 nom: "Vœu de Silence",
+                image: "",
                 description: "Inflige 1 dé 6 dégâts et ''Silence'' à une cible jusqu’à 25 mètres.",
                 Psy: 4,
                 PV: "N/A",
@@ -16027,6 +16462,7 @@ pretre: {
             },
             {
                 nom: "Mise au Bûcher",
+                image: "",
                 description: "Ce sort ne peut cibler qu’un ennemi sous l’effet de 'Désignation d’Infidèle'. Il subit x dé 8 dégâts Feu où X est le nombre de fois où 'Désignation d’Infidèle' est actif sur lui.",
                 Psy: 6,
                 PV: "N/A",
@@ -16042,6 +16478,7 @@ pretre: {
             },
             {
                 nom: "Troisième psaume",
+                image: "",
                 description: "Le prêtre psalmodie et octroie une puissante bénédiction, soigne 1 dé 6 +3 PV et augmente le taux de blocage et la réussite des jets de sauvegarde de 30% pendant 2 tours.",
                 Psy: 5,
                 PV: "N/A",
@@ -16060,6 +16497,7 @@ pretre: {
         sortExpert: [
             {
                 nom: "Paix Vierge",
+                image: "",
                 description: "''Tout le Terrain''. Fait entrer toutes les entités sur le terrain dans l’état ‘’Invulnérable’’ pour 1 tour. Les alliés qui subissent cet effet sont soignées de 2 dés 6 PV à sa fin.",
                 Psy: 6,
                 PV: "N/A",
@@ -16074,6 +16512,7 @@ pretre: {
             },
             {
                 nom: "Quatrième psaume",
+                image: "",
                 description: "Le prêtre psalmodie et octroie sa plus puissante bénédiction, soigne 2 dés 6 +2 PV et octroie une résistance à tous les éléments ou au neutre pendant 2 tours.",
                 Psy: 6,
                 PV: "N/A",
@@ -16089,6 +16528,7 @@ pretre: {
             },
             {
                 nom: "Imblocation",
+                image: "",
                 description: "Ce sort ne peut cibler qu’une cible sous l’effet 'Désignation d’Infidèle'. Elle subit Entrave irrésistible et perd toute possibilité d’agir et est enfermée dans une tombe enchantée qui est Invulnérable. Cet effet dure 2 tours après quoi la cible est libérée et subit 2 dé 6 dégâts.",
                 Psy: 7,
                 PV: "N/A",
@@ -16107,6 +16547,7 @@ pretre: {
             },
             {
                 nom: "Saint Apôtre",
+                image: "",
                 description: "La cible devient un Apôtre. Les Apôtres gagnent une récupération de x dés 4 PV fixe à chaque début de tour mais aussi +X au DSB et à l’armure. X est le nombre d’Apôtre en simultané sur le terrain. L’état d’Apôtre persiste jusqu’à la fin du combat ou de la scène et ne peut pas être retiré. Ce sort coûte 2 PSY supplémentaire à chaque lancement, il ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -16126,6 +16567,7 @@ pretre: {
             },
             {
                 nom: "Volonté Divine",
+                image: "",
                 description: "''Tout le Terrain'' L’état K.O. ou Mort est retiré de tous les alliés s'ils en étaient affectés et ils reviennent à 0 PV, ils gagnent 4 PB pour un tour, soigne 1 dé 8 PV à tous les alliés.",
                 Psy: 8,
                 PV: "N/A",
@@ -16142,6 +16584,7 @@ pretre: {
             },
             {
                 nom: "Egide Céleste",
+                image: "",
                 description: "Octroie 20 PB pour 1 tour à un allié où qu’il soit sur le terrain, ce sort peut être lancé n’importe quand, même hors de votre tour de jeu et ne consomme pas d’action.",
                 Psy: 6,
                 PV: "N/A",
@@ -16156,6 +16599,7 @@ pretre: {
             },
             {
                 nom: "Canonisation",
+                image: "",
                 description: "Ce sort ne peut désigner qu’un allié K.O ou Mort. Il revient sur le terrain comme une incarnation divine avec tous ses PV, toute sa PSY, 2 actions par tour, une vitesse Très Rapide et les états 'Volant' et 'Invulnérable'. Cet effet dure 1 tour et peut être maintenu pour 6 PSY supplémentaire par tour. Ce sort ne peut pas cibler deux fois le même allié par combat, quand l’effet se termine l’allié tombe à 0 PV et s’applique 'K.O'.",
                 Psy: 6,
                 PV: "N/A",
@@ -16177,6 +16621,7 @@ pretre: {
             },
             {
                 nom: "La Messe est Dite",
+                image: "",
                 description: "Octroie 6 PB et soigne 2 dé 6 PV aux alliés dans la zone. Les ennemis subissent autant de dégâts que les alliés ont récupéré de vie, répartis équitablement entre eux.",
                 Psy: 7,
                 PV: "N/A",
@@ -16194,6 +16639,7 @@ pretre: {
         sortMaitre: [
             {
                 nom: "Diocèse sacré",
+                image: "",
                 description: "''Tout le terrain'' Le Prêtre sanctifie la zone, pendant 2 tours les alliés ne peuvent pas mourir ou tomber K.O et survivent avec 1 PV quoiqu’il arrive, ils sont immunisés à toutes les altérations négatives et regagnent 1 dé 8 PV à chaque début de tour. Les ennemis qui infligent des dégâts dans cette zone subissent autant de dégâts qu’ils en font subir.",
                 Psy: 15,
                 PV: "N/A",
@@ -16213,6 +16659,8 @@ pretre: {
     }
 },
 cultiste: {
+    nom: "Cultiste",
+    image: "",    
     description: [
         "Les cultistes du chaos suivent la voie de la destruction, ils ne sont là que pour faire venir l’être de la fin des temps sur le monde et pouvoir recommencer un cycle à zéro. Ils sont nombreux et bien organisés, ils sont redoutés et très puissants, les paladins les traquent et les deux se sont jurés une bataille éternelle. Les cultistes peuvent ressembler à monsieur tout le monde et c’est pourquoi on peut les trouver partout, même chez les aventuriers, mais ne vous y trompez pas, ce sont souvent des gens néfastes qui veulent écraser ce monde.",
         "Les maîtres cultistes ne craignent pas le chaos, meurent difficilement et peuvent utiliser leurs PV pour lancer des sorts, ils font aussi partie de l’élite intellectuelle du monde."
@@ -16268,6 +16716,7 @@ cultiste: {
         talents: [
             {
                 nom: "Novice du Chaos",
+                image: "",
                 description: "Vous pouvez choisir un sort Novice de l'Arcane Chaos.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -16277,6 +16726,7 @@ cultiste: {
             },
             {
                 nom: "Baigné de Chaos",
+                image: "",
                 description: "Ajoute +1 en Constitution. Ajoute 2 PB fixe lors de l'application de l'état Chaos sur le cultiste.",
                 niveauJoueur: 2,
                 prerequis: ["Novice du Chaos"],
@@ -16287,6 +16737,7 @@ cultiste: {
             },
             {
                 nom: "Domination Chaotique",
+                image: "",
                 description: "Ajoute +1 en Force. L’intimidation se fait en ajoutant votre Force à la statistique Charisme.",
                 niveauJoueur: 3,
                 prerequis: ["Baigné de Chaos"],
@@ -16297,6 +16748,7 @@ cultiste: {
             },
             {
                 nom: "Confirmé du Chaos",
+                image: "",
                 description: "Vous pouvez choisir deux sorts Novice OU un sort Confirmé de l'Arcane Chaos.",
                 niveauJoueur: 4,
                 prerequis: ["Domination Chaotique"],
@@ -16306,6 +16758,7 @@ cultiste: {
             },
             {
                 nom: "Non-Mort",
+                image: "",
                 description: "Si le cultiste doit mourir d’une attaque, il la renvoie complètement et garde 1 PV et devient Invulnérable pour 1 tour. (1 fois par combat).",
                 niveauJoueur: 5,
                 prerequis: ["Confirmé du Chaos"],
@@ -16316,6 +16769,7 @@ cultiste: {
             },
             {
                 nom: "Erudition Chaotique",
+                image: "",
                 description: "Ajoute +1 en Intelligence et en Sagesse. Le jet de perception magique se fait en ajoutant votre Intelligence à la statistique de Sagesse.",
                 niveauJoueur: 6,
                 prerequis: ["Non-Mort"],
@@ -16327,6 +16781,7 @@ cultiste: {
             },
             {
                 nom: "Expert du Chaos",
+                image: "",
                 description: "Vous pouvez choisir deux sorts Confirmé OU un sort Expert de l'Arcane Chaos.",
                 niveauJoueur: 7,
                 prerequis: ["Erudition Chaotique"],
@@ -16336,6 +16791,7 @@ cultiste: {
             },
             {
                 nom: "Pacte de l’Âme",
+                image: "",
                 description: "Ajoute +1 en Force et en Sagesse. Quand vous utilisez vos PV pour lancer un sort, cela vous rend 1 PSY par tranche de 4 PV utilisés.",
                 niveauJoueur: 8,
                 prerequis: ["Expert du Chaos"],
@@ -16347,6 +16803,7 @@ cultiste: {
             },
             {
                 nom: "Cultiste Suprême",
+                image: "",
                 description: "Tous les sorts appliquant l’état ‘’Chaos’’ ou ‘’Cécité’’ infligent 2 dégâts supplémentaires.",
                 niveauJoueur: 9,
                 prerequis: ["Pacte de l’Âme"],
@@ -16356,6 +16813,7 @@ cultiste: {
             },
             {
                 nom: "Ténèbres Éternelles",
+                image: "",
                 description: "Les états ‘’Chaos’’ et ‘’Cécité’’ sont appliqués 2 tours au lieu d’un.",
                 niveauJoueur: 10,
                 prerequis: ["Cultiste Suprême"],
@@ -16370,6 +16828,7 @@ cultiste: {
         sortNovice: [
             {
                 nom: "Vague d’Énergie Sombre",
+                image: "",
                 description: "Le lanceur envoie une onde mentale aux adversaires à son corps-à-corps, ils subissent 1 dé 6 dégâts et ‘’Cécité’’.",
                 Psy: 3,
                 PV: "N/A",
@@ -16382,6 +16841,7 @@ cultiste: {
                     applique_cecite: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Les adversaires subissant 'Cécité' s’appliquent aussi 'Chaos', ceux qui ne se l’appliquent pas subissent 1 dé 4 dégâts fixes supplémentaires.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16392,6 +16852,7 @@ cultiste: {
             },
             {
                 nom: "Sombres Desseins",
+                image: "",
                 description: "Canalise les énergies du chaos pour infliger des dégâts colossaux, vous infligez x dé 8 dégâts (x étant le nombre de tour de canalisation du sort). Si vous subissez des dégâts pendant la canalisation, le sort sera déclenché immédiatement au palier de dégâts du tour précédent. Vous ne pouvez pas vous déplacer ni tenter une esquive ou bloquer un coup pendant la canalisation, vous perdez votre déplacement et votre action tant que ce sort est canalisé. Ce sort coûte 2 PSY par tour de canalisation après le premier.",
                 Psy: 3,
                 PV: "N/A",
@@ -16406,6 +16867,7 @@ cultiste: {
                     cout_psy_par_tour_suppl: 2
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Vous gagnez 3 PB lors du lancement du sort et 2 PB fixe à chaque tour de canalisation. Vous ne vous faites interrompre que si vous subissez des dégâts sur vos PV.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16417,6 +16879,7 @@ cultiste: {
             },
             {
                 nom: "Lumière Noire",
+                image: "",
                 description: "Vous soignez 1 dé 6 PV à une cible jusqu’à 30 mètres. Hors combat ce sort génère une très faible lumière permettant de voir dans l’obscurité mais pratiquement indétectable par d’autres personnes.",
                 Psy: 3,
                 PV: "N/A",
@@ -16429,6 +16892,7 @@ cultiste: {
                     hors_combat_lumiere_invisible: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "La portée du sort devient 100 mètres. Si le lanceur est dans l’état 'Chaos' il applique également 'Chaos'.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16439,6 +16903,7 @@ cultiste: {
             },
             {
                 nom: "Misérabilisme",
+                image: "",
                 description: "La cible du sort obtient un désavantage sur tous ses jets de sauvegarde pendant 1 tour. Cet effet n’est pas cumulable mais peut affecter un nombre illimité de cibles en simultanée. Ce sort ne consomme pas d’action.",
                 Psy: 1,
                 PV: "N/A",
@@ -16451,6 +16916,7 @@ cultiste: {
                     non_cumulable_mais_plusieurs_cibles: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Ce sort peut cibler un allié et lui octroie un avantage sur tous ses jets de sauvegarde ainsi que 2 PB pendant 2 tours.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16460,6 +16926,7 @@ cultiste: {
             },
             {
                 nom: "Retour à la normale",
+                image: "",
                 description: "Le lanceur reprend le contrôle de son corps en annulant la corruption du Chaos qui le possède. Ce sort fait redescendre d’un palier ou plus la mécanique de la voie. Pour chaque palier redescendu le cultiste récupère 2 PSY. Ce sort ne se lance qu’avec des PV mais n’enclenche pas la mécanique, il ne consomme pas d’action, son coût est multiplié par X ou X est le nombre de palier descendu avec son effet.",
                 Psy: "N/A",
                 PV: "3X",
@@ -16477,6 +16944,7 @@ cultiste: {
             },
             {
                 nom: "Régénération chaotique",
+                image: "",
                 description: "Vous appliquez un effet à vous, ou une cible à moins de 15 mètres, soignant 2 PV fixe à chaque fois qu’une attaque le touche. Cet effet dure 1 tour, il coûte 1 PSY par tour supplémentaire pour être maintenu. Ce sort n’est pas cumulable et ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -16491,6 +16959,7 @@ cultiste: {
                     non_cumulable: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Ajoute 2 PB en plus de la première régénération à chaque tour.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16500,6 +16969,7 @@ cultiste: {
             },
             {
                 nom: "Affliction de Chaos",
+                image: "",
                 description: "Diffuse de l’énergie du chaos dans une cible à moins de 10 mètres, la cible subit l’état ‘’Chaos’’, ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -16511,6 +16981,7 @@ cultiste: {
                     applique_chaos: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Inflige 1 dé 4 dégâts fixe supplémentaire à la cible si 'Chaos' s’applique, si l’altération ne s’applique pas vous appliquez 'Cécité' de manière irrésistible.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16521,6 +16992,7 @@ cultiste: {
             },
             {
                 nom: "Frappe Chaotique",
+                image: "",
                 description: "Une boule d’énergie sombre touche un ennemi au corps à corps et inflige 1 dé 6 +2 dégâts et applique “Chaos“ à la cible.",
                 Psy: 3,
                 PV: "N/A",
@@ -16533,6 +17005,7 @@ cultiste: {
                     applique_chaos: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Inflige 1 dé 4 dégâts fixe supplémentaire à la cible si 'Chaos' s’applique, si l’altération ne s’applique pas vous appliquez 'Cécité' de manière irrésistible.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16543,6 +17016,7 @@ cultiste: {
             },
             {
                 nom: "Terrain Corrompu",
+                image: "",
                 description: "Génère une surface de sol noirâtre qui semble vouloir s’emparer de tout ce qui la traverse. Applique 'Entrave' à toutes les entités et soigne de 1 dé 8 PV les alliés à l’intérieur.",
                 Psy: 4,
                 PV: "N/A",
@@ -16555,6 +17029,7 @@ cultiste: {
                     soigne_pv_alliés_zone: "1d8"
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Inflige 1 dé 8 dégâts aux ennemis dans la zone. Si le lanceur est dans l’état 'Chaos' ce sort voit ses dégâts et ses soins inversés.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16565,6 +17040,7 @@ cultiste: {
             },
             {
                 nom: "Pluie Noire",
+                image: "",
                 description: "''Tout le Terrain'' Toutes les entités récupèrent 1 dé 4 PV, les alliés gagnent aussi 2 PB.",
                 Psy: 4,
                 PV: "N/A",
@@ -16577,6 +17053,7 @@ cultiste: {
                     gain_pb_alliés: 2
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Si le lanceur est dans l’état 'Chaos' ce sort ne cible plus que les ennemis et octroie le double de PB aux alliés. Sinon les soins du sort sont doublés uniquement sur les alliés.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16587,6 +17064,7 @@ cultiste: {
             },
             {
                 nom: "Traversée des Ombres",
+                image: "",
                 description: "Le lanceur fonce droit devant lui sur 15 mètres en passant à travers toutes les entités. Inflige 1 dé 6 +2 dégâts à chaque entité traversée, si la case d’arrivée n’est pas libre vous avancez jusqu’à une case libre et infligez les dégâts à toutes cibles supplémentaires.",
                 Psy: 4,
                 PV: "N/A",
@@ -16599,6 +17077,7 @@ cultiste: {
                     avance_case_libre_si_occupee_degats_suppl: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Le cultiste récupère 2 PV par cible touchée.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16608,6 +17087,7 @@ cultiste: {
             },
             {
                 nom: "Chaos Percutant",
+                image: "",
                 description: "Ce sort inflige 1 dé 6 +3 dégâts à une cible au corps à corps. Si l’ennemi est sous l’état 'Chaos' vous lui retirez et infligez 1 dé 6 dégâts supplémentaire. Si vous êtes dans l’état 'Chaos' ce sortilège soigne au lieu d’infliger des dégâts et vous inflige la moitié de dégâts qu’il a soigné.",
                 Psy: 4,
                 PV: "N/A",
@@ -16621,6 +17101,7 @@ cultiste: {
                     si_lanceur_chaos_soigne_et_inflige_moitie_soins: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Ce sort inflige 1 dé 6 dégâts à toutes les cibles au corps à corps de la première et applique 'Cécité' en plus de son effet.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16633,6 +17114,7 @@ cultiste: {
         sortConfirmé: [
             {
                 nom: "Trou Noir",
+                image: "",
                 description: "Crée un point de fusion des énergies sombres devant vous pendant 2 tours, tous les projectiles et sorts élémentaires qui passent à moins de 10 mètres du trou noir seront dissipés et ne feront aucun effet, y compris ceux du lanceur ou de ses alliés.",
                 Psy: 4,
                 PV: "N/A",
@@ -16646,6 +17128,7 @@ cultiste: {
                     affecte_lanceur_et_alliés: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Les projectiles alliés ne sont plus annulés par le sort.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16655,6 +17138,7 @@ cultiste: {
             },
             {
                 nom: "Convocation d’Obscurité",
+                image: "",
                 description: "Le lanceur est le centre de la zone, crée une vaste zone où il fait nuit noire. Le sort applique “Cécité“ à toutes les cibles et inflige 1 dé 6 +1 dégâts (y compris les alliés) dans la zone.",
                 Psy: 4,
                 PV: "N/A",
@@ -16668,6 +17152,7 @@ cultiste: {
                     degats_toutes_cibles_y_compris_alliés: "1d6+1"
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Ce sort n’infligent plus de dégâts aux alliés et inflige 1 dé 6 dégâts supplémentaire.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16678,6 +17163,7 @@ cultiste: {
             },
             {
                 nom: "Prise Entropique",
+                image: "",
                 description: "Attrape une cible au corps-à-corps et lui inflige 1 dé 6 +3 dégâts et ‘’Entrave’’, au tour suivant la cible subit ‘’Chaos’’ et à la fin de l’effet elle subit ‘’Cécité’’.",
                 Psy: 5,
                 PV: "N/A",
@@ -16692,6 +17178,7 @@ cultiste: {
                     applique_cecite_fin_effet: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Toutes les altérations sont appliquées de manière Irrésistible.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16701,6 +17188,7 @@ cultiste: {
             },
             {
                 nom: "Rituel Occulte",
+                image: "",
                 description: "Sacrifie 1 dé 8 PV de l’utilisateur ou d’un allié au corps à corps pour rendre le même montant en PSY à un allié à moins de 15 mètres. Ne consomme pas d’action mais ne peut pas être utilisé plus de deux fois sur la même cible pendant le même tour.",
                 Psy: 3,
                 PV: "1d8",
@@ -16713,6 +17201,7 @@ cultiste: {
                     pas_plus_de_deux_fois_meme_cible_par_tour: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Si le cultiste est dans l’état 'Chaos' il subit 1 dé 4 dégâts fixe en lançant ce sort.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16722,6 +17211,7 @@ cultiste: {
             },
             {
                 nom: "Noir-Cœur",
+                image: "",
                 description: "''Invocation'' Invoque un Noirceur, un monstre qui accompagne tous les cultistes accomplis. La créature possède les mêmes statistiques et capacités que sa fiche bestiaire mais elle gagne le même bonus DSB et le même bonus dégâts que son invocateur. Cependant elle est invoquée en se glissant dans l’ombre du cultiste et y demeure tant qu’on ne la joue pas ce qui la rend complètement invisible et indétectable. Si le cultiste devait mourir il peut décider de sacrifier son Noirceur à sa place et garder 1 PV après l’attaque. Hors combat, cette invocation prend du temps à se matérialiser et ne peut pas être utilisée en réflexe.",
                 Psy: 5,
                 PV: "N/A",
@@ -16739,6 +17229,7 @@ cultiste: {
                     pas_reflexe_hors_combat: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Le Noirceur obtient 4 PB fixe et 2 d’armure lors de son invocation.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16749,6 +17240,7 @@ cultiste: {
             },
             {
                 nom: "Négation de vie",
+                image: "",
                 description: "Le cultiste tire un rayon noir sur une cible à moins de 10 mètres, elle subit 1 dé 6 +2 dégâts et ‘’Chaos’’. Si la cible encaisse l’attaque avec moins de 25% de sa vie restante après le calcul, elle meurt instantanément.",
                 Psy: 4,
                 PV: "N/A",
@@ -16762,6 +17254,7 @@ cultiste: {
                     mort_instantanee_si_moins_25_pv_apres_calcul: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Si le lanceur est dans l’état 'Chaos' il s'inflige 4 dégâts fixes en lançant ce sort.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16771,6 +17264,7 @@ cultiste: {
             },
             {
                 nom: "Résistance Mortelle",
+                image: "",
                 description: "Ce sort inflige 1 dé 6 +1 dégâts, s’il est utilisé alors que l’utilisateur possède moins de 25% de ses PV max il inflige le double. S’il est utilisé alors que l’utilisateur possède 1 seul et unique PV restant, il inflige le triple et possède +25% de chances de coup critique.",
                 Psy: 5,
                 PV: "N/A",
@@ -16784,6 +17278,7 @@ cultiste: {
                     triple_degats_plus_25_cc_si_1_pv: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Applique l’état 'Chaos' irrésistible au lanceur avant ou après le lancement de ce sort.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16793,6 +17288,7 @@ cultiste: {
             },
             {
                 nom: "Chaos contrôle",
+                image: "",
                 description: "Ce sort permet à l’allié ciblé de lancer une attaque immédiatement comme si c’était son tour de jeu mais sans consommer son action. Il est aussi soigné de 1 dé 6 PV et gagne 2 PB.",
                 Psy: 6,
                 PV: "N/A",
@@ -16806,6 +17302,7 @@ cultiste: {
                     gain_pb: 2
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "L’allié peut jouer un tour de jeu complet immédiatement au lieu de juste une attaque.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16815,6 +17312,7 @@ cultiste: {
             },
             {
                 nom: "Inoculation de Terreur",
+                image: "",
                 description: "Soigne un allié de 1 dé 8 PV et lui octroie 2 PB, toutes ses attaques infligeront 'Terreur' en plus de leurs effets habituels pendant son prochain tour.",
                 Psy: 4,
                 PV: "N/A",
@@ -16828,6 +17326,7 @@ cultiste: {
                     attaques_infligent_terreur_prochain_tour: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Les attaques de l’allié infligent 1 dé 4 dégâts fixes supplémentaires.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16839,6 +17338,7 @@ cultiste: {
         sortExpert: [
             {
                 nom: "Sombre Symbiose",
+                image: "",
                 description: "Ce sort annule tous les effets négatifs de la mécanique de classe pendant 1 tour. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -16853,6 +17353,7 @@ cultiste: {
             },
             {
                 nom: "Résurgence obscure",
+                image: "",
                 description: "Soigne 2 dé 6 PV et octroie 4 PB, 2 d’armure et 30% de chances de bloquer au lanceur ou à une cible pendant 1 tour.",
                 Psy: 6,
                 PV: "N/A",
@@ -16868,6 +17369,7 @@ cultiste: {
                     duree_1_tour: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Les bonus deviennent des malus si le lanceur a l’état 'Chaos', l’effet est prolongé de 1 tour.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16878,6 +17380,7 @@ cultiste: {
             },
             {
                 nom: "Ténèbres infinies",
+                image: "",
                 description: "''Tout le Terrain'' Inflige 1 dé 10 dégâts et Cécité à tous les ennemis ou tous les alliés sur le terrain, pour chaque application réussie de Cécité vous récupérez 2 PV.",
                 Psy: 6,
                 PV: "N/A",
@@ -16891,6 +17394,7 @@ cultiste: {
                     recupere_pv_par_cecite_appliquee: 2
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Les dégâts de ce sort deviennent perce armure, si vous échouez à appliquer 'Cécité' vous appliquez 'Entrave' à la place",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16901,6 +17405,7 @@ cultiste: {
             },
             {
                 nom: "Incarnation du Chaos",
+                image: "",
                 description: "''Tout le Terrain'' Le lanceur retire tous les états 'Chaos', 'Cécité' et 'Terreur' de toutes les entités sur le terrain. Pour chaque 'Chaos' retiré il récupère 1 dé 4 PV fixe, pour chaque 'Cécité' il récupère 1 dé 4 PSY fixe et pour chaque 'Terreur' il gagne 3 PB fixe. Il s’applique ensuite 'Chaos' pendant 1 tour.",
                 Psy: 7,
                 PV: "N/A",
@@ -16916,6 +17421,7 @@ cultiste: {
                     applique_chaos_1_tour_lanceur: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Ce sort ne consomme plus d’action. Si le lanceur de ce sort retire plus de 3 altérations avec celui-ci il monte automatiquement d’un palier dans la mécanique, en plus de celui octroyé par ce pacte Noir.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16926,6 +17432,7 @@ cultiste: {
             },
             {
                 nom: "Corps Noir",
+                image: "",
                 description: "Au début de votre prochain tour vous récupérez tous les PV et les PB que vous avez perdus pendant ce tour. Si vous êtes 'Mort' ou 'K.O' pendant le tour cet effet s’applique quand même. Vous vous appliquez ensuite l’état 'Chaos' de manière irrésistible. Ce sort ne consomme pas d’action mais ne peut pas être lancé deux fois de suite.",
                 Psy: 6,
                 PV: "N/A",
@@ -16940,6 +17447,7 @@ cultiste: {
                     pas_lance_deux_fois_de_suite: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Vous renvoyez la totalité des dégâts que vous avez subis à une cible au corps à corps.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16949,6 +17457,7 @@ cultiste: {
             },
             {
                 nom: "Déferlement Atroce",
+                image: "",
                 description: "Inflige 3 dé 8 dégâts à un ennemi et lui applique 'Terreur', si cette application réussit tous les ennemis sur le terrain s’appliquent 'Chaos'.",
                 Psy: 7,
                 PV: "N/A",
@@ -16962,6 +17471,7 @@ cultiste: {
                     si_terreur_reussie_tous_ennemis_appliquent_chaos: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Ce sort ne consomme plus d’action.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16971,6 +17481,7 @@ cultiste: {
             },
             {
                 nom: "Bouclier du Chaos Spatial",
+                image: "",
                 description: "Octroie 20 PB à un allié ou au lanceur pour 1 tour, à la fin de l’effet le Bouclier explose et inflige autant de dégâts qu’il a perdus de PB à toutes les entités au corps à corps puis applique Chaos sur sa cible. Ce sort peut être lancé n’importe quand et même hors de son tour de jeu, il ne consomme pas d’action.",
                 Psy: 6,
                 PV: "N/A",
@@ -16985,6 +17496,7 @@ cultiste: {
                     peut_etre_lance_hors_tour: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Le Bouclier dévore tous ceux qui le touchent et les renvoie à leur position de départ du combat.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -16994,6 +17506,7 @@ cultiste: {
             },
             {
                 nom: "Désespoir",
+                image: "",
                 description: "La cible de ce sort subit 'Chaos', 'Terreur' et 'Cécité' irrésistible. Jusqu’à la fin du combat, si un de ces trois effets est actif sur elle, elle obtient un désavantage sur tous ses jets. Si la cible de ce sort tombe à moins de 25% de vie elle tente de fuir ou mettre fin à ses jours à son prochain tour. Tous ces effets s’annulent si le lanceur de ce sort tombe K.O ou Mort.",
                 Psy: 6,
                 PV: "N/A",
@@ -17008,6 +17521,7 @@ cultiste: {
                     effets_annules_si_lanceur_ko_mort: true
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Ce sort inflige ou soigne 2 dés 8, selon le choix du lanceur, lors de son lancement.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -17019,6 +17533,7 @@ cultiste: {
         sortMaitre: [
             {
                 nom: "Éminence Noire",
+                image: "",
                 description: "Le cultiste emprunte la totalité de la puissance du Chaos pour transcender sa condition de mortel. Sous cette forme la mécanique ne donne plus aucun effet négatif, les Pactes Noirs se lancent sans utiliser de PV mais comptent tout de même pour la mécanique. Le lanceur applique 'Terreur', 'Chaos' ou 'Cécité' à chaque fois qu’il inflige des dégâts, il octroie 4 PB fixe à chaque fois qu’il soigne ou augmente une cible. Cette forme dure 2 tours et peut être prolongée pour 6 PSY ou PV par tour supplémentaire.",
                 Psy: 12,
                 PV: "12",
@@ -17036,6 +17551,7 @@ cultiste: {
                     cout_prolongation_psy_pv_par_tour: 6
                 },
                 pacte_noir: {
+                    image: "",    
                     description: "Vous sacrifiez tous vos PV restants, n’en gardant qu’un seul. Si vous prenez des dégâts pendant l’effet vous pouvez les encaisser sur la PSY plutôt que sur les PV. Vous pouvez annuler les dégâts d’une attaque à chaque tour.",
                     cout_pv_suppl: 2,
                     effet: {
@@ -17049,6 +17565,8 @@ cultiste: {
     }
 },
 magicka: {
+    nom: "Magicka",
+    image: "",    
     description: [
         "Les Magickas sont des combattantes usant d'une magie étrange capable d'apporter la justice, le bonheur et l'amour en ce monde, elles sont très peu nombreuses et doivent suivre un entraînement intensif et particulier auprès d'une de leur aînée pour pouvoir un jour devenir elles aussi une vraie Magicka. Elles partagent généralement des valeurs de défense des faibles, et exècrent le mal mais il n'y a aucune unité réelle dans cette voie et il n'est pas impossible de trouver des Magicka du côté obscur. De même qu'il n'est pas impossible de trouver des Magicka mâle, même si ceux-là sont encore plus rares et souvent moqués.",
         "Les Magickas possèdent des capacités permettant d'être très polyvalente et de s'adapter pour réussir face à n'importe quelle situation, elles utilisent des métamorphoses leurs octroyant divers pouvoirs et sont capables aussi bien de soigner efficacement que d'infliger de lourds dégâts."
@@ -17102,6 +17620,7 @@ magicka: {
         talents: [
             {
                 nom: "Magicka Training",
+                image: "",
                 description: "Vous donne 2 points de statistiques à répartir.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -17111,6 +17630,7 @@ magicka: {
             },
             {
                 nom: "Magicka Haste",
+                image: "",
                 description: "Ajoute +1 en Dextérité. Vous pouvez choisir une transformation au tout début du combat avant même le placement. Cette forme est gratuite.",
                 niveauJoueur: 2,
                 prerequis: ["Magicka Training"],
@@ -17121,6 +17641,7 @@ magicka: {
             },
             {
                 nom: "Worldwide Magicka",
+                image: "",
                 description: "Ajoute +1 en Charisme, la forme de base de la Magicka octroie +10 dans toutes les statistiques mineures liées au charisme.",
                 niveauJoueur: 3,
                 prerequis: ["Magicka Haste"],
@@ -17131,6 +17652,7 @@ magicka: {
             },
             {
                 nom: "Perfect Transformation !",
+                image: "",
                 description: "Lors d’un changement de forme vous pouvez doubler les effets positifs et négatifs de la transformation, le sort de transformation coûte alors le double.",
                 niveauJoueur: 4,
                 prerequis: ["Worldwide Magicka"],
@@ -17140,6 +17662,7 @@ magicka: {
             },
             {
                 nom: "Leader Magicka",
+                image: "",
                 description: "Au début de votre tour, vous pouvez désigner un allié, il sera alors considéré comme une 'Magicka' jusqu’au début de votre prochain tour et pourra utiliser l'effet de la mécanique même si ce n'est pas sa voie.",
                 niveauJoueur: 5,
                 prerequis: ["Perfect Transformation !"],
@@ -17149,6 +17672,7 @@ magicka: {
             },
             {
                 nom: "Last Hope",
+                image: "",
                 description: "Ajoute +1 en Défense, une fois par combat si une attaque devait vous tuer ou vous faire tomber K.O vous gardez 1 PV et récupérez 1 dé 6 PV fixe instantanément.",
                 niveauJoueur: 6,
                 prerequis: ["Leader Magicka"],
@@ -17159,6 +17683,7 @@ magicka: {
             },
             {
                 nom: "Overdrive Transformation !",
+                image: "",
                 description: "Vous pouvez changer de forme même hors de votre tour de jeu, y compris en utilisant l’effet de 'Perfect Transformation !'. Hors combat vous changez de forme instantanément.",
                 niveauJoueur: 7,
                 prerequis: ["Last Hope"],
@@ -17169,6 +17694,7 @@ magicka: {
             },
             {
                 nom: "Ancestral Magicka",
+                image: "",
                 description: "Ajoute +1 en Sagesse, permet de parler la langue Ancien.",
                 niveauJoueur: 8,
                 prerequis: ["Overdrive Transformation !"],
@@ -17179,6 +17705,7 @@ magicka: {
             },
             {
                 nom: "Strongest Magicka",
+                image: "",
                 description: "Ajoute +1 en Force, en forme brutale la Magicka peut soulever ou détruire des objets très massifs.",
                 niveauJoueur: 9,
                 prerequis: ["Ancestral Magicka"],
@@ -17189,6 +17716,7 @@ magicka: {
             },
             {
                 nom: "Flawless Victory",
+                image: "",
                 description: "À chaque fois que vous, ou une Magicka tuez ou mettez K.O un ennemi dans le combat toutes les Magicka récupèrent 1 dé 6 PV et gagnent +1 DSB pour le reste du combat. Ce passif ne s’enclenche qu’une fois par ennemi tué même si d’autres Magicka le possèdent aussi.",
                 niveauJoueur: 10,
                 prerequis: ["Strongest Magicka"],
@@ -17204,6 +17732,7 @@ magicka: {
         sortNovice: [
             {
                 nom: "Magical Kick",
+                image: "",
                 description: "Frappe un adversaire au corps à corps avec un puissant coup de pied, inflige 1 dé 6 +2 dégâts et le repousse de 5 mètres.",
                 Psy: 3,
                 PV: "N/A",
@@ -17218,6 +17747,7 @@ magicka: {
             },
             {
                 nom: "Magicka Spirit",
+                image: "",
                 description: "''Invocation'' Convoque un esprit magique mignon lié à la Magicka il sera toujours de taille 'très petite', possède la vitesse normale et 10 PV, il peut soigner un allié pour 1 dé 4 PV ou frapper un ennemi à distance pour 1 dé 6 dégâts. S’il termine son tour à côté d’une Magicka il gagne 2 PB fixes et octroie 2 PB fixes à la Magicka.",
                 Psy: 4,
                 PV: "N/A",
@@ -17237,6 +17767,7 @@ magicka: {
             },
             {
                 nom: "Magical Dodge",
+                image: "",
                 description: "À la prochaine attaque reçue vous vous déplacez de 5 mètres dans la direction de votre choix, si vous n’êtes plus à portée de l’attaque après ce déplacement vous ne subissez aucun dégât. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -17251,6 +17782,7 @@ magicka: {
             },
             {
                 nom: "Motivational speech",
+                image: "",
                 description: "''Tout le terrain'' Octroie 2 PB à tous les alliés sur le terrain, la prochaine attaque qu’ils subissent verra ses dégâts réduits de 4 pour 1 tour. Sur les autres Magicka ce sort les soigne aussi de 1 dé 4 PV.",
                 Psy: 3,
                 PV: "N/A",
@@ -17266,6 +17798,7 @@ magicka: {
             },
             {
                 nom: "Love-Love Punch",
+                image: "",
                 description: "Frappe avec toute la force de l’amour une cible au corps à corps, lui inflige 1 dé 6 +1 dégâts et 'Charme', si la cible ne subit pas le 'Charme' ce sort inflige de nouveau 1 dé 4 dégâts fixes.",
                 Psy: 3,
                 PV: "N/A",
@@ -17281,6 +17814,7 @@ magicka: {
             },
             {
                 nom: "Sparkling Hope",
+                image: "",
                 description: "Soigne 1 dé 6 PV à une cible jusqu’à 30 mètres et lui retire Cécité et Chaos. Si la cible est une Magicka ce sort octroie 2 PB fixe au lanceur et à la cible.",
                 Psy: 3,
                 PV: "N/A",
@@ -17296,6 +17830,7 @@ magicka: {
             },
             {
                 nom: "Candy Hammer",
+                image: "",
                 description: "Frappe un ennemi avec un marteau en bonbon qui éclate à l’impact, ce sort inflige 1 dé 6 +1 dégâts à la cible initiale et 3 dégâts fixes à toutes les cibles à son corps à corps alliés compris. Les Magickas dans la zone se soignent plutôt que de subir les dégâts de la zone.",
                 Psy: 4,
                 PV: "N/A",
@@ -17311,6 +17846,7 @@ magicka: {
             },
             {
                 nom: "Helping Hand",
+                image: "",
                 description: "La Magicka propose son aide désintéressée et pleine de compassion. Sur un ennemi cela lui inflige 'Charme' et le considère comme une Magicka pendant l’effet du 'Charme'. Sur un allié ce sort reste dormant jusqu’à ce qu’il prenne une attaque qui le tue ou le mette 'K.O', il ignore alors l'attaque reçue et ses effets. Si ce sort cible une Magicka l’effet s’applique au lanceur également.",
                 Psy: 5,
                 PV: "N/A",
@@ -17326,6 +17862,7 @@ magicka: {
             },
             {
                 nom: "Dynamic Entry",
+                image: "",
                 description: "Le lanceur se téléporte jusqu’à 10 mètres en ignorant les attaques d’opportunités et les états affectant le déplacement. Il frappe tous les ennemis autour de la case d’arrivée pour 1 dé 6 +1 dégâts puis se téléporte à nouveau de 10 mètres. Lors de ce téléport final, si le lanceur finit à côté d’une Magicka il gagne +1 cran en vitesse pour ce tour.",
                 Psy: 4,
                 PV: "N/A",
@@ -17342,6 +17879,7 @@ magicka: {
             },
             {
                 nom: "Unicorn starlight",
+                image: "",
                 description: "Ce sort peut cibler jusqu’à 40 mètres. Dans la zone d’effet les alliés récupèrent 1 dé 4 PV et les ennemis subissent 1 dé 4 dégâts. Si une Magicka est dans la zone ce sort voit ses soins et dégâts doublés.",
                 Psy: 4,
                 PV: "N/A",
@@ -17357,6 +17895,7 @@ magicka: {
             },
             {
                 nom: "Love Cry",
+                image: "",
                 description: "La Magicka hurle et emplie de sentiments bienveillants les alliés à proximité, octroie une Immunité à 'Charme' et retire l’effet, donne également 2 d’armure et 20% de chances de bloquer pendant 2 tours. Les Magicka dans la zone peuvent désormais répartir les dégâts subis d’une attaque entre eux pendant l’effet de ce sort.",
                 Psy: 4,
                 PV: "N/A",
@@ -17374,6 +17913,7 @@ magicka: {
             },
             {
                 nom: "Kiss Shot",
+                image: "",
                 description: "La Magicka lance un baiser volant jusqu’à une cible à 40 mètres maximum. Ce sort inflige 1 dé 4 dégâts perce armure, il ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -17389,6 +17929,7 @@ magicka: {
         sortConfirmé: [
             {
                 nom: "Candy Gummi Jar",
+                image: "",
                 description: "Invoque une jarre de bonbon qui distribue des friandises qui ajoutent +2 dégâts et 20% de chances de CC pendant 1 tour à ceux qui les mangent. Sur les Magicka l’effet soigne aussi 1 dé 4 PV. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 PV: "N/A",
@@ -17404,6 +17945,7 @@ magicka: {
             },
             {
                 nom: "Magical Rainbow",
+                image: "",
                 description: "Un arc-en-ciel se forme depuis la Magicka et va frapper un allié jusqu’à 30 mètres, il se soigne de 2 dés 4 PV et se voit supprimer un effet négatif. Si ce sort frappe une autre Magicka il soigne 2 dé 6 PV et supprime tous les effets négatifs.",
                 Psy: 5,
                 PV: "N/A",
@@ -17419,6 +17961,7 @@ magicka: {
             },
             {
                 nom: "Magical shinny slap",
+                image: "",
                 description: "Gifle un ennemi au corps à corps et inflige 2 dé 6 dégâts, un grand flash lumineux se produit lors de l’impact infligeant 'Cécité' à tous les ennemis autour du point d’impact. Inflige aussi 'Cécité' à tous les ennemis au corps à corps des autres Magicka sur le terrain.",
                 Psy: 5,
                 PV: "N/A",
@@ -17434,6 +17977,7 @@ magicka: {
             },
             {
                 nom: "Friendship is Magic",
+                image: "",
                 description: "L’allié ciblé par ce sort est considéré comme une Magicka pendant 1 tour et a accès à la mécanique de la voie en plus de ses capacités habituelles. Ce sort ne consomme pas d’action et son effet peut être prolongé pour 1 PSY par tour supplémentaire.",
                 Psy: 2,
                 PV: "N/A",
@@ -17448,6 +17992,7 @@ magicka: {
             },
             {
                 nom: "Faster than Baddies",
+                image: "",
                 description: "''Tout le terrain'' Augmente d’un cran la vitesse de tous les alliés sur le terrain et octroie un avantage sur tous les jets de sauvegarde. Les Magickas gagnent aussi un avantage sur les jets de blocage. Cet effet dure 1 tour et peut être prolongé pour 2 PSY par tour supplémentaire.",
                 Psy: 4,
                 PV: "N/A",
@@ -17465,6 +18010,7 @@ magicka: {
             },
             {
                 nom: "Magical Beam",
+                image: "",
                 description: "Concentrez tout le pouvoir de Magicka en une attaque surpuissante, nécessite un tour de charge, après ce tour l’attaque inflige 2 dé 8 dégâts à un ennemi jusqu’à 30 mètres. Si vous perdez des PV pendant le tour de charge l’attaque est annulée et le coût en PSY vous est rendu, vous pouvez charger l’attaque autant que vous le voulez, chaque tour de charge ajoute 1 dé 8 à l’attaque. Chaque autre Magicka sur une case adjacente à vous au lancement du sort ajoute +2 dégâts à chaque dé lors du calcul des dégâts.",
                 Psy: 5,
                 PV: "N/A",
@@ -17481,6 +18027,7 @@ magicka: {
             },
             {
                 nom: "Magical Plush",
+                image: "",
                 description: "Lance une série de peluches autour du lanceur, inflige 3 dé 4 dégâts, peut cibler jusqu’à 3 cibles elles se partageront alors les dégâts équitablement. Si une autre Magicka est dans la zone d’effet une grosse peluche se colle à un ennemi et explose infligeant 1 dé 4 dégâts et 'Brulure' à celui-ci.",
                 Psy: 5,
                 PV: "N/A",
@@ -17496,6 +18043,7 @@ magicka: {
             },
             {
                 nom: "Goodbye Hug",
+                image: "",
                 description: "La Magicka s’empare d’un ennemi et lui brise tous les os en le serrant avec une force démesurée. Inflige 1 dé 6 +4 dégâts et applique 'Entrave' irrésistible. Pour chaque Magicka au corps à corps de la cible on ajoute 1 dé 6 dégâts fixes supplémentaires.",
                 Psy: 5,
                 PV: "N/A",
@@ -17511,6 +18059,7 @@ magicka: {
             },
             {
                 nom: "Super Magicka",
+                image: "",
                 description: "''Tout le Terrain'' La Magicka se montre comme la véritable héroïne sur le terrain, ce sort déclenche le ciblage sur le lanceur pour tous les ennemis sur le terrain. Les autres Magicka ont les mains libres et infligent 2 dégâts supplémentaires avec toutes leurs attaques sur les ennemis pris par ce ciblage.",
                 Psy: 5,
                 PV: "N/A",
@@ -17527,6 +18076,7 @@ magicka: {
         sortExpert: [
             {
                 nom: "Magical Muscle",
+                image: "",
                 description: "La Magicka voit sa masse musculaire soudainement gonflée, elle frappe alors tous les ennemis à son corps à corps et inflige 1 dé 10 dégâts à chacun d’entre eux et leur applique 'Sonné'. Si une autre Magicka est présente au corps à corps d’un ou plusieurs adversaires touchés par cette attaque, elle réplique l’attaque et inflige à son tour 1 dé 10 dégâts.",
                 Psy: 7,
                 PV: "N/A",
@@ -17542,6 +18092,7 @@ magicka: {
             },
             {
                 nom: "Magical dramatic cry",
+                image: "",
                 description: "''Tout le terrain'' Le lanceur pleure à chaudes larmes et implore de l’aide au ciel, les ennemis subissent soudainement 'Silence', 'Cécité' et 'Entrave' irrésistible pour 1 tour. Les alliés se sentent gonflés à bloc leurs attaques infligeront 2 dégâts supplémentaires par effets négatifs sur la cible, les autres Magicka se purgeront de leurs effets négatifs et soigneront 4 PV fixes par effet supprimé.",
                 Psy: 7,
                 PV: "N/A",
@@ -17557,6 +18108,7 @@ magicka: {
             },
             {
                 nom: "Magical unknow flying object",
+                image: "",
                 description: "Un objet non identifié s’écrase sur une cible jusqu’à 25 mètres et inflige 2 dés 8 dégâts dans toute la zone d’impact et applique 'Sonné'. Ce sort touche allié comme ennemi mais pas les autres Magicka.",
                 Psy: 7,
                 PV: "N/A",
@@ -17572,6 +18124,7 @@ magicka: {
             },
             {
                 nom: "Magical Sparkle Dash",
+                image: "",
                 description: "Avance en ligne droite de 20 mètres, traverse toutes les entités, la case d’arrivée doit être libre ou avoir une Magicka à cette place. Les ennemis traversés subissent 2 dés 6 dégâts, des paillettes brillantes giclent alors et infligeront 1 dé 6 dégâts en explosant dans la zone traversée au début du prochain tour de la Magicka. Si une autre Magicka est sur la case d’arrivée elle vous propulse pour un deuxième passage qui fait exploser les paillettes instantanément et ajoute 1 dé 6 dégâts supplémentaire.",
                 Psy: 8,
                 PV: "N/A",
@@ -17589,6 +18142,7 @@ magicka: {
             },
             {
                 nom: "Magical power of love",
+                image: "",
                 description: "''Tout le terrain'' Téléporte toutes les Magicka au corps à corps du lanceur, ensemble elles canalisent une puissante onde de psyché qui soigne 1 dé 8 +2 par Magicka lançant le sort à tous les alliés y compris elles-mêmes sur le terrain, purge aussi tous les effets négatifs.",
                 Psy: 8,
                 PV: "N/A",
@@ -17604,6 +18158,7 @@ magicka: {
             },
             {
                 nom: "Heartbeat Breaker",
+                image: "",
                 description: "La Magicka frappe des centaines de fois en quelques secondes le cœur de la cible, perturbant ses battements. Ce sort inflige 3 dés 4 +2 dégâts et impose un désavantage à tous les jets de la cible pendant 1 tour. Si la cible meurt toutes les Magicka sur le terrain gagnent un avantage sur tous leurs jets pendant 1 tour.",
                 Psy: 6,
                 PV: "N/A",
@@ -17619,6 +18174,7 @@ magicka: {
             },
             {
                 nom: "Magical power of friendship",
+                image: "",
                 description: "Téléporte toutes les Magicka au corps à corps du lanceur, ensemble elles canalisent alors une puissante boule de psyché qui infligera 1 dé 10 dégâts par Magicka lançant le sort à une cible jusqu’à 25 mètres, en ignorant le blocage, les armures et les boucliers.",
                 Psy: 7,
                 PV: "N/A",
@@ -17634,6 +18190,7 @@ magicka: {
             },
             {
                 nom: "Highway To Love",
+                image: "",
                 description: "La Magicka rejoint l’allié le plus proche par le chemin le plus court, ce faisant elle traverse toutes les entités, ignore les effets altérant le déplacement et les attaques d’opportunités. Elle soigne cet allié de 1 dé 6 PV puis se déplace vers l’allié le plus proche à nouveau. Cet effet se répète jusqu’à ce que tous les alliés aient été soignés 1 fois. De plus chaque ennemi traversé subit 1 dé 6 dégâts. Si ce sort soigne une Magicka elle gagne les bonus de la forme Rapide sans en subir les Malus pendant 1 tour, en supplément d’une éventuelle autre forme.",
                 Psy: 6,
                 PV: "N/A",
@@ -17653,6 +18210,7 @@ magicka: {
         sortMaitre: [
             {
                 nom: "Magical Apothéosis",
+                image: "",
                 description: "Vous prenez les bonus doublés des 4 formes de Magicka, sans subir le moindre malus. Cette forme peut changer grandement l’apparence de la Magicka. Pendant la durée de ce sort, tous les alliés sont considérés comme des Magicka. Ce sort a une durée de 2 tours, il peut prolonger sa durée pour 3 PSY supplémentaire par tour, ce sort ne consomme pas d’action.",
                 Psy: 12,
                 PV: "N/A",
@@ -17672,6 +18230,8 @@ magicka: {
     }
 },
 enchanteur: {
+    nom: "Enchanteur",
+    image: "",   
     description: [
         "Catégorie à part de mages, les enchanteurs et les enchanteresses sont capables d'appliquer des propriétés magiques à des objets ou à des êtres, cette capacité les rend presque indispensables dans la fabrication d'objets magiques en tout genre et ils sont généralement très appréciés en Alyria.",
         "Néanmoins cet art est assez récent et difficile à maîtriser, il devient de plus en plus populaire bien sûr mais il existe peu de professeurs voulant ou étant capable de l'enseigner. Les enchanteurs rejoignent rarement des groupes d'aventuriers car leur art se pratique mieux au chaud et à l'abri, pourtant parfois certains se lancent sur les routes avec des compagnies et se montrent particulièrement redoutables en soutien d'autres aventuriers combattants."
@@ -17720,6 +18280,7 @@ enchanteur: {
         talents: [
             {
                 nom: "Calligraphie magique",
+                image: "",
                 description: "Ajoute +1 en Sagesse et en Intelligence, l’enchanteur peut parler une langue supplémentaire.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -17731,6 +18292,7 @@ enchanteur: {
             },
             {
                 nom: "Enchanteur prolifique",
+                image: "",
                 description: "Ajoute +1 en Charisme et en Sagesse, octroie +20 en marchandage pour vendre un objet enchanté par le personnage.",
                 niveauJoueur: 2,
                 prerequis: ["Calligraphie magique"],
@@ -17742,6 +18304,7 @@ enchanteur: {
             },
             {
                 nom: "Apprenti enchanteur",
+                image: "",
                 description: "Le sort 'Enchantement' peut désormais appliquer un trait positif rare, il peut aussi cibler directement des êtres vivants non intelligents en leur appliquant un effet de moyenne valeur ou une imperfection.",
                 niveauJoueur: 3,
                 prerequis: ["Enchanteur prolifique"],
@@ -17752,6 +18315,7 @@ enchanteur: {
             },
             {
                 nom: "Chaîne d’enchantement",
+                image: "",
                 description: "Ajoute +1 en Sagesse, les sorts contenant le mot 'enchantement' coûtent tous 1 PSY de moins à utiliser.",
                 niveauJoueur: 4,
                 prerequis: ["Apprenti enchanteur"],
@@ -17762,6 +18326,7 @@ enchanteur: {
             },
             {
                 nom: "Bio-sculpteur",
+                image: "",
                 description: "L’enchanteur peut appliquer ses enchantements sur des êtres vivants quels qu’ils soient, il applique un trait positif commun statistique uniquement mais cumulable avec des modifications d’enchantement d’équipement.",
                 niveauJoueur: 5,
                 prerequis: ["Chaîne d’enchantement"],
@@ -17772,6 +18337,7 @@ enchanteur: {
             },
             {
                 nom: "Enchanteur intellectuel",
+                image: "",
                 description: "Ajoute +1 en Sagesse et en Intelligence, l’enchanteur gagne un avantage sur ses jets de connaissance mystique, ou lors d'un jet concernant un enchantement.",
                 niveauJoueur: 6,
                 prerequis: ["Bio-sculpteur"],
@@ -17783,6 +18349,7 @@ enchanteur: {
             },
             {
                 nom: "Enchanteur confirmé",
+                image: "",
                 description: "Le sort 'Enchantement' peut désormais appliquer un trait positif Épique. L’enchanteur peut aussi écrire quelque chose et un effet ou une imperfection s’appliquera lorsqu’une cible lira ce qu’il y a d’écrit plutôt que d’enchanter directement sur un objet.",
                 niveauJoueur: 7,
                 prerequis: ["Enchanteur intellectuel"],
@@ -17793,6 +18360,7 @@ enchanteur: {
             },
             {
                 nom: "Barda enchanté",
+                image: "",
                 description: "S’enclenche si le lanceur possède au moins trois objets enchantés sur lui, ceux-ci perturbent la psyché environnante et le lanceur applique alors 'Silence' à son corps à corps de manière passive à chaque fois qu’il débute son tour.",
                 niveauJoueur: 8,
                 prerequis: ["Enchanteur confirmé"],
@@ -17802,6 +18370,7 @@ enchanteur: {
             },
             {
                 nom: "Enchantement longue durée",
+                image: "",
                 description: "Augmente de 1 tour la durée de tous les sorts possédant le mot Enchantement.",
                 niveauJoueur: 9,
                 prerequis: ["Barda enchanté"],
@@ -17811,6 +18380,7 @@ enchanteur: {
             },
             {
                 nom: "Grand Enchanteur",
+                image: "",
                 description: "Le sort 'Enchantement' peut désormais appliquer un trait positif légendaire.",
                 niveauJoueur: 10,
                 prerequis: ["Enchantement longue durée"],
@@ -17825,6 +18395,7 @@ enchanteur: {
         sortNovice: [
             {
                 nom: "Enchantement de protection",
+                image: "",
                 description: "Le lanceur applique un effet sur une cible à distance, pendant 2 tours elle gagne 2 d’armure et +10% de chance de bloquer.",
                 Psy: 3,
                 PV: "N/A",
@@ -17840,6 +18411,7 @@ enchanteur: {
             },
             {
                 nom: "Mots enchantés",
+                image: "",
                 description: "Le lanceur choisit une altération d’état, il peut l’appliquer sur une cible à son corps à corps. Si l’application échoue la cible subit 1 dé 4 dégâts. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -17854,6 +18426,7 @@ enchanteur: {
             },
             {
                 nom: "Enchantement de fermeté",
+                image: "",
                 description: "Les alliés dans la zone ne peuvent plus être déplacés d’aucune manière contre leur gré et gagnent une résistance au Neutre tant qu’il ne se déplace pas. Cet effet dure 1 tour.",
                 Psy: 3,
                 PV: "N/A",
@@ -17869,6 +18442,7 @@ enchanteur: {
             },
             {
                 nom: "Rune d’affaiblissement",
+                image: "",
                 description: "Le lanceur pose 4 runes jusqu’à 30 mètres. Ces runes octroient un désavantage sur tous les jets de dés pendant 1 tour aux ennemis qui marchent dessus ou passent à travers. L’effet ou la durée n’est pas cumulable.",
                 Psy: 3,
                 PV: "N/A",
@@ -17884,6 +18458,7 @@ enchanteur: {
             },
             {
                 nom: "Rune erratique",
+                image: "",
                 description: "''Invocation'' Crée une rune douée de conscience qui se place au corps à corps du lanceur. Cette rune est invisible et Invulnérable et peut bouger de 15 mètres à chaque tour mais en respectant les mouvements d’un cavalier aux échecs (déplacement en L). Si elle arrive sur la même case qu’un ennemi il lui inflige 1 dé 6 dégâts, sur la même case qu’un allié elle le soigne de 1 dé 6 PV. Une fois que la Rune a infligé des dégâts ou soigné 3 fois elle disparaît. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 PV: "N/A",
@@ -17902,6 +18477,7 @@ enchanteur: {
             },
             {
                 nom: "Enchantement de réussite",
+                image: "",
                 description: "Le lanceur applique un effet sur une cible au corps à corps, elle gagne un avantage à tous ses jets pendant 2 tours. Hors combat cet effet dure 5 minutes.",
                 Psy: 3,
                 PV: "N/A",
@@ -17916,6 +18492,7 @@ enchanteur: {
             },
             {
                 nom: "Rune de silence",
+                image: "",
                 description: "Pose une rune au sol jusqu’à 10 mètres du lanceur, la prochaine entité qui marchera sur la case ciblée subira 'Silence' et 1 dé 4 dégâts.",
                 Psy: 2,
                 PV: "N/A",
@@ -17930,6 +18507,7 @@ enchanteur: {
             },
             {
                 nom: "Désenchantement",
+                image: "",
                 description: "Ce sort permet d’annuler un bonus temporaire d’un adversaire à distance. Hors combat ce sort permet de supprimer un enchantement créé par l’enchanteur ou quelqu’un de moins puissant que lui. Ce sort ne consomme pas d’action, il prend quelques minutes à réaliser hors combat.",
                 Psy: 2,
                 PV: "N/A",
@@ -17944,6 +18522,7 @@ enchanteur: {
             },
             {
                 nom: "Rune répulsive",
+                image: "",
                 description: "Le lanceur pose 2 runes à moins de 15 mètres de lui, chacune de ces runes poussent une cible qui marche dessus de 5 mètres dans la direction voulue et lui inflige 1 dé 4 dégâts perce armure.",
                 Psy: 3,
                 PV: "N/A",
@@ -17959,6 +18538,7 @@ enchanteur: {
             },
             {
                 nom: "Enchantement de secours",
+                image: "",
                 description: "Octroie +10 dans une catégorie de statistiques mineures au lanceur ou à un allié jusqu’à 40 mètres, cet effet est invisible et peut être lancé en réflexe. On peut doubler, ou tripler le coût du sort pour doubler ou tripler l’effet. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -17974,6 +18554,7 @@ enchanteur: {
             },
             {
                 nom: "Rune de téléportation",
+                image: "",
                 description: "Invoque une rune à 10 mètres du lanceur puis une autre à 25 mètres de cette dernière. Si une entité marche sur l’une elle est téléportée sur l’autre, cet effet ne peut avoir lieu que si la rune d’arrivée n’a pas d’entité sur elle, les runes disparaissent après 3 tours. La pose des runes nécessite que le lanceur voit les deux runes pour les poser. Ce sort coûte tout le déplacement du lanceur mais ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -17991,6 +18572,7 @@ enchanteur: {
             },
             {
                 nom: "Enchantement de régénération",
+                image: "",
                 description: "Le lanceur applique un effet sur deux cibles à distance, pendant 2 tours ces cibles se soignent de 1 dé 6 PV fixes au début de leur tour.",
                 Psy: 4,
                 PV: "N/A",
@@ -18007,6 +18589,7 @@ enchanteur: {
         sortConfirmé: [
             {
                 nom: "Enchantement de mobilité",
+                image: "",
                 description: "Le lanceur applique un effet sur deux cibles jusqu’à 20 mètres, pendant 2 tours elles gagnent 2 crans en vitesse.",
                 Psy: 4,
                 PV: "N/A",
@@ -18021,6 +18604,7 @@ enchanteur: {
             },
             {
                 nom: "Enchantement de puissance",
+                image: "",
                 description: "Le lanceur applique un effet sur tous les alliés à son corps à corps, pendant 2 tours ils gagnent +3 aux dégâts.",
                 Psy: 4,
                 PV: "N/A",
@@ -18035,6 +18619,7 @@ enchanteur: {
             },
             {
                 nom: "Rune d’entrave",
+                image: "",
                 description: "Le lanceur place 2 runes sur des cases jusqu’à 30 mètres, si une entité passe ou s’arrête sur une de ces cases elle subit 'Entrave' et 1 dé 6 dégâts. Si elle résiste à l’entrave les dégâts sont doublés.",
                 Psy: 5,
                 PV: "N/A",
@@ -18050,6 +18635,7 @@ enchanteur: {
             },
             {
                 nom: "Rune explosive",
+                image: "",
                 description: "Le lanceur pose 2 runes jusqu’à 30 mètres, si une entité passe ou s’arrête sur une de ces cases elle subit 2 dé 4 +2 dégâts Feu.",
                 Psy: 5,
                 PV: "N/A",
@@ -18064,6 +18650,7 @@ enchanteur: {
             },
             {
                 nom: "Enchantement de Résilience",
+                image: "",
                 description: "''Tout le terrain'' Octroie une immunité à toutes les altérations négatives pendant 1 tour et les purge sur tous les alliés.",
                 Psy: 5,
                 PV: "N/A",
@@ -18078,6 +18665,7 @@ enchanteur: {
             },
             {
                 nom: "Cacophonie de l’Enchanteur",
+                image: "",
                 description: "Ce sort inflige X dé 4 dégâts où X est la moitié de la somme des runes et des enchantements actifs sur le terrain en simultané, arrondie à l’inférieur. Les enchantements permanents sur des objets tenus par des alliés ou le lanceur comptent également. Ce sort a un temps de recharge de 2 tours et ne prend pas en compte les runes posées par 'Pays Enchanté'.",
                 Psy: 5,
                 PV: "N/A",
@@ -18093,6 +18681,7 @@ enchanteur: {
             },
             {
                 nom: "Enchantement débilitant",
+                image: "",
                 description: "Vous pouvez choisir un de vos autres sortilèges d’enchantement connu et inverser son effet pour l’appliquer à une cible ennemi pendant 2 tours.",
                 Psy: 4,
                 PV: "N/A",
@@ -18106,6 +18695,7 @@ enchanteur: {
             },
             {
                 nom: "Cape enchantée",
+                image: "",
                 description: "Le lanceur s’abrite à l’aide d’une cape enchantée qui annulera la prochaine attaque subie. Ce sort ne consomme pas d’action et peut être lancé n'importe quand.",
                 Psy: 4,
                 PV: "N/A",
@@ -18119,6 +18709,7 @@ enchanteur: {
             },
             {
                 nom: "Rune Toxique",
+                image: "",
                 description: "Pose 4 runes dans un rayon de 20 mètres autour du lanceur, ces runes infligent chacune 1 dé 4 dégâts Terre fixes et appliquent 2 Poisons à chaque ennemis qui les traversent ou s’arrêtent dessus.",
                 Psy: 5,
                 PV: "N/A",
@@ -18136,6 +18727,7 @@ enchanteur: {
         sortExpert: [
             {
                 nom: "Enchantement de chance",
+                image: "",
                 description: "Le lanceur applique un effet en adressant une prière à Scélenis. Pendant 2 tours, une cible à distance gagne +30% de chances de CC.",
                 Psy: 5,
                 PV: "N/A",
@@ -18150,6 +18742,7 @@ enchanteur: {
             },
             {
                 nom: "Enchantement de précision",
+                image: "",
                 description: "Le lanceur applique un effet sur une entité jusqu’à 30 mètres, pendant 2 tours elle verra toutes ses chances de toucher, ses chances de bloquer et ses jets de sauvegarde augmentés de 20%.",
                 Psy: 6,
                 PV: "N/A",
@@ -18164,6 +18757,7 @@ enchanteur: {
             },
             {
                 nom: "Enchantement vital",
+                image: "",
                 description: "Le lanceur applique un enchantement terriblement puissant qui défie la mort elle-même. La cible de l’enchantement ne peut pas être tuée ou mise K.O pendant 1 tour quel que soit les dégâts qu’elle subit, elle revient à 50% de ses PV max à la fin de l’effet.",
                 Psy: 7,
                 PV: "N/A",
@@ -18178,6 +18772,7 @@ enchanteur: {
             },
             {
                 nom: "Rune D’Annihilation",
+                image: "",
                 description: "Pose une rune à plus de 10 mètres de n’importe quel ennemi sur le terrain. Si un ennemi passe dessus ou s’arrête dessus il subit 2 dés 10 dégâts Foudre.",
                 Psy: 6,
                 PV: "N/A",
@@ -18192,6 +18787,7 @@ enchanteur: {
             },
             {
                 nom: "Enchanté !",
+                image: "",
                 description: "Le lanceur se présente poliment et avec entrain, hors combat ce sort peut être utilisé pour gagner un avantage sur des jets liés au charisme auquel cas il ne coûtera que 3 PSY. En combat une cible au corps à corps est décontenancée et se voit appliquée 'Silence', 'Entrave' et 3 'Poisons' de manière irrésistible.",
                 Psy: 6,
                 PV: "N/A",
@@ -18206,6 +18802,7 @@ enchanteur: {
             },
             {
                 nom: "Pluie de runes",
+                image: "",
                 description: "''Tout le Terrain'' Le lanceur choisit les effets parmi les sorts possédant le mot 'rune' de niveau Novice ou Confirmé qu’il connaît et peut mettre un total de 4 runes différentes où il le désire sur le terrain.",
                 Psy: 7,
                 PV: "N/A",
@@ -18220,6 +18817,7 @@ enchanteur: {
             },
             {
                 nom: "Enchantement divin",
+                image: "",
                 description: "Le lanceur choisit autant de sorts Novice ou Confirmé possédant le mot 'enchantement' qu’il connaît, il double les effets et les applique sur une entité jusqu’à 50 mètres pendant 1 tour. Ce sort possède le même coût que le cumul des sorts choisis pour être appliqués +2 PSY.",
                 Psy: "???",
                 PV: "N/A",
@@ -18235,6 +18833,7 @@ enchanteur: {
             },
             {
                 nom: "Rune Miraculeuse",
+                image: "",
                 description: "Pose une rune à plus de 10 mètres de n’importe quel allié sur le terrain. Si un allié passe dessus ou s’arrête dessus il est soigné de 2 dé 6 +4 PV.",
                 Psy: 6,
                 PV: "N/A",
@@ -18251,6 +18850,7 @@ enchanteur: {
         sortMaitre: [
             {
                 nom: "Pays Enchanté",
+                image: "",
                 description: "''Tout le terrain'' Transforme toutes les cases du terrain en une rune qui inflige 1 dé 2 dégâts fixes aux ennemis et soigne le même montant aux alliés. L’enchanteur choisit 2 enchantements en lançant ce sortilège et les applique à tous les alliés ou ennemis sur le terrain pendant 2 tours. Les runes posées par ce sort se cumulent avec d’autres runes mais disparaissent au bout de 2 tours.",
                 Psy: 11,
                 PV: "N/A",
@@ -18270,6 +18870,8 @@ enchanteur: {
     }
 },
 sorciere: {
+    nom: "Sorcière",
+    image: "",    
     description: [
         "Les sorcières sont affublées de tous les maux du monde, le commun des mortels les renie et les tient responsables de tous leurs problèmes. Ces magiciennes sont en effet, versées dans des arts interdits, pouvant parler aux âmes défuntes et les convoquer, pouvant semer zizanie, chaos et maléfice dans leurs sillages.",
         "Les sorcières sont rares en Alyria, de fait elles sont souvent incomprises et leur magie, singulière, fait peur même aux autres mages. Pour autant, la communion avec le plan des âmes et la maîtrise de divers malédictions ne font pas d'elles des menaces et celles-ci vivent souvent recluses de la société par peur pour leur vie.",
@@ -18281,6 +18883,7 @@ sorciere: {
         {
             nom: "Chaudron (Réussite automatique)",
             type: "Invocation",
+            image: "",            
             description: "Le chaudron de la sorcière est une invocation immobile qui peut, au choix, varier selon les effets suivants à chacun de ses tours :",
             effets_tour: [
                 "Inflige 2 Poisons à toutes les entités au corps à corps",
@@ -18302,6 +18905,7 @@ sorciere: {
         talents: [
             {
                 nom: "Ricaneuse sinistre",
+                image: "",
                 description: "Octroie +1 en Charisme et en Intelligence. Ajoute +10 en Intimidation et en Connaissance mystique.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -18318,6 +18922,7 @@ sorciere: {
             },
             {
                 nom: "Rituels interdits",
+                image: "",
                 description: "Vous gagnez un bonus de 20% de chances de réussir un sort possédant \"Rituel\" dans son nom si vous avez infligé une altération d’état négative à une entité pendant le tour en cours ou le précédent.",
                 niveauJoueur: 2,
                 prerequis: ["Ricaneuse sinistre"],
@@ -18328,6 +18933,7 @@ sorciere: {
             },
             {
                 nom: "Parler à l’au-delà",
+                image: "",
                 description: "Vous parlez l’Ancien, vous pouvez lancer un puissant rituel qui prend 2 heures de temps à lancer et permet de poser 3 questions à une âme tuée récemment. Ce rituel coûte 6 PSY irréductible et ne peut pas profiter de la psyché naturelle.",
                 niveauJoueur: 3,
                 prerequis: ["Rituels interdits"],
@@ -18342,6 +18948,7 @@ sorciere: {
             },
             {
                 nom: "Connaissance des anciens pactes",
+                image: "",
                 description: "Ajoute +2 en Sagesse, si vous devez mourir une entité de l’au-delà vous ramène à votre corps et vous regagnez 1 PV et obtenez \"Invulnérable\" pendant 1 tour. Une fois par semaine.",
                 niveauJoueur: 4,
                 prerequis: ["Parler à l’au-delà"],
@@ -18358,6 +18965,7 @@ sorciere: {
             },
             {
                 nom: "Familière des familiers",
+                image: "",
                 description: "Vous choisissez jusqu’à 3 de vos invocations, celles-ci obtiennent un bonus de PV égal à votre DSB et un bonus de dégâts égal à la moitié de votre DSB. Vous parlez le langage Animal.",
                 niveauJoueur: 5,
                 prerequis: ["Connaissance des anciens pactes"],
@@ -18371,6 +18979,7 @@ sorciere: {
             },
             {
                 nom: "Nourrir le chaudron",
+                image: "",
                 description: "Le chaudron peut désormais tuer des invocations même ennemies si elles possèdent moins de 10 PV restants. S’il tue une invocation adverse son prochain effet est joué trois fois.",
                 niveauJoueur: 6,
                 prerequis: ["Familière des familiers"],
@@ -18381,6 +18990,7 @@ sorciere: {
             },
             {
                 nom: "Sorcière mythique",
+                image: "",
                 description: "Ajoute +2 en Intelligence, Octroie un avantage sur vos jets de Charisme sauf face à d’autres mages ou connaisseurs en magie.",
                 niveauJoueur: 7,
                 prerequis: ["Nourrir le chaudron"],
@@ -18393,6 +19003,7 @@ sorciere: {
             },
             {
                 nom: "Empoisonneuse",
+                image: "",
                 description: "À chaque fois que vous devez appliquer au moins 2 Poisons vous en appliquez 1 de manière irrésistible. Vous regagnez des PV plutôt que d’en perdre si vous subissez Poison.",
                 niveauJoueur: 8,
                 prerequis: ["Sorcière mythique"],
@@ -18403,6 +19014,7 @@ sorciere: {
             },
             {
                 nom: "Chaudron maudit",
+                image: "",
                 description: "Si le chaudron doit mourir d’une attaque il se téléporte à côté de la sorcière gratuitement et conserve 1 PV, cet effet ne s’active qu’une fois par occurrence du Chaudron. Vous pouvez lancer des sorts possédant le mot \"Rituel\" en ayant votre chaudron comme point de départ, où qu’il soit sur le terrain.",
                 niveauJoueur: 9,
                 prerequis: ["Empoisonneuse"],
@@ -18413,6 +19025,7 @@ sorciere: {
             },
             {
                 nom: "Sabbat Impie",
+                image: "",
                 description: "Chaque rituel réussi pendant un combat augmente votre DSB de 2 jusqu’à un maximum de 6.",
                 niveauJoueur: 10,
                 prerequis: ["Chaudron maudit"],
@@ -18431,6 +19044,7 @@ sorciere: {
             {
                 nom: "Pluie de crapaud",
                 type: "Invocation",
+                image: "",
                 description: "Fait tomber des amphibiens dans toute la zone qui infligent 1 dé 4 dégâts et Poison à tous les ennemis touchés. Vous invoquez des crapauds après avoir touché avec ce sort jusqu’à votre limite maximale d’invocation. Les crapauds frappent 1 dé 2 dégâts et appliquent Poison irrésistible au corps à corps. Ils possèdent 4 PV et la vitesse Lente.",
                 Psy: 4,
                 PV: "N/A",
@@ -18453,6 +19067,7 @@ sorciere: {
             {
                 nom: "Rituel d’occultation",
                 type: "Rituel",
+                image: "",
                 description: "Vous devenez Invisible et augmentez votre vitesse d’un cran pendant 1 tour ou jusqu’à ce que vous attaquiez. Votre prochaine attaque au corps à corps voit ses dégâts augmentés de 50% si elle vous sort de votre Invisibilité. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -18468,6 +19083,7 @@ sorciere: {
             },
             {
                 nom: "Pomme empoisonnée",
+                image: "",
                 description: "Vous convainquez un ennemi de croquer dans une pomme… De gré ou de force. Inflige 1 dé 4 dégâts et applique Poison si l’ennemi ne le fait pas de son plein gré. Inflige 3 Poisons si vous parvenez à le convaincre sans user de la force.",
                 Psy: 2,
                 PV: "N/A",
@@ -18483,6 +19099,7 @@ sorciere: {
             },
             {
                 nom: "Complot Ourdi",
+                image: "",
                 description: "Nécessite d’avoir un allié au corps à corps, vous élaborez un plan pour vous débarrasser d’une cible choisie à moins de 20 mètres. Les attaques de l’allié et du lanceur appliqueront Poison et infligeront 1 dé 4 dégâts supplémentaires pendant 1 tour. Cet effet peut être prolongé d’un tour en payant 1 PSY.",
                 Psy: 2,
                 PV: "N/A",
@@ -18499,6 +19116,7 @@ sorciere: {
             },
             {
                 nom: "Gri-gri protecteur",
+                image: "",
                 description: "Vous brandissez votre gri-gri de protection, ce sort peut être lancé en réflexe pour se protéger d’une attaque. L’attaque qui devait toucher devra être rejouée avec désavantage, si elle réussit tout de même la sorcière gagne 2 d’armure pour ce calcul de dégâts.",
                 Psy: 3,
                 PV: "N/A",
@@ -18513,6 +19131,7 @@ sorciere: {
             },
             {
                 nom: "Citrouilles explosives",
+                image: "",
                 description: "Crée 3 citrouilles dans la zone, chacune d’elle possède 2 PV et explose en infligeant 1 dé 6 dégâts Feu à chaque entité à moins de 10 mètres d’elle lorsqu’elle meurt.",
                 Psy: 4,
                 PV: "N/A",
@@ -18531,6 +19150,7 @@ sorciere: {
             {
                 nom: "Oiseau de mauvais augure",
                 type: "Invocation",
+                image: "",
                 description: "Invoque un oiseau qui possède Volant, 6 PV et la vitesse Rapide. Il attaque à 1 dé 4 dégâts et inflige Cécité. Si l’oiseau est tué il octroie un désavantage sur tous les jets à son tueur pendant 1 tour.",
                 Psy: 3,
                 PV: "N/A",
@@ -18551,6 +19171,7 @@ sorciere: {
             },
             {
                 nom: "Ricanement",
+                image: "",
                 description: "Ce sort peut être lancé immédiatement après un échec fait par un ennemi, déclenche le ciblage sur vous et lui applique un désavantage sur tous ses jets pour 1 tour. Ce sort ne consomme pas d’action, limité à deux fois par tour.",
                 Psy: 1,
                 PV: "N/A",
@@ -18568,6 +19189,7 @@ sorciere: {
             {
                 nom: "Rituel maudit",
                 type: "Rituel",
+                image: "",
                 description: "Vous maudissez une cible jusqu’à 40 mètres. Celle-ci prend un malus de -20% à la réussite de ses jets de touche, de sauvegarde et de blocage. Cet effet persiste 1 tour et coûte 1 PSY supplémentaire pour 1 tour de plus.",
                 Psy: 2,
                 PV: "N/A",
@@ -18582,6 +19204,7 @@ sorciere: {
             },
             {
                 nom: "Brouillard fétide",
+                image: "",
                 description: "Crée une zone de brouillard à l’odeur épouvantable à 10 mètres autour de la sorcière, ce brouillard applique Cécité à quiconque se tient dedans et empêche les attaques à distance de cibler précisément des entités dans le nuage. À la fin du tour de jeu, si l’entité est dans le nuage elle subit Poison. Le brouillard fétide dure 2 tours et se déplace avec la sorcière.",
                 Psy: 4,
                 PV: "N/A",
@@ -18598,6 +19221,7 @@ sorciere: {
             },
             {
                 nom: "Tomber dans le chaudron",
+                image: "",
                 description: "Téléporte le chaudron à côté d’une cible jusqu’à 15 mètres. Si celle-ci est de taille petite ou inférieure elle tombe complètement dedans et subit 1 dé 8 dégâts Brûlure et Poison. Sinon elle est blessée par les éclaboussures de la marmite et subit 1 dé 4 dégâts et Brûlure.",
                 Psy: 3,
                 PV: "N/A",
@@ -18614,6 +19238,7 @@ sorciere: {
             {
                 nom: "Miroir, Miroir, dis-moi qui dois périr",
                 type: "Invocation",
+                image: "",
                 description: "Vous invoquez un miroir qui désigne une cible au hasard parmi les ennemis. Les attaques sur cette cible voient leurs dégâts augmentés de 1 dé 4 dégâts jusqu’à ce que la cible soit mise hors combat. Le miroir possède 12 PV et est immobile, il peut également utiliser son tour pour insulter copieusement mais néanmoins habilement un ennemi ce qui enclenchera le ciblage sur lui pour 1 tour.",
                 Psy: 4,
                 PV: "N/A",
@@ -18637,6 +19262,7 @@ sorciere: {
             {
                 nom: "Balai magique",
                 type: "Invocation",
+                image: "",
                 description: "Invoque un balai magique qui peut être chevauché uniquement par la sorcière, à son corps à corps elle peut grimper dessus et ils sont alors considérés comme une seule entité qui possède le talent Volant et la vitesse Très rapide. La sorcière peut monter OU descendre gratuitement du balai une fois par tour, sur le balai elle ne peut pas lancer de sortilège ou d’attaques consommant l’action. Le balai possède 10 PV et frappe à 1 dé 4 dégâts s’il n’est pas chevauché, il a la vitesse rapide.",
                 Psy: 5,
                 PV: "N/A",
@@ -18662,6 +19288,7 @@ sorciere: {
             },
             {
                 nom: "Marécage damné",
+                image: "",
                 description: "Une zone marécageuse remplie d’âmes damnées se crée et inflige 1 dé 10 dégâts et Terreur ainsi qu’Entrave à quiconque marche à l’intérieur. La zone se retire après 1 tour ou coûte 2 PSY pour durer 1 tour supplémentaire.",
                 Psy: 4,
                 PV: "N/A",
@@ -18677,6 +19304,7 @@ sorciere: {
             },
             {
                 nom: "Rire strident",
+                image: "",
                 description: "\"Tout le terrain\" La sorcière rit de manière très inquiétante et ce rire semble trouver des échos étranges venant de partout à la fois. Inflige Terreur aux ennemis, ceux qui résistent subissent Folie irrésistible à la place. Après avoir repris leurs esprits les ennemis subissent désavantage sur tous leurs jets pour 1 tour.",
                 Psy: 5,
                 PV: "N/A",
@@ -18693,6 +19321,7 @@ sorciere: {
             {
                 nom: "Rituel de damnation",
                 type: "Rituel",
+                image: "",
                 description: "Vous maudissez l’âme d’une personne et la condamnez à une damnation dans les flammes éternelles. La cible de ce rituel subit un désavantage sur tous ses jets liés à la Sagesse ou au Charisme, de plus elle subit Folie ou Brûlure à chaque début de tour au choix de la sorcière. Cela dure tout le combat ou 1 journée hors combat. Si la cible meurt pendant l’effet de ce sort son âme est éternellement damnée.",
                 Psy: 6,
                 PV: "N/A",
@@ -18710,6 +19339,7 @@ sorciere: {
             {
                 nom: "Chat noir",
                 type: "Invocation",
+                image: "",
                 description: "Un chat noir apparaît, il impose un désavantage à toutes les entités qui commencent leur tour à son corps à corps. Il a la vitesse Rapide, 9 PV, et inflige 1 dé 6 dégâts avec ses griffes. Si un ennemi fait un échec critique alors que cette invocation est sur le terrain elle gagne 1 dé 6 dégâts supplémentaire lorsqu’elle attaque, cet effet est cumulable 2 fois.",
                 Psy: 4,
                 PV: "N/A",
@@ -18729,6 +19359,7 @@ sorciere: {
             },
             {
                 nom: "Sentier des douceurs",
+                image: "",
                 description: "Vous créez un sentier rempli de sucreries et de bonbons, ceux qui en mangent sont soignés de 1 dé 4 PV fixes. Pour en manger il suffit de se tenir dans la zone et cela ne consomme pas d’action. Un nombre maximal de 2 sucreries par tour peuvent être mangées par une entité. Le sentier persiste 2 tours, à son expiration les cibles subissent 2 Poisons irrésistibles par sucrerie mangée. Si une entité a mangé plus de 2 sucreries elle subit également Folie.",
                 Psy: 4,
                 PV: "N/A",
@@ -18747,6 +19378,7 @@ sorciere: {
             {
                 nom: "Rituel Voodoo",
                 type: "Rituel",
+                image: "",
                 description: "Ce sort nécessite que vous ayez touché la cible avec une attaque de corps à corps au moins une fois ce combat. Injecte le sang de la cible dans une poupée de chiffon, à chaque tour la sorcière peut mettre une aiguille dans la poupée pour infliger 1 dé 6 dégâts fixes et irréductibles à la cible sans que cela ne consomme d’action. La poupée disparaît si la cible meurt mais pas si la sorcière meurt, dans ce cas elle peut être utilisée par n’importe qui.",
                 Psy: 5,
                 PV: "N/A",
@@ -18764,6 +19396,7 @@ sorciere: {
             },
             {
                 nom: "Crapaud charmant",
+                image: "",
                 description: "Si un crapaud est sur le terrain vous pouvez convaincre un ennemi de l’embrasser. L’ennemi doit se tenir au corps à corps du crapaud et posséder son action. Il embrassera alors le crapaud et on lance 1 dé 2. Sur 1 la cible de ce sort devient lui aussi un crapaud et ne peut plus attaquer pendant 1 tour, sur 2 le crapaud devient la plus belle personne imaginable par la cible et celle-ci subit alors charme et passera 2 tours à discuter avec son crapaud charmant avant que celui-ci ne disparaisse.",
                 Psy: 5,
                 PV: "N/A",
@@ -18782,6 +19415,7 @@ sorciere: {
             },
             {
                 nom: "Chaudron en Fonte",
+                image: "",
                 description: "Une fois ce sort lancé son effet dure jusqu’à sa révocation ou la fin du combat. Lorsque vous téléportez le chaudron à votre corps à corps vous pouvez faire qu’il tombe sur une case occupée. L’entité sur cette case subit 1 dé 8 dégâts fixes et Sonné et le chaudron occupe une case adjacente. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -18801,6 +19435,7 @@ sorciere: {
             {
                 nom: "Cabane de sorcière",
                 type: "Invocation",
+                image: "",
                 description: "Invoque une grande cabane avec des pattes de poulet qui possède la vitesse lente. L’invocation possède 20 PV et 4 d’armure, elle peut prendre un tour pour se positionner avant d’infliger, au tour suivant, 3 dé 6 dégâts à toutes les entités à moins de 10 mètres d’elle en s’abattant sur le sol avec force. Hors combat, la cabane possède tout le matériel nécessaire pour accueillir jusqu’à 4 personnes confortablement et ne laisse entrer que ceux que la sorcière accepte.",
                 Psy: 7,
                 PV: "N/A",
@@ -18821,6 +19456,7 @@ sorciere: {
             },
             {
                 nom: "Amis de l’au-delà",
+                image: "",
                 description: "La sorcière en appelle aux forces de l’autre côté, elle peut alors souhaiter du mal à un adversaire et des âmes tourmentées lui infligeront 2 dé 8 dégâts perce armure et il subira Terreur. Elle peut vouloir aider un ami et elle pourra alors ressusciter une cible, si elle est morte récemment, et lui rendre 50% de ses PV et de sa PSY max.",
                 Psy: 8,
                 PV: "N/A",
@@ -18841,6 +19477,7 @@ sorciere: {
             },
             {
                 nom: "Éruption néfaste",
+                image: "",
                 description: "Le chaudron ou la sorcière émane soudain une quantité effroyable de liquide verdâtre et nauséabond. Inflige 4 Poisons et 1 dé 10 dégâts à tous les ennemis dans la zone en plus de les repousser de 10 mètres.",
                 Psy: 6,
                 PV: "N/A",
@@ -18856,6 +19493,7 @@ sorciere: {
             },
             {
                 nom: "Tourment des cents Yokai",
+                image: "",
                 description: "Une centaine de monstres de tout genre apparaissent pour harceler un adversaire. Si ce sort a été lancé sur le charisme la cible subit Folie irrésistible pendant 2 tours, de plus, si elle devait toucher un allié de la sorcière elle le fera avec désavantage pendant l’effet. Si ce sort est lancé sur la sagesse les esprits infligent 1 dé 10 dégâts irréductibles et appliquent Poison à chaque début de tour de la cible pendant 2 tours.",
                 Psy: 6,
                 PV: "N/A",
@@ -18877,6 +19515,7 @@ sorciere: {
             {
                 nom: "Rituel de Crapaud-fication",
                 type: "Rituel",
+                image: "",
                 description: "Vous transformez une cible en crapaud, pendant 1 tour elle possède 4 PV et inflige 1 dé 2 dégâts sans pouvoir rien faire d’autre, elle possède également la vitesse lente. Si la cible de ce sort est tuée sous sa forme de crapaud elle est également tuée sans calcul de dégâts lorsqu’elle reprend sa forme originelle. Ce sortilège ne fonctionne que contre des cibles d’un niveau inférieur au vôtre.",
                 Psy: 6,
                 PV: "N/A",
@@ -18899,6 +19538,7 @@ sorciere: {
             {
                 nom: "Rituel d’Annihilation",
                 type: "Rituel",
+                image: "",
                 description: "Vous accomplissez le plus puissant et ancien des rituels, vous convoquez les esprits de l’autre plan et canalisez une énorme quantité de psyché. Ce sortilège prend un tour à canaliser, après cela une cible, où qu’elle soit sur le terrain, subit 2 dé 6 + 3 fois votre DSB en dégâts. Ce sortilège inflige des dégâts qui ignorent les résistances ou le blocage mais pas les PB. Si ce sort ne tue pas la cible la sorcière tombe instantanément à 0 PV en guise de prix à payer aux âmes anciennes.",
                 Psy: 8,
                 PV: "N/A",
@@ -18916,6 +19556,7 @@ sorciere: {
             {
                 nom: "Malleus Maleficarum",
                 type: "Invocation",
+                image: "",
                 description: "La sorcière en appelle au grand livre de son ordre, celui-ci est capable de lancer n’importe quel sortilège de niveau Confirmé ou moins de sorcière à l’exception des sorts d’invocations. Il possède 1 PV et 15 PB, son DSB est de 4 et possède la vitesse Rapide. Le livre possède une infinité de points de PSY mais à chaque fois qu’il réussit un sort la sorcière qui l’a invoqué perd 2 PV fixes et irréductibles.",
                 Psy: 7,
                 PV: "N/A",
@@ -18938,6 +19579,7 @@ sorciere: {
             },
             {
                 nom: "Chaudron-Monde",
+                image: "",
                 description: "Le chaudron de la sorcière devient Immense, pendant 2 tours il prend 4 cases sur le plateau de combat et ses PV max et son armure sont multipliés par 3. Vous ajoutez la moitié du DSB de la sorcière à ses dégâts et doublez le nombre d’afflictions qu’il doit appliquer pendant cet effet. Ce sort ne consomme pas d’action.",
                 Psy: 5,
                 PV: "N/A",
@@ -18957,6 +19599,7 @@ sorciere: {
         sortMaitre: [
             {
                 nom: "Nuit de Walpurgis",
+                image: "",
                 description: "Vous invoquez le grand Sabbat, la nuit où les sorcières atteignent leur puissance maximale et où les esprits rejoignent le monde mortel. Pendant 2 tours vos invocations sont gratuites et vous pouvez en avoir 1 de plus que votre limite maximale. Vous pouvez jouer une invocation par tour comme un sort qui ne consomme pas d’action pendant l’effet de ce sort. Toutes les altérations d’états négatives appliquées pendant l’effet de ce sort sont irrésistibles. Ce sort ne consomme pas d’action.",
                 Psy: 13,
                 PV: "N/A",
@@ -18975,8 +19618,10 @@ sorciere: {
     }
 },
 demencien: {
+    nom: "Démencien",
+    image: "",    
     description: [
-        "\"Rien n'est plus sombre et plus terrifiant que les abîmes de l'esprit\" Citation du célèbre philosophe Ploum le Jeune, rien ne résume aussi bien ceux qui tombent dans les arcanes de la Démence.",
+        "'Rien n'est plus sombre et plus terrifiant que les abîmes de l'esprit' Citation du célèbre philosophe Ploum le Jeune, rien ne résume aussi bien ceux qui tombent dans les arcanes de la Démence.",
         "Pas vraiment une magie, la Démence consiste souvent à simplement relâcher de la psyché sans aucun contrôle pour qu'elle surcharge l'environnement et déclenche des surcharges psychiques engendrant catastrophes, miracles et désillusions...",
         "Rien n'est plus imprévisible qu'un Démencien, lui-même ne comprend jamais vraiment ce qu'il fait, et comme cette magie n'a aucune règle ce sont souvent des gens pas très sains d'esprit qui s'y lancent. De toutes les formes de magie celle-ci est la plus crainte par tous les mages, car complètement impossible à prévoir.",
         "ATTENTION : La voie du Démencien est basée sur une immense part d'aléatoire et peut tout à fait engendrer la mort et la destruction du propre groupe du personnage... Ou du scénario."
@@ -18997,6 +19642,7 @@ demencien: {
         talents: [
             {
                 nom: "Imprévisible",
+                image: "",
                 description: "Vous gagnez 3 points que vous répartissez aléatoirement dans vos statistiques majeures. Vous gagnez également 30 points de statistiques mineures que vous pouvez choisir de répartir vous-même ou aléatoirement.",
                 niveauJoueur: 1,
                 prerequis: [],
@@ -19007,6 +19653,7 @@ demencien: {
             },
             {
                 nom: "Délire ésotérique",
+                image: "",
                 description: "Vous pouvez parler une langue supplémentaire, vous pouvez aussi baragouiner dans une langue inconnue et quand même vous faire comprendre sur un jet de Persuader/Tromper réussi pour dialoguer avec quelqu’un ou quelque chose dont vous ne maîtrisez pas la langue.",
                 niveauJoueur: 2,
                 prerequis: ["Imprévisible"],
@@ -19017,6 +19664,7 @@ demencien: {
             },
             {
                 nom: "Dé-raisonnable",
+                image: "",
                 description: "À chaque fois que vous lancez le dé sur une table de Folie vous regagnez au choix 1 PV ou 1 PSY. Maximum trois fois par tour.",
                 niveauJoueur: 3,
                 prerequis: ["Délire ésotérique"],
@@ -19027,6 +19675,7 @@ demencien: {
             },
             {
                 nom: "Folie meurtrière",
+                image: "",
                 description: "Vous gagnez +1 au DSB pour chaque entité dans l’état Folie sur le terrain.",
                 niveauJoueur: 4,
                 prerequis: ["Dé-raisonnable"],
@@ -19036,6 +19685,7 @@ demencien: {
             },
             {
                 nom: "Coup de folie",
+                image: "",
                 description: "Lorsqu’un effet de folie doit s’appliquer vous pouvez payer 3 PSY et lancer 1 dé 100 : sur un chiffre pair l’effet est doublé (ou renforcé s’il n’a pas de valeur précise), sur un chiffre impair il est annulé.",
                 niveauJoueur: 5,
                 prerequis: ["Folie meurtrière"],
@@ -19047,6 +19697,7 @@ demencien: {
             },
             {
                 nom: "Imprévisible",
+                image: "",
                 description: "Vous gagnez 3 points que vous répartissez aléatoirement dans vos statistiques majeures. Vous gagnez également 30 points de statistiques mineures que vous pouvez choisir de répartir vous-même ou aléatoirement.",
                 niveauJoueur: 6,
                 prerequis: ["Coup de folie"],
@@ -19057,6 +19708,7 @@ demencien: {
             },
             {
                 nom: "Insanité",
+                image: "",
                 description: "Vous pouvez payer 2 PSY quand un dégât ou un soin d’une table de Folie s’applique. Vous ajoutez votre DSB au calcul.",
                 niveauJoueur: 7,
                 prerequis: ["Imprévisible"],
@@ -19066,6 +19718,7 @@ demencien: {
             },
             {
                 nom: "Lucidité improbable",
+                image: "",
                 description: "Si vous échouez un jet de statistique mineure vous pouvez payer 2 PSY et le relancer avec l’avantage. Un même jet ne peut pas être la cible de cet effet deux fois.",
                 niveauJoueur: 8,
                 prerequis: ["Insanité"],
@@ -19076,6 +19729,7 @@ demencien: {
             },
             {
                 nom: "Magie absurde",
+                image: "",
                 description: "Vos sortilèges de Démence imposent tous un désavantage sur les jets de sauvegardes ou de blocage à leurs cibles.",
                 niveauJoueur: 9,
                 prerequis: ["Lucidité improbable"],
@@ -19085,6 +19739,7 @@ demencien: {
             },
             {
                 nom: "Dieu fou",
+                image: "",
                 description: "Une fois par combat ou par scène vous pouvez choisir vous-même un effet d’une table et l’appliquer. Cependant l’effet appliqué de cette manière est capricieux, on lancera 1 dé 100 et plus le score sera élevé et plus l’effet sera amoindri, inversement plus on est proche de 1 et plus l’effet est renforcé.",
                 niveauJoueur: 10,
                 prerequis: ["Magie absurde"],
@@ -19100,6 +19755,7 @@ demencien: {
         sortNovice: [
             {
                 nom: "Folie",
+                image: "",
                 description: "La cible désignée subit \"Folie\" pendant 2 tours. Si l’état est résisté elle prend 1 dé 6 dégâts fixes et non réductibles.",
                 Psy: 3,
                 PV: "N/A",
@@ -19114,6 +19770,7 @@ demencien: {
             },
             {
                 nom: "Ambiance surchargée",
+                image: "",
                 description: "Diminue le palier de la surcharge locale de 2. Vous pouvez maintenir ce sort en payant 1 de PSY supplémentaire par tour, cet effet ne compte pas dans la surcharge locale. Ne consomme pas d’action, non cumulable.",
                 Psy: 2,
                 PV: "N/A",
@@ -19130,6 +19787,7 @@ demencien: {
             },
             {
                 nom: "Frappe folle",
+                image: "",
                 description: "Une frappe imprévisible qui inflige 1 dé 6 +1 dégâts. Cette attaque ne peut pas être bloquée et passe outre les résistances de la cible.",
                 Psy: 3,
                 PV: "N/A",
@@ -19145,6 +19803,7 @@ demencien: {
             },
             {
                 nom: "Détraquement psychique",
+                image: "",
                 description: "Au lancement de ce sort vous lancez également 1 dé 4, le résultat définit le type de touche utilisé pour lancer ce sort : 1 = Force, 2 = Dextérité, 3 = Sagesse et 4 = Charisme. Ce sort déclenche un effet de la folie psychique, vous lancez sur la table et appliquez immédiatement l’effet.",
                 Psy: 3,
                 PV: "N/A",
@@ -19159,6 +19818,7 @@ demencien: {
             },
             {
                 nom: "Murmure des esprits brumeux",
+                image: "",
                 description: "Vous chuchotez des absurdités à une cible au corps à corps, elle aura désavantage à tous ses jets pendant son prochain tour. Si elle échoue un jet elle s’énerve et subit \"Folie\".",
                 Psy: 3,
                 PV: "N/A",
@@ -19173,6 +19833,7 @@ demencien: {
             },
             {
                 nom: "Décharge psychique",
+                image: "",
                 description: "Vous vous déchargez de la psyché sans réfléchir. Ce sort n’a aucun effet mais son coût compte double dans la surcharge locale. Ne consomme pas d’action, une seule fois par tour.",
                 Psy: 3,
                 PV: "N/A",
@@ -19187,6 +19848,7 @@ demencien: {
             },
             {
                 nom: "Frappe hasardeuse",
+                image: "",
                 description: "Ce sort inflige 1 dé 4 dégâts par score de touche supérieur au jet de touche réalisé pour le lancer. Si vous faites un score inférieur à tous vos scores de touche ce sort frappe en plus sur la faiblesse de la cible si elle en a une.",
                 Psy: 4,
                 PV: "N/A",
@@ -19201,6 +19863,7 @@ demencien: {
             },
             {
                 nom: "Paranoïa collective",
+                image: "",
                 description: "Une soudaine folie s’empare de tous vos alentours. Vous appliquez \"Folie\" à toutes les entités à moins de 10 mètres de vous ainsi qu’à vous-même. Si une entité résiste à l’application de l’état elle subit 1 dé 4 dégâts fixes et irréductibles.",
                 Psy: 4,
                 PV: "N/A",
@@ -19215,6 +19878,7 @@ demencien: {
             },
             {
                 nom: "Vitesse folle",
+                image: "",
                 description: "La vitesse d’une entité à portée est doublée pour 2 tours mais elle subit \"Folie\" à chaque fois qu’elle essaie de se déplacer plus loin que son déplacement de base. Ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -19229,6 +19893,7 @@ demencien: {
             },
             {
                 nom: "Dinguerie",
+                image: "",
                 description: "Le lanceur frappe sans égard pour sa sécurité, ce sort inflige 1 dé 10 dégâts à la cible et la moitié des dégâts au lanceur. Si le lanceur doit s’infliger plus de 4 points de dégâts à cause de l’effet de ce sort il ne subit rien.",
                 Psy: 4,
                 PV: "N/A",
@@ -19244,6 +19909,7 @@ demencien: {
             },
             {
                 nom: "Fou à lier",
+                image: "",
                 description: "Ce sort se lance sur la Dextérité s’il est lancé au corps à corps et sur la Sagesse s’il est lancé à distance. Vous appliquez \"Folie\" à la cible, que l’application réussisse ou échoue vous ligotez la cible qui subit \"Entrave\" et vous lui infligez 1 dé 6 dégâts.",
                 Psy: 3,
                 PV: "N/A",
@@ -19260,6 +19926,7 @@ demencien: {
             },
             {
                 nom: "Esquive absurde",
+                image: "",
                 description: "Vous esquiverez complètement la prochaine occurrence de dégâts qui vous est infligée. Si l’attaque subie devait vous tuer vous infligez \"Folie\" irrésistible à l’attaquant.",
                 Psy: 4,
                 PV: "N/A",
@@ -19276,6 +19943,7 @@ demencien: {
         sortConfirmé: [
             {
                 nom: "Rire fou",
+                image: "",
                 description: "\"Tout le terrain\" Vous riez à gorge déployée, un rire qui résonne étrangement et instaure un climat malsain et anxiogène. Tous les ennemis subissent \"Terreur\", ceux qui résistent vous cibleront automatiquement lors de leur prochain tour.",
                 Psy: 4,
                 PV: "N/A",
@@ -19290,6 +19958,7 @@ demencien: {
             },
             {
                 nom: "Obsession",
+                image: "",
                 description: "Vous désignez une cible où qu’elle soit sur le terrain. Tous vos sorts qui peuvent la toucher et tous les effets des tables de folie s’appliquent uniquement à elle, même s’il devait en être autrement. Cet effet dure 1 tour mais peut être rallongé pour 2 PSY par tour supplémentaire. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 PV: "N/A",
@@ -19304,6 +19973,7 @@ demencien: {
             },
             {
                 nom: "Démarche extravagante",
+                image: "",
                 description: "Vous vous déplacez imprévisiblement, vous devenez insensible aux attaques d’opportunité et aux altérations d’états basés sur la Dextérité pendant 3 tours. Si une attaque basée sur la dextérité vous cible elle devra être réalisée avec un désavantage.",
                 Psy: 4,
                 PV: "N/A",
@@ -19318,6 +19988,7 @@ demencien: {
             },
             {
                 nom: "Pas fou-fou",
+                image: "",
                 description: "Ce sort retire l’altération d’état \"Folie\" de toutes les entités sur le terrain. Si toutes les entités du terrain étaient affectées par \"Folie\" au lancement de ce sort vous lancez 3 dés sur la table de folie psychique et appliquez les effets. Ce sort ne déclenche pas de lancer sur la table de folie douce, utilisable une fois par combat, ne consomme pas d’action.",
                 Psy: 0,
                 PV: "N/A",
@@ -19334,6 +20005,7 @@ demencien: {
             },
             {
                 nom: "Effondrement psychologique",
+                image: "",
                 description: "Ne peut cibler qu’une entité sous l’effet de \"Folie\", applique \"Charme\" irrésistible pour 2 tours à cette cible, à la fin de \"Charme\" la cible subit 2 dés 4 dégâts.",
                 Psy: 6,
                 PV: "N/A",
@@ -19349,6 +20021,7 @@ demencien: {
             },
             {
                 nom: "Havre de démence",
+                image: "",
                 description: "Vous ou une entité ciblée devenez immunisé à toutes les altérations d’états basés sur la sagesse ou le charisme pendant 3 tours et gagnez +10% de chances de blocage et de touche. Si ce sort cible le lanceur il pourra décider de changer la cible du prochain effet déclenché de la table de Folie furieuse.",
                 Psy: 4,
                 PV: "N/A",
@@ -19364,6 +20037,7 @@ demencien: {
             },
             {
                 nom: "Acharnement hystérique",
+                image: "",
                 description: "Vous frappez avec tout ce que vous avez, ce sort inflige les dés de dégâts de chacune des armes en votre possession, il inflige également 1 dé 2 dégâts par emplacement d’inventaire occupé par un objet autre qu’une arme. Si ce sort échoue vous détruisez la moitié des objets que vous possédez arrondie à l'inférieur. Ce sort ne profite d'aucun bonus de chance de touche, d'avantage ou de touche automatique.",
                 Psy: 6,
                 PV: "N/A",
@@ -19380,6 +20054,7 @@ demencien: {
             },
             {
                 nom: "Ancrage psychique",
+                image: "",
                 description: "Au lancement de ce sort vous lancez également 1 dé 4, le résultat définit le type de touche utilisé pour lancer ce sort : 1 = Force, 2 = Dextérité, 3 = Sagesse et 4 = Charisme. Ce sort fixe la valeur de la surcharge locale à 4 pour le reste du combat ou pour 2 heures hors combat. Ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -19394,6 +20069,7 @@ demencien: {
             },
             {
                 nom: "Maison des fous",
+                image: "",
                 description: "Ce sort utilise la force si vous êtes le centre de la zone, sinon il utilise la sagesse. Toutes les entités dans la zone subissent \"Folie\" irrésistible et le lanceur lance un dé sur la table de Folie douce quand un allié entre dans la zone pour la première fois et sur la table de Folie furieuse quand un ennemi rentre pour la première fois. À la fin de chaque tour du lanceur la zone soigne 1 dé 8 PV fixes aux alliés et inflige 1 dé 8 dégâts fixes aux ennemis. La zone persiste 2 tours.",
                 Psy: 5,
                 PV: "N/A",
@@ -19415,6 +20091,7 @@ demencien: {
         sortExpert: [
             {
                 nom: "Sérénité affolante",
+                image: "",
                 description: "Au lancement de ce sort vous lancez également 1 dé 4, le résultat définit le type de touche utilisé pour lancer ce sort : 1 = Force, 2 = Dextérité, 3 = Sagesse et 4 = Charisme. Pendant 2 tours vous pouvez relancer un dé deux fois par tour si le résultat ne vous convient pas. Cet effet peut être prolongé pour 3 PSY par tour supplémentaire.",
                 Psy: 4,
                 PV: "N/A",
@@ -19430,6 +20107,7 @@ demencien: {
             },
             {
                 nom: "Manipulation des courants de psyché",
+                image: "",
                 description: "Tous les coûts en PSY sont réduits de 2 pour vous et tous vos alliés pendant 2 tours. En contrepartie la surcharge locale est fixée à 12 pendant la durée de cet effet, cet effet prend le pas sur tout autre effet modifiant la valeur de la surcharge.",
                 Psy: 6,
                 PV: "N/A",
@@ -19445,6 +20123,7 @@ demencien: {
             },
             {
                 nom: "Puissance déraisonnable",
+                image: "",
                 description: "Votre esprit et votre corps se chargent de psyché naturelle et vous frappez avec une force incommensurable une cible à votre corps à corps. Celle-ci subit 3 dé 6 + 6 dégâts et est repoussée de 20 mètres.",
                 Psy: 6,
                 PV: "N/A",
@@ -19459,6 +20138,7 @@ demencien: {
             },
             {
                 nom: "Cacophonie des esprits libres",
+                image: "",
                 description: "\"Tout le terrain\" Un chant spectral retentit de toutes parts, le lanceur lui-même semble possédé. Cette attaque applique \"Terreur\" et \"Folie\" irrésistibles à toutes les entités sur le terrain. Les alliés peuvent payer la moitié du coût de ce sort pour le répliquer même sans le connaître sauf qu’ils infligeront 1 dé 8 dégâts par allié à tous les ennemis à la place d’appliquer les états. La PSY dépensée par les alliés rentre dans le calcul de la surcharge locale.",
                 Psy: 6,
                 PV: "N/A",
@@ -19475,6 +20155,7 @@ demencien: {
             },
             {
                 nom: "Mégalomanie",
+                image: "",
                 description: "Tous les sortilèges lancés par des alliés comme des ennemis alors que vous êtes à portée vous cibleront forcément. Les effets des tables de folie vous ciblent obligatoirement même s’ils disent autrement. Pendant cet effet vous ne pouvez pas mourir et gardez 1 PV quoiqu’il arrive, vous gagnez également +20% de chances de toucher et de blocage. L’effet dure 2 tours, une seule fois par combat.",
                 Psy: 7,
                 PV: "N/A",
@@ -19492,6 +20173,7 @@ demencien: {
             },
             {
                 nom: "Tréfonds du follet",
+                image: "",
                 description: "Ce sort inflige 1 dé 2 dégâts fixes par dé lancé sur les tables de Folie durant ce combat. Si ce sort inflige plus de 20 points de dégâts vous subissez \"Folie\" irrésistible pour 2 tours. Le compte de dés lancés se réinitialise après le lancement de ce sort.",
                 Psy: 8,
                 PV: "N/A",
@@ -19507,6 +20189,7 @@ demencien: {
             },
             {
                 nom: "Troubles imprévisibles",
+                image: "",
                 description: "Le lanceur bouge comme si l’espace lui-même était devenu fou. Vous pouvez vous déplacer en vous téléportant jusqu’à 10 mètres en plus de votre déplacement classique, cette téléportation vous immunise aux attaques d’opportunités. Pendant la durée de l’effet vous gagnez également l’avantage à vos jets de blocage. Cet effet dure 2 tours, ce sort ne consomme pas d’action.",
                 Psy: 6,
                 PV: "N/A",
@@ -19523,6 +20206,7 @@ demencien: {
             },
             {
                 nom: "Accueillir la folie",
+                image: "",
                 description: "Au lancement de ce sort vous lancez également 1 dé 4, le résultat définit le type de touche utilisé pour lancer ce sort : 1 = Force, 2 = Dextérité, 3 = Sagesse et 4 = Charisme. À chaque début de tour vous lancez un dé sur la table de folie psychique. Cet effet dure jusqu’à sa révocation ou la fin du combat. Hors combat ce sort enclenche également un jet de folie instantané.",
                 Psy: 5,
                 PV: "N/A",
@@ -19541,6 +20225,7 @@ demencien: {
         sortMaitre: [
             {
                 nom: "Le Monde est Fou !",
+                image: "",
                 description: "\"Tout le terrain\" Vous lancez 1 dé sur chaque table de folie mais choisissez les cibles comme vous l’entendez. Pendant 2 tours, vous pouvez choisir les cibles de chaque effet obtenu via les tables de Folie. À la fin de ce sort toutes les entités du terrain subissent \"Folie\", les alliés sont soignés de 1 dé 12 PV et les ennemis subissent 1 dé 12 dégâts.",
                 Psy: 13,
                 PV: "N/A",
@@ -19560,6 +20245,8 @@ demencien: {
     }
 },
 chasseur: {
+    nom: "Chasseur",
+    image: "",    
     description: [
         "Les chasseurs ne sont pas juste des hommes qui partent en forêt les dimanches pour ramener un pauvre lapin pour le repas du soir. C’est un style de vie, ces personnes vivent dans la nature et au contact des animaux et des éléments qui la composent, ils vivent souvent en ermite, mais acceptent aussi la compagnie des autres Hommes si ceux-ci respectent ce que la nature octroie.",
         "Les chasseurs n’aiment pas beaucoup les aventuriers habituellement, car ils mangent salement et laissent leurs os de poulets traîner quand ils campent en forêt. Mais parfois des chasseurs rejoignent des groupes pour voir le monde ou résoudre un problème personnel, ils sont très appréciés dans les groupes pour leur capacité à repérer le danger et à se repérer tout court.",
@@ -19602,6 +20289,7 @@ chasseur: {
     sortileges_et_passifs: {
         mecanique: {
             nom: "Proie",
+            image: "",            
             description: "Désigne une cible adverse comme “proie” où qu’elle soit sur le terrain, toutes les attaques à distance du chasseur infligeront +2 dégâts et auront +15% de chances de critiques. Cet effet dure jusqu’à la désignation d’une nouvelle proie ou la mort de la cible affectée. Ne consomme pas d'action.",
             Psy: 2,
             Touche: "DEX",
@@ -19612,6 +20300,7 @@ chasseur: {
             talents: [
                 {
                     nom: "Uni avec la Nature",
+                    image: "",    
                     description: "Permet de parler le langage animal. Ajoute +1 en Dextérité et en Sagesse.",
                     niveauJoueur: 1,
                     prerequis: [],
@@ -19623,6 +20312,7 @@ chasseur: {
                 },
                 {
                     nom: "Traqueur Aguerri",
+                    image: "",    
                     description: "Ajoute +1 en Dextérité. Ajoute un bonus de +15 à tous les jets relatifs à une traque ou pour suivre une piste.",
                     niveauJoueur: 2,
                     prerequis: ["Uni avec la Nature"],
@@ -19633,6 +20323,7 @@ chasseur: {
                 },
                 {
                     nom: "Expert de la Traque",
+                    image: "",    
                     description: "Ajoute +5 mètres de portée pour toutes les attaques et sorts à distance, inflige +1 dégâts avec les armes de la catégorie distance.",
                     niveauJoueur: 3,
                     prerequis: ["Traqueur Aguerri"],
@@ -19643,6 +20334,7 @@ chasseur: {
                 },
                 {
                     nom: "Traqueur Infatigable",
+                    image: "",    
                     description: "Immunité à ‘’Entrave’’. Ajoute +1 en Force.",
                     niveauJoueur: 4,
                     prerequis: ["Expert de la Traque"],
@@ -19653,6 +20345,7 @@ chasseur: {
                 },
                 {
                     nom: "Vie en Nature",
+                    image: "",    
                     description: "Octroie un avantage à toutes les statistiques dépendantes de la dextérité et de la sagesse lorsque vous êtes dans un des milieux sauvages suivants : montagneux, forestier ou marécageux.",
                     niveauJoueur: 5,
                     prerequis: ["Traqueur Infatigable"],
@@ -19662,6 +20355,7 @@ chasseur: {
                 },
                 {
                     nom: "Chasse au Gros Gibier",
+                    image: "",    
                     description: "Ajoute +1 en Force. Augmente vos chances de toucher de 15% sur des ennemis de taille grande ou supérieure.",
                     niveauJoueur: 6,
                     prerequis: ["Vie en Nature"],
@@ -19672,6 +20366,7 @@ chasseur: {
                 },
                 {
                     nom: "Vision sans Faille",
+                    image: "",    
                     description: "Immunité à ‘’Cécité’’. Ajoute +1 en Dextérité et en Sagesse.",
                     niveauJoueur: 7,
                     prerequis: ["Chasse au Gros Gibier"],
@@ -19683,6 +20378,7 @@ chasseur: {
                 },
                 {
                     nom: "Chasse en groupe",
+                    image: "",    
                     description: "Le sort \"Proie\" octroie ses bonus à tous les alliés du chasseur mais pas les invocations.",
                     niveauJoueur: 8,
                     prerequis: ["Vision sans Faille"],
@@ -19692,6 +20388,7 @@ chasseur: {
                 },
                 {
                     nom: "Sens Aiguisés",
+                    image: "",    
                     description: "Ajoute +1 en Dextérité et en Sagesse. Octroie un avantage aux jets de Perception et Perception magique.",
                     niveauJoueur: 9,
                     prerequis: ["Chasse en groupe"],
@@ -19703,6 +20400,7 @@ chasseur: {
                 },
                 {
                     nom: "Roi des Chasseurs",
+                    image: "",    
                     description: "Lorsque vous frappez une cible sous Entrave, Sonné ou Sommeil, ou si vous frappez une cible à plus de 20 mètres vous augmentez votre taux de CC de 20% et vos dégâts de 2.",
                     niveauJoueur: 10,
                     prerequis: ["Sens Aiguisés"],
@@ -19718,6 +20416,7 @@ chasseur: {
         sortNovice: [
             {
                 nom: "Tir de Débusquement",
+                image: "",
                 description: "Inflige 1 dé 4 dégâts jusqu'à 15 mètres et bouge la cible de 5 mètres. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -19732,6 +20431,7 @@ chasseur: {
             },
             {
                 nom: "Flair Instinctif",
+                image: "",
                 description: "Sur un ennemi à moins de 30 mètres permet de détecter automatiquement une faiblesse élémentaire. Si l’ennemi n’a pas de faiblesse le coût du sort est rendu. Ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -19746,6 +20446,7 @@ chasseur: {
             },
             {
                 nom: "Traque",
+                image: "",
                 description: "Le lanceur choisit une cible jusqu’à 40 mètres, pendant 2 tours, à chaque fois que la cible se déplace le chasseur le fait aussi et maintient en permanence la distance entre lui et la cible s’il le peut avec son propre mouvement de manière instantanée et même hors de son tour de jeu. Cet effet s’interrompt si le chasseur touche cette cible. Ce sort ne consomme pas d’action. Hors combat ce sort donne un avantage à tous les jets lors d’une course poursuite.",
                 Psy: 2,
                 PV: "N/A",
@@ -19762,6 +20463,7 @@ chasseur: {
             },
             {
                 nom: "Piégeage",
+                image: "",
                 description: "Le lanceur pose deux pièges invisibles à 20 mètres ou moins de lui. Ces pièges infligent 1 dé 6 dégâts fixes et \"Entrave\" aux ennemis qui passent ou s’arrêtent dessus.",
                 Psy: 4,
                 PV: "N/A",
@@ -19777,6 +20479,7 @@ chasseur: {
             },
             {
                 nom: "Tir allongé",
+                image: "",
                 description: "Tire un projectile jusqu’à 25 mètres, la cible subit 1 dé 6 +3 dégâts et fait un jet de sauvegarde de Sagesse. Si elle échoue, elle ne parvient pas à localiser le tir et le lanceur gagne un avantage sur tous ses jets de touche la ciblant pendant le prochain tour.",
                 Psy: 4,
                 PV: "N/A",
@@ -19792,6 +20495,7 @@ chasseur: {
             },
             {
                 nom: "Couteau de chasse",
+                image: "",
                 description: "Inflige 1 dé 6 +1 dégâts et applique \"Hémorragie\" au corps à corps.",
                 Psy: 3,
                 PV: "N/A",
@@ -19806,6 +20510,7 @@ chasseur: {
             },
             {
                 nom: "Onguent de Soin",
+                image: "",
                 description: "Le chasseur applique un baume sur ses plaies ou celles d’un allié au corps-à-corps et le soigne de 1 dé 6 PV.",
                 Psy: 3,
                 PV: "N/A",
@@ -19819,6 +20524,7 @@ chasseur: {
             },
             {
                 nom: "Tir de Filet",
+                image: "",
                 description: "Nécessite une arme de type distance, lance un filet qui inflige le dé de dégât de l'arme et applique “Entrave“.",
                 Psy: 2,
                 PV: "N/A",
@@ -19834,6 +20540,7 @@ chasseur: {
             },
             {
                 nom: "Précision Létale",
+                image: "",
                 description: "Permet de tirer avec son arme de type distance jusqu’à 30 mètres. Inflige le dé de dégât de l'arme perce armure et ignore les boucliers.",
                 Psy: 3,
                 PV: "N/A",
@@ -19849,6 +20556,7 @@ chasseur: {
             },
             {
                 nom: "Braconnage",
+                image: "",
                 description: "Vous choisissez un type d’ennemi non Humanoïde. Les dégâts sur ces ennemis augmentent de 1 dé 4 quand vous utilisez un sortilège de chasseur sur eux, à chaque fois qu’un de ces ennemis meurt vous gagnez +1 DSB jusqu’à la fin du combat. Si vous relancez ce sort pour désigner un nouveau type d’ennemi vous perdez tous les bonus octroyés. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -19865,6 +20573,7 @@ chasseur: {
             },
             {
                 nom: "Camouflage rapide",
+                image: "",
                 description: "Le chasseur devient Invisible pour 1 tour, ce sort ne consomme pas d’action, son effet ne peut pas s’appliquer deux tours de suite.",
                 Psy: 2,
                 PV: "N/A",
@@ -19879,6 +20588,7 @@ chasseur: {
             },
             {
                 nom: "Tranquillisant",
+                image: "",
                 description: "Nécessite une arme de type distance, tire avec une munition enduite d’un puissant onguent de sommeil, inflige le dé de dégât de l’arme et applique \"Sommeil\".",
                 Psy: 2,
                 PV: "N/A",
@@ -19897,6 +20607,7 @@ chasseur: {
             {
                 nom: "Compagnon Traqueur",
                 type: "Invocation",
+                image: "",
                 description: "Invoque une créature du choix du lanceur, celle-ci possède une vitesse Très Rapide, 8 PV, le même DSB et les mêmes statistiques que le chasseur et inflige 1 dé 4 dégâts et \"Entrave\" irrésistible à un ennemi au corps à corps.",
                 Psy: 4,
                 PV: "N/A",
@@ -19917,6 +20628,7 @@ chasseur: {
             },
             {
                 nom: "Rabattage",
+                image: "",
                 description: "Tire sur un ennemi pour le faire paniquer, inflige 1 dé 6 dégâts et applique ‘’Terreur’’, l’ennemi est bougé de 10 mètres au choix du lanceur.",
                 Psy: 4,
                 PV: "N/A",
@@ -19932,6 +20644,7 @@ chasseur: {
             },
             {
                 nom: "Tir à Couvert",
+                image: "",
                 description: "Inflige 1 dé 8 +1 dégâts puis le chasseur devient Invisible pour un tour ce qui l’empêche d’être ciblé par des attaques.",
                 Psy: 5,
                 PV: "N/A",
@@ -19947,6 +20660,7 @@ chasseur: {
             },
             {
                 nom: "Bond du Prédateur",
+                image: "",
                 description: "Le chasseur fait fi de la sécurité et saute sur sa proie. Ce sort ne peut cibler qu’une cible désignée par \"Proie\" à moins de 20 mètres le chasseur se téléporte à son contact et inflige 2 dé 4 + 4 dégâts ainsi que \"Entrave\", \"Sommeil\" ou \"Sonné\" au choix. Si ce sort tue la cible le chasseur récupère 1 dé 6 PV fixe.",
                 Psy: 5,
                 PV: "N/A",
@@ -19964,6 +20678,7 @@ chasseur: {
             },
             {
                 nom: "Chasse à Courre",
+                image: "",
                 description: "Le lanceur et tous ses alliés avancent de 10 mètres en direction d’une cible désignée, ils attaquent tous en infligeant le dé de dégât de leur arme en main ou leur attaque de base s’ils peuvent toucher à la fin du déplacement. Ce sort n’est pas modifié par le DSB, il fonctionne aussi avec les invocations.",
                 Psy: 6,
                 PV: "N/A",
@@ -19980,6 +20695,7 @@ chasseur: {
             },
             {
                 nom: "Abattage",
+                image: "",
                 description: "Le chasseur tire pour tuer, ce sort inflige 2 dé 6 dégâts. S’il ne tue pas sa cible le chasseur subit Cécité irrésistible et même s’il y est immunisé, s’il tue sa cible la prochaine utilisation de \"Proie\" sera gratuite.",
                 Psy: 4,
                 PV: "N/A",
@@ -19995,6 +20711,7 @@ chasseur: {
             },
             {
                 nom: "Proie de choix",
+                image: "",
                 description: "Nécessite qu’une cible soit désignée comme \"Proie\", pendant ce tour les bonus du sort \"Proie\" sont doublés, de plus le chasseur gagne un avantage sur tous ses jets de touche sur la cible désignée. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -20010,6 +20727,7 @@ chasseur: {
             },
             {
                 nom: "Remède Forestier",
+                image: "",
                 description: "Soigne le lanceur ou une cible au corps-à-corps de 1 dé 6 + 3 PV et supprime les altérations d’état ‘’Brûlure’’, ‘’Poison’’ et ‘’Cécité’’.",
                 Psy: 5,
                 PV: "N/A",
@@ -20024,6 +20742,7 @@ chasseur: {
             },
             {
                 nom: "À l’Affût",
+                image: "",
                 description: "Le chasseur se tient prêt à agir sur sa proie, si un ennemi bouge dans un périmètre de 15 mètres autour du lanceur ce dernier se téléporte au contact, inflige 1 dé 6 dégâts fixes et se déplace librement de 15 mètres dans n’importe quelle direction en ignorant tous les effets limitant le déplacement et les attaques d'opportunités. Cet effet peut intervenir 2 fois par cible et par tour. Ce sort ne consomme pas d’action et son effet dure 2 tours.",
                 Psy: 5,
                 PV: "N/A",
@@ -20044,6 +20763,7 @@ chasseur: {
         sortExpert: [
             {
                 nom: "Gros Calibre",
+                image: "",
                 description: "Tir puissant qui inflige 2 dés 6 +4 dégâts et applique ‘’Entrave’’ irrésistible à la cible.",
                 Psy: 6,
                 PV: "N/A",
@@ -20058,6 +20778,7 @@ chasseur: {
             },
             {
                 nom: "Ressources Inépuisables",
+                image: "",
                 description: "Le chasseur est infatigable et poursuit sa traque envers et contre tout. Permet de récupérer 2 dé 4 PV puis 3 PV par tour pendant l’effet, ce sort octroie également au chasseur la capacité de ne pas pouvoir mourir ou tomber K.O d’aucune manière par des dégâts n’étant pas produits par sa \"Proie\" désignée, cet effet nécessite d’avoir une \"Proie\" désignée au lancement de ce sort. Ce sort ne consomme pas d’action, son effet dure 2 tours et coûte 4 PSY par tour pour être maintenu.",
                 Psy: 6,
                 PV: "N/A",
@@ -20075,6 +20796,7 @@ chasseur: {
             },
             {
                 nom: "Poursuite Funeste",
+                image: "",
                 description: "Le lanceur semble magiquement toujours sur le chemin de sa proie. Ce sort permet au chasseur de se lier à une \"Proie\" désignée, si celle-ci se déplace à plus de 10 mètres de lui il peut décider de se téléporter, en ignorant tous les effets sur le déplacement, dans un périmètre de 10 mètres autour de la cible. À chaque fois qu’il fait ainsi il inflige 1 dé 8 dégâts fixes à la cible. Ce sort dure jusqu’à ce que la cible meure ou tombe K.O.",
                 Psy: 6,
                 PV: "N/A",
@@ -20092,6 +20814,7 @@ chasseur: {
             },
             {
                 nom: "Tir Propre",
+                image: "",
                 description: "Ce sort peut toucher jusqu’à 50 mètres, il n’échoue jamais à toucher sa cible qui ne peut pas non plus le bloquer. Inflige 1 dé 8 dégâts et le chasseur récupère 1 dé 4 PV s’il tue la cible.",
                 Psy: 6,
                 PV: "N/A",
@@ -20107,6 +20830,7 @@ chasseur: {
             },
             {
                 nom: "Harcèlement",
+                image: "",
                 description: "Le chasseur frappe une cible à plusieurs reprises en bougeant de position à chaque fois. Inflige 1 dé 4 dégâts puis se téléporte symétriquement par rapport à la cible, inflige à nouveau 1 dé 4 dégâts puis se déplace de 15 mètres dans n’importe quelle direction et inflige 1 dé 6 dégâts. Si les trois tirs infligent des dégâts sur les PV de la cible celle-ci subit 'Folie'.",
                 Psy: 6,
                 PV: "N/A",
@@ -20123,6 +20847,7 @@ chasseur: {
             },
             {
                 nom: "Apex Prédateur",
+                image: "",
                 description: "Le chasseur devient Invisible pendant 2 tours, cette invisibilité ne s’interrompt jamais même si le lanceur attaque ou subit des dégâts. Augmente les chances de CC et de toucher de 10% et les dégâts de 2 pendant l’invisibilité, les attaques du chasseur ne peuvent pas être bloquées. Lorsqu’il frappe sa Proie désignée il inflige \"Terreur\" en plus des autres effets. Ce sort ne consomme pas d’action.",
                 Psy: 7,
                 PV: "N/A",
@@ -20140,6 +20865,7 @@ chasseur: {
             },
             {
                 nom: "Fuite Piégeuse",
+                image: "",
                 description: "Ce sort crée une multitude de pièges qui tombent dans la zone autour de la cible visée. Ces pièges infligent 1 dé 6 dégâts fixes et \"Entrave\" aux cibles qui marchent dessus, il ne reste sur le terrain que 2 tours. Si une cible déjà sous \"Entrave\" marche sur un piège elle subit \"Hémorragie\" à la place.",
                 Psy: 7,
                 PV: "N/A",
@@ -20157,6 +20883,7 @@ chasseur: {
             },
             {
                 nom: "Forme de prédateur",
+                image: "",
                 description: "Le lanceur se transforme en prédateur sanguinaire de son choix. Il gagne 2 crans en vitesse, 20% de CC et un bonus de 4 aux dégâts mais ne peut plus utiliser que des compétences de corps à corps. Son attaque à main nue inflige désormais 2 dé 6 dégâts et peut être lancée sans consommer d'action une fois par tour. Si le lanceur doit tomber K.O ou Mort sous cette forme il reprend sa forme normale et garde 1 PV. Ce sort ne peut être lancé qu’une fois par combat, son effet dure 3 tours mais il peut être révoqué à loisir.",
                 Psy: 7,
                 PV: "N/A",
@@ -20181,6 +20908,7 @@ chasseur: {
             {
                 nom: "Esprit de la Chasseresse",
                 type: "Invocation",
+                image: "",
                 description: "Invoque l’Esprit de la plus grande chasseuse de tous les temps, elle prête main forte au chasseur pendant sa traque et s’assure de sa réussite. Cette invocation est Invulnérable et Immunisée à toutes les altérations, elle ne possède pas de PV ou de PSY. L’invocation inflige 1 dé 8 +4 dégâts et applique \"Entrave\" irrésistible jusqu’à 40 mètres, elle possède une vitesse très rapide, à chaque fois que le chasseur tue une cible l’Esprit de la Chasseresse reste un tour de plus sur le terrain. Cette invocation reste 2 tours en jeu puis disparaît.",
                 Psy: 11,
                 PV: "N/A",
@@ -20204,6 +20932,8 @@ chasseur: {
     }
 },
 ninja: {
+    nom: "Ninja",
+    image: "",    
     description: [
         "Les ninjas sont une sorte d’assassin venu d'orient, ce sont des hommes d’une discrétion incroyable et qui maîtrisent parfaitement les armes de jet, ils peuvent tuer une cible sans que personne ne s’en aperçoive et sont de véritables menaces pour n’importe quelle personne un peu influente. La plupart du temps, ils sont au service d’un seigneur, mais parfois, ils proposent leurs services comme mercenaires ou rejoignent un groupe d’aventuriers.",
         "Les plus grands ninjas savent se faire si discrets qu’ils se font oublier des ennemis et peuvent frapper fort, ils peuvent même inverser de position subtilement avec un ennemi ou créer un clone d’eux-mêmes."
@@ -20245,6 +20975,7 @@ ninja: {
     sortileges_et_passifs: {
         mecanique: {
             nom: "Ninjutsu",
+            image: "",
             description: "Le Ninja peut recourir à des techniques spéciales de magie appelée 'Ninjutsu', ces techniques peuvent soit modifier un sort existant soit être nécessaires pour lancer un sort. Le Ninja gagne 1 Ninjutsu à chaque fois qu’il devient Invisible, qu’il inflige un coup critique ou qu’il tue une cible. Les Ninjutsu se réinitialisent à chaque combat ou scène. Le Ninja ne peut pas en accumuler plus de trois."
         },
         passifs: {
@@ -20252,6 +20983,7 @@ ninja: {
             talents: [
                 {
                     nom: "Lancer Implacable",
+                    image: "",    
                     description: "Ajoute +5 % aux chances de toucher et +1 aux dégâts avec les armes de type “jet”.",
                     niveauJoueur: 1,
                     prerequis: [],
@@ -20262,6 +20994,7 @@ ninja: {
                 },
                 {
                     nom: "Comme une Ombre",
+                    image: "",    
                     description: "Ajoute +1 en Dextérité. Le ninja peut porter une attaque embusquée pour déclencher un combat, elle infligera deux fois les dégâts d’une attaque normale il gagne aussi +20 en discrétion.",
                     niveauJoueur: 2,
                     prerequis: ["Lancer Implacable"],
@@ -20273,6 +21006,7 @@ ninja: {
                 },
                 {
                     nom: "Assassin",
+                    image: "",    
                     description: "Si vous attaquez un ennemi qui a déjà un autre allié engagé au corps-à-corps, vous lui infligerez +2 dégâts avec toutes vos attaques.",
                     niveauJoueur: 3,
                     prerequis: ["Comme une Ombre"],
@@ -20282,6 +21016,7 @@ ninja: {
                 },
                 {
                     nom: "Permutation Inversée",
+                    image: "",    
                     description: "Le sort Permutation permet d’échanger sa place avec un allié quand le ninja prend des dégâts et c’est l’allié qui subira ainsi les dégâts de l’attaque. L’effet normal du sort peut toujours être utilisé. Si vous ne possédez pas ce sort vous ignorez cet effet et le débloquez à la place.",
                     niveauJoueur: 4,
                     prerequis: ["Assassin"],
@@ -20292,6 +21027,7 @@ ninja: {
                 },
                 {
                     nom: "Invisible",
+                    image: "",    
                     description: "Le ninja devient Invisible et ne peut pas être ciblé par les attaques tant qu’il n’a pas lui-même attaqué au début d'un combat (il peut subir les attaques de zone, mais pas en être la cible). Il obtient aussi Immunité à “Entrave“.",
                     niveauJoueur: 5,
                     prerequis: ["Permutation Inversée"],
@@ -20302,6 +21038,7 @@ ninja: {
                 },
                 {
                     nom: "Ninjutsu de Tueur",
+                    image: "",    
                     description: "Ajoute +1 en Sagesse. Le Ninja regagne 1 dé 4 PV fixe à chaque fois qu’il élimine une cible.",
                     niveauJoueur: 6,
                     prerequis: ["Invisible"],
@@ -20312,6 +21049,7 @@ ninja: {
                 },
                 {
                     nom: "Ninjutsu de Vivacité",
+                    image: "",    
                     description: "Ajoute +2 en Dextérité. Le Ninja gagne 1 cran en Vitesse permanent.",
                     niveauJoueur: 7,
                     prerequis: ["Ninjutsu de Tueur"],
@@ -20322,6 +21060,7 @@ ninja: {
                 },
                 {
                     nom: "Multi-Clonage",
+                    image: "",    
                     description: "Le sort clonage peut invoquer 3 clones au lieu d’un mais coûte 3 PSY supplémentaires dans ce cas. Les dégâts du deuxième et troisième clone équivalent à la moitié de ceux du premier. Si vous ne possédez pas ce sort vous ignorez cet effet et le débloquez à la place.",
                     niveauJoueur: 8,
                     prerequis: ["Ninjutsu de Vivacité"],
@@ -20334,6 +21073,7 @@ ninja: {
                 },
                 {
                     nom: "Nindô inviolable",
+                    image: "",    
                     description: "Immunité à Charme et Folie.",
                     niveauJoueur: 9,
                     prerequis: ["Multi-Clonage"],
@@ -20344,6 +21084,7 @@ ninja: {
                 },
                 {
                     nom: "Maître Ninja",
+                    image: "",    
                     description: "Double les effets de 'Lancer Implacable'. Les sorts de la Voie coûtent 1 PSY de moins à lancer.",
                     niveauJoueur: 10,
                     prerequis: ["Nindô inviolable"],
@@ -20360,6 +21101,7 @@ ninja: {
         sortNovice: [
             {
                 nom: "Lancer Courbe",
+                image: "",
                 description: "Utilise son arme de jet pour toucher un ennemi qui n’est pas sur la même ligne que le ninja et à une portée maximale de 30 mètres, le dé de dégâts de l’arme +2.",
                 Psy: 3,
                 PV: "N/A",
@@ -20374,6 +21116,7 @@ ninja: {
             },
             {
                 nom: "Décoction Paralysante",
+                image: "",
                 description: "Le ninja applique un poison paralysant sur un couteau au corps-à-corps et frappe l’ennemi. Il inflige 1 dé 6 dégâts et ‘’Entrave’’ à l’ennemi ciblé.",
                 Psy: 2,
                 PV: "N/A",
@@ -20392,6 +21135,7 @@ ninja: {
             },
             {
                 nom: "Permutation",
+                image: "",
                 description: "Le ninja choisit un allié à moins de 15 mètres. S'il subit une attaque, il échange de place avec la cible et le ninja subit les dégâts. Ce sort ne consomme pas d’action et peut être lancé en reflexe juste avant la réception des dégâts, même hors du tour du Ninja.",
                 Psy: 2,
                 PV: "N/A",
@@ -20406,6 +21150,7 @@ ninja: {
             },
             {
                 nom: "Frappe Cachée",
+                image: "",
                 description: "Utilisable uniquement si le ninja est invisible, octroie un bonus de 20% de CC et +2 dégâts sur la prochaine attaque. Ne consomme pas d’action.",
                 Psy: 1,
                 PV: "N/A",
@@ -20425,6 +21170,7 @@ ninja: {
             },
             {
                 nom: "Ombre de Lame",
+                image: "",
                 description: "Ce sort inflige le dé de dégâts de l’arme en main puis la moitié de ces dégâts en perce armure.",
                 Psy: 3,
                 PV: "N/A",
@@ -20439,6 +21185,7 @@ ninja: {
             },
             {
                 nom: "Ninjutsu Venimeux",
+                image: "",
                 description: "Consomme X Ninjutsu. Inflige X poison pendant les X prochaines attaques du Ninja. X est le nombre de Ninjutsu utilisé pour lancer ce sort. Ce sort ne consomme pas d’action.",
                 Psy: "X",
                 PV: "N/A",
@@ -20453,6 +21200,7 @@ ninja: {
             },
             {
                 nom: "Célérité d’Orient",
+                image: "",
                 description: "L’utilisateur gagne +1 en vitesse pendant 1 tour. Ne consomme pas d’action.",
                 Psy: 1,
                 PV: "N/A",
@@ -20466,6 +21214,7 @@ ninja: {
             },
             {
                 nom: "Disparition Ninja",
+                image: "",
                 description: "Utilise un fumigène pour disparaître pendant un tour et se déplacer instantanément de 10 mètres en ignorant les attaques d’opportunité. Le ninja devient Invisible pour 1 tour, il ne peut plus être ciblé par des attaques. Ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -20485,6 +21234,7 @@ ninja: {
             },
             {
                 nom: "Barrage de Projectiles",
+                image: "",
                 description: "Le Ninja utilise son arme de type jet et la décuple pour la lancer encore et encore dans un cône devant lui, inflige le dé de dégâts fixe de l’arme sur tous les ennemis touchés.",
                 Psy: 3,
                 PV: "N/A",
@@ -20498,6 +21248,7 @@ ninja: {
             },
             {
                 nom: "Pas de Lune",
+                image: "",
                 description: "Le ninja court si vite et si agilement qu’il donne l’impression de flotter dans les airs, pendant 2 tours permet de passer à travers les entités avec les déplacements et ignore les attaques d’opportunités. Ne consomme pas d’action.",
                 Psy: 4,
                 PV: "N/A",
@@ -20516,6 +21267,7 @@ ninja: {
             },
             {
                 nom: "Affûtage",
+                image: "",
                 description: "Augmente le taux de critique de 10% jusqu’à la fin du combat et octroie 1 Ninjutsu. Ce sort consomme l’action et le déplacement, son effet est cumulable 2 fois.",
                 Psy: 2,
                 PV: "N/A",
@@ -20531,6 +21283,7 @@ ninja: {
             },
             {
                 nom: "Ninjutsu Sanglant",
+                image: "",
                 description: "Consomme 1 Ninjutsu. Les deux prochaines attaques du Ninja appliquent \"Hémorragie\" en plus de leurs effets habituels. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -20547,6 +21300,7 @@ ninja: {
         sortConfirmé: [
             {
                 nom: "Multi-Meurtre",
+                image: "",
                 description: "Permet de frapper un ennemi au corps-à-corps pour 1 dé 8 +2 dégâts et de lancer votre arme de jet en main sur un autre ennemi jusqu’à 15 mètres et de lui infliger le dé de dégât de l'arme.",
                 Psy: 5,
                 PV: "N/A",
@@ -20561,6 +21315,7 @@ ninja: {
             },
             {
                 nom: "Impact critique",
+                image: "",
                 description: "Ce sort attaque avec votre arme en main et a une chance de coup critique équivalente à vos chances de toucher. Inflige le dé de dégâts de l'arme à une cible et vise un point vital.",
                 Psy: 4,
                 PV: "N/A",
@@ -20576,6 +21331,7 @@ ninja: {
             },
             {
                 nom: "Obtention d’information",
+                image: "",
                 description: "Le Ninja devient Invisible et cible un ennemi à moins de 20 mètres, il obtient l’information d’une faiblesse et d’une résistance de l’ennemi et sa prochaine attaque frappera sur la faiblesse si il en a révélé une. Si aucune faiblesse n’a été révélée la prochaine attaque du Ninja sur cette cible sera un coup critique.",
                 Psy: 4,
                 PV: "N/A",
@@ -20592,6 +21348,7 @@ ninja: {
             },
             {
                 nom: "Meurtre silencieux",
+                image: "",
                 description: "Inflige 1 dé 10 +2 dégâts à une cible jusqu’à 15 mètres, si elle meurt le Ninja applique \"Silence\" à tous les ennemis à moins de 20 mètres de la cible.",
                 Psy: 5,
                 PV: "N/A",
@@ -20610,6 +21367,7 @@ ninja: {
             },
             {
                 nom: "Ninjutsu Létal",
+                image: "",
                 description: "Consomme 2 Ninjutsu. La prochaine attaque qui touche du Ninja sera un coup critique. Ce sort ne consomme pas d’action.",
                 Psy: 0,
                 PV: "N/A",
@@ -20624,6 +21382,7 @@ ninja: {
             },
             {
                 nom: "Genjutsu Fumant",
+                image: "",
                 description: "Une fumée recouvre une zone de 10 mètres autour du lanceur, les ennemis dans la zone subissent 1 dé 6 dégâts et ‘’Charme’’. S’ils réussissent leur jet de sauvegarde, ils subissent ‘’Entrave’’ irrésistible à la place.",
                 Psy: 5,
                 PV: "N/A",
@@ -20643,6 +21402,7 @@ ninja: {
             },
             {
                 nom: "Rouleau de Camouflage",
+                image: "",
                 description: "Le Ninja devient Invisible dans n’importe quel décor ou situation, il devient Invisible du moment qu’il ne bouge pas, si un ennemi arrive à portée de corps à corps pendant cet effet le Ninja lui saute dessus et lui inflige 2 dé 6 dégâts. Hors combat ce sort peut être utilisé en réflexe et fonctionne de la même manière.",
                 Psy: 5,
                 PV: "N/A",
@@ -20662,6 +21422,7 @@ ninja: {
             },
             {
                 nom: "Point de pression",
+                image: "",
                 description: "Le Ninja frappe un ennemi à des endroits stratégiques. Ce sort inflige 1 dégât perce armure et applique un désavantage sur tous les jets de la cible pendant 2 tours.",
                 Psy: 4,
                 PV: "N/A",
@@ -20677,6 +21438,7 @@ ninja: {
             },
             {
                 nom: "Ninjutsu de la Grenouille",
+                image: "",
                 description: "Consomme 1 Ninjutsu. Le Ninja gagne la possibilité de bondir sur 10 mètres une fois par tour pendant 2 tours. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -20693,6 +21455,7 @@ ninja: {
         sortExpert: [
             {
                 nom: "Assassinat Brutal",
+                image: "",
                 description: "Une attaque d’une puissance démesurée, le ninja sacrifie sa discrétion au profit d’un meurtre sanglant et brutal, inflige 2 dés 8 +2 dégâts à une cible jusqu’à 15 mètres et inflige ‘’Terreur’’ aux alliés de la cible. Les ennemis qui subissent ''Terreur'' cibleront automatiquement le ninja à la fin de l’effet pendant un tour.",
                 Psy: 7,
                 PV: "N/A",
@@ -20712,6 +21475,7 @@ ninja: {
             },
             {
                 nom: "Rouleau de la Pluie de Lame",
+                image: "",
                 description: "Le Ninja lance de grands rouleaux qui tirent des armes avec violence, ces armes infligent 3 dé 4 dégâts à tous les ennemis dans la zone et applique 2 \"Poisons\".",
                 Psy: 6,
                 PV: "N/A",
@@ -20726,6 +21490,7 @@ ninja: {
             },
             {
                 nom: "Clonage",
+                image: "",
                 description: "Crée une copie de l’utilisateur qui utilisera la même prochaine attaque ou sort que lui, elle peut cependant cibler un ennemi différent. Le clone disparaît juste après avoir attaqué dans un nuage de fumée qui cache le ninja, cela applique “Invisible” sur l’utilisateur. Ce sort ne consomme pas d'action.",
                 Psy: 7,
                 PV: "N/A",
@@ -20743,6 +21508,7 @@ ninja: {
             },
             {
                 nom: "Ninjutsu de la Nuit",
+                image: "",
                 description: "Consomme 3 Ninjutsu. Le Ninja se téléporte derrière une cible jusqu’à 30 mètres, il devient Invisible et peut avancer en même temps qu’elle sans consommer de déplacement. Cet effet dure 2 tours ou jusqu’à ce que le Ninja attaque. Si le Ninja attaque la cible il lui inflige les dégâts en ignorant toutes les défenses, résistances ou boucliers en plus des effets habituels de son attaque. Cette attaque ne consomme ni action, ni PSY.",
                 Psy: 0,
                 PV: "N/A",
@@ -20762,6 +21528,7 @@ ninja: {
             },
             {
                 nom: "Meurtre rituel",
+                image: "",
                 description: "Ce sort tue instantanément un ennemi qui a moins de 25% de ses PV max restant en ignorant toutes les autres statistiques et les effets de résistance à la Mort ou au K.O. Si ce sort est un coup critique le Ninja récupère autant de PV que la cible en a perdu. Le lanceur gagne +4 aux dégâts et +20% de CC pour le reste du combat à chaque fois que ce sort élimine une cible.",
                 Psy: 7,
                 PV: "N/A",
@@ -20782,6 +21549,7 @@ ninja: {
             },
             {
                 nom: "Ninjutsu du Serpent",
+                image: "",
                 description: "Consomme 3 Ninjutsu. Une cible à 15 mètres ou moins subit 1 dé 4 dégâts et 6 \"Poisons\" irrésistibles. Si ce sort est un coup critique on ajoute encore 3 \"Poisons\". Si la cible est immunisée à \"Poison\" ce dernier se transforme en acide qui réduit ses boucliers et son armure à 0 et inflige autant de dégâts que de Poisons normalement appliqués en ajoutant le DSB.",
                 Psy: 7,
                 PV: "N/A",
@@ -20801,6 +21569,7 @@ ninja: {
             },
             {
                 nom: "Fûma Shuriken",
+                image: "",
                 description: "Le Ninja lance un gigantesque Shuriken qui traverse toutes les entités sur la trajectoire jusqu’à la cible et peut atteindre une distance de 30 mètres. L’arme inflige 1 dé 6 +1 dégâts à toutes les entités sur le chemin et 2 dés 6 dégâts à la cible du sort. Si ce sort est un coup critique il n’augmente pas les dégâts infligés mais annule les dégâts sur les alliés et applique \"Hémorragie\" aux ennemis.",
                 Psy: 6,
                 PV: "N/A",
@@ -20816,6 +21585,7 @@ ninja: {
             },
             {
                 nom: "Voie des Ombres",
+                image: "",
                 description: "Le Ninja devient Invisible et cette invisibilité ne se rompt pas même s’il attaque ou subit des dégâts. Cet effet dure tant que le Ninja inflige un CC ou tue une cible à chaque tour et ne se fait pas toucher. L’invisibilité de ce sort octroie un Ninjutsu à chaque tour. Si ce sort se termine le Ninja augmente de 1 dé 10 les dégâts de sa prochaine attaque. Ce sort ne consomme pas d’action.",
                 Psy: 6,
                 PV: "N/A",
@@ -20838,6 +21608,7 @@ ninja: {
         sortMaitre: [
             {
                 nom: "Voie de l’Assassin",
+                image: "",
                 description: "Le Ninja est passé maître dans l’art de ne laisser aucune chance à ses victimes. Ce sort permet de désigner une cible, pendant 1 tour, toutes les attaques du Ninja sur elle seront des coups critiques même si elles devaient être ratées. De plus les dégâts du Ninja augmentent de 1 jusqu’à la fin du combat à chaque fois qu’il inflige des dégâts à la cible par des altérations d’états ou des attaques directes sur les PV. Si la cible inflige des dégâts au Ninja il devient Invisible pour 1 tour. Ce sort ne consomme pas d’action, son effet peut être prolongé d’un tour pour 6 PSY par tour de prolongement.",
                 Psy: 6,
                 PV: "N/A",
@@ -20856,6 +21627,8 @@ ninja: {
     }
 },
 pistolero: {
+    nom: "Pistolero",
+    image: "",    
     description: [
         "Les pistoleros sont apparus dès l'arrivée des armes à feu en Alyria, ces experts sont de vrais duellistes à distance et peuvent être aussi bien des justiciers solitaires que des bandits sans foi ni loi.",
         "Capables de faire des ravages dans les rangs ennemis, ils sont encore plus efficaces en un contre un et dégaine plus vite que leur propre ombre pour abattre d'une seule balle quiconque leur tiendrait tête. Bien meilleurs que des archers ou des arbalétriers pour ce qui est de gérer un conflit rapidement, ils sont en revanche bien moins discrets.",
@@ -20898,6 +21671,7 @@ pistolero: {
     sortileges_et_passifs: {
         mecanique: {
             nom: "Il est midi",
+            image: "",            
             description: [
                 "Le Pistolero est un As du Duel, il peut provoquer d’autres adversaires à longue distance dans un duel dont l’issue ne laissera qu’un seul vainqueur.",
                 "Provoque une cible jusqu’à 30 mètres en duel, le lanceur et elle doivent impérativement posséder une arme de type distance, si le lanceur ou la cible frappent une autre cible ils subissent une attaque d’opportunité et ce sortilège prend fin. L’effet dure jusqu’à la mort de la cible ou du lanceur ou jusqu’à une relance de ce sortilège. Pendant la durée de l’effet les attaques à distances de la cible et du lanceur infligent 2 dégâts supplémentaires et ont +10% de chance de toucher et de coup critique."
@@ -20921,6 +21695,7 @@ pistolero: {
             talents: [
                 {
                     nom: "Professionnel des armes à feu",
+                    image: "",    
                     description: "Ajoute +5% de chance de toucher et de coup critique et +1 dégâts à toutes les attaques et sortilèges utilisant une arme à feu.",
                     niveauJoueur: 1,
                     prerequis: [],
@@ -20933,6 +21708,7 @@ pistolero: {
                 },
                 {
                     nom: "Maniement leste",
+                    image: "",    
                     description: "Ajoute +2 en Dextérité, vous pouvez changer d’arme à tout moment dans le tour.",
                     niveauJoueur: 2,
                     prerequis: ["Professionnel des armes à feu"],
@@ -20943,6 +21719,7 @@ pistolero: {
                 },
                 {
                     nom: "6 coups au ceinturon",
+                    image: "",    
                     description: "Si vous subissez des dégâts au corps à corps vous pouvez tirer avec un revolver caché, l’attaquant subit alors 1 dé 6 dégâts fixes. Cet effet ne s’applique pas deux tour de suite sur un même ennemi ni plusieurs fois dans le même tour.",
                     niveauJoueur: 3,
                     prerequis: ["Maniement leste"],
@@ -20954,6 +21731,7 @@ pistolero: {
                 },
                 {
                     nom: "Sheriff en ville",
+                    image: "",    
                     description: "Ajoute +2 en Charisme, vous avez avantage à vos jet d’intimidation et de Persuader/Tromper contre les hors la loi, les bandits et les voleurs.",
                     niveauJoueur: 4,
                     prerequis: ["6 coups au ceinturon"],
@@ -20964,6 +21742,7 @@ pistolero: {
                 },
                 {
                     nom: "Midi à quatorze heure",
+                    image: "",    
                     description: "Ce passif annule le bonus octroyé par 'Il est midi' à la cible du sort.",
                     niveauJoueur: 5,
                     prerequis: ["Sheriff en ville"],
@@ -20973,6 +21752,7 @@ pistolero: {
                 },
                 {
                     nom: "Visée aveugle",
+                    image: "",    
                     description: "Ajoute +1 en Chance, et octroie l’immunité à 'Cécité'.",
                     niveauJoueur: 6,
                     prerequis: ["Midi à quatorze heure"],
@@ -20983,6 +21763,7 @@ pistolero: {
                 },
                 {
                     nom: "Ricochet",
+                    image: "",    
                     description: "Lorsque le Pistolero tire sur une cible avec son arme il peut faire ricochet son tir et infliger la moitié des dégâts à une autre cible au corps à corps de la première, cet effet n’enclenche pas d’attaque d’opportunité pour la mécanique.",
                     niveauJoueur: 7,
                     prerequis: ["Visée aveugle"],
@@ -20994,6 +21775,7 @@ pistolero: {
                 },
                 {
                     nom: "Visée rapide",
+                    image: "",    
                     description: "Ajoute +1 en Dextérité, vous gagnez 1 cran en vitesse lors du premier tour de jeu.",
                     niveauJoueur: 8,
                     prerequis: ["Ricochet"],
@@ -21004,6 +21786,7 @@ pistolero: {
                 },
                 {
                     nom: "Maitre des armes à feu",
+                    image: "",    
                     description: "Double le bonus de 'Professionnel des armes à feu'. La portée des armes à feu est augmentée de 5 mètres.",
                     niveauJoueur: 9,
                     prerequis: ["Visée rapide"],
@@ -21014,6 +21797,7 @@ pistolero: {
                 },
                 {
                     nom: "Poursuite infernale",
+                    image: "",    
                     description: "Si la cible désignée par 'Il est Midi' se déplace vous pouvez vous déplacez d’autant sans utiliser votre déplacement afin de maintenir la distance vous séparant actuellement.",
                     niveauJoueur: 10,
                     prerequis: ["Maitre des armes à feu"],
@@ -21030,6 +21814,7 @@ pistolero: {
         sortNovice: [
             {
                 nom: "Dégaine !",
+                image: "",
                 description: "Nécessite une arme de type 'Distance - À feu'. Le lanceur tire plus vite que son ombre, cette attaque peut être utilisée en premier lors d’un combat même si vous n’êtes pas supposé agir, dans ce cas ce sort ne consomme pas d’action. Inflige 1 dé 6 +2 dégâts et applique 'Entrave'.",
                 Psy: 3,
                 PV: "N/A",
@@ -21047,6 +21832,7 @@ pistolero: {
             },
             {
                 nom: "Tir à la tête",
+                image: "",
                 description: "Le lanceur vise la tête pour infliger de lourds dégâts, ce sort à un taux de coup critique augmenté de 20%, si vous infligez un coup critique les dégâts seront maximisés. Ce sort inflige 1 dé 4 dégâts.",
                 Psy: 3,
                 PV: "N/A",
@@ -21062,6 +21848,7 @@ pistolero: {
             },
             {
                 nom: "Tir fantôme",
+                image: "",
                 description: "Pendant 2 tours, à chaque fois que vous utilisez votre arme à distance que ce soit pour un sortilège ou pour une simple attaque, vous infligez 1 dé 6 dégâts fixes supplémentaires grâce à un deuxième tir consécutif au premier. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -21075,6 +21862,7 @@ pistolero: {
             },
             {
                 nom: "Balle spécialisée",
+                image: "",
                 description: "Vous utilisez des munitions spéciales pour votre arme à distance, elle infligera ses dégâts dans l’élément de votre choix lors de la prochaine attaque. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -21088,6 +21876,7 @@ pistolero: {
             },
             {
                 nom: "Déluge de balle",
+                image: "",
                 description: "Vous utilisez votre arme à distance pour infliger 1 dé 6 +1 dégâts dans une zone devant vous en mitraillant à tout va.",
                 Psy: 4,
                 PV: "N/A",
@@ -21101,6 +21890,7 @@ pistolero: {
             },
             {
                 nom: "Tir de Désarmement",
+                image: "",
                 description: "Inflige 1 dé 6 dégâts et l’adversaire fait un jet de sauvegarde de Force, s’il échoue il lâche son arme en main et cela lui coûtera une action de la ramasser.",
                 Psy: 3,
                 PV: "N/A",
@@ -21116,6 +21906,7 @@ pistolero: {
             },
             {
                 nom: "Balle dans le Pied",
+                image: "",
                 description: "Inflige les dégâts de l’arme en main et applique 'Entrave' à un ennemi. Ce sort se lance automatiquement sur la même cible une nouvelle fois si vous effectuez un coup critique.",
                 Psy: 3,
                 PV: "N/A",
@@ -21131,6 +21922,7 @@ pistolero: {
             },
             {
                 nom: "Eperon de botte",
+                image: "",
                 description: "Inflige 1 dé 4 dégâts au corps à corps et fait reculer la cible de 5 mètres, le Pistolero peut lui aussi reculer de 5 mètres. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -21146,6 +21938,7 @@ pistolero: {
             },
             {
                 nom: "Menace à distance",
+                image: "",
                 description: "Le lanceur dégage une aura qui angoisse les adversaires à portée. Dans un rayon autour du lanceur les ennemis devront faire leur jet de blocage avec un désavantage, à chaque fois qu’un allié frappe un ennemi situé dans la zone de menace ce dernier subit 1 dé 4 dégâts fixe supplémentaire. Ce sort dure 2 tours et peut être prolongé pour 2 PSY par tour supplémentaire, il ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -21162,6 +21955,7 @@ pistolero: {
             },
             {
                 nom: "Barillet chanceux",
+                image: "",
                 description: "Vous choisissez un chiffre entre 1 et 6. La Xième attaque après le lancement de ce sort inflige X dégâts et de plus et possède 10 fois X% chances de CC supplémentaire. X est le chiffre choisi. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -21177,6 +21971,7 @@ pistolero: {
             },
             {
                 nom: "Silencieux",
+                image: "",
                 description: "Utilise l’arme en main et inflige son dé de dégât, ce sort ne fait aucun bruit et n’est pas repérable facilement. Applique Silence à la cible en plus de l’effet.",
                 Psy: 2,
                 PV: "N/A",
@@ -21192,6 +21987,7 @@ pistolero: {
             },
             {
                 nom: "Une dernière volonté",
+                image: "",
                 description: "Ce sort déclenche le ciblage automatiquement sur une cible et lui inflige le dé de dégâts de l’arme en main. Si la cible meurt de cette attaque le prochain tir du Pistolero sera critique même s’il est loupé.",
                 Psy: 4,
                 PV: "N/A",
@@ -21209,6 +22005,7 @@ pistolero: {
         sortConfirmé: [
             {
                 nom: "Dans le mille",
+                image: "",
                 description: "Le lanceur tire avec une grande précision et touche un point faible de l’adversaire jusqu’à 25 mètres avec son arme. Ce sort inflige le dé de dégâts de l’arme +3 tout en étant perce armure et en ignorant les boucliers. Si ce sort inflige un coup critique il applique Sonné.",
                 Psy: 5,
                 PV: "N/A",
@@ -21225,6 +22022,7 @@ pistolero: {
             },
             {
                 nom: "Ligne de mire",
+                image: "",
                 description: "Le lanceur se met en position de tir et guette une ouverture, si un ennemi se déplace sur la même ligne ou colonne que lui il prend un tir qui inflige 1 dé 8 dégâts. La ligne de mire dure 3 tirs et ne consomme pas d’action.",
                 Psy: 5,
                 PV: "N/A",
@@ -21240,6 +22038,7 @@ pistolero: {
             },
             {
                 nom: "Claque de cow-boy",
+                image: "",
                 description: "Met une gifle d’une rare violence à un ennemi au corps à corps et lui inflige 2 dé 6 dégâts et 'Sonné'.",
                 Psy: 5,
                 PV: "N/A",
@@ -21254,6 +22053,7 @@ pistolero: {
             },
             {
                 nom: "Pour quelques pièces de plus",
+                image: "",
                 description: "Ce sort fait demande 500 PO en plus de son coût. Le lanceur paye un adversaire qui le rejoint pour 1 tour en lui appliquant 'Charme' irrésistible. Ce sort ne fonctionne que sur des Humanoïdes. À la fin du charme le Pistolero a le droit à une attaque à l'arme gratuite sur la cible juste avant qu’elle joue, cette attaque n’enclenche pas la mécanique et ne consomme pas d’action.",
                 Psy: 5,
                 cout_suppl: "500 PO",
@@ -21271,6 +22071,7 @@ pistolero: {
             },
             {
                 nom: "Tir de déviation",
+                image: "",
                 description: "Pendant 2 tours le Pistolero peut tirer sur un projectile ou un sort à distance par tour qui le prend pour cible. Il doit réussir un jet de touche avec désavantage sur sa Dextérité. S’il réussit l’attaque est annulée et n’a aucun effet. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 PV: "N/A",
@@ -21287,6 +22088,7 @@ pistolero: {
             },
             {
                 nom: "Impitoyable",
+                image: "",
                 description: "Le lanceur se purge et s’immunise à toutes les altérations d’état pendant 2 tours. Il gagne aussi un avantage à tous ses jets de charisme hors combat. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 PV: "N/A",
@@ -21301,6 +22103,7 @@ pistolero: {
             },
             {
                 nom: "Balle perdue",
+                image: "",
                 description: "Fait semblant de louper un tir qui frappe en fait une autre cible à moins de 20 mètres de la cible de ce sort. La cible du sort voit ses PB, son armure et son taux de blocage tomber à 0 pour ce tour. L’autre cible subit 1 dé 8 +2 dégâts et ne peut pas s’en défendre.",
                 Psy: 5,
                 PV: "N/A",
@@ -21315,6 +22118,7 @@ pistolero: {
             },
             {
                 nom: "Midi Tapante",
+                image: "",
                 description: "Double le bonus de 'Il est midi' et déclenche le ciblage de la cible sur vous et inversement. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -21329,6 +22133,7 @@ pistolero: {
             },
             {
                 nom: "Mort ou Vif",
+                image: "",
                 description: "Le Pistolero choisit une cible et lui applique un des états suivant:\n- Recherché Vif : Toutes les attaques subies appliquent Entrave et Cécité en plus de leurs effets mais vous ne pouvez jamais tomber en dessous de 1 PV.\n- Recherché Mort : Toutes les attaques subies vous infligent 3 dégâts supplémentaires, vous devenez immunisé aux altérations d’état.\nCe sort ne peut avoir qu’une seule cible, s’il est relancé son premier effet s’annule, l’effet dure jusqu’à la fin du combat. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -21349,6 +22154,7 @@ pistolero: {
         sortExpert: [
             {
                 nom: "Une balle avec ton nom dessus",
+                image: "",
                 description: "Vous tirez une balle très spéciale sur un ennemi choisi jusqu’à 30 mètres, le tir inflige 3 dé 6 dégâts. Si l’ennemi meurt de cette attaque vous gagnez un bonus de +1 en dégât permanent, cet effet est cumulable 3 fois.",
                 Psy: 6,
                 PV: "N/A",
@@ -21364,6 +22170,7 @@ pistolero: {
             },
             {
                 nom: "Le bon, la Brute et le Truand",
+                image: "",
                 description: "Vous désignez trois entités sur le terrain, la première devient 'Le bon' et voit ses soins et boucliers augmentés de 2, le deuxième devient 'La brute' et voit son armure augmentée de 2 et son taux de blocage augmenté de 20%, le troisième devient 'Le Truand' et voit ses dégâts augmenté de 2 et son taux de CC de 20%. L’effet dure jusqu’à la fin du combat et n’est pas cumulable, ce sort ne consomme pas d’action.",
                 Psy: 7,
                 PV: "N/A",
@@ -21381,6 +22188,7 @@ pistolero: {
             },
             {
                 nom: "Luke le chanceux",
+                image: "",
                 description: "Le pistolero utilise une technique fétiche d’un des maîtres de la profession. La prochaine attaque qu’il exécute sera critique. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 PV: "N/A",
@@ -21394,6 +22202,7 @@ pistolero: {
             },
             {
                 nom: "Barillet Bouillant",
+                image: "",
                 description: "Le Pistolero lance 1 dé 4, il inflige le dé de dégâts de son arme en main autant de fois que le chiffre obtenu. S’il fait 1 l’attaque à +50% de chances de CC, s’il fait 2 ou 3 il augmente sa vitesse d’un cran et s’il fait 4 il applique Brûlure à la cible.",
                 Psy: 6,
                 PV: "N/A",
@@ -21410,6 +22219,7 @@ pistolero: {
             },
             {
                 nom: "Un serpent dans la botte",
+                image: "",
                 description: "L’ennemi se retrouve les pieds dans un nid de serpents mortels, il subit Entrave irrésistible ainsi que 3 Poisons. Au début de son prochain tour l’adversaire subit 2 Poisons supplémentaires, si vous faites un coup critique vous infligez 2 dégâts fixes par Poison appliqué.",
                 Psy: 6,
                 PV: "N/A",
@@ -21426,6 +22236,7 @@ pistolero: {
             },
             {
                 nom: "Whisky du petit Jack",
+                image: "",
                 description: "Vous buvez un alcool qui pourrait dissoudre une plaque d’acier, vous récupérez 2 dé 6 PV et obtenez 4 PB ainsi que 20% de chances de réussite supplémentaires à vos jets de sauvegarde.",
                 Psy: 6,
                 PV: "N/A",
@@ -21441,6 +22252,7 @@ pistolero: {
             },
             {
                 nom: "Il suffit d’un Tir",
+                image: "",
                 description: "Le Pistolero annonce qu’un seul tir suffira à tuer la cible. Celle-ci enrage, elle peut jouer deux actions dans son prochain tour et gagne 1 cran en vitesse. À la fin du tour de jeu de la cible le Pistolero tire et inflige autant de dégâts qu’elle a infligée pendant ce tour + deux fois le dé de dégâts de son arme en main. Si cette attaque est critique vous infligez 3 fois le dé de dégâts de l’arme puis appliquez l’augmentation due au CC. Si le tir tue la cible vous appliquez 'Terreur' irrésistible à tous les autres ennemis, si il ne tue pas la cible est soignée de 2 dé 6 PV fixes.",
                 Psy: 7,
                 PV: "N/A",
@@ -21458,6 +22270,7 @@ pistolero: {
             },
             {
                 nom: "Balle Destinée",
+                image: "",
                 description: "Le Pistolero doit effectuer un jet de Hasard en plus du jet de touche, ce sort ne fonctionne que si les deux sont réussis. Tire avec son arme en main à n’importe quelle distance et inflige le dé de dégâts de l’arme +6 et une altération au choix. Si un des deux jets de dé requis pour lancer ce sort est critique l’attaque inflige 2 fois le dé de dégâts de l’arme + 6 et deux altérations aux choix. Si les deux jets sont critiques l’attaque inflige deux fois le dé de dégâts de l’arme +12 et trois altérations au choix.",
                 Psy: 7,
                 PV: "N/A",
@@ -21476,6 +22289,7 @@ pistolero: {
         sortMaitre: [
             {
                 nom: "Tire plus vite que son ombre",
+                image: "",
                 description: "La cible doit être actuellement sous l’effet du sort 'Il est midi', vous tirez une balle si vite que l’adversaire ne peut pas réagir il subit alors 3 dé 8 dégâts, ces dégâts ne peuvent pas être défendus et sont perce armure. Si vous infligez un coup critique avec ce sort l’adversaire subit Terreur et Cécité irrésistible. Si la cible de ce sort meurt vous lancez immédiatement 'Il est Midi' sur une autre cible. Ce sort peut être lancé hors du tour de Jeu du Pistolero et ne consomme pas d’action. Utilisable une fois par cible et par combat.",
                 Psy: 10,
                 PV: "N/A",
@@ -21498,6 +22312,8 @@ pistolero: {
     }
 },
 mecanicien: {
+    nom: "Mécanicien",
+    image: "",    
     description: [
         "Les mécaniciens sont issus à l’origine de l’aristocratie naine, c’étaient des savants hors pair qui ont créé les premières armes à feu du monde, désormais elles sont assez répandues et les mécaniciens deviennent de plus en plus nombreux, la puissance de feu et la connaissance des mécanismes font de cette voie une voie très recherchée que ce soit pour les combats, le vol, ou la chasse aux monstres.",
         "Les aventuriers se tournent en masse vers cette voie, peu la maîtrisent et les armes sont assez difficiles à manier, mais ceux qui y parviennent peuvent faire une vraie différence dans une équipe.",
@@ -21540,6 +22356,7 @@ mecanicien: {
     sortileges_et_passifs: {
         mecanique: {
             nom: "Assistant Mécanicien",
+            image: "",            
             description: [
                 "Le mécanicien ne sort jamais sans son assistant personnel, souvent une petite machine de son cru mais ça peut être n’importe quoi, ou n’importe qui.",
                 "“Invocation” Invoque une créature de taille petite ou moins, elle a la vitesse Rapide et 8 PV ainsi que 2 PB. Ses statistiques de touches, de CC, d’armure et son DSB sont les mêmes que ceux du lanceur. La PSY de la créature est commune avec celle du lanceur, elle utilise donc totalement la PSY du lanceur et n’en possède pas elle-même. À chaque tour elle a le choix entre trois actions :",
@@ -21575,6 +22392,7 @@ mecanicien: {
             talents: [
                 {
                     nom: "Spécialiste en mécanique",
+                    image: "",    
                     description: "Ajoute +1 en Intelligence. Bonus de +20 aux jets concernant les mécanismes, machines ou pièges.",
                     niveauJoueur: 1,
                     prerequis: [],
@@ -21585,6 +22403,7 @@ mecanicien: {
                 },
                 {
                     nom: "Connaissance mécanique",
+                    image: "",    
                     description: "+1 aux dégâts et +5 % aux chances de toucher avec les armes de type “à feu”. Octroie +10 en artisanat.",
                     niveauJoueur: 2,
                     prerequis: ["Spécialiste en mécanique"],
@@ -21596,6 +22415,7 @@ mecanicien: {
                 },
                 {
                     nom: "Robustesse du Mécano",
+                    image: "",    
                     description: "Ajoute +1 en Défense. Si vous tombez à 25% de vos PV ou moins vous gagnez 6 PB, utilisable 1 fois par combat.",
                     niveauJoueur: 3,
                     prerequis: ["Connaissance mécanique"],
@@ -21607,6 +22427,7 @@ mecanicien: {
                 },
                 {
                     nom: "Bricolage",
+                    image: "",    
                     description: "Ajoute +1 en Défense et en Sagesse. Vous avez un avantage sur les jets pour fabriquer ou réparer des objets.",
                     niveauJoueur: 4,
                     prerequis: ["Robustesse du Mécano"],
@@ -21618,6 +22439,7 @@ mecanicien: {
                 },
                 {
                     nom: "Artificier",
+                    image: "",    
                     description: "Immunité à “Brûlure“. Divise par 2 les dégâts subis par des explosions et octroie la Résistance Feu.",
                     niveauJoueur: 5,
                     prerequis: ["Bricolage"],
@@ -21629,6 +22451,7 @@ mecanicien: {
                 },
                 {
                     nom: "Biscotos du Mécano",
+                    image: "",    
                     description: "Ajoute +1 en Constitution et en Force. Ajoute un bonus de puissance et de robustesse de 10.",
                     niveauJoueur: 6,
                     prerequis: ["Artificier"],
@@ -21640,6 +22463,7 @@ mecanicien: {
                 },
                 {
                     nom: "Encyclopédie mécanique",
+                    image: "",    
                     description: "Double le bonus de 'Connaissance mécanique'. Octroie un avantage sur des jets de savoir concernant des machines ou des mécanismes.",
                     niveauJoueur: 7,
                     prerequis: ["Biscotos du Mécano"],
@@ -21650,6 +22474,7 @@ mecanicien: {
                 },
                 {
                     nom: "Assistant d’élite",
+                    image: "",    
                     description: "Ajoute 4 PV et 4 PB à l’Assistant mécanique. Il gagne la possibilité de se téléporter au corps à corps du lanceur à la place de son action.",
                     niveauJoueur: 8,
                     prerequis: ["Encyclopédie mécanique"],
@@ -21661,6 +22486,7 @@ mecanicien: {
                 },
                 {
                     nom: "Spécialiste des Pièges",
+                    image: "",    
                     description: "Tous les sorts de piège coûtent 1 PSY de moins et infligent +2 dégâts. Ajoute +1 en Force et en Sagesse.",
                     niveauJoueur: 9,
                     prerequis: ["Assistant d’élite"],
@@ -21673,6 +22499,7 @@ mecanicien: {
                 },
                 {
                     nom: "Réparateur hors pair",
+                    image: "",    
                     description: "À chaque fin de tour le mécanicien et ses alliés au corps à corps gagnent 4 PB fixes. Si le mécanicien tombe sous la barre des 50% de PV il gagne 8 PB fixes, une seule fois par combat.",
                     niveauJoueur: 10,
                     prerequis: ["Spécialiste des Pièges"],
@@ -21689,6 +22516,7 @@ mecanicien: {
         sortNovice: [
             {
                 nom: "Piège à Loups",
+                image: "",
                 description: "Pose deux pièges qui peuvent être placés n’importe où dans un périmètre de 10 mètres autour du lanceur, mais forcément sur une case vide, ils ne peuvent pas être détruits et sont invisibles pour l’équipe adverse. Si un ennemi marche sur le piège, il subit 1 dé 4 dégâts et ''Entrave'' et le piège est détruit.",
                 Psy: 3,
                 PV: "N/A",
@@ -21705,6 +22533,7 @@ mecanicien: {
             },
             {
                 nom: "Amélioration : Zone",
+                image: "",
                 description: "Modifie son arme qui ressemble maintenant vaguement à un lance-roquette, le tir frappe en zone à la portée normale et inflige les dégâts de l’arme à tout ce qui s’y trouve. L’arme ainsi modifiée est considérée comme 'à Feu', cet effet persiste jusqu’à l’utilisation d’une autre amélioration ou jusqu’à sa révocation. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -21721,6 +22550,7 @@ mecanicien: {
             },
             {
                 nom: "Zappeur",
+                image: "",
                 description: "Utilise un pic métallique attaché à une batterie pour toucher l’adversaire qui subit 1 dé 6 +3 dégâts Foudre et ''Sonné''.",
                 Psy: 4,
                 PV: "N/A",
@@ -21736,6 +22566,7 @@ mecanicien: {
             },
             {
                 nom: "Bouclier Bric-Broc",
+                image: "",
                 description: "Le lanceur sort un bouclier bricolé en vitesse, la prochaine attaque subie se fera avec le blocage du lanceur doublé et +3 d’armure. À la fin de celle-ci, le bouclier explose en morceaux et inflige 1 dé 6 dégâts à toutes les cibles au corps-à-corps du lanceur. Ce sort ne consomme pas d'action.",
                 Psy: 4,
                 PV: "N/A",
@@ -21751,6 +22582,7 @@ mecanicien: {
             },
             {
                 nom: "Bidouillage de Dernière Minute",
+                image: "",
                 description: "Votre arme ou celle d’un allié au corps à corps gagne +2 dégât et +20% de chance de CC pour 1 tour. L’effet n’est pas cumulable. Ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -21766,6 +22598,7 @@ mecanicien: {
             },
             {
                 nom: "Réparation rapide",
+                image: "",
                 description: "Octroie 2 PB au lanceur ou un allié au corps à corps, l’effet est doublé si la cible possède moins de 25% de PV restant ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -21780,6 +22613,7 @@ mecanicien: {
             },
             {
                 nom: "Piège d’Avarice",
+                image: "",
                 description: "Place un piège avec des fausses pièces d’or. Si un ennemi passe sur une case adjacente ou sur le piège, il doit faire un jet de sauvegarde de Sagesse. S’il échoue, il fonce sur le piège et ce peu importe le déplacement qu’il lui reste. Le piège 1 dé 4 dégâts et ''Charme'', l’altération est appliquée de manière irrésistible si l’ennemi a échoué son jet de sagesse préalablement.",
                 Psy: 3,
                 PV: "N/A",
@@ -21796,6 +22630,7 @@ mecanicien: {
             },
             {
                 nom: "Amélioration : Distance",
+                image: "",
                 description: "Modifie son arme qui ressemble maintenant à un sniper anti blindage, la balle inflige les dégâts de l’arme perce armure à une cible jusqu’à 30 mètres. L’arme ainsi modifiée est considérée comme 'à Feu', cet effet persiste jusqu’à l’utilisation d’une autre amélioration ou jusqu’à sa révocation. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -21811,6 +22646,7 @@ mecanicien: {
             },
             {
                 nom: "Poudrière",
+                image: "",
                 description: "Lance un baril de poudre et le fait exploser en l’air, inflige 1 dé 6 dégâts et “Brûlure“ aux ennemis touchés.",
                 Psy: 3,
                 PV: "N/A",
@@ -21825,6 +22661,7 @@ mecanicien: {
             },
             {
                 nom: "Recyclage",
+                image: "",
                 description: "Si un allié utilise un consommable de niveau épique ou inférieur en combat, vous pouvez utiliser cette capacité le tour qui suit et utiliser à votre tour le même objet même si vous ne le possédez pas. Utilisable maximum 1 fois par tour. Ne consomme pas d’action, coûte 1 PSY + 1 par niveau de rareté de l’objet copié.",
                 Psy: "1 + niveau_rarete",
                 PV: "N/A",
@@ -21839,6 +22676,7 @@ mecanicien: {
             },
             {
                 nom: "Champ énergétique instable",
+                image: "",
                 description: "Protège le lanceur et les alliés au corps à corps avec un bouclier d’énergie, toutes les attaques à distance visant une cible protégée voient leurs dégâts divisés par 2. Les ennemis au corps à corps du lanceur subissent 1 dé 4 dégâts fixes Foudre au début de leur tour. La protection dure 2 tours.",
                 Psy: 4,
                 PV: "N/A",
@@ -21854,6 +22692,7 @@ mecanicien: {
             },
             {
                 nom: "Piège pétaradant",
+                image: "",
                 description: "Ce sort pose 3 fois X piège avec X nombre de psy dépensé pour le lancer. Chaque piège peut être posé dans un rayon de 20 mètres autour du lanceur et inflige 1 dé 2 dégâts à un ennemi qui marche dessus. Ce sort ne consomme pas d’action.",
                 Psy: "X",
                 PV: "N/A",
@@ -21870,6 +22709,7 @@ mecanicien: {
         sortConfirmé: [
             {
                 nom: "Piège à Fosse",
+                image: "",
                 description: "Place un piège enterré et garni de pics, il fait 15 mètres de large, il doit être lancé sur une case libre. Si un ennemi marche dessus, il tombe et subit 1 dé 8 +3 dégâts, il devra obligatoirement passer sa prochaine action pour sortir du piège. Si le piège est enclenché il reste en place jusqu’à ce que toutes les entités en soient sorties, ce qui permet de mettre plusieurs ennemis dedans. Les ennemis voient le piège une fois enclenché.",
                 Psy: 5,
                 PV: "N/A",
@@ -21886,6 +22726,7 @@ mecanicien: {
             },
             {
                 nom: "Amélioration : Cibles multiples",
+                image: "",
                 description: "Modifie son arme en quelque chose qui ressemble à un Minigun. Vous tirez sur toutes les cibles dans un rayon de 10 mètres autour de vous et leur infligez le dé de dégâts de l’arme en main. L’arme ainsi modifiée est considérée comme 'à Feu', cet effet persiste jusqu’à l’utilisation d’une autre amélioration ou jusqu’à sa révocation. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -21902,6 +22743,7 @@ mecanicien: {
             },
             {
                 nom: "Amélioration : Impact Lourd",
+                image: "",
                 description: "Modifie son arme pour la faire ressembler à un fusil à pompe. Tire sur une cible au corps à corps et lui inflige deux fois le dé de dégâts de l’arme en main et la repousse de 10 mètres. L’arme ainsi modifiée est considérée comme 'à Feu', cet effet persiste jusqu’à l’utilisation d’une autre amélioration ou jusqu’à sa révocation. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -21918,6 +22760,7 @@ mecanicien: {
             },
             {
                 nom: "Assistant survolté",
+                image: "",
                 description: "Permet à l’assistant d’utiliser 2 actions par tour pendant 2 tours et de gagner 1 cran en vitesse. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -21932,6 +22775,7 @@ mecanicien: {
             },
             {
                 nom: "Mécanisation",
+                image: "",
                 description: "Octroie +2 en armure, +20% de chances de bloquer et 2 PB au lanceur ou un allié jusqu’à 15 mètres en lui conférant une armure bricolée et semi-assistée mécaniquement. Cet effet persiste tant que la cible possède des PB, une fois qu’elle tombe à 0 PB l’armure reste encore 1 tour et disparaît.",
                 Psy: 4,
                 PV: "N/A",
@@ -21949,6 +22793,7 @@ mecanicien: {
             },
             {
                 nom: "Piège bondissant",
+                image: "",
                 description: "Place deux pièges jusqu’à 40 mètres du lanceur. Si un ennemi passe dessus les pièges sautent et explosent en l’air pour infliger 1 dé 8 +1 dégâts. Ce sort touche les ennemis 'Volant' et leur inflige le double de dégâts.",
                 Psy: 5,
                 PV: "N/A",
@@ -21963,6 +22808,7 @@ mecanicien: {
             },
             {
                 nom: "Drones de réparation",
+                image: "",
                 description: "'Tout le terrain' Octroie 2 PB à tous les alliés sur le terrain et au lanceur, si les alliés perdent des PB jusqu’au prochain tour du lanceur ils en régénèrent 4 automatiquement une fois.",
                 Psy: 5,
                 PV: "N/A",
@@ -21977,6 +22823,7 @@ mecanicien: {
             },
             {
                 nom: "Clé de Douze",
+                image: "",
                 description: "Le mécanicien frappe de toutes ses forces avec son outil fétiche. Ce sort inflige 1 dé 4 dégâts par tranche de 20 de Puissance que le lanceur possède. La cible subit aussi 'Sonné' si la puissance du mécanicien est supérieure à 70. Ce sort a un temps de recharge de 1 tour.",
                 Psy: 4,
                 PV: "N/A",
@@ -21992,6 +22839,7 @@ mecanicien: {
             },
             {
                 nom: "Déminage à Impulsion",
+                image: "",
                 description: "'Tout le terrain' Le mécanicien retire tous les pièges, runes ou autres objets cachés du terrain, il retire également les murs et inflige 1 dé 10 dégâts Foudre à tous les ennemis de type 'Machine'.",
                 Psy: 5,
                 PV: "N/A",
@@ -22010,6 +22858,7 @@ mecanicien: {
         sortExpert: [
             {
                 nom: "Piège à TNT",
+                image: "",
                 description: "Pose un piège au sol sur une case à plus de 10 mètres de toute entité. Si un ennemi marche dessus, lui et les ennemis à moins de 10 mètres subissent 2 dés 8 dégâts Feu et ''Brûlure''.",
                 Psy: 6,
                 PV: "N/A",
@@ -22026,6 +22875,7 @@ mecanicien: {
             },
             {
                 nom: "Piège à Gaz",
+                image: "",
                 description: "Pose trois pièges au corps à corps du lanceur, ils peuvent être lancés sur une case occupée et explosent immédiatement dans ce cas, un seul piège peut être lancé sur une seule case. Inflige 1 dé 6 + 2 dégâts et 3 'Poisons' aux ennemis qui marchent dessus.",
                 Psy: 6,
                 PV: "N/A",
@@ -22041,6 +22891,7 @@ mecanicien: {
             },
             {
                 nom: "Amélioration : Laser à Plasma",
+                image: "",
                 description: "Modifie l’arme en main pour ressembler à un canon laser, l’arme inflige désormais deux fois son dé de dégâts dans un élément spécial qui prend la forme de la faiblesse adverse, quelle qu’elle soit s’il en a une. La portée est augmentée à 30 mètres. L’arme ainsi modifiée est considérée comme 'à Feu', cet effet persiste jusqu’à l’utilisation d’une autre amélioration ou jusqu’à sa révocation. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 PV: "N/A",
@@ -22057,6 +22908,7 @@ mecanicien: {
             },
             {
                 nom: "Rafistolage minutieux",
+                image: "",
                 description: "Le lanceur ou un allié au corps à corps profite d’une attention toute particulière. Il gagne un effet d’Amélioration de niveau Confirmé ou moins, +6 PB, +20% de chance de bloquer et +3 d’armure pendant 2 tours. L’effet peut être prolongé pour 3 PSY par tour supplémentaire. Ce sort ne consomme pas d’action.",
                 Psy: 7,
                 PV: "N/A",
@@ -22074,6 +22926,7 @@ mecanicien: {
             },
             {
                 nom: "Satellite en Bois",
+                image: "",
                 description: "Utilise une frappe qui vient du ciel et dont on ne sait où. Le missile frappe une zone où qu’elle soit sur le terrain et inflige 2 dés 6 dégâts aux ennemis.",
                 Psy: 6,
                 PV: "N/A",
@@ -22087,6 +22940,7 @@ mecanicien: {
             },
             {
                 nom: "Lance-flamme",
+                image: "",
                 description: "Le lanceur sort une arme et de grosses bonbonnes dans son dos, tire un jet de flamme qui carbonise tout dans une zone en cône devant lui. Inflige 1 dé 6 +3 dégâts Feu et ''Brûlure'' à tous les ennemis touchés.",
                 Psy: 6,
                 PV: "N/A",
@@ -22102,6 +22956,7 @@ mecanicien: {
             },
             {
                 nom: "Restauration intégrale",
+                image: "",
                 description: "'Tout le terrain' Ce sort restaure les PB de tous les alliés sur le terrain à leur niveau le plus haut depuis le début du combat. Une fois la restauration effectuée vous ajoutez +20% de chance de bloquer et +2 d’armure pendant 2 tours.",
                 Psy: 7,
                 PV: "N/A",
@@ -22117,6 +22972,7 @@ mecanicien: {
             },
             {
                 nom: "Reconfiguration de combat",
+                image: "",
                 description: "Nécessite que l’Assistant Mécanicien soit sur le terrain. Il récupère tous ses PV et ses PB, et les double. Il gagne une Amélioration du choix du lanceur et son bras devient une arme infligeant 1 dé 8 dégâts, il peut choisir de frapper pendant son tour en plus de ses autres effets. S’il est tué il explose en infligeant 2 dé 8 dégâts aux entités à son corps à corps. Cette forme persiste jusqu’à la mort de l’assistant. Ce sort ne consomme pas d’action.",
                 Psy: 5,
                 PV: "N/A",
@@ -22138,6 +22994,7 @@ mecanicien: {
         sortMaitre: [
             {
                 nom: "Tourelle Apocalyptique",
+                image: "",
                 description: "'Invocation' Le lanceur passe aux manettes d’une tourelle immobile redoutable. Cette tourelle peut tirer avec n’importe quelle amélioration de la voie du mécanicien une fois par tour sans que cela ne coûte d’action ou de PSY et elle augmente la portée maximale des Améliorations ainsi utilisées de 15 mètres. Ses dégâts de bases sont d’1 dé 10 dégâts, le lanceur reste en pilote de cette tourelle et ne peut donc plus bouger lui non plus pendant l’effet. Le lanceur peut jouer son tour normalement et peut tirer une fois gratuitement avec la tourelle ou tirer deux fois avec la tourelle. La tourelle possède 20 PB et 10 PV et n’est pas affectée par les effets perce armure ni par aucune altération d’état. Le lanceur est Invulnérable tant qu’il est à l’intérieur.",
                 Psy: 14,
                 PV: "N/A",
@@ -22162,6 +23019,8 @@ mecanicien: {
     }
 },
 rodeur:  {
+    nom: "Rôdeur",
+    image: "",    
     description: [
         "Les rôdeurs sont appelés comme ça, car ils sont souvent un peu en retrait lors des batailles, ils guettent le moment pour réaliser le tir parfait, celui qui prendra une vie à coup sûr, et mieux si c’est une vie importante... Ils sont souvent recrutés pour des missions d’assassinat et maîtrisent particulièrement bien les arcs et les arbalètes.",
         "Les Rôdeurs rejoignent des groupes d’aventuriers finalement assez fréquemment, car leur maîtrise de la distance leur permet de détruire des cibles lointaines sans difficultés et leurs faiblesses sont vite compensées par un gros type en armure de plates qui brille.",
@@ -22204,6 +23063,7 @@ rodeur:  {
     sortileges_et_passifs: {
         mecanique: {
             nom: "Portée Infinie",
+            image: "",            
             description: [
                 "Le Rôdeur maîtrise les tirs difficiles comme personne, il exploite son plein potentiel quand il tire de très loin et est meilleur que quiconque dans ce domaine.",
                 "Lorsqu’un sort touche une cible à plus de 30 mètres le Rôdeur augmente ses chances de critique de 20% pour 1 tour.",
@@ -22220,6 +23080,7 @@ rodeur:  {
             talents: [
                 {
                     nom: "Expert à Distance",
+                    image: "",    
                     description: "Ajoute +1 aux dégâts et +5% aux chances de toucher avec les armes de type “arc” ou “arbalète”.",
                     niveauJoueur: 1,
                     prerequis: [],
@@ -22231,6 +23092,7 @@ rodeur:  {
                 },
                 {
                     nom: "Longue portée",
+                    image: "",    
                     description: "Ajoute +1 en Dextérité. La portée de tous les sorts, objets et effets est augmentée de 5 mètres.",
                     niveauJoueur: 2,
                     prerequis: ["Expert à Distance"],
@@ -22241,6 +23103,7 @@ rodeur:  {
                 },
                 {
                     nom: "Visée solide",
+                    image: "",    
                     description: "Ajoute +1 en Dextérité et en Force. Le rôdeur peut lancer des attaques de type distance au corps à corps sans subir le désavantage.",
                     niveauJoueur: 3,
                     prerequis: ["Longue portée"],
@@ -22252,6 +23115,7 @@ rodeur:  {
                 },
                 {
                     nom: "Létalité",
+                    image: "",    
                     description: "Toutes les attaques du Rôdeur appliquent “Poison“ à la cible.",
                     niveauJoueur: 4,
                     prerequis: ["Visée solide"],
@@ -22261,6 +23125,7 @@ rodeur:  {
                 },
                 {
                     nom: "Vivacité salvatrice",
+                    image: "",    
                     description: "Ajoute +1 en Dextérité, le Rôdeur peut tirer en réflexe pour se défendre hors combat, ses jets pour esquiver ou encaisser des attaques hors combat se font avec avantage. En combat le Rôdeur gagne 2 crans en vitesse au premier tour de jeu.",
                     niveauJoueur: 5,
                     prerequis: ["Létalité"],
@@ -22273,6 +23138,7 @@ rodeur:  {
                 },
                 {
                     nom: "Expert en Survie",
+                    image: "",    
                     description: "Ajoute +1 en Constitution et en Force. Si vous tombez sous les 25% de votre vie, vous lancez automatiquement le sort Repli Stratégique et celui-ci ne coûte rien. Utilisable 1 fois par combat.",
                     niveauJoueur: 6,
                     prerequis: ["Vivacité salvatrice"],
@@ -22285,6 +23151,7 @@ rodeur:  {
                 },
                 {
                     nom: "Repousser les limites",
+                    image: "",    
                     description: "Tous les sorts de Rôdeur infligent +2 dégâts s’ils sont lancés à leur portée maximale.",
                     niveauJoueur: 7,
                     prerequis: ["Expert en Survie"],
@@ -22294,6 +23161,7 @@ rodeur:  {
                 },
                 {
                     nom: "Maître Rôdeur",
+                    image: "",    
                     description: "“Frappe orbitale” inflige +1 dégât tous les 10 mètres parcourus par le tir. Si vous ne possédez pas le sort vous ignorez cet effet et le débloquez à la place. “Expert à distance” double ses bonus.",
                     niveauJoueur: 8,
                     prerequis: ["Repousser les limites"],
@@ -22305,6 +23173,7 @@ rodeur:  {
                 },
                 {
                     nom: "Chasseur de Tête",
+                    image: "",    
                     description: "À chaque fois que vous achevez un ennemi, vous gagnez +2 dégâts pour le reste du combat.",
                     niveauJoueur: 9,
                     prerequis: ["Maître Rôdeur"],
@@ -22314,6 +23183,7 @@ rodeur:  {
                 },
                 {
                     nom: "Létalité Aggravée",
+                    image: "",    
                     description: "Le bonus du sort Létalité est doublé. Si la cible est immunisée au Poison vous lui infligez 'Brûlure' à la place.",
                     niveauJoueur: 10,
                     prerequis: ["Chasseur de Tête"],
@@ -22330,6 +23200,7 @@ rodeur:  {
         sortNovice: [
             {
                 nom: "Flèche Aveuglante",
+                image: "",
                 description: "Une flèche imprégnée de magie de lumière qui explose en un flash lumineux. Ce sort inflige 1 dé 4 dégâts Foudre et ‘’Cécité’’ à tous les ennemis dans une zone de 10 mètres autour de l’impact.",
                 Psy: 3,
                 PV: "N/A",
@@ -22345,6 +23216,7 @@ rodeur:  {
             },
             {
                 nom: "Frappe Orbitale",
+                image: "",
                 description: "Tire le projectile en l’air, au prochain tour, il tombera sur la cible choisie peu importe où elle se trouve sur le terrain. Inflige le dé de dégâts de l’arme en main, mais elle ignore les boucliers et l'armure.",
                 Psy: 3,
                 PV: "N/A",
@@ -22360,6 +23232,7 @@ rodeur:  {
             },
             {
                 nom: "Tir Rapide",
+                image: "",
                 description: "Pendant ce tour, la vitesse de l’utilisateur augmente de 1 cran et il peut jouer deux actions. Ne consomme pas d’action.",
                 Psy: 4,
                 PV: "N/A",
@@ -22374,6 +23247,7 @@ rodeur:  {
             },
             {
                 nom: "Frappe d’Écartement",
+                image: "",
                 description: "Inflige 1 dé 4 dégâts à une cible au corps à corps et la repousse de 5 mètres, vous êtes repoussé de 5 mètres dans la direction opposée. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -22389,6 +23263,7 @@ rodeur:  {
             },
             {
                 nom: "Tir appuyé",
+                image: "",
                 description: "Inflige le dé de dégâts de l’arme en main, si l’arme est un Arc la portée est augmentée de 5 mètres si c’est une arbalète les dégâts ignorent l’armure de la cible.",
                 Psy: 2,
                 PV: "N/A",
@@ -22404,6 +23279,7 @@ rodeur:  {
             },
             {
                 nom: "Portée améliorée",
+                image: "",
                 description: "Enclenche la mécanique pour augmenter votre portée minimale et maximale de 5 mètres immédiatement. Ce sort ne consomme pas d’action, utilisable une fois par tour.",
                 Psy: 1,
                 PV: "N/A",
@@ -22418,6 +23294,7 @@ rodeur:  {
             },
             {
                 nom: "Neutralisation Somnolente",
+                image: "",
                 description: "Utilise un chiffon imbibé de produit soporifique. Ce sort inflige 1 dé 6 +1 dégâts à la cible et ‘’Sommeil’’.",
                 Psy: 3,
                 PV: "N/A",
@@ -22432,6 +23309,7 @@ rodeur:  {
             },
             {
                 nom: "Tir Précis",
+                image: "",
                 description: "Pendant 2 tours, l’arme en main possède +20% de chances de CC. Ne consomme pas d’action.",
                 Psy: 2,
                 PV: "N/A",
@@ -22445,6 +23323,7 @@ rodeur:  {
             },
             {
                 nom: "Avancée Furtive",
+                image: "",
                 description: "Octroie ‘’Invisible’’ au rôdeur pendant ce tour, il ne peut pas être ciblé par des attaques directes, l'invisibilité s'arrête si le Rôdeur attaque ou subit des dégâts. Ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -22460,6 +23339,7 @@ rodeur:  {
             },
             {
                 nom: "Flèche enflammée",
+                image: "",
                 description: "Imbibe une flèche de flamme et tire sur un ennemi jusqu’à 15 mètres, inflige 1 dé 6 +1 dégâts Feu et 'Brûlure'.",
                 Psy: 3,
                 PV: "N/A",
@@ -22475,6 +23355,7 @@ rodeur:  {
             },
             {
                 nom: "Tir d’Élite",
+                image: "",
                 description: "Inflige 2 dé 4 dégâts à une cible jusqu’à 40 mètres.",
                 Psy: 4,
                 PV: "N/A",
@@ -22488,6 +23369,7 @@ rodeur:  {
             },
             {
                 nom: "Flèche Massue",
+                image: "",
                 description: "Tire une flèche à embout rond, elle peut assommer une cible jusqu’à 15 mètres en lui infligeant 'Sonné'. Le rôdeur peut choisir entre infliger 1 dé 6 dégâts ou repousser de 10 mètres.",
                 Psy: 3,
                 PV: "N/A",
@@ -22504,6 +23386,7 @@ rodeur:  {
         sortConfirmé: [
             {
                 nom: "Entre les Deux Yeux",
+                image: "",
                 description: "Inflige 1 dé 6 + 3 dégâts jusqu’à 30 mètres, si la cible a moins de 25% de PV restant elle meurt sur le coup peu importe les dégâts de cette attaque.",
                 Psy: 4,
                 PV: "N/A",
@@ -22518,6 +23401,7 @@ rodeur:  {
             },
             {
                 nom: "Éviscération",
+                image: "",
                 description: "Poignarde une cible avec la pointe d’une flèche et vise la gorge, cette attaque inflige le dé de dégâts de l’arme en main mais sera toujours un coup critique en cas de réussite. En revanche, le jet de touche doit être fait avec un désavantage.",
                 Psy: 5,
                 PV: "N/A",
@@ -22533,6 +23417,7 @@ rodeur:  {
             },
             {
                 nom: "Présence Accablante",
+                image: "",
                 description: "Le rôdeur est terrifiant et on ne voit que lui, ce sort provoque tous les ennemis à plus de 10 mètres de lui et fonctionne comme un jet de ciblage sur lui. Si un ennemi ciblé meurt pendant le ciblage, tous les autres se voient infliger ‘’Terreur’’.",
                 Psy: 3,
                 PV: "N/A",
@@ -22548,6 +23433,7 @@ rodeur:  {
             },
             {
                 nom: "Tireur d’élite",
+                image: "",
                 description: "Double les bonus octroyés par la mécanique pour ce tour, ce sort ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -22561,6 +23447,7 @@ rodeur:  {
             },
             {
                 nom: "Tir de Poutre",
+                image: "",
                 description: "Tire une très grosse flèche à 10 mètres et inflige 2 dés 4 dégâts Terre à un ennemi et le repousse de 10 mètres.",
                 Psy: 4,
                 PV: "N/A",
@@ -22576,6 +23463,7 @@ rodeur:  {
             },
             {
                 nom: "Barrage de Flèche",
+                image: "",
                 description: "Les flèches se dédoublent et frappent une zone en cône devant le lanceur. Les flèches infligent 1 dé 6 +2 dégâts à toutes les cibles.",
                 Psy: 5,
                 PV: "N/A",
@@ -22589,6 +23477,7 @@ rodeur:  {
             },
             {
                 nom: "Repli Stratégique",
+                image: "",
                 description: "Permet de se téléporter sur une distance maximale de 15 mètres, si un ennemi est au corps à corps de la zone de départ de l’utilisateur il subit “Entrave“ et “Cécité“. Ce sort ne consomme pas d'action.",
                 Psy: 3,
                 PV: "N/A",
@@ -22603,6 +23492,7 @@ rodeur:  {
             },
             {
                 nom: "Lance nullos",
+                image: "",
                 description: "Emprunte un coup spécial Orc et balance un ennemi au corps à corps jusqu’à 15 mètres, la case d’arrivée doit être libre, il subit 1 dé 8 dégâts à l’atterrissage.",
                 Psy: 4,
                 PV: "N/A",
@@ -22617,6 +23507,7 @@ rodeur:  {
             },
             {
                 nom: "Tir Véloce",
+                image: "",
                 description: "Inflige 1 dé 6 +3 dégâts Foudre perce armure jusqu’à 40 mètres, octroie 1 cran en vitesse pendant 1 tour à l’utilisateur.",
                 Psy: 5,
                 PV: "N/A",
@@ -22635,6 +23526,7 @@ rodeur:  {
         sortExpert: [
             {
                 nom: "Salve Ininterrompue",
+                image: "",
                 description: "Le rôdeur tire une quantité folle de flèches, et inflige 8 dés 2 dégâts à une cible mais le rôdeur ne peut plus se déplacer ou se téléporter après ce tir.",
                 Psy: 6,
                 PV: "N/A",
@@ -22649,6 +23541,7 @@ rodeur:  {
             },
             {
                 nom: "Fend la Flèche",
+                image: "",
                 description: "Tire deux flèches, l’une vient fendre la première en deux. Le Rôdeur inflige le dé de dégâts de l’arme en main deux fois, perce armure et applique 'Hémorragie'.",
                 Psy: 6,
                 PV: "N/A",
@@ -22664,6 +23557,7 @@ rodeur:  {
             },
             {
                 nom: "Portée Théorique",
+                image: "",
                 description: "Vous enclenchez tous les paliers de la mécanique sur votre prochain tir qui touche à 20 mètres ou plus. Ce sort ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
@@ -22677,6 +23571,7 @@ rodeur:  {
             },
             {
                 nom: "Flèche dans le Genou",
+                image: "",
                 description: "Tire une flèche avec un grand pouvoir d’impact dans les parties mobiles de l’adversaire. Inflige 1 dé 10 + 4 dégâts et applique 'Entrave' irrésistible après avoir repoussé la cible de 10 mètres. Si ce sort est utilisé au corps à corps il inflige 4 dégâts fixes supplémentaires mais est considéré comme un sort de corps à corps pour la mécanique.",
                 Psy: 6,
                 PV: "N/A",
@@ -22693,6 +23588,7 @@ rodeur:  {
             },
             {
                 nom: "Tir Laser",
+                image: "",
                 description: "Le Rôdeur tire un projectile à une vitesse surréaliste. Ce sort à une portée de 50 mètres, il ne peut pas être bloqué ou interrompu par un mur, un obstacle ou par des effets annulant les dégâts des projectiles. La cible ne peut pas bloquer ce tir, elle ne peut pas l’esquiver non plus et personne ne peut prendre les dégâts à sa place. Inflige 2 dé 6 dégâts perce armure.",
                 Psy: 6,
                 PV: "N/A",
@@ -22709,6 +23605,7 @@ rodeur:  {
             },
             {
                 nom: "Téléportir",
+                image: "",
                 description: "Vous tirez une flèche à une distance de 15 mètres ou moins, vous vous téléportez sur cette position et ignorez tous les effets entravant le déplacement et les attaques d’opportunités. Ce sort ne consomme pas d’action mais utilise tout le déplacement du Rôdeur et celui-ci doit ne pas s’être déjà déplacé.",
                 Psy: 3,
                 PV: "N/A",
@@ -22725,6 +23622,7 @@ rodeur:  {
             },
             {
                 nom: "Pluie de Flèche",
+                image: "",
                 description: "'Tout le terrain' Fait tomber une véritable averse de flèche sur toute la zone, cette attaque inflige 1 dé 8 +3 dégâts à tous les ennemis. Chaque ennemi touché supplémentaire au-delà du premier ajoute 10% de chance de coup critique à cette attaque.",
                 Psy: 6,
                 PV: "N/A",
@@ -22739,6 +23637,7 @@ rodeur:  {
             },
             {
                 nom: "Tir Final",
+                image: "",
                 description: "Le Rôdeur concentre toutes ses forces dans un tir infligeant des dégâts massifs. Cette attaque inflige 3 dé 6 + 6 dégâts à une cible jusqu’à 30 mètres, ce tir se dirige de la manière la plus directe en ligne droite vers la cible et inflige également 1 dé 6 + 3 dégâts à tous les ennemis sur le chemin. Ce sort a un temps de recharge de 2 tours, ce temps est annulé s’il tue sa cible.",
                 Psy: 7,
                 PV: "N/A",
@@ -22757,6 +23656,7 @@ rodeur:  {
         sortMaitre: [
             {
                 nom: "Accélération exponentielle",
+                image: "",
                 description: "Le rôdeur utilise une magie qui fait accélérer sans cesse ses projectiles. Pendant 2 tours toutes les attaques à distance du Rôdeur infligent 1 dégât de plus à chaque 5 mètres parcourus par le tir, de plus les coups critiques infligent systématiquement des dégâts perce armure. Cet effet peut être prolongé d’un tour pour 4 PSY supplémentaire à chaque tour. Ce sort ne consomme pas d’action.",
                 Psy: 10,
                 PV: "N/A",

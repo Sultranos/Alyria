@@ -15,7 +15,11 @@
     "module/AlyriaActor.js",
     "module/AlyriaItem.js",
     "module/data/AlyriaRace.js",
-    "module/data/AlyriaVoies.js"   
+    "module/data/AlyriaVoies.js",
+    "module/data/traits.js",
+    "module/data/imperfections.js",
+    "module/data/Particularites.js",
+    "module/data/armes.js"   
   ],
   "styles": ["CSS/alyriasystem.css"],
   "packs": [],

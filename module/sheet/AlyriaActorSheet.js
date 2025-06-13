@@ -1,5 +1,6 @@
 import { AlyriaRaces } from "../data/AlyriaRace.js";
 import { AlyriaVoies } from "../data/AlyriaVoies.js";
+import { AlyriaArcane } from "../data/AlyriaArcanes.js";
 
 export default class AlyriaActorSheet extends ActorSheet {
     get template() {
@@ -37,6 +38,11 @@ export default class AlyriaActorSheet extends ActorSheet {
 
             this.actor.update({ "system.sortsChoisis": checked });
         });
+        html.find('.biography-bubble .bubble-title').click(function() {
+            const content = $(this).siblings('.bubble-content');
+            content.toggleClass('hidden');
+            $(this).find('.toggle-icon').toggleClass('expanded');
+          });
         }
 
         async _onRollCharacteristic(event) {
@@ -106,18 +112,248 @@ export default class AlyriaActorSheet extends ActorSheet {
 
 
     async getData(options) {
-        const data = await super.getData(options);
-        data.races = AlyriaRaces;
-        data.voies = AlyriaVoies;
-        data.system = this.actor.system;
-        console.log("AlyriaActorSheet data:", data); // <-- Ajoute ce log ici
-        return data;
-            }
+  const data = await super.getData(options);
+
+  // Récupération race
+  const raceKey = data.actor.system.race;
+  const raceData = AlyriaRaces?.[raceKey] ?? {};
+  data.selectedRace = {
+    nom: raceData.nom || "Non définie",
+    description: raceData.description || [],
+    talentRace: raceData.talentRace || {}
+  };
+
+  // Récupération voies/arcanes
+  const voiesArcane = data.actor.system.voiesArcane || {};
+  const { type1, key1, type2, key2 } = voiesArcane;
+
+  // Reset
+  data.selectedVoie = null;
+  data.selectedArcana = null;
+  data.selectedSecondVoie = null;
+  data.selectedSecondArcana = null;
+
+  // Première sélection
+  if (type1 === "voie" && key1) {
+    const voie = AlyriaVoies?.[key1] ?? {};
+    let image = voie.image;
+    if (!image && key1) {
+      const fileName = key1.charAt(0).toUpperCase() + key1.slice(1).toLowerCase();
+      image = `systems/alyria/module/data/images/voies/${fileName}.jpg`;
+    }
+    data.selectedVoie = {
+      nom: voie.nom || "",
+      image: image || "",
+      description: voie.description || [],
+      talents: voie.talentVoie?.talents || [],
+      mecanique: voie.mecanique || [],
+      type: "voie"
+    };
+  } else if (type1 === "arcane" && key1) {
+    const arcane = AlyriaArcane?.[key1] ?? {};
+    let image = arcane.image;
+    if (!image && key1) {
+      const fileName = key1.charAt(0).toUpperCase() + key1.slice(1).toLowerCase();
+      image = `systems/alyria/module/data/images/arcanes/${fileName}.jpg`;
+    }
+    data.selectedArcana = {
+      nom: arcane.nom || "",
+      image: image || "",
+      description: arcane.description || [],
+      talents: arcane.talentVoie?.talents || [],
+      mecanique: arcane.mecanique || [],
+      type: "arcane"
+    };
+  }
+
+  // Seconde sélection
+  if (type2 === "voie" && key2) {
+    const voie = AlyriaVoies?.[key2] ?? {};
+    let image = voie.image;
+    if (!image && key2) {
+      const fileName = key2.charAt(0).toUpperCase() + key2.slice(1).toLowerCase();
+      image = `systems/alyria/module/data/images/voies/${fileName}.jpg`;
+    }
+    data.selectedSecondVoie = {
+      nom: voie.nom || "",
+      image: image || "",
+      description: voie.description || [],
+      talents: voie.talentVoie?.talents || [],
+      mecanique: voie.mecanique || [],
+      type: "voie"
+    };
+  } else if (type2 === "arcane" && key2) {
+    const arcane = AlyriaArcane?.[key2] ?? {};
+    let image = arcane.image;
+    if (!image && key2) {
+      const fileName = key2.charAt(0).toUpperCase() + key2.slice(1).toLowerCase();
+      image = `systems/alyria/module/data/images/arcanes/${fileName}.jpg`;
+    }
+    data.selectedSecondArcana = {
+      nom: arcane.nom || "",
+      image: image || "",
+      description: arcane.description || [],
+      talents: arcane.talentVoie?.talents || [],
+      mecanique: arcane.mecanique || [],
+      type: "arcane"
+    };
+  }
+
+  return data;
+}
     async _updateObject(event, formData) {
   // Cette ligne reconstruit l'objet complet à partir des champs du formulaire
   const expanded = foundry.utils.expandObject(formData);
   console.log("FormData expandObject :", expanded);
   await this.object.update(expanded);
 }
-    }
+    async render(force=false, options={}) {
+  const hasRace = this.actor.system.race;
+  const voiesArcane = this.actor.system.voiesArcane || {};
+  const hasFirstChoice = voiesArcane.type1 && voiesArcane.key1;
+  
+  console.log("DEBUG render - hasRace:", hasRace, "hasFirstChoice:", hasFirstChoice, "voiesArcane:", voiesArcane);
+  
+  if (!hasRace || !hasFirstChoice) {
+    await this._showCreationDialog();
+  }
+  return super.render(force, options);
+}
 
+async _showCreationDialog() {
+  // Prépare les listes
+  const races = AlyriaRaces || {};
+  // Si AlyriaVoies ne contient QUE des voies
+  const voies = AlyriaVoies || {};
+  // CORRECTION ICI - Filtrer depuis AlyriaArcane, pas AlyriaVoies
+  const arcanes = AlyriaArcane || {};
+
+
+  // Génère les options HTML
+  const raceOptions = Object.entries(races).map(([key, race]) =>
+    `<option value="${key}">${race.nom}</option>`
+  ).join("");
+
+  const voieOptions = Object.entries(voies).map(([key, voie]) =>
+    `<option value="voie:${key}">${voie.nom}</option>`
+  ).join("");
+  const arcaneOptions = Object.entries(arcanes).map(([key, arcane]) =>
+    `<option value="arcane:${key}">${arcane.nom}</option>`
+  ).join("");
+
+  // Génère les options HTML combinées
+const allVoiesOptions = Object.entries(voies).map(([key, voie]) =>
+  `<option value="voie:${key}">${voie.nom} (voie)</option>`
+).join("");
+
+const allArcanesOptions = Object.entries(arcanes).map(([key, arcane]) =>
+  `<option value="arcane:${key}">${arcane.nom} (arcane)</option>`
+).join("");
+
+const allOptions = allVoiesOptions + allArcanesOptions;
+
+// Affiche le dialog
+let content = `
+  <form>
+    <div class="form-group">
+      <label>Race :</label>
+      <select name="race" required>
+        <option value="">-- Choisir --</option>
+        ${raceOptions}
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Première voie/arcane :</label>
+      <select name="voie1" required>
+        <option value="">-- Choisir --</option>
+        <optgroup label="Voies">${allVoiesOptions}</optgroup>
+        <optgroup label="Arcanes">${allArcanesOptions}</optgroup>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Seconde voie/arcane :</label>
+      <select name="voie2" disabled>
+        <option value="">-- Choisir --</option>
+      </select>
+    </div>
+  </form>
+  <style>
+    .form-group { margin-bottom: 10px; }
+  </style>
+`;
+
+  // Affiche le dialog et gère la logique dynamique côté JS
+  return new Promise(resolve => {
+    let dlg;
+    dlg = new Dialog({
+      title: "Création du personnage",
+      content,
+      render: html => {
+        const $voie1 = html.find('[name="voie1"]');
+        const $voie2 = html.find('[name="voie2"]');
+        
+        // Redéfinir les options ici
+        const voieOptions = Object.entries(voies).map(([key, voie]) =>
+          `<option value="voie:${key}">${voie.nom}</option>`
+        ).join("");
+        const arcaneOptions = Object.entries(arcanes).map(([key, arcane]) =>
+          `<option value="arcane:${key}">${arcane.nom}</option>`
+        ).join("");
+        
+        // Quand on change la première voie/arcane
+        $voie1.on('change', function() {
+          const value = $(this).val();
+          let options = `<option value="">-- Choisir --</option>`;
+          if (value.startsWith('voie:')) {
+            // Si voie, on peut choisir une autre voie ou une arcane
+            options += `<optgroup label="Voies">${voieOptions}</optgroup>`;
+            options += `<optgroup label="Arcanes">${arcaneOptions}</optgroup>`;
+          } else if (value.startsWith('arcane:')) {
+            // Si arcane, on ne peut choisir qu'une autre arcane
+            options += `<optgroup label="Arcanes">${arcaneOptions}</optgroup>`;
+          }
+          $voie2.html(options);
+          $voie2.prop('disabled', false);
+          // Empêche de sélectionner deux fois la même voie/arcane
+          $voie2.find(`option[value="${value}"]`).remove();
+        });
+      },
+      buttons: {
+        ok: {
+          label: "Valider",
+          callback: html => {
+            const race = html.find('[name="race"]').val();
+            const voie1 = html.find('[name="voie1"]').val();
+            const voie2 = html.find('[name="voie2"]').val();
+            
+            console.log("DEBUG callback - voie1 RAW:", voie1, "voie2 RAW:", voie2);
+            
+            if (!race || !voie1) {
+              ui.notifications.warn("Vous devez choisir une race et au moins une voie ou un arcane.");
+              this._showCreationDialog();
+              return;
+            }
+            
+            console.log("DEBUG avant split - voie1:", voie1);
+            const [type1, key1] = voie1.split(":");
+            let type2 = "", key2 = "";
+            if (voie2) {
+              console.log("DEBUG avant split - voie2:", voie2);
+              [type2, key2] = voie2.split(":");
+            }
+            
+            console.log("DEBUG après split - type1:", type1, "key1:", key1, "type2:", type2, "key2:", key2);
+            
+            this.actor.update({
+              "system.race": race,
+              "system.voiesArcane": { type1, key1, type2, key2 }
+            });
+            resolve();
+          }
+        }
+      },
+      close: () => resolve()
+    });
+    dlg.render(true);
+  });
+}}

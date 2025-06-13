@@ -3,47 +3,51 @@
   "description": "Un système Foundry VTT de base pour Alyria.",
   "version": "0.0.1125",
     
-"race": {
+  "race": {
     "nom":"",
+    "image": "",
     "description": "",
     "majeures": {
-                    "constitution": 0,
-                    "intelligence": 0,
-                    "force": 0 ,
-                    "dexterite": 0,
-                    "sagesse": 0,
-                    "charisme": 0,
-                    "defense": 0,
-                    "chance": 0
-                    },
+      "constitution": 0,
+      "intelligence": 0,
+      "force": 0 ,
+      "dexterite": 0,
+      "sagesse": 0,
+      "charisme": 0,
+      "defense": 0,
+      "chance": 0
+    },
     "talentRace": "",
     "competenceRaciale": "",
     "mineures": {
-        "monde": 0,
-        "mystique": 0,
-        "nature": 0,
-        "sacré": 0,
-        "robustesse": 0,
-        "calme": 0,
-        "marchandage": 0,
-        "persuasion": 0,
-        "artmusique": 0,
-        "commandement": 0,
-        "acrobatie": 0,
-        "discretion": 0,
-        "adresse": 0,
-        "artisanat": 0,
-        "hasard": 0,
-        "athlétisme": 0,
-        "puissance": 0,
-        "intimidation": 0,
-        "perception": 0,
-        "perceptionmagique": 0,
-        "medecine": 0,
-        "intuition": 0
-        }
-    },
+      "monde": 0,
+      "mystique": 0,
+      "nature": 0,
+      "sacré": 0,
+      "robustesse": 0,
+      "calme": 0,
+      "marchandage": 0,
+      "persuasion": 0,
+      "artmusique": 0,
+      "commandement": 0,
+      "acrobatie": 0,
+      "discretion": 0,
+      "adresse": 0,
+      "artisanat": 0,
+      "hasard": 0,
+      "athlétisme": 0,
+      "puissance": 0,
+      "intimidation": 0,
+      "perception": 0,
+      "perceptionmagique": 0,
+      "medecine": 0,
+      "intuition": 0
+    }
+  },
+
 "arcane":{
+    "nom": "",
+    "image": "",
     "description": "",
     "mecanique":[],
     "talentArcane":{
@@ -61,7 +65,7 @@
                     "Action": "",
                     "Touche": "",
                     "effet": {}
-                     }],
+                      }],
             "sortConfirme": [{
                     "nom": "",
                     "description": "",
@@ -71,7 +75,7 @@
                     "Action": "",
                     "Touche": "",
                     "effet": {}
-                     }],
+                      }],
             "sortExpert": [{
                     "nom": "",
                     "description": "",
@@ -81,7 +85,7 @@
                     "Action": "",
                     "Touche": "",
                     "effet": {}
-                     }],
+                      }],
             "sortMaitre": [{
                     "nom": "",
                     "description": "",
@@ -91,22 +95,25 @@
                     "Action": "",
                     "Touche": "",
                     "effet": {}
-                     }]
+                      }]
         }
-},
+  },
+
 "voie": {
+    "nom": "",
+    "image": "",
     "description": "",
     "majeures": {
-                    "constitution": 0,
-                    "intelligence": 0,
-                    "force": 0 ,
-                    "dexterite": 0,
-                    "sagesse": 0,
-                    "charisme": 0,
-                    "defense": 0,
-                    "chance": 0
-                    },
-    "mineures":  {
+            "constitution": 0,
+            "intelligence": 0,
+            "force": 0 ,
+            "dexterite": 0,
+            "sagesse": 0,
+            "charisme": 0,
+            "defense": 0,
+            "chance": 0
+            },
+    "mineures":   {
         "monde": 0,
         "mystique": 0,
         "nature": 0,
@@ -146,7 +153,7 @@
                     "Action": "",
                     "Touche": "",
                     "effet": {}
-                     }],
+                      }],
             "sortConfirme": [{
                     "nom": "",
                     "description": "",
@@ -156,7 +163,7 @@
                     "Action": "",
                     "Touche": "",
                     "effet": {}
-                     }],
+                      }],
             "sortExpert": [{
                     "nom": "",
                     "description": "",
@@ -166,7 +173,7 @@
                     "Action": "",
                     "Touche": "",
                     "effet": {}
-                     }],
+                      }],
             "sortMaitre": [{
                     "nom": "",
                     "description": "",
@@ -176,9 +183,9 @@
                     "Action": "",
                     "Touche": "",
                     "effet": {}
-                     }]
+                      }]
         }
-},
+  },
 
 "item": {
     "types": ["arme", "armure", "objet", "accessoire", "consommable"],
@@ -231,106 +238,331 @@
     },
 "Actor": {
     "types": ["PNJ", "Joueur", "Monstre", "Bête"],
-        "Monstre": {
-            "nom": "Monstre",
-            "race":"",
-            "description": "Une créature hostile.",
-            "majeures": {
-                    "constitution": 0,
-                    "intelligence": 0,
-                    "force": 0 ,
-                    "dexterite": 0,
-                    "sagesse": 0,
-                    "charisme": 0,
-                    "defense": 0,
-                    "chance": 0
-                    },
-            "competences": [],
-            "capacites": [],
-            "psyque": ""
-        },
-        "PNJ": {
-            "nom": "PNJ",
-            "race": "",
-            "voie": "",
-            "magie": "",
-            "description": "Un personnage non-joueur.",
-            "majeures":  {
-                    "constitution": 0,
-                    "intelligence": 0,
-                    "force": 0 ,
-                    "dexterite": 0,
-                    "sagesse": 0,
-                    "charisme": 0,
-                    "defense": 0,
-                    "chance": 0
-                    },
-            "mineures": [],
-            "talentsVoie": [],
-            "talents": []                
-        },
-        "Joueur": {
-            "nom": "Personnage Joueur",
-            "race": "",
-            "voie": "",
-            "magie": "",
-            "description": "Un personnage joué par un joueur.",
-            "system": {
-                "majeures": {
-                    "constitution": 0,
-                    "intelligence": 0,
-                    "force": 0 ,
-                    "dexterite": 0,
-                    "sagesse": 0,
-                    "charisme": 0,
-                    "defense": 0,
-                    "chance": 0
-                    },
-                "touche":["toucheForce","toucheDexterite", "toucheCharisme", "toucheSagesse", "toucheCritique", "toucheDefense"],
-                "dsb": "",
-                "niveauJoueur": 1,
-                "rang": "",
-                "vitesse": 2,
-                "mineures": {
-                    "monde":0,
-                    "mystique":0,
-                    "nature":0,
-                    "sacré":0,
-                    "robustesse":0,
-                    "calme":0,
-                    "marchandage":0,
-                    "persuasion":0,
-                    "artmusique":0,
-                    "commandement":0,
-                    "acrobatie":0,
-                    "discretion":0,
-                    "adresse":0,
-                    "artisanat":0,
-                    "hasard":0,
-                    "athlétisme":0,
-                    "puissance":0,
-                    "intimidation":0,
-                    "perception":0,
-                    "perceptionmagique":0,
-                    "medecine": 0,
-                    "intuition": 0
-                },
-                "talentRace": "",
-                "talentsVoie": [],
-                "talents": [],
-                "mecaniques": [],
-                "inventaire": {
-                    "armes": "",
-                    "armures": "",
-                    "objets": [],
-                    "accessoires": [],
-                    "consommables": []
-                    },
-                "pointsDeVie": {"actuels": 0,"max": 0},
-                "pointsPsyque": {"actuels": 0,"max": 0},
-                "arcane": [],
-                "competenceRace": ""
-            }
+    "templates": {
+      "base": {
+        "img": "icons/svg/mystery-man.svg"
+      },
+      "Monstre": {
+        "templates": ["base"],
+        "system": {
+          "nom": "Monstre",
+          "race":"",
+          "description": "Une créature hostile.",
+          "majeures": {
+            "constitution": 0,
+            "intelligence": 0,
+            "force": 0 ,
+            "dexterite": 0,
+            "sagesse": 0,
+            "charisme": 0,
+            "defense": 0,
+            "chance": 0
+          },
+          "competences": [],
+          "capacites": [],
+          "psyque": ""
         }
-}
+      },
+      "PNJ": {
+        "templates": ["base"],
+        "system": {
+          "nom": "PNJ",
+          "race": "",
+          "voie": "",
+          "magie": "",
+          "description": "Un personnage non-joueur.",
+          "majeures":   {
+            "constitution": 0,
+            "intelligence": 0,
+            "force": 0 ,
+            "dexterite": 0,
+            "sagesse": 0,
+            "charisme": 0,
+            "defense": 0,
+            "chance": 0
+          },
+          "mineures": [],
+          "talentsVoie": [],
+          "talents": []             
+        }
+      },
+      "Joueur": {
+        "templates": ["base"],
+        "system": {
+          "nom": "Personnage Joueur",
+          "race": "",
+          "voie": "",
+          "magie": "",
+          "description": "Un personnage joué par un joueur.",
+          "majeures": {
+            "constitution": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "intelligence": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "force": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "dexterite": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "sagesse":   {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "charisme": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "defense": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "chance":   {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            }
+          },
+          "mineures": {
+            "monde": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "mystique":   {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "nature": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "sacré": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "robustesse": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "calme": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "marchandage": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "persuasion": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "artmusique": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "commandement": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "acrobatie": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "discretion": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "adresse": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "artisanat": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "hasard": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "athlétisme": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "puissance": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "intimidation": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "perception": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "perceptionmagique": {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "medecine":   {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            },
+            "intuition":   {
+              "creation": 0,
+              "repartition": 0,
+              "equipement": 0,
+              "talents": 0,
+              "bonus": 0,
+              "totale": 0
+            }
+          },
+          "touche":["toucheForce","toucheDexterite", "toucheCharisme", "toucheSagesse", "toucheChance", "toucheDefense"],
+          "dsb": "",
+          "niveauJoueur": 1,
+          "rang": "",
+          "vitesse": 2,
+          "armure": 0,
+          "talentRace": "",
+          "talentsVoie": [],
+          "talents": [],
+          "mecaniques": [],
+          "inventaire": {
+            "armes": "",
+            "armures": "",
+            "objets": [],
+            "accessoires": [],
+            "consommables": []
+            },
+          "pointsDeVie": {"actuels": 0,"max": 0},
+          "hpPercentage": 0,
+          "pointsPsyque": {"actuels": 0,"max": 0},
+          "psyPercentage": 0,
+          "arcane": [],
+          "competenceRace": ""
+        }
+      }
+    }
+  }
 }

@@ -1,69 +1,58 @@
 <form class="{{cssClass}}" autocomplete="off">
     <header class="sheet-header">
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
-        
         <div class="header-details">
-            <div class="form-group">
-                <label>Nom :</label>
-                <input name="name" type="text" value="{{actor.name}}" placeholder="Nom de l'acteur"/>
-            </div>
             
             <div class="actor-info-grid">
+                
                 <label for="actor-race">Race :</label>
-                <select name="system.race" id="actor-race">
-                    <option value="">-- Choisir --</option>
-                    {{#each races as |race key|}}
-                        <option value="{{key}}" {{#if (eq ../system.race key)}}selected{{/if}}>{{race.nom}}</option>
-                    {{/each}}
-                </select>
+                <span class="static-value">{{selectedRace.nom}}</span>
 
-                <label for="actor-voie">Voie :</label>
-                <select name="system.voie" id="actor-voie">
-                    <option value="">-- Choisir --</option>
-                    {{#each voies as |voie key|}}
-                        <option value="{{key}}" {{#if (eq ../system.voie key)}}selected{{/if}}>{{voie.nom}}</option>
-                    {{/each}}
-                </select>
+                <label for="actor-voie1">Première voie/arcane :</label>
+                {{#if selectedVoie}}
+                    <span class="static-value">{{selectedVoie.nom}} (voie)</span>
+                {{else if selectedArcana}}
+                    <span class="static-value">{{selectedArcana.nom}} (arcane)</span>
+                {{else}}
+                    <span class="static-value">Non définie</span>
+                {{/if}}
+
+                {{#if selectedSecondVoie}}
+                    <label for="actor-voie2">Seconde voie :</label>
+                    <span class="static-value">{{selectedSecondVoie.nom}} (voie)</span>
+                {{else if selectedSecondArcana}}
+                    <label for="actor-voie2">Seconde arcane :</label>
+                    <span class="static-value">{{selectedSecondArcana.nom}} (arcane)</span>
+                {{/if}}
 
                 <label for="actor-niveau">Niveau :</label>
-                <input type="number" name="system.actor.niveauJoueur" value="{{system.actor.niveauJoueur}}" data-dtype="Number" placeholder="Niveau" id="actor-niveau"/>
-                
+                <input type="number" min="1" name="system.niveauJoueur" value="{{system.niveauJoueur}}" data-dtype="Number" placeholder="Niveau" id="actor-niveau"/>
+
                 <label for="actor-rang">Rang :</label>
-                <input type="text" name="system.actor.rang" value="{{system.actor.rang}}" placeholder="Rang" disabled id="actor-rang"/> {{!-- Rang is often derived, hence 'disabled' --}}
+                <span class="static-value">{{system.rang}}</span>
             </div>
         </div>
     </header>
 
-    <hr class="section-divider"/> {{!-- Horizontal line below header --}}
+    <hr class="section-divider"/>
 
     <section class="sheet-body">
         <div class="sheet-main-content">
+            <!-- Caractéristiques majeures -->
             <div class="stat-section">
                 <h2 class="section-title-highlight"><label>Caractéristiques Majeures</label></h2>
                 <ul class="carac-list">
-                    {{#each system.majeures as |valeurBrute nomCarac|}}
+                    {{#each data.system.majeures as |carac nomCarac|}}
                     <li>
                         <div class="form-group-inline">
-                            <div class="Dés rollable-dice" data-dice="{{lookup ../system (concat 'touche' (capitalize nomCarac))}}" data-label="{{nomCarac}}"><label>{{nomCarac}}</label></div>
-                            
-                            <input
-                                type="number"
-                                name="system.majeures.{{nomCarac}}"
-                                value="{{valeurBrute}}"
-                                data-dtype="Number"
-                                class="carac-value"
-                            />
-                            
+                            <div class="Dés rollable-dice" data-dice="{{lookup ../system (concat 'touche' (capitalize nomCarac))}}" data-label="{{nomCarac}}">
+                                <label>{{nomCarac}}</label>
+                            </div>
+                            <span class="carac-total"><strong>{{carac.totale}}</strong></span>
                             {{#if (lookup ../system (concat 'touche' (capitalize nomCarac)))}}
-                                <span class="touche-label">(Touche: </span>
-                                <input
-                                    type="number"
-                                    value="{{lookup ../system (concat 'touche' (capitalize nomCarac))}}"
-                                    data-dtype="Number"
-                                    disabled
-                                    class="touche-value"
-                                />
-                                <span class="touche-label">%)</span>
+                                <span class="touche-label"> (Touche: 
+                                    <span class="touche-value">{{lookup ../system (concat 'touche' (capitalize nomCarac))}}%</span>
+                                )</span>
                             {{/if}}
                         </div>
                     </li>
@@ -71,22 +60,33 @@
                 </ul>
             </div>
 
+            <hr class="section-divider"/>
+
+            <!-- État -->
             <div class="stat-section">
                 <h2 class="section-title-highlight"><label>État</label></h2>
                 <div class="form-group-inline">
                     <label for="hp-current">Points de vie :</label>
-                    <input name="system.pointsDeVie.actuels" type="number" value="{{system.pointsDeVie.actuels}}" data-dtype="Number" placeholder="Actuels" id="hp-current"/>
-                    <span>/</span>
-                    <input name="system.pointsDeVie.max" type="number" value="{{system.pointsDeVie.max}}" data-dtype="Number" placeholder="Max" id="hp-max"/>
+                    <div class="resource-gauge hp-gauge">
+                        <div class="resource-fill" style="width: {{system.hpPercentage}}%;"></div>
+                        <span class="resource-text">{{system.pointsDeVie.actuels}} / {{system.pointsDeVie.max}}</span>
+                        <input type="hidden" name="system.pointsDeVie.actuels" value="{{system.pointsDeVie.actuels}}" data-dtype="Number"/>
+                        <input type="hidden" name="system.pointsDeVie.max" value="{{system.pointsDeVie.max}}" data-dtype="Number"/>
+                    </div>
                 </div>
                 <div class="form-group-inline">
                     <label for="psy-current">Points de Psy :</label>
-                    <input name="system.pointsPsy.actuels" type="number" value="{{system.pointsPsy.actuels}}" data-dtype="Number" placeholder="Actuels" id="psy-current"/>
-                    <span>/</span>
-                    <input name="system.pointsPsy.max" type="number" value="{{system.pointsPsy.max}}" data-dtype="Number" placeholder="Max" id="psy-max"/>
+                    <div class="resource-gauge psy-gauge">
+                        <div class="resource-fill" style="width: {{system.psyPercentage}}%;"></div>
+                        <span class="resource-text">{{system.pointsPsyque.actuels}} / {{system.pointsPsyque.max}}</span>
+                        <input type="hidden" name="system.pointsPsyque.actuels" value="{{system.pointsPsyque.actuels}}" data-dtype="Number"/>
+                        <input type="hidden" name="system.pointsPsyque.max" value="{{system.pointsPsyque.max}}" data-dtype="Number"/>
+                    </div>
                 </div>
             </div>
-        </div> <nav class="sheet-navigation" data-group="main">
+        </div>
+
+        <nav class="sheet-navigation" data-group="main">
             <a class="item active" data-tab="armes-armures">Armes et Armures</a>
             <a class="item" data-tab="talents-passifs">Talents et Passifs</a>
             <a class="item" data-tab="sorts-arcanes">Sorts et Arcanes</a>
@@ -97,16 +97,64 @@
         </nav>
 
         <div class="sheet-content">
+            <!-- Armes et Armures -->
             <div class="tab armes-armures active" data-tab="armes-armures">
                 <h3 class="section-title-highlight">Section Armes et Armures</h3>
                 <p>Contenu des armes et armures ici.</p>
             </div>
 
+            <!-- Talents et Passifs -->
             <div class="tab talents-passifs" data-tab="talents-passifs">
                 <h3 class="section-title-highlight">Section Talents et Passifs</h3>
-                <p>Contenu des talents et passifs ici.</p>
+                <div class="biography-section">
+                    <!-- Talent de race -->
+                    {{#if selectedRace.talentRace}}
+                    <div class="biography-bubble" data-bubble-type="talent-race">
+                        <h4 class="bubble-title">Talent de race : {{selectedRace.talentRace.nom}} <i class="fas fa-chevron-down toggle-icon"></i></h4>
+                        <div class="bubble-content hidden">
+                            <p>{{selectedRace.talentRace.effet}}</p>
+                        </div>
+                    </div>
+                    {{/if}}
+
+                    <!-- Talents de voie -->
+                    {{#if selectedVoie.talentVoie.talents}}
+                        {{#each selectedVoie.talentVoie.talents as |talent|}}
+                            <div class="biography-bubble" data-bubble-type="talent-voie">
+                                <h4 class="bubble-title">Talent de voie (Niveau {{talent.niveau}}) : {{talent.nom}}</h4>
+                                <div class="bubble-content hidden">
+                                    <p>{{talent.description}}</p>
+                                </div>
+                            </div>
+                        {{/each}}
+                    {{/if}}
+
+                    <!-- Talents supplémentaires -->
+                    {{#if system.talents.length}}
+                        {{#each system.talents as |talent|}}
+                            <div class="biography-bubble" data-bubble-type="talent-sup">
+                                <h4 class="bubble-title">{{talent.nom}} <i class="fas fa-chevron-down toggle-icon"></i></h4>
+                                <div class="bubble-content hidden">
+                                    {{#if talent.effet}}
+                                        <p>{{talent.effet}}</p>
+                                    {{else}}
+                                        <p>Aucun effet renseigné pour ce talent.</p>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        {{/each}}
+                    {{else}}
+                        <div class="biography-bubble" data-bubble-type="talent">
+                            <h4 class="bubble-title">Aucun talent supplémentaire <i class="fas fa-chevron-down toggle-icon"></i></h4>
+                            <div class="bubble-content hidden">
+                                <p>Vous n'avez pas encore de talents supplémentaires.</p>
+                            </div>
+                        </div>
+                    {{/if}}
+                </div>
             </div>
 
+            <!-- Sorts et Arcanes -->
             <div class="tab sorts-arcanes" data-tab="sorts-arcanes">
                 <h3 class="section-title-highlight">Section Sorts et Arcanes</h3>
                 <div class="alyria-sorts-selection">
@@ -125,29 +173,27 @@
                 </div>
             </div>
 
+            <!-- Inventaire -->
             <div class="tab inventaire" data-tab="inventaire">
                 <h3 class="section-title-highlight">Section Inventaire</h3>
                 <p>Contenu de l'inventaire ici.</p>
             </div>
 
+            <!-- Compétences Mineures -->
             <div class="tab competences-mineures" data-tab="competences-mineures">
                 <h3 class="section-title-highlight">Section Compétences Mineures</h3>
                 <div class="stat-section">
                     <div class="form-group-inline">
                         <ul class="carac-list">
-                            {{#each system.mineures as |valeurBrute nomCarac|}}
+                            {{#each data.system.mineures as |carac nomCarac|}}
                             <li>
-                                <div class="form-group-inline">
-                                    <label>{{nomCarac}}</label>
-                                    <input
-                                        value="{{valeurBrute}}"
-                                        data-dtype="Number"
-                                        class="carac-value"
-                                        type="number"
-                                        name="system.mineures.{{nomCarac}}"
-                                        
-                                    />
-                                </div>
+                               <div class="form-group-inline">
+                                   
+                                    <div class="Dés rollable-dice" data-dice="{{lookup ../system (concat 'touche' (capitalize nomCarac))}}" data-label="{{nomCarac}}">
+                                        <label>{{nomCarac}}</label>
+                                    </div>
+                                    <span class="carac-total"><strong>{{carac.totale}}</strong></span>
+                                    
                             </li>
                             {{/each}}
                         </ul> 
@@ -155,14 +201,79 @@
                 </div>
             </div>
 
+            <!-- Biographie -->
             <div class="tab biographie" data-tab="biographie">
                 <h3 class="section-title-highlight">Section Biographie</h3>
+                <div class="biography-section">
+                    {{#if selectedRace}}
+                    <div class="biography-bubble" data-bubble-type="race">
+                        <h4 class="bubble-title">{{selectedRace.nom}} <i class="fas fa-chevron-down toggle-icon"></i></h4>
+                        <div class="bubble-content hidden">
+                            {{#each selectedRace.description as |paragraph|}}
+                                <p>{{paragraph}}</p>
+                            {{/each}}
+                        </div>
+                    </div>
+                    {{else}}
+                    <div class="biography-bubble" data-bubble-type="race">
+                        <h4 class="bubble-title">Race non sélectionnée <i class="fas fa-chevron-down toggle-icon"></i></h4>
+                        <div class="bubble-content hidden">
+                            <p>Veuillez sélectionner une race pour voir sa description.</p>
+                        </div>
+                    </div>
+                    {{/if}}
+
+                    {{#if selectedVoie}}
+                    <div class="biography-bubble" data-bubble-type="voie">
+                        <h4 class="bubble-title">{{selectedVoie.nom}} <i class="fas fa-chevron-down toggle-icon"></i></h4>
+                        <div class="bubble-content hidden" style="position:relative; overflow:hidden;">
+                            {{#if selectedVoie.image}}
+                                <img src="{{selectedVoie.image}}" alt="Image de la voie"
+                                     style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0.18; z-index:0; pointer-events:none;">
+                            {{/if}}
+                            <div style="position:relative; z-index:1;">
+                                {{#each selectedVoie.description as |paragraph|}}
+                                    <p>{{paragraph}}</p>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                    {{else}}
+                    <div class="biography-bubble" data-bubble-type="voie">
+                        <h4 class="bubble-title">Voie non sélectionnée <i class="fas fa-chevron-down toggle-icon"></i></h4>
+                        <div class="bubble-content hidden">
+                            <p>Veuillez sélectionner une voie pour voir sa description.</p>
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
                 <p>Contenu de la biographie ici.</p>
             </div>
-
             <div class="tab mecaniques" data-tab="mecaniques">
                 <h3 class="section-title-highlight">Section Mécaniques</h3>
-                <p>Contenu des mécaniques de jeu ici.</p>
+                <div class="biography-section">
+                    {{#if selectedVoie}}
+                    <div class="biography-bubble" data-bubble-type="mecanique">
+                        <h4 class="bubble-title">Mécanique de voie : {{selectedVoie.nom}} <i class="fas fa-chevron-down toggle-icon"></i></h4>
+                        <div class="bubble-content hidden">
+                            {{#if selectedVoie.mecanique}}
+                                {{#each selectedVoie.mecanique as |paragraph|}}
+                                    <p>{{paragraph}}</p>
+                                {{/each}}
+                            {{else}}
+                                <p>Aucune mécanique définie pour cette voie.</p>
+                            {{/if}}
+                        </div>
+                    </div>
+                    {{else}}
+                    <div class="biography-bubble" data-bubble-type="mecanique">
+                        <h4 class="bubble-title">Aucune voie sélectionnée <i class="fas fa-chevron-down toggle-icon"></i></h4>
+                        <div class="bubble-content hidden">
+                            <p>Veuillez sélectionner une voie pour voir sa mécanique.</p>
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
             </div>
         </div>
     </section>
