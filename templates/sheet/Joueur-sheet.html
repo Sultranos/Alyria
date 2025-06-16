@@ -64,14 +64,20 @@
 
             <!-- État -->
             <div class="stat-section">
-                <h2 class="section-title-highlight"><label>État</label></h2>
+                <!-- SUPPRIMER le titre et ajouter le bouton potion -->
+                <div class="form-group-inline state-header">
+                    <button type="button" class="recovery-button" title="Récupération">
+                        <i class="fas fa-flask"></i>
+                    </button>
+                </div>
+                
                 <div class="form-group-inline">
                     <label for="hp-current">Points de vie :</label>
                     <div class="resource-gauge hp-gauge">
                         <div class="resource-fill" style="width: {{system.hpPercentage}}%;"></div>
                         <span class="resource-text">{{system.pointsDeVie.actuels}} / {{system.pointsDeVie.max}}</span>
-                        <input type="hidden" name="system.pointsDeVie.actuels" value="{{system.pointsDeVie.actuels}}" data-dtype="Number"/>
-                        <input type="hidden" name="system.pointsDeVie.max" value="{{system.pointsDeVie.max}}" data-dtype="Number"/>
+                        <input type="text" name="system.pointsDeVie.actuels" value="{{system.pointsDeVie.actuels}}" data-dtype="Number"/>
+                        <input type="text" name="system.pointsDeVie.max" value="{{system.pointsDeVie.max}}" data-dtype="Number"/>
                     </div>
                 </div>
                 <div class="form-group-inline">
@@ -79,29 +85,293 @@
                     <div class="resource-gauge psy-gauge">
                         <div class="resource-fill" style="width: {{system.psyPercentage}}%;"></div>
                         <span class="resource-text">{{system.pointsPsyque.actuels}} / {{system.pointsPsyque.max}}</span>
-                        <input type="hidden" name="system.pointsPsyque.actuels" value="{{system.pointsPsyque.actuels}}" data-dtype="Number"/>
-                        <input type="hidden" name="system.pointsPsyque.max" value="{{system.pointsPsyque.max}}" data-dtype="Number"/>
+                        <input type="text" name="system.pointsPsyque.actuels" value="{{system.pointsPsyque.actuels}}" data-dtype="Number"/>
+                        <input type="text" name="system.pointsPsyque.max" value="{{system.pointsPsyque.max}}" data-dtype="Number"/>
                     </div>
                 </div>
             </div>
         </div>
 
         <nav class="sheet-navigation" data-group="main">
-            <a class="item active" data-tab="armes-armures">Armes et Armures</a>
+            <a class="item active" data-tab="equipement">Équipement</a>
             <a class="item" data-tab="talents-passifs">Talents et Passifs</a>
             <a class="item" data-tab="sorts-arcanes">Sorts et Arcanes</a>
-            <a class="item" data-tab="inventaire">Inventaire</a>
+            <a class="item" data-tab="inventaire">Inventaire RP et Notes</a>
             <a class="item" data-tab="competences-mineures">Compétences Mineures</a>
             <a class="item" data-tab="biographie">Biographie</a>
             <a class="item" data-tab="mecaniques">Mécaniques</a>
         </nav>
 
         <div class="sheet-content">
-            <!-- Armes et Armures -->
-            <div class="tab armes-armures active" data-tab="armes-armures">
-                <h3 class="section-title-highlight">Section Armes et Armures</h3>
-                <p>Contenu des armes et armures ici.</p>
+            <!-- Équipement -->
+            <div class="tab equipement active" data-tab="equipement">
+                <h3 class="section-title-highlight">Équipement</h3>
+                
+                <!-- Section Arme équipée -->
+                <div class="equipment-section">
+                    <div class="item-slot weapon-slot" data-slot-type="arme">
+                        {{#if system.inventaire.armeEquipee}}
+                            <div class="weapon-compact" 
+                                 data-item-id="{{system.inventaire.armeEquipee.id}}" 
+                                 data-item-type="arme"
+                                 data-rarity="{{system.inventaire.armeEquipee.system.rarete}}">
+                                
+                                <div class="weapon-compact-content">
+                                    <div class="weapon-compact-header">
+                                        <img class="weapon-compact-image" src="{{system.inventaire.armeEquipee.img}}" alt="{{system.inventaire.armeEquipee.name}}"/>
+                                        <div class="weapon-compact-info">
+                                            <h4 class="weapon-compact-name" style="color: {{system.inventaire.armeEquipee.rarityColor}};">{{system.inventaire.armeEquipee.name}}</h4>
+                                            <div class="weapon-compact-stats">
+                                                <div class="rarity-indicator" style="background: {{system.inventaire.armeEquipee.rarityColor}};">
+                                                    <i class="{{system.inventaire.armeEquipee.rarityIcon}}"></i>
+                                                </div>
+                                                <span class="damage-compact">{{system.inventaire.armeEquipee.system.degats}}{{#if system.inventaire.armeEquipee.system.bonusDegats}}+{{system.inventaire.armeEquipee.system.bonusDegats}}{{/if}}</span>
+                                                <span class="touch-compact touch-{{system.inventaire.armeEquipee.system.touche}}">{{system.inventaire.armeEquipee.system.touche}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Traits condensés -->
+                                    {{#if (or system.inventaire.armeEquipee.traits system.inventaire.armeEquipee.imperfections)}}
+                                    <div class="weapon-compact-traits">
+                                        {{#if system.inventaire.armeEquipee.traits}}
+                                            <div class="traits-compact positive">
+                                                <i class="fas fa-plus-circle"></i>
+                                                <span class="traits-count">{{system.inventaire.armeEquipee.traits.length}}</span>
+                                            </div>
+                                        {{/if}}
+                                        {{#if system.inventaire.armeEquipee.imperfections}}
+                                            <div class="traits-compact negative">
+                                                <i class="fas fa-minus-circle"></i>
+                                                <span class="traits-count">{{system.inventaire.armeEquipee.imperfections.length}}</span>
+                                            </div>
+                                        {{/if}}
+                                    </div>
+                                    {{/if}}
+                                </div>
+                                
+                                <div class="weapon-compact-actions">
+                                    <button type="button" class="weapon-open" 
+                                            data-item-id="{{system.inventaire.armeEquipee.id}}" 
+                                            title="Ouvrir la fiche">
+                                        <i class="fas fa-external-link"></i>
+                                    </button>
+                                    <button type="button" class="weapon-unequip" 
+                                            data-item-id="{{system.inventaire.armeEquipee.id}}" 
+                                            title="Déséquiper">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        {{else}}
+                            <div class="item-slot-empty">
+                                <i class="fas fa-sword"></i>
+                                <p>Glissez une arme ici</p>
+                            </div>
+                        {{/if}}
+                    </div>
+                </div>
+
+                <!-- Section Armure équipée -->
+                <div class="equipment-section">
+                    <div class="item-slot armor-slot" data-slot-type="armure">
+                        {{#if system.inventaire.armureEquipee}}
+                            <div class="armor-compact" 
+                                 data-item-id="{{system.inventaire.armureEquipee.id}}" 
+                                 data-item-type="armure"
+                                 data-rarity="{{system.inventaire.armureEquipee.system.rarete}}">
+                                
+                                <div class="armor-compact-content">
+                                    <div class="armor-compact-header">
+                                        <img class="armor-compact-image" src="{{system.inventaire.armureEquipee.img}}" alt="{{system.inventaire.armureEquipee.name}}"/>
+                                        <div class="armor-compact-info">
+                                            <h4 class="armor-compact-name" style="color: {{system.inventaire.armureEquipee.rarityColor}};">{{system.inventaire.armureEquipee.name}}</h4>
+                                            <div class="armor-compact-stats">
+                                                <div class="rarity-indicator" style="background: {{system.inventaire.armureEquipee.rarityColor}};">
+                                                    <i class="{{system.inventaire.armureEquipee.rarityIcon}}"></i>
+                                                </div>
+                                                <span class="protection-compact">BA: {{system.inventaire.armureEquipee.system.bonusArmure}}</span>
+                                                <span class="type-compact">{{system.inventaire.armureEquipee.system.typeArmure}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Traits condensés -->
+                                    {{#if (or system.inventaire.armureEquipee.system.traits system.inventaire.armureEquipee.system.imperfections)}}
+                                    <div class="armor-compact-traits">
+                                        {{#if system.inventaire.armureEquipee.system.traits}}
+                                            <div class="traits-compact positive">
+                                                <i class="fas fa-plus-circle"></i>
+                                                <span class="traits-count">{{system.inventaire.armureEquipee.system.traits.length}}</span>
+                                            </div>
+                                        {{/if}}
+                                        {{#if system.inventaire.armureEquipee.system.imperfections}}
+                                            <div class="traits-compact negative">
+                                                <i class="fas fa-minus-circle"></i>
+                                                <span class="traits-count">{{system.inventaire.armureEquipee.system.imperfections.length}}</span>
+                                            </div>
+                                        {{/if}}
+                                    </div>
+                                    {{/if}}
+                                </div>
+                                
+                                <div class="armor-compact-actions">
+                                    <button type="button" class="armor-open" 
+                                            data-item-id="{{system.inventaire.armureEquipee.id}}" 
+                                            title="Ouvrir la fiche">
+                                        <i class="fas fa-external-link"></i>
+                                    </button>
+                                    <button type="button" class="armor-unequip" 
+                                            data-item-id="{{system.inventaire.armureEquipee.id}}" 
+                                            title="Déséquiper">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        {{else}}
+                            <div class="item-slot-empty">
+                                <i class="fas fa-shield-alt"></i>
+                                <p>Glissez une armure ici</p>
+                            </div>
+                        {{/if}}
+                    </div>
+                </div>
+
+
+                <!-- Section Accessoires -->
+                <div class="equipment-section">
+                  
+                    <div class="accessories-grid">
+                        <!-- Accessoire 1 -->
+                        <div class="accessory-slot">
+                            
+                            <div class="item-slot" data-slot-type="accessoire" data-slot-index="1" data-item-id="{{system.inventaire.accessoire1._id}}">
+                                {{#if system.inventaire.accessoire1}}
+                                    <div class="item-equipped">
+                                        <img src="{{system.inventaire.accessoire1.img}}" alt="{{system.inventaire.accessoire1.name}}" class="item-image">
+                                        <div class="item-details">
+                                            <h6 class="item-name">{{system.inventaire.accessoire1.name}}</h6>
+                                            <p class="item-description">{{system.inventaire.accessoire1.system.description}}</p>
+                                        </div>
+                                        <button type="button" class="item-unequip" data-item-id="{{system.inventaire.accessoire1._id}}" title="Déséquiper">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                {{else}}
+                                    <div class="item-slot-empty">
+                                        <i class="fas fa-ring"></i>
+                                        <p>Glissez un accessoire ici</p>
+                                    </div>
+                                {{/if}}
+                            </div>
+                        </div>
+
+                        <!-- Accessoire 2 -->
+                        <div class="accessory-slot">
+                           
+                            <div class="item-slot" data-slot-type="accessoire" data-slot-index="2" data-item-id="{{system.inventaire.accessoire2._id}}">
+                                {{#if system.inventaire.accessoire2}}
+                                    <div class="item-equipped">
+                                        <img src="{{system.inventaire.accessoire2.img}}" alt="{{system.inventaire.accessoire2.name}}" class="item-image">
+                                        <div class="item-details">
+                                            <h6 class="item-name">{{system.inventaire.accessoire2.name}}</h6>
+                                            <p class="item-description">{{system.inventaire.accessoire2.system.description}}</p>
+                                        </div>
+                                        <button type="button" class="item-unequip" data-item-id="{{system.inventaire.accessoire2._id}}" title="Déséquiper">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                {{else}}
+                                    <div class="item-slot-empty">
+                                        <i class="fas fa-ring"></i>
+                                        <p>Glissez un accessoire ici</p>
+                                    </div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <!-- Section Encombrement -->
+                <div class="equipment-section">
+                    <h4 class="equipment-section-title">
+                        Inventaire ({{inventaire.encombrement.actuel}}/{{inventaire.encombrement.max}})
+                    </h4>
+                    
+                    <!-- CORRECTION : Grille d'inventaire avec boutons d'équipement -->
+                    <div class="inventory-grid">
+                        {{#each inventaire.slots as |slot index|}}
+                        <div class="inventory-slot {{#if slot}}filled{{else}}empty{{/if}}" 
+                             data-slot-index="{{index}}">
+                
+                            {{#if slot}}
+                                <!-- CORRECTION : Item avec boutons d'équipement -->
+                                <div class="inventory-item" 
+                                     data-item-id="{{slot.id}}" 
+                                     data-item-type="{{slot.type}}">
+                                     
+                                    <img src="{{slot.img}}" alt="{{slot.name}}" class="item-icon">
+                                    
+                                    <div class="item-info">
+                                        <span class="item-name">{{slot.name}}</span>
+                                        <span class="item-encumbrance">{{slot.system.encombrement}}</span>
+                                    </div>
+                                    
+                                    <!-- AJOUT : Actions avec boutons d'équipement -->
+                                    <div class="item-actions">
+                                        {{#if (eq slot.type "arme")}}
+                                            <button type="button" class="item-equip" 
+                                                    data-equip-type="arme" 
+                                                    data-item-id="{{slot.id}}"
+                                                    title="Équiper">
+                                                <i class="fas fa-hand-rock"></i>
+                                            </button>
+                                        {{/if}}
+                                        {{#if (eq slot.type "armure")}}
+                                            <button type="button" class="item-equip" 
+                                                    data-equip-type="armure" 
+                                                    data-item-id="{{slot.id}}"
+                                                    title="Équiper">
+                                                <i class="fas fa-shield-alt"></i>
+                                            </button>
+                                        {{/if}}
+                                        {{#if (eq slot.type "accessoire")}}
+                                            <button type="button" class="item-equip" 
+                                                    data-equip-type="accessoire" 
+                                                    data-item-id="{{slot.id}}"
+                                                    title="Équiper">
+                                                <i class="fas fa-ring"></i>
+                                            </button>
+                                        {{/if}}
+                                        <button type="button" class="item-remove" 
+                                                data-item-id="{{slot.id}}"
+                                                title="Supprimer">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            {{else}}
+                                <!-- Slot vide -->
+                                <div class="inventory-slot-empty">
+                                    <span class="slot-number">{{add index 1}}</span>
+                                </div>
+                            {{/if}}
+                        </div>
+                        {{/each}}
+                    </div>
+                    
+                    <!-- Statut d'encombrement -->
+                    <div class="encombrance-status">
+                        {{#if inventaire.surcharge}}
+                            <span class="surcharge-warning">⚠️ Surcharge ! Malus aux actions physiques.</span>
+                        {{else}}
+                            <span class="encombrement-ok">✅ {{inventaire.slotsLibres}} slots libres</span>
+                        {{/if}}
+                    </div>
+                </div>
+
             </div>
+           </div>
 
             <!-- Talents et Passifs -->
             <div class="tab talents-passifs" data-tab="talents-passifs">
@@ -175,7 +445,7 @@
 
             <!-- Inventaire -->
             <div class="tab inventaire" data-tab="inventaire">
-                <h3 class="section-title-highlight">Section Inventaire</h3>
+                <h3 class="section-title-highlight">Section Inventaire RP et Notes</h3>
                 <p>Contenu de l'inventaire ici.</p>
             </div>
 

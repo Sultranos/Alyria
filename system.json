@@ -11,29 +11,32 @@
   "templateVersion": 1,
   "scripts": [],
   "esmodules": [
-    "module/alyria.js", 
-    "module/AlyriaActor.js",
+    "module/alyria.js",
+    "module/AlyriaActor.js", 
     "module/AlyriaItem.js",
     "module/data/AlyriaRace.js",
     "module/data/AlyriaVoies.js",
+    "module/data/AlyriaArcanes.js",
+    "module/arme-generator.js",
+    "module/armure-generator.js",
     "module/data/traits.js",
+    "module/Inventaire.js",
     "module/data/imperfections.js",
     "module/data/Particularites.js",
-    "module/data/armes.js"   
+    "module/data/armes.js"
   ],
   "styles": ["CSS/alyriasystem.css"],
-  "packs": [],
-    "languages": [
-        {
-        "lang": "fr",
-        "name": "Français",
-        "path": ""
-        }
-    ],
+  "languages": [
+    {
+      "lang": "fr",
+      "name": "Français",
+      "path": ""
+    }
+  ],
   "gridDistance": 5,
   "gridUnits": "m",
   "actorTypes": ["PNJ", "Joueur", "Monstre", "Bête"],
-  "itemTypes": ["arme", "armure", "objet", "accessoire", "consommable"],
+  "itemTypes": ["arme", "armure", "objet", "accessoire", "consommable", "item"],
   "primaryToken": "",
   "secondaryToken": "",
   "url": "",

@@ -1,0 +1,52 @@
+<div class="armor-compact" data-item-id="{{id}}" data-item-type="armure" data-rarity="{{system.rarete}}">
+    <div class="armor-compact-content" draggable="true">
+        <!-- En-tête compact -->
+        <div class="armor-compact-header">
+            <img class="armor-compact-image" src="{{img}}" alt="{{name}}"/>
+            <div class="armor-compact-info">
+                <h4 class="armor-compact-name" style="color: {{rarityColor}};">{{name}}</h4>
+                <div class="armor-compact-stats">
+                    <!-- AJOUT : Icône de rareté en premier et centré -->
+                    <div class="rarity-indicator" style="background: {{rarityColor}};">
+                        <i class="{{rarityIcon}}"></i>
+                    </div>
+                    <span class="protection-compact">BA: {{system.bonusArmure}}</span>
+                    <span class="type-compact">{{system.typeArmure}}</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Traits condensés -->
+        {{#if (or system.traits system.imperfections)}}
+        <div class="armor-compact-traits">
+            {{#if system.traits}}
+                <div class="traits-compact positive">
+                    <i class="fas fa-plus-circle"></i>
+                    <span class="traits-count">{{system.traits.length}}</span>
+                </div>
+            {{/if}}
+            {{#if system.imperfections}}
+                <div class="traits-compact negative">
+                    <i class="fas fa-minus-circle"></i>
+                    <span class="traits-count">{{system.imperfections.length}}</span>
+                </div>
+            {{/if}}
+        </div>
+        {{/if}}
+    </div>
+    
+    <!-- Actions rapides (style déjà correct) -->
+    <div class="armor-compact-actions">
+        <button type="button" class="armor-open" 
+                data-item-id="{{id}}" 
+                title="Ouvrir la fiche">
+            <i class="fas fa-external-link"></i>
+        </button>
+        <button type="button" class="armor-unequip" 
+                data-item-id="{{id}}" 
+                title="Déséquiper">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
+

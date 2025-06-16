@@ -57,9 +57,6 @@ export default class AlyriaActor extends Actor {
     const voieMineures = voie.mineures || {};
     const secondeVoieMineures = secondeVoie.mineures || {};
     
-    console.log("DEBUG race:", system.race, "première voie:", voiesArcane.key1, "seconde voie:", voiesArcane.key2);
-    console.log("DEBUG voieMajeures:", voieMajeures);
-    console.log("DEBUG secondeVoieMajeures:", secondeVoieMajeures);
     
     // Initialise les objets si non définis (important pour les nouveaux acteurs)
     system.majeures ??= {};

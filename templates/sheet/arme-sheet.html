@@ -1,44 +1,94 @@
-<form class= "{{cssClass}}" autocomplete="off">
-    <img src="{{image.img}}" data-edit="image"  title="{{item.name}}" height="128" width="128"/>
-    <h1><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
-    <label>Dégats
-        <input name="data.degats" type="text" value="{{data.degats}}" placeholder="dégats"/>
-    </label>
-    <label>Bonus aux Dégats
-        <input name="data.bonusDegats" type="text" value="{{data.bonusDegats}}" placeholder="Bonus aux Dégats"/>
-    </label>
-    <label>Touche
-        <input name="data.touche" type="text" value="{{data.touche}}" placeholder="Touche"/>
-    </label>
-    <label>Rareté
-        <input name="data.rarete" type="text" value="{{data.rarete}}" placeholder="Rarete"/> 
-    </label>
-    <label>Type de Dégats
-        <input name="data.typeDegats" type="text" value="{{data.typeDegats}}" placeholder="Type de Dégats"/>
-    </label>
-    <label>Description
-        <textarea name="data.description" placeholder="Description">{{data.description}}</textarea>
-        <label class="checkbox">
-            <input name="data.descriptionVisible" type="checkbox" value="1" {{#if data.descriptionVisible}}checked{{/if}}/>
-            Description visible
-         </label>
-    </label>
-    <label>Maniabilité
-        <input name="data.maniement" type="text" value="{{data.maniement}} mains" placeholder="Maniabilité"/>
-    </label>
-    <ul class="list-inline">
-        <li>
-            <label>Traits
-    <input name="data.traits" type="text" value="{{data.traits}}" placeholder="Traits"/>
-            </label>
-        </li>
-        <li>
-            <label>Imperfections
-                <input name="data.imperfections" type="text" value="{{data.imperfections}}" placeholder="Imperfections"/>
-            </label>
-        </li>
-    </ul>
-    <label>Valeur
-        <input name="data.valeurOr" type="text" value="{{data.valeurOr}}Po" placeholder="Valeur"/>
-    </label>
+<form class="{{cssClass}} flexcol weapon-cartridge" autocomplete="off">
+    
+    <!-- Cartouche principal -->
+    <div class="weapon-card">
+        
+        <!-- En-tête avec nom coloré selon rareté -->
+        <header class="weapon-header">
+            <img class="weapon-image" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+            <div class="weapon-name-section">
+                <h1 class="weapon-name" style="color: {{rarityColor}};">
+                    <input name="name" type="text" value="{{item.name}}" placeholder="Nom de l'arme" style="color: {{rarityColor}}; background: transparent; border: none; font-size: inherit; font-weight: inherit; text-align: center;"/>
+                </h1>
+                <div class="weapon-rarity-badge" style="background: {{rarityColor}};">
+                    <i class="{{rarityIcon}}"></i>
+                    <span>{{system.rarete}}</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Section statistiques -->
+        <div class="weapon-stats-grid">
+            <div class="stat-item">
+                <label>Catégorie</label>
+                <span class="stat-value">{{system.categorie}}</span>
+            </div>
+            <div class="stat-item">
+                <label>Dégâts</label>
+                <span class="stat-value damage">{{system.degats}}{{#if system.bonusDegats}} + {{system.bonusDegats}}{{/if}}</span>
+            </div>
+            <div class="stat-item">
+                <label>Type</label>
+                <span class="stat-value">{{system.degatsType}}</span>
+            </div>
+            <div class="stat-item">
+                <label>Mains</label>
+                <span class="stat-value">{{system.mains}}</span>
+            </div>
+            <div class="stat-item">
+                <label>Touche</label>
+                <span class="stat-value touch-{{system.touche}}">{{system.touche}}</span>
+            </div>
+            <div class="stat-item">
+                <label>Valeur</label>
+                <span class="stat-value value" style="color: {{system.valeur.couleur}};">{{system.valeur.formate}}</span>
+            </div>
+        </div>
+    <!-- Description (affichage seul si elle existe) -->
+            {{#if system.description}}
+            <div class="description-section">
+                <h3>Description</h3>
+                <div class="description-content">
+                    <p class="description-text">{{system.description}}</p>
+                </div>
+            </div>
+            {{/if}} 
+            
+        <!-- Section traits (3 par ligne) -->
+        {{#if traits}}
+        <div class="traits-section">
+            <h3 class="section-title positive">
+                <i class="fas fa-plus-circle"></i> Traits
+            </h3>
+            <div class="traits-grid">
+                {{#each traits as |trait|}}
+                <div class="trait-bubble positive">
+                    <div class="trait-name">{{trait.name}}</div>
+                    <div class="trait-rarity rarity-{{trait.rarete}}">{{trait.rarete}}</div>
+                    <div class="trait-effect">{{trait.effet}}</div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        {{/if}}
+
+        <!-- Section imperfections (3 par ligne) -->
+        {{#if imperfections}}
+        <div class="traits-section">
+            <h3 class="section-title negative">
+                <i class="fas fa-minus-circle"></i> Imperfections
+            </h3>
+            <div class="traits-grid">
+                {{#each imperfections as |imperfection|}}
+                <div class="trait-bubble negative">
+                    <div class="trait-name">{{imperfection.name}}</div>
+                    <div class="trait-effect">{{imperfection.effet}}</div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        {{/if}}
+
+       
+    </div>
 </form>

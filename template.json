@@ -187,11 +187,24 @@
         }
   },
 
-"item": {
-    "types": ["arme", "armure", "objet", "accessoire", "consommable"],
+"Item": {
+    "types": ["arme", "armure", "objet", "accessoire", "consommable", "item"],
+        "templates": {
+            "base": {
+              "description": "",
+              "quantity": 1,
+              "encombrement": "",
+              "valeurOr": "piece d'Or"
+            }
+        },
+        "item": {
+          "templates": ["base"]
+        },
         "arme":{
             "nom": "Arme",
+            "templates": ["base"],
             "description": "Une arme utilisée pour le combat.",
+            "encombrement": "",
             "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
             "maniement": "Mains",
             "typeDegats": ["Mêlée Contondant", "Mélée Tranchant", "Mêlée Perçant", "Magique", "Archerie", "Arme à feu"],
@@ -204,7 +217,9 @@
             },
         "armure":{
             "nom": "Armure",
+            "templates": ["base"],
             "description": "Une armure utilisée pour la protection.",
+            "encombrement": "",
             "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
             "typeArmure": ["Légère", "Moyenne", "Lourde"],
             "traits": [],
@@ -214,6 +229,7 @@
             },
         "objet":{
             "nom": "Objet",
+            "templates": ["base"],
             "description": "Un objet quelconque.",
             "effet": [],
             "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
@@ -221,7 +237,9 @@
             },
         "accessoire":{
             "nom": "Accessoire",
+            "templates": ["base"],
             "description": "Un accessoire utile.",
+            "encombrement": "",
             "traits": [],
             "imperfection": [],
             "effet": [],
@@ -230,6 +248,7 @@
             },
         "consommable":{
             "nom": "Consommable",
+            "templates": ["base"],
             "description": "Un objet consommable.",
             "effet": [],
             "rarete": ["Commun", "Rare", "Epique", "Légendaire"],
@@ -540,7 +559,7 @@
           },
           "touche":["toucheForce","toucheDexterite", "toucheCharisme", "toucheSagesse", "toucheChance", "toucheDefense"],
           "dsb": "",
-          "niveauJoueur": 1,
+          "niveauJoueur": [1,2,3,4,5,6,7,8,9,10],
           "rang": "",
           "vitesse": 2,
           "armure": 0,
@@ -548,13 +567,22 @@
           "talentsVoie": [],
           "talents": [],
           "mecaniques": [],
-          "inventaire": {
-            "armes": "",
-            "armures": "",
-            "objets": [],
-            "accessoires": [],
-            "consommables": []
-            },
+          "inventaire":  {
+              "encombrement": {
+                "actuel": 0,
+                "max": 20
+                },
+              "slots": [],
+              "armeEquipee": null,
+              "armureEquipee": null,
+              "accessoire1": null,
+              "accessoire2": null,
+              "armes": "",
+              "armures": "",
+              "objets": [],
+              "accessoires": [],
+              "consommables": []
+                  },
           "pointsDeVie": {"actuels": 0,"max": 0},
           "hpPercentage": 0,
           "pointsPsyque": {"actuels": 0,"max": 0},
