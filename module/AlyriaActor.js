@@ -78,6 +78,7 @@ export default class AlyriaActor extends Actor {
                 "intuition"
             ];
 
+
         // Assure que chaque attribut majeur est un objet avant de définir des propriétés dessus
         attributsMajeurs.forEach(attribut => {
             system.majeures[attribut] ??= {
@@ -91,8 +92,7 @@ export default class AlyriaActor extends Actor {
             
             // CORRECTION : Additionner race + première voie + seconde voie
             system.majeures[attribut].creation = (raceMajeures[attribut] || 0) + 
-                                                 (voieMajeures[attribut] || 0) + 
-                                                 (secondeVoieMajeures[attribut] || 0);
+                                                 (voieMajeures[attribut] || 0) ;
             
             system.majeures[attribut].totale = (
                 (system.majeures[attribut].creation || 0) +
@@ -104,35 +104,70 @@ export default class AlyriaActor extends Actor {
         });
     
         // Même chose pour les mineures
-        attributsMineurs.forEach(attribut => {
-            system.mineures[attribut] ??= {
-                creation: 0,
-                repartition: 0,
-                equipement: 0,
-                talents: 0,
-                bonus: 0,
-                totale: 0
-            };
-            
-            // CORRECTION : Additionner race + première voie + seconde voie
-            system.mineures[attribut].creation = (raceMineures[attribut] || 0) + 
-                                                 (voieMineures[attribut] || 0) + 
-                                                 (secondeVoieMineures[attribut] || 0);
-            
-            system.mineures[attribut].totale = (
-                (system.mineures[attribut].creation || 0) +
-                (system.mineures[attribut].talents || 0) +
-                (system.mineures[attribut].equipement || 0) +
-                (system.mineures[attribut].repartition || 0) +
-                (system.mineures[attribut].bonus || 0)
-            );
-        });
+attributsMineurs.forEach(attribut => {
+    // **ÉTAPE 1 : Calculer la valeur de la stat majeure associée**
+    let majeureAssociee = 0;
+    
+    // Défense
+    if (["robustesse", "calme"].includes(attribut)) {
+        majeureAssociee = system.majeures.defense.totale || 0;
+    }
+    // Charisme
+    else if (["marchandage", "persuasion", "artmusique", "commandement"].includes(attribut)) {
+        majeureAssociee = system.majeures.charisme.totale || 0;
+    }
+    // Dextérité
+    else if (["acrobatie", "discretion", "adresse"].includes(attribut)) {
+        majeureAssociee = system.majeures.dexterite.totale || 0;
+    }
+    // Force
+    else if (["puissance", "intimidation", "athlétisme"].includes(attribut)) {
+        majeureAssociee = system.majeures.force.totale || 0;
+    }
+    // Sagesse
+    else if (["perception", "perceptionmagique", "medecine"].includes(attribut)) {
+        majeureAssociee = system.majeures.sagesse.totale || 0;
+    }
+    // Chance
+    else if (["intuition", "hasard"].includes(attribut)) {
+        majeureAssociee = system.majeures.chance.totale || 0;
+    }
+    // Intelligence
+    else if (["artisanat", "monde", "mystique", "nature", "sacré"].includes(attribut)) {
+        majeureAssociee = system.majeures.intelligence.totale || 0;
+    }
 
-        // Supprime l'objet 'creation' s'il existe (il n'est plus nécessaire dans cette structure)
-        if (system.creation) {
-            delete system.creation; 
-        }
-        
+    
+   // **ÉTAPE 2 : Initialiser l'objet mineure si nécessaire**
+system.mineures[attribut] ??= {
+    creation: 0,
+    repartition: 0,
+    equipement: 0,
+    talents: 0,
+    bonus: 0,
+    majeureAssocie: 0,
+    totale: 0
+};
+
+// **ÉTAPE 3 : Assigner les valeurs APRÈS l'initialisation**
+system.mineures[attribut].creation = (raceMineures[attribut] || 0) + (voieMineures[attribut] || 0);
+system.mineures[attribut].majeureAssocie = majeureAssociee;
+
+system.mineures[attribut].totale = (
+    (system.mineures[attribut].creation || 0) +
+    (system.mineures[attribut].majeureAssocie || 0) +
+    (system.mineures[attribut].talents || 0) +
+    (system.mineures[attribut].equipement || 0) +
+    (system.mineures[attribut].repartition || 0) +
+    (system.mineures[attribut].bonus || 0)
+);
+});
+
+// Supprime l'objet 'creation' s'il existe
+if (system.creation) {
+    delete system.creation; 
+}
+
         const getBonusPourcentage = (statValue) => {
             let totalToucheBonus = 0;
             if (statValue > 0) { 
@@ -209,8 +244,8 @@ export default class AlyriaActor extends Actor {
 
       const niveau = system.niveauJoueur || 1;
         system.sortsDisponibles = getSortsDisponibles(voie, niveau);
-        system.nbSortsAChoisir = 4;
         system.sortsChoisis ??= [];
+        system.nbSortsAChoisir ??= 0;
         
         
     // --- Initialisation des points de vie et de psy ---

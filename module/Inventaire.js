@@ -67,7 +67,7 @@ export class InventoryManager {
         // Si pas d'encombrement défini, essayer de le trouver dans ARMES
         if (!item.system?.encombrement && item.type === "arme") {
             try {
-                const { ARMES } = await import("../data/armes.js");
+                const { ARMES } = await import("./data/armes.js"); // **ENLEVER le "../"**
                 const armeData = ARMES.find(a => a.nom === item.name);
                 if (armeData) {
                     encombrement = armeData.encombrement;
@@ -315,10 +315,10 @@ export class InventoryManager {
         }
     }
 
-    // **CORRECTION : Récupérer l'encombrement avec fallback**
+    // **CORRECTION : Chemin d'import correct pour armes.js**
     static async getEncombrementFromArmes(itemName) {
         try {
-            const { ARMES } = await import("../data/armes.js");
+            const { ARMES } = await import("./data/armes.js"); // **ENLEVER le "../"**
             const armeData = ARMES.find(a => a.nom === itemName);
             if (armeData) {
                 console.log(`✅ Encombrement trouvé pour ${itemName}: ${armeData.encombrement}`);

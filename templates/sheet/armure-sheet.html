@@ -8,11 +8,11 @@
             <img class="armor-image" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
             <div class="armor-name-section">
                 <h1 class="armor-name" style="color: {{rarityColor}};">
-                    <input name="name" type="text" value="{{item.name}}" placeholder="Nom de l'armure" style="color: {{rarityColor}}; background: transparent; border: none; font-size: inherit; font-weight: inherit; text-align: center;"/>
+                    <input name="name" type="text" value="{{item.name}}" style="color: {{rarityColor}}; background: transparent; border: none; font-size: inherit; font-weight: inherit; text-align: center;"/>
                 </h1>
                 <div class="armor-rarity-badge" style="background: {{rarityColor}};">
                     <i class="{{rarityIcon}}"></i>
-                    <span>{{system.rarete}}</span>
+                    <span>{{item.system.rarete}}</span> <!-- CORRECTION : était {{system.rarete}} -->
                 </div>
             </div>
         </header>
@@ -21,43 +21,43 @@
         <div class="armor-stats-grid">
             <div class="stat-item">
                 <label>Type</label>
-                <span class="stat-value">{{system.typeArmure}}</span>
+                <span class="stat-value">{{item.system.typeArmure}}</span> <!-- CORRECTION : ajouter item. -->
             </div>
             <div class="stat-item">
                 <label>Bonus Armure</label>
-                <span class="stat-value armor-bonus">{{system.bonusArmure}}</span>
+                <span class="stat-value armor-bonus">{{item.system.bonusArmure}}</span> <!-- CORRECTION : ajouter item. -->
             </div>
             <div class="stat-item">
                 <label>Encombrement</label>
-                <span class="stat-value">{{system.encombrement}}</span>
+                <span class="stat-value">{{item.system.encombrement}}</span> <!-- CORRECTION : ajouter item. -->
             </div>
             <div class="stat-item">
                 <label>Valeur</label>
-                <span class="stat-value value" style="color: {{system.valeur.couleur}};">{{system.valeurOr}}</span>
+                <span class="stat-value value">{{item.system.valeurOr}}</span> <!-- CORRECTION : ajouter item. et enlever style -->
             </div>
         </div>
 
         <!-- Description (affichage seul si elle existe) -->
-        {{#if system.description}}
+        {{#if item.system.description}}
         <div class="description-section">
             <h3>Description</h3>
             <div class="description-content">
-                <p class="description-text">{{system.description}}</p>
+                <p class="description-text">{{item.system.description}}</p>
             </div>
         </div>
         {{/if}} 
             
         <!-- Section traits (3 par ligne) -->
-        {{#if system.traits}}
+        {{#if item.system.traits}}
         <div class="traits-section">
             <h3 class="section-title positive">
                 <i class="fas fa-plus-circle"></i> Traits
             </h3>
             <div class="traits-grid">
-                {{#each system.traits as |trait|}}
+                {{#each item.system.traits as |trait|}}
                 <div class="trait-bubble positive">
                     <div class="trait-name">{{trait.nom}}</div>
-                    <div class="trait-rarity rarity-{{trait.rareté}}">{{trait.rareté}}</div>
+                    <div class="trait-rarity rarity-{{trait.rarete}}">{{trait.rarete}}</div>
                     {{#if trait.effet}}
                     <div class="trait-effect">{{trait.effet}}</div>
                     {{/if}}
@@ -68,17 +68,17 @@
         {{/if}}
 
         <!-- Section imperfections (3 par ligne) -->
-        {{#if system.imperfections}}
+        {{#if item.system.imperfections}}
         <div class="traits-section">
             <h3 class="section-title negative">
                 <i class="fas fa-minus-circle"></i> Imperfections
             </h3>
             <div class="traits-grid">
-                {{#each system.imperfections as |imperfections|}}
+                {{#each item.system.imperfections as |imperfection|}}
                 <div class="trait-bubble negative">
-                    <div class="trait-name">{{imperfections.name}}</div>
-                    {{#if imperfections.effet}}
-                    <div class="trait-effect">{{imperfections.effet}}</div>
+                    <div class="trait-name">{{imperfection.nom}}</div>
+                    {{#if imperfection.effet}}
+                    <div class="trait-effect">{{imperfection.effet}}</div>
                     {{/if}}
                 </div>
                 {{/each}}

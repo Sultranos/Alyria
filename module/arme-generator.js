@@ -39,8 +39,38 @@ function randomFromArray(arr) {
 
 // Filtre les traits accessibles selon la rareté de l'arme
 function traitsPourRareté(rarete) {
-  const index = ["Commune", "Rare", "Epic", "Legendaire"].indexOf(rarete);
-  return TRAITS.filter(t => ["Commune", "Rare", "Epic", "Legendaire"].indexOf(t.rarete) <= index);
+  let traitsDisponibles = [];
+  
+  switch(rarete) {
+    case "Commune":
+     
+      traitsDisponibles = TRAITS.filter(t => t.rarete === "Commune");
+      break;
+      
+    case "Rare":
+    
+      traitsDisponibles = TRAITS.filter(t => t.rarete === "Rare");
+      break;
+      
+    case "Epic":
+     
+      traitsDisponibles = TRAITS.filter(t =>t.rarete === "Epic");
+      break;
+      
+    case "Legendaire":
+     
+      traitsDisponibles = TRAITS.filter(t =>t.rarete === "Legendaire");
+      break;
+      
+    default:
+      // Fallback vers commun
+      traitsDisponibles = TRAITS.filter(t => t.rarete === "Commune");
+  }
+  
+  console.log(`🎯 Traits disponibles pour rareté ${rarete}:`, traitsDisponibles.length);
+  console.log(`📋 Détail des raretés:`, traitsDisponibles.map(t => t.rarete));
+  
+  return traitsDisponibles;
 }
 
 // Tire une rareté selon les probabilités du niveau
@@ -62,15 +92,26 @@ function genererArmeAleatoire(niveau = "Novice") {
   const arme = randomFromArray(ARMES);
   const rarete = randomRarity(niveau);
   const nbTraits = Math.floor(Math.random() * rarete.maxTraits) + 1;
-  const nbImperfections = Math.max(0, rarete.maxImperfections);
+  const nbImperfections = calculerNombreImperfections(rarete.name, nbTraits);
 
-  // Traits uniques compatibles avec la rareté
-  const traitsPossibles = traitsPourRareté(rarete.name);
-  const traits = [];
-  while (traits.length < nbTraits && traitsPossibles.length > 0) {
-    const t = randomFromArray(traitsPossibles);
-    if (!traits.includes(t)) traits.push(t);
+// Traits uniques compatibles avec la rareté
+const traitsPossibles = traitsPourRareté(rarete.name);
+const traits = [];
+const nomsUtilises = new Set(); // Pour éviter les doublons de noms
+
+while (traits.length < nbTraits && traitsPossibles.length > 0) {
+  const randomIndex = Math.floor(Math.random() * traitsPossibles.length);
+  const traitCandidat = traitsPossibles[randomIndex];
+  
+  // Vérifier que le nom n'est pas déjà utilisé
+  if (!nomsUtilises.has(traitCandidat.name)) {
+    traits.push(traitCandidat);
+    nomsUtilises.add(traitCandidat.name);
   }
+  
+  // Retirer le trait de la liste pour éviter les boucles infinies
+  traitsPossibles.splice(randomIndex, 1);
+}
 
   // Imperfections uniques
   const imperfections = [];
@@ -116,6 +157,21 @@ function genererArmeAleatoire(niveau = "Novice") {
       valeur
     }
   };
+}
+
+function calculerNombreImperfections(rarete, nbTraits) {
+    switch(rarete) {
+        case "Commune":
+            return Math.max(0, nbTraits - 1);
+        case "Rare":
+            return Math.max(0, nbTraits - 2);
+        case "Epic":
+            return Math.max(0, nbTraits - 3);
+        case "Legendaire":
+            return Math.max(0, nbTraits - 4);
+        default:
+            return Math.max(0, nbTraits - 1);
+    }
 }
 
 function calculerValeurArme(rarete, mains, nbTraits, nbImperfections) {

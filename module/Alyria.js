@@ -1,8 +1,9 @@
 import AlyriaItemSheet from "./sheet/AlyriaItemSheet.js";
 import AlyriaActorSheet from "./sheet/AlyriaActorSheet.js";
 import AlyriaActor from "./AlyriaActor.js";
-import AlyriaStuffSheet from "./sheet/AlyriaStuffSheet.js";
 import { genererArmeAleatoire, genererNomArme } from "./arme-generator.js";
+
+
 
 Hooks.once("init", () => {
     console.log("Alyria | Initialisation du système Alyria");
@@ -10,7 +11,7 @@ Hooks.once("init", () => {
     // Register the AlyriaItemSheet
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("alyria", AlyriaItemSheet, { makeDefault: true });
-
+    
     // Register the AlyriaActorSheet
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("alyria", AlyriaActorSheet, { makeDefault: true });
@@ -21,11 +22,6 @@ Hooks.once("init", () => {
     CONFIG.Actor.Joueur = CONFIG.Actor.Joueur || {};
     CONFIG.Actor.Joueur.documentClass = AlyriaActor;
 
-    // Enregistrer la feuille d'item
-    Items.registerSheet("alyria", AlyriaStuffSheet, {
-        types: ["arme", "armure", "objet", "accessoire", "consommable"],
-        makeDefault: true
-    });
 
     console.log("Alyria | Fiches d'acteurs et d'objets enregistrées");
 });
@@ -55,6 +51,20 @@ Hooks.once('init', function() {
     Handlebars.registerHelper('div', function(a, b) {
         return Math.floor(a / b);
     });
+
+    Handlebars.registerHelper('lte', function(a, b) {
+    return a <= b;
+    });
+
+    // Helper pour convertir en minuscules
+    Handlebars.registerHelper('toLowerCase', function(str) {
+        return str ? str.toLowerCase() : '';
+    });
+    
+    // Helper pour comparer les valeurs
+    Handlebars.registerHelper('eq', function(a, b) {
+        return a === b;
+    });
     
     Handlebars.registerHelper('capitalize', function(value) {
         if (typeof value !== 'string') {
@@ -77,6 +87,24 @@ Hooks.once('init', function() {
     // Helper pour comparer des nombres
     Handlebars.registerHelper('gt', function(a, b) {
         return a > b;
+    });
+    
+    // **AJOUTER ces helpers Handlebars :**
+    // Helper pour diviser une chaîne
+    Handlebars.registerHelper('split', function(str, separator) {
+        return str ? str.split(separator) : [];
+    });
+    
+    // Helper pour obtenir le dernier élément d'un tableau
+    Handlebars.registerHelper('last', function(array) {
+        return Array.isArray(array) && array.length > 0 ? array[array.length - 1] : '';
+    });
+    
+    // Helper pour extraire le nom du sort depuis l'ID
+    Handlebars.registerHelper('extractSpellName', function(sortId) {
+        if (!sortId) return 'Sort inconnu';
+        const parts = sortId.split(':');
+        return parts[parts.length - 1] || 'Sort inconnu';
     });
 });
 

@@ -36,13 +36,29 @@ function randomFromArray(arr) {
 
 // Filtre les traits accessibles selon la rareté de l'armure
 function traitsPourRareté(rarete) {
-  const index = ["Commune", "Rare", "Epic", "Legendaire"].indexOf(rarete);
-  return TRAIT_ARMURE.filter(t => ["Commune", "Rare", "Epic", "Legendaire"].indexOf(t.rareté) <= index);
+  console.log(`🎯 Recherche traits pour rareté: "${rarete}"`);
+  
+  // **DEBUG : Vérifier TRAITS_ARMURE**
+  console.log(`📋 Premier trait de TRAIT_ARMURE:`, TRAIT_ARMURE[0]);
+  console.log(`📋 Structure du premier trait:`, JSON.stringify(TRAIT_ARMURE[0], null, 2));
+  
+  const traitsFiltrés = TRAIT_ARMURE.filter(trait => {
+      const traitRarete = trait.rarete?.toLowerCase();
+      const rareteRecherche = rarete?.toLowerCase();
+      
+      return traitRarete === rareteRecherche;
+  });
+  
+  console.log(`🎯 Traits disponibles pour rareté ${rarete}:`, traitsFiltrés.length);
+  console.log(`📋 Premiers traits filtrés:`, traitsFiltrés.slice(0, 3));
+  
+  return traitsFiltrés;
 }
+
 
 // Tire une rareté selon les probabilités du niveau
 function randomRarity(niveau) {
-  const table = RARETES_PAR_NIVEAU[niveau] || RARETES_PAR_NIVEAU.Novice;
+  const table = RARETES_PAR_NIVEAU[niveau];
   const roll = Math.random();
   let acc = 0;
   for (const r of table) {
@@ -54,50 +70,121 @@ function randomRarity(niveau) {
 
 // Générateur principal
 function genererArmureAleatoire(niveau = "Novice") {
-  const armure = randomFromArray(ARMURES);
-  const rarete = randomRarity(niveau);
-  const nbTraits = Math.floor(Math.random() * rarete.maxTraits) + 1;
-  const nbImperfections = Math.max(0, rarete.maxImperfections);
+    console.log(`🔧 === DÉBUT GÉNÉRATION ARMURE INTERNE ===`);
+    console.log(`📊 Niveau demandé: ${niveau}`);
+    
+    const armure = randomFromArray(ARMURES);
+    console.log(`🛡️ Armure de base tirée: ${armure.nom}`);
+    
+    const rarete = randomRarity(niveau);
+    console.log(`🌟 Rareté tirée:`, rarete);
+    
+    const nbTraits = Math.floor(Math.random() * rarete.maxTraits) + 1;
+    console.log(`🎲 Nombre de traits à générer: ${nbTraits} (max: ${rarete.maxTraits})`);
+    
+    // **CORRECTION : Utiliser le nouveau calcul d'imperfections**
+    const nbImperfections = calculerNombreImperfections(rarete.name, nbTraits);
+    console.log(`🎲 Nombre d'imperfections calculées: ${nbImperfections} (formule: ${nbTraits} traits - bonus rareté)`);
 
-  // Traits uniques compatibles avec la rareté
-  const traitsPossibles = traitsPourRareté(rarete.name);
-  const traits = [];
-  while (traits.length < nbTraits && traitsPossibles.length > 0) {
-    const t = randomFromArray(traitsPossibles);
-    if (!traits.includes(t)) traits.push(t);
-  }
+    // Traits uniques compatibles avec la rareté
+    const traitsPossibles = traitsPourRareté(rarete.name);
+    console.log(`📋 Traits disponibles pour ${rarete.name}:`, traitsPossibles.length);
+    
+    const traits = [];
+    const nomsUtilises = new Set();
 
-  // Imperfections uniques
-  const imperfections = [];
-  while (imperfections.length < nbImperfections && IMPERFECTIONS.length > 0) {
-    const i = randomFromArray(IMPERFECTIONS);
-    if (!imperfections.includes(i)) imperfections.push(i);
-  }
-
-  // Utilise juste le nom de base
-  const nom = armure.nom;
-  const encombrement = armure.encombrement || 1;
-
-  const valeur = calculerValeurArmure(
-    rarete.name,
-    armure.typeArmure,
-    traits.length,
-    imperfections.length
-  );
-
-  return {
-    nom,
-    type: "armure",
-    system: { 
-      rarete: rarete.name,
-      typeArmure: armure.typeArmure,
-      description: armure.description || "",
-      encombrement,
-      traits,
-      imperfections,
-      valeurOr: valeur.formate
+    let tentatives = 0;
+    while (traits.length < nbTraits && traitsPossibles.length > 0 && tentatives < 50) {
+        tentatives++;
+        const randomIndex = Math.floor(Math.random() * traitsPossibles.length);
+        const traitCandidat = traitsPossibles[randomIndex];
+        
+        // **DEBUG : Vérifier la structure du trait**
+        console.log(`🔍 Debug trait candidat:`, traitCandidat);
+        console.log(`🔍 Nom du trait: "${traitCandidat?.name}"`);
+        console.log(`🔍 Structure complète:`, JSON.stringify(traitCandidat, null, 2));
+        
+        // **CORRECTION 1 : Changer name en nom**
+        if (traitCandidat && traitCandidat.nom && !nomsUtilises.has(traitCandidat.nom)) {
+            traits.push(traitCandidat);
+            nomsUtilises.add(traitCandidat.nom);
+            console.log(`✅ Trait ajouté: ${traitCandidat.nom} (${traitCandidat.rarete})`);
+        } else {
+            console.warn(`⚠️ Trait invalide ou déjà utilisé:`, traitCandidat);
+        }
+        
+        traitsPossibles.splice(randomIndex, 1);
     }
-  };
+    
+    console.log(`📊 Traits finaux générés: ${traits.length}/${nbTraits}`);
+    if (traits.length < nbTraits) {
+        console.warn(`⚠️ Moins de traits générés que prévu (${traits.length}/${nbTraits})`);
+    }
+
+    // Imperfections uniques
+    const imperfections = [];
+    if (typeof IMPERFECTIONS !== 'undefined') {
+        const imperfectionsPossibles = [...IMPERFECTIONS];
+        
+        let tentativesImperf = 0;
+        while (imperfections.length < nbImperfections && imperfectionsPossibles.length > 0 && tentativesImperf < 20) {
+            tentativesImperf++;
+            const randomIndex = Math.floor(Math.random() * imperfectionsPossibles.length);
+            const imperfectionCandidate = imperfectionsPossibles[randomIndex];
+            
+            if (imperfectionCandidate && !imperfections.find(i => i.name === imperfectionCandidate.name)) {
+                imperfections.push(imperfectionCandidate);
+                console.log(`❌ Imperfection ajoutée: ${imperfectionCandidate.name}`);
+            }
+            
+            imperfectionsPossibles.splice(randomIndex, 1);
+        }
+    } else if (typeof DEFAUTS !== 'undefined') {
+        // Utiliser DEFAUTS si IMPERFECTIONS n'existe pas
+        const imperfectionsPossibles = [...DEFAUTS];
+        
+        let tentativesImperf = 0;
+        while (imperfections.length < nbImperfections && imperfectionsPossibles.length > 0 && tentativesImperf < 20) {
+            tentativesImperf++;
+            const randomIndex = Math.floor(Math.random() * imperfectionsPossibles.length);
+            const imperfectionCandidate = imperfectionsPossibles[randomIndex];
+            
+            if (imperfectionCandidate && !imperfections.find(i => i.name === imperfectionCandidate.name)) {
+                imperfections.push(imperfectionCandidate);
+                console.log(`❌ Imperfection ajoutée: ${imperfectionCandidate.name}`);
+            }
+            
+            imperfectionsPossibles.splice(randomIndex, 1);
+        }
+    } else {
+        console.warn(`⚠️ Aucune liste d'imperfections trouvée (IMPERFECTIONS ou DEFAUTS)`);
+    }
+    
+    console.log(`📊 Imperfections finales générées: ${imperfections.length}/${nbImperfections}`);
+
+
+
+    const armureComplete = {
+        nom: armure.nom,
+        rarete: rarete.name, // **CORRECTION : Assigner explicitement**
+        traits: traits,
+        imperfections: imperfections,
+        system: {
+            rarete: rarete.name,
+            typeArmure: armure.typeArmure,
+            description: armure.description,
+            encombrement: armure.encombrement || 6, // Valeur par défaut si non définie
+            valeurOr: calculerValeurArmure(rarete.name, armure.typeArmure, traits.length, imperfections.length).formate,
+            traits: traits,
+            imperfections: imperfections,
+            
+        }
+    };
+    
+    console.log(`🔧 === FIN GÉNÉRATION ARMURE INTERNE ===`);
+    console.log(`📦 Armure complète:`, armureComplete);
+    
+    return armureComplete;
 }
 
 function calculerValeurArmure(rarete, typeArmure, nbTraits, nbImperfections) {
@@ -154,6 +241,28 @@ function calculerValeurArmure(rarete, typeArmure, nbTraits, nbImperfections) {
     monnaie,
     couleur
   };
+}
+
+function calculerNombreImperfections(rarete, nbTraits) {
+    let result = 0;
+    switch(rarete) {
+        case "Commune":
+            result = Math.max(0, nbTraits - 1);
+            break;
+        case "Rare":
+            result = Math.max(0, nbTraits - 2);
+            break;
+        case "Epic":
+            result = Math.max(0, nbTraits - 3);
+            break;
+        case "Legendaire":
+            result = Math.max(0, nbTraits - 4);
+            break;
+        default:
+            result = Math.max(0, nbTraits - 1);
+    }
+    console.log(`🎯 Calcul imperfections: ${rarete} avec ${nbTraits} traits = ${result} imperfections`);
+    return result;
 }
 
 function genererNomArmure(armureObj) {

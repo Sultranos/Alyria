@@ -774,52 +774,58 @@ export const AlyriaRaces = {
   nereide: {
     nom:  "Néréide",
     description: [
-      "Mesurant en moyenne 1m50, les Néréides sont caractérisées par un corps d’apparence humanoïdes aux aspects féminin, des branchies sur le cou, de longues oreilles ressemblant presque à des nageoires et surtout le fait qu’elles ne possèdent pas de jambes mais deux ou trois paires de tentacules ainsi qu’un crâne surdéveloppé et presque translucide. Certaines sont bioluminescentes et toutes sont parfaitement adaptée à la vie sous-marine, même abyssale et peuvent également arpenter la terre ferme avec un peu moins de grâce il faut le dire. Elles vivent en moyenne 40 ans mais leur mémoire collective fait qu’elles se souviennent toutes de ce qu’a vécu chacune d’entre elle.",
-      "Race la plus rare à rencontrer en Alyria, elles vivent exclusivement dans la région des lacs de givres, dans d’immenses villes creusées à même la face cachée des Icebergs, sous la surface des eaux glaciales de cette région polaire. Ne quittant jamais leurs 'ruches', leur foyer en somme, elles seraient considérées par n’importe quel habitant d’Alyria comme des monstres ou des extra-planaires, tant leur apparence tranche avec tout ce qu’il y a de connu",
-      "Ne se reproduisant qu’une fois dans leur vie en pondant un unique œuf celui-ci donnera un spécimen en tout point semblable à elle-même, une fois les 5 ans atteint, le spécimen dispose de sa taille adulte et rejoint la conscience collective de sa ruche, obtenant alors les mêmes capacités que sa génitrice. Ce système relève plus du clonage que de la réelle reproduction et la perte d’un œuf est catastrophique puisqu’on perd un individu et qu’elles n’ont aucun autre moyen de se multiplier. Lentement mais surement cette race disparait peu à peu du monde, mais on raconte qu’elles ne compte pas se laisser éteindre facilement et que leurs « anciennes » disposent de plus d’un tentacule à leur chapeau pour gérer la situation.",
-      "Elles semblent avoir un goût et une faculté exceptionnelle pour manipuler la psyché, ce talent leur sert, entre autre, à protéger leur corps mou et fragile des divers monstres marins ou ennemis qu’elles pourraient rencontrer. Pas spécialement encline à l’agressivité, elle semble toutes être d’une grande sagesse et cherchent généralement à éviter de se mettre en danger.",
+        "Mesurant en moyenne 1m50, les Néréides sont caractérisées par un corps d'apparence humanoïdes aux aspects féminin, des branchies sur le cou, de longues oreilles ressemblant presque à des nageoires et surtout le fait qu'elles ne possèdent pas de jambes mais deux ou trois paires de tentacules ainsi qu'un crâne surdéveloppé et presque translucide. Certaines sont bioluminescentes et toutes sont parfaitement adaptée à la vie sous-marine, même abyssale et peuvent également arpenter la terre ferme avec un peu moins de grâce il faut le dire. Elles vivent en moyenne 40 ans mais leur mémoire collective fait qu'elles se souviennent toutes de ce qu'a vécu chacune d'entre elle.",
+        "Race la plus rare à rencontrer en Alyria, elles vivent exclusivement dans la région des lacs de givres, dans d'immenses villes creusées à même la face cachée des Icebergs, sous la surface des eaux glaciales de cette région polaire. Ne quittant jamais leurs 'ruches', leur foyer en somme, elles seraient considérées par n'importe quel habitant d'Alyria comme des monstres ou des extra-planaires, tant leur apparence tranche avec tout ce qu'il y a de connu",
+        "Ne se reproduisant qu'une fois dans leur vie en pondant un unique œuf celui-ci donnera un spécimen en tout point semblable à elle-même, une fois les 5 ans atteint, le spécimen dispose de sa taille adulte et rejoint la conscience collective de sa ruche, obtenant alors les mêmes capacités que sa génitrice. Ce système relève plus du clonage que de la réelle reproduction et la perte d'un œuf est catastrophique puisqu'on perd un individu et qu'elles n'ont aucun autre moyen de se multiplier. Lentement mais surement cette race disparait peu à peu du monde, mais on raconte qu'elles ne compte pas se laisser éteindre facilement et que leurs « anciennes » disposent de plus d'un tentacule à leur chapeau pour gérer la situation.",
+        "Elles semblent avoir un goût et une faculté exceptionnelle pour manipuler la psyché, ce talent leur sert, entre autre, à protéger leur corps mou et fragile des divers monstres marins ou ennemis qu'elles pourraient rencontrer. Pas spécialement encline à l’agressivité, elle semble toutes être d'une grande sagesse et cherchent généralement à éviter de se mettre en danger."
     ],
-    talentRace: {
-      nom: ["Conscience collective : ","Aquatique : "],
-      effet: ["Vous faite appel aux connaissances phénoménales de votre ruche natale, octroie un bonus de 30 dans n’importe quel jet lié à la Sagesse ou l’Intelligence. Utilisez cet effet est très épuisant, il ne peut avoir lieu qu’une fois par 24H ou il faudra dépenser 4 points de votre propre PSY pour le réutilisez avant.","Cette race est très à l’aise dans l’eau, elle nage plus vite qu’elle ne court, peu voir, entendre et respirer sous l’eau comme en dehors. Hors de l’eau, elle est bien moins agile et rapide. Sa vitesse de base est donc Lente sur terre et Très rapide dans l’eau."]
-    },
+    talentRace: [
+        {
+            nom: "Conscience collective",
+            effet: "Vous faite appel aux connaissances phénoménales de votre ruche natale, octroie un bonus de 30 dans n'importe quel jet lié à la Sagesse ou l'Intelligence. Utilisez cet effet est très épuisant, il ne peut avoir lieu qu'une fois par 24H ou il faudra dépenser 4 points de votre propre PSY pour le réutilisez avant."
+        },
+        {
+            nom: "Aquatique",
+            effet: "Cette race est très à l'aise dans l'eau, elle nage plus vite qu'elle ne court, peu voir, entendre et respirer sous l'eau comme en dehors. Hors de l'eau, elle est bien moins agile et rapide. Sa vitesse de base est donc Lente sur terre et Très rapide dans l'eau."
+        }
+    ],
     competenceRace: {
-      nom: "Influence Cérébrale ",
-      effet: "Si ce sort cible un allié, vous partagez la totalité de vos statistiques en ne prenant que la meilleure dans le domaine pour les calculs ou les jets de dés, cela inclus également le DSB, le taux de CC, de blocage, l’armure ou les PB. Sur un ennemi vous le contraignez à utiliser votre pire statistique de touche pour faire ses jets. L’effet dure 1 tour en combat et 1 minute hors combat, utilisable une fois par combat ou par scène."
+        nom: "Influence Cérébrale",
+        effet: "Si ce sort cible un allié, vous partagez la totalité de vos statistiques en ne prenant que la meilleure dans le domaine pour les calculs ou les jets de dés, cela inclus également le DSB, le taux de CC, de blocage, l'armure ou les PB. Sur un ennemi vous le contraignez à utiliser votre pire statistique de touche pour faire ses jets. L'effet dure 1 tour en combat et 1 minute hors combat, utilisable une fois par combat ou par scène."
     },
     majeures: {
-      constitution: -2,
-      intelligence: 6,
-      force: -2,
-      dextérité: 0,
-      sagesse: 8,
-      charisme: 0,
-      defense: 0,
-      chance: 0
+        constitution: -2,
+        intelligence: 6,
+        force: -2,
+        dextérité: 0,
+        sagesse: 8,
+        charisme: 0,
+        defense: 0,
+        chance: 0
     },
     mineures: {
-      monde: 10,
-      mystique: 30,
-      nature: 10,
-      sacré: 10,
-      robustesse: 0,
-      calme: 0,
-      marchandage: 0,
-      persuasion: 0,
-      artmusique: 0,
-      commandement: 0,
-      acrobatie: 0,
-      discretion: 0,
-      adresse: 10,
-      artisanat: 0,
-      hasard: 0,
-      athlétisme: 0,
-      puissance: 0,
-      intimidation: 0,
-      perception: 0,
-      perceptionmagique: 20,
-      medecine: 10,
-      intuition: 0
+        monde: 10,
+        mystique: 30,
+        nature: 10,
+        sacré: 10,
+        robustesse: 0,
+        calme: 0,
+        marchandage: 0,
+        persuasion: 0,
+        artmusique: 0,
+        commandement: 0,
+        acrobatie: 0,
+        discretion: 0,
+        adresse: 10,
+        artisanat: 0,
+        hasard: 0,
+        athlétisme: 0,
+        puissance: 0,
+        intimidation: 0,
+        perception: 0,
+        perceptionmagique: 20,
+        medecine: 10,
+        intuition: 0
     }
   }
 };

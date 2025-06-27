@@ -4,9 +4,14 @@
   --form-background: rgba(0, 0, 0, 0.0392156863);
   --inactive-control: #A0A09A;
   --primary: black;
-  --secondary: #439b96;
+  --secondary: #20a3a38e;
 }
-/* **AJOUT : Largeur fixe pour la feuille d'acteur** */
+
+.window-app .window-content {
+    background: linear-gradient(135deg, #27d6bf6c, #cdcecd5d);
+    width: 100%;
+}
+
 .alyria.sheet.actor {
     width: 875px !important;
     min-width: 875px !important;
@@ -115,16 +120,6 @@
     flex-shrink: 0;
 }
 
-.sheet-header {
-    display: flex;
-    align-items: flex-start; /* Au lieu de center pour l'alignement */
-    gap: 20px;
-    padding: 15px;
-    background: linear-gradient(135deg, #102c2b, #29a761);
-    border-bottom: 2px solid #138b53;
-    margin-bottom: 10px;
-}
-
 .header-details {
     flex-grow: 1;
     min-width: 0; /* Pour éviter les débordements */
@@ -151,19 +146,26 @@
 
 .actor-info-grid {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto 1fr; /* Label puis valeur */
     gap: 8px 15px;
     align-items: center;
+    width: 100%;
 }
 
 .actor-info-grid label {
-    white-space: nowrap; /* Prevent labels from wrapping */
+    white-space: nowrap;
     text-align: right;
+    font-weight: bold;
 }
 
-.actor-info-grid select,
-.actor-info-grid input {
-    width: 100%; /* Make select boxes and inputs fill their grid cell */
+.actor-info-grid .static-value {
+    color: #d4af37;
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 2px 6px;
+    background: rgba(206, 207, 207, 0.582);
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 hr.section-divider {
@@ -179,15 +181,15 @@ hr.section-divider {
 .sheet-body {
     display: flex; /* Active Flexbox pour les colonnes */
     flex-direction: row; /* Aligne les éléments en ligne (côte à côte) */
-    gap: 15px; /* Espace entre les colonnes principales */
+    gap: 5px; /* Espace entre les colonnes principales */
     height: 100%; /* Important si les onglets doivent prendre toute la hauteur */
 }
 
 /* Colonne principale des Caractéristiques et État */
 .sheet-main-content {
-    flex: none; /* Ou une valeur qui convient à votre design, ex: 2 parts */
-    overflow-y: auto; /* Permet le défilement si le contenu est trop long */
-    padding-right: 10px; /* Un peu d'espacement avec la colonne de droite */
+    flex: 0 0 315px; /* GARDER cette largeur fixe */
+    overflow-y: auto;
+    padding-right: 10px;
 }
 
 /* Colonne de navigation à droite */
@@ -438,27 +440,7 @@ hr.section-divider {
     margin-top: 10px;
 }
 
-/* Forge Matricielle */
-.forge-matricielle {
-    padding: 20px;
-    background: linear-gradient(135deg, #2c1810, #4a2c1a);
-    border-radius: 10px;
-    margin: 10px;
-}
 
-.forge-title {
-    color: #d4af37;
-    text-align: center;
-    margin-bottom: 10px;
-    font-size: 1.5em;
-}
-
-.forge-description {
-    text-align: center;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 20px;
-    font-style: italic;
-}
 
 .rarity-buttons {
     display: grid;
@@ -761,6 +743,21 @@ hr.section-divider {
     color: #f44336 !important;
 }
 
+/* Forcer les couleurs des traits positifs */
+.weapon-compact-traits .traits-compact.positive,
+.armor-compact-traits .traits-compact.positive {
+    
+    color: #4CAF50 !important;
+    
+}
+
+/* Forcer les couleurs des traits négatifs */
+.weapon-compact-traits .traits-compact.negative,
+.armor-compact-traits .traits-compact.negative {
+    
+    color: #f44336 !important;
+    
+}
 /* Correction du weapon-slot pour éviter la double bordure */
 .weapon-slot {
     border: none !important;
@@ -911,7 +908,7 @@ hr.section-divider {
     }
     
     .weapon-image {
-        margin-bottom: 15px;
+        margin-bottom: 4px;
     }
     
     .weapon-name-section {
@@ -936,874 +933,138 @@ hr.section-divider {
     }
 }
 
-.weapon-cartridge {
-    background: none;
-    border: none;
-    padding: 0;
-}
-
-.weapon-card {
-    background: 
-        linear-gradient(135deg, rgba(40, 40, 40, 0.95), rgba(20, 20, 20, 0.95)),
-        repeating-linear-gradient(
-            45deg,
-            rgba(60, 60, 60, 0.1),
-            rgba(60, 60, 60, 0.1) 2px,
-            transparent 2px,
-            transparent 4px
-        );
-    border: 2px solid #444;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 
-        0 8px 16px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    color: #e0e0e0;
-    position: relative;
-    overflow: hidden;
-}
-
-.weapon-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 1px,
-        rgba(255, 255, 255, 0.03) 1px,
-        rgba(255, 255, 255, 0.03) 2px
-    );
-    pointer-events: none;
-}
-
-/* Grille des statistiques */
-.weapon-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin-bottom: 25px;
-    position: relative;
-    z-index: 1;
-}
-
-.stat-item {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid #555;
-    border-radius: 8px;
-    padding: 12px;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.stat-item:hover {
-    background: rgba(0, 0, 0, 0.5);
-    border-color: #777;
-    transform: translateY(-2px);
-}
-
-.stat-item label {
-    display: block;
-    font-size: 0.8em;
-    color: #bbb;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 5px;
-}
-
-.stat-value {
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #fff;
-}
-
-.stat-value.damage {
-    color: #ff6b6b;
-    font-size: 1.2em;
-}
-
-.stat-value.value {
-    font-size: 1.1em;
-    font-weight: bold;
-}
-
-/* Sections de traits */
-.traits-section {
-    margin-bottom: 25px;
-    position: relative;
-    z-index: 1;
-}
-
-.section-title {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 15px;
-    font-size: 1.2em;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.section-title.positive {
-    color: #4caf50;
-}
-
-.section-title.negative {
-    color: #f44336;
-}
-
-/* Grille de traits - 3 par ligne */
-.traits-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-}
-
-.trait-bubble {
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 10px;
-    padding: 12px;
-    border: 2px solid;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.trait-bubble::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.5s ease;
-}
-
-.trait-bubble:hover::before {
-    left: 100%;
-}
-
-.trait-bubble.positive {
-    border-color: #4caf50;
-    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
-}
-
-.trait-bubble.negative {
-    border-color: #f44336;
-    background: linear-gradient(135deg, rgba(244, 67, 54, 0.1), rgba(244, 67, 54, 0.05));
-}
-
-.trait-bubble:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-.trait-name {
-    font-weight: bold;
-    color: #d4af37;
-    margin-bottom: 5px;
-    font-size: 0.95em;
-}
-
-.trait-rarity {
-    font-size: 0.7em;
-    padding: 2px 6px;
-    border-radius: 3px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    display: inline-block;
-}
-
-.trait-effect {
-    font-size: 0.85em;
-    color: #ccc;
-    line-height: 1.3;
-}
-
-/* Description */
-.description-section {
-    position: relative;
-    z-index: 1;
-}
-
-.description-section h3 {
-    color: #d4af37;
-    margin-bottom: 10px;
-    font-size: 1.1em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.description-content {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid #555;
-    border-radius: 8px;
-    padding: 15px;
-    min-height: 60px;
-}
-
-.description-content .editor-content {
-    color: #e0e0e0;
-    line-height: 1.5;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .weapon-stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .traits-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .weapon-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    
-    .weapon-image {
-        margin-top: 15px;
-    }
-}
-
-/* AJOUTS - Système de récupération */
-
-/* Bouton de récupération */
-.state-header {
-    justify-content: flex-end;
-    margin-bottom: 10px;
-}
-
-.recovery-button {
-    background: linear-gradient(135deg, #e74c3c, #c0392b);
-    border: 2px solid #a93226;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
-
-.recovery-button:hover {
-    background: linear-gradient(135deg, #c0392b, #a93226);
-    transform: scale(1.1);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-}
-
-.recovery-button i {
-    font-size: 18px;
-}
-
-/* Popup de récupération */
-.recovery-dialog {
-    background: rgba(0, 0, 0, 0.9);
-    border: 2px solid var(--secondary);
-    border-radius: 10px;
-    padding: 20px;
-    min-width: 300px;
-}
-
-.recovery-dialog h3 {
-    color: var(--secondary);
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.3em;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-}
-
-.recovery-section {
-    margin-bottom: 15px;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.recovery-section h4 {
-    color: white;
-    margin-bottom: 12px;
-    font-size: 1.1em;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.recovery-controls {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.recovery-controls select,
-.recovery-controls input {
-    flex: 1;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.7);
-    border: 1px solid #555;
-    color: white;
-    border-radius: 4px;
-    font-size: 0.9em;
-    min-height: 40px; 
-}
-
-.recovery-controls select:focus,
-.recovery-controls input:focus {
-    outline: none;
-    border-color: var(--secondary);
-    box-shadow: 0 0 5px rgba(67, 155, 150, 0.5);
-}
-
-.recovery-controls button {
-    background: var(--secondary);
-    border: none;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    min-width: 30px;
-}
-
-.recovery-controls button:hover {
-    background: var(--primary);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
-
-.recovery-controls span {
-    color: white;
-    font-weight: bold;
-    font-size: 1.1em;
-}
-
-.full-rest-section {
-    text-align: center;
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #555;
-}
-
-.full-rest-button {
-    background: linear-gradient(135deg, #27ae60, #229954);
-    border: none;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1em;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
-
-.full-rest-button:hover {
-    background: linear-gradient(135deg, #229954, #1e8449);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-}
-
-/* Styles pour les options de récupération */
-.recovery-controls option {
-    background: rgba(0, 0, 0, 0.9);
-    color: white;
-    padding: 5px;
-}
-
-/* Animation pour l'ouverture du dialogue */
-.recovery-dialog {
-    animation: dialogFadeIn 0.3s ease-in-out;
-}
-
-@keyframes dialogFadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9) translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-/* Styles pour différencier les sections PV et PSY */
-.recovery-section.hp-section {
-    border-left: 4px solid #c4453c;
-}
-
-.recovery-section.psy-section {
-    border-left: 4px solid #b700ff;
-}
-
-.recovery-section.hp-section h4 {
-    color: #ff6b6b;
-}
-
-.recovery-section.psy-section h4 {
-    color: #d683ff;
-}
-
-/* Responsive pour le dialogue */
-@media (max-width: 768px) {
-    .recovery-dialog {
-        min-width: 280px;
-        padding: 15px;
-    }
-    
-    .recovery-controls {
-        flex-direction: column;
-        gap: 8px;
-    }
-    
-    .recovery-controls select,
-    .recovery-controls input,
-    .recovery-controls button {
-        width: 100%;
-    }
-    
-    .recovery-controls span {
-        display: none;
-    }
-}
-
-/* Modification des inputs de ressources pour les cacher */
-.resource-gauge input[type="text"],
-.resource-gauge input[type="number"] {
-    display: none;
-}
-
-/* Renforcer l'apparence du bouton de récupération */
-.recovery-button {
-    position: relative;
-    overflow: hidden;
-}
-
-/* Effet de brillance sur le bouton */
-.recovery-button::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-    transform: rotate(45deg);
-    transition: all 0.5s ease;
-    opacity: 0;
-}
-
-.recovery-button:hover::before {
-    opacity: 1;
-    animation: shine 0.5s ease-in-out;
-}
-
-@keyframes shine {
-    0% {
-        transform: translateX(-100%) translateY(-100%) rotate(45deg);
-    }
-    100% {
-        transform: translateX(100%) translateY(100%) rotate(45deg);
-    }
-}
-
-/* FIN DES AJOUTS - Système de récupération */
-
-/* RESTAURATION - Couleurs de rareté manquantes */
-
-/* Couleurs de rareté pour les badges */
-.weapon-rarity-badge.rarity-commune {
-    background: linear-gradient(135deg, #9E9E9E, #757575);
-    border: 1px solid #616161;
-}
-
-.weapon-rarity-badge.rarity-rare {
-    background: linear-gradient(135deg, #2196F3, #1976D2);
-    border: 1px solid #1565C0;
-}
-
-.weapon-rarity-badge.rarity-epic {
-    background: linear-gradient(135deg, #9C27B0, #7B1FA2);
-    border: 1px solid #6A1B9A;
-}
-
-.weapon-rarity-badge.rarity-legendaire {
-    background: linear-gradient(135deg, #FF9800, #F57C00);
-    border: 1px solid #E65100;
-}
-
-/* Couleurs de rareté pour les noms d'armes */
-.weapon-name.rarity-commune {
-    color: #9E9E9E !important;
-}
-
-.weapon-name.rarity-rare {
-    color: #2196F3 !important;
-}
-
-.weapon-name.rarity-epic {
-    color: #9C27B0 !important;
-}
-
-.weapon-name.rarity-legendaire {
-    color: #FF9800 !important;
-}
-
-/* Couleurs de rareté pour les armes compactes */
-.weapon-compact-name.rarity-commune {
-    color: #9E9E9E !important;
-}
-
-.weapon-compact-name.rarity-rare {
-    color: #2196F3 !important;
-}
-
-.weapon-compact-name.rarity-epic {
-    color: #9C27B0 !important;
-}
-
-.weapon-compact-name.rarity-legendaire {
-    color: #FF9800 !important;
-}
-
-/* Couleurs de rareté pour les indicateurs */
-.rarity-indicator.rarity-commune {
-    background: #9E9E9E !important;
-}
-
-.rarity-indicator.rarity-rare {
-    background: #2196F3 !important;
-}
-
-.rarity-indicator.rarity-epic {
-    background: #9C27B0 !important;
-}
-
-.rarity-indicator.rarity-legendaire {
-    background: #FF9800 !important;
-}
-
-/* Couleurs de rareté pour les traits */
-.trait-rarity.rarity-commune {
-    background: #9E9E9E;
-    color: white;
-}
-
-.trait-rarity.rarity-rare {
-    background: #2196F3;
-    color: white;
-}
-
-.trait-rarity.rarity-epic {
-    background: #9C27B0;
-    color: white;
-}
-
-.trait-rarity.rarity-legendaire {
-    background: #FF9800;
-    color: white;
-}
-
-/* Couleurs de rareté pour les bordures d'armes */
-.weapon-compact.rarity-commune {
-    border-color: #9E9E9E;
-}
-
-.weapon-compact.rarity-rare {
-    border-color: #2196F3;
-}
-
-.weapon-compact.rarity-epic {
-    border-color: #9C27B0;
-}
-
-.weapon-compact.rarity-legendaire {
-    border-color: #FF9800;
-}
-
-/* Couleurs de rareté pour les cartes d'armes */
-.weapon-card.rarity-commune {
-    border-color: #9E9E9E;
-}
-
-.weapon-card.rarity-rare {
-    border-color: #2196F3;
-}
-
-.weapon-card.rarity-epic {
-    border-color: #9C27B0;
-}
-
-.weapon-card.rarity-legendaire {
-    border-color: #FF9800;
-}
-
-/* Effets de brillance pour les raretés */
-.weapon-compact.rarity-epic::before {
-    background: repeating-linear-gradient(
-        45deg,
-        rgba(156, 39, 176, 0.1),
-        rgba(156, 39, 176, 0.1) 1px,
-        transparent 1px,
-        transparent 3px
-    );
-}
-
-.weapon-compact.rarity-legendaire::before {
-    background: repeating-linear-gradient(
-        45deg,
-        rgba(255, 152, 0, 0.1),
-        rgba(255, 152, 0, 0.1) 1px,
-        transparent 1px,
-        transparent 3px
-    );
-}
-
-/* **CORRECTION : CSS pour les bulles** */
-.bubble-content {
-    display: block !important;
-    padding: 15px;
-    border-top: 1px solid #ddd;
-    background-color: rgba(255, 255, 255, 0.9);
-}
-
-.bubble-content.hidden {
-    display: none !important;
-}
-
-.bubble-title {
-    cursor: pointer;
-    padding: 10px 15px;
-    background: linear-gradient(135deg, #7C4DFF 0%, #9C27B0 100%);
-    color: white;
-    border-radius: 5px;
-    margin-bottom: 0;
-}
-
-.bubble-title:hover {
-    background: linear-gradient(135deg, #6A3DE8 0%, #8E24AA 100%);
-}
-
-.toggle-icon {
-    float: right;
-    transition: transform 0.3s ease;
-}
-.bubble-content:not(.hidden) {
-    display: block !important;
-    visibility: visible !important;
-}
-
-/* NOUVEAU SYSTÈME D'INVENTAIRE À SLOTS */
-
+/* CORRECTION : Grille d'inventaire avec gestion de l'encombrement visuel */
 .inventory-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 4px;
-    padding: 15px;
-    background: rgba(0, 0, 0, 0.2);
+    grid-template-columns: repeat(5, 1fr); /* **RETOUR à 5 colonnes** */
+    grid-template-rows: repeat(4, 60px);
+    gap: 4px; /* **Augmenter l'espacement** */
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    border: 1px solid rgba(139, 69, 19, 0.3);
-}
-
-.inventory-slot {
-    width: 64px;
-    height: 64px;
-    border: 2px solid #555;
-    border-radius: 6px;
-    position: relative;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.inventory-slot.empty {
-    background: rgba(0, 0, 0, 0.3);
-    border-style: dashed;
-}
-
-.inventory-slot.filled {
-    background: rgba(30, 30, 30, 0.9);
-    border-style: solid;
-}
-
-.inventory-slot.highlight {
-    border-color: #4CAF50;
-    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
-    transform: scale(1.05);
-}
-
-.inventory-slot.invalid {
-    border-color: #f44336;
-    box-shadow: 0 0 10px rgba(244, 67, 54, 0.5);
-}
-
-/* Item dans le slot */
-.inventory-item {
+    max-width: 100%;
     width: 100%;
-    height: 100%;
+}
+
+/* **CORRECTION : Items d'inventaire** */
+.inventory-item {
+    position: relative;
+    background: linear-gradient(135deg, rgba(60, 60, 60, 0.9), rgba(40, 40, 40, 0.9));
+    border: 2px solid #666;
+    border-radius: 6px;
+    padding: 6px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    position: relative;
-    padding: 4px;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-}
-
-.inventory-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: scale(1.02);
-}
-
-.inventory-item .item-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 4px;
-    margin-bottom: 2px;
-}
-
-.inventory-item .item-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 10px;
-    text-align: center;
-}
-
-.inventory-item .item-name {
-    font-weight: bold;
-    color: white;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    max-width: 50px;
-}
-
-.inventory-item .item-encumbrance {
-    color: #ffa500;
-    font-size: 8px;
-}
-
-.inventory-item .item-actions {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    display: flex;
-    gap: 2px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-.inventory-item:hover .item-actions {
-    opacity: 1;
-}
-
-.inventory-item .item-actions button {
-    width: 16px;
-    height: 16px;
-    padding: 0;
-    border: none;
-    border-radius: 2px;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    font-size: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-
-.inventory-item .item-actions button:hover {
-    background: rgba(0, 0, 0, 0.9);
-    transform: scale(1.1);
-}
-
-.inventory-item .item-actions .item-equip:hover {
-    color: #4CAF50;
-}
-
-.inventory-item .item-actions .item-remove:hover {
-    color: #f44336;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .inventory-grid {
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(5, 1fr);
-    }
-    
-    .inventory-slot {
-        width: 56px;
-        height: 56px;
-    }
-}
-
-/* Fiche d'armure compacte - Calquée sur weapon-compact */
-.armor-compact,.weapon-compact {
-    position: relative;
-    background: linear-gradient(135deg, rgba(40, 40, 40, 0.9), rgba(20, 20, 20, 0.9));
-    border: 2px solid #555;
-    border-radius: 8px;
-    padding: 12px;
-    margin-bottom: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    justify-content: space-between;
     transition: all 0.3s ease;
     cursor: pointer;
+    /* **CORRECTION : Taille normale par défaut** */
+    grid-column: span 1;
+    grid-row: span 1;
+    min-height: 56px;
+}
+
+/* **CORRECTION : Encombrement avec span correct** */
+.inventory-item.encombrement-1 {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.inventory-item.encombrement-2 {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.inventory-item.encombrement-4 {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.inventory-item.encombrement-6 {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.inventory-item.encombrement-8 {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.inventory-item.encombrement-10 {
+    grid-column: span 3;
+    grid-row: span 2;
+}
+
+/* **CORRECTION : Slots vides** */
+.inventory-slot-empty {
+    grid-column: span 1;
+    grid-row: span 1;
+    background: rgba(128, 128, 128, 0.2);
+    border: 1px dashed #555;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 10px;
+    transition: all 0.3s ease;
+    min-height: 56px;
+}
+
+/* **AJOUT : Styles pour les cartouches d'armure** */
+.armor-compact {
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95), rgba(15, 15, 15, 0.95));
+    border: 2px solid #444;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 5px 0;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
 }
 
 .armor-compact:hover {
-    border-color: #777;
+    border-color: #666;
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.armor-compact-content, .weapon-compact-content {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.armor-compact-content {
     position: relative;
+    z-index: 1;
 }
 
-.armor-compact-header, .weapon-compact-header {
+.armor-compact-header {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex: 1;
+    margin-bottom: 8px;
 }
 
-.armor-compact-image, .weapon-compact-image {
-    width: 48px;
-    height: 48px;
-    border-radius: 6px;
-    border: 1px solid #666;
+.armor-compact-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid #555;
     object-fit: cover;
     flex-shrink: 0;
 }
 
-.armor-compact-info, .weapon-compact-info {
+.armor-compact-info {
     flex: 1;
     min-width: 0;
 }
 
 .armor-compact-name {
-    font-size: 14px;
+    font-size: 0.9em;
     font-weight: bold;
     margin: 0 0 4px 0;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .armor-compact-stats {
@@ -1811,54 +1072,24 @@ hr.section-divider {
     gap: 8px;
     font-size: 11px;
     align-items: center;
-    justify-content: center; /* Centrer les éléments */
 }
 
 .protection-compact {
-    background: rgba(76, 175, 80, 0.2);
     color: #4CAF50;
-    padding: 2px 6px;
-    border-radius: 4px;
     font-weight: bold;
+    background: rgba(76, 175, 80, 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
     border: 1px solid rgba(76, 175, 80, 0.3);
 }
 
 .type-compact {
-    background: rgba(0, 0, 0, 0.3);
-    color: #ccc;
-    padding: 2px 6px;
-    border-radius: 4px;
-    border: 1px solid #555;
-    font-style: italic;
-}
-
-.armor-compact-traits {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    align-items: center;
-}
-
-.traits-compact {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 2px 6px;
-    border-radius: 12px;
-    font-size: 10px;
+    color: #2196F3;
     font-weight: bold;
-}
-
-.traits-compact.positive {
-    background: rgba(76, 175, 80, 0.2);
-    color: #4CAF50;
-    border: 1px solid rgba(76, 175, 80, 0.3);
-}
-
-.traits-compact.negative {
-    background: rgba(244, 67, 54, 0.2);
-    color: #f44336;
-    border: 1px solid rgba(244, 67, 54, 0.3);
+    background: rgba(33, 150, 243, 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid rgba(33, 150, 243, 0.3);
 }
 
 .armor-compact-actions {
@@ -1895,12 +1126,634 @@ hr.section-divider {
     transform: scale(1.1);
 }
 
-.weapon-open:hover,
 .armor-open:hover {
-    color: #4CAF50;
+    color: #2196F3 !important;
 }
 
-.weapon-unequip:hover,
 .armor-unequip:hover {
-    color: #f44336;
+    color: #f44336 !important;
 }
+
+/* **AJOUTER à la fin du fichier alyriasystem.css :** */
+
+/* **NOUVEAU : Styles pour les cartouches de sorts** */
+.sorts-choisis-display {
+    padding: 15px;
+}
+
+.sorts-cartouches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.sort-cartouche {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* **COULEURS PAR RANG** */
+.sort-cartouche[data-rang="Novice"] {
+    background: linear-gradient(135deg, #D2691E 0%, #A0522D 100%);
+    border-color: #8B4513;
+}
+
+.sort-cartouche[data-rang="Confirmé"] {
+    background: linear-gradient(135deg, #C0C0C0 0%, #A8A8A8 100%);
+    border-color: #808080;
+}
+
+.sort-cartouche[data-rang="Expert"] {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    border-color: #DAA520;
+}
+
+.sort-cartouche[data-rang="Maître"] {
+    background: linear-gradient(135deg, #FF4500 0%, #DC143C 100%);
+    border-color: #B22222;
+}
+
+.sort-cartouche:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.sort-compact {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    cursor: pointer;
+}
+
+.sort-icon-container {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(45deg, #9C27B0, #673AB7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 12px;
+}
+
+.sort-icon {
+    color: white;
+    font-size: 20px;
+}
+
+.sort-info {
+    flex: 1;
+    margin-right: 8px;
+}
+
+.sort-name {
+    margin: 0 0 6px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.sort-meta-compact {
+    display: flex;
+    gap: 12px;
+}
+
+.sort-touche {
+    background: rgba(33, 150, 243, 0.1);
+    color: #1976D2;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+.sort-cost {
+    background: rgba(156, 39, 176, 0.1);
+    color: #9C27B0;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+.sort-expand-btn {
+    width: 30px;
+    height: 30px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.sort-details {
+    border-top: 1px solid #dee2e6;
+    padding: 15px;
+    background: rgba(255,255,255,0.5);
+}
+
+.sort-details.hidden {
+    display: none;
+}
+
+.sort-stats-detailed {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.sort-stat {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.7);
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.sort-description-detailed {
+    background: rgba(255,255,255,0.8);
+    padding: 12px;
+    border-radius: 8px;
+}
+
+/* **AJOUT : Styles pour les traits compacts** */
+.weapon-compact-traits,
+.armor-compact-traits {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.traits-compact {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid;
+}
+
+.traits-compact.positive {
+    color: #4CAF50 !important;
+    border-color: rgba(76, 175, 80, 0.5);
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.traits-compact.negative {
+    color: #f44336 !important;
+    border-color: rgba(244, 67, 54, 0.5);
+    background: rgba(244, 67, 54, 0.1);
+}
+
+.traits-compact i {
+    font-size: 10px;
+}
+
+.traits-count {
+    font-weight: bold;
+    min-width: 12px;
+    text-align: center;
+}
+
+/* **CSS pour le dialogue de récupération uniquement** */
+.recovery-dialog {
+    padding: 15px;
+}
+
+.recovery-dialog .recovery-section {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.recovery-dialog .recovery-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.recovery-dialog select,
+.recovery-dialog input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.recovery-dialog button {
+    padding: 5px 15px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.recovery-dialog button:hover {
+    background: #45a049;
+}
+
+.full-rest-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.full-rest-button {
+    padding: 10px 20px !important;
+    background: #FF9800 !important;
+    font-size: 16px;
+}
+
+.full-rest-button:hover {
+    background: #F57C00 !important;
+}
+
+/* **CSS pour le bouton d'ouverture** */
+.recovery-button {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.recovery-button:hover {
+    background: linear-gradient(135deg, #45a049, #4CAF50);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.level-up-btn {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.level-up-btn:hover {
+    background: linear-gradient(135deg, #45a049, #4CAF50);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.level-up-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+/* Force width for all character progression dialogs */
+.dialog.window-app[data-appid] {
+    min-width: 700px !important; /* AUGMENTÉ de 650px à 800px */
+}
+
+/* Ou plus spécifique pour les dialogues avec certains titres */
+.dialog.window-app .window-title:contains("Montée de Niveau"),
+.dialog.window-app .window-title:contains("Création de Personnage"),
+.dialog.window-app .window-title:contains("Sélection des Talents"),
+.dialog.window-app .window-title:contains("Sélection des Sorts") {
+    min-width: 700px !important; /* CHANGÉ de 500px à 800px */
+    padding: 10px 15px !important; /* Réduire le padding latéral si nécessaire */
+    overflow-x: auto !important; /* Permettre le défilement horizontal si besoin */
+}
+
+/* Alternative : forcer sur le parent */
+.dialog.window-app:has(.levelup-major-form),
+.dialog.window-app:has(.levelup-minor-form),
+.dialog.window-app:has(.character-creation-form),
+.dialog.window-app:has(.talent-selection-form),
+.dialog.window-app:has(.spell-selection-form) {
+    width: 700px !important; /* CHANGÉ de 500px à 800px */
+    min-width: 700px !important; /* CHANGÉ de 500px à 800px */
+}
+
+/* AJOUT : Ajuster le contenu pour éviter la troncature */
+.dialog .window-content {
+    padding: 10px 15px !important; /* Réduire le padding latéral si nécessaire */
+    overflow-x: auto !important; /* Permettre le défilement horizontal si besoin */
+}
+
+/* AJOUT : Ajuster la largeur des contrôles qui dépassent */
+.major-attribute-controls {
+    min-width: 350px !important; /* AUGMENTÉ de 320px à 350px */
+    flex-wrap: nowrap !important;
+}
+
+.minor-attribute-controls {
+    min-width: 350px !important; /* AUGMENTÉ de 350px à 380px */
+    flex-wrap: nowrap !important;
+}
+
+/* AJOUT : Réduire l'espacement des éléments si nécessaire */
+.major-attribute-controls,
+.minor-attribute-controls {
+    gap: 6px !important; /* RÉDUIT de 8px à 6px */
+}
+
+/* AJOUT : Responsive pour les très petits écrans */
+@media (max-width: 900px) {
+    .dialog.window-app:has(.levelup-major-form),
+    .dialog.window-app:has(.levelup-minor-form) {
+        width: 95vw !important;
+        max-width: 900px !important;
+    }
+    
+    .major-attribute-controls,
+    .minor-attribute-controls {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+    }
+}
+
+/* **NOUVEAU : Cartouches de sorts redesignées** */
+.sorts-cartouches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.sort-cartouche {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Couleurs par rang - version compacte */
+.sort-cartouche[data-rang="Novice"] {
+    border-left: 4px solid #d2c01e8e;
+}
+
+.sort-cartouche[data-rang="Confirmé"] {
+    border-left: 4px solid #C0C0C0;
+}
+
+.sort-cartouche[data-rang="Expert"] {
+    border-left: 4px solid #FFD700;
+}
+
+.sort-cartouche[data-rang="Maître"] {
+    border-left: 4px solid #FF4500;
+}
+
+.sort-cartouche:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Version compacte */
+.sort-compact {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    gap: 12px;
+    cursor: pointer;
+}
+
+/* Icône carré avec padding */
+.sort-icon-square {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, #9C27B0, #673AB7);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.sort-icon-square:hover {
+    transform: scale(1.1);
+}
+
+.sort-icon-square i {
+    color: white;
+    font-size: 16px;
+}
+
+/* Infos principales compactes */
+.sort-info-compact {
+    flex: 1;
+    min-width: 0;
+}
+
+.sort-name-compact {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sort-meta-line {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.sort-touche-compact {
+    background: rgba(33, 150, 243, 0.1);
+    color: #1976D2;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.sort-cost-compact {
+    background: rgba(156, 39, 176, 0.1);
+    color: #9C27B0;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* **ALTERNATIVE : Tooltip plus stylé avec animation** */
+.carac-total-large {
+    position: relative;
+}
+
+.carac-total-large::before {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 12px !important; /* **LÉGÈREMENT plus grand pour le tooltip** */
+    font-weight: normal;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin-bottom: 8px;
+}
+
+.carac-total-large::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #2c3e50;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    margin-bottom: 2px;
+}
+
+.carac-total-large:hover::before,
+.carac-total-large:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-2px);
+}
+
+/* **CORRECTION : Styles pour les caractéristiques majeures - taille normale** */
+.carac-label-compact {
+    min-width: 100px !important; /* **RETOUR à 100px pour plus de lisibilité** */
+    max-width: 100px !important;
+    text-align: center !important;
+    text-transform: capitalize;
+    font-size: 1em !important; /* **RETOUR à la taille normale** */
+}
+
+.carac-total-large {
+    font-size: 1.6em !important; /* **AUGMENTÉ encore plus pour une meilleure visibilité** */
+    font-weight: bold !important;
+    color: #2c3e50 !important;
+    padding: 3px 6px !important; /* **AUGMENTÉ le padding** */
+    background: rgba(52, 152, 219, 0.1) !important;
+    border: 1px solid rgba(52, 152, 219, 0.3) !important;
+    border-radius: 6px !important; /* **LÉGÈREMENT plus arrondi** */
+    min-width: 60px !important; /* **AUGMENTÉ la largeur minimale** */
+    text-align: center !important;
+    cursor: help !important;
+    transition: all 0.3s ease !important;
+    margin: 0 10px !important; /* **AUGMENTÉ les marges** */
+}
+
+.carac-total-large:hover {
+    background: rgba(52, 152, 219, 0.2) !important;
+    border-color: rgba(52, 152, 219, 0.5) !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3) !important;
+}
+
+/* **AJUSTEMENT : Form group pour les majeures - espacement normal** */
+.stat-section .form-group-inline {
+    gap: 5px !important; /* **RETOUR à un espacement normal** */
+    align-items: center !important;
+    margin-bottom: 10px !important; /* **AUGMENTÉ l'espacement vertical** */
+}
+
+/* **AJUSTEMENT : Dés pour les majeures - taille normale** */
+.stat-section .Dés {
+    min-width: 100px !important; /* **RETOUR à 100px** */
+    max-width: 100px !important;
+    padding: 6px 10px !important; /* **AUGMENTÉ le padding** */
+    font-size: 1em !important; /* **RETOUR à la taille normale** */
+}
+
+/* **AMÉLIORATION : Touche label taille normale** */
+.touche-label {
+    font-size: 0.85em !important; /* **LÉGÈREMENT plus grand** */
+    color: #666 !important;
+    margin-left: 6px !important; /* **AUGMENTÉ la marge** */
+}
+
+.touche-value {
+    font-weight: bold !important;
+    color: #9C27B0 !important;
+    font-size: 1em !important; /* **ASSURER une taille normale** */
+}
+
+/* **GARDER le tooltip stylé tel quel** */
+.carac-total-large {
+    position: relative;
+}
+
+.carac-total-large::before {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 12px !important; /* **LÉGÈREMENT plus grand pour le tooltip** */
+    font-weight: normal;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin-bottom: 8px;
+}
+
+.carac-total-large::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #2c3e50;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    margin-bottom: 2px;
+}
+
+.carac-total-large:hover::before,
+.carac-total-large:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-2px);
+}
+
+/* ...existing code... */

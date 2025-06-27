@@ -2,18 +2,20 @@ import { AlyriaRaces } from "../data/AlyriaRace.js";
 import { AlyriaVoies } from "../data/AlyriaVoies.js";
 import { AlyriaArcane } from "../data/AlyriaArcanes.js";
 import { InventoryManager } from "../Inventaire.js";
+import { CharacterProgression } from "../character-progression.js";
 
 export default class AlyriaActorSheet extends ActorSheet {
     
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
-            classes: ["alyria", "sheet", "actor"],
-            width: 800,
-            height: 720,
-            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "main" }],
-            dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }]
-        });
-    }
+    // **AJOUTER dans le constructeur ou au début de la classe :**
+static get defaultOptions() {
+    return foundry.utils.mergeObject(super.defaultOptions, {
+        classes: ["alyria", "sheet", "actor"],
+        width: 800,
+        height: 720,
+        tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "main" }],
+        dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }]
+    });
+}
 
     get template() {
         console.log(`Alyria | Chargement du template de la fiche d'objet ${this.actor.type}-sheet`);
@@ -23,19 +25,18 @@ export default class AlyriaActorSheet extends ActorSheet {
     // **CORRECTION : getData avec inventaire asynchrone**
 async getData(options) {
     const context = await super.getData(options);
-    const actorData = context.data;
+    const { actor } = this;
+    const system = actor.system; // **CORRECTION : Utiliser actor.system au lieu de actorData**
 
     // Enrichir les données pour l'affichage
-    context.system = actorData.system || {};
-    context.flags = actorData.flags || {};
+    context.system = actor.system || {}; // **CORRECTION : actor.system au lieu de actorData.system**
+    context.flags = actor.flags || {};   // **CORRECTION : actor.flags au lieu de actorData.flags**
 
-    console.log("=== DEBUG ARMES ===");
-    console.log("Armes trouvées:", this.actor.items.filter(item => item.type === "arme").length);
-    console.log("Arme équipée:", this.actor.system.inventaire?.armeEquipee?.name || "Aucune");
 
     // **CORRECTION : Inventaire asynchrone**
     context.inventaire = await InventoryManager.prepareInventoryData(this.actor);
-    console.log("📦 Inventaire préparé:", context.inventaire);
+    // In your getData() method, add this line:
+    context.rankImagePath = `systems/alyria/module/data/images/icones/${context.system.rang || 'Novice'}.png`;
 
     // **ARMES : Traitement des armes (complet)**
     context.weapons = this.actor.items.filter(item => item.type === "arme").map(weapon => ({
@@ -48,8 +49,7 @@ async getData(options) {
 
     // **ARMURES : Traitement des armures avec debug**
     const armorItems = this.actor.items.filter(item => item.type === "armure");
-    console.log("=== DEBUG ARMURES ===");
-    console.log("Armures trouvées:", armorItems.length);
+
     
     context.armors = armorItems.map(armor => {
         const armorObj = armor.toObject();
@@ -87,25 +87,133 @@ async getData(options) {
         const equippedArmorId = this.actor.system.inventaire.armureEquipee.id;
         const equippedArmor = this.actor.items.get(equippedArmorId);
         
-        console.log("Armure équipée ID:", equippedArmorId);
-        console.log("Armure trouvée:", equippedArmor?.name);
         
         if (equippedArmor) {
-            // Enrichir les données de l'armure équipée
-            context.system.inventaire.armureEquipee.rarityColor = this._getRarityColor(equippedArmor.system.rarete || "Commune");
-            context.system.inventaire.armureEquipee.rarityIcon = this._getRarityIcon(equippedArmor.system.rarete || "Commune");
-            context.system.inventaire.armureEquipee.traits = equippedArmor.system.traits || [];
-            context.system.inventaire.armureEquipee.imperfections = equippedArmor.system.imperfections || [];
+            // Enrichir TOUTES les données nécessaires
+            context.system.inventaire.armureEquipee = {
+                ...this.actor.system.inventaire.armureEquipee, // Garder les données existantes
+                ...equippedArmor.toObject(), // Ajouter toutes les données de l'item
+                rarityColor: this._getRarityColor(equippedArmor.system.rarete || "Commune"),
+                rarityIcon: this._getRarityIcon(equippedArmor.system.rarete || "Commune"),
+                traits: equippedArmor.system.traits || [],
+                imperfections: equippedArmor.system.imperfections || []
+            };
             
-            console.log("✅ Armure équipée enrichie:", context.system.inventaire.armureEquipee.name, "ID:", context.system.inventaire.armureEquipee.id);
+            console.log("✅ Armure équipée 🛡️ :", context.system.inventaire.armureEquipee, "ID:", context.system.inventaire.armureEquipee.id);
         } else {
-            console.log("❌ Armure équipée non trouvée dans les items, ID:", equippedArmorId);
+            console.log("❌ Armure équipée non trouvée dans les items");
+            // Nettoyer la référence si l'item n'existe plus
+            context.system.inventaire.armureEquipee = null;
         }
+    } else {
+        console.log("🛡️ Aucune armure équipée");
     }
 
     // **RACES/VOIES : Code existant préservé**
     context.selectedRace = this._prepareRaceData(context.system.race);
     this._prepareVoiesArcanes(context);
+
+    // **AJOUTER : Données de l'historique**
+if (system.historique) {
+    context.selectedHistorique = this._prepareHistoriqueData(system.historique);
+}
+    
+    // **CORRECTION COMPLÈTE : Ajout des stats majeures aux mineures**
+    // **CORRIGER la fonction d'association des stats majeures**
+    const attributsMineurs = [
+        'monde', 'mystique', 'nature', 'sacré', 'robustesse', 'calme',
+        'marchandage', 'persuasion', 'artmusique', 'commandement',
+        'acrobatie', 'discretion', 'adresse', 'artisanat', 'hasard',
+        'athlétisme', 'puissance', 'intimidation', 'perception',
+        'perceptionmagique', 'medecine', 'intuition'
+    ];
+
+    attributsMineurs.forEach(attribut => {
+        // Calculer la valeur de la stat majeure associée
+        let majeureAssociee = 0;
+        
+        if (["robustesse", "calme"].includes(attribut)) {
+            majeureAssociee = system.majeures.defense.totale || 0;
+        }
+        else if (["marchandage", "persuasion", "artmusique", "commandement"].includes(attribut)) {
+            majeureAssociee = system.majeures.charisme.totale || 0;
+        }
+        else if (["acrobatie", "discretion", "artisanat", "adresse"].includes(attribut)) {
+            majeureAssociee = system.majeures.dexterite.totale || 0;
+        }
+        else if (["puissance", "intimidation", "athlétisme"].includes(attribut)) {
+            majeureAssociee = system.majeures.force.totale || 0;
+        }
+        else if (["perception", "perceptionmagique", "intuition", "medecine"].includes(attribut)) {
+            majeureAssociee = system.majeures.sagesse.totale || 0;
+        }
+        else if (["hasard"].includes(attribut)) {
+            majeureAssociee = system.majeures.chance.totale || 0;
+        }
+        else if (["monde", "mystique", "nature", "sacré"].includes(attribut)) {
+            majeureAssociee = system.majeures.intelligence.totale || 0;
+        }
+
+        // Garder les valeurs existantes
+        const creation = system.mineures[attribut]?.creation || 0;
+        
+        const repartition = system.mineures[attribut]?.repartition || 0;
+        const equipement = system.mineures[attribut]?.equipement || 0;
+        const talents = system.mineures[attribut]?.talents || 0;
+        const bonus = system.mineures[attribut]?.bonus || 0;
+        
+        // Mettre à jour avec la stat majeure
+        system.mineures[attribut] = {
+            creation: creation,
+            repartition: repartition,
+            equipement: equipement,
+            talents: talents,
+            bonus: bonus,
+            majeureAssocie: majeureAssociee,
+            totale: creation + repartition + equipement + talents + bonus + majeureAssociee
+        };
+    });
+
+    // **FORCER la mise à jour du contexte avec les nouvelles valeurs**
+    attributsMineurs.forEach(attribut => {
+        // ... calculs existants ...
+        
+        // **FORCER la mise à jour dans le contexte**
+        if (!context.system.mineures) context.system.mineures = {};
+        context.system.mineures[attribut] = system.mineures[attribut];
+    });
+
+
+    // **NOUVEAU : Préparer les sorts pour l'affichage**
+    context.sortsChoisis = (system.sortsChoisis || []).map(sort => {
+        // Extraire le nom depuis l'ID
+        const nomSort = sort.id ? sort.id.split(':').pop() : 'Sort inconnu';
+        
+        return {
+            id: sort.id,
+            displayName: nomSort, // Pour {{sort.displayName}}
+            Touche: sort.rang, // Pour {{sort.Touche}} 
+            Psy: sort.niveau, // Pour {{sort.Psy}}
+            Action: sort.source, // Pour {{sort.Action}}
+            Distance: "Variable", // Pour {{sort.Distance}}
+            Zone: "Variable", // Pour {{sort.Zone}}
+            rang: sort.rang, // Pour data-rang et les couleurs
+            level: sort.rang, // Pour {{sort.level}}
+            description: `Sort de rang ${sort.rang} (niveau ${sort.niveau})`
+        };
+    });
+        
+    // **CORRECTION : Appeler _prepareSortsChoisis() ici**
+    context.sortsChoisis = this._prepareSortsChoisis();
+    
+    // **SUPPRIMER l'ancien code qui ne marche pas :**
+    // context.sortsChoisis = (system.sortsChoisis || []).map(sort => { ... });
+    
+    context.sortsDisponibles = CharacterProgression._getAvailableSpellsForLevelUp ? 
+        CharacterProgression._getAvailableSpellsForLevelUp(actor) : 
+        [];
+        
+    context.nbSortsRestants = system.nbSortsAChoisir || 0;
 
     return context;
     }
@@ -113,10 +221,18 @@ async getData(options) {
     // **HELPER : Préparer les données de race**
     _prepareRaceData(raceKey) {
         const raceData = AlyriaRaces?.[raceKey] ?? {};
+        console.log("🔍 Race data pour", raceKey, ":", raceData);
+        
         return {
             nom: raceData.nom || "Non définie",
             description: raceData.description || [],
-            talentRace: raceData.talentRace || {}
+            // **CORRECTION : Utiliser le nom du talent racial au lieu de l'objet entier**
+            talentRace: raceData.talentRace?.nom || raceData.talentRace || "Aucun talent de race",
+            // **CORRECTION : Utiliser la description du talent racial**
+            competenceRaciale: raceData.talentRace?.description || 
+                              raceData.talentRace?.effet ||
+                              raceData.competenceRaciale || 
+                              "Description du talent racial non disponible"
         };
     }
 
@@ -151,11 +267,14 @@ async getData(options) {
         const voie = AlyriaVoies?.[voieKey];
         if (!voie) return null;
         
+        console.log("🔍 Voie data pour", voieKey, ":", voie);        
         return {
             nom: voie.nom || voieKey,
             description: voie.description || [],
-            talentsVoie: voie.talentsVoie || [],
-            sortileges: voie.sortileges || []
+            talentVoie: voie.talentVoie || { talents: [] },
+            sortileges: voie.sortileges || [],
+            // **CORRECTION : Essayer plusieurs noms possibles**
+            mecanique: voie.mecanique || voie.mecaniques || voie.mécanique || voie.mecaniqueVoie || []
         };
     }
 
@@ -167,7 +286,8 @@ async getData(options) {
         return {
             nom: arcane.nom || arcaneKey,
             description: arcane.description || [],
-            talentsArcane: arcane.talentsArcane || [],
+            // **CORRECTION : Utiliser talentArcane.talents au lieu de talentsArcane**
+            talentArcane: arcane.talentArcane || { talents: [] },
             sortileges: arcane.sortileges || []
         };
     }
@@ -207,15 +327,27 @@ async getData(options) {
         return await InventoryManager.equipItemFromInventory(this.actor, itemId, equipType);
     }
 
+    static async _registerHandlebarsHelpers() {
+    // Helper pour convertir en minuscules
+    Handlebars.registerHelper('toLowerCase', function(str) {
+        return str ? str.toLowerCase() : '';
+    });
+    
+    // Helper pour comparer les valeurs
+    Handlebars.registerHelper('eq', function(a, b) {
+        return a === b;
+    });
+}
+
     activateListeners(html) {
         super.activateListeners(html);
-
+        
         // **CORRECTION : Ajouter la navigation des onglets**
         html.find('.sheet-navigation .item').click(this._onTabClick.bind(this));
         html.find('.rollable-dice').click(this._onRollCharacteristic.bind(this));
-
+        html.find('.level-up-button').click(this._onLevelUp.bind(this));
         html.find('.recovery-button, .open-recovery-dialog').click(this._onOpenRecoveryDialog.bind(this));
-
+        html.find('.level-up-btn').click(this._onLevelUp.bind(this));
         // **CORRECTION : Vérifier que les méthodes existent avant de les binder**
     
     // Drag and drop inventory
@@ -279,8 +411,21 @@ async getData(options) {
     console.log("Boutons armor-unequip trouvés:", html.find('.armor-unequip').length);
     console.log("Boutons item-equip armure trouvés:", html.find('.item-equip[data-equip-type="armure"]').length);
 
+    // **NOUVEAU : Listeners pour les sorts**
+    html.find('.sort-cast-button').click(this._onCastSpell.bind(this));
+    html.find('[name="sorts"]').change(this._onSpellSelectionChange.bind(this));
+    
+    // **NOUVEAU : Listeners pour les cartouches de sorts**
+    html.find('.sort-icon-container').click(this._onCastSpell.bind(this));
+    html.find('.sort-compact').click(this._onToggleSortDetails.bind(this));
+    html.find('.sort-expand-btn').click(this._onToggleSortDetails.bind(this));
 }
 
+async _onLevelUp(event) {
+    event.preventDefault();
+    console.log("🆙 Montée de niveau demandée");
+    return CharacterProgression.showLevelUpDialog(this.actor);
+}
 // **AJOUTER : _onWeaponUnequip qui manque peut-être**
 async _onWeaponUnequip(event) {
     event.preventDefault();
@@ -350,7 +495,7 @@ async _onRollCharacteristic(event) {
     // Logique de succès et d'échec critiques
     const echecCritiqueSeuil = 96; // 96, 97, 98, 99, 100
 
-    if (rollTotal < toucheCritique) {
+    if (rollTotal <= toucheCritique) {
         chatContent += `<p style="color: green;">**SUCCÈS CRITIQUE !**</p>`;
     } else if (rollTotal >= echecCritiqueSeuil) {
         chatContent += `<p style="color: red;">**ÉCHEC CRITIQUE !**</p>`;
@@ -702,7 +847,7 @@ async _onItemEquip(event) {
                 message += `🎲 Dé: ${rollFormula} = ${rollResult}\n`;
             }
             if (bonus > 0) {
-                message += `➕ Bonus: +${bonus}\n`;
+                message += `➕ ${bonus}\n`;
             }
             message += `**Total récupéré: ${actualRecovery} ${type.toUpperCase()}**`;
             
@@ -1076,121 +1221,9 @@ _isItemEquipped(item) {
         return super.render(force, options);
     }
 
-    async _showCreationDialog() {
-        const races = AlyriaRaces || {};
-        const voies = AlyriaVoies || {};
-        const arcanes = AlyriaArcane || {};
-
-        const raceOptions = Object.entries(races).map(([key, race]) =>
-            `<option value="${key}">${race.nom}</option>`
-        ).join("");
-
-        const voieOptions = Object.entries(voies).map(([key, voie]) =>
-            `<option value="voie:${key}">${voie.nom}</option>`
-        ).join("");
-        const arcaneOptions = Object.entries(arcanes).map(([key, arcane]) =>
-            `<option value="arcane:${key}">${arcane.nom}</option>`
-        ).join("");
-
-        const allVoiesOptions = Object.entries(voies).map(([key, voie]) =>
-            `<option value="voie:${key}">${voie.nom} (voie)</option>`
-        ).join("");
-
-        const allArcanesOptions = Object.entries(arcanes).map(([key, arcane]) =>
-            `<option value="arcane:${key}">${arcane.nom} (arcane)</option>`
-        ).join("");
-
-        let content = `
-            <form>
-                <div class="form-group">
-                    <label>Race :</label>
-                    <select name="race" required>
-                        <option value="">-- Choisir --</option>
-                        ${raceOptions}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Première voie/arcane :</label>
-                    <select name="voie1" required>
-                        <option value="">-- Choisir --</option>
-                        <optgroup label="Voies">${allVoiesOptions}</optgroup>
-                        <optgroup label="Arcanes">${allArcanesOptions}</optgroup>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Seconde voie/arcane :</label>
-                    <select name="voie2" disabled>
-                        <option value="">-- Choisir --</option>
-                    </select>
-                </div>
-            </form>
-            <style>
-                .form-group { margin-bottom: 10px; }
-            </style>
-        `;
-
-        return new Promise(resolve => {
-            let dlg;
-            dlg = new Dialog({
-                title: "Création du personnage",
-                content,
-                render: html => {
-                    const $voie1 = html.find('[name="voie1"]');
-                    const $voie2 = html.find('[name="voie2"]');
-                    
-                    $voie1.on('change', function() {
-                        const value = $(this).val();
-                        let options = `<option value="">-- Choisir --</option>`;
-                        if (value.startsWith('voie:')) {
-                            options += `<optgroup label="Voies">${voieOptions}</optgroup>`;
-                            options += `<optgroup label="Arcanes">${arcaneOptions}</optgroup>`;
-                        } else if (value.startsWith('arcane:')) {
-                            options += `<optgroup label="Arcanes">${arcaneOptions}</optgroup>`;
-                        }
-                        $voie2.html(options);
-                        $voie2.prop('disabled', false);
-                        $voie2.find(`option[value="${value}"]`).remove();
-                    });
-                },
-                buttons: {
-                    ok: {
-                        label: "Valider",
-                        callback: html => {
-                            const race = html.find('[name="race"]').val();
-                            const voie1 = html.find('[name="voie1"]').val();
-                            const voie2 = html.find('[name="voie2"]').val();
-                            
-                            console.log("DEBUG callback - voie1 RAW:", voie1, "voie2 RAW:", voie2);
-                            
-                            if (!race || !voie1) {
-                                ui.notifications.warn("Vous devez choisir une race et au moins une voie ou un arcane.");
-                                this._showCreationDialog();
-                                return;
-                            }
-                            
-                            console.log("DEBUG avant split - voie1:", voie1);
-                            const [type1, key1] = voie1.split(":");
-                            let type2 = "", key2 = "";
-                            if (voie2) {
-                                console.log("DEBUG avant split - voie2:", voie2);
-                                [type2, key2] = voie2.split(":");
-                            }
-                            
-                            console.log("DEBUG après split - type1:", type1, "key1:", key1, "type2:", type2, "key2:", key2);
-                            
-                            this.actor.update({
-                                "system.race": race,
-                                "system.voiesArcane": { type1, key1, type2, key2 }
-                            });
-                            resolve();
-                        }
-                    }
-                },
-                close: () => resolve()
-            });
-            dlg.render(true);
-        });
-    }
+async _showCreationDialog() {
+    return CharacterProgression.showCreationDialog(this.actor);
+}
 
     // **AJOUTER CES MÉTHODES SI ELLES N'EXISTENT PAS DÉJÀ :**
 
@@ -1314,4 +1347,219 @@ async _onArmorUnequip(event) {
         ui.notifications.warn("Aucune armure à déséquiper !");
     }
 }
+
+// **AJOUTER cette méthode pour préparer les données historiques**
+_prepareHistoriqueData(historiqueKey) {
+    console.log("🔍 Historique Key:", historiqueKey);
+    
+    const historiqueData = AlyriaHistorique?.[historiqueKey] ?? {};
+    console.log("🔍 Historique Data:", historiqueData);
+    
+    return {
+        nom: historiqueData.nom || "Non défini",
+        description: historiqueData.description || "Aucune description",
+        talents: historiqueData.talents || []
+    };
 }
+
+// **NOUVEAU : Méthode pour lancer un sort**
+async _onCastSpell(event) {
+    event.preventDefault();
+    event.stopPropagation(); // Empêcher l'expansion
+    
+    const sortId = event.currentTarget.dataset.sortAction;
+    const sortDetails = CharacterProgression._getSpellDetails ? 
+        CharacterProgression._getSpellDetails(sortId) : null;
+    
+    if (!sortDetails) {
+        ui.notifications.error("Détails du sort non trouvés !");
+        return;
+    }
+    
+    // Vérifier les points de psyché
+    const psyCost = parseInt(sortDetails.Psy) || 0;
+    const currentPsy = this.actor.system.pointsPsyque.actuels;
+    
+    if (currentPsy < psyCost) {
+        ui.notifications.warn("Pas assez de points de Psyché !");
+        return;
+    }
+    
+    // Animation de l'icône
+    const icon = event.currentTarget;
+    icon.style.transform = 'scale(1.3) rotate(360deg)';
+    setTimeout(() => {
+        icon.style.transform = '';
+    }, 500);
+    
+    // Créer le message de chat pour le sort
+    const chatContent = `
+        <div class="spell-cast-message">
+            <h3 style="color: #9C27B0;">🔮 ${sortDetails.nom}</h3>
+            <div class="spell-details-chat">
+                <p><strong>Coût :</strong> ${psyCost} PSY</p>
+                <p><strong>Action :</strong> ${sortDetails.Action}</p>
+                <p><strong>Distance :</strong> ${sortDetails.Distance}</p>
+                <p><strong>Zone :</strong> ${sortDetails.Zone}</p>
+                ${sortDetails.Touche ? `<p><strong>Touche :</strong> ${sortDetails.Touche}</p>` : ''}
+            </div>
+            <div class="spell-description-chat">
+                <p><em>${sortDetails.description}</em></p>
+                ${sortDetails.effet ? `<p><strong>Effet :</strong> ${sortDetails.effet}</p>` : ''}
+            </div>
+        </div>
+    `;
+    
+    // Déduire les points de psyché
+    await this.actor.update({
+        'system.pointsPsyque.actuels': currentPsy - psyCost
+    });
+    
+    // Créer le message de chat
+    ChatMessage.create({
+        user: game.user.id,
+        speaker: ChatMessage.getSpeaker({actor: this.actor}),
+        content: chatContent
+    });
+    
+    ui.notifications.info(`${sortDetails.nom} lancé ! (-${psyCost} PSY)`);
+}
+
+async _onLevelUp(event) {
+    event.preventDefault();
+    const actor = this.actor;
+    
+    // Vérifier si le personnage peut monter de niveau
+    if (!actor.system.niveauJoueur) {
+        ui.notifications.warn("Ce personnage n'a pas de niveau défini !");
+        return;
+    }
+    
+    // Lancer le processus de montée de niveau
+    await CharacterProgression.showLevelUpDialog(actor);
+}
+
+// **NOUVEAU : Méthode pour la sélection de sorts en montée de niveau**
+async _onSpellSelectionChange(event) {
+    // À implémenter pour la montée de niveau
+    console.log("Sélection de sort changée:", event.currentTarget.value);
+}
+
+// **CORRECTION ligne 1427 - Il y a une accolade en trop :**
+_onToggleSortDetails(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    const cartouche = event.currentTarget.closest('.sort-cartouche');
+    const details = cartouche.querySelector('.sort-details');
+    const expandBtn = cartouche.querySelector('.sort-expand-btn i');
+    
+    // Toggle l'affichage
+    if (details.classList.contains('hidden')) {
+        details.classList.remove('hidden');
+        cartouche.classList.add('expanded');
+    } else {
+        details.classList.add('hidden');
+        cartouche.classList.remove('expanded');
+    }
+}
+
+// **HELPER : Préparer la liste des sorts choisis**
+_prepareSortsChoisis() {
+    const sortsChoisis = [];
+    const system = this.actor.system;
+    
+    console.log("🔍 Préparation des sorts choisis");
+    console.log("🔍 System data:", system);
+    
+    // **CORRECTION : Utiliser system.sortsChoisis au lieu de récupérer tous les sorts disponibles**
+    const sortsChoisisData = system.sortsChoisis || [];
+    
+    console.log("📚 Sorts choisis dans les données:", sortsChoisisData);
+    
+    // Pour chaque sort choisi, récupérer ses détails complets
+    sortsChoisisData.forEach(sortChoisi => {
+        const sortDetails = this._getSortDetails(sortChoisi.id);
+        
+        if (sortDetails) {
+            sortsChoisis.push({
+                ...sortDetails,
+                id: sortChoisi.id,
+                niveau: sortChoisi.rang || sortChoisi.niveau || "Novice",
+                source: sortChoisi.source || "unknown",
+                type: sortChoisi.type || "unknown"
+            });
+        } else {
+            console.warn("⚠️ Détails non trouvés pour le sort:", sortChoisi.id);
+            // Fallback avec les données minimales
+            sortsChoisis.push({
+                nom: sortChoisi.id.split(':').pop() || "Sort inconnu",
+                id: sortChoisi.id,
+                niveau: sortChoisi.rang || sortChoisi.niveau || "Novice",
+                source: sortChoisi.source || "unknown",
+                type: sortChoisi.type || "unknown",
+                Psy: 1,
+                Action: "Variable",
+                Distance: "Variable",
+                Zone: "Variable",
+                Touche: "Variable",
+                description: "Description non disponible"
+            });
+        }
+    });
+    
+    console.log("📚 Sorts choisis finaux:", sortsChoisis);
+    return sortsChoisis;
+}
+
+// **NOUVELLE MÉTHODE : Récupérer les détails d'un sort par son ID**
+_getSortDetails(sortId) {
+    console.log("🔍 Recherche détails pour sort ID:", sortId);
+    
+    // Format ID: "voie:nomVoie:nomSort" ou "arcane:nomArcane:nomSort"
+    const [sourceType, sourceKey, ...sortNameParts] = sortId.split(':');
+    const sortName = sortNameParts.join(':'); // Au cas où le nom contient des ":"
+    
+    console.log("📋 Parsing:", { sourceType, sourceKey, sortName });
+    
+    if (sourceType === "voie") {
+        const voieData = AlyriaVoies?.[sourceKey];
+        if (voieData?.sortVoie) {
+            // Chercher dans tous les niveaux de sorts
+            const allSorts = [
+                ...(Object.values(voieData.sortVoie.sortNovice || {})),
+                ...(Object.values(voieData.sortVoie.sortConfirme || {})),
+                ...(Object.values(voieData.sortVoie.sortExpert || {})),
+                ...(Object.values(voieData.sortVoie.sortMaitre || {}))
+            ];
+            
+            const sortFound = allSorts.find(sort => sort.nom === sortName);
+            if (sortFound) {
+                console.log("✅ Sort trouvé dans voie:", sortFound);
+                return sortFound;
+            }
+        }
+    } else if (sourceType === "arcane") {
+        const arcaneData = AlyriaArcane?.[sourceKey];
+        if (arcaneData?.sortArcane) {
+            // Chercher dans tous les niveaux de sorts
+            const allSorts = [
+                ...(Object.values(arcaneData.sortArcane.sortNovice || {})),
+                ...(Object.values(arcaneData.sortArcane.sortConfirme || {})),
+                ...(Object.values(arcaneData.sortArcane.sortExpert || {})),
+                ...(Object.values(arcaneData.sortArcane.sortMaitre || {}))
+            ];
+            
+            const sortFound = allSorts.find(sort => sort.nom === sortName);
+            if (sortFound) {
+                console.log("✅ Sort trouvé dans arcane:", sortFound);
+                return sortFound;
+            }
+        }
+    }
+    
+    console.warn("❌ Sort non trouvé:", sortId);
+    return null;
+}
+}
+// **SUPPRIMER l'ancienne méthode _addSortsFromSource qui n'est plus utilisée**

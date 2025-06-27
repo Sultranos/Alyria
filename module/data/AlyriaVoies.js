@@ -69,7 +69,7 @@ guerrier: {
             description: "Ajoute +1 en Force et 10 en Puissance.",
             niveauJoueur: 1,
             prerequis: [],
-            effet: { force: 1, Puissance: 10 }
+            effet: { force: +1, Puissance: +10 }
           },
           {
             nom: "Samouraï Déshonoré",

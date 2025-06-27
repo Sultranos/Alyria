@@ -16,26 +16,26 @@
             </div>
         </div>
         
-        <!-- Traits condensés -->
-        {{#if (or traits imperfections)}}
+        <!-- Traits condensés - CORRECTION : utiliser system.traits au lieu de traits -->
+        {{#if (or system.traits system.imperfections)}}
         <div class="weapon-compact-traits">
-            {{#if traits}}
+            {{#if system.traits}}
                 <div class="traits-compact positive">
                     <i class="fas fa-plus-circle"></i>
-                    <span class="traits-count">{{traits.length}}</span>
+                    <span class="traits-count">{{system.traits.length}}</span>
                 </div>
             {{/if}}
-            {{#if imperfections}}
+            {{#if system.imperfections}}
                 <div class="traits-compact negative">
                     <i class="fas fa-minus-circle"></i>
-                    <span class="traits-count">{{imperfections.length}}</span>
+                    <span class="traits-count">{{system.imperfections.length}}</span>
                 </div>
             {{/if}}
         </div>
         {{/if}}
     </div>
     
-    <!-- AMÉLIORATION : Actions rapides avec meilleur style -->
+    <!-- Actions rapides -->
     <div class="weapon-compact-actions">
         <button type="button" class="weapon-open" 
                 data-item-id="{{id}}" 

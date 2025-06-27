@@ -14,6 +14,7 @@
     "module/alyria.js",
     "module/AlyriaActor.js", 
     "module/AlyriaItem.js",
+    "module/sheet/AlyriaItemSheet.js",
     "module/data/AlyriaRace.js",
     "module/data/AlyriaVoies.js",
     "module/data/AlyriaArcanes.js",
@@ -21,6 +22,7 @@
     "module/armure-generator.js",
     "module/data/traits.js",
     "module/Inventaire.js",
+    "module/character-progression.js",
     "module/data/imperfections.js",
     "module/data/Particularites.js",
     "module/data/armes.js"
@@ -30,7 +32,7 @@
     {
       "lang": "fr",
       "name": "Français",
-      "path": ""
+      "path": "lang/fr.json"
     }
   ],
   "gridDistance": 5,

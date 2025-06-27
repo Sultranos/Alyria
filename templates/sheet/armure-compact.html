@@ -16,7 +16,7 @@
             </div>
         </div>
         
-        <!-- Traits condensés -->
+        <!-- Traits condensés - CORRECTION : utiliser system.traits au lieu de traits -->
         {{#if (or system.traits system.imperfections)}}
         <div class="armor-compact-traits">
             {{#if system.traits}}
@@ -35,7 +35,7 @@
         {{/if}}
     </div>
     
-    <!-- Actions rapides (style déjà correct) -->
+    <!-- Actions rapides -->
     <div class="armor-compact-actions">
         <button type="button" class="armor-open" 
                 data-item-id="{{id}}" 
