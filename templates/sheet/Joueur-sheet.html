@@ -1,44 +1,66 @@
 <form class="{{cssClass}}" autocomplete="off">
-    <header class="sheet-header" data-rank="{{system.rang}}">
+    <!-- **NOUVEAU HEADER 1/3 - 2/3** -->
+<!-- **HEADER MODIFIÉ : Nom + Race/Voies** -->
+<header class="sheet-header" data-rank="{{system.rang}}">
+    <!-- 1/3 : Photo du joueur -->
+    <div class="header-photo-section">
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
-        <div class="header-details">
+    </div>
+    
+    <!-- 2/3 : Informations avec image de rang en fond -->
+    <div class="header-info-section">
+        <!-- Chiffre de niveau stylisé (bouton level-up) -->
+        <button type="button" class="level-display-btn" data-action="levelUp" title="Monter de niveau">
+            <span class="level-number">{{system.niveauJoueur}}</span>
+        </button>
+        
+        <!-- Informations du personnage -->
+        <div class="character-info">
+            <!-- MOITIÉ HAUTE : Nom du personnage -->
+            <h1 class="character-name" data-edit="name">{{actor.name}}</h1>
             
-            <div class="actor-info-grid">
-                
-                <label for="actor-race">Race :</label>
-                <span class="static-value">{{selectedRace.nom}}</span>
-
-                <label for="actor-voie1">Première voie/arcane :</label>
-                {{#if selectedVoie}}
-                    <span class="static-value">{{selectedVoie.nom}} (voie)</span>
-                {{else if selectedArcana}}
-                    <span class="static-value">{{selectedArcana.nom}} (arcane)</span>
-                {{else}}
-                    <span class="static-value">Non définie</span>
-                {{/if}}
-
-                {{#if selectedSecondVoie}}
-                    <label for="actor-voie2">Seconde voie :</label>
-                    <span class="static-value">{{selectedSecondVoie.nom}} (voie)</span>
-                {{else if selectedSecondArcana}}
-                    <label for="actor-voie2">Seconde arcane :</label>
-                    <span class="static-value">{{selectedSecondArcana.nom}} (arcane)</span>
-                {{/if}}
-
-                <!-- **CORRECTION : Section niveau sur une ligne complète** -->
-                <div class="niveau-section">
-                    <label for="actor-niveau">Niveau :</label>
-                    <span class="niveau-value">{{system.niveauJoueur}}</span>
-                    <button type="button" class="level-up-btn" data-action="levelUp">
-                        <span class="star-text">UP</span>
-                    </button>
+            <!-- MOITIÉ BASSE : Race + Voies sur 2 lignes -->
+            <div class="character-details">
+                <!-- LIGNE 1 : Race -->
+                <div class="race-line">
+                    <span class="detail-value">{{selectedRace.nom}}</span>
+                    <span class="detail-label">🧬</span>
                 </div>
-
-                <label for="actor-rang">Rang :</label>
-                <span class="static-value">{{system.rang}}</span>
+                
+                <!-- LIGNE 2 : Voies/Arcanes -->
+                <div class="voies-line">
+                    <!-- Première voie/arcane -->
+                    <div class="voie-item">
+                        <span class="detail-value">
+                            {{#if selectedVoie}}
+                                {{selectedVoie.nom}} (voie)
+                            {{else if selectedArcana}}
+                                {{selectedArcana.nom}} (arcane)
+                            {{else}}
+                                Non définie
+                            {{/if}}
+                        </span>
+                        <span class="detail-label">⚔️</span>
+                    </div>
+                    
+                    <!-- Seconde voie/arcane (si présente) -->
+                    {{#if (or selectedSecondVoie selectedSecondArcana)}}
+                    <div class="voie-item">
+                        <span class="detail-value">
+                            {{#if selectedSecondVoie}}
+                                {{selectedSecondVoie.nom}} (voie)
+                            {{else if selectedSecondArcana}}
+                                {{selectedSecondArcana.nom}} (arcane)
+                            {{/if}}
+                        </span>
+                        <span class="detail-label">🔮</span>
+                    </div>
+                    {{/if}}
+                </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
     <section class="sheet-body">
 
@@ -52,9 +74,27 @@
             <a class="item" data-tab="competences-mineures">Compétences Mineures</a>
             <a class="item" data-tab="biographie">Biographie</a>
             <a class="item" data-tab="mecaniques">Mécaniques</a>
+        
+
+<!-- **NOUVEAU : Boutons d'action combat** -->
+            <div class="combat-actions-bar">
+                <button type="button" class="combat-action-btn block-btn {{#unless system.toucheDefense}}disabled{{/unless}}" 
+                        data-action="block" 
+                        {{#unless system.toucheDefense}}disabled{{/unless}}
+                        title="Blocage (Défense: {{system.toucheDefense}}%)">
+                    <img src="systems/alyria/module\data\images\icones\Blocage.png" alt="Blocage" class="combat-icon">
+                    <span class="combat-label">Blocage</span>
+                </button>
+                
+                <button type="button" class="combat-action-btn attack-btn {{#unless system.inventaire.armeEquipee}}disabled{{/unless}}" 
+                        data-action="attack" 
+                        {{#unless system.inventaire.armeEquipee}}disabled{{/unless}}
+                        title="Attaque{{#if system.inventaire.armeEquipee}} ({{system.inventaire.armeEquipee.system.touche}}){{/if}}">
+                    <img src="systems/alyria/module\data\images\icones\Attaque.png" alt="Attaque" class="combat-icon">
+                    <span class="combat-label">Attaque</span>
+                </button>
+            </div>
         </nav>
-
-
         <div class="sheet-content">
             <!-- Équipement -->
             <div class="tab equipement active" data-tab="equipement">
@@ -392,13 +432,9 @@
 
             <!-- Sorts et Arcanes -->
             <div class="tab sorts-arcanes" data-tab="sorts-arcanes">
-                <h3 class="section-title-highlight">Section Sorts et Arcanes</h3>
                 
-               
-
-<!-- Affichage des sorts choisis -->
 <div class="sorts-choisis-display">
-    <h3>📚 Sorts Maîtrisés ({{sortsChoisis.length}})</h3>
+    <h3>📚 Sorts et Arcanes Maîtrisés ({{sortsChoisis.length}})</h3>
     
     {{#if sortsChoisis.length}}
         <div class="sorts-cartouches-grid">
@@ -477,18 +513,23 @@
                 <div class="stat-section">
     <div class="form-group-inline">
         <ul class="carac-list">
-            {{#each system.mineures as |stat nom|}}
+            {{#each data.system.mineures as |carac nomCarac|}}
             <li>
                 <div class="form-group-inline">
-                    <div class="Dés rollable-dice" data-dice="" data-label="{{nom}}">
-                        <label>{{nom}}</label>
+                    <div class="Dés rollable-dice" data-dice="{{lookup ../system (concat 'touche' (capitalize nomCarac))}}" data-label="{{nomCarac}}">
+                        <label class="carac-label-compact">{{nomCarac}}</label>
                     </div>
-                    <!-- **CORRECTION : Utiliser stat.totale au lieu des anciennes valeurs** -->
-                    <span class="carac-total"><strong>{{stat.totale}}</strong></span>
-                    <!-- **DIAGNOSTIC : Afficher le détail complet** -->
-                    <small style="font-size:10px; color:#333335;">
-                        ({{stat.majeureAssocie}}+{{stat.creation}}+{{stat.repartition}}+{{stat.talents}}+{{stat.equipement}}+{{stat.bonus}})
-                    </small>
+                    <!-- **CHANGÉ : Même format que les majeures avec carac-total-large** -->
+                    <span class="carac-total-large" 
+                          data-tooltip="{{nomCarac}}: {{this.totale}} ({{this.majeureAssocie}} Majeure + {{this.creation}} création + {{this.repartition}} répartition + {{this.talents}} talents + {{this.equipement}} équipement + {{this.bonus}} bonus)">
+                        {{this.totale}}
+                    </span>
+
+                    {{#if (lookup ../system (concat 'touche' (capitalize nomCarac)))}}
+                        <span class="touche-label"> (Touche: 
+                            <span class="touche-value">{{lookup ../system (concat 'touche' (capitalize nomCarac))}}%</span>
+                        )</span>
+                    {{/if}}
                 </div>
             </li>
             {{/each}}
@@ -725,7 +766,7 @@
                             </div>
                             
                                         <span class="carac-total-large" 
-                      title="Détail: {{this.creation}} (création) + {{this.repartition}} (répartition) + {{this.talents}} (talents) + {{this.equipement}} (équipement) + {{this.bonus}} (bonus) = {{this.totale}}">
+                                            data-tooltip="{{nomCarac}}: {{this.creation}} (création) + {{this.repartition}} (répartition) + {{this.talents}} (talents) + {{this.equipement}} (équipement) + {{this.bonus}} (bonus)">
                     <strong>{{this.totale}}</strong>
                 </span>
 
@@ -979,5 +1020,108 @@
 .recovery-button:hover {
     transform: translateY(-1px);
     background: linear-gradient(45deg, #8BC34A, #4CAF50);
+}
+
+/* **NOUVEAU : Styles pour les boutons d'action combat** */
+.combat-actions-bar {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    padding: 10px 0;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+}
+
+.combat-action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(145deg, #f0f0f0, #ffffff);
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.combat-action-btn:hover:not(.disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-color: #999;
+}
+
+.combat-action-btn:active:not(.disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.combat-action-btn.block-btn:not(.disabled) {
+    border-color: #2196F3;
+    background: linear-gradient(145deg, #e3f2fd, #ffffff);
+}
+
+.combat-action-btn.block-btn:hover:not(.disabled) {
+    border-color: #1976D2;
+    background: linear-gradient(145deg, #bbdefb, #e3f2fd);
+}
+
+.combat-action-btn.attack-btn:not(.disabled) {
+    border-color: #f44336;
+    background: linear-gradient(145deg, #ffebee, #ffffff);
+}
+
+.combat-action-btn.attack-btn:hover:not(.disabled) {
+    border-color: #d32f2f;
+    background: linear-gradient(145deg, #ffcdd2, #ffebee);
+}
+
+.combat-action-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    filter: grayscale(0.8);
+    background: linear-gradient(145deg, #f5f5f5, #e0e0e0);
+    border-color: #bbb;
+}
+
+.combat-icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 4px;
+    transition: transform 0.2s ease;
+}
+
+.combat-action-btn:hover:not(.disabled) .combat-icon {
+    transform: scale(1.1);
+}
+
+.combat-label {
+    font-size: 10px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    line-height: 1;
+}
+
+.combat-action-btn.disabled .combat-label {
+    color: #999;
+}
+
+/* **Animation de clic** */
+.combat-action-btn.casting {
+    animation: combat-cast 0.6s ease;
+}
+
+@keyframes combat-cast {
+    0% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.1) rotate(5deg); }
+    50% { transform: scale(1.05) rotate(-5deg); }
+    75% { transform: scale(1.1) rotate(3deg); }
+    100% { transform: scale(1) rotate(0deg); }
 }
 </style>

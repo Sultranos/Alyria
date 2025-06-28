@@ -3,31 +3,24 @@ import AlyriaActorSheet from "./sheet/AlyriaActorSheet.js";
 import AlyriaActor from "./AlyriaActor.js";
 import { genererArmeAleatoire, genererNomArme } from "./arme-generator.js";
 
-
-
 Hooks.once("init", () => {
     console.log("Alyria | Initialisation du système Alyria");
 
-    // Register the AlyriaItemSheet
+    // **CORRECTION : Garder l'ancienne syntaxe pour compatibilité v13**
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("alyria", AlyriaItemSheet, { makeDefault: true });
     
-    // Register the AlyriaActorSheet
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("alyria", AlyriaActorSheet, { makeDefault: true });
 
-    // Enregistre la classe d'acteur personnalisée pour le type "Joueur"
+    // Configuration des acteurs
     CONFIG.Actor.documentClass = AlyriaActor; 
-    
     CONFIG.Actor.Joueur = CONFIG.Actor.Joueur || {};
     CONFIG.Actor.Joueur.documentClass = AlyriaActor;
 
-
     console.log("Alyria | Fiches d'acteurs et d'objets enregistrées");
-});
 
-Hooks.once('init', function() {
-    // **HANDLEBARS : Ajouter les helpers manquants**
+    // **HANDLEBARS : Tous les helpers en une seule fois**
     Handlebars.registerHelper('sub', function(a, b) {
         return (a || 0) - (b || 0);
     });
@@ -44,6 +37,10 @@ Hooks.once('init', function() {
         return a > b;
     });
     
+    Handlebars.registerHelper('lte', function(a, b) {
+        return a <= b;
+    });
+    
     Handlebars.registerHelper('mul', function(a, b) {
         return a * b;
     });
@@ -52,30 +49,19 @@ Hooks.once('init', function() {
         return Math.floor(a / b);
     });
 
-    Handlebars.registerHelper('lte', function(a, b) {
-    return a <= b;
-    });
-
-    // Helper pour convertir en minuscules
     Handlebars.registerHelper('toLowerCase', function(str) {
         return str ? str.toLowerCase() : '';
     });
     
-    // Helper pour comparer les valeurs
-    Handlebars.registerHelper('eq', function(a, b) {
-        return a === b;
-    });
-    
     Handlebars.registerHelper('capitalize', function(value) {
-        if (typeof value !== 'string') {
-            return value;}
+        if (typeof value !== 'string') return value;
         return value.charAt(0).toUpperCase() + value.slice(1);
-    })
-    Handlebars.registerHelper('includes', function(array, value) {
-      return Array.isArray(array) && array.includes(value);
     });
     
-    // Helper Handlebars pour créer une range de nombres
+    Handlebars.registerHelper('includes', function(array, value) {
+        return Array.isArray(array) && array.includes(value);
+    });
+    
     Handlebars.registerHelper('range', function(count) {
         const result = [];
         for (let i = 0; i < count; i++) {
@@ -84,23 +70,14 @@ Hooks.once('init', function() {
         return result;
     });
     
-    // Helper pour comparer des nombres
-    Handlebars.registerHelper('gt', function(a, b) {
-        return a > b;
-    });
-    
-    // **AJOUTER ces helpers Handlebars :**
-    // Helper pour diviser une chaîne
     Handlebars.registerHelper('split', function(str, separator) {
         return str ? str.split(separator) : [];
     });
     
-    // Helper pour obtenir le dernier élément d'un tableau
     Handlebars.registerHelper('last', function(array) {
         return Array.isArray(array) && array.length > 0 ? array[array.length - 1] : '';
     });
     
-    // Helper pour extraire le nom du sort depuis l'ID
     Handlebars.registerHelper('extractSpellName', function(sortId) {
         if (!sortId) return 'Sort inconnu';
         const parts = sortId.split(':');

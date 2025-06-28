@@ -20972,13 +20972,10 @@ ninja: {
         perceptionmagique: 0, // Perception magique (SAG)
         intuition: 0 // Intuition (SAG)
     },
-    sortileges_et_passifs: {
-        mecanique: {
-            nom: "Ninjutsu",
-            image: "",
-            description: "Le Ninja peut recourir à des techniques spéciales de magie appelée 'Ninjutsu', ces techniques peuvent soit modifier un sort existant soit être nécessaires pour lancer un sort. Le Ninja gagne 1 Ninjutsu à chaque fois qu’il devient Invisible, qu’il inflige un coup critique ou qu’il tue une cible. Les Ninjutsu se réinitialisent à chaque combat ou scène. Le Ninja ne peut pas en accumuler plus de trois."
-        },
-        passifs: {
+    mecanique: [
+             "Le Ninja peut recourir à des techniques spéciales de magie appelée 'Ninjutsu', ces techniques peuvent soit modifier un sort existant soit être nécessaires pour lancer un sort. Le Ninja gagne 1 Ninjutsu à chaque fois qu’il devient Invisible, qu’il inflige un coup critique ou qu’il tue une cible. Les Ninjutsu se réinitialisent à chaque combat ou scène. Le Ninja ne peut pas en accumuler plus de trois."
+    ],
+    talentVoie: {
             niveauJoueur: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
             talents: [
                 {
@@ -21094,8 +21091,7 @@ ninja: {
                     }
                 }
             ]
-        }
-    },
+        },    
     sortVoie: {
         niveau: ["Novice", "Confirmé", "Expert", "Maître"],
         sortNovice: [

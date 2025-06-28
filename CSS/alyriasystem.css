@@ -1504,7 +1504,7 @@ hr.section-divider {
     border-radius: 8px;
     overflow: hidden;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Couleurs par rang - version compacte */
@@ -1526,7 +1526,7 @@ hr.section-divider {
 
 .sort-cartouche:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Version compacte */
@@ -1538,18 +1538,14 @@ hr.section-divider {
     cursor: pointer;
 }
 
-/* Icône carré avec padding */
+/* Icône carrée avec padding */
 .sort-icon-square {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(45deg, #9C27B0, #673AB7);
+    cursor: pointer !important;
+    transition: all 0.3s ease;
     border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    cursor: pointer;
-    transition: transform 0.2s ease;
+    padding: 8px;
+    background: rgba(52, 152, 219, 0.1);
+    border: 2px solid rgba(52, 152, 219, 0.3);
 }
 
 .sort-icon-square:hover {
@@ -1675,63 +1671,68 @@ hr.section-divider {
 
 .carac-total-large:hover {
     background: rgba(52, 152, 219, 0.2) !important;
+    border-color: rgba(52, 152, 219, 0.6) !important;
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+/* **STYLES POUR LES MINEURES (même que les majeures)** */
+.carac-label-compact {
+    min-width: 100px !important;
+    max-width: 100px !important;
+    text-align: center !important;
+    text-transform: capitalize;
+    font-size: 1em !important;
+}
+
+.carac-total-large {
+    font-size: 1.6em !important;
+    font-weight: bold !important;
+    color: #2c3e50 !important;
+    padding: 3px 6px !important;
+    background: rgba(52, 152, 219, 0.1) !important;
+    border: 1px solid rgba(52, 152, 219, 0.3) !important;
+    border-radius: 6px !important;
+    min-width: 60px !important;
+    text-align: center !important;
+    cursor: help !important;
+    transition: all 0.3s ease !important;
+    margin: 0 10px !important;
+    position: relative;
+}
+
+.carac-total-large:hover {
+    background: rgba(52, 152, 219, 0.2) !important;
     border-color: rgba(52, 152, 219, 0.5) !important;
     transform: scale(1.05) !important;
     box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3) !important;
 }
 
-/* **AJUSTEMENT : Form group pour les majeures - espacement normal** */
-.stat-section .form-group-inline {
-    gap: 5px !important; /* **RETOUR à un espacement normal** */
-    align-items: center !important;
-    margin-bottom: 10px !important; /* **AUGMENTÉ l'espacement vertical** */
-}
-
-/* **AJUSTEMENT : Dés pour les majeures - taille normale** */
-.stat-section .Dés {
-    min-width: 100px !important; /* **RETOUR à 100px** */
-    max-width: 100px !important;
-    padding: 6px 10px !important; /* **AUGMENTÉ le padding** */
-    font-size: 1em !important; /* **RETOUR à la taille normale** */
-}
-
-/* **AMÉLIORATION : Touche label taille normale** */
-.touche-label {
-    font-size: 0.85em !important; /* **LÉGÈREMENT plus grand** */
-    color: #666 !important;
-    margin-left: 6px !important; /* **AUGMENTÉ la marge** */
-}
-
-.touche-value {
-    font-weight: bold !important;
-    color: #9C27B0 !important;
-    font-size: 1em !important; /* **ASSURER une taille normale** */
-}
-
-/* **GARDER le tooltip stylé tel quel** */
-.carac-total-large {
-    position: relative;
-}
-
+/* **TOOLTIP UNIFORME pour majeures ET mineures** */
 .carac-total-large::before {
-    content: attr(title);
+    content: attr(data-tooltip);
     position: absolute;
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(135deg, #2c3e50, #34495e);
     color: white;
-    padding: 10px 15px;
+    padding: 12px 16px;
     border-radius: 8px;
-    font-size: 12px !important; /* **LÉGÈREMENT plus grand pour le tooltip** */
+    font-size: 13px !important;
     font-weight: normal;
     white-space: nowrap;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
     z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    margin-bottom: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    margin-bottom: 10px;
+    line-height: 1.4;
+    text-align: center;
+    font-family: inherit;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .carac-total-large::after {
@@ -1740,7 +1741,7 @@ hr.section-divider {
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
-    border: 6px solid transparent;
+    border: 8px solid transparent;
     border-top-color: #2c3e50;
     opacity: 0;
     visibility: hidden;
@@ -1753,7 +1754,297 @@ hr.section-divider {
 .carac-total-large:hover::after {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(-2px);
+    transform: translateX(-50%) translateY(-3px);
 }
 
-/* ...existing code... */
+/* **ANIMATION d'apparition** */
+.carac-total-large:hover::before {
+    animation: tooltipFadeIn 0.3s ease-out;
+}
+
+@keyframes tooltipFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(5px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-3px) scale(1);
+    }
+}
+
+/* **STYLES COMMUNS pour la liste** */
+.carac-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.carac-list li {
+    margin: 0;
+    padding: 0;
+}
+
+.carac-list .form-group-inline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0;
+}
+
+.carac-list .Dés {
+    min-width: 100px;
+    max-width: 100px;
+    text-align: center;
+    padding: 5px 8px;
+    font-size: 0.95em;
+}
+
+.carac-list .Dés label {
+    text-transform: capitalize;
+    font-weight: normal;
+}
+
+/* **NOUVEAU : Header redesigné 1/3 - 2/3** */
+.sheet-header {
+    display: flex;
+    height: 180px;
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    border: 2px solid #34495e;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* **1/3 : Section photo SANS FOND** */
+.header-photo-section {
+    flex: 0 0 180px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* **SUPPRIMÉ : background et border** */
+    position: relative;
+}
+
+/* **CORRECTION : Photo sans cadre** */
+.profile-img {
+    width: 160px;
+    height: 160px;
+    border-radius: 8px;
+    border: none !important; /* **SUPPRIMÉ le cadre bleu** */
+    object-fit: cover;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.profile-img:hover {
+    /* **SUPPRIMÉ border-color** */
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* **2/3 : Section informations** */
+.header-info-section {
+    flex: 1;
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    /* **Le fond gradient reste ici** */
+}
+
+/* **Image de rang en arrière-plan** */
+.header-info-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 300px auto;
+    background-position: right center;
+    background-repeat: no-repeat;
+    opacity: 0.15;
+    z-index: 0;
+}
+
+.sheet-header[data-rank="novice"] .header-info-section::before {
+    background-image: url('systems/alyria/module/data/images/icones/Novice.png');
+}
+
+.sheet-header[data-rank="confirme"] .header-info-section::before {
+    background-image: url('systems/alyria/module/data/images/icones/Confirme.png');
+}
+
+.sheet-header[data-rank="expert"] .header-info-section::before {
+    background-image: url('systems/alyria/module/data/images/icones/Expert.png');
+}
+
+.sheet-header[data-rank="maitre"] .header-info-section::before {
+    background-image: url('systems/alyria/module/data/images/icones/Maitre.png');
+}
+
+/* **CORRECTION : Chiffre de niveau repositionné** */
+.level-display-btn {
+    position: absolute;
+    left: 30px; /* **Ajusté pour centrer le chiffre** */
+        top: 0px;
+    width: 60px;
+    height: 180px; /* **Prend toute la hauteur du header** */
+    background: none !important; /* **SUPPRIMÉ : tout fond** */
+    border: none !important; /* **SUPPRIMÉ : toutes bordures** */
+    border-radius: 0 !important; /* **SUPPRIMÉ : coins arrondis** */
+    box-shadow: none !important; /* **SUPPRIMÉ : ombres** */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    padding: 0;
+}
+
+.level-display-btn:hover {
+    background: none !important; /* **SUPPRIMÉ : fond au hover** */
+    transform: scale(1.1); /* **JUSTE un léger zoom** */
+    box-shadow: none !important; /* **SUPPRIMÉ : ombres au hover** */
+}
+
+.level-display-btn:active {
+    transform: scale(1.05); /* **Effet de clic** */
+}
+
+.level-number {
+    font-size: 150px !important; /* **ÉNORME pour prendre toute la hauteur** */
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 
+        4px 4px 8px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.4),
+        0 0 40px rgba(52, 152, 219, 0.3);
+    font-family: 'Impact', 'Arial Black', Arial, sans-serif;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+/* **Effet hover sur le chiffre** */
+.level-display-btn:hover .level-number {
+    color: #3498db; /* **Changement de couleur au hover** */
+    text-shadow: 
+        4px 4px 8px rgba(0, 0, 0, 0.8),
+        0 0 25px rgba(52, 152, 219, 0.8),
+        0 0 50px rgba(52, 152, 219, 0.5);
+    transform: scale(1.05); /* **Léger zoom du chiffre** */
+}
+
+/* **Effet actif (clic)** */
+.level-display-btn:active .level-number {
+    color: #e74c3c;
+    text-shadow: 
+        4px 4px 8px rgba(0, 0, 0, 0.8),
+        0 0 25px rgba(231, 76, 60, 0.8),
+        0 0 50px rgba(231, 76, 60, 0.5);
+}
+
+/* **Animation de pulsation pour attirer l'attention** */
+@keyframes levelPulse {
+    0%, 100% { 
+        text-shadow: 
+            4px 4px 8px rgba(0, 0, 0, 0.8),
+            0 0 20px rgba(255, 255, 255, 0.4),
+            0 0 40px rgba(52, 152, 219, 0.3);
+    }
+    50% { 
+        text-shadow: 
+            4px 4px 8px rgba(0, 0, 0, 0.8),
+            0 0 30px rgba(52, 152, 219, 0.8),
+            0 0 60px rgba(52, 152, 219, 0.5);
+    }
+}
+
+.level-display-btn:hover .level-number {
+    animation: levelPulse 2s infinite; /* **Animation au hover** */
+}
+
+/* **Responsive : ajustement pour petits écrans** */
+@media (max-width: 800px) {
+    .level-display-btn {
+        position: static;
+        transform: none;
+        width: 80px;
+        height: 100px;
+        margin: 10px auto;
+    }
+    
+    .level-number {
+        font-size: 60px !important; /* **Plus petit sur mobile** */
+    }
+}
+
+/* **Ajustement du padding des infos pour compenser** */
+.character-info {
+    flex: 1;
+    padding: 20px 40px 20px 50px; /* **RÉDUIT padding gauche** */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    text-align: right;
+}
+
+.character-name {
+    font-size: 48px;
+    font-weight: bold;
+    color: #fff;
+    margin: 0 0 15px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.character-name:hover {
+    color: #3498db;
+}
+
+.character-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.detail-line {
+    display: flex;
+    align-items: right;
+    gap: 10px;
+    font-size: 16px;
+}
+
+.detail-label {
+    font-size: 18px;
+    width: 25px;
+    text-align: right;
+}
+
+.detail-value {
+    color: #ecf0f1;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.2);
+    padding: 4px 8px;
+    border-radius: 4px;
+    border-left: 3px solid #3498db;
+}
+
+.rank-line .detail-value {
+    text-transform: capitalize;
+    background: rgba(231, 76, 60, 0.2);
+    border-left-color: #e74c3c;
+}

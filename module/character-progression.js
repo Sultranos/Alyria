@@ -856,15 +856,18 @@ export class CharacterProgression {
         const availableTalents = CharacterProgression._getAvailableTalents(levelUpData, levelUpData.level);
         const isSpecialized = !levelUpData.type2; // Mono-voie
         const isDoubleVoie = !!levelUpData.type2; // Double voie
-        
+        const isEvenLevel = levelUpData.level % 2 === 0; // Niveaux pairs
+        console.log(`🆙 Montée de niveau ${levelUpData.level} - Talents disponibles :`, availableTalents);
         // Organiser les talents par type
         const talentsByType = {
             voie: availableTalents.filter(t => t.type === "voie"),
-            arcane: availableTalents.filter(t => t.type === "arcane")
+            arcane: availableTalents.filter(t => t.type === "arcane"),
+            
         };
-        
+         
         let content = "";
-        
+        if (isEvenLevel) {
+             talentsByType.general = CharacterProgression._getGeneralTalents(actor);
         if (isSpecialized) {
             // **MONO-VOIE : Application automatique**
             const autoTalent = [...talentsByType.voie, ...talentsByType.arcane]
@@ -902,6 +905,7 @@ export class CharacterProgression {
                             border-radius: 5px;
                             margin-bottom: 20px;
                             border-left: 4px solid #4CAF50;
+                            min-width: 600px;
                         }
                         .auto-talent-display {
                             margin: 20px 0;
@@ -988,6 +992,7 @@ export class CharacterProgression {
                     border-radius: 5px;
                     margin-bottom: 20px;
                     border-left: 4px solid #FF8C00;
+                    min-width: 600px;
                 }
                 .talent-option {
                     margin-bottom: 15px;
@@ -1066,7 +1071,7 @@ export class CharacterProgression {
                 default: "next"
             }).render(true);
         });
-    }
+    }}
 
     // **NOUVELLE MÉTHODE : Dialogue des sorts pour montée de niveau**
     static async showLevelUpSpellDialog(actor, levelUpData) {
@@ -2839,5 +2844,158 @@ export class CharacterProgression {
             data[attr] = value;
         });
         return data;
+    }
+
+        // **AJOUT UNIQUEMENT : Ajouter ces 3 nouvelles méthodes après vos méthodes existantes**
+    
+    // **NOUVELLE MÉTHODE : Récupérer les talents généraux disponibles**
+    static _getGeneralTalents(actor) {
+        const generalTalents = [];
+        const actorSystem = actor.system;
+        
+        // **TALENTS STATISTIQUES**
+        Object.entries(talentStatistique).forEach(([key, talent]) => {
+            if (CharacterProgression._checkTalentPrerequisites(talent, actorSystem)) {
+                generalTalents.push({
+                    id: `statistique:${key}`,
+                    name: talent.nom,
+                    type: "Statistique",
+                    description: talent.description,
+                    effets: talent.effets,
+                    prerequis: talent.prerequis,
+                    source: "Talent Statistique"
+                });
+            }
+        });
+        
+        // **TALENTS DE COMBAT**
+        Object.entries(talentCombat).forEach(([key, talent]) => {
+            if (CharacterProgression._checkTalentPrerequisites(talent, actorSystem)) {
+                generalTalents.push({
+                    id: `combat:${key}`,
+                    name: talent.nom,
+                    type: "Combat",
+                    description: talent.description,
+                    effets: talent.effets,
+                    prerequis: talent.prerequis,
+                    source: "Talent Combat"
+                });
+            }
+        });
+        
+        // **TALENTS UTILITAIRES**
+        Object.entries(talentUtilitaire).forEach(([key, talent]) => {
+            if (CharacterProgression._checkTalentPrerequisites(talent, actorSystem)) {
+                generalTalents.push({
+                    id: `utilitaire:${key}`,
+                    name: talent.nom,
+                    type: "Utilitaire",
+                    description: talent.description,
+                    effets: talent.effets,
+                    prerequis: talent.prerequis,
+                    source: "Talent Utilitaire"
+                });
+            }
+        });
+        
+        console.log("🎯 Talents généraux disponibles:", generalTalents);
+        return generalTalents;
+    }
+    
+    // **NOUVELLE MÉTHODE : Vérifier les prérequis d'un talent**
+    static _checkTalentPrerequisites(talent, actorSystem) {
+        const prerequis = talent.prerequis;
+        
+        if (!prerequis || prerequis === "Aucun") {
+            return true;
+        }
+        
+        // Force > X
+        const forceMatch = prerequis.match(/Force\s*>\s*(\d+)/i);
+        if (forceMatch) {
+            const requiredForce = parseInt(forceMatch[1]);
+            const currentForce = actorSystem.majeures?.force?.totale || 0;
+            return currentForce > requiredForce;
+        }
+        
+        // Constitution > X
+        const constitutionMatch = prerequis.match(/Constitution\s*>\s*(\d+)/i);
+        if (constitutionMatch) {
+            const requiredConstitution = parseInt(constitutionMatch[1]);
+            const currentConstitution = actorSystem.majeures?.constitution?.totale || 0;
+            return currentConstitution > requiredConstitution;
+        }
+        
+        // Dextérité > X
+        const dexteriteMatch = prerequis.match(/Dext[eé]rit[eé]\s*>\s*(\d+)/i);
+        if (dexteriteMatch) {
+            const requiredDexterite = parseInt(dexteriteMatch[1]);
+            const currentDexterite = actorSystem.majeures?.dexterite?.totale || 0;
+            return currentDexterite > requiredDexterite;
+        }
+        
+        // Intelligence > X
+        const intelligenceMatch = prerequis.match(/Intelligence\s*>\s*(\d+)/i);
+        if (intelligenceMatch) {
+            const requiredIntelligence = parseInt(intelligenceMatch[1]);
+            const currentIntelligence = actorSystem.majeures?.intelligence?.totale || 0;
+            return currentIntelligence > requiredIntelligence;
+        }
+        
+        // Niveau du personnage > X
+        const niveauMatch = prerequis.match(/Niveau du personnage\s*>\s*(\d+)/i);
+        if (niveauMatch) {
+            const requiredLevel = parseInt(niveauMatch[1]);
+            const currentLevel = actorSystem.niveauJoueur || 1;
+            return currentLevel > requiredLevel;
+        }
+        
+        // Fallback : accepter le talent si prérequis non reconnu
+        console.warn("⚠️ Prérequis non reconnu:", prerequis);
+        return true;
+    }
+    
+    // **EXTENSION de _processTalentSelection pour les talents généraux**
+    // (Ajouter ces cases dans votre méthode existante ou créer cette nouvelle version)
+    static _processTalentSelection(talentId, level) {
+        const [talentType, talentKey] = talentId.split(':');
+        
+        switch (talentType) {
+            case "statistique":
+                const statTalent = talentStatistique[talentKey];
+                return {
+                    nom: statTalent.nom,
+                    source: "Talent Statistique",
+                    niveau: level,
+                    effet: statTalent.effets
+                };
+                
+            case "combat":
+                const combatTalent = talentCombat[talentKey];
+                return {
+                    nom: combatTalent.nom,
+                    source: "Talent Combat",
+                    niveau: level,
+                    effet: combatTalent.effets
+                };
+                
+            case "utilitaire":
+                const utilitaireTalent = talentUtilitaire[talentKey];
+                return {
+                    nom: utilitaireTalent.nom,
+                    source: "Talent Utilitaire",
+                    niveau: level,
+                    effet: utilitaireTalent.effets
+                };
+                
+            default:
+                // Traitement existant pour les autres types
+                return {
+                    nom: talentKey,
+                    source: talentType,
+                    niveau: level,
+                    effet: "Talent de voie/arcane"
+                };
+        }
     }
 }

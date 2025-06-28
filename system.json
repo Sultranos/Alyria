@@ -1,13 +1,27 @@
 {
-  "name": "alyria",
+  "id": "alyria",
   "title": "Chroniques d'Alyria",
   "description": "Un système Foundry VTT de base pour les Chroniques d'Alyria.",
   "version": "0.0.1125",
-  "system": true,
   "compatibility": {
-    "minimum": "10",
-    "verified": "11"},
-  "author": "Sultranos, Cap'tain, Tsuyu, Meca",
+    "minimum": "12",
+    "verified": "13"
+  },
+  "authors": [
+    {
+      "name": "Sultranos",
+      "discord": "sultranos"
+    },
+    {
+      "name": "Cap'tain"
+    },
+    {
+      "name": "Tsuyu"
+    },
+    {
+      "name": "Meca"
+    }
+  ],
   "templateVersion": 1,
   "scripts": [],
   "esmodules": [
@@ -37,12 +51,8 @@
   ],
   "gridDistance": 5,
   "gridUnits": "m",
+  "primaryTokenAttribute": "sante",
+  "secondaryTokenAttribute": "Psy",
   "actorTypes": ["PNJ", "Joueur", "Monstre", "Bête"],
-  "itemTypes": ["arme", "armure", "objet", "accessoire", "consommable", "item"],
-  "primaryToken": "",
-  "secondaryToken": "",
-  "url": "",
-  "manifest": "system.json",
-  "download": "",
-  "license": ""
+  "itemTypes": ["arme", "armure", "objet", "accessoire", "consommable", "item"]
 }

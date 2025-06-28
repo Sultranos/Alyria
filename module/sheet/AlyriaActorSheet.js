@@ -32,7 +32,6 @@ async getData(options) {
     context.system = actor.system || {}; // **CORRECTION : actor.system au lieu de actorData.system**
     context.flags = actor.flags || {};   // **CORRECTION : actor.flags au lieu de actorData.flags**
 
-
     // **CORRECTION : Inventaire asynchrone**
     context.inventaire = await InventoryManager.prepareInventoryData(this.actor);
     // In your getData() method, add this line:
@@ -203,8 +202,7 @@ if (system.historique) {
         };
     });
         
-    // **CORRECTION : Appeler _prepareSortsChoisis() ici**
-    context.sortsChoisis = this._prepareSortsChoisis();
+        context.sortsChoisis = this._prepareSortsChoisis();
     
     // **SUPPRIMER l'ancien code qui ne marche pas :**
     // context.sortsChoisis = (system.sortsChoisis || []).map(sort => { ... });
@@ -348,6 +346,12 @@ if (system.historique) {
         html.find('.level-up-button').click(this._onLevelUp.bind(this));
         html.find('.recovery-button, .open-recovery-dialog').click(this._onOpenRecoveryDialog.bind(this));
         html.find('.level-up-btn').click(this._onLevelUp.bind(this));
+        html.find('.sort-icon-square').click(this._onCastSpell.bind(this));
+        html.find('.sort-expand-btn').click(this._onToggleSortDetails.bind(this));
+        html.find('.level-display-btn').click(this._onLevelUp.bind(this));
+                // **NOUVEAU : Listeners pour les boutons d'action combat**
+        html.find('.combat-action-btn[data-action="block"]').click(this._onBlockAction.bind(this));
+        html.find('.combat-action-btn[data-action="attack"]').click(this._onAttackAction.bind(this));
         // **CORRECTION : Vérifier que les méthodes existent avant de les binder**
     
     // Drag and drop inventory
@@ -462,55 +466,53 @@ async _onRollCharacteristic(event) {
     const targetValue = parseInt(dataset.dice, 10);
     const characteristicName = dataset.label;
 
-    // Récupérer la chance critique de l'acteur
-    const toucheCritique = this.actor.system.toucheCritique;
+    // **CORRECTION : Déterminer si c'est une caractéristique majeure ou mineure**
+    const majeuresKeys = ['force', 'dexterite', 'constitution', 'intelligence', 'sagesse', 'charisme', 'defense', 'chance'];
+    const isMajeure = majeuresKeys.includes(characteristicName.toLowerCase());
+    
+    // **CORRECTION : Critique différencié selon le type**
+    const toucheCritique = isMajeure ? 
+        (this.actor.system.toucheChance || 5) :  // Majeures : toucheChance variable
+        5;                                        // Mineures : 5% fixe
 
-    // Lancer un d100
-    const roll = await new Roll("1d100").evaluate({async: true});
+    // **DEBUG : Afficher les informations**
+    console.log(`🎲 Jet de ${characteristicName} - Type: ${isMajeure ? 'Majeure' : 'Mineure'} - Critique: ${toucheCritique}%`);
+
+    const roll = new Roll("1d100");
+    await roll.evaluate();
     const rollTotal = roll.total;
 
-    let chatContent = `
-        <div class="dice-roll">
-            <div class="dice-result">
-                <div class="dice-formula">1d100</div>
-                <h4 class="dice-total">${rollTotal}</h4>
-                <div class="dice-tooltip">
-                    <section class="tooltip-part">
-                        <div class="dice">
-                            <header class="part-header flexrow">
-                                <span class="part-formula">1d100</span>
-                                <span class="part-total">${rollTotal}</span>
-                            </header>
-                            <ol class="dice-rolls">
-                                <li class="roll die d100">${rollTotal}</li>
-                            </ol>
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </div>
-        <p><strong>Jet de ${characteristicName} :</strong> ${rollTotal} (critique à ${this.actor.system.toucheCritique}%)</p>
-    `;
-
-    // Logique de succès et d'échec critiques
+    let flavor = `🎲 **Jet de ${characteristicName}** ${isMajeure ? '(Majeure)' : '(Mineure)'} (Seuil: ${targetValue}%, Critique: ${toucheCritique}%)`;
+    
+    // Déterminer le résultat
+    let resultClass = "";
+    let resultText = "";
+    
     const echecCritiqueSeuil = 96; // 96, 97, 98, 99, 100
 
     if (rollTotal <= toucheCritique) {
-        chatContent += `<p style="color: green;">**SUCCÈS CRITIQUE !**</p>`;
+        resultClass = "success-critical";
+        resultText = "🌟 **SUCCÈS CRITIQUE !** 🌟";
+        flavor += `\n<span style="color: blue; font-weight: bold;">${resultText}</span>`;
     } else if (rollTotal >= echecCritiqueSeuil) {
-        chatContent += `<p style="color: red;">**ÉCHEC CRITIQUE !**</p>`;
+        resultClass = "failure-critical";
+        resultText = "💥 **ÉCHEC CRITIQUE !**";
+        flavor += `\n<span style="color: red; font-weight: bold;">${resultText}</span>`;
     } else if (rollTotal <= targetValue) {
-        chatContent += `<p style="color: lightgreen;">**SUCCÈS !**</p>`;
+        resultClass = "success";
+        resultText = "✅ **SUCCÈS !**";
+        flavor += `\n<span style="color: green; font-weight: bold;">${resultText}</span>`;
     } else {
-        chatContent += `<p style="color: orange;">**ÉCHEC !**</p>`;
+        resultClass = "failure";
+        resultText = "❌ **ÉCHEC !**";
+        flavor += `\n<span style="color: orange; font-weight: bold;">${resultText}</span>`;
     }
 
-    // Créer un message de chat
-    ChatMessage.create({
+    // **UTILISER roll.toMessage() pour avoir l'animation des dés**
+    await roll.toMessage({
         user: game.user.id,
         speaker: ChatMessage.getSpeaker({actor: this.actor}),
-        content: chatContent,
-        rolls: [roll]
+        flavor: flavor
     });
 }
 
@@ -1368,11 +1370,20 @@ async _onCastSpell(event) {
     event.stopPropagation(); // Empêcher l'expansion
     
     const sortId = event.currentTarget.dataset.sortAction;
-    const sortDetails = CharacterProgression._getSpellDetails ? 
-        CharacterProgression._getSpellDetails(sortId) : null;
+    
+    if (!sortId) {
+        ui.notifications.warn("Aucune action de sort définie.");
+        return;
+    }
+    
+    console.log("🔮 Lancement du sort:", sortId);
+    
+    // **CORRECTION : Utiliser _getSortData au lieu de CharacterProgression._getSpellDetails**
+    const sortDetails = this._getSortData(sortId);
     
     if (!sortDetails) {
         ui.notifications.error("Détails du sort non trouvés !");
+        console.error("❌ Sort non trouvé:", sortId);
         return;
     }
     
@@ -1381,7 +1392,7 @@ async _onCastSpell(event) {
     const currentPsy = this.actor.system.pointsPsyque.actuels;
     
     if (currentPsy < psyCost) {
-        ui.notifications.warn("Pas assez de points de Psyché !");
+        ui.notifications.warn(`Pas assez de points de Psyché ! Coût: ${psyCost}, Disponible: ${currentPsy}`);
         return;
     }
     
@@ -1392,37 +1403,8 @@ async _onCastSpell(event) {
         icon.style.transform = '';
     }, 500);
     
-    // Créer le message de chat pour le sort
-    const chatContent = `
-        <div class="spell-cast-message">
-            <h3 style="color: #9C27B0;">🔮 ${sortDetails.nom}</h3>
-            <div class="spell-details-chat">
-                <p><strong>Coût :</strong> ${psyCost} PSY</p>
-                <p><strong>Action :</strong> ${sortDetails.Action}</p>
-                <p><strong>Distance :</strong> ${sortDetails.Distance}</p>
-                <p><strong>Zone :</strong> ${sortDetails.Zone}</p>
-                ${sortDetails.Touche ? `<p><strong>Touche :</strong> ${sortDetails.Touche}</p>` : ''}
-            </div>
-            <div class="spell-description-chat">
-                <p><em>${sortDetails.description}</em></p>
-                ${sortDetails.effet ? `<p><strong>Effet :</strong> ${sortDetails.effet}</p>` : ''}
-            </div>
-        </div>
-    `;
-    
-    // Déduire les points de psyché
-    await this.actor.update({
-        'system.pointsPsyque.actuels': currentPsy - psyCost
-    });
-    
-    // Créer le message de chat
-    ChatMessage.create({
-        user: game.user.id,
-        speaker: ChatMessage.getSpeaker({actor: this.actor}),
-        content: chatContent
-    });
-    
-    ui.notifications.info(`${sortDetails.nom} lancé ! (-${psyCost} PSY)`);
+    // **DIALOGUE DE LANCEMENT**
+    this._showSpellCastDialog(sortDetails);
 }
 
 async _onLevelUp(event) {
@@ -1463,6 +1445,268 @@ _onToggleSortDetails(event) {
         cartouche.classList.remove('expanded');
     }
 }
+
+// **NOUVELLE MÉTHODE : Expansion/réduction des sorts**
+async _onSortToggle(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    const button = event.currentTarget;
+    const cartouche = button.closest('.sort-cartouche');
+    const details = cartouche.querySelector('.sort-details');
+    const icon = button.querySelector('i');
+    
+    if (cartouche.classList.contains('expanded')) {
+        // Réduire
+        cartouche.classList.remove('expanded');
+        details.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+    } else {
+        // Étendre
+        cartouche.classList.add('expanded');
+        details.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+    }
+}
+
+// **NOUVELLE MÉTHODE : Lancement de sort**
+async _onSortCast(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    const element = event.currentTarget;
+    const sortAction = element.dataset.sortAction;
+    
+    if (!sortAction) {
+        ui.notifications.warn("Aucune action de sort définie.");
+        return;
+    }
+    
+    console.log("🔮 Lancement du sort:", sortAction);
+    
+    // **RÉCUPÉRER les données du sort**
+    const sortData = this._getSortData(sortAction);
+    if (!sortData) {
+        ui.notifications.error("Sort introuvable !");
+        return;
+    }
+    
+    // **VÉRIFIER les PSY**
+    const psyCost = parseInt(sortData.Psy) || 0;
+    const currentPsy = this.actor.system.pointsPsyque?.actuels || 0;
+    
+    if (currentPsy < psyCost) {
+        ui.notifications.warn(`Pas assez de PSY ! Coût: ${psyCost}, Disponible: ${currentPsy}`);
+        return;
+    }
+    
+    // **DIALOGUE DE LANCEMENT**
+    this._showSpellCastDialog(sortData);
+}
+
+// **NOUVELLE MÉTHODE : Récupérer les données d'un sort**
+_getSortData(sortId) {
+    console.log("🔍 Recherche détails pour sort ID:", sortId);
+    
+    // Format ID: "voie:nomVoie:nomSort" ou "arcane:nomArcane:nomSort"
+    const [sourceType, sourceKey, ...sortNameParts] = sortId.split(':');
+    const sortName = sortNameParts.join(':'); // Au cas où le nom contient des ":"
+    
+    console.log("📋 Parsing:", { sourceType, sourceKey, sortName });
+    
+    if (sourceType === "voie") {
+        const voieData = AlyriaVoies?.[sourceKey];
+        if (voieData?.sortVoie) {
+            // Chercher dans tous les niveaux de sorts
+            const allSorts = [
+                ...(Object.values(voieData.sortVoie.sortNovice || {})),
+                ...(Object.values(voieData.sortVoie.sortConfirme || {})),
+                ...(Object.values(voieData.sortVoie.sortExpert || {})),
+                ...(Object.values(voieData.sortVoie.sortMaitre || {}))
+            ];
+            
+            const sortFound = allSorts.find(sort => sort.nom === sortName);
+            if (sortFound) {
+                console.log("✅ Sort trouvé dans voie:", sortFound);
+                return sortFound;
+            }
+        }
+    } else if (sourceType === "arcane") {
+        const arcaneData = AlyriaArcane?.[sourceKey];
+        if (arcaneData?.sortArcane) {
+            // Chercher dans tous les niveaux de sorts
+            const allSorts = [
+                ...(Object.values(arcaneData.sortArcane.sortNovice || {})),
+                ...(Object.values(arcaneData.sortArcane.sortConfirme || {})),
+                ...(Object.values(arcaneData.sortArcane.sortExpert || {})),
+                ...(Object.values(arcaneData.sortArcane.sortMaitre || {}))
+            ];
+            
+            const sortFound = allSorts.find(sort => sort.nom === sortName);
+            if (sortFound) {
+                console.log("✅ Sort trouvé dans arcane:", sortFound);
+                return sortFound;
+            }
+        }
+    }
+    
+    console.warn("❌ Sort non trouvé:", sortId);
+    return null;
+}
+
+// **NOUVELLE MÉTHODE : Dialogue de lancement de sort**
+async _showSpellCastDialog(sortData) {
+    const content = `
+        <div class="spell-cast-dialog">
+            <h3>🔮 Lancer un Sort</h3>
+            
+            <div class="spell-info">
+                <h4>${sortData.nom}</h4>
+                <p><strong>Coût :</strong> ${sortData.Psy} PSY</p>
+                <p><strong>Touche :</strong> ${sortData.Touche}</p>
+                <p><strong>Distance :</strong> ${sortData.Distance}</p>
+                <p><strong>Zone :</strong> ${sortData.Zone}</p>
+            </div>
+            
+            <div class="spell-description">
+                <p>${sortData.description}</p>
+            </div>
+            
+            <div class="spell-roll-options">
+                <label>
+                    <input type="checkbox" name="rollDice" checked>
+                    Effectuer un jet de dés (${sortData.Touche})
+                </label>
+            </div>
+        </div>
+        
+        <style>
+            .spell-cast-dialog { padding: 15px; }
+            .spell-info { 
+                background: rgba(100,0,200,0.1); 
+                padding: 10px; 
+                border-radius: 5px; 
+                margin-bottom: 15px; 
+            }
+            .spell-description { 
+                font-style: italic; 
+                margin-bottom: 15px; 
+                padding: 10px;
+                background: rgba(0,0,0,0.05);
+                border-radius: 5px;
+            }
+            .spell-roll-options label {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+        </style>
+    `;
+    
+    return new Promise(resolve => {
+        new Dialog({
+            title: `Lancer : ${sortData.nom}`,
+            content,
+            buttons: {
+                cast: {
+                    icon: '<i class="fas fa-magic"></i>',
+                    label: "Lancer le Sort",
+                    callback: html => {
+                        const shouldRoll = html.find('[name="rollDice"]').is(':checked');
+                        this._executeSortCast(sortData, shouldRoll);
+                        resolve();
+                    }
+                },
+                cancel: {
+                    icon: '<i class="fas fa-times"></i>',
+                    label: "Annuler",
+                    callback: () => resolve()
+                }
+            },
+            default: "cast"
+        }).render(true);
+    });
+}
+
+// **NOUVELLE MÉTHODE : Exécuter le lancement**
+async _executeSortCast(sortData, shouldRoll) {
+    const psyCost = parseInt(sortData.Psy) || 0;
+    
+    // **DÉDUIRE LES PSY**
+    const currentPsy = this.actor.system.pointsPsyque?.actuels || 0;
+    const newPsy = Math.max(0, currentPsy - psyCost);
+    
+    await this.actor.update({
+        "system.pointsPsyque.actuels": newPsy
+    });
+    
+    // **MESSAGE DE CHAT**
+    let chatContent = `
+        <div class="spell-cast-message">
+            <h3>🔮 ${this.actor.name} lance ${sortData.nom}</h3>
+            <p><strong>Coût :</strong> ${psyCost} PSY (${currentPsy} → ${newPsy})</p>
+            <p><strong>Description :</strong> ${sortData.description}</p>
+        </div>
+    `;
+    
+    // **JET DE DÉS SI DEMANDÉ**
+    if (shouldRoll && sortData.Touche && sortData.Touche !== "automatique") {
+        const toucheValue = this._getToucheValue(sortData.Touche);
+        if (toucheValue > 0) {
+            const roll = new Roll("1d100");
+            await roll.evaluate();
+            
+            const success = roll.total <= toucheValue;
+            const criticalSuccess = roll.total <= 5;
+            const criticalFailure = roll.total >= 96;
+            
+            let resultText = "";
+            if (criticalSuccess) {
+                resultText = "🎯 **RÉUSSITE CRITIQUE !**";
+            } else if (success) {
+                resultText = "✅ **Réussite**";
+            } else if (criticalFailure) {
+                resultText = "💥 **ÉCHEC CRITIQUE !**";
+            } else {
+                resultText = "❌ **Échec**";
+            }
+            
+            chatContent += `
+                <div class="spell-roll-result">
+                    <p><strong>Jet :</strong> ${roll.total} / ${toucheValue} (${sortData.Touche})</p>
+                    <p>${resultText}</p>
+                </div>
+            `;
+        }
+    }
+    
+    // **CRÉER LE MESSAGE**
+    ChatMessage.create({
+        user: game.user.id,
+        speaker: ChatMessage.getSpeaker({actor: this.actor}),
+        content: chatContent,
+        sound: "sounds/dice.wav"
+    });
+    
+    ui.notifications.info(`Sort ${sortData.nom} lancé !`);
+}
+
+// **NOUVELLE MÉTHODE : Récupérer la valeur de touche**
+_getToucheValue(toucheString) {
+    if (!toucheString || toucheString === "automatique") return 0;
+    
+    // **GESTION des touches multiples comme "charisme/sagesse"**
+    const touches = toucheString.toLowerCase().split('/');
+    let maxValue = 0;
+    
+    touches.forEach(touche => {
+        const value = this.actor.system[`touche${touche.charAt(0).toUpperCase() + touche.slice(1)}`] || 0;
+        maxValue = Math.max(maxValue, value);
+    });
+    
+    return maxValue;
+}
+
 
 // **HELPER : Préparer la liste des sorts choisis**
 _prepareSortsChoisis() {
@@ -1518,7 +1762,7 @@ _getSortDetails(sortId) {
     
     // Format ID: "voie:nomVoie:nomSort" ou "arcane:nomArcane:nomSort"
     const [sourceType, sourceKey, ...sortNameParts] = sortId.split(':');
-    const sortName = sortNameParts.join(':'); // Au cas où le nom contient des ":"
+    const sortName = sortNameParts.join(''); // Au cas où le nom contient des ":"
     
     console.log("📋 Parsing:", { sourceType, sourceKey, sortName });
     
@@ -1560,6 +1804,239 @@ _getSortDetails(sortId) {
     
     console.warn("❌ Sort non trouvé:", sortId);
     return null;
+}
+// **NOUVELLE MÉTHODE : Action de blocage**
+async _onBlockAction(event) {
+    event.preventDefault();
+    
+    // Vérifier si le bouton est désactivé
+    if (event.currentTarget.classList.contains('disabled')) {
+        ui.notifications.warn("Impossible de bloquer : aucune valeur de défense !");
+        return;
+    }
+    
+    const defenseValue = this.actor.system.toucheDefense || 0;
+    
+    if (defenseValue <= 0) {
+        ui.notifications.warn("Impossible de bloquer : stat de Défense trop faible !");
+        return;
+    }
+    
+    console.log(`🛡️ Tentative de blocage - Seuil: ${defenseValue}%`);
+    
+    // Animation du bouton
+    const button = event.currentTarget;
+    button.classList.add('casting');
+    setTimeout(() => button.classList.remove('casting'), 600);
+    
+    // Effectuer le jet de dé
+    const roll = new Roll("1d100");
+    await roll.evaluate();
+    
+    const success = roll.total <= defenseValue;
+    const criticalSuccess = roll.total <= 5;
+    const criticalFailure = roll.total >= 96;
+    
+    let resultText = "";
+    let resultClass = "";
+    
+    if (criticalSuccess) {
+        resultText = "🌟 **BLOCAGE CRITIQUE !** 🌟";
+        resultClass = "success-critical";
+    } else if (criticalFailure) {
+        resultText = "💥 **ÉCHEC CRITIQUE !**";
+        resultClass = "failure-critical";
+    } else if (success) {
+        resultText = "✅ **Blocage réussi !**";
+        resultClass = "success";
+    } else {
+        resultText = "❌ **Blocage raté !**";
+        resultClass = "failure";
+    }
+    
+    // Créer le message de chat
+    const chatContent = `
+        <div class="combat-action-message block-message">
+            <h3>🛡️ ${this.actor.name} tente un blocage</h3>
+            <div class="roll-result ${resultClass}">
+                <p><strong>Jet :</strong> ${roll.total} / ${defenseValue} (Défense)</p>
+                <p>${resultText}</p>
+            </div>
+        </div>
+        
+        <style>
+            .combat-action-message {
+                padding: 10px;
+                border-radius: 8px;
+                background: rgba(33, 150, 243, 0.1);
+                border-left: 4px solid #2196F3;
+            }
+            .roll-result.success-critical { color: #4CAF50; font-weight: bold; }
+            .roll-result.success { color: #8BC34A; }
+            .roll-result.failure { color: #FF9800; }
+            .roll-result.failure-critical { color: #f44336; font-weight: bold; }
+        </style>
+    `;
+    
+    // Envoyer le message
+    await roll.toMessage({
+        user: game.user.id,
+        speaker: ChatMessage.getSpeaker({actor: this.actor}),
+        content: chatContent,
+        sound: "sounds/dice.wav"
+    });
+    
+    // Notification
+    const notifType = success ? "info" : "warn";
+    ui.notifications[notifType](resultText.replace(/\*\*/g, '').replace(/🌟|💥|✅|❌/g, ''));
+}
+
+// **NOUVELLE MÉTHODE : Action d'attaque**
+async _onAttackAction(event) {
+    event.preventDefault();
+    
+    // Vérifier si le bouton est désactivé
+    if (event.currentTarget.classList.contains('disabled')) {
+        ui.notifications.warn("Impossible d'attaquer : aucune arme équipée !");
+        return;
+    }
+    
+    const armeEquipee = this.actor.system.inventaire?.armeEquipee;
+    
+    if (!armeEquipee) {
+        ui.notifications.warn("Impossible d'attaquer : aucune arme équipée !");
+        return;
+    }
+    
+    // Récupérer la stat de touche de l'arme
+    const toucheWeapon = armeEquipee.system?.touche || "Force";
+    const toucheValue = this._getToucheValue(toucheWeapon);
+    
+    if (toucheValue <= 0) {
+        ui.notifications.warn(`Impossible d'attaquer : stat ${toucheWeapon} trop faible !`);
+        return;
+    }
+    
+    console.log(`⚔️ Attaque avec ${armeEquipee.name} - Touche: ${toucheWeapon} (${toucheValue}%)`);
+    
+    // Animation du bouton
+    const button = event.currentTarget;
+    button.classList.add('casting');
+    setTimeout(() => button.classList.remove('casting'), 600);
+    
+    // Effectuer le jet de dé
+    const roll = new Roll("1d100");
+    await roll.evaluate();
+    
+    const success = roll.total <= toucheValue;
+    const criticalSuccess = roll.total <= 5;
+    const criticalFailure = roll.total >= 96;
+    
+    let resultText = "";
+    let resultClass = "";
+    let damageRoll = null;
+    
+    if (criticalSuccess) {
+        resultText = "🌟 **ATTAQUE CRITIQUE !** 🌟";
+        resultClass = "success-critical";
+        // Double dégâts en critique
+        const damageFormula = armeEquipee.system?.degats || "1d6";
+        damageRoll = new Roll(`(${damageFormula}) * 2`);
+        await damageRoll.evaluate();
+    } else if (criticalFailure) {
+        resultText = "💥 **ÉCHEC CRITIQUE !**";
+        resultClass = "failure-critical";
+    } else if (success) {
+        resultText = "✅ **Attaque réussie !**";
+        resultClass = "success";
+        // Dégâts normaux
+        const damageFormula = armeEquipee.system?.degats || "1d6";
+        damageRoll = new Roll(damageFormula);
+        await damageRoll.evaluate();
+    } else {
+        resultText = "❌ **Attaque ratée !**";
+        resultClass = "failure";
+    }
+    
+    // Construire le message de chat
+    let chatContent = `
+        <div class="combat-action-message attack-message">
+            <h3>⚔️ ${this.actor.name} attaque avec ${armeEquipee.name}</h3>
+            <div class="weapon-info">
+                <p><strong>Arme :</strong> ${armeEquipee.name} (${armeEquipee.system?.degats || "1d6"})</p>
+                <p><strong>Touche :</strong> ${toucheWeapon}</p>
+            </div>
+            <div class="roll-result ${resultClass}">
+                <p><strong>Jet d'attaque :</strong> ${roll.total} / ${toucheValue}</p>
+                <p>${resultText}</p>
+            </div>
+    `;
+    
+    // Ajouter les dégâts si l'attaque réussit
+    if (damageRoll) {
+        chatContent += `
+            <div class="damage-result">
+                <p><strong>Dégâts :</strong> ${damageRoll.total}${criticalSuccess ? ' (Critique x2)' : ''}</p>
+            </div>
+        `;
+    }
+    
+    chatContent += `
+        </div>
+        
+        <style>
+            .attack-message {
+                padding: 10px;
+                border-radius: 8px;
+                background: rgba(244, 67, 54, 0.1);
+                border-left: 4px solid #f44336;
+            }
+            .weapon-info {
+                background: rgba(0, 0, 0, 0.05);
+                padding: 8px;
+                border-radius: 4px;
+                margin: 8px 0;
+                font-size: 12px;
+            }
+            .damage-result {
+                background: rgba(255, 152, 0, 0.2);
+                padding: 8px;
+                border-radius: 4px;
+                margin-top: 8px;
+                font-weight: bold;
+                color: #E65100;
+            }
+            .roll-result.success-critical { color: #4CAF50; font-weight: bold; }
+            .roll-result.success { color: #8BC34A; }
+            .roll-result.failure { color: #FF9800; }
+            .roll-result.failure-critical { color: #f44336; font-weight: bold; }
+        </style>
+    `;
+    
+    // Envoyer le message d'attaque
+    await roll.toMessage({
+        user: game.user.id,
+        speaker: ChatMessage.getSpeaker({actor: this.actor}),
+        content: chatContent,
+        sound: "sounds/dice.wav"
+    });
+    
+    // Envoyer le message de dégâts séparément si nécessaire
+    if (damageRoll) {
+        await damageRoll.toMessage({
+            user: game.user.id,
+            speaker: ChatMessage.getSpeaker({actor: this.actor}),
+            flavor: `🗡️ Dégâts de ${armeEquipee.name}${criticalSuccess ? ' (Critique)' : ''}`
+        });
+    }
+    
+    // Notification
+    const notifType = success ? "info" : "warn";
+    let notifMessage = resultText.replace(/\*\*/g, '').replace(/🌟|💥|✅|❌/g, '');
+    if (damageRoll) {
+        notifMessage += ` - ${damageRoll.total} dégâts !`;
+    }
+    ui.notifications[notifType](notifMessage);
 }
 }
 // **SUPPRIMER l'ancienne méthode _addSortsFromSource qui n'est plus utilisée**
