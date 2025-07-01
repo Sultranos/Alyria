@@ -946,7 +946,7 @@ hr.section-divider {
     width: 100%;
 }
 
-/* **CORRECTION : Items d'inventaire** */
+/* **CORRECTION : Items d'inventaire avec bon span selon encombrement** */
 .inventory-item {
     position: relative;
     background: linear-gradient(135deg, rgba(60, 60, 60, 0.9), rgba(40, 40, 40, 0.9));
@@ -959,41 +959,39 @@ hr.section-divider {
     justify-content: space-between;
     transition: all 0.3s ease;
     cursor: pointer;
-    /* **CORRECTION : Taille normale par défaut** */
-    grid-column: span 1;
-    grid-row: span 1;
     min-height: 56px;
+    overflow: scroll;
 }
 
-/* **CORRECTION : Encombrement avec span correct** */
-.inventory-item.encombrement-1 {
+/* **CORRECTION : Encombrement avec span correct selon la valeur** */
+.inventory-item[data-encombrement="1"] {
     grid-column: span 1;
     grid-row: span 1;
 }
 
-.inventory-item.encombrement-2 {
-    grid-column: span 1;
-    grid-row: span 1;
-}
-
-.inventory-item.encombrement-4 {
+.inventory-item[data-encombrement="2"] {
     grid-column: span 2;
     grid-row: span 1;
 }
 
-.inventory-item.encombrement-6 {
-    grid-column: span 2;
-    grid-row: span 2;
-}
-
-.inventory-item.encombrement-8 {
-    grid-column: span 2;
-    grid-row: span 2;
-}
-
-.inventory-item.encombrement-10 {
+.inventory-item[data-encombrement="3"] {
     grid-column: span 3;
+    grid-row: span 1;
+}
+
+.inventory-item[data-encombrement="4"] {
+    grid-column: span 2;
     grid-row: span 2;
+}
+
+.inventory-item[data-encombrement=8] {
+    grid-column: span 2;
+    grid-row: span 4;
+}
+
+.inventory-item[data-encombrement="6"] {
+    grid-column: span 2;
+    grid-row: span 3;
 }
 
 /* **CORRECTION : Slots vides** */
@@ -1009,7 +1007,8 @@ hr.section-divider {
     color: #777;
     font-size: 10px;
     transition: all 0.3s ease;
-    min-height: 56px;
+    min-height: 56px !important;
+    min-width: 56px !important;
 }
 
 /* **AJOUT : Styles pour les cartouches d'armure** */
@@ -1437,7 +1436,7 @@ hr.section-divider {
 .dialog.window-app .window-title:contains("Création de Personnage"),
 .dialog.window-app .window-title:contains("Sélection des Talents"),
 .dialog.window-app .window-title:contains("Sélection des Sorts") {
-    min-width: 700px !important; /* CHANGÉ de 500px à 800px */
+    min-width: 600px !important; /* CHANGÉ de 500px à 800px */
     padding: 10px 15px !important; /* Réduire le padding latéral si nécessaire */
     overflow-x: auto !important; /* Permettre le défilement horizontal si besoin */
 }
@@ -1480,7 +1479,7 @@ hr.section-divider {
     .dialog.window-app:has(.levelup-major-form),
     .dialog.window-app:has(.levelup-minor-form) {
         width: 95vw !important;
-        max-width: 900px !important;
+        max-width: 600px !important;
     }
     
     .major-attribute-controls,
@@ -2047,4 +2046,274 @@ hr.section-divider {
     text-transform: capitalize;
     background: rgba(231, 76, 60, 0.2);
     border-left-color: #e74c3c;
+}
+
+/* **AJOUT UNIQUEMENT : Corrections pour l'affichage optimal de l'inventaire** */
+
+/* **NOUVEAU : Contenu de l'item repositionné** */
+.inventory-item-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+}
+
+.inventory-item-image {
+    width: 12px;
+    height: 12px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 4px;
+}
+
+.inventory-item-name {
+    font-size: 10px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    margin-bottom: 2px;
+}
+
+.inventory-item-type {
+    font-size: 8px;
+    color: #ccc;
+    text-transform: uppercase;
+}
+
+/* **NOUVEAU : Actions de l'item dans le coin** */
+.inventory-item-actions {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    display: flex;
+    gap: 2px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.inventory-item:hover .inventory-item-actions {
+    opacity: 1;
+}
+
+.inventory-item-actions button {
+    width: 2px;
+    height: 2px;
+    border: none;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4px;
+    transition: all 0.2s ease;
+}
+
+.inventory-item-actions button:hover {
+    background: rgba(0, 0, 0, 1);
+    transform: scale(1.1);
+}
+
+.inventory-item-equip:hover {
+    color: #4CAF50 !important;
+    background: rgba(76, 175, 80, 0.8) !important;
+}
+
+.inventory-item-delete:hover {
+    color: #f44336 !important;
+    background: rgba(244, 67, 54, 0.8) !important;
+}
+
+/* **CORRECTION : Différents types d'items** */
+.inventory-item[data-type="arme"] {
+    border-color: #f44336;
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.2), rgba(244, 67, 54, 0.1));
+}
+
+.inventory-item[data-type="armure"] {
+    border-color: #2196F3;
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.2), rgba(33, 150, 243, 0.1));
+}
+
+.inventory-item[data-type="accessoire"] {
+    border-color: #FF9800;
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.2), rgba(255, 152, 0, 0.1));
+}
+
+.inventory-item[data-type="consommable"] {
+    border-color: #4CAF50;
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(76, 175, 80, 0.1));
+}
+
+/* **CORRECTION : Slots vides avec hover** */
+.inventory-slot-empty:hover {
+    background: rgba(128, 128, 128, 0.3);
+    border-color: #888;
+}
+
+/* **ANIMATION : Placement d'item** */
+.inventory-item.just-added {
+    animation: itemAdded 0.5s ease;
+}
+
+@keyframes itemAdded {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* **Ajout dans alyriasystem.css : Effets de drag & drop** */
+
+.inventory-drop-zone {
+    border: 2px dashed #4CAF50;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    color: #4CAF50;
+    background: rgba(76, 175, 80, 0.05);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.inventory-drop-zone:hover,
+.inventory-drop-zone.highlight {
+    background: rgba(76, 175, 80, 0.1);
+    border-color: #45a049;
+}
+
+.item-slot.highlight {
+    background: rgba(76, 175, 80, 0.2);
+    border-color: #4CAF50;
+    transform: scale(1.02);
+}
+
+.item-slot.invalid {
+    background: rgba(244, 67, 54, 0.2);
+    border-color: #f44336;
+}
+
+.item-slot {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* **NOUVEAU : Styles pour arme secondaire et accessoire conditionnel** */
+
+/* **Arme secondaire** */
+.secondary-weapon {
+    opacity: 0.9;
+    border-left: 3px solid #FF9800;
+}
+
+.weapon-secondary-badge {
+    background: rgba(255, 152, 0, 0.2);
+    color: #FF9800;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.weapon-main-badge {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4CAF50;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.two-hands-badge {
+    background: rgba(156, 39, 176, 0.2);
+    color: #9C27B0;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+/* **Message informatif arme 2 mains** */
+.two-hands-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 15px;
+    background: rgba(156, 39, 176, 0.1);
+    border: 1px dashed #9C27B0;
+    border-radius: 6px;
+    color: #7B1FA2;
+    font-size: 12px;
+    font-style: italic;
+}
+
+/* **Accessoire verrouillé** */
+.accessory-locked {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(158, 158, 158, 0.1);
+    border: 2px dashed #9E9E9E;
+    border-radius: 8px;
+    color: #757575;
+    text-align: center;
+    font-size: 12px;
+    height: 100px;
+}
+
+.accessory-locked i {
+    font-size: 1.5em;
+    margin-bottom: 8px;
+}
+
+/* **Labels des slots** */
+.accessory-slot-label {
+    background: rgba(33, 150, 243, 0.2);
+    color: #1976D2;
+    padding: 1px 4px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+/* **Grille des accessoires adaptée** */
+.accessories-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.accessories-grid .accessory-locked {
+    grid-column: 2;
+}
+
+/* **Titres des sections** */
+.equipment-section-title {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ddd;
 }

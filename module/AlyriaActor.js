@@ -64,6 +64,10 @@ export default class AlyriaActor extends Actor {
     system.pointsDeVie ??= { actuels: 0, max: 0 };
     system.pointsPsyque ??= { actuels: 0, max: 0 };
     system.niveauJoueur ??= 1; // Assure que niveauJoueur est toujours défini
+    system.bonusDegats ??= 0; // Assure que bonusDegats est toujours défini
+    system.armure ??= 0; // Assure que armure est toujours défini
+    system.bouclier ??= 0; // Assure que bouclier est toujours défini
+    system.vitesse ??= 2; // Assure que vitesse est toujours définie
 
     const attributsMajeurs = [
                 "force", "dexterite", "constitution",
@@ -252,8 +256,9 @@ if (system.creation) {
         // DOIT être fait avant les appels à _calculateHPMax et _calculatePsyMax
         system.pointsDeVie = system.pointsDeVie || { actuels: 0, max: 0 };
         system.pointsPsyque = system.pointsPsyque || { actuels: 0, max: 0 };
-
-        // --- Calcul des Points de Vie et de Psy Maximum ---
+        system.dsb = this._calculateDSB(system);
+        system.armure = this._calculateArmure(system);
+        system.hasAccessoiristeTalent = this._hasTalent("Accessoiriste");
         // Utilise les caractéristiques majeures DÉRIVÉES et le niveau
         // Mise à jour pour utiliser la propriété .totale des majeures
         system.pointsDeVie.max = this._calculateHPMax(system);
@@ -308,6 +313,8 @@ if (system.creation) {
         system.dsb ??= "";
         system.magie ??= "";
         system.description ??= "";
+        system.bonusArmureTemporaire ??= 0;
+        system.bonusArmureTalents ??= 0;
       
       const talents = system.talentsVoie || [];
       const autresVoies = {
@@ -342,6 +349,12 @@ if (system.creation) {
         description: voie.description,
         talents: voie.talents || []
     };
+    
+    // **NOUVEAU : Appliquer les effets des traits d'équipements**
+    this._applyEquipmentTraits(system);
+    
+    // **PUIS recalculer les valeurs dérivées APRÈS l'application des traits**
+    this._recalculateDerivedStats(system);
   }
 
   _calculateHPMax(actorSystemData) { 
@@ -374,5 +387,790 @@ if (system.creation) {
               
             return Math.max(0, calculatedMaxPsy);
         }
+
+        // **CORRECTION COMPLÈTE : Calcul du DSB**
+        _calculateDSB(actorSystemData) {
+            let totalDSB = 0;
+            
+            // **Statistiques majeures : paliers de 6 points**
+            const statsMajeures = ['force', 'dexterite', 'sagesse', 'intelligence', 'charisme'];
+            
+            statsMajeures.forEach(stat => {
+                const valeur = actorSystemData.majeures[stat]?.totale || 0;
+                const dsbFromStat = Math.floor(valeur / 6);
+                totalDSB += dsbFromStat;
+                
+
+            });
+            
+            // **Chance : paliers de 4 points**
+            const chanceValue = actorSystemData.majeures.chance?.totale || 0;
+            const dsbFromChance = Math.floor(chanceValue / 4);
+            totalDSB += dsbFromChance;
+            
+
+            
+            return totalDSB;
+        }
+
+                // **CORRECTION COMPLÈTE : Calcul de l'armure totale**
+        _calculateArmure(actorSystemData) {
+            let totalArmure = 0;
+        
+            // **ÉTAPE 1 : Armure de défense (paliers de 7)**
+            const defenseValue = actorSystemData.majeures.defense?.totale || 0;
+            const armureFromDefense = Math.floor(defenseValue / 7);
+            totalArmure += armureFromDefense;
+            console.log(`📊 Armure de défense: ${defenseValue} points → ${armureFromDefense} armure (paliers de 7)`);
+        
+            // **ÉTAPE 2 : Armure équipée (depuis l'inventaire)**
+            const inventory = actorSystemData.inventaire || {};
+            if (inventory.armureEquipee && inventory.armureEquipee.system) {
+                const bonusArmureEquipee = parseInt(inventory.armureEquipee.system.bonusArmure) || 0;
+                totalArmure += bonusArmureEquipee;
+                console.log(`⚔️ Armure équipée: ${inventory.armureEquipee.name} → +${bonusArmureEquipee} armure`);
+            }
+        
+            // **ÉTAPE 3 : Bonus d'armure des équipements (armes, accessoires)**
+            if (inventory.armeEquipee && inventory.armeEquipee.system) {
+                const bonusArmureArme = parseInt(inventory.armeEquipee.system.bonusArmure) || 0;
+                if (bonusArmureArme > 0) {
+                    totalArmure += bonusArmureArme;
+                    console.log(`⚔️ Bonus armure arme: ${inventory.armeEquipee.name} → +${bonusArmureArme} armure`);
+                }
+            }
+        
+            // Accessoires
+            if (inventory.accessoire1 && inventory.accessoire1.system) {
+                const bonusArmureAcc1 = parseInt(inventory.accessoire1.system.bonusArmure) || 0;
+                if (bonusArmureAcc1 > 0) {
+                    totalArmure += bonusArmureAcc1;
+                    console.log(`📿 Bonus armure accessoire 1: ${inventory.accessoire1.name} → +${bonusArmureAcc1} armure`);
+                }
+            }
+        
+            if (inventory.accessoire2 && inventory.accessoire2.system) {
+                const bonusArmureAcc2 = parseInt(inventory.accessoire2.system.bonusArmure) || 0;
+                if (bonusArmureAcc2 > 0) {
+                    totalArmure += bonusArmureAcc2;
+                    console.log(`📿 Bonus armure accessoire 2: ${inventory.accessoire2.name} → +${bonusArmureAcc2} armure`);
+                }
+            }
+        
+            // **ÉTAPE 4 : Bonus d'armure temporaires (sorts, talents, etc.)**
+            const bonusArmureTemporaire = parseInt(actorSystemData.bonusArmureTemporaire) || 0;
+            if (bonusArmureTemporaire > 0) {
+                totalArmure += bonusArmureTemporaire;
+                console.log(`✨ Bonus armure temporaire: +${bonusArmureTemporaire} armure`);
+            }
+        
+            // **ÉTAPE 5 : Bonus d'armure des talents**
+            const bonusArmureTalents = parseInt(actorSystemData.bonusArmureTalents) || 0;
+            if (bonusArmureTalents > 0) {
+                totalArmure += bonusArmureTalents;
+                console.log(`🎯 Bonus armure talents: +${bonusArmureTalents} armure`);
+            }
+        
+            console.log(`🛡️ Armure totale calculée: ${totalArmure}`);
+            return totalArmure;
+        }
+
+         _hasTalent(talentName) {
+            const talents = this.system.talents || [];
+            return talents.some(talent => 
+                talent.nom && talent.nom.toLowerCase().includes(talentName.toLowerCase())
+            );
+        }
+
+        // **NOUVELLE MÉTHODE : Appliquer tous les traits d'équipement**
+_applyEquipmentTraits(system) {
+    console.log("🔧 Application des traits d'équipement");
+    
+    // **Réinitialiser les bonus d'équipement**
+    this._resetEquipmentBonuses(system);
+    
+    const inventory = system.inventaire || {};
+    
+    // **Appliquer traits de l'arme principale**
+    if (inventory.armeEquipee) {
+        this._applyWeaponTraits(inventory.armeEquipee, system, "principale");
+    }
+    
+    // **Appliquer traits de l'arme secondaire**
+    if (inventory.armeSecondaireEquipee) {
+        this._applyWeaponTraits(inventory.armeSecondaireEquipee, system, "secondaire");
+    }
+    
+    // **Appliquer traits de l'armure**
+    if (inventory.armureEquipee) {
+        this._applyArmorTraits(inventory.armureEquipee, system);
+    }
+    
+    // **Appliquer traits des accessoires**
+    if (inventory.accessoire1) {
+        this._applyAccessoryTraits(inventory.accessoire1, system, 1);
+    }
+    
+    if (inventory.accessoire2) {
+        this._applyAccessoryTraits(inventory.accessoire2, system, 2);
+    }
+    
+    console.log("✅ Traits d'équipement appliqués");
+}
+
+// **NOUVELLE MÉTHODE : Réinitialiser les bonus d'équipement**
+_resetEquipmentBonuses(system) {
+    const attributsMajeurs = ["force", "dexterite", "constitution", "intelligence", "sagesse", "charisme", "defense", "chance"];
+    const attributsMineurs = [
+        "monde", "mystique", "nature", "sacré", "robustesse", "calme",
+        "marchandage", "persuasion", "artmusique", "commandement", "acrobatie",
+        "discretion", "adresse", "artisanat", "hasard", "athlétisme",
+        "puissance", "intimidation", "perception", "perceptionmagique", "medecine",
+        "intuition"
+    ];
+    
+    // **Réinitialiser les bonus d'équipement des majeures**
+    attributsMajeurs.forEach(attr => {
+        if (system.majeures[attr]) {
+            system.majeures[attr].equipement = 0;
+        }
+    });
+    
+    // **Réinitialiser les bonus d'équipement des mineures**
+    attributsMineurs.forEach(attr => {
+        if (system.mineures[attr]) {
+            system.mineures[attr].equipement = 0;
+        }
+    });
+    
+    // **Réinitialiser autres bonus d'équipement**
+    system.bonusDegats = 0;
+    system.bonusArmureTemporaire = 0;
+    system.bonusArmureTalents = 0; // Garder les talents
+    system.bonusCritique = 0;
+    system.bonusBlocage = 0;
+    system.bonusVitesse = 0;
+    system.resistances = system.resistances || {};
+    system.immunites = system.immunites || [];
+}
+
+// **NOUVELLE MÉTHODE : Appliquer les traits d'arme**
+_applyWeaponTraits(arme, system, type) {
+    console.log(`⚔️ Application traits arme ${type}:`, arme.name);
+    
+    const traits = arme.system?.traits || [];
+    const imperfections = arme.system?.imperfections || [];
+    
+    // **Appliquer les traits positifs**
+    traits.forEach(trait => {
+        this._applyTraitEffect(trait, system, true, type);
+    });
+    
+    // **Appliquer les imperfections (traits négatifs)**
+    imperfections.forEach(imperfection => {
+        this._applyTraitEffect(imperfection, system, false, type);
+    });
+}
+
+// **NOUVELLE MÉTHODE : Appliquer les traits d'armure**
+_applyArmorTraits(armure, system) {
+    console.log("🛡️ Application traits armure:", armure.name);
+    
+    const traits = armure.system?.traits || [];
+    const imperfections = armure.system?.imperfections || [];
+    
+    // **Appliquer les traits positifs**
+    traits.forEach(trait => {
+        this._applyArmorTraitEffect(trait, system, true);
+    });
+    
+    // **Appliquer les imperfections**
+    imperfections.forEach(imperfection => {
+        this._applyArmorTraitEffect(imperfection, system, false);
+    });
+}
+
+// **NOUVELLE MÉTHODE : Appliquer les traits d'accessoire**
+_applyAccessoryTraits(accessoire, system, slotNumber) {
+    console.log(`📿 Application traits accessoire ${slotNumber}:`, accessoire.name);
+    
+    const traits = accessoire.system?.traits || [];
+    const imperfections = accessoire.system?.imperfections || [];
+    
+    // **Appliquer les traits positifs**
+    traits.forEach(trait => {
+        this._applyAccessoryTraitEffect(trait, system, true, slotNumber);
+    });
+    
+    // **Appliquer les imperfections**
+    imperfections.forEach(imperfection => {
+        this._applyAccessoryTraitEffect(imperfection, system, false, slotNumber);
+    });
+
+
+// **AJOUT dans module/AlyriaActor.js - Hook sur la création d'items**
+Hooks.on("createItem", async (item, options, userId) => {
+    // **Vérifier si l'item appartient à un acteur Alyria**
+    if (item.parent && item.parent.type === "Joueur") {
+        const actor = item.parent;
+        
+        // **Ajouter automatiquement l'item à l'inventaire**
+        const inventory = actor.system.inventaire || InventoryManager.initializeInventory();
+        
+        if (!inventory.items) {
+            inventory.items = [];
+        }
+        
+        if (!inventory.items.includes(item.id)) {
+            console.log(`📦 Ajout automatique à l'inventaire: ${item.name}`);
+            
+            const updatedItems = [...inventory.items, item.id];
+            
+            await actor.update({
+                'system.inventaire.items': updatedItems
+            });
+            
+            ui.notifications.info(`${item.name} ajouté automatiquement à l'inventaire !`);
+        }
+    }
+})
+}
+
+// **NOUVELLE MÉTHODE : Appliquer l'effet d'un trait d'arme**
+_applyTraitEffect(trait, system, isPositive, weaponType) {
+    const traitName = trait.nom || trait.name || trait;
+    const multiplier = isPositive ? 1 : -1;
+    
+    console.log(`🎯 Application trait "${traitName}" (${isPositive ? 'positif' : 'négatif'})`);
+    
+    // **Correspondance des traits avec les effets du fichier traits.js**
+    switch (traitName.toLowerCase()) {
+        // **TRAITS DE CARACTÉRISTIQUES**
+        case "habile":
+            system.majeures.dexterite.equipement += 1 * multiplier;
+            break;
+        case "perspicace":
+            system.majeures.sagesse.equipement += 1 * multiplier;
+            break;
+        case "costaud":
+            system.majeures.force.equipement += 1 * multiplier;
+            break;
+        case "joli":
+            system.majeures.charisme.equipement += 1 * multiplier;
+            break;
+        case "solide":
+            system.majeures.defense.equipement += 1 * multiplier;
+            break;
+        case "chanceux":
+            system.majeures.chance.equipement += 1 * multiplier;
+            break;
+        case "esotérique":
+        case "esoterique":
+            system.bonusPSY = (system.bonusPSY || 0) + (1 * multiplier);
+            break;
+            
+        // **TRAITS DE COMBAT**
+        case "violent":
+            system.bonusDegats += 1 * multiplier;
+            break;
+        case "furieux":
+            system.bonusDegats += 2 * multiplier;
+            break;
+        case "brutal":
+            system.bonusDegats += 4 * multiplier;
+            break;
+        case "affûté":
+        case "affute":
+            system.bonusCritique = (system.bonusCritique || 0) + (5 * multiplier);
+            break;
+        case "aiguisé":
+        case "aiguise":
+            system.bonusCritique = (system.bonusCritique || 0) + (10 * multiplier);
+            break;
+        case "affilé":
+        case "affile":
+            system.bonusCritique = (system.bonusCritique || 0) + (15 * multiplier);
+            break;
+        case "bloquant":
+            system.bonusBlocage = (system.bonusBlocage || 0) + (5 * multiplier);
+            break;
+        case "obstruant":
+            system.bonusBlocage = (system.bonusBlocage || 0) + (10 * multiplier);
+            break;
+        case "hermétique":
+        case "hermetique":
+            system.bonusBlocage = (system.bonusBlocage || 0) + (15 * multiplier);
+            break;
+        case "broyeur":
+            system.bonusIgnoreArmure = (system.bonusIgnoreArmure || 0) + (1 * multiplier);
+            break;
+        case "ecraseur":
+            system.bonusIgnoreArmure = (system.bonusIgnoreArmure || 0) + (2 * multiplier);
+            break;
+        case "ferrailleur":
+            system.bonusIgnoreArmure = (system.bonusIgnoreArmure || 0) + (4 * multiplier);
+            break;
+            
+        // **TRAITS SPÉCIAUX**
+        case "rapide":
+            system.bonusVitesse = (system.bonusVitesse || 0) + (1 * multiplier);
+            break;
+        case "sprinteur":
+            system.bonusVitesse = (system.bonusVitesse || 0) + (1 * multiplier);
+            break;
+        case "fulgurant":
+            system.bonusVitesse = (system.bonusVitesse || 0) + (1 * multiplier);
+            break;
+        case "libre":
+            system.specialTraits = system.specialTraits || [];
+            if (isPositive) {
+                system.specialTraits.push("Prise en main gratuite");
+            }
+            break;
+        case "discret":
+            system.specialTraits = system.specialTraits || [];
+            if (isPositive) {
+                system.specialTraits.push("Arme discrète/cachable");
+            }
+            break;
+        case "camouflé":
+        case "camoufle":
+            system.specialTraits = system.specialTraits || [];
+            if (isPositive) {
+                system.specialTraits.push("Arme camouflée");
+            }
+            break;
+        case "Barda":
+            system.encombrement = system.specialTraits || [];
+            if (isPositive) {
+                system.specialTraits.push("Arme de Barda");
+            }
+            
+        // **TRAITS DE RARETÉ SUPÉRIEURE**
+        case "acrobatique":
+            system.majeures.dexterite.equipement += 2 * multiplier;
+            break;
+        case "ingénieux":
+        case "ingenieux":
+            system.majeures.sagesse.equipement += 2 * multiplier;
+            break;
+        case "puissant":
+            system.majeures.force.equipement += 2 * multiplier;
+            break;
+        case "splendide":
+            system.majeures.charisme.equipement += 2 * multiplier;
+            break;
+        case "incassable":
+            system.majeures.defense.equipement += 2 * multiplier;
+            break;
+        case "veinard":
+            system.majeures.chance.equipement += 2 * multiplier;
+            break;
+        case "magique":
+            system.bonusPSY = (system.bonusPSY || 0) + (2 * multiplier);
+            break;
+        case "psychique":
+            system.bonusPSY = (system.bonusPSY || 0) + (4 * multiplier);
+            break;
+        case "fantasmagorique":
+            system.bonusPSY = (system.bonusPSY || 0) + (6 * multiplier);
+            break;
+            
+        // **TRAITS LÉGENDAIRES (niveau 4)**
+        case "mazul":
+            system.majeures.dexterite.equipement += 4 * multiplier;
+            break;
+        case "arintiël":
+        case "arintiel":
+            system.majeures.sagesse.equipement += 4 * multiplier;
+            break;
+        case "kardös":
+        case "kardos":
+            system.majeures.force.equipement += 4 * multiplier;
+            break;
+        case "santis":
+            system.majeures.charisme.equipement += 4 * multiplier;
+            break;
+        case "forgeterre":
+            system.majeures.defense.equipement += 4 * multiplier;
+            break;
+        case "scélenis":
+        case "scelenis":
+            system.majeures.chance.equipement += 4 * multiplier;
+            break;
+        case "oroun":
+            system.majeures.constitution.equipement += 4 * multiplier;
+            break;
+        case "l'antépénultième":
+        case "l'antepenultieme":
+            system.majeures.intelligence.equipement += 4 * multiplier;
+            break;
+            
+        default:
+            console.warn(`⚠️ Trait d'arme non reconnu: "${traitName}"`);
+            break;
+    }
+}
+
+// **NOUVELLE MÉTHODE : Appliquer l'effet d'un trait d'armure**
+_applyArmorTraitEffect(trait, system, isPositive) {
+    const traitName = trait.nom || trait.name || trait;
+    const multiplier = isPositive ? 1 : -1;
+    
+    console.log(`🛡️ Application trait armure "${traitName}" (${isPositive ? 'positif' : 'négatif'})`);
+    
+    switch (traitName.toLowerCase()) {
+        // **TRAITS DE CARACTÉRISTIQUES POUR ARMURES**
+        case "habile":
+            system.majeures.dexterite.equipement += 1 * multiplier;
+            break;
+        case "perspicace":
+            system.majeures.sagesse.equipement += 1 * multiplier;
+            break;
+        case "costaud":
+            system.majeures.force.equipement += 1 * multiplier;
+            break;
+        case "joli":
+            system.majeures.charisme.equipement += 1 * multiplier;
+            break;
+        case "solide":
+            system.majeures.defense.equipement += 1 * multiplier;
+            break;
+        case "chanceux":
+            system.majeures.chance.equipement += 1 * multiplier;
+            break;
+        case "malin":
+            system.majeures.intelligence.equipement += 1 * multiplier;
+            break;
+            
+        // **TRAITS SPÉCIFIQUES AUX ARMURES**
+        case "amortissant":
+            system.bouclier = (system.bouclier || 0) + (2 * multiplier);
+            break;
+        case "absorbant":
+            system.bouclier = (system.bouclier || 0) + (4 * multiplier);
+            break;
+        case "engloutissant":
+            system.bouclier = (system.bouclier || 0) + (8 * multiplier);
+            break;
+        case "sain":
+            system.bonusSoins = (system.bonusSoins || 0) + (1 * multiplier);
+            break;
+        case "sacré":
+        case "sacre":
+            system.bonusSoins = (system.bonusSoins || 0) + (2 * multiplier);
+            break;
+        case "céleste":
+        case "celeste":
+            system.bonusSoins = (system.bonusSoins || 0) + (3 * multiplier);
+            break;
+        case "ajusté":
+        case "ajuste":
+            system.bonusArmureTemporaire += 1 * multiplier;
+            break;
+        case "plaqué":
+        case "plaque":
+            system.bonusArmureTemporaire += 2 * multiplier;
+            break;
+        case "blindé":
+        case "blinde":
+            system.bonusArmureTemporaire += 3 * multiplier;
+            break;
+        case "renforçant":
+        case "renforcant":
+            system.bonusBouclier = (system.bonusBouclier || 0) + (1 * multiplier);
+            break;
+        case "colmatant":
+            system.bonusBouclier = (system.bonusBouclier || 0) + (2 * multiplier);
+            break;
+        case "revanchard":
+            system.bonusContreAttaque = (system.bonusContreAttaque || 0) + (2 * multiplier);
+            break;
+        case "epineux":
+            system.bonusContreAttaque = (system.bonusContreAttaque || 0) + (4 * multiplier);
+            break;
+        case "vengeur":
+            system.bonusContreAttaque = (system.bonusContreAttaque || 0) + (6 * multiplier);
+            break;
+        case "représailles":
+        case "represailles":
+            system.bonusContreAttaque = (system.bonusContreAttaque || 0) + (5 * multiplier);
+            break;
+        case "bloquant":
+            system.bonusBlocage = (system.bonusBlocage || 0) + (5 * multiplier);
+            break;
+        case "obstruant":
+            system.bonusBlocage = (system.bonusBlocage || 0) + (10 * multiplier);
+            break;
+        case "hermétique":
+        case "hermetique":
+            system.bonusBlocage = (system.bonusBlocage || 0) + (15 * multiplier);
+            break;
+        case "fourbi":
+            system.bonusInventaire = (system.bonusInventaire || 0) + (2 * multiplier);
+            break;
+        case "barda":
+            system.bonusInventaire = (system.bonusInventaire || 0) + (4 * multiplier);
+            break;
+        case "bardator":
+            system.bonusInventaire = (system.bonusInventaire || 0) + (8 * multiplier);
+            break;
+        case "portatif":
+            // Divise l'encombrement de l'armure par 2
+            system.specialTraits = system.specialTraits || [];
+            if (isPositive) {
+                system.specialTraits.push("Encombrement réduit");
+            }
+            break;
+        case "planaire":
+            // L'objet ne prend pas de place d'inventaire
+            system.specialTraits = system.specialTraits || [];
+            if (isPositive) {
+                system.specialTraits.push("Stockage dimensionnel");
+            }
+            break;
+        case "leste":
+            system.bonusVitessePremierTour = (system.bonusVitessePremierTour || 0) + (1 * multiplier);
+            break;
+        case "fulgurant":
+            system.bonusVitesse = (system.bonusVitesse || 0) + (1 * multiplier);
+            break;
+        case "insensible":
+            system.immunites = system.immunites || [];
+            if (isPositive) {
+                system.immunites.push("Altération aléatoire");
+            }
+            break;
+        case "pugnace":
+            system.immunites = system.immunites || [];
+            if (isPositive) {
+                system.immunites.push("Altération choisie");
+            }
+            break;
+        case "élémentaire":
+        case "elementaire":
+            // Résistance + faiblesse élémentaire
+            system.resistances = system.resistances || {};
+            if (isPositive) {
+                system.specialTraits = system.specialTraits || [];
+                system.specialTraits.push("Résistance/Faiblesse élémentaire");
+            }
+            break;
+        case "élémentariste":
+        case "elementariste":
+            // Résistance + faiblesse élémentaire choisies
+            system.resistances = system.resistances || {};
+            if (isPositive) {
+                system.specialTraits = system.specialTraits || [];
+                system.specialTraits.push("Résistance/Faiblesse élémentaire choisies");
+            }
+            break;
+        case "elementaliste":
+            // Résistance élémentaire choisie
+            system.resistances = system.resistances || {};
+            if (isPositive) {
+                system.specialTraits = system.specialTraits || [];
+                system.specialTraits.push("Résistance élémentaire");
+            }
+            break;
+            
+        // **TRAITS RARES ET ÉPIQUES**
+        case "acrobatique":
+            system.majeures.dexterite.equipement += 2 * multiplier;
+            break;
+        case "ingénieux":
+        case "ingenieux":
+            system.majeures.sagesse.equipement += 2 * multiplier;
+            break;
+        case "puissant":
+            system.majeures.force.equipement += 2 * multiplier;
+            break;
+        case "splendide":
+            system.majeures.charisme.equipement += 2 * multiplier;
+            break;
+        case "incassable":
+            system.majeures.defense.equipement += 2 * multiplier;
+            break;
+        case "veinard":
+            system.majeures.chance.equipement += 2 * multiplier;
+            break;
+        case "réfléchi":
+        case "reflechi":
+            system.majeures.intelligence.equipement += 2 * multiplier;
+            break;
+        case "robuste":
+            system.majeures.constitution.equipement += 2 * multiplier;
+            break;
+        case "magique":
+            system.bonusPSY = (system.bonusPSY || 0) + (2 * multiplier);
+            break;
+        case "psychique":
+            system.bonusPSY = (system.bonusPSY || 0) + (4 * multiplier);
+            break;
+            
+        // **TRAITS ÉPIQUES**
+        case "vif":
+            system.majeures.dexterite.equipement += 3 * multiplier;
+            break;
+        case "clairvoyant":
+            system.majeures.sagesse.equipement += 3 * multiplier;
+            break;
+        case "féroce":
+        case "feroce":
+            system.majeures.force.equipement += 3 * multiplier;
+            break;
+        case "magnifique":
+            system.majeures.charisme.equipement += 3 * multiplier;
+            break;
+        case "indestructible":
+            system.majeures.defense.equipement += 3 * multiplier;
+            break;
+        case "bienheureux":
+            system.majeures.chance.equipement += 3 * multiplier;
+            break;
+        case "cérébral":
+        case "cerebral":
+            system.majeures.intelligence.equipement += 3 * multiplier;
+            break;
+        case "inébranlable":
+        case "inebranlable":
+            system.majeures.constitution.equipement += 3 * multiplier;
+            break;
+            
+        default:
+            console.warn(`⚠️ Trait d'armure non reconnu: "${traitName}"`);
+            break;
+    }
+}
+// **NOUVELLE MÉTHODE : Recalculer les stats dérivées après application des traits**
+_recalculateDerivedStats(system) {
+    console.log("🔄 Recalcul des statistiques dérivées avec traits");
+    
+    // **Recalculer les totaux des caractéristiques majeures**
+    const attributsMajeurs = ["force", "dexterite", "constitution", "intelligence", "sagesse", "charisme", "defense", "chance"];
+    
+    attributsMajeurs.forEach(attribut => {
+        if (system.majeures[attribut]) {
+            system.majeures[attribut].totale = (
+                (system.majeures[attribut].creation || 0) +
+                (system.majeures[attribut].talents || 0) +
+                (system.majeures[attribut].equipement || 0) +
+                (system.majeures[attribut].repartition || 0) +
+                (system.majeures[attribut].bonus || 0)
+            );
+        }
+    });
+    
+    // **Recalculer les totaux des caractéristiques mineures**
+    const attributsMineurs = [
+        "monde", "mystique", "nature", "sacré", "robustesse", "calme",
+        "marchandage", "persuasion", "artmusique", "commandement", "acrobatie",
+        "discretion", "adresse", "artisanat", "hasard", "athlétisme",
+        "puissance", "intimidation", "perception", "perceptionmagique", "medecine",
+        "intuition"
+    ];
+    
+    attributsMineurs.forEach(attribut => {
+        if (system.mineures[attribut]) {
+            // Recalculer la majeure associée avec les nouveaux totaux
+            let majeureAssociee = 0;
+            
+            if (["robustesse", "calme"].includes(attribut)) {
+                majeureAssociee = system.majeures.defense.totale || 0;
+            } else if (["marchandage", "persuasion", "artmusique", "commandement"].includes(attribut)) {
+                majeureAssociee = system.majeures.charisme.totale || 0;
+            } else if (["acrobatie", "discretion", "adresse"].includes(attribut)) {
+                majeureAssociee = system.majeures.dexterite.totale || 0;
+            } else if (["puissance", "intimidation", "athlétisme"].includes(attribut)) {
+                majeureAssociee = system.majeures.force.totale || 0;
+            } else if (["perception", "perceptionmagique", "medecine"].includes(attribut)) {
+                majeureAssociee = system.majeures.sagesse.totale || 0;
+            } else if (["intuition", "hasard"].includes(attribut)) {
+                majeureAssociee = system.majeures.chance.totale || 0;
+            } else if (["artisanat", "monde", "mystique", "nature", "sacré"].includes(attribut)) {
+                majeureAssociee = system.majeures.intelligence.totale || 0;
+            }
+            
+            system.mineures[attribut].majeureAssocie = majeureAssociee;
+            
+            system.mineures[attribut].totale = (
+                (system.mineures[attribut].creation || 0) +
+                (system.mineures[attribut].majeureAssocie || 0) +
+                (system.mineures[attribut].talents || 0) +
+                (system.mineures[attribut].equipement || 0) +
+                (system.mineures[attribut].repartition || 0) +
+                (system.mineures[attribut].bonus || 0)
+            );
+        }
+    });
+    
+    // **Recalculer les statistiques de combat**
+    system.toucheForce = this.getBonusPourcentage(system.majeures.force.totale) + (system.bonusCombat || 0);
+    system.toucheDexterite = this.getBonusPourcentage(system.majeures.dexterite.totale) + (system.bonusCombat || 0);
+    system.toucheCharisme = this.getBonusPourcentage(system.majeures.charisme.totale) + (system.bonusCombat || 0);
+    system.toucheSagesse = this.getBonusPourcentage(system.majeures.sagesse.totale) + (system.bonusCombat || 0);
+    
+    // **Appliquer les bonus de critique et blocage**
+    system.toucheChance = this.getBonusChanceCritique(system.majeures.chance.totale) + (system.bonusCritique || 0);
+    system.toucheDefense = this.getChanceBlocage(system.majeures.defense.totale) + (system.bonusBlocage || 0);
+    
+    // **Appliquer les bonus de vitesse**
+    system.vitesse = (system.vitesse || 2) + (system.bonusVitesse || 0);
+    
+    console.log("✅ Statistiques dérivées recalculées avec traits");
+}
+
+// **HELPER : Méthodes utilitaires déplacées pour être accessibles**
+getBonusPourcentage(statValue) {
+    let totalToucheBonus = 0;
+    if (statValue > 0) { 
+        const phase1Points = Math.min(statValue, 10);
+        totalToucheBonus += phase1Points * 5;
+    }
+    if (statValue > 10) {
+        const phase2Points = Math.min(statValue - 10, 5);
+        totalToucheBonus += phase2Points * 3;
+    }
+    if (statValue > 15) {
+        const phase3Points = Math.min(statValue - 15, 5);
+        totalToucheBonus += phase3Points * 2;
+    }
+    if (statValue > 20) {
+        const phase4Points = Math.min(statValue - 20, 10);
+        totalToucheBonus += phase4Points * 1;
+    }
+    return totalToucheBonus;
+}
+
+getChanceBlocage(defenseValue) {
+    let totalBlockChance = 0;
+    if (defenseValue === 0) {
+        totalBlockChance = 0;
+    } else if (defenseValue >= 1 && defenseValue <= 10) {
+        totalBlockChance = defenseValue * 4;
+    } else if (defenseValue >= 11 && defenseValue <= 15) {
+        totalBlockChance = (10 * 4) + ((defenseValue - 10) * 3);
+    } else if (defenseValue >= 16 && defenseValue <= 20) {
+        totalBlockChance = (10 * 4) + (5 * 3) + ((defenseValue - 15) * 2);
+    } else if (defenseValue > 20) {
+        totalBlockChance = (10 * 4) + (5 * 3) + (5 * 2) + ((defenseValue - 20) * 1);
+    }
+    return totalBlockChance;
+}
+
+getBonusChanceCritique(chanceValue) {
+    let totalCritChance = 0;
+    if (chanceValue === 0) {
+        totalCritChance = 5;
+    } else if (chanceValue >= 1 && chanceValue <= 18) {
+        totalCritChance = 5 + (chanceValue * 2);
+    } else if (chanceValue >= 19 && chanceValue <= 30) {
+        totalCritChance = 5 + (18 * 2) + ((chanceValue - 18) * 1);
+    } else if (chanceValue > 30) {
+        totalCritChance = 5 + (18 * 2) + (12 * 1);
+    }
+    return totalCritChance;
+}
+
 
 }

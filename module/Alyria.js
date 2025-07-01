@@ -148,3 +148,75 @@ Hooks.once("ready", function() {
     
     console.log("Alyria | Générateur d'armes chargé");
 });
+
+// **AJOUT dans module/alyria.js - Hook global pour tous les nouveaux acteurs**
+Hooks.once('ready', async function() {
+    console.log("🎭 Alyria System | Ready");
+    
+    // **NOUVEAU : Migration automatique pour tous les acteurs existants**
+    await migrateAllActorsInventory();
+});
+
+// **NOUVELLE FONCTION : Migrer tous les acteurs existants**
+async function migrateAllActorsInventory() {
+    console.log("🔄 Migration globale des inventaires...");
+    
+    const alyriaActors = game.actors.filter(actor => actor.type === "Joueur");
+    let migratedCount = 0;
+    
+    for (const actor of alyriaActors) {
+        try {
+            const inventory = actor.system.inventaire || InventoryManager.initializeInventory();
+            const foundryItems = actor.items.contents;
+            const inventoryItemIds = inventory.items || [];
+            
+            const missingItems = foundryItems.filter(item => !inventoryItemIds.includes(item.id));
+            
+            if (missingItems.length > 0) {
+                const allItemIds = [...inventoryItemIds, ...missingItems.map(item => item.id)];
+                
+                await actor.update({
+                    'system.inventaire.items': allItemIds
+                });
+                
+                console.log(`✅ ${actor.name}: ${missingItems.length} items migrés`);
+                migratedCount++;
+            }
+        } catch (error) {
+            console.error(`❌ Erreur migration ${actor.name}:`, error);
+        }
+    }
+    
+    if (migratedCount > 0) {
+        ui.notifications.info(`Migration terminée : ${migratedCount} acteurs mis à jour !`);
+        console.log(`📊 Migration globale terminée: ${migratedCount} acteurs mis à jour`);
+    } else {
+        console.log("ℹ️ Aucune migration nécessaire");
+    }
+}
+
+// **Hook pour les nouveaux items créés**
+Hooks.on("createItem", async (item, options, userId) => {
+    if (item.parent && item.parent.type === "Joueur") {
+        const actor = item.parent;
+        
+        // **S'assurer que l'inventaire existe**
+        let inventory = actor.system.inventaire;
+        if (!inventory) {
+            inventory = InventoryManager.initializeInventory();
+            await actor.update({ 'system.inventaire': inventory });
+        }
+        
+        // **Ajouter l'item à l'inventaire s'il n'y est pas**
+        const items = inventory.items || [];
+        if (!items.includes(item.id)) {
+            const updatedItems = [...items, item.id];
+            
+            await actor.update({
+                'system.inventaire.items': updatedItems
+            });
+            
+            console.log(`📦 Item auto-ajouté: ${item.name} → ${actor.name}`);
+        }
+    }
+});

@@ -66,10 +66,7 @@ function traitsPourRareté(rarete) {
       // Fallback vers commun
       traitsDisponibles = TRAITS.filter(t => t.rarete === "Commune");
   }
-  
-  console.log(`🎯 Traits disponibles pour rareté ${rarete}:`, traitsDisponibles.length);
-  console.log(`📋 Détail des raretés:`, traitsDisponibles.map(t => t.rarete));
-  
+
   return traitsDisponibles;
 }
 
@@ -126,9 +123,6 @@ while (traits.length < nbTraits && traitsPossibles.length > 0) {
   const bonusDegats = degatsInfo.bonus;
   const touche = randomFromArray(TOUCHES);
 
-  // Ne compose pas le nom ici !
-  // const nom = `${arme.nom} ${traits.map(t => t.name).join(" ")} ${rarete.name}`;
-  // Utilise juste le nom de base
   const nom = arme.nom;
   const encombrement = arme.encombrement || 1; // Valeur par défaut si non définie
 
@@ -154,7 +148,9 @@ while (traits.length < nbTraits && traitsPossibles.length > 0) {
       degats,
       bonusDegats,
       touche,
-      valeur
+      valeurOr: valeur.formate,  // **Au lieu de l'objet complexe**
+        valeurComplete: valeur,    // **Garder l'objet complet pour référence**
+        couleurValeur: valeur.couleur
     }
   };
 }
@@ -277,6 +273,47 @@ async function ajouterArmeAuStock(arme) {
     folder: dossier.id
   });
 }
+
+// **NOUVELLE FONCTION dans arme-generator.js pour corriger les armes existantes**
+async function corrigerValeursArmes() {
+    console.log("🔧 Correction des valeurs d'armes...");
+    
+    // Récupérer toutes les armes
+    const armes = game.items.filter(item => item.type === "arme");
+    
+    for (const arme of armes) {
+        const system = arme.system;
+        
+        // Si la valeur n'est pas correcte
+        if (!system.valeurOr || system.valeurOr === "piece d'Or") {
+            // Recalculer la valeur
+            const rarete = system.rarete || "Commune";
+            const mains = system.mains || 1;
+            const nbTraits = system.traits?.length || 0;
+            const nbImperfections = system.imperfections?.length || 0;
+            
+            const nouvelleValeur = calculerValeurArme(rarete, mains, nbTraits, nbImperfections);
+            
+            // Mettre à jour l'arme
+            await arme.update({
+                'system.valeurOr': nouvelleValeur.formate,
+                'system.valeurComplete': nouvelleValeur,
+                'system.couleurValeur': nouvelleValeur.couleur
+            });
+            
+            console.log(`✅ Arme corrigée: ${arme.name} - Nouvelle valeur: ${nouvelleValeur.formate}`);
+        }
+    }
+    
+    ui.notifications.info("Correction des valeurs d'armes terminée !");
+}
+
+// **Exposer la fonction**
+window.corrigerValeursArmes = corrigerValeursArmes;
+Hooks.once("ready", () => {
+    game.corrigerValeursArmes = corrigerValeursArmes;
+});
+
 
 // Expose la fonction pour macro ou autres scripts
 window.ajouterArmeAuStock = ajouterArmeAuStock;

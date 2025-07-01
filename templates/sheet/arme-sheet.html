@@ -39,9 +39,12 @@
                 <label>Touche</label>
                 <span class="stat-value touch-{{item.system.touche}}">{{item.system.touche}}</span> <!-- CORRECTION -->
             </div>
+            <!-- **CORRECTION dans la section statistiques** -->
             <div class="stat-item">
                 <label>Valeur</label>
-                <span class="stat-value value">{{item.system.valeurOr}}</span> <!-- CORRECTION -->
+                <span class="stat-value value" style="color: {{item.system.couleurValeur}};">
+                    {{item.system.valeurOr}}
+                </span>
             </div>
         </div>
     
@@ -64,9 +67,11 @@
             <div class="traits-grid">
                 {{#each item.system.traits as |trait|}}
                 <div class="trait-bubble positive">
-                    <div class="trait-name">{{trait.nom}}</div> <!-- CORRECTION : était {{trait.name}} -->
+                    <div class="trait-name">{{trait.name}}</div>
                     <div class="trait-rarity rarity-{{trait.rarete}}">{{trait.rarete}}</div>
+                    {{#if trait.effet}}
                     <div class="trait-effect">{{trait.effet}}</div>
+                    {{/if}}
                 </div>
                 {{/each}}
             </div>
@@ -413,4 +418,16 @@
         margin-top: 15px;
     }
 }
+/* **AJOUT dans le style de arme-sheet.html** */
+.stat-value.value {
+    font-size: 1.1em;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    /* La couleur sera définie par l'attribut style */
+}
+
+/* Couleurs par défaut selon la monnaie */
+.value-po { color: #FFD700; } /* Or */
+.value-pp { color: #E5E4E2; } /* Platine */
+.value-pj { color: #00C781; } /* Jade */
 </style>

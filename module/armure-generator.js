@@ -191,7 +191,7 @@ function calculerValeurArmure(rarete, typeArmure, nbTraits, nbImperfections) {
   let valeurBase = 0, valeurTrait = 0, valeurImperfection = 0;
   
   // Multiplicateur selon le type d'armure
-  const multiplicateur = { "Légère": 1, "Moyenne": 1.5, "Lourde": 2 }[typeArmure] || 1;
+  const multiplicateur = { "Légère": 1, "Moyenne": 1.25, "Lourde": 1.5 }[typeArmure] || 1;
   
   switch (rarete) {
     case "Commune":
