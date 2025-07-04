@@ -201,198 +201,201 @@ export class InventoryManager {
     }
 
     // **ÉQUIPEMENT : Équiper depuis l'inventaire**
-    // **CORRECTION : equipItemFromInventory avec vérification**
-    static async equipItemFromInventory(actor, itemId, equipType) {
-        const inventory = actor.system.inventaire || this.initializeInventory();
-        
-        // **CORRECTION : Vérifier que la liste existe**
-        if (!inventory.items || !Array.isArray(inventory.items)) {
-            console.log("⚠️ Liste d'items manquante dans equipItemFromInventory");
-            ui.notifications.error("Structure d'inventaire corrompue !");
-            return false;
-        }
-        
-        // Vérifier que l'item est dans l'inventaire
-        if (!inventory.items.includes(itemId)) {
+   
+    // **CORRECTION dans equipItemFromInventory - Gestion des accessoires**
+static async equipItemFromInventory(actor, itemId, equipType) {
+    console.log(`🎯 Équipement de l'item ${itemId} en tant que ${equipType}`);
+    
+    try {
+        const item = actor.items.get(itemId);
+        if (!item) {
+            console.error(`❌ Item ${itemId} non trouvé dans les items Foundry`);
             ui.notifications.error("Objet non trouvé dans l'inventaire !");
             return false;
         }
         
-        // Récupérer l'item
-        const item = actor.items.get(itemId);
-        if (!item) {
-            ui.notifications.error("Item non trouvé !");
+        console.log(`✅ Item trouvé: ${item.name} (${item.type})`);
+        
+        // **CORRECTION : Gestion spéciale pour les accessoires**
+        let actualEquipType = equipType;
+        let baseEquipType = equipType;
+        
+        if (equipType === "accessoire") {
+            // **AUTO-DÉTERMINATION du slot pour les accessoires**
+            const inventaire = actor.system.inventaire || {};
+            
+            // **Vérifier l'état RÉEL des slots après nettoyage**
+            const slot1Valid = inventaire.accessoire1 && actor.items.get(inventaire.accessoire1.id);
+            const slot2Valid = inventaire.accessoire2 && actor.items.get(inventaire.accessoire2.id);
+            
+            console.log("🔍 État slots accessoires:", {
+                slot1: slot1Valid ? "OCCUPÉ" : "LIBRE",
+                slot2: slot2Valid ? "OCCUPÉ" : "LIBRE"
+            });
+            
+            if (!slot1Valid) {
+                actualEquipType = "accessoire1";
+                console.log("✅ Utilisation du slot 1");
+            } else if (!slot2Valid) {
+                actualEquipType = "accessoire2";
+                console.log("✅ Utilisation du slot 2");
+            } else {
+                ui.notifications.warn("Tous les slots d'accessoires sont vraiment occupés !");
+                return false;
+            }
+            
+            baseEquipType = "accessoire"; // Pour la vérification de type
+        } else {
+            baseEquipType = actualEquipType.replace(/[0-9]/g, '');
+        }
+        
+        // **Vérifier le type**
+        if (item.type !== baseEquipType) {
+            console.error(`❌ Type d'item incorrect: attendu ${baseEquipType}, reçu ${item.type}`);
+            ui.notifications.error("Type d'objet incorrect !");
             return false;
         }
         
-        // Préparer les données d'équipement
+        // **ÉQUIPEMENT selon le type**
+        let updateData = {};
+        
+        switch (baseEquipType) {
+            case "arme":
+                updateData = await this._equipWeapon(actor, item, actualEquipType);
+                break;
+            case "armure":
+                updateData = await this._equipArmor(actor, item);
+                break;
+            case "accessoire":
+                updateData = await this._equipAccessory(actor, item, actualEquipType);
+                break;
+            default:
+                console.error(`❌ Type d'équipement non supporté: ${baseEquipType}`);
+                ui.notifications.error("Type d'équipement non supporté !");
+                return false;
+        }
+        
+        if (updateData && Object.keys(updateData).length > 0) {
+            await actor.update(updateData);
+            console.log(`✅ ${item.name} équipé avec succès dans ${actualEquipType}`);
+            ui.notifications.success(`${item.name} équipé !`);
+            return true;
+        }
+        
+        return false;
+        
+    } catch (error) {
+        console.error("❌ Erreur lors de l'équipement:", error);
+        ui.notifications.error("Erreur lors de l'équipement !");
+        return false;
+    }
+}
+
+    // **CORRECTION dans Inventaire.js - Méthode _equipAccessory**
+    static async _equipAccessory(actor, item, slotType = null) {
+        console.log(`📿 Équipement accessoire: ${item.name} dans ${slotType || 'slot auto'}`);
+        
         const equipData = {
             id: item.id,
             name: item.name,
             img: item.img,
-            system: { ...item.system }
+            system: { ...item.system },
+            rarityColor: this._getRarityColor(item.system?.rarete),
+            rarityIcon: this._getRarityIcon(item.system?.rarete)
         };
         
-        const updatePath = `system.inventaire.${equipType}Equipee`;
-        
-        try {
-            await actor.update({
-                [updatePath]: equipData
-            });
+        // **DÉTERMINER LE SLOT si pas spécifié**
+        if (!slotType) {
+            const inventaire = actor.system.inventaire || {};
             
-            ui.notifications.info(`${item.name} équipé !`);
-            console.log(`✅ ${item.name} équipé depuis l'inventaire`);
-            return true;
-        } catch (error) {
-            console.error("Erreur lors de l'équipement:", error);
-            ui.notifications.error("Erreur lors de l'équipement");
-            return false;
-        }
-    }
-
-    // **DONNÉES : Préparer les données pour le template**
-static async prepareInventoryData(actor) {
-    try {
-        // **ÉTAPE 0 : Migration automatique des items existants**
-        await this.migrateExistingItems(actor);
-        
-        // **ÉTAPE 1 : Nettoyer les équipements orphelins**
-        await this.cleanupOrphanedEquipment(actor);
-        
-        // **ÉTAPE 2 : Récupérer la version fraîche de l'acteur APRÈS migration**
-        const freshActor = game.actors.get(actor.id);
-        let inventory = freshActor.system.inventaire || this.initializeInventory();
-        
-        // **ÉTAPE 3 : Vérification et correction forcée si nécessaire**
-        if (!inventory.items || !Array.isArray(inventory.items)) {
-            console.log("🔧 Correction forcée de la structure d'inventaire");
-            
-            inventory = this.initializeInventory();
-            await freshActor.update({
-                'system.inventaire': inventory
-            });
-            
-            // **RELANCER la migration après correction**
-            await this.migrateExistingItems(freshActor);
-            inventory = freshActor.system.inventaire;
-            
-            console.log("✅ Structure d'inventaire corrigée et migration effectuée");
-        }
-        
-        // **ÉTAPE 4 : Construction sécurisée de la liste**
-        const inventoryItems = [];
-        const itemIds = Array.isArray(inventory.items) ? inventory.items : [];
-        
-        console.log(`📋 Construction liste avec ${itemIds.length} IDs d'items`);
-        
-        for (const itemId of itemIds) {
-            const item = freshActor.items.get(itemId);
-            if (item) {
-                const itemData = {
-                    id: item.id,
-                    name: item.name,
-                    img: item.img,
-                    type: item.type,
-                    system: { ...item.system },
-                    isEquipped: this._isItemEquipped(freshActor, itemId),
-                    rarityColor: this._getRarityColor(item.system?.rarete || "Commune"),
-                    rarityIcon: this._getRarityIcon(item.system?.rarete || "Commune"),
-                    encombrement: parseInt(item.system?.encombrement) || 1
-                };
-                inventoryItems.push(itemData);
-                console.log(`✅ Item ajouté à la liste: ${item.name} (${item.type})`);
+            if (!inventaire.accessoire1) {
+                slotType = "accessoire1";
+            } else if (!inventaire.accessoire2) {
+                slotType = "accessoire2";
             } else {
-                console.warn(`⚠️ Item introuvable: ${itemId}`);
+                ui.notifications.warn("Tous les slots d'accessoires sont occupés !");
+                return null;
             }
         }
         
-        console.log(`📊 Liste finale: ${inventoryItems.length} items`);
-        
-        // **ÉTAPE 5 : Calcul sécurisé de l'encombrement**
-        let totalEncumbrance = 0;
-        try {
-            totalEncumbrance = this.calculateTotalEncumbrance(freshActor);
-        } catch (error) {
-            console.error("Erreur calcul encombrement:", error);
-            totalEncumbrance = 0;
-        }
-        
-        // **ÉTAPE 6 : Retour sécurisé**
-        const result = {
-            armeEquipee: inventory.armeEquipee || null,
-            armeSecondaireEquipee: inventory.armeSecondaireEquipee || null,
-            armureEquipee: inventory.armureEquipee || null,
-            accessoire1: inventory.accessoire1 || null,
-            accessoire2: inventory.accessoire2 || null,
-            items: inventoryItems,
-            encombrement: {
-                actuel: totalEncumbrance,
-                max: inventory.encombrement?.max || 20
-            },
-            surcharge: totalEncumbrance > (inventory.encombrement?.max || 20),
-            totalItems: inventoryItems.length,
-            freeSpace: Math.max(0, (inventory.encombrement?.max || 20) - totalEncumbrance)
-        };
-        
-        console.log(`📊 Inventaire préparé avec succès: ${result.totalItems} items`);
-        return result;
-        
-    } catch (error) {
-        console.error("❌ Erreur dans prepareInventoryData:", error);
-        
-        // **Retour d'urgence avec structure vide mais valide**
-        return {
-            armeEquipee: null,
-            armeSecondaireEquipee: null,
-            armureEquipee: null,
-            accessoire1: null,
-            accessoire2: null,
-            items: [],
-            encombrement: { actuel: 0, max: 20 },
-            surcharge: false,
-            totalItems: 0,
-            freeSpace: 20
-        };
-    }
-}
-
-    // **HELPERS PRIVÉS**
-    static _getWeaponEncumbrance(weapon) {
-        // Logique pour déterminer l'encombrement des armes
-        const mains = weapon.system?.mains || 1;
-        return mains === 2 ? 4 : 1; // 2 mains = 4 encombrement, 1 main = 1 encombrement
-    }
-    
-        static _isItemEquipped(actor, itemId) {
-            const inventory = actor.system.inventaire || {};
+        // **VÉRIFICATION TALENT pour le slot 2**
+        if (slotType === "accessoire2") {
+            const hasAccessoiriste = actor.system.talents?.some(t => 
+                t.nom && t.nom.toLowerCase().includes("accessoiriste")
+            ) || actor.system.hasAccessoiristeTalent;
             
-            return (
-                inventory.armeEquipee?.id === itemId ||
-                inventory.armeSecondaireEquipee?.id === itemId || // **AJOUTÉ**
-                inventory.armureEquipee?.id === itemId ||
-                inventory.accessoire1?.id === itemId ||
-                inventory.accessoire2?.id === itemId
-            );
+            if (!hasAccessoiriste) {
+                ui.notifications.warn("Le talent 'Accessoiriste' est requis pour équiper un second accessoire !");
+                return null;
+            }
+        } else {
+            // Les deux slots sont occupés
+            ui.notifications.warn("Tous les slots d'accessoires sont occupés ! Déséquipez un accessoire d'abord.");
+            return null;
         }
-    
-    static _getRarityColor(rarity) {
-        const colors = {
-            "Commune": "#9E9E9E",
-            "Rare": "#2196F3", 
-            "Epic": "#9C27B0",
-            "Legendaire": "#FF9800"
-        };
-        return colors[rarity] || colors["Commune"];
+        
+        const updateData = {};
+        updateData[`system.inventaire.${slotType}`] = equipData;
+        
+        console.log(`📿 Équipé dans ${slotType}:`, equipData.name);
+        return updateData;
     }
-    
-    static _getRarityIcon(rarity) {
-        const icons = {
-            "Commune": "fas fa-circle",
-            "Rare": "fas fa-star",
-            "Epic": "fas fa-crown", 
-            "Legendaire": "fas fa-fire"
+
+    // **CORRECTION : Méthode _equipWeapon**
+    static async _equipWeapon(actor, item) {
+        console.log(`⚔️ Équipement arme: ${item.name}`);
+        
+        const equipData = {
+            id: item.id,
+            name: item.name,
+            img: item.img,
+            system: { ...item.system },
+            rarityColor: this._getRarityColor(item.system?.rarete),
+            rarityIcon: this._getRarityIcon(item.system?.rarete)
         };
-        return icons[rarity] || icons["Commune"];
+        
+        return {
+            "system.inventaire.armeEquipee": equipData
+        };
+    }
+
+    // **CORRECTION : Méthode _equipArmor**
+    static async _equipArmor(actor, item) {
+        console.log(`🛡️ Équipement armure: ${item.name}`);
+        
+        const equipData = {
+            id: item.id,
+            name: item.name,
+            img: item.img,
+            system: { ...item.system },
+            rarityColor: this._getRarityColor(item.system?.rarete),
+            rarityIcon: this._getRarityIcon(item.system?.rarete)
+        };
+        
+        return {
+            "system.inventaire.armureEquipee": equipData
+        };
+    }
+
+    // **UTILITAIRES : Méthodes pour les couleurs de rareté**
+    static _getRarityColor(rarity) {
+        switch(rarity) {
+            case "Commune": return "#9E9E9E";
+            case "Rare": return "#2196F3";
+            case "Epic": return "#9C27B0";
+            case "Legendaire": return "#FF9800";
+            default: return "#9E9E9E";
+        }
+    }
+
+    static _getRarityIcon(rarity) {
+        switch(rarity) {
+            case "Commune": return "fas fa-circle";
+            case "Rare": return "fas fa-gem";
+            case "Epic": return "fas fa-star";
+            case "Legendaire": return "fas fa-crown";
+            default: return "fas fa-circle";
+        }
     }
 
     // **DÉSÉQUIPEMENT AUTOMATIQUE**
@@ -670,4 +673,121 @@ static async prepareInventoryData(actor) {
         return false;
     }
 
+        // **Dans Inventaire.js - Méthode _equipAccessory**
+    // **CORRECTION COMPLÈTE : _equipAccessory en méthode statique**
+static async _equipAccessory(actor, item, slotType) {
+    console.log(`📿 Équipement accessoire: ${item.name} dans ${slotType}`);
+    
+    const inventory = actor.system.inventaire || {};
+    
+    // **DIAGNOSTIC : Vérifier l'état réel des slots**
+    console.log("🔍 État actuel inventaire:", {
+        accessoire1: inventory.accessoire1,
+        accessoire2: inventory.accessoire2
+    });
+    
+    // **NETTOYER les références fantômes AVANT vérification**
+    const updateCleanup = {};
+    let needsCleanup = false;
+    
+    if (inventory.accessoire1 && inventory.accessoire1.id && !actor.items.get(inventory.accessoire1.id)) {
+        console.log("🧹 Nettoyage slot 1 fantôme avant équipement");
+        updateCleanup["system.inventaire.accessoire1"] = null;
+        needsCleanup = true;
+    }
+    
+    if (inventory.accessoire2 && inventory.accessoire2.id && !actor.items.get(inventory.accessoire2.id)) {
+        console.log("🧹 Nettoyage slot 2 fantôme avant équipement");
+        updateCleanup["system.inventaire.accessoire2"] = null;
+        needsCleanup = true;
+    }
+    
+    // **Nettoyer les anciens champs**
+    if (inventory.accessoire1Equipee) {
+        console.log("🧹 Suppression ancien champ accessoire1Equipee");
+        updateCleanup["system.inventaire.-=accessoire1Equipee"] = null;
+        needsCleanup = true;
+    }
+    
+    if (inventory.accessoire2Equipee) {
+        console.log("🧹 Suppression ancien champ accessoire2Equipee");
+        updateCleanup["system.inventaire.-=accessoire2Equipee"] = null;
+        needsCleanup = true;
+    }
+    
+    // **Appliquer le nettoyage si nécessaire**
+    if (needsCleanup) {
+        await actor.update(updateCleanup);
+        console.log("✅ Inventaire nettoyé");
+    }
+    
+    // **RÉCUPÉRER L'INVENTAIRE FRAÎCHEMENT NETTOYÉ**
+    const freshInventory = actor.system.inventaire || {};
+    console.log("🔍 Inventaire après nettoyage:", {
+        accessoire1: freshInventory.accessoire1,
+        accessoire2: freshInventory.accessoire2
+    });
+    
+    // **CRÉER LES DONNÉES D'ÉQUIPEMENT**
+    const equipData = this._createEquipmentData(item);
+    
+    // **LOGIQUE D'ÉQUIPEMENT**
+    if (slotType === "accessoire1") {
+        // **Vérifier que le slot 1 est libre APRÈS nettoyage**
+        const slot1Occupied = freshInventory.accessoire1 && 
+                             freshInventory.accessoire1.id && 
+                             actor.items.get(freshInventory.accessoire1.id);
+        
+        if (slot1Occupied) {
+            console.log("❌ Slot 1 toujours occupé après nettoyage:", freshInventory.accessoire1.name);
+            ui.notifications.warn(`Slot 1 occupé par ${freshInventory.accessoire1.name} ! Déséquipez-le d'abord.`);
+            return null;
+        }
+        
+        console.log("✅ Slot 1 libre, équipement autorisé");
+        return { "system.inventaire.accessoire1": equipData };
+        
+    } else if (slotType === "accessoire2") {
+        // **Vérifier le talent Accessoiriste**
+        const hasAccessoiriste = actor.system.talents?.some(t => 
+            t.nom && t.nom.toLowerCase().includes("accessoiriste")
+        ) || actor.system.hasAccessoiristeTalent;
+        
+        if (!hasAccessoiriste) {
+            console.log("❌ Talent Accessoiriste requis pour le slot 2");
+            ui.notifications.warn("Le talent 'Accessoiriste' est requis pour équiper un second accessoire !");
+            return null;
+        }
+        
+        // **Vérifier que le slot 2 est libre APRÈS nettoyage**
+        const slot2Occupied = freshInventory.accessoire2 && 
+                             freshInventory.accessoire2.id && 
+                             actor.items.get(freshInventory.accessoire2.id);
+        
+        if (slot2Occupied) {
+            console.log("❌ Slot 2 toujours occupé après nettoyage:", freshInventory.accessoire2.name);
+            ui.notifications.warn(`Slot 2 occupé par ${freshInventory.accessoire2.name} ! Déséquipez-le d'abord.`);
+            return null;
+        }
+        
+        console.log("✅ Slot 2 libre, équipement autorisé");
+        return { "system.inventaire.accessoire2": equipData };
+        
+    } else {
+        console.error("❌ Type de slot accessoire invalide:", slotType);
+        return null;
+    }
+}
+
+// **AJOUT : Méthode _createEquipmentData si elle n'existe pas**
+static _createEquipmentData(item) {
+    return {
+        id: item.id,
+        name: item.name,
+        img: item.img,
+        system: { ...item.system },
+        rarityColor: this._getRarityColor(item.system?.rarete),
+        rarityIcon: this._getRarityIcon(item.system?.rarete)
+    };
+}
 }

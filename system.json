@@ -34,6 +34,7 @@
     "module/data/AlyriaArcanes.js",
     "module/arme-generator.js",
     "module/armure-generator.js",
+    "module/accessoire-generator.js",
     "module/data/traits.js",
     "module/Inventaire.js",
     "module/character-progression.js",

@@ -1,27 +1,28 @@
-<div class="armor-compact" data-item-id="{{id}}" data-item-type="armure" data-rarity="{{system.rarete}}">
-    <div class="armor-compact-content" draggable="true">
-        <!-- En-tête compact -->
-        <div class="armor-compact-header">
-            <img class="armor-compact-image" src="{{img}}" alt="{{name}}"/>
-            <div class="armor-compact-info">
-                <h4 class="armor-compact-name" style="color: {{rarityColor}};">
+<div class="accessory-compact" data-item-id="{{id}}" data-item-type="accessoire" data-rarity="{{system.rarete}}">
+    <div class="accessory-compact-content" draggable="true">
+        <!-- **CORRECTION : Ajout image et nom manquants** -->
+        <div class="accessory-compact-header">
+            <img class="accessory-compact-image" src="{{img}}" alt="{{name}}"/>
+            <div class="accessory-compact-info">
+                <h4 class="accessory-compact-name" style="color: {{rarityColor}};">
                     {{name}}
-                    {{#if isEquipped}}<span class="equipped-badge">🛡️</span>{{/if}}
+                    {{#if isEquipped}}<span class="equipped-badge">📿</span>{{/if}}
                 </h4>
-                <div class="armor-compact-stats">
+                <div class="accessory-compact-stats">
+                    <!-- Icône de rareté en premier et centré -->
                     <div class="rarity-indicator" style="background: {{rarityColor}};">
                         <i class="{{rarityIcon}}"></i>
                     </div>
-                    <span class="protection-compact">BA: {{system.bonusArmure}}</span>
-                    <span class="type-compact">{{system.typeArmure}}</span>
-                    {{#if encombrement}}<span class="encumbrance-display">{{encombrement}} enc.</span>{{/if}}
+                    <span class="encombrement-compact">ENC: {{system.encombrement}}</span>
+                    <span class="value-compact">{{system.valeurOr}}</span>
+                    
                 </div>
             </div>
         </div>
         
-        <!-- **AJOUT MANQUANT : Traits condensés** -->
+        <!-- **IDENTIQUE aux armures : Traits condensés** -->
         {{#if (or system.traits system.imperfections)}}
-        <div class="armor-compact-traits">
+        <div class="accessory-compact-traits">
             {{#if system.traits}}
                 <div class="traits-compact positive">
                     <i class="fas fa-plus-circle"></i>
@@ -38,25 +39,25 @@
         {{/if}}
     </div>
     
-    <!-- Actions -->
-    <div class="armor-compact-actions">
-        <button type="button" class="armor-open" 
+    <!-- **IDENTIQUE aux armures : Actions conditionnelles** -->
+    <div class="accessory-compact-actions">
+        <button type="button" class="accessory-open" 
                 data-item-id="{{id}}" 
                 title="Ouvrir la fiche">
             <i class="fas fa-external-link"></i>
         </button>
         {{#if isEquipped}}
-            <button type="button" class="armor-unequip" 
+            <button type="button" class="accessory-unequip" 
                     data-item-id="{{id}}" 
                     title="Déséquiper">
                 <i class="fas fa-times"></i>
             </button>
         {{else}}
             <button type="button" class="item-equip" 
-                    data-equip-type="armure" 
+                    data-equip-type="accessoire" 
                     data-item-id="{{id}}" 
                     title="Équiper">
-                <i class="fas fa-shield-alt"></i>
+                <i class="fas fa-ring"></i>
             </button>
             <button type="button" class="item-remove" 
                     data-item-id="{{id}}" 
@@ -66,4 +67,3 @@
         {{/if}}
     </div>
 </div>
-

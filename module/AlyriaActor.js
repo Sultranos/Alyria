@@ -543,15 +543,31 @@ _resetEquipmentBonuses(system) {
         }
     });
     
-    // **Réinitialiser autres bonus d'équipement**
+    // **CORRECTION : Réinitialiser TOUS les bonus d'équipement**
     system.bonusDegats = 0;
-    system.bonusArmureTemporaire = 0;
-    system.bonusArmureTalents = 0; // Garder les talents
+    system.bonusContreAttaque = 0;  // ← AJOUTÉ
     system.bonusCritique = 0;
     system.bonusBlocage = 0;
     system.bonusVitesse = 0;
-    system.resistances = system.resistances || {};
-    system.immunites = system.immunites || [];
+    system.bonusArmureTemporaire = 0;
+    system.bonusSoins = 0;          // ← AJOUTÉ
+    system.bonusIgnoreArmure = 0;   // ← AJOUTÉ
+    system.bonusPSY = 0;            // ← AJOUTÉ
+    system.bonusBouclier = 0;       // ← AJOUTÉ
+    system.bonusInventaire = 0;     // ← AJOUTÉ
+    system.bonusVitessePremierTour = 0; // ← AJOUTÉ
+    
+    // **Réinitialiser les bonus structurés**
+    system.bouclier = 0;
+    
+    // **Garder les talents et bonus temporaires**
+    // system.bonusArmureTalents = system.bonusArmureTalents || 0; // Préserver
+    
+    // **Réinitialiser les listes spéciales**
+    system.specialTraits = [];
+    system.resistances = {};
+    system.immunites = [];
+    system.faiblesses = [];
 }
 
 // **NOUVELLE MÉTHODE : Appliquer les traits d'arme**
@@ -590,7 +606,7 @@ _applyArmorTraits(armure, system) {
     });
 }
 
-// **NOUVELLE MÉTHODE : Appliquer les traits d'accessoire**
+// **CORRECTION COMPLÈTE : _applyAccessoryTraits dans AlyriaActor.js**
 _applyAccessoryTraits(accessoire, system, slotNumber) {
     console.log(`📿 Application traits accessoire ${slotNumber}:`, accessoire.name);
     
@@ -599,13 +615,16 @@ _applyAccessoryTraits(accessoire, system, slotNumber) {
     
     // **Appliquer les traits positifs**
     traits.forEach(trait => {
+        console.log(`✨ Application trait accessoire ${slotNumber}: ${trait.nom || trait}`);
         this._applyAccessoryTraitEffect(trait, system, true, slotNumber);
     });
     
-    // **Appliquer les imperfections**
+    // **Appliquer les imperfections (traits négatifs)**
     imperfections.forEach(imperfection => {
+        console.log(`⚠️ Application imperfection accessoire ${slotNumber}: ${imperfection.nom || imperfection}`);
         this._applyAccessoryTraitEffect(imperfection, system, false, slotNumber);
     });
+
 
 
 // **AJOUT dans module/AlyriaActor.js - Hook sur la création d'items**
@@ -636,6 +655,120 @@ Hooks.on("createItem", async (item, options, userId) => {
 })
 }
 
+_applyAccessoryTraitEffect(trait, system, isPositive, slotNumber) {
+    const traitName = (trait.nom || trait.name || trait).toLowerCase();
+    const multiplier = isPositive ? 1 : -1;
+    
+    console.log(`📿 Application trait accessoire "${traitName}" (slot ${slotNumber}, ${isPositive ? 'positif' : 'négatif'})`);
+    
+    // **Utiliser la même logique que pour les armures**
+    switch (traitName) {
+        // **TRAITS DE CARACTÉRISTIQUES**
+        case "habile":
+            system.majeures.dexterite.equipement += 1 * multiplier;
+            break;
+        case "perspicace":
+            system.majeures.sagesse.equipement += 1 * multiplier;
+            break;
+        case "costaud":
+            system.majeures.force.equipement += 1 * multiplier;
+            break;
+        case "joli":
+            system.majeures.charisme.equipement += 1 * multiplier;
+            break;
+        case "solide":
+            system.majeures.defense.equipement += 1 * multiplier;
+            break;
+        case "chanceux":
+            system.majeures.chance.equipement += 1 * multiplier;
+            break;
+        case "malin":
+            system.majeures.intelligence.equipement += 1 * multiplier;
+            break;
+        case "robuste":
+            system.majeures.constitution.equipement += 1 * multiplier;
+            break;
+            
+        // **TRAITS RARES**
+        case "acrobatique":
+            system.majeures.dexterite.equipement += 2 * multiplier;
+            break;
+        case "ingénieux":
+        case "ingenieux":
+            system.majeures.sagesse.equipement += 2 * multiplier;
+            break;
+        case "puissant":
+            system.majeures.force.equipement += 2 * multiplier;
+            break;
+        case "splendide":
+            system.majeures.charisme.equipement += 2 * multiplier;
+            break;
+        case "incassable":
+            system.majeures.defense.equipement += 2 * multiplier;
+            break;
+        case "veinard":
+            system.majeures.chance.equipement += 2 * multiplier;
+            break;
+        case "réfléchi":
+        case "reflechi":
+            system.majeures.intelligence.equipement += 2 * multiplier;
+            break;
+            
+        // **TRAITS ÉPIQUES**
+        case "vif":
+            system.majeures.dexterite.equipement += 3 * multiplier;
+            break;
+        case "clairvoyant":
+            system.majeures.sagesse.equipement += 3 * multiplier;
+            break;
+        case "féroce":
+        case "feroce":
+            system.majeures.force.equipement += 3 * multiplier;
+            break;
+        case "magnifique":
+            system.majeures.charisme.equipement += 3 * multiplier;
+            break;
+        case "indestructible":
+            system.majeures.defense.equipement += 3 * multiplier;
+            break;
+        case "bienheureux":
+            system.majeures.chance.equipement += 3 * multiplier;
+            break;
+        case "cérébral":
+        case "cerebral":
+            system.majeures.intelligence.equipement += 3 * multiplier;
+            break;
+        case "inébranlable":
+        case "inebranlable":
+            system.majeures.constitution.equipement += 3 * multiplier;
+            break;
+            
+        // **TRAITS SPÉCIAUX D'ACCESSOIRES**
+        case "amortissant":
+            system.bouclier = (system.bouclier || 0) + (2 * multiplier);
+            break;
+        case "absorbant":
+            system.bouclier = (system.bouclier || 0) + (4 * multiplier);
+            break;
+        case "engloutissant":
+            system.bouclier = (system.bouclier || 0) + (8 * multiplier);
+            break;
+        case "magique":
+            system.bonusPSY = (system.bonusPSY || 0) + (2 * multiplier);
+            break;
+        case "psychique":
+            system.bonusPSY = (system.bonusPSY || 0) + (4 * multiplier);
+            break;
+        case "rapide":
+        case "fulgurant":
+            system.bonusVitesse = (system.bonusVitesse || 0) + (1 * multiplier);
+            break;
+            
+        default:
+            console.warn(`⚠️ Trait d'accessoire non reconnu: "${traitName}"`);
+            break;
+    }
+}
 // **NOUVELLE MÉTHODE : Appliquer l'effet d'un trait d'arme**
 _applyTraitEffect(trait, system, isPositive, weaponType) {
     const traitName = trait.nom || trait.name || trait;
@@ -1042,7 +1175,47 @@ _applyArmorTraitEffect(trait, system, isPositive) {
             break;
     }
 }
-// **NOUVELLE MÉTHODE : Recalculer les stats dérivées après application des traits**
+
+
+
+// **AJOUT : Méthode utilitaire pour extraire les nombres des descriptions**
+_extractNumberFromTrait(text) {
+    if (!text || typeof text !== 'string') return 1;
+    
+    // Chercher des patterns comme "+2", "-3", "2 points", etc.
+    const matches = text.match(/[+-]?\d+/);
+    if (matches) {
+        return parseInt(matches[0]);
+    }
+    
+    // Si aucun nombre trouvé, retourner 1 par défaut
+    return 1;
+}
+
+// **CORRECTION : Éviter la boucle infinie dans calculateTraitsEffects**
+async calculateTraitsEffects() {
+    // **PROTECTION : Éviter les boucles infinies**
+    if (this._calculatingTraits) {
+        console.log("⚠️ Calcul des traits déjà en cours, éviter la boucle");
+        return;
+    }
+    
+    this._calculatingTraits = true;
+    
+    try {
+        console.log("🔧 Application des traits d'équipement");
+        // ... votre code existant ...
+        
+        console.log("✅ Traits d'équipement appliqués");
+        
+        // **NE PAS rappeler prepareData() ici pour éviter la boucle**
+        // this.prepareData(); // ← SUPPRIMER CETTE LIGNE
+        
+    } finally {
+        this._calculatingTraits = false;
+    }
+}
+
 _recalculateDerivedStats(system) {
     console.log("🔄 Recalcul des statistiques dérivées avec traits");
     

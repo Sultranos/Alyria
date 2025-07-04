@@ -2,6 +2,10 @@ import AlyriaItemSheet from "./sheet/AlyriaItemSheet.js";
 import AlyriaActorSheet from "./sheet/AlyriaActorSheet.js";
 import AlyriaActor from "./AlyriaActor.js";
 import { genererArmeAleatoire, genererNomArme } from "./arme-generator.js";
+import './accessoire-generator.js';
+import './armure-generator.js';
+import { FOLIE_PSYCHIQUE_TABLE } from "./data/TableAleatoires/FoliePsychique.js";
+
 
 Hooks.once("init", () => {
     console.log("Alyria | Initialisation du système Alyria");
@@ -83,6 +87,44 @@ Hooks.once("init", () => {
         const parts = sortId.split(':');
         return parts[parts.length - 1] || 'Sort inconnu';
     });
+});
+
+// **Créer les tables au démarrage**
+Hooks.once('ready', async () => {
+    console.log("🎲 Création des tables aléatoires d'Alyria");
+    
+    // **Vérifier si la table existe déjà**
+    const existingTable = game.tables.find(t => t.name === FOLIE_PSYCHIQUE_TABLE.name);
+    
+    if (!existingTable) {
+        try {
+            // **Créer la table**
+            const tableData = {
+                name: FOLIE_PSYCHIQUE_TABLE.name,
+                description: FOLIE_PSYCHIQUE_TABLE.description,
+                formula: FOLIE_PSYCHIQUE_TABLE.formula
+            };
+            
+            const table = await RollTable.create(tableData);
+            
+            // **Créer les résultats**
+            const results = FOLIE_PSYCHIQUE_TABLE.results.map(result => ({
+                type: result.type,
+                text: result.text,
+                range: result.range,
+                drawn: false
+            }));
+            
+            await table.createEmbeddedDocuments("TableResult", results);
+            
+            console.log(`✅ Table "${FOLIE_PSYCHIQUE_TABLE.name}" créée avec succès`);
+            
+        } catch (error) {
+            console.error("❌ Erreur lors de la création de la table:", error);
+        }
+    } else {
+        console.log(`✅ Table "${FOLIE_PSYCHIQUE_TABLE.name}" existe déjà`);
+    }
 });
 
 // **NOUVEAU : Système d'unicité des armes**
@@ -218,5 +260,290 @@ Hooks.on("createItem", async (item, options, userId) => {
             
             console.log(`📦 Item auto-ajouté: ${item.name} → ${actor.name}`);
         }
+    }
+});
+
+
+
+Hooks.once('init', async function() {
+    // ... autre code ...
+    
+    console.log("🎭 Alyria System | Chargement des générateurs...");
+});
+
+Hooks.once('ready', async function() {
+    console.log("🎭 Alyria System | Ready");
+    
+    // **Vérifier que les générateurs sont chargés**
+    if (game.genererArmeAleatoire) {
+        console.log("✅ Générateur d'armes chargé");
+    }
+    if (game.genererArmureAleatoire) {
+        console.log("✅ Générateur d'armures chargé");
+    }
+    if (game.genererAccessoireAleatoire) {
+        console.log("✅ Générateur d'accessoires chargé");
+    } else {
+        console.warn("⚠️ Générateur d'accessoires non chargé");
+    }
+});
+
+// **AJOUT dans Alyria.js - Synchronisation feuille acteur ↔ token**
+
+// **1. Hook sur l'ouverture des feuilles**
+Hooks.on("renderActorSheet", async (app, html, data) => {
+    console.log(`📋 Feuille ouverte: ${app.actor.name}`);
+    console.log(`🔍 UUID: ${app.actor.uuid}`);
+    console.log(`🔍 Type: ${app.actor.isToken ? 'Token' : 'Base'}`);
+    
+    // **Synchroniser les données si c'est un token actor**
+    if (app.actor.isToken) {
+        await synchronizeTokenWithBaseActor(app.actor);
+    }
+});
+
+// **2. Hook sur la fermeture des feuilles**
+Hooks.on("closeActorSheet", async (app, html) => {
+    console.log(`📋 Feuille fermée: ${app.actor.name}`);
+    
+    // **Si c'est un token actor, synchroniser vers l'acteur de base**
+    if (app.actor.isToken) {
+        await synchronizeTokenToBaseActor(app.actor);
+    }
+});
+
+// **3. Hook sur les mises à jour d'acteur**
+Hooks.on("updateActor", async (actor, changes, options, userId) => {
+    console.log(`🔄 Mise à jour acteur: ${actor.name}`);
+    
+    // **Synchroniser les tokens liés**
+    if (!actor.isToken) {
+        await synchronizeBaseActorToTokens(actor);
+    }
+});
+
+// **4. Hook sur les mises à jour de token**
+Hooks.on("updateToken", async (tokenDoc, changes, options, userId) => {
+    console.log(`🎭 Mise à jour token: ${tokenDoc.actor?.name}`);
+    
+    // **Synchroniser l'acteur de base si nécessaire**
+    if (tokenDoc.actor && changes.actorData) {
+        await synchronizeTokenToBaseActor(tokenDoc.actor);
+    }
+});
+
+// **FONCTION 1 : Synchroniser Token → Acteur de base**
+async function synchronizeTokenToBaseActor(tokenActor) {
+    if (!tokenActor.isToken) return;
+    
+    try {
+        const baseActor = game.actors.get(tokenActor.id);
+        if (!baseActor) {
+            console.warn(`⚠️ Acteur de base introuvable pour: ${tokenActor.name}`);
+            return;
+        }
+        
+        console.log(`🔄 Synchronisation Token → Base: ${tokenActor.name}`);
+        
+        // **Copier les données importantes**
+        const syncData = {
+            "system.inventaire": tokenActor.system.inventaire,
+            "system.majeures": tokenActor.system.majeures,
+            "system.mineures": tokenActor.system.mineures,
+            "system.experience": tokenActor.system.experience,
+            "system.sante": tokenActor.system.sante,
+            "system.psyche": tokenActor.system.psyche,
+            "system.talents": tokenActor.system.talents,
+            "system.passifs": tokenActor.system.passifs,
+            "system.sorts": tokenActor.system.sorts
+        };
+        
+        // **Nettoyer les données undefined**
+        Object.keys(syncData).forEach(key => {
+            if (syncData[key] === undefined) {
+                delete syncData[key];
+            }
+        });
+        
+        await baseActor.update(syncData);
+        console.log(`✅ Synchronisation Token → Base terminée: ${tokenActor.name}`);
+        
+    } catch (error) {
+        console.error(`❌ Erreur synchronisation Token → Base:`, error);
+    }
+}
+
+// **FONCTION 2 : Synchroniser Acteur de base → Token**
+async function synchronizeTokenWithBaseActor(tokenActor) {
+    if (!tokenActor.isToken) return;
+    
+    try {
+        const baseActor = game.actors.get(tokenActor.id);
+        if (!baseActor) {
+            console.warn(`⚠️ Acteur de base introuvable pour: ${tokenActor.name}`);
+            return;
+        }
+        
+        console.log(`🔄 Synchronisation Base → Token: ${tokenActor.name}`);
+        
+        // **Trouver le token sur la scène**
+        const token = canvas.tokens?.placeables.find(t => t.actor === tokenActor);
+        if (!token) {
+            console.warn(`⚠️ Token introuvable sur la scène: ${tokenActor.name}`);
+            return;
+        }
+        
+        // **Copier les données de l'acteur de base**
+        const syncData = {
+            "actorData.system.inventaire": baseActor.system.inventaire,
+            "actorData.system.majeures": baseActor.system.majeures,
+            "actorData.system.mineures": baseActor.system.mineures,
+            "actorData.system.experience": baseActor.system.experience,
+            "actorData.system.sante": baseActor.system.sante,
+            "actorData.system.psyche": baseActor.system.psyche,
+            "actorData.system.talents": baseActor.system.talents,
+            "actorData.system.passifs": baseActor.system.passifs,
+            "actorData.system.sorts": baseActor.system.sorts
+        };
+        
+        // **Nettoyer les données undefined**
+        Object.keys(syncData).forEach(key => {
+            if (syncData[key] === undefined) {
+                delete syncData[key];
+            }
+        });
+        
+        await token.document.update(syncData);
+        console.log(`✅ Synchronisation Base → Token terminée: ${tokenActor.name}`);
+        
+    } catch (error) {
+        console.error(`❌ Erreur synchronisation Base → Token:`, error);
+    }
+}
+
+// **FONCTION 3 : Synchroniser Base → Tous les tokens**
+async function synchronizeBaseActorToTokens(baseActor) {
+    try {
+        const linkedTokens = canvas.tokens?.placeables.filter(t => 
+            t.actor && t.actor.id === baseActor.id && t.actor.isToken
+        ) || [];
+        
+        if (linkedTokens.length === 0) return;
+        
+        console.log(`🔄 Synchronisation Base → ${linkedTokens.length} tokens: ${baseActor.name}`);
+        
+        for (const token of linkedTokens) {
+            const syncData = {
+                "actorData.system.inventaire": baseActor.system.inventaire,
+                "actorData.system.majeures": baseActor.system.majeures,
+                "actorData.system.mineures": baseActor.system.mineures,
+                "actorData.system.experience": baseActor.system.experience,
+                "actorData.system.sante": baseActor.system.sante,
+                "actorData.system.psyche": baseActor.system.psyche,
+                "actorData.system.talents": baseActor.system.talents,
+                "actorData.system.passifs": baseActor.system.passifs,
+                "actorData.system.sorts": baseActor.system.sorts
+            };
+            
+            // **Nettoyer les données undefined**
+            Object.keys(syncData).forEach(key => {
+                if (syncData[key] === undefined) {
+                    delete syncData[key];
+                }
+            });
+            
+            await token.document.update(syncData);
+        }
+        
+        console.log(`✅ Synchronisation Base → Tokens terminée: ${baseActor.name}`);
+        
+    } catch (error) {
+        console.error(`❌ Erreur synchronisation Base → Tokens:`, error);
+    }
+}
+
+// **FONCTION 4 : Forcer la synchronisation avant ouverture**
+Hooks.on("preRenderActorSheet", async (app, html, data) => {
+    console.log(`🔍 Pré-rendu feuille: ${app.actor.name} (${app.actor.isToken ? 'Token' : 'Base'})`);
+    
+    // **Synchronisation préventive**
+    if (app.actor.isToken) {
+        // **S'assurer que le token a les dernières données**
+        await synchronizeTokenWithBaseActor(app.actor);
+    } else {
+        // **S'assurer que les tokens sont à jour**
+        await synchronizeBaseActorToTokens(app.actor);
+    }
+});
+
+// **FONCTION 5 : Macro manuelle de synchronisation**
+window.synchronizeActorData = async function(actorId) {
+    const actor = game.actors.get(actorId);
+    if (!actor) {
+        ui.notifications.error("Acteur introuvable !");
+        return;
+    }
+    
+    console.log(`🔄 Synchronisation manuelle: ${actor.name}`);
+    
+    // **Synchroniser dans les deux sens**
+    await synchronizeBaseActorToTokens(actor);
+    
+    const linkedTokens = canvas.tokens?.placeables.filter(t => 
+        t.actor && t.actor.id === actor.id && t.actor.isToken
+    ) || [];
+    
+    for (const token of linkedTokens) {
+        await synchronizeTokenToBaseActor(token.actor);
+    }
+    
+    ui.notifications.success(`Synchronisation terminée pour ${actor.name} !`);
+};
+
+// **FONCTION 6 : Auto-refresh des feuilles ouvertes**
+Hooks.on("updateActor", (actor, changes, options, userId) => {
+    // **Rafraîchir toutes les feuilles ouvertes de cet acteur**
+    Object.values(ui.windows).forEach(app => {
+        if (app instanceof ActorSheet && 
+            (app.actor.id === actor.id || 
+             (app.actor.isToken && app.actor.id === actor.id))) {
+            
+            console.log(`🔄 Refresh feuille: ${app.actor.name}`);
+            app.render(false); // Refresh sans recalculer
+        }
+    });
+});
+
+console.log("✅ Système de synchronisation Token ↔ Acteur installé");
+
+// **AJOUT : Bouton de synchronisation dans les feuilles**
+Hooks.on("renderActorSheet", (app, html, data) => {
+    // **Ajouter un bouton de synchronisation**
+    const header = html.find('.window-header');
+    if (header.length > 0) {
+        const syncButton = $(`
+            <a class="sync-actor-data" title="Synchroniser les données">
+                <i class="fas fa-sync-alt"></i>
+            </a>
+        `);
+        
+        syncButton.click(async (event) => {
+            event.preventDefault();
+            console.log(`🔄 Synchronisation manuelle demandée: ${app.actor.name}`);
+            
+            if (app.actor.isToken) {
+                await synchronizeTokenToBaseActor(app.actor);
+                await synchronizeTokenWithBaseActor(app.actor);
+            } else {
+                await synchronizeBaseActorToTokens(app.actor);
+            }
+            
+            // **Refresh la feuille**
+            app.render(true);
+            
+            ui.notifications.success("Synchronisation terminée !");
+        });
+        
+        header.find('.close').before(syncButton);
     }
 });

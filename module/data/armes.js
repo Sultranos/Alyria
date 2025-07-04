@@ -131,4 +131,28 @@ export const ARMURES = [
     { nom: "Armure de Cuir de Kodo", encombrement: 6, typeArmure: "Légère", description: "Une armure épaisse et robuste faite du cuir incroyablement résistant du kodo, une bête de somme massive. Idéale pour les environnements rudes, elle offre une protection fiable contre les chocs et les éléments." }
 ];
 
+export const Accessoires = [
+  { nom: "Ceinture", categorie: "Accessoire", encombrement: 2, description: "permets un maintient abdominal"},
+  { nom: "Bottes de Vitesse", categorie: "Accessoire", encombrement: 2, description: "augmente la vitesse de déplacement"},
+  { nom: "Cape", categorie: "Accessoire", encombrement: 4, description: "rend invisible celui qui la porte pendant un court laps de temps d'apres le vendeur"},
+  { nom: "Anneau", categorie: "Accessoire", encombrement: 1, description: "offre une protection magique contre les attaques"},
+  { nom: "Amulette", categorie: "Accessoire", encombrement: 1, description: "permet de soigner les blessures mineures"},
+  { nom: "Gants", categorie: "Accessoire", encombrement: 2, description: "protege les main du froid, du chaud, des frottements et des coupures"},
+  { nom: "Collier", categorie: "Accessoire", encombrement: 1, description: "augmente les chances d'etre dérobé en soirée mondaine"},
+  { nom: "Bague", categorie: "Accessoire", encombrement: 1, description: "Cercle métallique qui peut conférer des pouvoirs magiques ou protecteurs."},
+  { nom: "Lunettes", categorie: "Accessoire", encombrement: 1, description: "permet de voir dans le jour le plus total"},
 
+];
+
+export const Armes_Secondaire = [
+  { nom: "Cestus", categorie: "Secondaire",  encombrement: 2, mains: 1, description: "Un gant de combat renforcé, utilisé pour les attaques rapides et les parades." },
+  { nom: "Fétiche", categorie: "Secondaire", encombrement: 2, mains: 1, description: "Un petit objet rituel utilisé pour canaliser la magie ou les esprits." },
+  { nom: "Parchemin", categorie: "Secondaire", encombrement: 2, mains: 1, description: "Un petit bouclier léger, utilisé pour la défense et les attaques rapides." },
+  { nom: "Orbe", categorie: "Secondaire", encombrement: 2, mains: 1, description: "Un globe magique utilisé pour la divination ou la protection." },
+  { nom: "Grimoire", categorie: "Secondaire", encombrement: 2, mains: 1, description: "Un livre de sorts ou de rituels, utilisé par les mages et les sorciers." },
+  { nom: "Cristal", categorie: "Secondaire", encombrement: 2, mains: 1, description: "Un cristal magique utilisé pour canaliser l'énergie ou les sorts." },
+  { nom: "Bocle", categorie: "Secondaire", encombrement: 2, mains: 1, description: "Un petit bouclier léger, utilisé pour la défense et les attaques rapides." },
+  { nom: "Bouclier", categorie: "Secondaire", encombrement: 4, mains: 1, description: "Un bouclier plus grand, utilisé pour la défense et les attaques de mêlée." },
+  { nom: "Pavois", categorie: "Secondaire", encombrement: 6, mains: 2, description: "Un grand bouclier utilisé pour la défense en combat rapproché." },
+
+];

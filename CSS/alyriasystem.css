@@ -102,6 +102,8 @@
     padding: 10px;
     border-radius: 5px;
     background: #c1e7eea1;
+    width: 292px;
+    overflow-x: hidden;
 }
 
 .carac-value {
@@ -183,18 +185,20 @@ hr.section-divider {
     flex-direction: row; /* Aligne les éléments en ligne (côte à côte) */
     gap: 5px; /* Espace entre les colonnes principales */
     height: 100%; /* Important si les onglets doivent prendre toute la hauteur */
+    width: 848px; /* Largeur totale de la feuille */
 }
 
 /* Colonne principale des Caractéristiques et État */
 .sheet-main-content {
-    flex: 0 0 315px; /* GARDER cette largeur fixe */
+    flex: 0 0 300px; /* GARDER cette largeur fixe */
     overflow-y: auto;
-    padding-right: 10px;
+    padding-right: 3px;
+    border-right: 1px solid #ccc; /* Séparateur visuel */
 }
 
 /* Colonne de navigation à droite */
 .sheet-navigation {
-    flex: 0 0 150px; /* Largeur fixe pour la colonne de navigation (ajustez si besoin) */
+    flex: 0 0 150px !important; /* Largeur fixe pour la colonne de navigation (ajustez si besoin) */
     display: flex;
     flex-direction: column; /* Les boutons s'empilent verticalement */
     gap: 5px; /* Espacement entre les boutons */
@@ -228,11 +232,12 @@ hr.section-divider {
 
 /* Conteneur des onglets */
 .sheet-content {
-    flex: 3; /* Prend la majorité de l'espace restant pour le contenu de l'onglet */
+    flex: 0 0 340px; /* Prend la majorité de l'espace restant pour le contenu de l'onglet */
     position: relative; /* Nécessaire pour le positionnement absolu des onglets */
     height: 100%; /* Important pour que les onglets remplissent la hauteur */
     padding-left: 10px; /* Espacement par rapport à la navigation */
     overflow: hidden; /* Empêche le contenu de déborder du conteneur si un onglet est trop grand */
+    
 }
 
 /* Styles des onglets individuels */
@@ -244,12 +249,12 @@ hr.section-divider {
     width: 100%;
     height: 100%;
     overflow-y: auto; /* Permet le défilement du contenu de l'onglet */
-    padding-right: 10px; /* Un petit padding pour le scrollbar si présent */
+    padding-right: 2px; /* Un petit padding pour le scrollbar si présent */
     box-sizing: border-box; /* Inclut le padding dans la largeur/hauteur */
 }
 
 .sheet-content .tab.active {
-    display: block; /* Affiche l'onglet actif */
+    display: block !important; /* Affiche l'onglet actif */
 }
 
 /* Styles pour les jauges */
@@ -539,8 +544,8 @@ hr.section-divider {
 }
 /* Cartouche compact d'arme */
 .weapon-compact {
-    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95), rgba(15, 15, 15, 0.95));
-    border: 2px solid #444;
+    background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(237, 100, 42, 0.745));
+    border: 2px solid #000000;
     border-radius: 8px;
     padding: 10px;
     margin: 5px 0;
@@ -580,7 +585,7 @@ hr.section-divider {
 
 .weapon-compact-header {
     display: flex;
-    align-items: center;
+    align-items: left;
     gap: 10px;
     margin-bottom: 8px;
 }
@@ -607,8 +612,6 @@ hr.section-divider {
     overflow: hidden;
     text-overflow: ellipsis;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    /* Couleur par défaut (commune) */
-    color: #9E9E9E !important;
 }
 
 /* Couleurs spécifiques par rareté */
@@ -1013,8 +1016,8 @@ hr.section-divider {
 
 /* **AJOUT : Styles pour les cartouches d'armure** */
 .armor-compact {
-    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95), rgba(15, 15, 15, 0.95));
-    border: 2px solid #444;
+    background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(237, 165, 42, 0.745));
+    border: 2px solid #000000;
     border-radius: 8px;
     padding: 10px;
     margin: 5px 0;
@@ -1133,6 +1136,144 @@ hr.section-divider {
     color: #f44336 !important;
 }
 
+/* **CORRECTION UNIQUEMENT ACCESSOIRES : Structure identique aux armures** */
+.accessory-compact-content {
+    position: relative;
+    z-index: 1;
+}
+
+.accessory-compact-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.accessory-compact-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid #555 !important;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.accessory-compact-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.accessory-compact-name {
+    font-size: 0.9em;
+    font-weight: bold;
+    margin: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.accessory-compact-stats {
+    display: flex;
+    gap: 8px;
+    font-size: 11px;
+    align-items: center;
+}
+
+.encombrement-compact {
+    color: #FF9800;
+    font-weight: bold;
+    background: rgba(255, 152, 0, 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 152, 0, 0.3);
+}
+
+.value-compact {
+    color: #2196F3;
+    font-weight: bold;
+    background: rgba(33, 150, 243, 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid rgba(33, 150, 243, 0.3);
+}
+
+/* **Actions identiques aux armures** */
+.accessory-compact-actions {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.accessory-compact:hover .accessory-compact-actions {
+    opacity: 1;
+}
+
+.accessory-compact-actions button {
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    transition: all 0.2s ease;
+}
+
+.accessory-compact-actions button:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
+}
+
+.accessory-open:hover {
+    color: #2196F3 !important;
+}
+
+.item-equip:hover {
+    color: #4CAF50 !important;
+}
+
+.item-remove:hover {
+    color: #f44336 !important;
+}
+
+/* **Traits identiques aux armures** */
+.accessory-compact-traits {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* **Couleurs de rareté pour accessoires uniquement** */
+.accessory-compact[data-rarity="Commune"] {
+    border-color: #9E9E9E !important;
+}
+
+.accessory-compact[data-rarity="Commune"]:hover {
+    border-color: #BDBDBD !important;
+    box-shadow: 0 4px 12px rgba(158, 158, 158, 0.3) !important;
+}
+
+.accessory-compact[data-rarity="Legendaire"] {
+    border-color: #FF9800 !important;
+}
+
+.accessory-compact[data-rarity="Legendaire"]:hover {
+    border-color: #FFB74D !important;
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3) !important;
+}
+
 /* **AJOUTER à la fin du fichier alyriasystem.css :** */
 
 /* **NOUVEAU : Styles pour les cartouches de sorts** */
@@ -1179,7 +1320,7 @@ hr.section-divider {
 
 .sort-cartouche:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .sort-compact {
@@ -1283,6 +1424,7 @@ hr.section-divider {
 
 /* **AJOUT : Styles pour les traits compacts** */
 .weapon-compact-traits,
+.accessory-compact-traits,
 .armor-compact-traits {
     display: flex;
     gap: 8px;
@@ -1436,7 +1578,7 @@ hr.section-divider {
 .dialog.window-app .window-title:contains("Création de Personnage"),
 .dialog.window-app .window-title:contains("Sélection des Talents"),
 .dialog.window-app .window-title:contains("Sélection des Sorts") {
-    min-width: 600px !important; /* CHANGÉ de 500px à 800px */
+    min-width: 650px !important; /* CHANGÉ de 500px à 800px */
     padding: 10px 15px !important; /* Réduire le padding latéral si nécessaire */
     overflow-x: auto !important; /* Permettre le défilement horizontal si besoin */
 }
@@ -1447,8 +1589,8 @@ hr.section-divider {
 .dialog.window-app:has(.character-creation-form),
 .dialog.window-app:has(.talent-selection-form),
 .dialog.window-app:has(.spell-selection-form) {
-    width: 700px !important; /* CHANGÉ de 500px à 800px */
-    min-width: 700px !important; /* CHANGÉ de 500px à 800px */
+    width: 600px !important; /* CHANGÉ de 500px à 800px */
+    min-width: 600px !important; /* CHANGÉ de 500px à 800px */
 }
 
 /* AJOUT : Ajuster le contenu pour éviter la troncature */
@@ -2173,6 +2315,7 @@ hr.section-divider {
     50% {
         transform: scale(1.1);
     }
+        
     100% {
         transform: scale(1);
         opacity: 1;
@@ -2290,12 +2433,13 @@ hr.section-divider {
 /* **Labels des slots** */
 .accessory-slot-label {
     background: rgba(33, 150, 243, 0.2);
-    color: #1976D2;
+    color: #000000;
     padding: 1px 4px;
     border-radius: 4px;
     font-size: 9px;
     font-weight: bold;
     margin-left: 5px;
+    
 }
 
 /* **Grille des accessoires adaptée** */
@@ -2317,3 +2461,47 @@ hr.section-divider {
     padding-bottom: 5px;
     border-bottom: 1px solid #ddd;
 }
+
+/* **AJOUT : Styles manquants pour accessoires compacts** */
+.accessory-compact {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(214, 237, 42, 0.745));
+    border: 2px solid #000000;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 5px 0;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+    width: 325px;
+}
+
+.accessory-compact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.02),
+        rgba(255, 255, 255, 0.02) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    pointer-events: none;
+}
+
+
+/* **Couleurs de rareté spécifiques aux accessoires** */
+.accessory-compact {
+    border-color: #000000 !important;
+}
+
+.accessory-compact:hover {
+    border-color: #BA68C8 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(156, 39, 176, 0.3) !important;
+}
+

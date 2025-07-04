@@ -33,7 +33,7 @@ async getData(options) {
     context.flags = actor.flags || {};   // **CORRECTION : actor.flags au lieu de actorData.flags**
 
     // **CORRECTION : Inventaire asynchrone**
-    context.inventaire = await InventoryManager.prepareInventoryData(this.actor);
+    context.inventaire = this._prepareInventoryData();
     // In your getData() method, add this line:
     context.rankImagePath = `systems/alyria/module/data/images/icones/${context.system.rang || 'Novice'}.png`;
 
@@ -218,7 +218,6 @@ if (system.historique) {
     // **HELPER : Préparer les données de race**
     _prepareRaceData(raceKey) {
         const raceData = AlyriaRaces?.[raceKey] ?? {};
-        console.log("🔍 Race data pour", raceKey, ":", raceData);
         
         return {
             nom: raceData.nom || "Non définie",
@@ -263,8 +262,7 @@ if (system.historique) {
     _prepareVoieData(voieKey) {
         const voie = AlyriaVoies?.[voieKey];
         if (!voie) return null;
-        
-        console.log("🔍 Voie data pour", voieKey, ":", voie);        
+                
         return {
             nom: voie.nom || voieKey,
             description: voie.description || [],
@@ -361,19 +359,32 @@ activateListeners(html) {
     html.find('.item-slot').on('dragover', this._onEquipmentSlotDragOver.bind(this));
     html.find('.item-slot').on('dragleave', this._onEquipmentSlotDragLeave.bind(this));
     
-    // **ACTIONS ITEMS - CORRECTION : Utiliser les méthodes qui existent**
+    // **ACTIONS D'ITEMS GÉNÉRIQUES**
     html.find('.item-equip').click(this._onItemEquip.bind(this));
     html.find('.item-remove').click(this._onItemRemove.bind(this));
-    html.find('.item-open').click(this._onItemOpen.bind(this));
+    html.find('.item-open, .item-edit').click(this._onItemOpen.bind(this));
     
-    // **ACTIONS ARMES - CORRECTION : Noms corrects**
-    html.find('.weapon-open').click(this._onWeaponOpen.bind(this));
-    html.find('.weapon-unequip').click(this._onWeaponUnequip.bind(this));
+    // **ÉQUIPEMENTS SPÉCIFIQUES - ARMES**
+    html.find('.weapon-open, .weapon-edit, .arme-open').click(this._onWeaponOpen.bind(this));
+    html.find('.weapon-unequip, .arme-unequip').click(this._onWeaponUnequip.bind(this));
     
-    // **ACTIONS ARMURES - CORRECTION : Noms corrects**
-    html.find('.armor-open').click(this._onArmorOpen.bind(this));
-    html.find('.armor-unequip').click(this._onArmorUnequip.bind(this));
+    // **NOUVEAUX SÉLECTEURS : Pour l'équipement affiché**
+    html.find('.equipped-weapon .weapon-name, .equipped-weapon .item-name').click(this._onWeaponOpen.bind(this));
+    html.find('.equipped-armor .armor-name, .equipped-armor .item-name').click(this._onArmorOpen.bind(this));
+    html.find('.equipped-accessory .accessory-name, .equipped-accessory .item-name').click(this._onItemOpen.bind(this));
     
+    // **ACTIONS D'ARMURES**
+    html.find('.armor-open, .armure-open').click(this._onArmorOpen.bind(this));
+    html.find('.armor-unequip, .armure-unequip').click(this._onArmorUnequip.bind(this));
+    
+        // **AJOUT : ACTIONS D'ACCESSOIRES**
+    html.find('.accessory-open, .accessoire-open').click(this._onAccessoryOpen.bind(this));
+    html.find('.accessory-unequip, .accessoire-unequip').click(this._onAccessoryUnequip.bind(this));
+    
+    // **AJOUT : Listeners génériques pour tous les équipements**
+    html.find('.equipped-accessory .accessory-name, .equipped-accessory .item-name').click(this._onAccessoryOpen.bind(this));
+    html.find('.accessory-compact .accessory-name').click(this._onAccessoryOpen.bind(this));
+   
     // **DÉSÉQUIPEMENT GÉNÉRIQUE**
     html.find('.item-unequip').click(this._onUnequipItem.bind(this));
     
@@ -381,7 +392,7 @@ activateListeners(html) {
     html.find('.sort-icon-square, .sort-cast-button').click(this._onCastSpell.bind(this));
     html.find('.sort-expand-btn').click(this._onToggleSortDetails.bind(this));
     
-    // **BULLES BIOGRAPHIQUES - CORRECTION : Version jQuery simplifiée**
+    // **BULLES BIOGRAPHIQUES**
     html.find('.biography-bubble .bubble-title').off('click').on('click', (event) => {
         event.preventDefault();
         const title = event.currentTarget;
@@ -398,9 +409,9 @@ activateListeners(html) {
         }
     });
     
-    // **DRAG START - CORRECTION : Vérifier si la méthode existe**
+    // **DRAG START**
     if (this._onDragStart) {
-        html.find('.inventory-item[draggable="true"]').on('dragstart', this._onDragStart.bind(this));
+        html.find('.inventory-item[draggable="true"], .item[draggable="true"]').on('dragstart', this._onDragStart.bind(this));
     }
     
     console.log("✅ Tous les listeners activés correctement");
@@ -517,8 +528,6 @@ _onTabClick(event) {
     const clickedTab = event.currentTarget;
     const targetTab = clickedTab.dataset.tab;
     
-    console.log("Changement d'onglet vers:", targetTab);
-    
     // **CORRECTION : Chercher dans toute la feuille au lieu de .sheet-navigation**
     const sheetElement = clickedTab.closest('.alyria');
     if (!sheetElement) {
@@ -545,7 +554,7 @@ _onTabClick(event) {
     if (targetContent) {
         targetContent.classList.add('active');
         targetContent.style.display = 'block';
-        console.log("✅ Onglet affiché:", targetTab);
+        
     } else {
         console.error("❌ Onglet non trouvé:", targetTab);
     }
@@ -582,12 +591,12 @@ _onBubbleToggle(event) {
         content.classList.remove('hidden');
         icon.classList.remove('fa-chevron-down');
         icon.classList.add('fa-chevron-up');
-        console.log("📖 Bulle ouverte");
+        
     } else {
         content.classList.add('hidden');
         icon.classList.remove('fa-chevron-up');
         icon.classList.add('fa-chevron-down');
-        console.log("📕 Bulle fermée");
+        
     }
 }
 
@@ -663,40 +672,102 @@ async _onInventoryDrop(event) {
 async _onItemEquip(event) {
     event.preventDefault();
     
-    const itemId = event.currentTarget.dataset.itemId;
-    const equipType = event.currentTarget.dataset.equipType;
+    let itemId = event.currentTarget.dataset.itemId;
+    let equipType = event.currentTarget.dataset.equipType;
+    
+    // **RÉCUPÉRATION D'ID EXISTANTE...**
+    if (!itemId) {
+        const itemContainer = event.currentTarget.closest('[data-item-id]');
+        if (itemContainer) {
+            itemId = itemContainer.dataset.itemId;
+            console.log("🔧 ID récupéré depuis parent proche:", itemId);
+        }
+    }
+    
+    // ... autres méthodes de récupération ...
     
     console.log(`🎯 Équipement de l'item ${itemId} en tant que ${equipType}`);
     
     if (!itemId || !equipType) {
+        console.error("❌ Données manquantes:", { itemId, equipType });
         ui.notifications.error("Données d'équipement manquantes !");
         return;
     }
     
-    // **Gestion spéciale pour les accessoires**
+    // **Vérifier que l'item existe**
+    const item = this.actor.items.get(itemId);
+    if (!item) {
+        ui.notifications.error("Objet non trouvé !");
+        console.error("❌ Item non trouvé:", itemId);
+        return;
+    }
+    
+    // **CORRECTION : Gestion des accessoires avec vérification de l'état réel**
     let finalEquipType = equipType;
     if (equipType === "accessoire") {
-        const inventory = this.actor.system.inventaire || InventoryManager.initializeInventory();
+        const inventory = this.actor.system.inventaire || {};
         
-        const slot1Occupied = inventory.accessoire1 !== null;
-        const slot2Occupied = inventory.accessoire2 !== null;
+        // **VÉRIFICATION RÉELLE des slots d'accessoires**
+        const slot1Item = inventory.accessoire1;
+        const slot2Item = inventory.accessoire2;
         
-        if (!slot1Occupied) {
+       
+        // **Vérifier si les items équipés existent vraiment**
+        const slot1Valid = slot1Item && this.actor.items.get(slot1Item.id);
+        const slot2Valid = slot2Item && this.actor.items.get(slot2Item.id);
+        
+      
+        // **NETTOYER les références fantômes si nécessaire**
+        if (slot1Item && !slot1Valid) {
+            console.log("🧹 Nettoyage slot 1 fantôme:", slot1Item.name);
+            await this.actor.update({ "system.inventaire.accessoire1": null });
+            inventory.accessoire1 = null;
+        }
+        
+        if (slot2Item && !slot2Valid) {
+            console.log("🧹 Nettoyage slot 2 fantôme:", slot2Item.name);
+            await this.actor.update({ "system.inventaire.accessoire2": null });
+            inventory.accessoire2 = null;
+        }
+        
+        // **Déterminer le slot à utiliser APRÈS nettoyage**
+        if (!inventory.accessoire1) {
             finalEquipType = "accessoire1";
-        } else if (!slot2Occupied) {
+            console.log("✅ Utilisation du slot 1");
+        } else if (!inventory.accessoire2) {
             finalEquipType = "accessoire2";
+            console.log("✅ Utilisation du slot 2");
         } else {
-            // Demander quel slot remplacer
+            // Les deux slots sont vraiment occupés
+            const slot1Name = inventory.accessoire1.name || "Accessoire 1";
+            const slot2Name = inventory.accessoire2.name || "Accessoire 2";
+            
             const choice = await Dialog.confirm({
                 title: "Remplacer un accessoire ?",
-                content: `<p>Les deux slots d'accessoires sont occupés.</p>
-                         <p>Cliquez sur Oui pour remplacer le slot 1, Non pour le slot 2.</p>`,
+                content: `
+                    <div style="margin-bottom: 15px;">
+                        <p>Les deux slots d'accessoires sont occupés :</p>
+                        <ul>
+                            <li><strong>Slot 1 :</strong> ${slot1Name}</li>
+                            <li><strong>Slot 2 :</strong> ${slot2Name}</li>
+                        </ul>
+                        <p>Quel accessoire voulez-vous remplacer ?</p>
+                    </div>
+                `,
                 yes: () => true,
-                no: () => false
+                no: () => false,
+                defaultYes: false
+            }, {
+                title: "Choisir le slot",
+                yes: "Remplacer Slot 1",
+                no: "Remplacer Slot 2"
             });
             finalEquipType = choice ? "accessoire1" : "accessoire2";
+            console.log(`🔄 Remplacement choisi: ${finalEquipType}`);
         }
     }
+    
+    console.log(`🔧 Type final d'équipement: ${finalEquipType}`);
     
     const success = await InventoryManager.equipItemFromInventory(this.actor, itemId, finalEquipType);
     if (success) {
@@ -950,6 +1021,166 @@ async _onItemEquip(event) {
         }
     }
 
+        // **NOUVELLE MÉTHODE : _onAccessoryOpen - Ouvrir la fiche d'accessoire équipé**
+    async _onAccessoryOpen(event) {
+        event.preventDefault();
+        
+        let itemId = null;
+        let foundAccessory = null;
+        
+        // **MÉTHODE 1 : ID sur le bouton directement**
+        itemId = event.currentTarget.dataset.itemId;
+        
+        // **MÉTHODE 2 : ID sur l'élément parent**
+        if (!itemId) {
+            const accessoryElement = event.currentTarget.closest('[data-item-id]');
+            itemId = accessoryElement?.dataset.itemId;
+        }
+        
+        // **MÉTHODE 3 : ID depuis l'inventaire si pas trouvé**
+        if (!itemId) {
+            const inventaire = this.actor.system.inventaire;
+            const accessoire1 = inventaire?.accessoire1;
+            const accessoire2 = inventaire?.accessoire2;
+            
+            // **Essayer de deviner quel accessoire on veut ouvrir**
+            const slotIndex = event.currentTarget.dataset.slotIndex || 
+                             event.currentTarget.closest('[data-slot-index]')?.dataset.slotIndex;
+            
+            if (slotIndex === "1" && accessoire1?.id) {
+                itemId = accessoire1.id;
+                console.log("🔧 ID récupéré depuis accessoire1:", itemId);
+            } else if (slotIndex === "2" && accessoire2?.id) {
+                itemId = accessoire2.id;
+                console.log("🔧 ID récupéré depuis accessoire2:", itemId);
+            } else if (accessoire1?.id) {
+                // Fallback sur le premier accessoire
+                itemId = accessoire1.id;
+                console.log("🔧 ID récupéré depuis accessoire1 (fallback):", itemId);
+            } else if (accessoire2?.id) {
+                itemId = accessoire2.id;
+                console.log("🔧 ID récupéré depuis accessoire2 (fallback):", itemId);
+            }
+        }
+        
+        console.log("🔍 Recherche accessoire avec ID:", itemId);
+        
+        // **TENTATIVE 1 : Chercher par ID**
+        if (itemId) {
+            foundAccessory = this.actor.items.get(itemId);
+            if (foundAccessory) {
+                console.log("✅ Accessoire trouvé par ID:", foundAccessory.name);
+            } else {
+                console.log("❌ Accessoire non trouvé par ID, tentative par nom...");
+            }
+        }
+        
+        // **TENTATIVE 2 : Fallback par nom si ID ne marche pas**
+        if (!foundAccessory) {
+            const inventaire = this.actor.system.inventaire;
+            const accessoire1 = inventaire?.accessoire1;
+            const accessoire2 = inventaire?.accessoire2;
+            
+            let accessoryName = null;
+            if (accessoire1?.name) {
+                accessoryName = accessoire1.name;
+            } else if (accessoire2?.name) {
+                accessoryName = accessoire2.name;
+            }
+            
+            if (accessoryName) {
+                foundAccessory = this.actor.items.find(item => 
+                    item.type === "accessoire" && item.name === accessoryName
+                );
+                
+                if (foundAccessory) {
+                    console.log("✅ Accessoire trouvé par nom:", foundAccessory.name);
+                }
+            }
+        }
+        
+        // **TENTATIVE 3 : Prendre le premier accessoire disponible**
+        if (!foundAccessory) {
+            const availableAccessories = this.actor.items.filter(item => item.type === "accessoire");
+            if (availableAccessories.length > 0) {
+                foundAccessory = availableAccessories[0];
+                console.log("🔧 Fallback: premier accessoire disponible:", foundAccessory.name);
+            }
+        }
+        
+        // **OUVRIR LA FICHE**
+        if (foundAccessory) {
+            foundAccessory.sheet.render(true);
+            console.log("✅ Fiche accessoire ouverte:", foundAccessory.name);
+        } else {
+            console.error("❌ Aucun accessoire trouvé");
+            console.log("📋 Items disponibles:", this.actor.items.contents.map(i => `${i.name} (${i.id})`));
+            ui.notifications.error("Aucun accessoire disponible !");
+        }
+    }
+    
+    // **NOUVELLE MÉTHODE : _onAccessoryUnequip - Déséquiper un accessoire**
+    async _onAccessoryUnequip(event) {
+        event.preventDefault();
+        
+        // **Récupérer le type d'équipement depuis le bouton**
+        let equipType = event.currentTarget.dataset.equipType;
+        
+        // **Si pas trouvé, essayer de deviner depuis l'élément parent**
+        if (!equipType) {
+            const accessoryElement = event.currentTarget.closest('[data-slot-index]');
+            const slotIndex = accessoryElement?.dataset.slotIndex;
+            
+            if (slotIndex === "1") {
+                equipType = "accessoire1";
+            } else if (slotIndex === "2") {
+                equipType = "accessoire2";
+            }
+        }
+        
+        // **Fallback : chercher dans l'inventaire**
+        if (!equipType) {
+            const accessoryElement = event.currentTarget.closest('.accessory-compact');
+            const itemId = accessoryElement?.dataset.itemId;
+            
+            if (itemId) {
+                const inventaire = this.actor.system.inventaire;
+                
+                // Déterminer quel slot contient cet item
+                if (inventaire.accessoire1?.id === itemId) {
+                    equipType = "accessoire1";
+                } else if (inventaire.accessoire2?.id === itemId) {
+                    equipType = "accessoire2";
+                }
+            }
+        }
+        
+        console.log("🔧 Déséquipement accessoire:", equipType);
+        
+        if (!equipType) {
+            ui.notifications.error("Impossible de déterminer quel accessoire déséquiper !");
+            return;
+        }
+        
+        // **Récupérer les données de l'accessoire équipé**
+        const inventaire = this.actor.system.inventaire;
+        const equippedData = inventaire[equipType];
+        
+        if (equippedData) {
+            await this.actor.update({
+                [`system.inventaire.${equipType}`]: null
+            });
+            
+            console.log("✅ Accessoire déséquipé:", equippedData.name);
+            ui.notifications.info(`${equippedData.name} déséquipé !`);
+            
+            // **Refresh la feuille**
+            this.render(false);
+        } else {
+            ui.notifications.warn("Aucun accessoire à déséquiper dans ce slot !");
+        }
+    }
+
     // **ARMES : Gestion du drag over (highlight)**
     _onSlotDragOver(event) {
         event.preventDefault();
@@ -994,6 +1225,8 @@ async _onItemEquip(event) {
         
         const slot = event.currentTarget;
         const slotType = slot.dataset.slotType;
+        const slotVariant = slot.dataset.slotVariant; // 'secondaire' pour arme secondaire
+        const slotIndex = slot.dataset.slotIndex; // '1' ou '2' pour accessoires
         
         slot.classList.remove('slot-highlight', 'slot-invalid');
         
@@ -1218,8 +1451,6 @@ _isItemEquipped(item) {
         const voiesArcane = this.actor.system.voiesArcane || {};
         const hasFirstChoice = voiesArcane.type1 && voiesArcane.key1;
         
-        console.log("DEBUG render - hasRace:", hasRace, "hasFirstChoice:", hasFirstChoice, "voiesArcane:", voiesArcane);
-        
         if (!hasRace || !hasFirstChoice) {
             await this._showCreationDialog();
         }
@@ -1274,25 +1505,90 @@ _onSlotDragover(event) {
 // **CORRECTION : _onWeaponOpen - Ouvrir la fiche d'arme équipée**
 async _onWeaponOpen(event) {
     event.preventDefault();
-    const weaponElement = event.currentTarget.closest('.weapon-compact');
-    const itemId = weaponElement.dataset.itemId;
     
-    console.log("Ouverture arme ID:", itemId);
+    let itemId = null;
+    let foundWeapon = null;
     
+    // **MÉTHODE 1 : ID sur le bouton directement**
+    itemId = event.currentTarget.dataset.itemId;
+    
+    // **MÉTHODE 2 : ID sur l'élément parent**
     if (!itemId) {
-        ui.notifications.error("ID d'arme manquant !");
-        return;
+        const weaponElement = event.currentTarget.closest('[data-item-id]');
+        itemId = weaponElement?.dataset.itemId;
     }
     
-    // **CORRECTION : Chercher UNIQUEMENT dans l'acteur**
-    const weapon = this.actor.items.get(itemId);
+    // **MÉTHODE 3 : ID depuis l'inventaire**
+    if (!itemId) {
+        const inventaire = this.actor.system.inventaire;
+        const armeEquipee = inventaire?.armeEquipee;
+        const arme = inventaire?.arme;
+        
+        if (armeEquipee?.id) {
+            itemId = armeEquipee.id;
+            console.log("🔧 ID récupéré depuis armeEquipee:", itemId);
+        } else if (arme?.id) {
+            itemId = arme.id;
+            console.log("🔧 ID récupéré depuis arme:", itemId);
+        }
+    }
     
-    if (weapon) {
-        weapon.sheet.render(true);
-        console.log("✅ Fiche arme ouverte:", weapon.name);
+    console.log("🔍 Recherche arme avec ID:", itemId);
+    
+    // **TENTATIVE 1 : Chercher par ID**
+    if (itemId) {
+        foundWeapon = this.actor.items.get(itemId);
+        if (foundWeapon) {
+            console.log("✅ Arme trouvée par ID:", foundWeapon.name);
+        } else {
+            console.log("❌ Arme non trouvée par ID, tentative par nom...");
+        }
+    }
+    
+    // **TENTATIVE 2 : Fallback par nom si ID ne marche pas**
+    if (!foundWeapon) {
+        const inventaire = this.actor.system.inventaire;
+        const armeEquipee = inventaire?.armeEquipee;
+        const arme = inventaire?.arme;
+        
+        let weaponName = null;
+        if (armeEquipee?.name) {
+            weaponName = armeEquipee.name;
+        } else if (arme?.name) {
+            weaponName = arme.name;
+        }
+        
+        if (weaponName) {
+            foundWeapon = this.actor.items.find(item => 
+                item.type === "arme" && item.name === weaponName
+            );
+            
+            if (foundWeapon) {
+                console.log("✅ Arme trouvée par nom:", foundWeapon.name, "ID réel:", foundWeapon.id);
+                
+                // **CORRECTION AUTOMATIQUE : Mettre à jour l'ID dans l'inventaire**
+                await this._fixWeaponIdMismatch(foundWeapon);
+            }
+        }
+    }
+    
+    // **TENTATIVE 3 : Prendre la première arme disponible**
+    if (!foundWeapon) {
+        const availableWeapons = this.actor.items.filter(item => item.type === "arme");
+        if (availableWeapons.length > 0) {
+            foundWeapon = availableWeapons[0];
+            console.log("🔧 Fallback: première arme disponible:", foundWeapon.name);
+        }
+    }
+    
+    // **OUVRIR LA FICHE**
+    if (foundWeapon) {
+        foundWeapon.sheet.render(true);
+        console.log("✅ Fiche arme ouverte:", foundWeapon.name);
     } else {
-        console.error("❌ Arme non trouvée:", itemId);
-        ui.notifications.error("Arme non trouvée ! Elle a peut-être été supprimée.");
+        console.error("❌ Aucune arme trouvée");
+        console.log("📋 Items disponibles:", this.actor.items.contents.map(i => `${i.name} (${i.id})`));
+        ui.notifications.error("Aucune arme disponible !");
     }
 }
 
@@ -1355,11 +1651,9 @@ async _onArmorUnequip(event) {
 
 // **AJOUTER cette méthode pour préparer les données historiques**
 _prepareHistoriqueData(historiqueKey) {
-    console.log("🔍 Historique Key:", historiqueKey);
     
     const historiqueData = AlyriaHistorique?.[historiqueKey] ?? {};
-    console.log("🔍 Historique Data:", historiqueData);
-    
+   
     return {
         nom: historiqueData.nom || "Non défini",
         description: historiqueData.description || "Aucune description",
@@ -1509,7 +1803,6 @@ async _onSortCast(event) {
 
 // **NOUVELLE MÉTHODE : Récupérer les données d'un sort**
 _getSortData(sortId) {
-    console.log("🔍 Recherche détails pour sort ID:", sortId);
     
     // Format ID: "voie:nomVoie:nomSort" ou "arcane:nomArcane:nomSort"
     const [sourceType, sourceKey, ...sortNameParts] = sortId.split(':');
@@ -1758,7 +2051,6 @@ _prepareSortsChoisis() {
 
 // **NOUVELLE MÉTHODE : Récupérer les détails d'un sort par son ID**
 _getSortDetails(sortId) {
-    console.log("🔍 Recherche détails pour sort ID:", sortId);
     
     // Format ID: "voie:nomVoie:nomSort" ou "arcane:nomArcane:nomSort"
     const [sourceType, sourceKey, ...sortNameParts] = sortId.split(':');
@@ -2248,17 +2540,70 @@ _onEquipmentSlotDragLeave(event) {
     const slot = event.currentTarget;
     slot.classList.remove('highlight', 'invalid');
 }
-// **MISE À JOUR : _onItemEquip pour le nouveau système**
+
+// **CORRECTION COMPLÈTE : _onItemEquip avec récupération d'ID améliorée**
 async _onItemEquip(event) {
     event.preventDefault();
     
-    const itemId = event.currentTarget.dataset.itemId;
-    const equipType = event.currentTarget.dataset.equipType;
+    let itemId = event.currentTarget.dataset.itemId;
+    let equipType = event.currentTarget.dataset.equipType;
+    
+    // **MÉTHODE 1 : Chercher dans l'élément parent proche**
+    if (!itemId) {
+        const itemContainer = event.currentTarget.closest('[data-item-id]');
+        if (itemContainer) {
+            itemId = itemContainer.dataset.itemId;
+            console.log("🔧 ID récupéré depuis parent proche:", itemId);
+        }
+    }
+    
+    // **MÉTHODE 2 : Chercher dans .inventory-item parent**
+    if (!itemId) {
+        const inventoryItem = event.currentTarget.closest('.inventory-item');
+        if (inventoryItem) {
+            itemId = inventoryItem.dataset.itemId;
+            console.log("🔧 ID récupéré depuis .inventory-item:", itemId);
+        }
+    }
+    
+    // **MÉTHODE 3 : Chercher dans .item parent**
+    if (!itemId) {
+        const itemElement = event.currentTarget.closest('.item');
+        if (itemElement) {
+            itemId = itemElement.dataset.itemId;
+            console.log("🔧 ID récupéré depuis .item:", itemId);
+        }
+    }
+    
+    // **MÉTHODE 4 : Chercher dans n'importe quel parent avec data-item-id**
+    if (!itemId) {
+        let parent = event.currentTarget.parentElement;
+        while (parent && !itemId) {
+            if (parent.dataset && parent.dataset.itemId) {
+                itemId = parent.dataset.itemId;
+                console.log("🔧 ID récupéré depuis parent:", parent.className, itemId);
+                break;
+            }
+            parent = parent.parentElement;
+        }
+    }
     
     console.log(`🎯 Équipement de l'item ${itemId} en tant que ${equipType}`);
     
     if (!itemId || !equipType) {
+        console.error("❌ Données manquantes:", { itemId, equipType });
+        console.error("❌ Dataset du bouton:", event.currentTarget.dataset);
+        console.error("❌ HTML du bouton:", event.currentTarget.outerHTML);
+        console.error("❌ Éléments parents:", event.currentTarget.closest('[data-item-id]'));
         ui.notifications.error("Données d'équipement manquantes !");
+        return;
+    }
+    
+    // **Vérifier que l'item existe**
+    const item = this.actor.items.get(itemId);
+    if (!item) {
+        ui.notifications.error("Objet non trouvé !");
+        console.error("❌ Item non trouvé:", itemId);
         return;
     }
     
@@ -2286,6 +2631,8 @@ async _onItemEquip(event) {
             finalEquipType = choice ? "accessoire1" : "accessoire2";
         }
     }
+    
+    console.log(`🔧 Type final d'équipement: ${finalEquipType}`);
     
     const success = await InventoryManager.equipItemFromInventory(this.actor, itemId, finalEquipType);
     if (success) {
@@ -2331,15 +2678,48 @@ async _onItemOpen(event) {
     
     let itemId = event.currentTarget.dataset.itemId;
     
-    // Fallback si pas d'itemId direct
+    // **MÊME LOGIQUE DE RÉCUPÉRATION**
     if (!itemId) {
-        const itemElement = event.currentTarget.closest('[data-item-id]');
-        itemId = itemElement?.dataset.itemId;
+        const itemContainer = event.currentTarget.closest('[data-item-id]');
+        if (itemContainer) {
+            itemId = itemContainer.dataset.itemId;
+            console.log("🔧 ID récupéré depuis parent proche:", itemId);
+        }
     }
     
-    console.log("Ouverture item ID:", itemId);
+    if (!itemId) {
+        const inventoryItem = event.currentTarget.closest('.inventory-item');
+        if (inventoryItem) {
+            itemId = inventoryItem.dataset.itemId;
+            console.log("🔧 ID récupéré depuis .inventory-item:", itemId);
+        }
+    }
     
     if (!itemId) {
+        const itemElement = event.currentTarget.closest('.item');
+        if (itemElement) {
+            itemId = itemElement.dataset.itemId;
+            console.log("🔧 ID récupéré depuis .item:", itemId);
+        }
+    }
+    
+    if (!itemId) {
+        let parent = event.currentTarget.parentElement;
+        while (parent && !itemId) {
+            if (parent.dataset && parent.dataset.itemId) {
+                itemId = parent.dataset.itemId;
+                console.log("🔧 ID récupéré depuis parent:", parent.className, itemId);
+                break;
+            }
+            parent = parent.parentElement;
+        }
+    }
+    
+    console.log("📖 Ouverture item ID:", itemId);
+    
+    if (!itemId) {
+        console.error("❌ ID d'item manquant");
+        console.error("❌ HTML du bouton:", event.currentTarget.outerHTML);
         ui.notifications.error("ID d'item manquant !");
         return;
     }
@@ -2375,12 +2755,54 @@ async _onUnequipItem(event) {
     }
 }
 
-// **NOUVEAU : _onItemRemove**
+// **CORRECTION : _onItemRemove avec récupération d'ID améliorée**
 async _onItemRemove(event) {
     event.preventDefault();
-    const itemId = event.currentTarget.dataset.itemId;
+    
+    let itemId = event.currentTarget.dataset.itemId;
+    
+    // **MÊME LOGIQUE DE RÉCUPÉRATION QUE _onItemEquip**
+    if (!itemId) {
+        const itemContainer = event.currentTarget.closest('[data-item-id]');
+        if (itemContainer) {
+            itemId = itemContainer.dataset.itemId;
+            console.log("🔧 ID récupéré depuis parent proche:", itemId);
+        }
+    }
     
     if (!itemId) {
+        const inventoryItem = event.currentTarget.closest('.inventory-item');
+        if (inventoryItem) {
+            itemId = inventoryItem.dataset.itemId;
+            console.log("🔧 ID récupéré depuis .inventory-item:", itemId);
+        }
+    }
+    
+    if (!itemId) {
+        const itemElement = event.currentTarget.closest('.item');
+        if (itemElement) {
+            itemId = itemElement.dataset.itemId;
+            console.log("🔧 ID récupéré depuis .item:", itemId);
+        }
+    }
+    
+    if (!itemId) {
+        let parent = event.currentTarget.parentElement;
+        while (parent && !itemId) {
+            if (parent.dataset && parent.dataset.itemId) {
+                itemId = parent.dataset.itemId;
+                console.log("🔧 ID récupéré depuis parent:", parent.className, itemId);
+                break;
+            }
+            parent = parent.parentElement;
+        }
+    }
+    
+    console.log("🗑️ Suppression item ID:", itemId);
+    
+    if (!itemId) {
+        console.error("❌ ID d'item manquant");
+        console.error("❌ HTML du bouton:", event.currentTarget.outerHTML);
         ui.notifications.error("ID d'item manquant !");
         return;
     }
@@ -2492,6 +2914,354 @@ _traitAffectsAttribute(trait, attribut) {
     
     const affectedAttributes = traitToAttributeMap[traitName] || [];
     return affectedAttributes.includes(attribut);
+}
+
+// **CORRECTION : _prepareInventoryData avec couleurs/icônes de rareté**
+_prepareInventoryData() {
+    const inventory = this.actor.system.inventaire || {};
+    
+    return {
+        items: this.actor.items.map(item => {
+            const itemObj = item.toObject();
+            return {
+                ...itemObj,
+                id: itemObj._id,
+                itemId: itemObj._id,
+                rarityColor: this._getRarityColor(itemObj.system?.rarete || "Commune"),
+                rarityIcon: this._getRarityIcon(itemObj.system?.rarete || "Commune"),
+                isEquipped: this._isItemEquipped(item)
+            };
+        }),
+        
+        // **UNIFORMISATION : Toujours utiliser les mêmes noms de propriétés**
+        armeEquipee: inventory.armeEquipee || inventory.arme || null,
+        armeSecondaireEquipee: inventory.armeSecondaireEquipee || inventory.armeSecondaire || null,
+        armureEquipee: inventory.armureEquipee || inventory.armure || null,
+        accessoire1: inventory.accessoire1 || inventory.accessoire1Equipee || null,
+        accessoire2: inventory.accessoire2 || inventory.accessoire2Equipee || null
+    };
+}
+
+// **AJOUT : Méthodes de combat manquantes**
+async _onBlockAction(event) {
+    event.preventDefault();
+    
+    // Vérifier si le bouton est désactivé
+    if (event.currentTarget.classList.contains('disabled')) {
+        ui.notifications.warn("Impossible de bloquer : défense trop faible !");
+        return;
+    }
+    
+    const defenseValue = this.actor.system.toucheDefense || 0;
+    
+    if (defenseValue <= 0) {
+        ui.notifications.warn("Impossible de bloquer : aucune défense !");
+        return;
+    }
+    
+    console.log(`🛡️ Tentative de blocage - Seuil: ${defenseValue}%`);
+    
+    // Animation du bouton
+    const button = event.currentTarget;
+    button.classList.add('casting');
+    setTimeout(() => button.classList.remove('casting'), 600);
+    
+    // Effectuer le jet de dé
+    const roll = new Roll("1d100");
+    await roll.evaluate();
+    
+    const success = roll.total <= defenseValue;
+    const criticalSuccess = roll.total <= 5;
+    const criticalFailure = roll.total >= 96;
+    
+    let resultText = "";
+    let resultClass = "";
+    
+    if (criticalSuccess) {
+        resultText = "🌟 **BLOCAGE CRITIQUE !** 🌟";
+        resultClass = "success-critical";
+    } else if (criticalFailure) {
+        resultText = "💥 **ÉCHEC CRITIQUE !**";
+        resultClass = "failure-critical";
+    } else if (success) {
+        resultText = "✅ **Blocage réussi !**";
+        resultClass = "success";
+    } else {
+        resultText = "❌ **Blocage raté !**";
+        resultClass = "failure";
+    }
+    
+    // Créer le message de chat
+    const chatContent = `
+        <div class="combat-action-message block-message">
+            <h3>🛡️ ${this.actor.name} tente un blocage</h3>
+            <div class="roll-result ${resultClass}">
+                <p><strong>Jet :</strong> ${roll.total} / ${defenseValue} (Défense)</p>
+                <p>${resultText}</p>
+            </div>
+        </div>
+        
+        <style>
+            .combat-action-message {
+                padding:  10px;
+                border-radius: 8px;
+                background: rgba(33, 150, 243, 0.1);
+                border-left: 4px solid #2196F3;
+            }
+            .roll-result.success-critical { color: #4CAF50; font-weight: bold; }
+            .roll-result.success { color: #8BC34A; }
+            .roll-result.failure { color: #FF9800; }
+            .roll-result.failure-critical { color: #f44336; font-weight: bold; }
+        </style>
+    `;
+    
+    // Envoyer le message
+    await roll.toMessage({
+        user: game.user.id,
+        speaker: ChatMessage.getSpeaker({actor: this.actor}),
+        content: chatContent,
+        sound: "sounds/dice.wav"
+    });
+    
+    // Notification
+    const notifType = success ? "info" : "warn";
+    ui.notifications[notifType](resultText.replace(/\*\*/g, '').replace(/🌟|💥|✅|❌/g, ''));
+}
+
+async _onAttackAction(event) {
+    event.preventDefault();
+    
+    // Vérifier si le bouton est désactivé
+    if (event.currentTarget.classList.contains('disabled')) {
+        ui.notifications.warn("Impossible d'attaquer : aucune arme équipée !");
+        return;
+    }
+    
+    const armeEquipee = this.actor.system.inventaire?.armeEquipee;
+    
+    if (!armeEquipee) {
+        ui.notifications.warn("Impossible d'attaquer : aucune arme équipée !");
+        return;
+    }
+    
+    // Récupérer la stat de touche de l'arme
+    const toucheWeapon = armeEquipee.system?.touche || "Force";
+    const toucheValue = this._getToucheValue(toucheWeapon);
+    const toucheChance = this.actor.system.toucheChance || { Value: 0 };
+    if (toucheValue <= 0) {
+        ui.notifications.warn(`Impossible d'attaquer : stat ${toucheWeapon} trop faible !`);
+        return;
+    }
+    
+    console.log(`⚔️ Attaque avec ${armeEquipee.name} - Touche: ${toucheWeapon} (${toucheValue}%)`);
+    
+    // Animation du bouton
+    const button = event.currentTarget;
+    button.classList.add('casting');
+    setTimeout(() => button.classList.remove('casting'), 600);
+    
+    // Effectuer le jet de dé
+    const roll = new Roll("1d100");
+    await roll.evaluate();
+    
+    const success = roll.total <= toucheValue;
+    const criticalSuccess = roll.total <= toucheChance;
+    const criticalFailure = roll.total >= 96;
+    
+    let resultText = "";
+    let resultClass = "";
+    let damageRoll = null;
+    //let totalDamage = (damageRoll.total)  + (armeEquipee.system?.bonus) + (this.actor.system?.bonusDegats);
+    
+
+if (criticalSuccess) {
+    resultText = "🌟 **ATTAQUE CRITIQUE !** 🌟";
+    resultClass = "success-critical";
+    
+    // **NOUVEAU : Critique = Max du dé + nouveau roll**
+    const damageFormula = armeEquipee.system?.degats || "1d6";
+    
+    // Extraire le type de dé (ex: "1d6" -> "d6", "2d8" -> "d8")
+    const diceMatch = damageFormula.match(/(\d*)d(\d+)/);
+    if (diceMatch) {
+        const numberOfDice = parseInt(diceMatch[1]) || 1;
+        const diceSize = parseInt(diceMatch[2]);
+        
+        // Calculer le maximum du dé original
+        const maxDamage = numberOfDice * diceSize;
+        
+        // Faire un nouveau roll avec le même dé
+        const bonusRoll = new Roll(damageFormula);
+        await bonusRoll.evaluate();
+        
+        // Créer un roll "artificiel" qui combine max + nouveau roll
+        const totalCriticalDamage = maxDamage + bonusRoll.total;
+        
+        // Créer un roll factice pour l'affichage
+        damageRoll = {
+            total: totalCriticalDamage,
+            terms: [
+                { results: [{ result: maxDamage }] }, // Max du dé
+                { operator: '+' },
+                { results: bonusRoll.terms[0].results } // Nouveau roll
+            ],
+            formula: `${maxDamage} (max) + ${damageFormula}`,
+            dice: bonusRoll.dice
+        };
+        
+        console.log(`💥 Critique: ${maxDamage} (max de ${damageFormula}) + ${bonusRoll.total} (nouveau roll) = ${totalCriticalDamage}`);
+    } else {
+        // Fallback si on ne peut pas parser la formule
+        damageRoll = new Roll(`(${damageFormula}) * 2`);
+        await damageRoll.evaluate();
+    }
+    } else if (criticalFailure) {
+        resultText = "💥 **ÉCHEC CRITIQUE !**";
+        resultClass = "failure-critical";
+    } else if (success) {
+        resultText = "✅ **Attaque réussie !**";
+        resultClass = "success";
+        // Dégâts normaux
+        const damageFormula = (armeEquipee.system?.degats)|| "1d6";
+        damageRoll = new Roll(damageFormula);
+        await damageRoll.evaluate();
+    } else {
+        resultText = "❌ **Attaque ratée !**";
+        resultClass = "failure";
+    }
+    
+    // Construire le message de chat
+    let chatContent = `
+        <div class="combat-action-message attack-message">
+            <h3>⚔️ ${this.actor.name} attaque avec ${armeEquipee.name}</h3>
+            <div class="weapon-info">
+                <p><strong>Arme :</strong> ${armeEquipee.name} (${armeEquipee.system?.degats || "1d6"})</p>
+                <p><strong>Touche :</strong> ${toucheWeapon}</p>
+            </div>
+            <div class="roll-result ${resultClass}">
+                <p><strong>Jet d'attaque :</strong> ${roll.total} / ${toucheValue}</p>
+                <p>${resultText}</p>
+            </div>
+    `;
+    
+        if (damageRoll) {
+    // **NOUVEAU : Calculer les dégâts totaux avec tous les bonus**
+    const weaponBonus = this.actor.system.inventaire.armeEquipee.system.bonusDegats || 0;
+    const characterBonus = this.actor.system.bonusDegats || 0;
+    const totalDamage = (damageRoll.total) + (weaponBonus) + (characterBonus);
+    
+    console.log(`💥 Calcul dégâts: ${damageRoll.total} (dé) + ${this.actor.system.inventaire.armeEquipee.system.bonusDegats} (arme) + ${this.actor.system.bonusDegats} (perso) = ${totalDamage}`);
+    
+    chatContent += `
+        <div class="damage-result">
+            ${damageRoll.total > 0 ? `<p><strong> Dégâts de l'arme :</strong> ${damageRoll.formula}</p>` : ''}
+            <p><strong>Dégâts de base :</strong> ${damageRoll.total}</p>
+            ${weaponBonus > 0 ? `<p><strong>Bonus arme :</strong> +${weaponBonus}</p>` : ''}
+            ${characterBonus > 0 ? `<p><strong>Bonus personnage :</strong> +${characterBonus}</p>` : ''}
+            <p><strong>Dégâts totaux :</strong> <span class="total-damage">${totalDamage}</span></p>
+        </div>
+    `;
+} else {
+    // Pas de dégâts si l'attaque échoue
+    const totalDamage = 0;
+}
+    chatContent += `
+        </div>
+        
+        <style>
+        .attack-message {
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid #f44336;
+        }
+        .weapon-info {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 8px;
+            border-radius: 4px;
+            margin: 8px 0;
+            font-size: 12px;
+        }
+        .damage-result {
+            background: rgba(255, 152, 0, 0.2);
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+            font-weight: bold;
+            color: #E65100;
+        }
+        .total-damage {
+            font-size: 16px;
+            color: #D32F2F;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .roll-result.success-critical { color: #4CAF50; font-weight: bold; }
+        .roll-result.success { color: #8BC34A; }
+        .roll-result.failure { color: #FF9800; }
+        .roll-result.failure-critical { color: #f44336; font-weight: bold; }
+    </style>
+    `;
+    
+    // Envoyer le message d'attaque
+    await roll.toMessage({
+        user: game.user.id,
+        speaker: ChatMessage.getSpeaker({actor: this.actor}),
+        content: chatContent,
+        sound: "sounds/dice.wav"
+    });
+    
+    // Envoyer le message de dégâts séparément si nécessaire
+    if (damageRoll) {
+        await damageRoll.toMessage({
+            user: game.user.id,
+            speaker: ChatMessage.getSpeaker({actor: this.actor}),
+            flavor: `🗡️ Dégâts de ${armeEquipee.name}${criticalSuccess ? ' (Critique)' : ''}`
+        });
+    }
+    
+    // Notification
+    const weaponBonus = this.actor.system.inventaire.armeEquipee.system.bonusDegats || 0;
+    const characterBonus = this.actor.system.bonusDegats || 0;
+    const totalDamage = (damageRoll.total) + (weaponBonus) + (characterBonus); 
+    const notifType = success ? "info" : "warn";
+    let notifMessage = resultText.replace(/\*\*/g, '').replace(/🌟|💥|✅|❌/g, '');
+    if (damageRoll && totalDamage > 0) {
+        notifMessage += ` - ${totalDamage} dégâts totaux !`;
+    }
+    ui.notifications[notifType](notifMessage);
+}
+
+// **NOUVELLE MÉTHODE : Corriger automatiquement les IDs désynchronisés**
+async _fixWeaponIdMismatch(correctWeapon) {
+    console.log("🔧 Correction automatique de l'ID d'arme");
+    
+    const inventaire = this.actor.system.inventaire;
+    const updateData = {};
+    
+    // **Corriger l'arme dans armeEquipee**
+    if (inventaire.armeEquipee && inventaire.armeEquipee.name === correctWeapon.name) {
+        updateData["system.inventaire.armeEquipee.id"] = correctWeapon.id;
+        console.log("🔧 Correction armeEquipee ID:", inventaire.armeEquipee.id, "→", correctWeapon.id);
+    }
+    
+    // **Corriger l'arme dans arme**
+    if (inventaire.arme && inventaire.arme.name === correctWeapon.name) {
+        updateData["system.inventaire.arme.id"] = correctWeapon.id;
+        console.log("🔧 Correction arme ID:", inventaire.arme.id, "→", correctWeapon.id);
+    }
+    
+    if (Object.keys(updateData).length > 0) {
+        try {
+            await this.actor.update(updateData);
+            console.log("✅ IDs corrigés automatiquement");
+            ui.notifications.info("IDs d'équipement corrigés automatiquement");
+        } catch (error) {
+            console.error("❌ Erreur lors de la correction:", error);
+        }
+    }
 }
 
 }
