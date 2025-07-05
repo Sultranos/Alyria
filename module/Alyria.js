@@ -4,7 +4,18 @@ import AlyriaActor from "./AlyriaActor.js";
 import { genererArmeAleatoire, genererNomArme } from "./arme-generator.js";
 import './accessoire-generator.js';
 import './armure-generator.js';
-import { FOLIE_PSYCHIQUE_TABLE } from "./data/TableAleatoires/FoliePsychique.js";
+import { 
+    FOLIE_PSYCHIQUE_TABLE,
+    TRAITS_ARMES_COMMUNS_TABLE,
+    TRAITS_ARMES_RARES_TABLE,
+    TRAITS_ARMES_EPIQUES_TABLE,
+    TRAITS_ARMES_LEGENDAIRES_TABLE,      // ← AJOUTÉ
+    TRAITS_ARMURES_COMMUNS_TABLE,
+    TRAITS_ARMURES_RARES_TABLE,
+    TRAITS_ARMURES_EPIQUES_TABLE,
+    TRAITS_ARMURES_LEGENDAIRES_TABLE,
+    IMPERFECTIONS_TABLE                   // ← AJOUTÉ
+} from "./TablesAleatoires.js";
 
 
 Hooks.once("init", () => {
@@ -89,44 +100,170 @@ Hooks.once("init", () => {
     });
 });
 
-// **Créer les tables au démarrage**
 Hooks.once('ready', async () => {
     console.log("🎲 Création des tables aléatoires d'Alyria");
     
-    // **Vérifier si la table existe déjà**
-    const existingTable = game.tables.find(t => t.name === FOLIE_PSYCHIQUE_TABLE.name);
-    
-    if (!existingTable) {
-        try {
-            // **Créer la table**
-            const tableData = {
-                name: FOLIE_PSYCHIQUE_TABLE.name,
-                description: FOLIE_PSYCHIQUE_TABLE.description,
-                formula: FOLIE_PSYCHIQUE_TABLE.formula
-            };
-            
-            const table = await RollTable.create(tableData);
-            
-            // **Créer les résultats**
-            const results = FOLIE_PSYCHIQUE_TABLE.results.map(result => ({
-                type: result.type,
-                text: result.text,
-                range: result.range,
-                drawn: false
-            }));
-            
-            await table.createEmbeddedDocuments("TableResult", results);
-            
-            console.log(`✅ Table "${FOLIE_PSYCHIQUE_TABLE.name}" créée avec succès`);
-            
-        } catch (error) {
-            console.error("❌ Erreur lors de la création de la table:", error);
+    // **DÉFINITION : Toutes les tables avec nouvelle organisation**
+    const tablesToCreate = [
+        // Table de folie (dossier racine)
+        {
+            data: FOLIE_PSYCHIQUE_TABLE,
+            folder: null
+        },
+        // Tables dans le dossier Crafts
+        {
+            data: IMPERFECTIONS_TABLE,
+            folder: "Crafts"
+        },
+        // Tables de traits d'armes (sous-dossier de Crafts)
+        {
+            data: TRAITS_ARMES_COMMUNS_TABLE,
+            folder: "Crafts/Traits d'Armes"
+        },
+        {
+            data: TRAITS_ARMES_RARES_TABLE,
+            folder: "Crafts/Traits d'Armes"
+        },
+        {
+            data: TRAITS_ARMES_EPIQUES_TABLE,
+            folder: "Crafts/Traits d'Armes"
+        },
+        {
+            data: TRAITS_ARMES_LEGENDAIRES_TABLE,
+            folder: "Crafts/Traits d'Armes"
+        },
+        // Tables de traits d'armures (sous-dossier de Crafts)
+        {
+            data: TRAITS_ARMURES_COMMUNS_TABLE,
+            folder: "Crafts/Traits d'Armures"
+        },
+        {
+            data: TRAITS_ARMURES_RARES_TABLE,
+            folder: "Crafts/Traits d'Armures"
+        },
+        {
+            data: TRAITS_ARMURES_EPIQUES_TABLE,
+            folder: "Crafts/Traits d'Armures"
+        },
+        {
+            data: TRAITS_ARMURES_LEGENDAIRES_TABLE,
+            folder: "Crafts/Traits d'Armures"
         }
-    } else {
-        console.log(`✅ Table "${FOLIE_PSYCHIQUE_TABLE.name}" existe déjà`);
+    ];
+    
+    // **ÉTAPE 1 : Créer la hiérarchie de dossiers**
+    const folders = {};
+    
+    // Créer le dossier principal Crafts
+    let craftsFolder = game.folders.find(f => f.name === "Crafts" && f.type === "RollTable");
+    if (!craftsFolder) {
+        try {
+            craftsFolder = await Folder.create({
+                name: "Crafts",
+                type: "RollTable",
+                color: "#8b5a2b",
+                sort: 0
+            });
+            console.log(`📁 Dossier principal créé: Crafts`);
+        } catch (error) {
+            console.error(`❌ Erreur création dossier Crafts:`, error);
+            return;
+        }
+    }
+    folders["Crafts"] = craftsFolder;
+    
+    // Créer les sous-dossiers
+    const subFolders = ["Traits d'Armes", "Traits d'Armures"];
+    for (const subFolderName of subFolders) {
+        const fullPath = `Crafts/${subFolderName}`;
+        let existingFolder = game.folders.find(f => 
+            f.name === subFolderName && 
+            f.type === "RollTable" && 
+            f.folder?.id === craftsFolder.id
+        );
+        
+        if (!existingFolder) {
+            try {
+                existingFolder = await Folder.create({
+                    name: subFolderName,
+                    type: "RollTable",
+                    folder: craftsFolder.id,
+                    color: subFolderName.includes("Armes") ? "#ff6b35" : "#4ecdc4",
+                    sort: subFolderName.includes("Armes") ? 1 : 2
+                });
+                console.log(`📁 Sous-dossier créé: ${fullPath}`);
+            } catch (error) {
+                console.error(`❌ Erreur création sous-dossier ${fullPath}:`, error);
+                continue;
+            }
+        }
+        folders[fullPath] = existingFolder;
+    }
+    
+    // **ÉTAPE 2 : Créer toutes les tables**
+    let createdCount = 0;
+    let existingCount = 0;
+    
+    for (const tableConfig of tablesToCreate) {
+        const tableData = tableConfig.data;
+        const folderPath = tableConfig.folder;
+        
+        // **Vérifier si la table existe déjà**
+        const existingTable = game.tables.find(t => t.name === tableData.name);
+        
+        if (!existingTable) {
+            try {
+                // **Préparer les données de la table**
+                const createData = {
+                    name: tableData.name,
+                    description: tableData.description,
+                    formula: tableData.formula
+                };
+                
+                // **Ajouter le dossier si spécifié**
+                if (folderPath && folders[folderPath]) {
+                    createData.folder = folders[folderPath].id;
+                }
+                
+                // **Créer la table**
+                const table = await RollTable.create(createData);
+                
+                // **Créer les résultats**
+                const results = tableData.results.map(result => ({
+                    type: result.type,
+                    text: result.text,
+                    range: result.range,
+                    drawn: false
+                }));
+                
+                await table.createEmbeddedDocuments("TableResult", results);
+                
+                console.log(`✅ Table créée: "${tableData.name}" (${results.length} résultats) dans ${folderPath || "racine"}`);
+                createdCount++;
+                
+            } catch (error) {
+                console.error(`❌ Erreur création table "${tableData.name}":`, error);
+            }
+        } else {
+            console.log(`✅ Table existante: "${tableData.name}"`);
+            existingCount++;
+        }
+    }
+    
+    // **RÉSUMÉ**
+    console.log(`📊 Résumé création tables:`);
+    console.log(`   - Créées: ${createdCount}`);
+    console.log(`   - Existantes: ${existingCount}`);
+    console.log(`   - Total: ${tablesToCreate.length}`);
+    
+    if (createdCount > 0) {
+        ui.notifications.success(`${createdCount} nouvelles tables créées dans l'organisation Crafts !`);
+    }
+    
+    if (createdCount === 0 && existingCount === tablesToCreate.length) {
+        console.log("ℹ️ Toutes les tables existent déjà");
     }
 });
-
 // **NOUVEAU : Système d'unicité des armes**
 Hooks.on('preCreateItem', async (item, data, options, userId) => {
     // Vérifier uniquement pour les armes
