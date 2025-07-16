@@ -17,6 +17,7 @@
         <!-- Informations du personnage -->
         <div class="character-info">
             <!-- MOITIÉ HAUTE : Nom du personnage -->
+            
             <h1 class="character-name" data-edit="name">{{actor.name}}</h1>
             
             <!-- MOITIÉ BASSE : Race + Voies sur 2 lignes -->
@@ -70,7 +71,7 @@
             <a class="item active" data-tab="equipement">Équipement</a>
             <a class="item" data-tab="talents-passifs">Talents et Passifs</a>
             <a class="item" data-tab="sorts-arcanes">Sorts et Arcanes</a>
-            <a class="item" data-tab="inventaire">Inventaire RP et Notes</a>
+            <a class="item" data-tab="inventaire">RP et Notes</a>
             <a class="item" data-tab="competences-mineures">Compétences Mineures</a>
             <a class="item" data-tab="biographie">Biographie</a>
             <a class="item" data-tab="mecaniques">Mécaniques</a>
@@ -101,6 +102,7 @@
             <img src="systems/alyria/module\data\images\icones\Blocage.png" alt="Blocage" class="combat-icon">
             
         </button>
+
         <!-- **NOUVEAU : Bouton de récupération** -->
 <!-- **AJOUT dans Joueur-sheet.html - Près des boutons de récupération** -->
 
@@ -108,6 +110,12 @@
         <img src="systems/alyria/module/data/images/icones/Recuperation.png" alt="Récupération" class="combat-icon">
         
     </button>
+
+
+    <button type="button" class="xcard-btn" data-tooltip="X-Card Sécurité">
+            <span class="xcard-x">✖</span></button>
+    </button>
+
 <div class="form-group-inline state-header">
     <!-- **NOUVEAU : Bouton de redistribution** -->
     {{#if (gt (_getRedistributionTotal) 0)}}
@@ -932,8 +940,35 @@
 
             <!-- Inventaire -->
             <div class="tab" data-tab="inventaire">
-                <h3 class="section-title-highlight">Section Inventaire RP et Notes</h3>
-                <p>Contenu de l'inventaire ici.</p>
+                                  
+               <H3></H3> <div class="section-title-highlight"> </DIV> </H3>
+                    <button type="button" class="add-rp-note-btn">
+                        <i class="fas fa-feather-alt" data-tooltip="Ajouter une note RP"> Ajoutez une Notes </i>
+                    </button>
+                
+                <div class="rp-notes-section">
+                  
+                    <div class="rp-notes-list">
+                        {{#if system.notes.length}}
+                            {{#each system.notes as |note idx|}}
+                                <div class="rp-note-bubble" data-note-index="{{idx}}">
+                                    <div class="rp-note-header" style="background-image:url('systems/alyria/module/data/images/icones/parchemin 1.png');">
+                                        <span class="rp-note-title">{{note.titre}}</span>
+                                        <button type="button" class="delete-rp-note-btn" title="Supprimer la note"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                    <div class="rp-note-body hidden" style="background-image:url('systems/alyria/module/data/images/icones/parchemincentre1.png');">
+                                        <div class="rp-note-content">{{note.texte}}</div>
+                                        <div class="rp-note-date">{{note.date}}</div>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        {{else}}
+                            <div class="empty-notes-message">
+                                <em>Aucune note RP pour l’instant.</em>
+                            </div>
+                        {{/if}}
+                    </div>
+                </div>
             </div>
 
             <!-- Compétences Mineures -->
@@ -1080,7 +1115,19 @@
                     </div>
                     {{/if}}
                 </div>
-                <p>Contenu de la biographie ici.</p>
+               <div class="biography-bubble" data-bubble-type="mon-histoire">
+                    <h4 class="bubble-title">
+                        📖 Mon Histoire <i class="fas fa-chevron-down toggle-icon"></i>
+                        
+                    </h4>
+                    <div class="bubble-content hidden">
+                        
+                        <div class="mon-histoire-editor">                            
+                            {{{enrichedMonHistoire}}}
+                        </div>
+                        <button type="button" class="edit-mon-histoire-btn" data-tooltips="Éditer le texte"><i class="fas fa-edit"></i></button>
+                    </div>
+                </div>
             </div>
 
             <!-- Mécaniques -->
@@ -1204,7 +1251,11 @@
                     
                 </div>
                 <div class="form-group-inline"> 
-                    <label class="carac-label-compact"> </label>   
+                    <div class="form-group-inline" style="justify-content: flex-end;">
+                        <button type="button" class="bonus-edit-btn" data-action="edit-bonus" data-tooltip="Bonus permanents">
+                            <i class="fas fa-plus-square"></i> Bonus
+                        </button>
+                    </div>
                     <span class="carac-total-large" data-tooltip="Dégats / Soins / Bouclier: {{_getDSBDetails}}">
                         <strong>{{system.dsb}}</strong>
                     </span>
@@ -1245,6 +1296,7 @@
     </ul>
 </div>
 
+            
     </section>
 </form>
 
