@@ -27,7 +27,7 @@ static get defaultOptions() {
 async getData(options) {
     const context = await super.getData(options);
     const { actor } = this;
-    
+
     // **ÉTAPE 1 : Initialisation sécurisée du système**
     if (!actor.system) {
         console.error("❌ actor.system est manquant !");
@@ -36,7 +36,11 @@ async getData(options) {
     
     // **ÉTAPE 2 : Initialiser toutes les structures de données nécessaires**
     const system = actor.system;
-    
+    context.system = context.system || this.actor.system || {};
+    const monHistoire = context.system.monHistoire || "";
+    const TextEditor = foundry.applications.ux.TextEditor.implementation;
+    context.enrichedMonHistoire = await TextEditor.enrichHTML(monHistoire, { async: true });
+    context.editable = this.isEditable;
     // **Initialiser les objets principaux**
     system.majeures = system.majeures || {};
     system.mineures = system.mineures || {};
@@ -576,6 +580,8 @@ activateListeners(html) {
     html.find('.combat-action-btn[data-action="block"]').click(this._onBlockAction.bind(this));
     html.find('.combat-action-btn[data-action="attack"]').click(this._onAttackAction.bind(this));
     html.find('.combat-action-btn[data-action="unarmed-attack"]').click(this._onUnarmedAttackAction.bind(this)); 
+    html.find('.bonus-edit-btn').click(this._onEditBonus.bind(this));
+    
     
     // **RÉCUPÉRATION ET LEVEL UP**
     html.find('.combat-action-btn[data-action="recovery"]').click(this._onOpenRecoveryDialog.bind(this));
@@ -626,7 +632,105 @@ activateListeners(html) {
     html.find('.sort-icon-square, .sort-cast-button').click(this._onCastSpell.bind(this));
     html.find('.sort-expand-btn').click(this._onToggleSortDetails.bind(this));
     
-    
+html.find('.edit-mon-histoire-btn').click(async ev => {
+        ev.preventDefault();
+        const current = this.actor.system.monHistoire || "";
+        new Dialog({
+            title: "Mon Histoire",
+            content: `
+                <form>
+                    <div style="margin-bottom:8px;">
+                        <label for="mon-histoire-editor"><strong>Rédigez ou modifiez le lore de votre personnage :</strong></label>
+                    </div>
+                    <textarea id="mon-histoire-editor" name="monHistoire" rows="12" style="width:100%;resize:vertical;">${current}</textarea>
+                </form>
+            `,
+            buttons: {
+                save: {
+                    label: "Enregistrer",
+                    callback: async (dlgHtml) => {
+                        const newContent = dlgHtml.find('[name="monHistoire"]').val();
+                        await this.actor.update({ "system.monHistoire": newContent });
+                        this.render();
+                    }
+                },
+                cancel: { label: "Annuler" }
+            },
+            default: "save"
+        }).render(true);
+    });  
+
+    // Ouvrir le pop-up d'ajout de note RP
+    html.find('.add-rp-note-btn').click(async ev => {
+        ev.preventDefault();
+        new Dialog({
+            title: "Ajouter une note RP",
+            content: `
+                <form>
+                    <div style="margin-bottom:8px;">
+                        <label for="rp-note-title"><strong>Titre de la note :</strong></label>
+                        <input type="text" id="rp-note-title" name="titre" maxlength="40" style="width:100%;" required>
+                    </div>
+                    <div>
+                        <label for="rp-note-texte"><strong>Texte :</strong></label>
+                        <textarea id="rp-note-texte" name="texte" rows="6" maxlength="800" style="width:100%;" required></textarea>
+                    </div>
+                </form>
+            `,
+            buttons: {
+                save: {
+                    label: "Ajouter",
+                    callback: async dlgHtml => {
+                        const titre = dlgHtml.find('[name="titre"]').val().trim();
+                        const texte = dlgHtml.find('[name="texte"]').val().trim();
+                        if (!titre || !texte) {
+                            ui.notifications.warn("Titre et texte obligatoires !");
+                            return false;
+                        }
+                        const date = new Date().toLocaleDateString();
+                        const notes = Array.isArray(this.actor.system.notes) ? [...this.actor.system.notes] : [];
+                        notes.push({ titre, texte, date });
+                        await this.actor.update({ "system.notes": notes });
+                        this.render();
+                    }
+                },
+                cancel: { label: "Annuler" }
+            },
+            default: "save"
+        }).render(true);
+    });
+
+    // Toggle l'affichage du texte de la note
+    html.find('.rp-note-header').click(function() {
+        const bubble = $(this).closest('.rp-note-bubble');
+        bubble.find('.rp-note-body').toggleClass('hidden');
+    });
+
+        html.find('.xcard-btn').click(ev => {
+        ev.preventDefault();
+        this.showBigXPopup("systems/alyria/module/data/video/NANI - Sound Effect.mp3");
+    });
+
+    // Suppression d'une note
+    html.find('.delete-rp-note-btn').click(async ev => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        const idx = $(ev.currentTarget).closest('.rp-note-bubble').data('note-index');
+        if (typeof idx === "undefined") return;
+        const notes = Array.isArray(this.actor.system.notes) ? [...this.actor.system.notes] : [];
+        if (!notes[idx]) return;
+        const confirm = await Dialog.confirm({
+            title: "Supprimer la note",
+            content: `<p>Supprimer la note <strong>${notes[idx].titre}</strong> ?</p>`,
+            yes: () => true,
+            no: () => false
+        });
+        if (!confirm) return;
+        notes.splice(idx, 1);
+        await this.actor.update({ "system.notes": notes });
+        this.render();
+    });
+
     // **NOUVEAU : Boutons de bonus situationnels**
     if (this._onConditionalTalentClick) {
         html.find('.situational-bonus-btn').click(this._onConditionalTalentClick.bind(this));
@@ -655,7 +759,93 @@ activateListeners(html) {
     
     console.log("✅ Tous les listeners activés correctement");
 }
-    // **AJOUTER : Méthode _onWeaponUnequip qui manque peut-être**
+    
+async showBigXPopup(soundPath = "systems/alyria/module/data/video/NANI - Sound Effect.mp3") {
+    const popupHtml = `
+        <div class="big-x-popup-overlay">
+            <div class="big-x-popup-card">
+                <button class="big-x-close-btn" title="Fermer" style="position:absolute;top:24px;right:24px;z-index:2;">
+                    <span class="big-x-x" style="font-size:32px;">✖</span>
+                </button>
+                <span class="big-x-popup-x">✖</span>
+            </div>
+        </div>
+        <style>
+            .big-x-popup-overlay {
+                position: fixed;
+                top: 0; left: 0; right: 0; bottom: 0;
+                width: 100vw; height: 100vh;
+                background: rgba(0,0,0,0.25);
+                z-index: 99999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .big-x-popup-card {
+                background: #fff;
+                border-radius: 32px;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+                padding: 0;
+                position: relative;
+                min-width: 320px;
+                min-height: 220px;
+                width: 400px;
+                height: 300px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .big-x-popup-x {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+                font-size: 12em;
+                font-weight: bold;
+                color: #111;
+                text-shadow: 2px 2px 16px #bbb;
+                font-family: 'Arial Black', Arial, sans-serif;
+                pointer-events: none;
+                user-select: none;
+            }
+            .big-x-close-btn {
+                background: none;
+                border: none;
+                cursor: pointer;
+                outline: none;
+            }
+            .big-x-close-btn .big-x-x {
+                font-size: 32px;
+                font-weight: bold;
+                color: #111;
+                text-shadow: 2px 2px 8px #bbb;
+                font-family: 'Arial Black', Arial, sans-serif;
+                transition: color 0.2s, transform 0.2s;
+            }
+            .big-x-close-btn:hover .big-x-x {
+                color: #d32f2f;
+                transform: scale(1.08) rotate(-8deg);
+                text-shadow: 2px 2px 16px #d32f2f;
+            }
+        </style>
+    `;
+
+    const $popup = $(popupHtml).appendTo(document.body);
+
+    if (soundPath) {
+        const audio = new Audio(soundPath);
+        audio.volume = 0.8;
+        audio.play();
+    }
+
+    $popup.find('.big-x-close-btn').on('click', () => $popup.remove());
+    $popup.on('click', function(e) {
+        if (e.target === this) $popup.remove();
+    });
+}
+
+// **AJOUTER : Méthode _onWeaponUnequip qui manque peut-être**
 async _onWeaponUnequip(event) {
     event.preventDefault();
     const weaponElement = event.currentTarget.closest('.weapon-compact');
@@ -680,6 +870,7 @@ async _onWeaponUnequip(event) {
         ui.notifications.warn("Aucune arme à déséquiper !");
     }
 }
+
 
 // **AJOUTER : Méthode _onRollCharacteristic (manquante)**
 async _onRollCharacteristic(event) {
@@ -1227,6 +1418,180 @@ async _onItemEquip(event) {
         // Fermer le dialogue
         html.closest('.dialog').find('.dialog-button.close').click();
     }
+
+    // **NOUVELLE MÉTHODE : _onEditBonus - Éditer les bonus permanents**
+            async _onEditBonus(event) {
+            event.preventDefault();
+            const actor = this.actor;
+            const majeures = actor.system.majeures || {};
+            const mineures = actor.system.mineures || {};
+        
+            // Liste des majeures et mineures avec labels et descriptions (reprend les mêmes que pour le level up)
+            const majeurAttributes = [
+                { id: "force", label: "Force", description: "Puissance physique et capacité de porter" },
+                { id: "dexterite", label: "Dextérité", description: "Agilité et précision des mouvements" },
+                { id: "constitution", label: "Constitution", description: "Résistance et endurance physique" },
+                { id: "intelligence", label: "Intelligence", description: "Capacité d'apprentissage et de raisonnement" },
+                { id: "sagesse", label: "Sagesse", description: "Perception et intuition" },
+                { id: "charisme", label: "Charisme", description: "Force de personnalité et leadership" },
+                { id: "defense", label: "Défense", description: "Capacité à bloquer et esquiver" },
+                { id: "chance", label: "Chance", description: "Fortune et coups critiques" }
+            ];
+            const mineurAttributes = [
+                { id: "monde", label: "Monde", description: "Connaissance du monde et de ses cultures" },
+                { id: "mystique", label: "Mystique", description: "Compréhension des forces occultes" },
+                { id: "nature", label: "Nature", description: "Connaissance de la faune et flore" },
+                { id: "sacré", label: "Sacré", description: "Connaissance des divinités et rituels" },
+                { id: "robustesse", label: "Robustesse", description: "Résistance aux maladies et poisons" },
+                { id: "calme", label: "Calme", description: "Maîtrise de soi et résistance mentale" },
+                { id: "marchandage", label: "Marchandage", description: "Art de négocier et commercer" },
+                { id: "persuasion", label: "Persuasion", description: "Capacité à convaincre autrui" },
+                { id: "artmusique", label: "Art & Musique", description: "Talents artistiques et musicaux" },
+                { id: "commandement", label: "Commandement", description: "Capacité à diriger et motiver" },
+                { id: "acrobatie", label: "Acrobatie", description: "Agilité et mouvements complexes" },
+                { id: "discretion", label: "Discrétion", description: "Art de se cacher et se mouvoir silencieusement" },
+                { id: "adresse", label: "Adresse", description: "Dextérité manuelle et précision" },
+                { id: "artisanat", label: "Artisanat", description: "Création et réparation d'objets" },
+                { id: "hasard", label: "Hasard", description: "Chance aux jeux et coïncidences" },
+                { id: "athlétisme", label: "Athlétisme", description: "Prouesses physiques et sportives" },
+                { id: "puissance", label: "Puissance", description: "Force brute et capacité de destruction" },
+                { id: "intimidation", label: "Intimidation", description: "Capacité à inspirer la peur" },
+                { id: "perception", label: "Perception", description: "Acuité des sens et observation" },
+                { id: "perceptionmagique", label: "Perception Magique", description: "Détection des énergies magiques" },
+                { id: "medecine", label: "Médecine", description: "Soins et connaissance anatomique" },
+                { id: "intuition", label: "Intuition", description: "Instinct et pressentiments" }
+            ];
+        
+            // Génère le HTML pour chaque tableau
+            const majorRows = majeurAttributes.map(attr => {
+                const val = majeures[attr.id] || {};
+                return `
+                    <div class="major-attribute-item">
+                        <div class="major-attribute-info">
+                            <label>${attr.label}</label>
+                            <div class="major-attribute-description">${attr.description}</div>
+                        </div>
+                        <div class="major-attribute-controls">
+                            <button type="button" class="major-attr-decrease" data-attr="${attr.id}">-</button>
+                            <input type="number" name="maj_${attr.id}" value="${val.bonus || 0}" min="0" class="levelup-points" data-attr="${attr.id}">
+                            <button type="button" class="major-attr-increase" data-attr="${attr.id}">+</button>
+                            <span class="current-display">Total: <strong>${val.totale || 0}</strong></span>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        
+            const minorRows = mineurAttributes.map(attr => {
+                const val = mineures[attr.id] || {};
+                return `
+                    <div class="minor-attribute-item">
+                        <div class="minor-attribute-info">
+                            <label>${attr.label}</label>
+                            <div class="minor-attribute-description">${attr.description}</div>
+                        </div>
+                        <div class="minor-attribute-controls">
+                            <button type="button" class="minor-attr-decrease" data-attr="${attr.id}">-</button>
+                            <input type="number" name="min_${attr.id}" value="${val.bonus || 0}" min="0" class="levelup-points" data-attr="${attr.id}">
+                            <button type="button" class="minor-attr-increase" data-attr="${attr.id}">+</button>
+                            <span class="current-display">Total: <strong>${val.totale || 0}</strong></span>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        
+            // Onglets
+            const content = `
+                <div class="bonus-tabs">
+                    <div class="bonus-tab-headers">
+                        <button type="button" class="bonus-tab-btn active" data-tab="maj">Majeures</button>
+                        <button type="button" class="bonus-tab-btn" data-tab="min">Mineures</button>
+                    </div>
+                    <form>
+                        <div class="bonus-tab-content bonus-tab-content-maj active">
+                            <div class="major-attributes-list">${majorRows}</div>
+                        </div>
+                        <div class="bonus-tab-content bonus-tab-content-min">
+                            <div class="minor-attributes-list">${minorRows}</div>
+                        </div>
+                    </form>
+                </div>
+                <style>
+                    .bonus-tabs { min-width: 650px; }
+                    .bonus-tab-headers { display: flex; gap: 10px; margin-bottom: 10px; }
+                    .bonus-tab-btn { flex:1; padding: 8px 0; font-weight: bold; border: none; border-radius: 6px 6px 0 0; background: #eee; cursor: pointer; }
+                    .bonus-tab-btn.active { background: #2196F3; color: #fff; }
+                    .bonus-tab-content { display: none; }
+                    .bonus-tab-content.active { display: block; }
+                    .major-attributes-list, .minor-attributes-list { display: flex; flex-direction: column; gap: 12px; }
+                    .major-attribute-item, .minor-attribute-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border: 1px solid #ddd; border-radius: 5px; background: rgba(255,255,255,0.5);}
+                    .major-attribute-info, .minor-attribute-info { flex: 1; margin-right: 15px; }
+                    .major-attribute-info label, .minor-attribute-info label { font-weight: bold; color: #333; }
+                    .major-attribute-description, .minor-attribute-description { font-size: 12px; color: #666; font-style: italic; }
+                    .major-attribute-controls, .minor-attribute-controls { display: flex; align-items: center; gap: 8px; min-width: 320px; }
+                    .current-display { min-width: 35px; text-align: center; background: rgba(33, 150, 243, 0.1); padding: 6px 8px; border-radius: 4px; border: 1px solid rgba(33, 150, 243, 0.3);}
+                    .levelup-points { width: 50px !important; text-align: center !important; border: 1px solid #ccc !important; border-radius: 3px !important; padding: 6px !important; font-weight: bold !important; background: rgba(255, 193, 7, 0.1) !important; color: #FF8C00 !important; font-size: 14px !important;}
+                    .major-attr-decrease, .major-attr-increase, .minor-attr-decrease, .minor-attr-increase { width: 34px; height: 34px; border: 1px solid #ccc; background: #f5f5f5; border-radius: 3px; cursor: pointer; font-weight: bold; font-size: 16px;}
+                    .major-attr-decrease:hover, .major-attr-increase:hover, .minor-attr-decrease:hover, .minor-attr-increase:hover { background: #e0e0e0; }
+                    .major-attr-decrease:disabled, .major-attr-increase:disabled, .minor-attr-decrease:disabled, .minor-attr-increase:disabled { opacity: 0.5; cursor: not-allowed; }
+                </style>
+            `;
+        
+            const dlg = new Dialog({
+                title: "Éditer les bonus permanents",
+                content,
+                buttons: {
+                    validate: {
+                        label: "Valider",
+                        callback: async (html) => {
+                            const form = html[0].querySelector("form");
+                            const formData = new FormData(form);
+                            const majUpdate = {};
+                            const minUpdate = {};
+                            for (let [name, value] of formData.entries()) {
+                                if (name.startsWith("maj_")) majUpdate[name.replace("maj_", "")] = Number(value);
+                                if (name.startsWith("min_")) minUpdate[name.replace("min_", "")] = Number(value);
+                            }
+                            // Prépare l'objet d'update
+                            let updateData = {};
+                            for (let key in majUpdate) updateData[`system.majeures.${key}.bonus`] = majUpdate[key];
+                            for (let key in minUpdate) updateData[`system.mineures.${key}.bonus`] = minUpdate[key];
+                            await actor.update(updateData);
+                        }
+                    },
+                    cancel: { label: "Annuler" }
+                },
+                default: "validate",
+                render: (html) => {
+                    // Tabs
+                    html.find('.bonus-tab-btn').click(function() {
+                        html.find('.bonus-tab-btn').removeClass('active');
+                        html.find('.bonus-tab-content').removeClass('active');
+                        const tab = $(this).data('tab');
+                        $(this).addClass('active');
+                        html.find(`.bonus-tab-content-${tab}`).addClass('active');
+                    });
+                    // +/-
+                    html.find('.major-attr-increase').click(function() {
+                        const input = html.find(`input[name="maj_${$(this).data('attr')}"]`);
+                        input.val(Number(input.val()) + 1).trigger('input');
+                    });
+                    html.find('.major-attr-decrease').click(function() {
+                        const input = html.find(`input[name="maj_${$(this).data('attr')}"]`);
+                        input.val(Math.max(0, Number(input.val()) - 1)).trigger('input');
+                    });
+                    html.find('.minor-attr-increase').click(function() {
+                        const input = html.find(`input[name="min_${$(this).data('attr')}"]`);
+                        input.val(Number(input.val()) + 1).trigger('input');
+                    });
+                    html.find('.minor-attr-decrease').click(function() {
+                        const input = html.find(`input[name="min_${$(this).data('attr')}"]`);
+                        input.val(Math.max(0, Number(input.val()) - 1)).trigger('input');
+                    });
+                }
+            });
+            dlg.render(true);
+        }
+
 
     // **NAVIGATION : Méthode pour les onglets**
     _onClickTab(event) {

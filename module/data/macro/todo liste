@@ -1,0 +1,44 @@
+Voici un plan d’action détaillé pour tes trois objectifs, avec les grandes étapes et les points clés pour chaque fonctionnalité.
+Je peux ensuite détailler chaque point ou fournir le code pour chaque étape selon ta priorité.
+
+1. Bouton "Bonus" pour éditer les bonus permanents
+But :
+Ajouter un bouton à la place de la case vide ligne 1207 (dans la section majeures), qui ouvre un pop-up avec un tableau de toutes les majeures et mineures, chaque ligne ayant un champ modifiable pour le bonus permanent.
+À la validation, les valeurs sont enregistrées dans system.majeures[stat].bonus et system.mineures[stat].bonus.
+
+Étapes :
+
+Remplacer la case vide ligne 1207 par un bouton stylé "Bonus".
+Au clic, ouvrir un Dialog Foundry avec deux tableaux (majeures et mineures), chaque ligne = nom + champ input (valeur actuelle du bonus).
+À la validation, mettre à jour les champs .bonus de chaque stat dans l’actor.
+Rafraîchir la fiche pour voir les changements.
+2. Bulle "Mon Histoire" dans l’onglet Biographie
+But :
+Ajouter une bulle "Mon Histoire" dans l’onglet Biographie, avec un champ éditable riche (éditeur Foundry type journal), pour que le joueur écrive le lore de son perso.
+
+Étapes :
+
+Ajouter une bulle dans le template, juste après les bulles de race/voie/arcane.
+Le contenu est un champ éditable (utilise contenteditable ou mieux, le composant éditeur Foundry).
+Sauvegarder le texte dans system.monHistoire ou un champ similaire.
+Permettre la mise en forme (gras, italique, listes, etc.) via l’éditeur Foundry.
+3. Outil de notes dans l’onglet Inventaire RP et Notes
+But :
+Ajouter un outil de prise de notes sous forme de bulles dans l’onglet Inventaire RP et Notes.
+Chaque note a un titre (affiché dans la bulle) et un texte brut (affiché dans le contenu caché).
+Les joueurs peuvent ajouter une note via un pop-up (titre + texte), et chaque bulle a un fond image spécifique.
+
+Étapes :
+
+Ajouter une section "Notes" dans l’onglet Inventaire RP et Notes.
+Afficher chaque note comme une bulle avec un fond image (CSS).
+Bouton "Ajouter une note" → ouvre un Dialog avec champ titre + champ texte.
+À la validation, ajoute la note à system.notes (array d’objets {titre, texte}).
+Afficher le titre dans la bulle, le texte dans le contenu caché.
+Permettre la suppression/modification d’une note si besoin.
+Proposition d’ordre de travail
+Bouton Bonus (rapide à mettre en place, impact direct sur la fiche)
+Bulle "Mon Histoire" (utilise l’éditeur Foundry, simple à intégrer)
+Outil de notes (plus complexe, nécessite gestion d’un tableau dynamique)
+Dis-moi par lequel tu veux commencer,
+ou si tu veux le code pour le bouton "Bonus" tout de suite !

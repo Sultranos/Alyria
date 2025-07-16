@@ -328,6 +328,22 @@ hr.section-divider {
     background-color: rgba(255, 255, 255, 0.7); /* Fond clair pour le contenu */
 }
 
+.biography-bubble[data-bubble-type="mon-histoire"] .mon-histoire-editor,
+.biography-bubble[data-bubble-type="mon-histoire"] .mon-histoire-view {
+    min-height: 80px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 6px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    color: #222;
+    margin-top: 8px;
+    transition: background 0.2s;
+}
+.biography-bubble[data-bubble-type="mon-histoire"] .mon-histoire-editor:hover {
+    background: #e3f2fd;
+}
+
 /* Classe pour cacher le contenu */
 .hidden {
     display: none;
@@ -1813,7 +1829,7 @@ hr.section-divider {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 2px;
 }
 
 .carac-list li {
@@ -2453,4 +2469,186 @@ hr.section-divider {
     border-color: rgba(52, 152, 219, 0.5) !important;
     transform: scale(1.05) !important;
     box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3) !important;
+}
+
+/* Ajoute dans alyriasystem.css */
+.bonus-edit-btn {
+    background: linear-gradient(45deg, #FFC107, #FF9800);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    margin-left: auto;
+    transition: background 0.2s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.bonus-edit-btn:hover {
+    background: linear-gradient(45deg, #FF9800, #FFC107);
+    transform: translateY(-2px) scale(1.04);
+}
+
+.edit-mon-histoire-btn {
+    background: none;
+    border: none;
+    color: #2196F3;
+    cursor: pointer;
+    margin-left: 8px;
+    font-size: 1.1em;
+    transition: color 0.2s;
+}
+.edit-mon-histoire-btn:hover {
+    color: #1565C0;
+}
+
+/* **AJOUT : Styles pour les Notes** */
+
+.rp-notes-section {
+    margin: 8px 0 0 0;
+}
+.add-rp-note-btn {
+    height: 40px ;
+    
+    background: linear-gradient(45deg, #f5e7c0, #e2c48d);
+    color: #7b5e2e;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: right;
+    gap: 8px;
+    box-shadow: 0 2px 6px rgba(139, 69, 19, 0.08);
+    transition: background 0.2s, transform 0.1s;
+}
+.add-rp-note-btn:hover {
+    background: linear-gradient(45deg, #e2c48d, #f5e7c0);
+    color: #a67c2d;
+    transform: translateY(-2px) scale(1.04);
+}
+.rp-notes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.rp-note-bubble {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(139, 69, 19, 0.08);
+    transition: box-shadow 0.2s;
+}
+.rp-note-header {
+    display: flex;    
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: #5a3c1a;
+    cursor: pointer;
+    
+}
+.rp-note-title {
+    flex: 1;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: CENTER ;
+    color: #fff; /* Titre en blanc */
+    text-shadow: 1px 1px 2px #7b5e2e; /* Ombre légère pour lisibilité */
+}
+.delete-rp-note-btn {
+    height: 35px;
+    width: 35px;
+    display: flex;
+    align-items: right;
+    background: none;
+    border: none;
+    color: linear-gradient(45deg, #FFC107, #FF9800);
+    font-size: 0.95em; /* Plus petit */
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 2px 4px;
+    transition: color 0.2s;
+}
+.delete-rp-note-btn i {
+    font-size: 1em; /* Icône plus petite */
+}
+.rp-note-body {
+    position: relative;
+    top: -12px; /* Chevauche le header de 20px */
+    margin-bottom: -20px; /* Pour compenser l'espace en bas si besoin */
+    background-repeat: no-repeat;
+    background-position: center -25px; /* Décale l’image vers le haut si besoin */
+    padding: 28px 40px;
+    font-size: 18px;
+    color: #4a4fdd;
+    border-radius: 0 0 12px 12px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    text-align: CENTER ;
+    box-shadow: 0 2px 12px rgba(139, 69, 19, 0.12);
+    transition: background 0.2s;
+}
+.rp-note-body.hidden {
+    display: none;
+}
+.rp-note-content {
+    margin-bottom: 8px;
+    white-space: pre-line;
+}
+.rp-note-date {
+    font-size: 11px;
+    color: #a67c2d;
+    text-align: right;
+}
+.empty-notes-message {
+    color: #a67c2d;
+    font-style: italic;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.xcard-btn {
+    height: 40px !important;
+    width: 40px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #fff;
+    color: #111;
+    border: 2px solid #111;
+    border-radius: 12px;
+    padding: 6px 12px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.xcard-btn:hover {
+    background: #111;
+    color: #fff;
+    border-color: #d32f2f;
+}
+.xcard-x {
+    font-size: 2em;
+    font-family: 'Arial Black', Arial, sans-serif;
+    color: #d32f2f;
+    text-shadow: 2px 2px 8px #bbb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

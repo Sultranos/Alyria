@@ -23,7 +23,7 @@ export default class AlyriaActor extends Actor {
   prepareData() {
     super.prepareData();
     const system = this.system;
-
+    system.notes ??= [];
     // CORRECTION : Récupérer la voie depuis system.voiesArcane
     const race = AlyriaRaces[system.race] || {};
     
