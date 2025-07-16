@@ -6,127 +6,173 @@ export const talentCreation = {
        {
         nom: "Mort-Vivant",
         description: "Le personnage est déjà un mort réanimé, il ne peut pas être tué mais seulement mis K.O, les soins le blessent mais il se soigne avec l’altération d’état 'Poison'. Il gagne aussi l'immunité à terreur.\nEtant un mort-vivant, la plupart des habitants d’Alyria essaieront de vous éradiquer s’ils se rendent compte de votre véritable nature, heureusement vous en êtes parfaitement conscient et profitez également de pouvoir simplement survivre à vos ennemis facilement…",
-        effect: "Immunité à Terreur. Les soins blessent le personnage, qui se soigne avec l'altération d'état 'Poison'. Le personnage ne peut être que mis K.O, pas tué. Gagne +10 en Survie et en Robustesse."
+        benediction: "Immunité à Terreur. Les soins blessent le personnage, qui se soigne avec l'altération d'état 'Poison'. Le personnage ne peut être que mis K.O, pas tué. Gagne +10 en Survie et en Robustesse."
       },
       {
         nom: "Buvard",
         description: "Le personnage est un buvard, un être qui aspire tous les fluides de ses victimes et s’en nourrit exclusivement. Les soins n’ont aucun effet, il regagne 50% de ses PV max à chaque fois qu’il tue une cible, il obtient une faiblesse au feu.\nVous n’êtes plus tout à fait vous-même depuis cette morsure, vous avez constamment soif et êtes souvent à deux doigts de boire un bon cou, vos yeux virent au rouge sang sous la pression et vous êtes assez pâle en plus de développer une surprenante force physique mais tant que vous n’êtes pas pris sur le fait les gens ne devraient pas faire le lien avec le maléfice qui vous ronge.",
-        effect: "Les soins n'ont aucun effet. Regagne 50% des PV max à chaque fois qu'il tue une cible. Faiblesse au feu. Gagne +10 en Puissance et en Athlétisme."
+        benediction: "Les soins n'ont aucun effet. Regagne 50% des PV max à chaque fois qu'il tue une cible. Faiblesse au feu. Gagne +10 en Puissance et en Athlétisme."
       },
       {
         nom: "Élu",
         description: "Le personnage est choisi par une entité immortelle surpuissante, il s’efforcera de suivre ses préceptes et se verra gratifier d’incroyables talents en échange. Vous choisissez une entité disponible dans les talents mythiques et vous profiterez de tous ses talents, en revanche vous ne pourrez pas en choisir d’autre.\nEtant un élu vous portez de manière significative ou non le signe distinctif de votre entité, cela peut vous ouvrir des portes ou vous conduire au bûcher, mais dans tous les cas vous n’êtes pas quelqu’un d’ordinaire.",
-        effect: "Choisit une entité mythique et profite de tous ses talents (y compris le talent de niveau 0 et les bonus statistiques)."
+        benediction: "Choisit une entité mythique et profite de tous ses talents (y compris le talent de niveau 0 et les bonus statistiques)."
       },
       {
         nom: "Sombrageux",
         description: "Le personnage est une créature d’ombre, il gagne une résistance au Neutre mais une faiblesse dans tous les autres éléments, le personnage est nyctalope et gagne Invisible au début du combat qui l’empêche d’être ciblé tant qu’il n’a pas agi.\nVous êtes une ombre, littéralement, votre corps est vaporeux, difficile à appréhender, vous vous réjouissez des nuits les plus sombres et craignez l’horrible lumière du jour. Les gens vous regardent avec horreur, vous n’inspirez pas confiance et êtes, au mieux, considéré comme porteur d’une malédiction.",
-        effect: "Résistance au Neutre, faiblesse dans tous les autres éléments. Nyctalope. Gagne Invisible au début du combat (ne peut être ciblé tant qu'il n'a pas agi). Gagne +20 en Discrétion."
+        benediction: "Résistance au Neutre, faiblesse dans tous les autres éléments. Nyctalope. Gagne Invisible au début du combat (ne peut être ciblé tant qu'il n'a pas agi). Gagne +20 en Discrétion."
       },
       {
         nom: "Demi-élémentaire",
         description: "Le personnage est à moitié composé d’un élément, il gagne les faiblesses et les résistances de celui-ci, tous les sorts de cet élément coûtent 1 PSY de moins à lancer et voient leurs dégâts, soins et boucliers augmentés de 2, en revanche les sortilèges venant d’autres branches coûtent 1 PSY de plus. Le personnage est très lié à la psyché, il tombe K.O si sa PSY atteint 0.\nVous avez une apparence qui ne met aucun doute sur votre affiliation élémentaire. Considéré par certaines races comme des bénédictions divines, d’autres vous craignent ou vous traquent avec insistance. Votre élément naturel n’a aucun secret pour vous et, de manière générale, vous êtes extrêmement lié aux fluctuations de psyché naturelle.",
-        effect: "Gagne les faiblesses et résistances de l'élément choisi. Les sorts de cet élément coûtent 1 PSY de moins à lancer et leurs dégâts/soins/boucliers sont augmentés de 2. Les sortilèges d'autres branches coûtent 1 PSY de plus. Tombe K.O si la PSY atteint 0. Gagne +10 en Connaissance mystique et en Perception magique."
+        benediction: "Gagne les faiblesses et résistances de l'élément choisi. Les sorts de cet élément coûtent 1 PSY de moins à lancer et leurs dégâts/soins/boucliers sont augmentés de 2. Les sortilèges d'autres branches coûtent 1 PSY de plus. Tombe K.O si la PSY atteint 0. Gagne +10 en Connaissance mystique et en Perception magique."
       },
       {
         nom: "Oublié",
-        description: "Le personnage est parfaitement insensible à la psyché, elle semble même totalement disparaître en sa présence. Dans un rayon de 10m autour de vous, vous imposez un désavantage pour lancer des compétences ou utiliser des armes qui consomment de la psyché. Ce désavantage s’applique également à vous-même ou à vos alliés. Quand vous parvenez à utiliser un sortilège utilisant de la PSY vous chargez la surcharge locale de la moitié de la valeur de ce sort (arrondie au supérieur). Vous ne pouvez pas utiliser la psyché naturelle hors combat pour lancer des sorts.\nVous paraissez totalement normal, pourtant, les personnes sensibles à la psyché se sentent mal à l’aise en votre présence et vous rebutez les mages et sorciers en tout genre. Vous ne pouvez pas effectuer de jets de perception magique, ils seront toujours considérés comme loupés, en revanche il est impossible de vous perturber magiquement, vous êtes donc immunisé à Charme, Silence, Terreur, Cécité, Folie, Chaos, Sommeil s’ils sont appliqués par magie. Vous êtes immunisé à Vidé.",
-        effect: "Dans un rayon de 10m, impose un désavantage pour lancer des compétences ou utiliser des armes consommant de la psyché (s'applique aussi aux alliés et au lanceur). Quand un sort utilisant de la PSY est lancé, charge la surcharge locale de la moitié de sa valeur (arrondi au supérieur). Ne peut pas utiliser la psyché naturelle hors combat pour lancer des sorts. Immunisé à Charme, Silence, Terreur, Cécité, Folie, Chaos, Sommeil si appliqués par magie. Immunisé à Vidé. Ne peut pas faire de jets de perception magique (toujours considérés comme loupés)."
+        description: "Le personnage est parfaitement insensible à la psyché, elle semble même totalement disparaître en sa présence. Dans un rayon de 10m autour de vous, vous imposez un désavantage pour lancer des compétences ou utiliser des armes qui consomment de la psyché. Ce désavantage s’applique également à vous-même ou à vos alliés. Quand vous parvenez à utiliser un sortilège utilisant de la PSY vous chargez la surcharge locale de la moitié de la valeur de ce sort (arrondie au supérieur). Vous ne pouvez pas utiliser la psyché naturelle hors combat pour lancer des sorts.\nVous paraissez totalement normal, pourtant, les personnes sensibles à la psyché se sentent mal à l’aise en votre présence et vous rebutez les mages et sorciers en tout genre. Vous ne pouvez pas benedictionuer de jets de perception magique, ils seront toujours considérés comme loupés, en revanche il est impossible de vous perturber magiquement, vous êtes donc immunisé à Charme, Silence, Terreur, Cécité, Folie, Chaos, Sommeil s’ils sont appliqués par magie. Vous êtes immunisé à Vidé.",
+        benediction: "Dans un rayon de 10m, impose un désavantage pour lancer des compétences ou utiliser des armes consommant de la psyché (s'applique aussi aux alliés et au lanceur). Quand un sort utilisant de la PSY est lancé, charge la surcharge locale de la moitié de sa valeur (arrondi au supérieur). Ne peut pas utiliser la psyché naturelle hors combat pour lancer des sorts. Immunisé à Charme, Silence, Terreur, Cécité, Folie, Chaos, Sommeil si appliqués par magie. Immunisé à Vidé. Ne peut pas faire de jets de perception magique (toujours considérés comme loupés)."
       },
       {
         nom: "Histoire d'Artisan",
         description: "Vous avez pratiqué une forme d’artisanat dans votre passé, cela a pu être une véritable passion ou une obligation sociale de chez vous. Que vous soyez un véritable passionné ou un amateur averti vous gagnez +15 en artisanat et obtenez un avantage lorsque le jet d’artisanat concerne votre domaine. Votre domaine peut être n’importe lequel de votre choix, en voici quelques exemples : Couturier, Forge, Ébéniste, Joaillier, Cuisinier, Verrier, Tailleur de pierre…",
-        effect: "+15 en Artisanat. Avantage sur les jets d'Artisanat concernant le domaine choisi."
+        benediction: "+15 en Artisanat. Avantage sur les jets d'Artisanat concernant le domaine choisi.",
+        fonction: "ajoutDirectCaracteristique",
+        effets: { mineure: {Artisanat:15},}
       },
       {
         nom: "Histoire de Paysan",
-        description: "Vous venez d’un petit village, vous y avez eu une enfance paisible au milieu des animaux, des champs et des vertes prairies. Vous avez appris le travail rude que vous aimiez ça ou non.",
-        effect: "+10 en Robustesse et +10 dans UNE des statistiques suivantes au choix : Connaissance nature, Survie, Puissance, Athlétisme, Adresse ou Artisanat."
+        description: "Vous venez d'un petit village, vous y avez eu une enfance paisible au milieu des animaux, des champs et des vertes prairies. Vous avez appris le travail rude que vous aimiez ça ou non. +10 en Robustesse et +10 dans UNE des statistiques suivantes au choix : Connaissance nature, Survie, Puissance, Athlétisme, Adresse ou Artisanat",
+        benediction: "+10 en Robustesse et +10 dans UNE des statistiques suivantes au choix : Connaissance nature, Survie, Puissance, Athlétisme, Adresse ou Artisanat.",
+        fonction: "bonusIndirectCaracteristique",
+        parametres: {
+          bonus: { mineures: { robustesse: 10 } },
+          choix: {
+            type: "mineures",
+            stats: ["nature", "survie", "puissance", "athletisme", "adresse", "artisanat"], 
+            points: 10
+          }
+        }
       },
       {
         nom: "Histoire de Fervent",
         description: "Vous avez suivi les préceptes divins, vous avez vécu dans un temple et mis une partie de votre vie au service d’une, ou de plusieurs divinités. Si vous avez choisi une divinité qui possède des talents mythiques vous obtenez son talent niveau 0 (mais pas les bonus statistiques) mais ne prendrez pas obligatoirement les autres par la suite.",
-        effect: "+10 en Connaissance sacrée. Si une divinité avec des talents mythiques est choisie, obtient son talent niveau 0 (sans les bonus statistiques)."
+        benediction: "+10 en Sacrée ",
+        fonction: "ajoutDirectCaracteristique",
+        effets: { mineure: {Sacrée:10},},
       },
       {
         nom: "Histoire de Bienfaiteur",
         description: "Vous avez passé votre temps à aider votre prochain, qu’importe la raison pour laquelle vous l’ayez fait, vous aidez ceux dans le besoin et, de manière générale, vous êtes (ou étiez !) quelqu’un sur qui on peut compter.",
-        effect: "+10 en Médecine et en Calme."
+        benediction: "+10 en Médecine et en Calme.",
+        fonction: "ajoutDirectCaracteristique",
+        effets: { mineure: {Medecine:10, Calme:10},}
       },
       {
         nom: "Histoire d'Aventurier",
         description: "Vous avez arpenté les routes et accompli des missions comme tout bon aventurier novice. Vous avez des bases solides et avez pu accomplir divers rôles dans un groupe.",
-        effect: "+5 dans 4 statistiques mineures de votre choix."
+        benediction: "+5 dans 4 statistiques mineures de votre choix."
       },
       {
         nom: "Histoire de Marchand",
         description: "Vous avez passé du temps sur les marchés, votre œil avisé traque les bonnes affaires et votre bagout peut vous octroyer les meilleures opportunités du coin.",
-        effect: "+10 en Marchandage et en Persuader/Tromper."
+        benediction: "+10 en Marchandage et en Persuader/Tromper.",
+        fonction: "ajoutDirectCaracteristique",
+        effets: { mineure: {marchandage:10, persuasion:10},}
       },
       {
         nom: "Histoire de Guerrier",
         description: "Que vous ayez fait partie d’une armée, d’une milice ou d’un groupe de mercenaires, vous maîtrisez les champs de bataille et ne craignez pas l’adversité.",
-        effect: "+1 aux dégâts et +10 en Survie."
+        benediction: "+1 aux dégâts et +10 en Survie."
       },
       {
         nom: "Histoire de Roublard",
         description: "Vous avez navigué dans des milieux pas très clairs, vous avez appris à jouer avec les règles et non pas dedans. Vous avez ça par nécessité ou par goût.",
-        effect: "+10 en Adresse, +5 en Connaissance monde et +5 en Discrétion."
+        benediction: "+10 en Adresse, +5 en Connaissance monde et +5 en Discrétion.",
+        fonction: "ajoutDirectCaracteristique",
+        effets: { mineure: {Adresse:10, Monde:5, Discrétion:5},},
       },
       {
         nom: "Histoire de Noble",
         description: "Vous venez d’une famille d’aristocrate ou de gens riches et influents. Que vos racines existent toujours ou non vous avez passé une enfance dans le luxe et le confort.",
-        effect: "+10 en Art et Musique et en Persuader/Tromper."
+        benediction: "+10 en Art et Musique et en Persuader/Tromper.",
+        fonction: "ajoutDirectCaracteristique",
+        effets: { mineure: {Artmusique:10, Persuadertromper:10},},
       },
       {
         nom: "Histoire d'Artiste",
         description: "Vous avez suivi une discipline artistique et vous êtes beaucoup entraîné, que ce soit par volonté ou par obligation vous êtes assez bon dans votre secteur. Vous gagnez +15 en Art et Musique et obtenez un avantage sur les jets de cette catégorie quand ils concernent votre domaine. Vous pouvez choisir n’importe quel domaine mais voici quelques exemples : Sculpture, Peinture, Théâtre, Musique, Poésie, Littérature…",
-        effect: "+15 en Art et Musique. Avantage sur les jets de cette catégorie concernant le domaine choisi."
+        benediction: "+15 en Art et Musique. Avantage sur les jets de cette catégorie concernant le domaine choisi.",
+        fonction: "ajoutDirectCaracteristique",
+        effets: { mineure: {Artmusique:15},}        
       },
       {
         nom: "Histoire de Mage",
         description: "Vous êtes un amateur de magie, vous avez pu pratiquer dans une académie, en solitaire ou auprès d’un mentor. Vous êtes rompu à l’utilisation et l’analyse de la psyché, que ce soit un don ou le fruit d’un long travail.",
-        effect: "+10 en Connaissance mystique et en Perception magique."
+        benediction: "+10 en Connaissance mystique et en Perception magique.",
+        fonction: "ajoutDirectCaracteristique",
+        effets: { mineure: {Mystique:10, Perceptionmagique:10},},
       },
       {
         nom: "Histoire de Savant",
         description: "Vous avez passé une partie de votre vie le nez dans les livres, peu importe votre sujet de prédilection vous y avez consacré un temps certain et êtes calé en la matière.",
-        effect: "+20 à répartir dans les statistiques mineures liées à l’intelligence."
+        benediction: "+20 à répartir dans les statistiques mineures liées à l’intelligence.",
+        fonction : "repartitionCaracteristiquesMineures",
+        effets: { mineure: { intelligence:20 },},
       },
       {
         nom: "Histoire de Survivant",
         description: "Vous avez survécu à un cataclysme, à une guerre ou à une quelconque calamité ayant provoqué beaucoup de morts et une grande désolation. Vous avez été endurci par cette expérience et êtes devenu effroyablement difficile à abattre, mentalement ou physiquement.",
-        effect: "+20 en Survie. Avantage sur les jets pour sortir d'une situation de vie ou de mort hors combat."
+        benediction: "+20 en Survie. Avantage sur les jets pour sortir d'une situation de vie ou de mort hors combat.",
+        fonction: "ajoutDirectCaracteristique",
+        effets: { mineure: {Survie:20},}
       },
       {
         nom: "Histoire de Voyageur",
         description: "Vous êtes passé sur nombre de chemins, suivi palanquées de sentiers, visité flopée de villes et villages. Vous avez rencontré quantité de gens plus ou moins formidables et avez une expérience certaine si vous souhaitez un jour devenir guide touristique.",
-        effect: "+20 en Connaissance monde."
+        benediction: "+20 en Connaissance monde.",
+        fonction: "ajoutDirectCaracteristique",
+        effets: { mineure: {Monde:20},}
       },
       {
         nom: "Histoire de Hors-la-loi",
         description: "Vous étiez ou êtes toujours recherché dans un ou plusieurs royaumes. Qu’importe le, ou les, crime que vous ayez commis, il était grave et vous a contraint à une vie en marge de la société.",
-        effect: "+5 en Intimidation et en Discrétion. Avantage dans les statistiques mineures liées au Charisme avec les brigands, bandits ou personnes liées à la pègre."
+        benediction: "+5 en Intimidation et en Discrétion. Avantage dans les statistiques mineures liées au Charisme avec les brigands, bandits ou personnes liées à la pègre.",
+        fonction: "ajoutDirectCaracteristique",
+        effets: { mineure: {Intimidation:5, Discretion:5},}
       },
       {
         nom: "Histoire de Naturaliste",
         description: "Vous avez pu être chasseur, bûcheron, herboriste ou simplement quelqu’un ayant grandi dans la nature sauvage. Vos compétences en milieu naturel ne sont plus à prouver et votre milieu de prédilection n’a aucun secret pour vous. Vous gagnez +10 en connaissance nature, et +5 en Survie, vous obtenez également un avantage à vos jets dans ces domaines si vous êtes dans votre milieu de prédilection. Ce milieu peut être n’importe lequel mais en voici quelques exemples : Montagne, marais, plaine, forêt, désert, marin…",
-        effect: "+10 en Connaissance nature et +5 en Survie. Avantage sur les jets de ces domaines si vous êtes dans votre milieu de prédilection."
+        benediction: "+10 en Connaissance nature et +5 en Survie. Avantage sur les jets de ces domaines si vous êtes dans votre milieu de prédilection.",
+        fonction: "ajoutDirectCaracteristique",
+        effets: { mineure: {Connaissancenature:10, Survie:5},}
+
       },
       {
         nom: "Histoire de Joueur",
-        description: "Vous êtes un joueur invétéré, vous adorez jouer aux cartes, aux dés ou à n’importe quel jeu de hasard, vous adoriez ou aimez toujours, parier sur tout ce qui passe.",
-        effect: "+10 en Hasard. Avantage lorsque vous utilisez un jet de hasard pour résoudre une situation avec un coup de chance."
+        description: "Vous êtes un joueur invétéré, vous adorez jouer aux cartes, aux dés ou à n’importe quel jeu de hasard, vous adoriez ou aimez toujours, parier sur tout ce qui passe. +10 en Hasard. Avantage lorsque vous utilisez un jet de hasard pour résoudre une situation avec un coup de chance.",
+        benediction: "+10 en Hasard. Avantage lorsque vous utilisez un jet de hasard pour résoudre une situation avec un coup de chance.",
+        fonction: "bonusDirectPlusConditionnel",
+        parametres: {
+          bonus: {mineures: {Hasard:10}},
+          caracteristique: "Hasard",
+          bonusConditionnel: "Avantage",
+          condition: "Utilisation d'un jet de hasard pour résoudre une situation avec un coup de chance",
+          description: "+10 en Hasard. Avantage lorsque vous utilisez un jet de hasard pour résoudre une situation avec un coup de chance."
+        }
       },
       {
         nom: "Histoire de Chercheur",
         description: "Vous avez passé du temps à chercher quelque chose ou quelqu’un, toute cette énergie dans la traque et la localisation de l’objet de vos désirs vous ont rendu performant pour chercher et trouver tout et n’importe quoi.",
-        effect: "+15 en Intuition et +5 dans une des statistiques mineures liées à l’intelligence."
+        benediction: "+15 en Intuition et +5 dans une des statistiques mineures liées à l’intelligence.",
+        fonction: "repartitionCaracteristiquesMineures",
+        effets: { mineure: {Intuition:15, Intelligence:5},}
       },
       {
         nom: "Histoire d'Athlète",
         description: "Vous êtes un sportif, amateur ou professionnel, vous vous êtes longuement dédié à la pratique et à l’entraînement dans votre sport favori.",
-        effect: "+10 dans deux statistiques parmi les suivantes au choix : Acrobatie, Adresse, Puissance, Athlétisme, Robustesse."
+        benediction: "+10 dans deux statistiques parmi les suivantes au choix : Acrobatie, Adresse, Puissance, Athlétisme, Robustesse."
       }
     ]
   }
@@ -137,128 +183,196 @@ export const talentStatistique = {
     nom: "Félin",
     prerequis: "Aucun",
     description: "Vous vous déplacez correctement, tout du moins vous trébuchez moins souvent.",
-    effets: "Ajoute 2 en Dextérité et 10 en Acrobatie."
+    fonction: "ajoutDirectCaracteristique",
+    effets: { 
+      majeure:{ Dextérité: 2}, 
+      mineure: { Acrobatie: 10},
+    }
   },
   musculature: {
     nom: "Musculature",
     prerequis: "Aucun",
-    description: "Vous avez un peu moins le triceps mou que la moyenne.",
-    effets: "Ajoute 2 en Force et 10 en Athlétisme."
+    description: "Vous avez un peu moins le triceps mou que la moyenne. Ajoute 2 en Force et 10 en Athlétisme.",
+    fonction: "ajoutDirectCaracteristique",
+    effets: { 
+      majeure: { Force: 2}, 
+      mineure: { Athlétisme: 10},
+    }
   },
-  chanceDuDebut: {
+  chanceDuDebutant: {
     nom: "Chance du Débutant",
     prerequis: "Aucun",
-    description: "Vous trouvez régulièrement votre caleçon fétiche dans votre tiroir du premier coup et dans le noir !",
-    effets: "Ajoute 2 en Chance et 10 en Intuition."
+    description: "Vous trouvez régulièrement votre caleçon fétiche dans votre tiroir du premier coup et dans le noir! Ajoute 2 en Chance et 10 en Intuition.",
+    fonction: "ajoutDirectCaracteristique",
+    effets: { majeure:{Chance:2}, mineure: { Intuition:10},}
   },
   costaud: {
     nom: "Costaud",
     prerequis: "Aucun",
     description: "Vous encaissiez comme personne dans votre jeunesse quand vous vous faisiez voler votre goûter.",
-    effets: "Ajoute 2 en Constitution et 10 en Robustesse."
+    fonction: "ajoutDirectCaracteristique",
+    effets: { majeure:{Constitution:2}, mineure: { Robustesse:10},}
   },
   eleveStudieux: {
     nom: "Élève Studieux",
     prerequis: "Aucun",
     description: "Vous êtes toujours le premier à faire remarquer une faute d’orthographe, les professeurs vous détestent.",
-    effets: "Ajoute 2 en Intelligence et 5 en Connaissance monde et en Connaissance sacrée."
+    fonction: "ajoutDirectCaracteristique",
+    effets: { majeure: { Intelligence: 2}, mineure: { Mondes: 5, Sacrée: 5},}
   },
   forteresse: {
     nom: "Forteresse",
     prerequis: "Aucun",
-    description: "Votre peau est épaisse comme le cuir d’un cochon, l’odeur est la même.",
-    effets: "Ajoute 2 en Défense et 10 en Survie."
+    description: "Votre peau est épaisse comme le cuir d’un cochon, l’odeur est la même. Ajoute 2 en Defense et 10 en Survie.",
+    fonction: "ajoutDirectCaracteristique",
+    effets: { majeure:{Defense:2}, mineure: { Survie:10},}
   },
   starlette: {
     nom: "Starlette",
     prerequis: "Aucun",
-    description: "Vous êtes connu au moins jusqu’à la quatrième maison en partant de la vôtre.",
-    effets: "Ajoute 2 en Charisme et 10 en Persuasion."
+    description: "Vous êtes connu au moins jusqu’à la quatrième maison en partant de la vôtre.Ajoute 2 en Charisme et 10 en Persuader/Tromper.",
+    fonction: "ajoutDirectCaracteristique",
+    effets: { majeure:{Charisme:2}, mineure: { Persuasion:10},}
   },
   sensible: {
     nom: "Sensible",
     prerequis: "Aucun",
-    description: "On vous tire facilement une larme, au moins quelques personnes disent de vous que vous êtes à l’écoute…",
-    effets: "Ajoute 2 en Sagesse et 10 en Médecine."
+    description: "On vous tire facilement une larme, au moins quelques personnes disent de vous que vous êtes à l’écoute… Ajoute 2 en Sagesse et 10 en Médecine.",
+    fonction: "ajoutDirectCaracteristique",
+    effets: { majeure:{Sagesse:2}, mineure: { Medecine:10},}
   },
   visionAiguisee: {
     nom: "Vision Aiguisée",
     prerequis: "Perception ou Perception magique > 50",
-    description: "Vous faites attention aux petits détails et rien ne vous échappe.",
-    effets: "Avantage sur les jets de Perception ou de Perception magique ainsi que +10 dans ces deux statistiques."
+    description: "Vous faites attention aux petits détails et rien ne vous échappe.Avantage sur les jets de Perception ou de Perception magique ainsi que +10 dans ces deux statistiques.",
+    fonction: "bonusDirectPlusConditionnel",
+    effets: {
+      bonus: {mineure: { perception: 10, perceptionMagique: 10}},
+      caracteristique: "Perception, Perceptionmagique",
+      bonusConditionnel: "Avantage",
+      condition: "Perception > 50 ou Perception magique > 50" ,
+      description: "Avantage sur les jets de Perception ou de Perception magique ainsi que +10 dans ces deux statistiques."
+    }
   },
   intimidateur: {
     nom: "Intimidateur",
     prerequis: "Aucun",
     description: "Vous savez convaincre les gens plus faibles que vous.",
-    effets: "Ajoute votre Force en plus de votre Charisme lors d’un jet d’Intimidation."
+    effets: "Ajoute votre Charisme en plus de votre Force lors d’un jet d’Intimidation.",
+    fonction: "ajoutMajeureAuxMineures",
+    parametres: {
+        majeureSource: "charisme",
+        cibleType: "specifique",
+        cibleMineure: "intimidation"  
+    }
   },
   manipulateur: {
     nom: "Manipulateur",
     prerequis: "Aucun",
     description: "Vous savez faire croire aux autres que votre idée brillante vient d’eux.",
-    effets: "Ajoute votre Intelligence en plus de votre Charisme lors d’un jet de Persuader/Tromper."
+    effets: "Ajoute votre Intelligence en plus de votre Charisme lors d’un jet de Persuader/Tromper.",
+    fonction: "ajoutMajeureAuxMineures",
+    parametres: {
+        majeureSource: "intelligence",
+        cibleType: "specifique",
+        cibleMineure: "persuasion"  
+    }
   },
   cqfd: {
     nom: "CQFD",
     prerequis: "Aucun",
     description: "Vous savez faire déballage de vos connaissances et les articuler au sein d’un raisonnement juste et sans faille.",
-    effets: "Ajoute votre Sagesse en plus de votre Charisme lors d’un jet de Persuader/Tromper."
+    effets: "Ajoute votre Sagesse en plus de votre Charisme lors d’un jet de Persuader/Tromper.",
+    fonction: "ajoutMajeureAuxMineures",
+    parametres: {
+        majeureSource: "sagesse",
+        cibleType: "specifique",
+        cibleMineure: "persuasion"  
+    }
   },
   fortCommeUnBoeuf: {
     nom: "Fort comme un Bœuf",
     prerequis: "Force > 15 et « Musculature » obtenu",
     description: "Vous avez des muscles sur les muscles, vous pouvez soulever des charges très lourdes jusqu’à 300 kilos.",
-    effets: "Ajoute 2 en Force et 10 en Puissance."
+    fonction: "ajoutDirectCaracteristique",
+    effets: { majeure:{Force:2}, mineure: { Athlétisme:10},},
   },
   neSousBonneEtoile: {
     nom: "Né sous une Bonne Étoile",
     prerequis: "Chance > 15 et « Chance du Débutant » obtenu",
     description: "Vous trouvez souvent des pièces d’or par terre, des bourses entières même, et quand vous jouez aux cartes vous avez toujours la meilleure main, les taverniers oublient de vous faire payer la note et vous n’êtes jamais attrapé par la garde quand vous taguez les murs de votre village, en bref, les gens vous détestent.",
-    effets: "Ajoute 2 en Chance et 10 en Hasard."
+    fonction: "ajoutDirectCaracteristique",
+    effets: { majeure:{Chance:2}, mineure: { Intuition:10},}
   },
   presenceEffacee: {
     nom: "Présence Effacée",
     prerequis: "Dextérité > 15 et « Félin » obtenu",
-    description: "Personne ne vous remarque jamais, quand vous faites une blague un autre la répète plus fort, quand vous êtes à une fête vous finissez seul dans un coin, et volez toutes les bourses.",
-    effets: "Ajoute 2 en Dextérité et 10 en Discrétion ou en Adresse."
+    description: "Personne ne vous remarque jamais, quand vous faites une blague un autre la répète plus fort, quand vous êtes à une fête vous finissez seul dans un coin, et volez toutes les bourses. Ajoute 2 en Dextérité et 10 en Discrétion ou en Adresse.",
+    fonction: "bonusIndirectCaracteristique",
+    parametres: { 
+
+      majeures: {
+          stats: [ "Dextérité"], 
+          points:2}, 
+      mineures: { 
+          stats: ["Discretion", "Adresse"],
+          points: 10 },}
   },
   baleze: {
     nom: "Balèze",
     prerequis: "Constitution > 15 et « Costaud » obtenu",
     description: "La dernière fois qu’un type a essayé de vous tuer il est mort de vieillesse avant d’avoir pu porter le coup de grâce… Non, il est mort de déshydratation au bout de trois jours de combat mais quand même.",
-    effets: "Ajoute 2 en Constitution et 10 en Robustesse."
+    fonction: "ajoutDirectCaracteristique",
+    effets: { majeure:{Constitution:2}, mineure: { Robustesse:10},}
   },
   hypersensibilitePsychique: {
     nom: "Hypersensibilité Psychique",
     prerequis: "Sagesse > 15 et « Sensible » obtenu",
     description: "Vous êtes extrêmement sensible à la magie, et au froid, et aux insultes, et aux histoires tristes, et à la douleur mais surtout à la magie.",
-    effets: "Ajoute 2 en Sagesse et 10 en Perception magique."
+    fonction: "ajoutDirectCaracteristique",
+    effets: { majeure:{Sagesse:2}, mineure: { Medecine:10},}
   },
   academicien: {
     nom: "Académicien",
     prerequis: "Intelligence > 15 et « Élève Studieux » obtenu",
     description: "Vous avez lu beaucoup de livres et acquis un savoir phénoménal, vous adorez par-dessus tout étaler vos connaissances quand personne ne vous le demande.",
-    effets: "Double la valeur d’Intelligence lors d’un jet d’une statistique mineure liée à l’Intelligence choisie lors de l’obtention de ce talent."
+    effets: "Double la valeur d’Intelligence lors d’un jet d’une statistique mineure liée à l’Intelligence choisie lors de l’obtention de ce talent.",
+    fonction: "ajoutMajeureAuxMineures",
+    parametres: {
+        majeureSource: "intelligence",
+        cibleType: "categorie",
+        cibleCategorie: "intelligence" 
+    }
+
   },
   starLocale: {
     nom: "Star Locale",
     prerequis: "Charisme > 15 et « Starlette » obtenu",
-    description: "Vous êtes connu dans tout le groupement de communes de votre village, vous ne pouvez plus aller à la boulangerie sans vous faire harceler par au moins 2 ou 3 grands-mères gnomes.",
-    effets: "Ajoute 2 en Charisme et octroie un avantage lors des jets de statistiques mineures liées au Charisme avec les personnes de la même race ou du même alignement que vous."
+    description: "Vous êtes connu dans tout le groupement de communes de votre village, vous ne pouvez plus aller à la boulangerie sans vous faire harceler par au moins 2 ou 3 grands-mères gnomes.Ajoute 2 en Charisme et octroie un avantage lors des jets de statistiques mineures liées au Charisme avec les personnes de la même race ou du même alignement que vous.",
+    fonction: "ajoutDirectCaracteristique",
+    effets: { majeure:{Charisme:2}, mineure: { Persuasion:10},}
+
   },
   bastionDairain: {
     nom: "Bastion d'Airain",
     prerequis: "Défense > 15 et « Forteresse » obtenu",
     description: "Vous êtes toujours sur vos gardes et vous laissez difficilement avoir, vous avez droit à un blocage avec avantage si on vous attaque par surprise.",
-    effets: "Ajoute 2 en Défense et 10 en Calme."
+    fonction: "ajoutDirectCaracteristique",
+    effets: { majeure:{Defense:2}, mineure: { Survie:10},}
   },
-  specialiste: {
+specialiste: {
     nom: "Spécialiste",
     prerequis: "Statistique mineure > 50",
-    description: "Vous maîtrisez parfaitement votre domaine, même si votre domaine c’est de faire du diabolo. Vous choisissez deux de vos statistiques mineures qui respectent le prérequis au moment de l’obtention. Lors d’un jet de statistiques dans ces domaines vous avez un avantage.",
-    effets: "Avantage sur les jets de deux statistiques mineures choisies (doivent respecter le prérequis)."
-  },
+    description: "Vous maîtrisez parfaitement votre domaine, même si votre domaine c'est de faire du diabolo. Vous choisissez deux de vos statistiques mineures qui respectent le prérequis au moment de l'obtention. Lors d'un jet de statistiques dans ces domaines vous avez un avantage.",
+    fonction: "bonusDirectPlusConditionnel", // **CORRECTION : Pas de points directs**
+    effets: {
+        bonus: {}, // **Pas de bonus direct**
+        caracteristique: "variable", // **Sera défini lors de la sélection**
+        bonusConditionnel: "Avantage",
+        condition: "Statistique mineure > 50",
+        description: "Avantage sur les jets de deux statistiques mineures choisies (doivent respecter le prérequis)."
+    }
+},
   toucheATout: {
     nom: "Touche à tout",
     prerequis: "Toutes les statistiques mineures > 20",
@@ -280,8 +394,15 @@ export const talentStatistique = {
   veilleParScelenis: {
     nom: "Veillé par Scélenis",
     prerequis: "Chance = 25 et « Né sous une bonne étoile » obtenu",
-    description: "Vous avez tellement de chance qu’on commence à croire que vous faites tout exprès et que vous êtes juste extrêmement puissant, alors qu’en fait vous avez à peine conscience de ce qu’il se passe autour de vous.",
-    effets: "Ajoute 2 en Chance. Octroie un avantage lors des jets de Hasard. Peut relancer un jet une fois par scène ou par combat."
+    description: "Vous avez tellement de chance qu’on commence à croire que vous faites tout exprès et que vous êtes juste extrêmement puissant, alors qu’en fait vous avez à peine conscience de ce qu’il se passe autour de vous. Ajoute 2 en Chance. Octroie un avantage lors des jets de Hasard. Peut relancer un jet une fois par scène ou par combat.",
+    fonction: "bonusDirectPlusConditionnel",
+     effets: {
+      bonus: {majeures: {Chance:2}},
+      caracteristique: "Hasard",
+      bonusConditionnel: "Avantage",
+      condition: "Chance = 25" ,
+      description: "Ajoute 2 en Chance. Avantage lors des jets de Hasard. Peut relancer un jet une fois par scène ou par combat."
+    }
   },
   bienveillanceDarintiel: {
     nom: "Bienveillance d'Arïntiël",
@@ -578,3 +699,4 @@ export const talentCombat = {
     effets: "Gagne +5% chances de toucher et de CC par allié au corps à corps de l'ennemi ciblé lors des attaques."
   }
 };
+

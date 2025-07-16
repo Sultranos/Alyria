@@ -9,18 +9,22 @@ import {
     TRAITS_ARMES_COMMUNS_TABLE,
     TRAITS_ARMES_RARES_TABLE,
     TRAITS_ARMES_EPIQUES_TABLE,
-    TRAITS_ARMES_LEGENDAIRES_TABLE,      // ← AJOUTÉ
+    TRAITS_ARMES_LEGENDAIRES_TABLE,      
     TRAITS_ARMURES_COMMUNS_TABLE,
     TRAITS_ARMURES_RARES_TABLE,
     TRAITS_ARMURES_EPIQUES_TABLE,
     TRAITS_ARMURES_LEGENDAIRES_TABLE,
-    IMPERFECTIONS_TABLE                   // ← AJOUTÉ
-} from "./TablesAleatoires.js";
+    IMPERFECTIONS_TABLE } from "./TablesAleatoires.js";
+import { TalentFonctions } from "./data/talentFonctions.js";
+import { ParcheminJournal } from './data/parchemin.js';
+import { JournauxAlyria } from './data/journauxAlyria.js';
 
 
 Hooks.once("init", () => {
     console.log("Alyria | Initialisation du système Alyria");
 
+    ParcheminJournal.init();
+    JournauxAlyria.init();
     // **CORRECTION : Garder l'ancienne syntaxe pour compatibilité v13**
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("alyria", AlyriaItemSheet, { makeDefault: true });
@@ -32,7 +36,9 @@ Hooks.once("init", () => {
     CONFIG.Actor.documentClass = AlyriaActor; 
     CONFIG.Actor.Joueur = CONFIG.Actor.Joueur || {};
     CONFIG.Actor.Joueur.documentClass = AlyriaActor;
-
+    
+    // **AJOUTER : Enregistrer les helpers Handlebars**
+    AlyriaActorSheet._registerHandlebarsHelpers();
     console.log("Alyria | Fiches d'acteurs et d'objets enregistrées");
 
     // **HANDLEBARS : Tous les helpers en une seule fois**
@@ -60,6 +66,18 @@ Hooks.once("init", () => {
         return a * b;
     });
     
+    Handlebars.registerHelper('hasSituationalBonus', function(talents, caracteristique) {
+    if (!talents || !Array.isArray(talents)) return false;
+    
+        return talents.some(talent => {
+            // Vérifier si le talent a un bonus conditionnel pour cette caractéristique
+            if (talent.effet && talent.effet.caracteristique === caracteristique && talent.effet.bonusConditionnel) {
+                return true;
+            }
+            return false;
+        });
+    });
+
     Handlebars.registerHelper('div', function(a, b) {
         return Math.floor(a / b);
     });
@@ -93,12 +111,7 @@ Hooks.once("init", () => {
         return Array.isArray(array) && array.length > 0 ? array[array.length - 1] : '';
     });
     
-    Handlebars.registerHelper('extractSpellName', function(sortId) {
-        if (!sortId) return 'Sort inconnu';
-        const parts = sortId.split(':');
-        return parts[parts.length - 1] || 'Sort inconnu';
-    });
-});
+    
 
 Hooks.once('ready', async () => {
     console.log("🎲 Création des tables aléatoires d'Alyria");
@@ -264,6 +277,7 @@ Hooks.once('ready', async () => {
         console.log("ℹ️ Toutes les tables existent déjà");
     }
 });
+
 // **NOUVEAU : Système d'unicité des armes**
 Hooks.on('preCreateItem', async (item, data, options, userId) => {
     // Vérifier uniquement pour les armes
@@ -331,6 +345,7 @@ Hooks.once("ready", function() {
 // **AJOUT dans module/alyria.js - Hook global pour tous les nouveaux acteurs**
 Hooks.once('ready', async function() {
     console.log("🎭 Alyria System | Ready");
+    console.log('🗞️ Système Alyria prêt - Parchemins activés');
     
     // **NOUVEAU : Migration automatique pour tous les acteurs existants**
     await migrateAllActorsInventory();
@@ -684,3 +699,4 @@ Hooks.on("renderActorSheet", (app, html, data) => {
         header.find('.close').before(syncButton);
     }
 });
+})

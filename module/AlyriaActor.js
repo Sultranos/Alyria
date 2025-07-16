@@ -329,8 +329,7 @@ if (system.creation) {
           if (autreVoieKey) {
             const autreVoie = AlyriaVoies[autreVoieKey];
             if (autreVoie && autreVoie.sortVoie && autreVoie.sortVoie.sortNovice) {
-              // Ajoute les sorts novices de l'autre voie à la liste des sorts disponibles
-              system.sortsDisponibles = [
+                system.sortsDisponibles = [
                 ...system.sortsDisponibles,
                 ...autreVoie.sortVoie.sortNovice.map(s => ({
                   ...s,
@@ -350,12 +349,17 @@ if (system.creation) {
         talents: voie.talents || []
     };
     
-    // **NOUVEAU : Appliquer les effets des traits d'équipements**
+    // **NOUVEAU : Application des traits d'équipement AVANT le plafond**
     this._applyEquipmentTraits(system);
     
     // **PUIS recalculer les valeurs dérivées APRÈS l'application des traits**
-    this._recalculateDerivedStats(system);
-  }
+    this.recalculateDerivedStats(system);
+    
+    // **IMPORTANT : Appliquer le plafond À LA FIN, quand tout est initialisé**
+    if (this._shouldApplyStatCaps()) {
+        this._applyMinorStatCaps();
+    }
+}
 
   _calculateHPMax(actorSystemData) { 
           // Utilisez les caractéristiques DÉRIVÉES (system.majeures) pour les calculs
@@ -375,7 +379,7 @@ if (system.creation) {
           return Math.max(1, calculatedMaxHp); 
           }
 
-        _calculatePsyMax(actorSystemData) {
+ _calculatePsyMax(actorSystemData) {
             const basePsy = 10; 
             const psyPerLevel = 2;
             const psyPerInt = 1; 
@@ -389,7 +393,7 @@ if (system.creation) {
         }
 
         // **CORRECTION COMPLÈTE : Calcul du DSB**
-        _calculateDSB(actorSystemData) {
+ _calculateDSB(actorSystemData) {
             let totalDSB = 0;
             
             // **Statistiques majeures : paliers de 6 points**
@@ -414,7 +418,7 @@ if (system.creation) {
         }
 
                 // **CORRECTION COMPLÈTE : Calcul de l'armure totale**
-        _calculateArmure(actorSystemData) {
+ _calculateArmure(actorSystemData) {
             let totalArmure = 0;
         
             // **ÉTAPE 1 : Armure de défense (paliers de 7)**
@@ -475,7 +479,7 @@ if (system.creation) {
             return totalArmure;
         }
 
-         _hasTalent(talentName) {
+ _hasTalent(talentName) {
             const talents = this.system.talents || [];
             return talents.some(talent => 
                 talent.nom && talent.nom.toLowerCase().includes(talentName.toLowerCase())
@@ -670,7 +674,7 @@ _applyAccessoryTraitEffect(trait, system, isPositive, slotNumber) {
         case "perspicace":
             system.majeures.sagesse.equipement += 1 * multiplier;
             break;
-        case "costaud":
+        case "Balourd":
             system.majeures.force.equipement += 1 * multiplier;
             break;
         case "joli":
@@ -685,9 +689,10 @@ _applyAccessoryTraitEffect(trait, system, isPositive, slotNumber) {
         case "malin":
             system.majeures.intelligence.equipement += 1 * multiplier;
             break;
-        case "robuste":
+        case "costaud":
             system.majeures.constitution.equipement += 1 * multiplier;
             break;
+        
             
         // **TRAITS RARES**
         case "acrobatique":
@@ -713,6 +718,11 @@ _applyAccessoryTraitEffect(trait, system, isPositive, slotNumber) {
         case "reflechi":
             system.majeures.intelligence.equipement += 2 * multiplier;
             break;
+        case "robuste":
+        case "Robuste":
+            system.majeures.constitution.equipement += 2 * multiplier;
+            break;
+        
             
         // **TRAITS ÉPIQUES**
         case "vif":
@@ -1176,7 +1186,74 @@ _applyArmorTraitEffect(trait, system, isPositive) {
     }
 }
 
+// **AJOUTER après la méthode prepareData() dans AlyriaActor.js**
 
+/**
+ * Hook appelé quand l'acteur est mis à jour
+ */
+async _onUpdate(changed, options, userId) {
+    await super._onUpdate(changed, options, userId);
+    
+    // **Vérifier si des majeures ont changé**
+    if (changed.system?.majeures) {
+        console.log("📊 Majeures modifiées, recalcul des bonus aux mineures");
+        
+        // **Importer TalentFonctions de manière dynamique**
+        try {
+            const { TalentFonctions } = await import('./data/talentFonctions.js');
+            await this._recalculateMajeureBonuses();
+        } catch (error) {
+            console.error("❌ Erreur lors du recalcul des bonus:", error);
+        }
+    }
+}
+
+/**
+ * Méthode pour recalculer les bonus de majeures aux mineures
+ */
+async _recalculateMajeureBonuses() {
+    console.log("🔄 Recalcul des bonus de majeures aux mineures");
+    
+    const bonusConfigs = this.getFlag("alyria", "majeureAuxMineuresApplied") || [];
+    
+    if (bonusConfigs.length === 0) {
+        console.log("📊 Aucun bonus majeure->mineure configuré");
+        return;
+    }
+    
+    const updateData = {};
+    
+    // **Pour chaque configuration de bonus**
+    bonusConfigs.forEach(config => {
+        const majeureValue = this.system.majeures?.[config.majeureSource]?.totale || 0;
+        const nouveauBonus = majeureValue;
+        const ancienBonus = config.bonusApplique || 0;
+        
+        console.log(`📊 ${config.talentNom}: ${config.majeureSource} ${ancienBonus} → ${nouveauBonus}`);
+        
+        // **Calculer la différence**
+        const difference = nouveauBonus - ancienBonus;
+        
+        if (difference !== 0) {
+            config.mineuresConcernees.forEach(mineure => {
+                const currentTalents = this.system.mineures[mineure]?.talents || 0;
+                updateData[`system.mineures.${mineure}.talents`] = currentTalents + difference;
+                
+                console.log(`  → ${mineure}: talents ${currentTalents} + ${difference} = ${currentTalents + difference}`);
+            });
+            
+            // **Mettre à jour la configuration**
+            config.bonusApplique = nouveauBonus;
+        }
+    });
+    
+    // **Mettre à jour les flags et l'acteur**
+    if (Object.keys(updateData).length > 0) {
+        await this.setFlag("alyria", "majeureAuxMineuresApplied", bonusConfigs);
+        await this.update(updateData);
+        console.log("✅ Bonus de majeures aux mineures recalculés");
+    }
+}
 
 // **AJOUT : Méthode utilitaire pour extraire les nombres des descriptions**
 _extractNumberFromTrait(text) {
@@ -1208,15 +1285,12 @@ async calculateTraitsEffects() {
         
         console.log("✅ Traits d'équipement appliqués");
         
-        // **NE PAS rappeler prepareData() ici pour éviter la boucle**
-        // this.prepareData(); // ← SUPPRIMER CETTE LIGNE
-        
     } finally {
         this._calculatingTraits = false;
     }
 }
 
-_recalculateDerivedStats(system) {
+recalculateDerivedStats(system) {
     console.log("🔄 Recalcul des statistiques dérivées avec traits");
     
     // **Recalculer les totaux des caractéristiques majeures**
@@ -1252,7 +1326,7 @@ _recalculateDerivedStats(system) {
                 majeureAssociee = system.majeures.defense.totale || 0;
             } else if (["marchandage", "persuasion", "artmusique", "commandement"].includes(attribut)) {
                 majeureAssociee = system.majeures.charisme.totale || 0;
-            } else if (["acrobatie", "discretion", "adresse"].includes(attribut)) {
+            } else if (["acrobatie", "discretion", "artisanat", "adresse"].includes(attribut)) {
                 majeureAssociee = system.majeures.dexterite.totale || 0;
             } else if (["puissance", "intimidation", "athlétisme"].includes(attribut)) {
                 majeureAssociee = system.majeures.force.totale || 0;
@@ -1260,7 +1334,7 @@ _recalculateDerivedStats(system) {
                 majeureAssociee = system.majeures.sagesse.totale || 0;
             } else if (["intuition", "hasard"].includes(attribut)) {
                 majeureAssociee = system.majeures.chance.totale || 0;
-            } else if (["artisanat", "monde", "mystique", "nature", "sacré"].includes(attribut)) {
+            } else if (["monde", "mystique", "nature", "sacré"].includes(attribut)) {
                 majeureAssociee = system.majeures.intelligence.totale || 0;
             }
             
@@ -1292,6 +1366,186 @@ _recalculateDerivedStats(system) {
     
     console.log("✅ Statistiques dérivées recalculées avec traits");
 }
+
+// **NOUVELLE MÉTHODE : Vérifier si on doit appliquer le plafond**
+_shouldApplyStatCaps() {
+    // **Ne pas appliquer pendant la création d'acteur**
+    if (!this.id) {
+        console.log("🚫 Pas d'application du plafond : acteur en cours de création");
+        return false;
+    }
+    
+    // **Ne pas appliquer si les mineures ne sont pas initialisées**
+    if (!this.system.mineures || Object.keys(this.system.mineures).length === 0) {
+        console.log("🚫 Pas d'application du plafond : mineures non initialisées");
+        return false;
+    }
+    
+    // **Vérifier qu'au moins une mineure est correctement structurée**
+    const firstMinor = Object.values(this.system.mineures)[0];
+    if (!firstMinor || typeof firstMinor !== 'object' || firstMinor.totale === undefined) {
+        console.log("🚫 Pas d'application du plafond : structure des mineures incorrecte");
+        return false;
+    }
+    
+    return true;
+}
+
+
+// **CORRECTION : _applyMinorStatCaps avec plafond sur la valeur totale finale**
+_applyMinorStatCaps() {
+    console.log("🔢 Application du plafond de 95 aux mineures");
+    
+    const system = this.system;
+    
+    // **PROTECTION : Vérifier que system.mineures existe et est un objet**
+    if (!system.mineures || typeof system.mineures !== 'object') {
+        console.log("❌ system.mineures n'existe pas ou n'est pas un objet");
+        return;
+    }
+    
+    const redistributionPoints = {}; // Points disponibles par majeure
+    const updateData = {};
+    
+    // **ÉTAPE 1 : Détecter les dépassements et appliquer un malus**
+    const attributsMineurs = [
+        "monde", "mystique", "nature", "sacré", "robustesse", "calme",
+        "marchandage", "persuasion", "artmusique", "commandement", "acrobatie",
+        "discretion", "adresse", "artisanat", "hasard", "athlétisme",
+        "puissance", "intimidation", "perception", "perceptionmagique", "medecine",
+        "intuition"
+    ];
+    
+    attributsMineurs.forEach(attribut => {
+        const data = system.mineures[attribut];
+        
+        // **PROTECTION : Vérifier que l'attribut existe et a la bonne structure**
+        if (!data || typeof data !== 'object') {
+            console.log(`⚠️ Attribut ${attribut} manquant ou mal structuré, création par défaut`);
+            system.mineures[attribut] = {
+                creation: 0,
+                repartition: 0,
+                equipement: 0,
+                talents: 0,
+                bonus: 0,
+                majeureAssocie: 0,
+                totale: 0
+            };
+            return; // Passer au suivant
+        }
+        
+        // **NOUVEAU : Calculer le total FINAL (avec majeure associée)**
+        const totalFinal = (
+            (data.creation || 0) +
+            (data.repartition || 0) +
+            (data.equipement || 0) +
+            (data.talents || 0) +
+            (data.bonus || 0) +
+            (data.majeureAssocie || 0)
+        );
+        
+        // **CORRECTION : Vérifier si le TOTAL FINAL dépasse 95**
+        if (totalFinal > 95) {
+            const overflow = totalFinal - 95;
+            
+            // Déterminer quelle majeure gouverne cette mineure
+            let gouvernante = "";
+            if (["robustesse", "calme"].includes(attribut)) {
+                gouvernante = "defense";
+            } else if (["marchandage", "persuasion", "artmusique", "commandement"].includes(attribut)) {
+                gouvernante = "charisme";
+            } else if (["acrobatie", "discretion", "adresse", "artisanat"].includes(attribut)) {
+                gouvernante = "dexterite";
+            } else if (["puissance", "intimidation", "athlétisme"].includes(attribut)) {
+                gouvernante = "force";
+            } else if (["perception", "perceptionmagique", "medecine"].includes(attribut)) {
+                gouvernante = "sagesse";
+            } else if (["intuition", "hasard"].includes(attribut)) {
+                gouvernante = "chance";
+            } else if (["monde", "mystique", "nature", "sacré"].includes(attribut)) {
+                gouvernante = "intelligence";
+            }
+            
+            console.log(`⚠️ Dépassement détecté: ${attribut} (${totalFinal} total final) → Plafond à 95, ${overflow} points excédentaires`);
+            
+            // **SIMPLE : Appliquer un malus de -overflow dans bonus**
+            const currentBonus = data.bonus || 0;
+            updateData[`system.mineures.${attribut}.bonus`] = currentBonus - overflow;
+            
+            // Ajouter les points excédentaires au pool de redistribution
+            if (!redistributionPoints[gouvernante]) {
+                redistributionPoints[gouvernante] = 0;
+            }
+            redistributionPoints[gouvernante] += overflow;
+            
+            console.log(`  → Malus appliqué: ${currentBonus} → ${currentBonus - overflow} (stat plafonnée à 95)`);
+            
+        } else {
+            // **Si plus de dépassement, ajuster le bonus si nécessaire**
+            // On regarde s'il y avait un malus précédent qu'on peut réduire
+            if (data.bonus < 0) {
+                // Calculer combien on peut "remonter" sans dépasser 95
+                const bonusPossible = Math.min(0, 95 - (totalFinal - data.bonus));
+                if (bonusPossible > data.bonus) {
+                    updateData[`system.mineures.${attribut}.bonus`] = bonusPossible;
+                    console.log(`  → Ajustement bonus pour ${attribut}: ${data.bonus} → ${bonusPossible}`);
+                }
+            }
+        }
+    });
+    
+    // **ÉTAPE 2 : Stocker les points de redistribution pour usage ultérieur**
+    if (Object.keys(redistributionPoints).length > 0) {
+        console.log("🎯 Points de redistribution disponibles:", redistributionPoints);
+        updateData["flags.alyria.redistributionPoints"] = redistributionPoints;
+        
+        // **Notification au joueur**
+        const totalPointsRedistrib = Object.values(redistributionPoints).reduce((sum, val) => sum + val, 0);
+        if (totalPointsRedistrib > 0) {
+            ui.notifications.info(`⚠️ ${totalPointsRedistrib} points de statistiques redistribuables disponibles !`);
+        }
+    }
+    
+    // **ÉTAPE 3 : Appliquer les changements si nécessaire**
+    if (Object.keys(updateData).length > 0) {
+        console.log("🔄 Application des corrections de plafond:", updateData);
+        return this.update(updateData);
+    }
+    
+    return Promise.resolve();
+}
+
+// **HELPER : Obtenir les mineures gouvernées par une majeure**
+_getMineuresGoverned(majeure) {
+    const mapping = {
+        "defense": ["robustesse", "calme"],
+        "charisme": ["marchandage", "persuasion", "artmusique", "commandement"],
+        "dexterite": ["acrobatie", "discretion", "adresse", "artisanat"],
+        "force": ["puissance", "intimidation", "athlétisme"],
+        "sagesse": ["perception", "perceptionmagique", "medecine"],
+        "chance": ["intuition", "hasard"],
+        "intelligence": ["monde", "mystique", "nature", "sacré"]
+    };
+    
+    return mapping[majeure] || [];
+}
+
+// **HELPER : Labels des majeures**
+_getMajeureLabel(majeure) {
+    const labels = {
+        "defense": "Défense",
+        "charisme": "Charisme", 
+        "dexterite": "Dextérité",
+        "force": "Force",
+        "sagesse": "Sagesse",
+        "chance": "Chance",
+        "intelligence": "Intelligence"
+    };
+    
+    return labels[majeure] || majeure;
+}
+
+
 
 // **HELPER : Méthodes utilitaires déplacées pour être accessibles**
 getBonusPourcentage(statValue) {
@@ -1345,5 +1599,24 @@ getBonusChanceCritique(chanceValue) {
     return totalCritChance;
 }
 
-
+prepareDerivedData() {
+    // ...existing code...
+    
+    // **NOUVEAU : Préparer les talents conditionnels pour l'affichage**
+    this._prepareConditionalTalents();
 }
+
+_prepareConditionalTalents() {
+    const conditionalTalents = this.getFlag("alyria", "conditionalTalents") || [];
+    
+    // Créer un objet facilement utilisable dans le template
+    this.system.conditionalTalentsDisplay = conditionalTalents.map(talent => ({
+        nom: talent.nom,
+        caracteristique: talent.caracteristique,
+        bonus: talent.bonus,
+        condition: talent.condition,
+        description: talent.description
+    }));
+    
+    console.log("✅ Talents conditionnels préparés:", this.system.conditionalTalentsDisplay);
+}}

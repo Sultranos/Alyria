@@ -3,6 +3,7 @@ import { AlyriaVoies } from "../data/AlyriaVoies.js";
 import { AlyriaArcane } from "../data/AlyriaArcanes.js";
 import { InventoryManager } from "../Inventaire.js";
 import { CharacterProgression } from "../character-progression.js";
+import { TalentFonctions } from "../data/talentFonctions.js";
 
 export default class AlyriaActorSheet extends ActorSheet {
     
@@ -26,98 +27,50 @@ static get defaultOptions() {
 async getData(options) {
     const context = await super.getData(options);
     const { actor } = this;
-    const system = actor.system; // **CORRECTION : Utiliser actor.system au lieu de actorData**
-
-    // Enrichir les données pour l'affichage
-    context.system = actor.system || {}; // **CORRECTION : actor.system au lieu de actorData.system**
-    context.flags = actor.flags || {};   // **CORRECTION : actor.flags au lieu de actorData.flags**
-
-    // **CORRECTION : Inventaire asynchrone**
-    context.inventaire = this._prepareInventoryData();
-    // In your getData() method, add this line:
-    context.rankImagePath = `systems/alyria/module/data/images/icones/${context.system.rang || 'Novice'}.png`;
-
-    // **ARMES : Traitement des armes (complet)**
-    context.weapons = this.actor.items.filter(item => item.type === "arme").map(weapon => ({
-        ...weapon.toObject(),
-        rarityColor: this._getRarityColor(weapon.system.rarete || "Commune"),
-        rarityIcon: this._getRarityIcon(weapon.system.rarete || "Commune"),
-        traits: weapon.system.traits || [],
-        imperfections: weapon.system.imperfections || []
-    }));
-
-    // **ARMURES : Traitement des armures avec debug**
-    const armorItems = this.actor.items.filter(item => item.type === "armure");
-    context.armors = armorItems.map(armor => {
-        const armorObj = armor.toObject();
-        console.log("Traitement armure:", armorObj.name, "Rareté:", armorObj.system?.rarete);
+    
+    // **ÉTAPE 1 : Initialisation sécurisée du système**
+    if (!actor.system) {
+        console.error("❌ actor.system est manquant !");
+        actor.system = {};
+    }
+    
+    // **ÉTAPE 2 : Initialiser toutes les structures de données nécessaires**
+    const system = actor.system;
+    
+    // **Initialiser les objets principaux**
+    system.majeures = system.majeures || {};
+    system.mineures = system.mineures || {};
+    system.voiesArcane = system.voiesArcane || {};
+    system.inventaire = system.inventaire || {};
+    system.talents = system.talents || [];
+    system.sortsChoisis = system.sortsChoisis || [];
+    
+    // **ÉTAPE 3 : Initialiser chaque caractéristique majeure**
+    const attributsMajeurs = ['force', 'dexterite', 'constitution', 'intelligence', 'sagesse', 'charisme', 'defense', 'chance'];
+    
+    attributsMajeurs.forEach(attribut => {
+        if (!system.majeures[attribut] || typeof system.majeures[attribut] !== 'object') {
+            system.majeures[attribut] = {
+                creation: 0,
+                repartition: 0,
+                equipement: 0,
+                talents: 0,
+                bonus: 0,
+                totale: 0
+            };
+        }
         
-        return {
-            ...armorObj,
-            rarityColor: this._getRarityColor(armorObj.system?.rarete || "Commune"),
-            rarityIcon: this._getRarityIcon(armorObj.system?.rarete || "Commune"),
-            traits: armorObj.system?.traits || [],
-            imperfections: armorObj.system?.imperfections || []
-        };
+        // **Assurer que toutes les propriétés existent**
+        const maj = system.majeures[attribut];
+        maj.creation = maj.creation || 0;
+        maj.repartition = maj.repartition || 0;
+        maj.equipement = maj.equipement || 0;
+        maj.talents = maj.talents || 0;
+        maj.bonus = maj.bonus || 0;
+        maj.totale = (maj.creation || 0) + (maj.repartition || 0) + (maj.equipement || 0) + (maj.talents || 0) + (maj.bonus || 0);
     });
 
-    // **ARME ÉQUIPÉE : Enrichir les données avec couleur/icône**
-    if (this.actor.system.inventaire?.armeEquipee?.id) {
-        const equippedWeaponId = this.actor.system.inventaire.armeEquipee.id;
-        const equippedWeapon = this.actor.items.get(equippedWeaponId);
-        
-        if (equippedWeapon) {
-            // Enrichir les données de l'arme équipée
-            context.system.inventaire.armeEquipee.rarityColor = this._getRarityColor(equippedWeapon.system.rarete || "Commune");
-            context.system.inventaire.armeEquipee.rarityIcon = this._getRarityIcon(equippedWeapon.system.rarete || "Commune");
-            context.system.inventaire.armeEquipee.traits = equippedWeapon.system.traits || [];
-            context.system.inventaire.armeEquipee.imperfections = equippedWeapon.system.imperfections || [];
-            
-            console.log("✅ Arme équipée enrichie:", context.system.inventaire.armeEquipee.name, "ID:", context.system.inventaire.armeEquipee.id);
-        } else {
-            console.log("❌ Arme équipée non trouvée dans les items, ID:", equippedWeaponId);
-        }
-    }
-
-    // **ARMURE ÉQUIPÉE : Enrichir les données avec couleur/icône**
-    if (this.actor.system.inventaire?.armureEquipee?.id) {
-        const equippedArmorId = this.actor.system.inventaire.armureEquipee.id;
-        const equippedArmor = this.actor.items.get(equippedArmorId);
-        
-        
-        if (equippedArmor) {
-            // Enrichir TOUTES les données nécessaires
-            context.system.inventaire.armureEquipee = {
-                ...this.actor.system.inventaire.armureEquipee, // Garder les données existantes
-                ...equippedArmor.toObject(), // Ajouter toutes les données de l'item
-                rarityColor: this._getRarityColor(equippedArmor.system.rarete || "Commune"),
-                rarityIcon: this._getRarityIcon(equippedArmor.system.rarete || "Commune"),
-                traits: equippedArmor.system.traits || [],
-                imperfections: equippedArmor.system.imperfections || []
-            };
-            
-            console.log("✅ Armure équipée 🛡️ :", context.system.inventaire.armureEquipee, "ID:", context.system.inventaire.armureEquipee.id);
-        } else {
-            console.log("❌ Armure équipée non trouvée dans les items");
-            // Nettoyer la référence si l'item n'existe plus
-            context.system.inventaire.armureEquipee = null;
-        }
-    } else {
-        console.log("🛡️ Aucune armure équipée");
-    }
-
-    // **RACES/VOIES : Code existant préservé**
-    context.selectedRace = this._prepareRaceData(context.system.race);
-    this._prepareVoiesArcanes(context);
-
-    // **AJOUTER : Données de l'historique**
-if (system.historique) {
-    context.selectedHistorique = this._prepareHistoriqueData(system.historique);
-}
-    
-
-    // **CORRECTION COMPLÈTE : Ajout des stats majeures aux mineures**
-    // **CORRIGER la fonction d'association des stats majeures**
+    // **ÉTAPE 4 : Initialiser chaque caractéristique mineure**
     const attributsMineurs = [
         'monde', 'mystique', 'nature', 'sacré', 'robustesse', 'calme',
         'marchandage', 'persuasion', 'artmusique', 'commandement',
@@ -127,93 +80,277 @@ if (system.historique) {
     ];
 
     attributsMineurs.forEach(attribut => {
-        // Calculer la valeur de la stat majeure associée
+        if (!system.mineures[attribut] || typeof system.mineures[attribut] !== 'object') {
+            system.mineures[attribut] = {
+                creation: 0,
+                repartition: 0,
+                equipement: 0,
+                talents: 0,
+                bonus: 0,
+                majeureAssocie: 0,
+                totale: 0
+            };
+        }
+        
+        // **Calculer la valeur de la stat majeure associée**
         let majeureAssociee = 0;
-        
         if (["robustesse", "calme"].includes(attribut)) {
-            majeureAssociee = system.majeures.defense.totale || 0;
+            majeureAssociee = system.majeures.defense?.totale || 0;
+        } else if (["marchandage", "persuasion", "artmusique", "commandement"].includes(attribut)) {
+            majeureAssociee = system.majeures.charisme?.totale || 0;
+        } else if (["acrobatie", "discretion", "adresse"].includes(attribut)) {
+            majeureAssociee = system.majeures.dexterite?.totale || 0;
+        } else if (["puissance", "intimidation", "athlétisme"].includes(attribut)) {
+            majeureAssociee = system.majeures.force?.totale || 0;
+        } else if (["perception", "perceptionmagique", "medecine"].includes(attribut)) {
+            majeureAssociee = system.majeures.sagesse?.totale || 0;
+        } else if (["intuition", "hasard"].includes(attribut)) {
+            majeureAssociee = system.majeures.chance?.totale || 0;
+        } else if (["monde", "mystique", "nature", "sacré", "artisanat"].includes(attribut)) {
+            majeureAssociee = system.majeures.intelligence?.totale || 0;
         }
-        else if (["marchandage", "persuasion", "artmusique", "commandement"].includes(attribut)) {
-            majeureAssociee = system.majeures.charisme.totale || 0;
-        }
-        else if (["acrobatie", "discretion", "artisanat", "adresse"].includes(attribut)) {
-            majeureAssociee = system.majeures.dexterite.totale || 0;
-        }
-        else if (["puissance", "intimidation", "athlétisme"].includes(attribut)) {
-            majeureAssociee = system.majeures.force.totale || 0;
-        }
-        else if (["perception", "perceptionmagique", "intuition", "medecine"].includes(attribut)) {
-            majeureAssociee = system.majeures.sagesse.totale || 0;
-        }
-        else if (["hasard"].includes(attribut)) {
-            majeureAssociee = system.majeures.chance.totale || 0;
-        }
-        else if (["monde", "mystique", "nature", "sacré"].includes(attribut)) {
-            majeureAssociee = system.majeures.intelligence.totale || 0;
-        }
-
-        // Garder les valeurs existantes
-        const creation = system.mineures[attribut]?.creation || 0;
         
-        const repartition = system.mineures[attribut]?.repartition || 0;
-        const equipement = system.mineures[attribut]?.equipement || 0;
-        const talents = system.mineures[attribut]?.talents || 0;
-        const bonus = system.mineures[attribut]?.bonus || 0;
-        
-        // Mettre à jour avec la stat majeure
-        system.mineures[attribut] = {
-            creation: creation,
-            repartition: repartition,
-            equipement: equipement,
-            talents: talents,
-            bonus: bonus,
-            majeureAssocie: majeureAssociee,
-            totale: creation + repartition + equipement + talents + bonus + majeureAssociee
-        };
+        // **Assurer que toutes les propriétés existent**
+        const min = system.mineures[attribut];
+        min.creation = min.creation || 0;
+        min.repartition = min.repartition || 0;
+        min.equipement = min.equipement || 0;
+        min.talents = min.talents || 0;
+        min.bonus = min.bonus || 0;
+        min.majeureAssocie = majeureAssociee;
+        min.totale = (min.creation || 0) + (min.repartition || 0) + (min.equipement || 0) + (min.talents || 0) + (min.bonus || 0) + majeureAssociee;
     });
 
-    // **FORCER la mise à jour du contexte avec les nouvelles valeurs**
-    attributsMineurs.forEach(attribut => {
-        // ... calculs existants ...
+    // **ÉTAPE 5 : Préparer le contexte de manière sécurisée**
+    try {
+        // **Copie profonde sécurisée du système**
+        context.system = foundry.utils.deepClone(system);
+        context.flags = foundry.utils.deepClone(actor.flags || {});
         
-        // **FORCER la mise à jour dans le contexte**
-        if (!context.system.mineures) context.system.mineures = {};
-        context.system.mineures[attribut] = system.mineures[attribut];
-    });
+        // **Données enrichies**
+        context._getDSBDetails = this._getDSBDetails();
+        context.inventaire = this._prepareInventoryData();
+        context.rankImagePath = `systems/alyria/module/data/images/icones/${context.system.rang || 'Novice'}.png`;
 
+        // **Traitement des équipements avec vérification**
+        context.weapons = this._prepareWeaponsData();
+        context.armors = this._prepareArmorsData();
+        
+        // **Enrichir les équipements équipés**
+        this._enrichEquippedItems(context);
 
-    // **NOUVEAU : Préparer les sorts pour l'affichage**
-    context.sortsChoisis = (system.sortsChoisis || []).map(sort => {
-        // Extraire le nom depuis l'ID
-        const nomSort = sort.id ? sort.id.split(':').pop() : 'Sort inconnu';
-        
-        return {
-            id: sort.id,
-            displayName: nomSort, // Pour {{sort.displayName}}
-            Touche: sort.rang, // Pour {{sort.Touche}} 
-            Psy: sort.niveau, // Pour {{sort.Psy}}
-            Action: sort.source, // Pour {{sort.Action}}
-            Distance: "Variable", // Pour {{sort.Distance}}
-            Zone: "Variable", // Pour {{sort.Zone}}
-            rang: sort.rang, // Pour data-rang et les couleurs
-            level: sort.rang, // Pour {{sort.level}}
-            description: `Sort de rang ${sort.rang} (niveau ${sort.niveau})`
-        };
-    });
-        
+        // **Données de race/voies/arcanes**
+        context.selectedRace = this._prepareRaceData(context.system.race);
+        this._prepareVoiesArcanes(context);
+
+        // **Historique si présent**
+        if (system.historique) {
+            context.selectedHistorique = this._prepareHistoriqueData(system.historique);
+        }
+
+        // **Sorts choisis**
         context.sortsChoisis = this._prepareSortsChoisis();
-    
-    // **SUPPRIMER l'ancien code qui ne marche pas :**
-    // context.sortsChoisis = (system.sortsChoisis || []).map(sort => { ... });
-    
-    context.sortsDisponibles = CharacterProgression._getAvailableSpellsForLevelUp ? 
-        CharacterProgression._getAvailableSpellsForLevelUp(actor) : 
-        [];
-        
-    context.nbSortsRestants = system.nbSortsAChoisir || 0;
+        context.sortsDisponibles = [];
+        context.nbSortsRestants = system.nbSortsAChoisir || 0;
 
-    return context;
+        console.log("✅ getData() terminé avec succès");
+        return context;
+        
+    } catch (error) {
+        console.error("❌ Erreur dans getData():", error);
+        
+        // **Fallback : retourner un contexte minimal mais valide**
+        return {
+            ...context,
+            system: system,
+            flags: actor.flags || {},
+            selectedRace: { nom: "Non définie", description: [], talentRace: "Aucun", competenceRaciale: "Aucune" },
+            selectedVoie: null,
+            selectedArcana: null,
+            sortsChoisis: [],
+            weapons: [],
+            armors: [],
+            inventaire: { items: [] }
+        };
     }
+}
+
+// **NOUVELLES MÉTHODES HELPER pour éviter les erreurs**
+
+_prepareWeaponsData() {
+    try {
+        return this.actor.items.filter(item => item.type === "arme").map(weapon => ({
+            ...weapon.toObject(),
+            rarityColor: this._getRarityColor(weapon.system?.rarete || "Commune"),
+            rarityIcon: this._getRarityIcon(weapon.system?.rarete || "Commune"),
+            traits: weapon.system?.traits || [],
+            imperfections: weapon.system?.imperfections || []
+        }));
+    } catch (error) {
+        console.error("❌ Erreur _prepareWeaponsData:", error);
+        return [];
+    }
+}
+
+_prepareArmorsData() {
+    try {
+        const armorItems = this.actor.items.filter(item => item.type === "armure");
+        return armorItems.map(armor => {
+            const armorObj = armor.toObject();
+            return {
+                ...armorObj,
+                rarityColor: this._getRarityColor(armorObj.system?.rarete || "Commune"),
+                rarityIcon: this._getRarityIcon(armorObj.system?.rarete || "Commune"),
+                traits: armorObj.system?.traits || [],
+                imperfections: armorObj.system?.imperfections || []
+            };
+        });
+    } catch (error) {
+        console.error("❌ Erreur _prepareArmorsData:", error);
+        return [];
+    }
+}
+
+_enrichEquippedItems(context) {
+    try {
+        const system = context.system;
+        const inventaire = system.inventaire || {};
+        
+        // **Arme équipée**
+        if (inventaire.armeEquipee?.id) {
+            const equippedWeapon = this.actor.items.get(inventaire.armeEquipee.id);
+            if (equippedWeapon) {
+                system.inventaire.armeEquipee = {
+                    ...equippedWeapon.toObject(),
+                    rarityColor: this._getRarityColor(equippedWeapon.system?.rarete || "Commune"),
+                    rarityIcon: this._getRarityIcon(equippedWeapon.system?.rarete || "Commune")
+                };
+            }
+        }
+
+        // **Armure équipée**
+        if (inventaire.armureEquipee?.id) {
+            const equippedArmor = this.actor.items.get(inventaire.armureEquipee.id);
+            if (equippedArmor) {
+                system.inventaire.armureEquipee = {
+                    ...equippedArmor.toObject(),
+                    rarityColor: this._getRarityColor(equippedArmor.system?.rarete || "Commune"),
+                    rarityIcon: this._getRarityIcon(equippedArmor.system?.rarete || "Commune")
+                };
+            }
+        }
+
+        // **Accessoires équipés**
+        ['accessoire1', 'accessoire2'].forEach(slot => {
+            if (inventaire[slot]?.id) {
+                const equippedAccessory = this.actor.items.get(inventaire[slot].id);
+                if (equippedAccessory) {
+                    system.inventaire[slot] = {
+                        ...equippedAccessory.toObject(),
+                        rarityColor: this._getRarityColor(equippedAccessory.system?.rarete || "Commune"),
+                        rarityIcon: this._getRarityIcon(equippedAccessory.system?.rarete || "Commune")
+                    };
+                }
+            }
+        });
+        
+    } catch (error) {
+        console.error("❌ Erreur _enrichEquippedItems:", error);
+    }
+}
+
+// **CORRECTION : _prepareInventoryData sécurisée**
+_prepareInventoryData() {
+    try {
+        const inventory = this.actor.system.inventaire || {};
+        
+        const items = this.actor.items.map(item => {
+            try {
+                const itemObj = item.toObject();
+                return {
+                    ...itemObj,
+                    rarityColor: this._getRarityColor(itemObj.system?.rarete || "Commune"),
+                    rarityIcon: this._getRarityIcon(itemObj.system?.rarete || "Commune"),
+                    encombrement: itemObj.system?.encombrement || 1,
+                    isEquipped: this._isItemEquipped(item)
+                };
+            } catch (error) {
+                console.error("❌ Erreur traitement item:", item.name, error);
+                return {
+                    id: item.id,
+                    name: item.name || "Item sans nom",
+                    type: item.type || "unknown",
+                    rarityColor: "#9E9E9E",
+                    rarityIcon: "fas fa-circle",
+                    encombrement: 1,
+                    isEquipped: false
+                };
+            }
+        });
+
+        return {
+            items: items,
+            armeEquipee: inventory.armeEquipee || null,
+            armeSecondaireEquipee: inventory.armeSecondaireEquipee || null,
+            armureEquipee: inventory.armureEquipee || null,
+            accessoire1: inventory.accessoire1 || null,
+            accessoire2: inventory.accessoire2 || null,
+            encombrement: {
+                actuel: this._calculateTotalEncumbrance(),
+                max: 50 // Valeur par défaut
+            },
+            totalItems: items.length,
+            freeSpace: Math.max(0, 50 - this._calculateTotalEncumbrance()),
+            surcharge: this._calculateTotalEncumbrance() > 50
+        };
+    } catch (error) {
+        console.error("❌ Erreur _prepareInventoryData:", error);
+        return {
+            items: [],
+            armeEquipee: null,
+            armeSecondaireEquipee: null,
+            armureEquipee: null,
+            accessoire1: null,
+            accessoire2: null,
+            encombrement: { actuel: 0, max: 50 },
+            totalItems: 0,
+            freeSpace: 50,
+            surcharge: false
+        };
+    }
+}
+
+// **HELPER sécurisé pour vérifier si un item est équipé**
+_isItemEquipped(item) {
+    try {
+        const inventaire = this.actor.system.inventaire || {};
+        return (
+            inventaire.armeEquipee?.id === item.id ||
+            inventaire.armeSecondaireEquipee?.id === item.id ||
+            inventaire.armureEquipee?.id === item.id ||
+            inventaire.accessoire1?.id === item.id ||
+            inventaire.accessoire2?.id === item.id
+        );
+    } catch (error) {
+        console.error("❌ Erreur _isItemEquipped:", error);
+        return false;
+    }
+}
+
+// **HELPER sécurisé pour calculer l'encombrement**
+_calculateTotalEncumbrance() {
+    try {
+        let total = 0;
+        this.actor.items.forEach(item => {
+            const encombrement = item.system?.encombrement || 1;
+            total += parseInt(encombrement) || 0;
+        });
+        return total;
+    } catch (error) {
+        console.error("❌ Erreur _calculateTotalEncumbrance:", error);
+        return 0;
+    }
+}
 
     // **HELPER : Préparer les données de race**
     _prepareRaceData(raceKey) {
@@ -222,41 +359,45 @@ if (system.historique) {
         return {
             nom: raceData.nom || "Non définie",
             description: raceData.description || [],
-            // **CORRECTION : Utiliser le nom du talent racial au lieu de l'objet entier**
             talentRace: raceData.talentRace?.nom || raceData.talentRace || "Aucun talent de race",
-            // **CORRECTION : Utiliser la description du talent racial**
+            // **CORRECTION : Utiliser la bonne propriété pour la description du talent**
             competenceRaciale: raceData.talentRace?.description || 
-                              raceData.talentRace?.effet ||
-                              raceData.competenceRaciale || 
-                              "Description du talent racial non disponible"
+                            raceData.talentRace?.effet ||
+                            raceData.talentRace?.effets ||
+                            "Description du talent racial non disponible"
         };
     }
 
     // **HELPER : Préparer voies et arcanes**
-    _prepareVoiesArcanes(context) {
-        const voiesArcane = context.system.voiesArcane || {};
-        const { type1, key1, type2, key2 } = voiesArcane;
+_prepareVoiesArcanes(context) {
+    const voiesArcane = context.system.voiesArcane || {};
+    const { type1, key1, type2, key2 } = voiesArcane;
 
-        // Reset
-        context.selectedVoie = null;
-        context.selectedArcana = null;
-        context.selectedSecondVoie = null;
-        context.selectedSecondArcana = null;
+    context.selectedVoie = null;
+    context.selectedArcana = null;
+    context.selectedSecondVoie = null;
+    context.selectedSecondArcana = null;
 
-        // Première sélection
-        if (type1 === "voie" && key1) {
-            context.selectedVoie = this._prepareVoieData(key1);
-        } else if (type1 === "arcane" && key1) {
-            context.selectedArcana = this._prepareArcaneData(key1);
-        }
-
-        // Seconde sélection
-        if (type2 === "voie" && key2) {
-            context.selectedSecondVoie = this._prepareVoieData(key2);
-        } else if (type2 === "arcane" && key2) {
-            context.selectedSecondArcana = this._prepareArcaneData(key2);
-        }
+    // Première sélection
+    if (type1 === "voie" && key1) {
+        context.selectedVoie = this._prepareVoieData(key1);
+    } else if (type1 === "arcane" && key1) {
+        context.selectedArcana = this._prepareArcaneData(key1);
     }
+
+    // Seconde sélection
+    if (type2 === "voie" && key2) {
+        context.selectedSecondVoie = this._prepareVoieData(key2);
+    } else if (type2 === "arcane" && key2) {
+        context.selectedSecondArcana = this._prepareArcaneData(key2);
+    }
+    console.log("DEBUG Voies/Arcanes:", {
+    selectedVoie: context.selectedVoie,
+    selectedArcana: context.selectedArcana,
+    selectedSecondVoie: context.selectedSecondVoie,
+    selectedSecondArcana: context.selectedSecondArcana
+});
+}
 
     // **HELPER : Préparer les données de voie**
     _prepareVoieData(voieKey) {
@@ -274,18 +415,17 @@ if (system.historique) {
     }
 
     // **HELPER : Préparer les données d'arcane**
-    _prepareArcaneData(arcaneKey) {
-        const arcane = AlyriaArcane?.[arcaneKey];
-        if (!arcane) return null;
-        
-        return {
-            nom: arcane.nom || arcaneKey,
-            description: arcane.description || [],
-            // **CORRECTION : Utiliser talentArcane.talents au lieu de talentsArcane**
-            talentArcane: arcane.talentArcane || { talents: [] },
-            sortileges: arcane.sortileges || []
-        };
-    }
+_prepareArcaneData(arcaneKey) {
+    const arcane = AlyriaArcane?.[arcaneKey];
+    if (!arcane) return null;
+    return {
+        nom: arcane.nom || arcaneKey,
+        description: arcane.description || [],
+        mecanique: arcane.mecanique || arcane.mecaniques || [], // <-- AJOUT ICI
+        talentArcane: arcane.talentArcane || { talents: [ {name: talent.nom, description: talent.description, effet: talent.description, level: talent.niveauJoueur}] },
+        sortileges: arcane.sortileges || []
+    };
+}
 
     // **HELPER : Couleurs de rareté**
     _getRarityColor(rarity) {
@@ -322,16 +462,107 @@ if (system.historique) {
         return await InventoryManager.equipItemFromInventory(this.actor, itemId, equipType);
     }
 
-    static async _registerHandlebarsHelpers() {
+   
+static async _registerHandlebarsHelpers() {
     // Helper pour convertir en minuscules
     Handlebars.registerHelper('toLowerCase', function(str) {
         return str ? str.toLowerCase() : '';
     });
     
+
+    Handlebars.registerHelper('getWeaponToucheValue', function(system) {
+    if (!system?.inventaire?.armeEquipee?.system?.touche) return '';
+    const touche = system.inventaire.armeEquipee.system.touche.toLowerCase();
+    // Correspondance entre touche et propriété système
+    const mapping = {
+        force: 'toucheForce',
+        dextérité: 'toucheDexterite',
+        dexterite: 'toucheDexterite',
+        charisme: 'toucheCharisme',
+        sagesse: 'toucheSagesse',
+        chance: 'toucheChance',
+        défense: 'toucheDefense',
+        defense: 'toucheDefense'
+    };
+    const toucheKey = mapping[touche] || '';
+    return toucheKey && system[toucheKey] !== undefined ? system[toucheKey] : '';
+});
+
+        // **NOUVEAU : Helper pour le total de points de redistribution**
+Handlebars.registerHelper('_getRedistributionTotal', function() {
+    const redistributionPoints = this.flags?.alyria?.redistributionPoints || {};
+    return Object.values(redistributionPoints).reduce((sum, val) => sum + val, 0);
+});
+
     // Helper pour comparer les valeurs
     Handlebars.registerHelper('eq', function(a, b) {
         return a === b;
     });
+    
+    // **NOUVEAU : Helper pour vérifier les bonus situationnels**
+Handlebars.registerHelper('hasSituationalBonus', function(talents, caracteristique) {
+    console.log("🔍 Helper hasSituationalBonus appelé:", { talents, caracteristique });
+    
+    // **VÉRIFIER d'abord les talents conditionnels dans les flags**
+    const actor = this.actor || this;
+    if (actor && actor.flags?.alyria?.conditionalTalents) {
+        const conditionalTalents = actor.flags.alyria.conditionalTalents;
+        const hasConditional = conditionalTalents.some(talent => 
+            talent.caracteristique === caracteristique
+        );
+        
+        if (hasConditional) {
+            console.log("✅ Talent conditionnel trouvé dans les flags pour", caracteristique);
+            return true;
+        }
+    }
+    
+    // **FALLBACK : Vérifier les talents classiques avec la nouvelle structure**
+    if (!talents || !Array.isArray(talents)) {
+        console.log("❌ Pas de talents fournis");
+        return false;
+    }
+    
+    const caracLower = caracteristique.toLowerCase();
+    
+    const found = talents.some(talent => {
+        // **Vérifier dans l'effet textuel**
+        const effetText = (talent.effet || "").toLowerCase();
+        
+        // **Vérifier aussi dans la structure effets si elle existe**
+        const effetsStruct = talent.effets;
+        
+        // Patterns pour détecter les bonus situationnels
+        const patterns = [
+            `\\+\\d+.*${caracLower}`,
+            `${caracLower}.*\\+\\d+`,
+            `bonus.*${caracLower}`,
+            `${caracLower}.*bonus`,
+            `conditionnel.*${caracLower}`,
+            `situationnel.*${caracLower}`
+        ];
+        
+        const foundInText = patterns.some(pattern => {
+            const regex = new RegExp(pattern, 'i');
+            return regex.test(effetText);
+        });
+        
+        // **NOUVEAU : Vérifier aussi dans la structure d'effets**
+        let foundInStruct = false;
+        if (effetsStruct && typeof effetsStruct === 'object') {
+            const structStr = JSON.stringify(effetsStruct).toLowerCase();
+            foundInStruct = patterns.some(pattern => {
+                const regex = new RegExp(pattern, 'i');
+                return regex.test(structStr);
+            });
+        }
+        
+        return foundInText || foundInStruct;
+    });
+    
+    console.log(`${found ? '✅' : '❌'} Talent situationnel ${found ? 'trouvé' : 'non trouvé'} pour ${caracteristique}`);
+    return found;
+});
 }
 
 activateListeners(html) {
@@ -344,10 +575,13 @@ activateListeners(html) {
     // **COMBAT**
     html.find('.combat-action-btn[data-action="block"]').click(this._onBlockAction.bind(this));
     html.find('.combat-action-btn[data-action="attack"]').click(this._onAttackAction.bind(this));
+    html.find('.combat-action-btn[data-action="unarmed-attack"]').click(this._onUnarmedAttackAction.bind(this)); 
     
     // **RÉCUPÉRATION ET LEVEL UP**
-    html.find('.recovery-button, .open-recovery-dialog').click(this._onOpenRecoveryDialog.bind(this));
+    html.find('.combat-action-btn[data-action="recovery"]').click(this._onOpenRecoveryDialog.bind(this));
     html.find('.level-up-btn, .level-display-btn').click(this._onLevelUp.bind(this));
+        // **NOUVEAU : Bouton de redistribution**
+    html.find('.redistribute-points-btn').click(this._onRedistributePoints.bind(this));
     
     // **DRAG & DROP INVENTAIRE**
     html.find('.inventory-drop-zone').on('drop', this._onInventoryDrop.bind(this));
@@ -392,6 +626,11 @@ activateListeners(html) {
     html.find('.sort-icon-square, .sort-cast-button').click(this._onCastSpell.bind(this));
     html.find('.sort-expand-btn').click(this._onToggleSortDetails.bind(this));
     
+    
+    // **NOUVEAU : Boutons de bonus situationnels**
+    if (this._onConditionalTalentClick) {
+        html.find('.situational-bonus-btn').click(this._onConditionalTalentClick.bind(this));
+        }
     // **BULLES BIOGRAPHIQUES**
     html.find('.biography-bubble .bubble-title').off('click').on('click', (event) => {
         event.preventDefault();
@@ -449,20 +688,51 @@ async _onRollCharacteristic(event) {
     const dataset = element.dataset;
     
     // Récupérer la valeur de la touche et le nom de la caractéristique
-    const targetValue = parseInt(dataset.dice, 10);
     const characteristicName = dataset.label;
-
+    console.log(`🎲 Jet demandé pour: ${characteristicName}`);
+    
     // **CORRECTION : Déterminer si c'est une caractéristique majeure ou mineure**
     const majeuresKeys = ['force', 'dexterite', 'constitution', 'intelligence', 'sagesse', 'charisme', 'defense', 'chance'];
     const isMajeure = majeuresKeys.includes(characteristicName.toLowerCase());
+    
+    let targetValue = 0;
+    
+    if (isMajeure) {
+        // **Pour les majeures : utiliser la valeur de touche précalculée**
+        targetValue = parseInt(dataset.dice, 10) || 0;
+    } else {
+        // **Pour les mineures : calculer directement depuis la valeur totale**
+        const caracteristiqueData = this.actor.system.mineures[characteristicName.toLowerCase()];
+        
+        if (caracteristiqueData && caracteristiqueData.totale !== undefined) {
+            targetValue = caracteristiqueData.totale;
+            console.log(`📊 Valeur mineure ${characteristicName}: ${targetValue} (depuis system.mineures)`);
+        } else {
+            // **FALLBACK : Essayer de récupérer depuis dataset.dice**
+            targetValue = parseInt(dataset.dice, 10) || 0;
+            console.log(`⚠️ Fallback pour ${characteristicName}: ${targetValue}`);
+        }
+    }
+    
+    // **DEBUG : Vérifier la valeur obtenue**
+    console.log(`🎯 Valeur finale pour ${characteristicName}: ${targetValue}`);
+    
+    if (isNaN(targetValue) || targetValue === 0) {
+        ui.notifications.error(`Impossible de déterminer la valeur de ${characteristicName} !`);
+        console.error(`❌ Valeur invalide pour ${characteristicName}:`, {
+            targetValue,
+            dataset,
+            caracteristiqueData: this.actor.system.mineures[characteristicName.toLowerCase()]
+        });
+        return;
+    }
     
     // **CORRECTION : Critique différencié selon le type**
     const toucheCritique = isMajeure ? 
         (this.actor.system.toucheChance || 5) :  // Majeures : toucheChance variable
         5;                                        // Mineures : 5% fixe
 
-    // **DEBUG : Afficher les informations**
-    console.log(`🎲 Jet de ${characteristicName} - Type: ${isMajeure ? 'Majeure' : 'Mineure'} - Critique: ${toucheCritique}%`);
+    console.log(`🎲 Jet de ${characteristicName} - Type: ${isMajeure ? 'Majeure' : 'Mineure'} - Seuil: ${targetValue}% - Critique: ${toucheCritique}%`);
 
     const roll = new Roll("1d100");
     await roll.evaluate();
@@ -1945,38 +2215,57 @@ async _executeSortCast(sortData, shouldRoll) {
         </div>
     `;
     
-    // **JET DE DÉS SI DEMANDÉ**
+    // **CORRECTION : JET DE DÉS SI DEMANDÉ**
     if (shouldRoll && sortData.Touche && sortData.Touche !== "automatique") {
         const toucheValue = this._getToucheValue(sortData.Touche);
+        
         if (toucheValue > 0) {
+            // Effectuer le jet de d100
             const roll = new Roll("1d100");
             await roll.evaluate();
             
             const success = roll.total <= toucheValue;
-            const criticalSuccess = roll.total <= 5;
-            const criticalFailure = roll.total >= 96;
+            const criticalSuccess = roll.total <= this.actor.system.toucheChance; // 5% de critique
+            const criticalFailure = roll.total >= 96; // 96-100 échec critique
             
             let resultText = "";
+            let resultClass = "";
+            
             if (criticalSuccess) {
-                resultText = "🎯 **RÉUSSITE CRITIQUE !**";
-            } else if (success) {
-                resultText = "✅ **Réussite**";
+                resultClass = "success-critical";
+                resultText = "🌟 **SUCCÈS CRITIQUE !** 🌟";
             } else if (criticalFailure) {
+                resultClass = "failure-critical";
                 resultText = "💥 **ÉCHEC CRITIQUE !**";
+            } else if (success) {
+                resultClass = "success";
+                resultText = "✅ **SUCCÈS !**";
             } else {
-                resultText = "❌ **Échec**";
+                resultClass = "failure";
+                resultText = "❌ **ÉCHEC !**";
             }
             
+            // Ajouter le résultat au chat
             chatContent += `
-                <div class="spell-roll-result">
-                    <p><strong>Jet :</strong> ${roll.total} / ${toucheValue} (${sortData.Touche})</p>
+                <div class="spell-roll-result ${resultClass}">
+                    <p><strong>Jet de ${sortData.Touche} :</strong></p>
+                    <p><strong>Seuil:</strong> ${toucheValue}%</p>
+                    <p><strong>Taux de Critique:</strong> ${this.actor.system.toucheChance}%</p>
+                    <p><strong>Résultat :</strong>${roll.total}</p>
                     <p>${resultText}</p>
                 </div>
             `;
+            
+            // Afficher le jet avec l'animation des dés
+            await roll.toMessage({
+                user: game.user.id,
+                speaker: ChatMessage.getSpeaker({actor: this.actor}),
+                flavor: `🎲 **Jet de lancement de sort : ${sortData.nom}** (${sortData.Touche}: ${toucheValue}%)`
+            });
         }
     }
     
-    // **CRÉER LE MESSAGE**
+    // **CRÉER LE MESSAGE PRINCIPAL**
     ChatMessage.create({
         user: game.user.id,
         speaker: ChatMessage.getSpeaker({actor: this.actor}),
@@ -1996,8 +2285,44 @@ _getToucheValue(toucheString) {
     let maxValue = 0;
     
     touches.forEach(touche => {
-        const value = this.actor.system[`touche${touche.charAt(0).toUpperCase() + touche.slice(1)}`] || 0;
-        maxValue = Math.max(maxValue, value);
+        touche = touche.trim();
+        let value = 0;
+        
+        // **CORRESPONDANCE avec les stats de l'acteur**
+        switch (touche) {
+            case "force":
+            case "for":
+                value = this.actor.system.toucheForce || 0;
+                break;
+            case "dexterite":
+            case "dext":
+            case "dex":
+                value = this.actor.system.toucheDexterite || 0;
+                break;
+            
+            case "sagesse":
+            case "sag":
+                value = this.actor.system.toucheSagesse || 0;
+                break;
+            case "charisme":
+            case "cha":
+                value = this.actor.system.toucheCharisme || 0;
+                break;
+            case "defense":
+            case "def":
+                value = this.actor.system.toucheDefense || 0;
+                break;
+            case "chance":
+                value = this.actor.system.toucheChance || 0;
+                break;
+            default:
+                console.warn(`⚠️ Stat de touche inconnue: ${touche}`);
+                break;
+        }
+        
+        if (value > maxValue) {
+            maxValue = value;
+        }
     });
     
     return maxValue;
@@ -2658,7 +2983,7 @@ _getDSBDetails() {
         const valeur = system.majeures[stat.key]?.totale || 0;
         const dsb = Math.floor(valeur / 6);
         if (dsb > 0) {
-            details.push(`${stat.label}: ${valeur} (+${dsb})`);
+            details.push(`${stat.label}: ${valeur}/6 = +${dsb}`);
         }
     });
     
@@ -2666,11 +2991,11 @@ _getDSBDetails() {
     const chanceValue = system.majeures.chance?.totale || 0;
     const dsbChance = Math.floor(chanceValue / 4);
     if (dsbChance > 0) {
-        details.push(`Chance: ${chanceValue} (+${dsbChance})`);
+        details.push(`Chance: ${chanceValue}/4 = +${dsbChance}`);
     }
     
     return details.join(', ') || 'Aucun bonus';
-} 
+}
 
 // **AJOUT DE LA MÉTHODE MANQUANTE : _onItemOpen**
 async _onItemOpen(event) {
@@ -3263,5 +3588,747 @@ async _fixWeaponIdMismatch(correctWeapon) {
         }
     }
 }
+
+// **NOUVELLE MÉTHODE : Gérer les jets avec bonus situationnel**
+async _onConditionalTalentClick(event) {
+    event.preventDefault();
+    const button = event.currentTarget;
+    const caracteristique = button.dataset.caracteristique;
+    const talentName = button.dataset.talentName;
+    const bonus = parseInt(button.dataset.bonus);
+    const condition = button.dataset.condition;
+    
+    // **IMPORTER TalentFonctions si nécessaire**
+    const { TalentFonctions } = await import('../data/talentFonctions.js');
+    
+    // Créer un objet talent temporaire pour la fonction
+    const talentData = {
+        nom: talentName,
+        effet: `Bonus conditionnel de +${bonus} en ${caracteristique}`
+    };
+    
+    const parametres = {
+        caracteristique: caracteristique,
+        bonus: bonus,
+        condition: condition,
+        description: `Bonus conditionnel du talent ${talentName}`
+    };
+    
+    // Appeler la fonction de jet avec bonus situationnel
+    await TalentFonctions.jetAvecBonusSituationnel(this.actor, talentData, parametres);
+}
+
+// **MÉTHODE HELPER : Vérifier si un talent a un bonus situationnel**
+_talentHasSituationalBonus(talent, caracteristique) {
+    const effet = (talent.effet || "").toLowerCase();
+    const caracLower = caracteristique.toLowerCase();
+    
+    // **Patterns courants pour les bonus situationnels**
+    const patterns = [
+        `+\\d+.*${caracLower}`,  // "+10 aux jets de connaissance"
+        `${caracLower}.*\\+\\d+`, // "connaissance monde +15"
+        `bonus.*${caracLower}`,   // "bonus aux jets de connaissance"
+        `${caracLower}.*bonus`    // "connaissance avec bonus"
+    ];
+    
+    return patterns.some(pattern => {
+        const regex = new RegExp(pattern, 'i');
+        return regex.test(effet);
+    });
+}
+
+// **MÉTHODE HELPER : Extraire les données du bonus situationnel**
+_extractSituationalBonus(talent, caracteristique) {
+    const effet = talent.effet || "";
+    
+    // **Extraire le bonus numérique**
+    const bonusMatch = effet.match(/\+(\d+)/);
+    const bonus = bonusMatch ? parseInt(bonusMatch[1]) : 10; // Défaut: +10
+    
+    // **Extraire la condition (texte après "en" ou "lors de" ou "pendant")** 
+    const conditionMatch = effet.match(/(?:en|lors de|pendant|dans|avec)\s+(.+?)(?:\.|$)/i);
+    const condition = conditionMatch ? conditionMatch[1].trim() : "Condition spéciale";
+    
+    return {
+        bonus,
+        condition,
+        description: effet
+    };
+}
+
+// **MÉTHODE HELPER : Dialogue de sélection de talent**
+async _showTalentSelectionDialog(talents, caracteristique) {
+    const talentOptions = talents.map(talent => {
+        const bonusData = this._extractSituationalBonus(talent, caracteristique);
+        return `
+            <div class="talent-option" data-talent-id="${talent.id || talent.nom}">
+                <input type="radio" name="selectedTalent" value="${talent.id || talent.nom}" id="talent-${talent.id || talent.nom}">
+                <label for="talent-${talent.id || talent.nom}">
+                    <div class="talent-header">
+                        <strong>${talent.nom}</strong>
+                        <span class="bonus-display">+${bonusData.bonus}%</span>
+                    </div>
+                    <p class="talent-condition">${bonusData.condition}</p>
+                </label>
+            </div>
+        `;
+    }).join("");
+    
+    const content = `
+        <form class="talent-selection-form">
+            <h3>Choisir le talent à utiliser</h3>
+            <p>Plusieurs talents donnent un bonus pour <strong>${TalentFonctions._getCaracteristiqueLabel(caracteristique)}</strong> :</p>
+            
+            <div class="talent-list">
+                ${talentOptions}
+            </div>
+        </form>
+        
+        <style>
+            .talent-selection-form { padding: 15px; min-width: 450px; }
+            .talent-option { 
+                margin-bottom: 10px; 
+                padding: 10px; 
+                border: 1px solid #ddd; 
+                border-radius: 5px; 
+                cursor: pointer;
+            }
+            .talent-option:hover { background: rgba(0,0,0,0.05); }
+            .talent-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 5px;
+            }
+            .bonus-display {
+                background: #4CAF50;
+                color: white;
+                padding: 2px 8px;
+                border-radius: 3px;
+                font-size: 12px;
+            }
+            .talent-condition {
+                font-style: italic;
+                color: #666;
+                margin: 0;
+                font-size: 13px;
+            }
+        </style>
+    `;
+    
+    return new Promise(resolve => {
+        new Dialog({
+            title: "Sélection du Talent",
+            content,
+            buttons: {
+                cancel: {
+                    icon: '<i class="fas fa-times"></i>',
+                    label: "Annuler",
+                    callback: () => resolve()
+                },
+                use: {
+                    icon: '<i class="fas fa-dice-d20"></i>',
+                    label: "Utiliser ce Talent",
+                    callback: html => {
+                        const selectedTalentId = html.find('[name="selectedTalent"]:checked').val();
+                        if (!selectedTalentId) {
+                            ui.notifications.warn("Veuillez sélectionner un talent !");
+                            return;
+                        }
+                        
+                        const selectedTalent = talents.find(t => (t.id || t.nom) === selectedTalentId);
+                        if (selectedTalent) {
+                            const bonusData = this._extractSituationalBonus(selectedTalent, caracteristique);
+                            
+                            TalentFonctions.jetAvecBonusSituationnel(this.actor, selectedTalent, {
+                                caracteristique,
+                                bonus: bonusData.bonus,
+                                condition: bonusData.condition,
+                                description: bonusData.description
+                            }).then(resolve);
+                        }
+                    }
+                }
+            },
+            default: "use"
+        }).render(true);
+    });
+}
+
+static async useConditionalTalent(actor, talentName) {
+    const conditionalTalents = actor.getFlag("alyria", "conditionalTalents") || [];
+    const talent = conditionalTalents.find(t => t.nom === talentName);
+    
+    if (!talent) {
+        ui.notifications.warn(`Talent conditionnel "${talentName}" non trouvé !`);
+        return;
+    }
+    
+    // **Rediriger vers la fonction de jet avec bonus situationnel**
+    await TalentFonctions.jetAvecBonusSituationnel(actor, talent, {
+        caracteristique: talent.caracteristique,
+        bonus: talent.bonus,
+        condition: talent.condition,
+        description: talent.description
+    });
+}
+
+// **NOUVEAU : Méthode d'attaque à mains nues**
+async _onUnarmedAttackAction(event) {
+    event.preventDefault();
+    
+    console.log("👊 Attaque à mains nues déclenchée");
+    
+    // **Paramètres des mains nues**
+    const mainsNues = {
+        touche: "Force",
+        degats: "1d4", 
+        bonusDegats: 0,
+        name: "Mains Nues"
+    };
+    
+    // Récupérer la valeur de Force
+    const toucheValue = this.actor.system.toucheForce || 0;
+    const toucheChance = this.actor.system.toucheChance || 5;
+    
+    if (toucheValue <= 0) {
+        ui.notifications.warn("Votre Force est trop faible pour attaquer !");
+        return;
+    }
+    
+    console.log(`👊 Attaque à mains nues - Touche: Force (${toucheValue}%)`);
+    
+    // Animation du bouton
+    const button = event.currentTarget;
+    button.classList.add('casting');
+    setTimeout(() => button.classList.remove('casting'), 600);
+    
+    // Effectuer le jet de dé d'attaque
+    const roll = new Roll("1d100");
+    await roll.evaluate();
+    
+    const success = roll.total <= toucheValue;
+    const criticalSuccess = roll.total <= toucheChance;
+    const criticalFailure = roll.total >= 96;
+    
+    let resultText = "";
+    let resultClass = "";
+    let damageRoll = null;
+    
+    if (criticalSuccess) {
+    resultClass = "success-critical";
+    resultText = "🌟 **TOUCHÉ CRITIQUE !** 🌟";
+    
+    // **CORRECTION : Critique = Max du dé + nouveau roll**
+    const damageFormula = mainsNues.degats; // "1d4"
+    
+    // Extraire le type de dé (ex: "1d4" -> 4)
+    const diceMatch = damageFormula.match(/(\d*)d(\d+)/);
+    if (diceMatch) {
+        const numberOfDice = parseInt(diceMatch[1]) || 1;
+        const diceSize = parseInt(diceMatch[2]);
+        
+        // Calculer le maximum du dé original
+        const maxDamage = numberOfDice * diceSize; // Pour 1d4 = 4
+        
+        // Faire un nouveau roll avec le même dé
+        const bonusRoll = new Roll(damageFormula); // 1d4
+        await bonusRoll.evaluate();
+        
+        // Créer un roll "artificiel" qui combine max + nouveau roll
+        const totalCriticalDamage = maxDamage + bonusRoll.total;
+        
+        // Créer un roll factice pour l'affichage
+        damageRoll = {
+            total: totalCriticalDamage,
+            terms: [
+                { results: [{ result: maxDamage }] }, // 4 (max)
+                { operator: '+' },
+                { results: bonusRoll.terms[0].results } // Nouveau 1d4
+            ],
+            formula: `${maxDamage} (max) + ${damageFormula}`,
+            dice: bonusRoll.dice
+        };
+        
+        console.log(`💥 Critique mains nues: ${maxDamage} (max de ${damageFormula}) + ${bonusRoll.total} (nouveau roll) = ${totalCriticalDamage}`);
+    }} else if (criticalFailure) {
+        resultClass = "failure-critical";
+        resultText = "💥 **ÉCHEC CRITIQUE !**";
+        // Pas de dégâts sur échec critique
+        
+    } else if (success) {
+        resultClass = "success";
+        resultText = "✅ **TOUCHÉ !**";
+        
+        // Dégâts normaux
+        damageRoll = new Roll(mainsNues.degats);
+        await damageRoll.evaluate();
+        
+    } else {
+        resultClass = "failure";
+        resultText = "❌ **RATÉ !**";
+        // Pas de dégâts sur échec
+    }
+    
+    // Construire le message de chat
+    let chatContent = `
+        <div class="combat-action-message unarmed-attack-message">
+            <h3>👊 ${this.actor.name} attaque à mains nues</h3>
+            <div class="weapon-info">
+                <p><strong>Attaque :</strong> Mains Nues (${mainsNues.degats})</p>
+                <p><strong>Touche :</strong> ${mainsNues.touche}</p>
+            </div>
+            <div class="roll-result ${resultClass}">
+                <p><strong>Jet d'attaque :</strong> ${roll.total} / ${toucheValue}</p>
+                <p>${resultText}</p>
+            </div>
+    `;
+    
+    if (damageRoll) {
+        // Calculer les dégâts totaux
+        const characterBonus = this.actor.system.bonusDegats || 0;
+        const dsbBonus = this.actor.system.dsb || 0;
+        const totalDamage = damageRoll.total + characterBonus ;
+        
+        chatContent += `
+            <div class="damage-result">
+                <p><strong>Dégâts :</strong></p>
+                <p>🎲 Dés:(${damageRoll.formula})</p>
+                ${characterBonus > 0 ? `<p>💪 Bonus personnage: +${characterBonus}</p>` : ''}
+                <p class="total-damage">💥 <strong>Total: ${totalDamage} dégâts</strong></p>
+            </div>
+        `;
+    } else {
+        chatContent += `
+            <div class="damage-result">
+                <p><em>Aucun dégât infligé</em></p>
+            </div>
+        `;
+    }
+    
+    chatContent += `
+        </div>
+        
+        <style>
+        .unarmed-attack-message {
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(139, 69, 19, 0.1);
+            border-left: 4px solid #8B4513;
+        }
+        .weapon-info {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 8px;
+            border-radius: 4px;
+            margin: 8px 0;
+            font-size: 12px;
+        }
+        .damage-result {
+            background: rgba(255, 152, 0, 0.2);
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+            font-weight: bold;
+            color: #E65100;
+        }
+        .total-damage {
+            font-size: 16px;
+            color: #8B4513;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .roll-result.success-critical { color: #4CAF50; font-weight: bold; }
+        .roll-result.success { color: #8BC34A; }
+        .roll-result.failure { color: #FF9800; }
+        .roll-result.failure-critical { color: #f44336; font-weight: bold; }
+    </style>
+    `;
+    
+    // Envoyer le message d'attaque
+    await roll.toMessage({
+        user: game.user.id,
+        speaker: ChatMessage.getSpeaker({actor: this.actor}),
+        content: chatContent,
+        sound: "sounds/dice.wav"
+    });
+    
+    // Envoyer le message de dégâts séparément si nécessaire
+    if (damageRoll) {
+        await damageRoll.toMessage({
+            user: game.user.id,
+            speaker: ChatMessage.getSpeaker({actor: this.actor}),
+            flavor: `👊 Dégâts de l'attaque à mains nues de ${this.actor.name}`
+        });
+    }
+    
+    // Notification
+    const notifType = success ? "info" : "warn";
+    let notifMessage = resultText.replace(/\*\*/g, '').replace(/🌟|💥|✅|❌/g, '');
+    if (damageRoll) {
+        const totalDamage = damageRoll.total + (this.actor.system.bonusDegats || 0) ;
+        notifMessage += ` - ${totalDamage} dégâts`;
+    }
+    ui.notifications[notifType](notifMessage);
+}
+
+// **NOUVELLE MÉTHODE : Dialogue de redistribution des points**
+async _onRedistributePoints(event) {
+    event.preventDefault();
+    
+    const redistributionPoints = this.actor.getFlag("alyria", "redistributionPoints") || {};
+    
+    if (Object.keys(redistributionPoints).length === 0) {
+        ui.notifications.info("Aucun point de redistribution disponible.");
+        return;
+    }
+    
+    const content = this._generateRedistributionDialog(redistributionPoints);
+    
+    new Dialog({
+        title: "Redistribution des Points de Caractéristiques",
+        content,
+        render: html => this._setupRedistributionListeners(html, redistributionPoints),
+        buttons: {
+            redistribute: {
+                icon: '<i class="fas fa-exchange-alt"></i>',
+                label: "Appliquer la Redistribution",
+                callback: html => this._applyRedistribution(html, redistributionPoints)
+            },
+            cancel: {
+                icon: '<i class="fas fa-times"></i>',
+                label: "Annuler"
+            }
+        },
+        default: "redistribute"
+    }).render(true);
+}
+
+// **HELPER : Générer le contenu du dialogue**
+_generateRedistributionDialog(redistributionPoints) {
+    let sectionsHTML = "";
+    
+    Object.entries(redistributionPoints).forEach(([majeure, points]) => {
+        const mineuresGouvernees = this.actor._getMineuresGoverned(majeure);
+        const majeureLabel = this.actor._getMajeureLabel(majeure);
+        
+        const mineureOptions = mineuresGouvernees.map(mineure => {
+            const currentValue = this.actor.system.mineures[mineure]?.totale || 0;
+            const currentValueWithoutMajor = currentValue - (this.actor.system.majeures[majeure]?.totale || 0);
+            const remainingCap = Math.max(0, 95 - currentValueWithoutMajor);
+            
+            return `
+                <div class="redistribution-stat">
+                    <label for="${majeure}_${mineure}" class="stat-label">
+                        ${this._getMinorStatLabel(mineure)}
+                        <span class="current-value">(${currentValueWithoutMajor}/95)</span>
+                        <span class="remaining-cap">Max: +${remainingCap}</span>
+                    </label>
+                    <div class="stat-controls">
+                        <button type="button" class="redistrib-decrease" data-target="${majeure}_${mineure}">-</button>
+                        <input type="number" 
+                               class="redistrib-input"
+                               id="${majeure}_${mineure}" 
+                               data-majeure="${majeure}"
+                               data-mineure="${mineure}"
+                               data-current="${currentValueWithoutMajor}"
+                               data-max="${remainingCap}"
+                               value="0" 
+                               min="0" 
+                               max="${remainingCap}">
+                        <button type="button" class="redistrib-increase" data-target="${majeure}_${mineure}">+</button>
+                    </div>
+                </div>
+            `;
+        }).join("");
+        
+        sectionsHTML += `
+            <div class="redistribution-section" data-majeure="${majeure}">
+                <h3>${majeureLabel} - <span id="${majeure}_remaining">${points}</span> points disponibles</h3>
+                <div class="redistribution-stats">
+                    ${mineureOptions}
+                </div>
+            </div>
+        `;
+    });
+    
+    return `
+        <form class="redistribution-form">
+            <div class="redistribution-info">
+                <p>⚠️ <strong>Plafond de 95 :</strong> Les caractéristiques mineures ne peuvent pas dépasser 95 points (hors bonus de majeure).</p>
+                <p>📊 Redistribuez les points excédentaires vers d'autres caractéristiques de la même catégorie :</p>
+            </div>
+            
+            <div class="redistribution-sections">
+                ${sectionsHTML}
+            </div>
+        </form>
+        
+        <style>
+            .redistribution-form { padding: 15px; max-width: 600px; }
+            .redistribution-info { 
+                background: rgba(255, 152, 0, 0.1); 
+                padding: 12px; 
+                border-radius: 5px; 
+                margin-bottom: 20px; 
+                border-left: 4px solid #FF9800;
+            }
+            .redistribution-section { 
+                margin-bottom: 25px; 
+                padding: 15px; 
+                border: 1px solid #ddd; 
+                border-radius: 5px; 
+                background: rgba(0,0,0,0.02);
+            }
+            .redistribution-section h3 { 
+                margin-top: 0; 
+                color: #333; 
+                border-bottom: 1px solid #ddd; 
+                padding-bottom: 8px; 
+            }
+            .redistribution-stats { 
+                display: flex; 
+                flex-direction: column; 
+                gap: 12px; 
+            }
+            .redistribution-stat { 
+                display: flex; 
+                justify-content: space-between; 
+                align-items: center; 
+            }
+            .stat-label { 
+                flex: 1; 
+                margin-right: 15px; 
+                font-weight: bold; 
+            }
+            .current-value { 
+                font-size: 12px; 
+                color: #666; 
+                margin-left: 8px; 
+            }
+            .remaining-cap { 
+                font-size: 11px; 
+                color: #4CAF50; 
+                margin-left: 8px; 
+            }
+            .stat-controls { 
+                display: flex; 
+                align-items: center; 
+                gap: 8px; 
+            }
+            .redistrib-input { 
+                width: 60px; 
+                text-align: center; 
+                padding: 4px; 
+                border: 1px solid #ccc; 
+                border-radius: 3px; 
+            }
+            .redistrib-decrease, .redistrib-increase { 
+                width: 30px; 
+                height: 30px; 
+                border: 1px solid #ccc; 
+                background: #f5f5f5; 
+                border-radius: 3px; 
+                cursor: pointer; 
+                font-weight: bold; 
+            }
+            .redistrib-decrease:hover, .redistrib-increase:hover { 
+                background: #e0e0e0; 
+            }
+            .redistrib-decrease:disabled, .redistrib-increase:disabled { 
+                opacity: 0.5; 
+                cursor: not-allowed; 
+            }
+        </style>
+    `;
+}
+
+// **HELPER : Configurer les listeners du dialogue**
+_setupRedistributionListeners(html, redistributionPoints) {
+    // **Boutons d'augmentation**
+    html.find('.redistrib-increase').click((event) => {
+        const target = event.currentTarget.dataset.target;
+        const input = html.find(`#${target}`);
+        const majeure = input.data('majeure');
+        const currentValue = parseInt(input.val()) || 0;
+        const maxValue = parseInt(input.data('max')) || 0;
+        const remainingSpan = html.find(`#${majeure}_remaining`);
+        const remainingPoints = parseInt(remainingSpan.text()) || 0;
+        
+        if (currentValue < maxValue && remainingPoints > 0) {
+            input.val(currentValue + 1);
+            remainingSpan.text(remainingPoints - 1);
+            this._updateRedistributionUI(html, redistributionPoints);
+        }
+    });
+    
+    // **Boutons de diminution**
+    html.find('.redistrib-decrease').click((event) => {
+        const target = event.currentTarget.dataset.target;
+        const input = html.find(`#${target}`);
+        const majeure = input.data('majeure');
+        const currentValue = parseInt(input.val()) || 0;
+        const remainingSpan = html.find(`#${majeure}_remaining`);
+        const remainingPoints = parseInt(remainingSpan.text()) || 0;
+        
+        if (currentValue > 0) {
+            input.val(currentValue - 1);
+            remainingSpan.text(remainingPoints + 1);
+            this._updateRedistributionUI(html, redistributionPoints);
+        }
+    });
+    
+    // **Validation des inputs manuels**
+    html.find('.redistrib-input').on('input change', (event) => {
+        this._validateRedistributionInput(event.target, html, redistributionPoints);
+    });
+}
+
+// **HELPER : Valider les inputs**
+_validateRedistributionInput(input, html, redistributionPoints) {
+    const $input = $(input);
+    const majeure = $input.data('majeure');
+    const maxValue = parseInt($input.data('max')) || 0;
+    let newValue = parseInt($input.val()) || 0;
+    
+    // Limiter à la valeur max
+    if (newValue > maxValue) {
+        newValue = maxValue;
+        $input.val(newValue);
+    }
+    
+    // Limiter aux points disponibles
+    const totalUsedInSection = this._getTotalUsedInSection(html, majeure);
+    const availablePoints = redistributionPoints[majeure] || 0;
+    
+    if (totalUsedInSection > availablePoints) {
+        newValue = Math.max(0, newValue - (totalUsedInSection - availablePoints));
+        $input.val(newValue);
+    }
+    
+    this._updateRedistributionUI(html, redistributionPoints);
+}
+
+// **HELPER : Calculer le total utilisé dans une section**
+_getTotalUsedInSection(html, majeure) {
+    let total = 0;
+    html.find(`[data-majeure="${majeure}"]`).each((i, input) => {
+        total += parseInt($(input).val()) || 0;
+    });
+    return total;
+}
+
+// **HELPER : Mettre à jour l'UI**
+_updateRedistributionUI(html, redistributionPoints) {
+    Object.keys(redistributionPoints).forEach(majeure => {
+        const totalUsed = this._getTotalUsedInSection(html, majeure);
+        const available = redistributionPoints[majeure];
+        const remaining = available - totalUsed;
+        
+        html.find(`#${majeure}_remaining`).text(remaining);
+        
+        // Désactiver les boutons d'augmentation si plus de points
+        html.find(`[data-majeure="${majeure}"]`).each((i, input) => {
+            const $input = $(input);
+            const target = $input.attr('id');
+            const currentValue = parseInt($input.val()) || 0;
+            const maxValue = parseInt($input.data('max')) || 0;
+            
+            const increaseBtn = html.find(`[data-target="${target}"].redistrib-increase`);
+            const decreaseBtn = html.find(`[data-target="${target}"].redistrib-decrease`);
+            
+            increaseBtn.prop('disabled', remaining <= 0 || currentValue >= maxValue);
+            decreaseBtn.prop('disabled', currentValue <= 0);
+        });
+    });
+}
+
+// **HELPER : Appliquer la redistribution**
+async _applyRedistribution(html, redistributionPoints) {
+    const updateData = {};
+    let totalRedistributed = 0;
+    
+    // **Collecter toutes les redistributions**
+    Object.keys(redistributionPoints).forEach(majeure => {
+        html.find(`[data-majeure="${majeure}"]`).each((i, input) => {
+            const $input = $(input);
+            const mineure = $input.data('mineure');
+            const pointsToAdd = parseInt($input.val()) || 0;
+            
+            if (pointsToAdd > 0) {
+                // Ajouter aux bonus (ou créer une nouvelle catégorie "redistribution")
+                const currentBonus = this.actor.system.mineures[mineure]?.bonus || 0;
+                updateData[`system.mineures.${mineure}.bonus`] = currentBonus + pointsToAdd;
+                totalRedistributed += pointsToAdd;
+                
+                console.log(`📊 Redistribution: +${pointsToAdd} vers ${mineure}`);
+            }
+        });
+    });
+    
+    // **Effacer les points de redistribution utilisés**
+    const newRedistributionPoints = { ...redistributionPoints };
+    Object.keys(newRedistributionPoints).forEach(majeure => {
+        const totalUsed = this._getTotalUsedInSection(html, majeure);
+        newRedistributionPoints[majeure] -= totalUsed;
+        
+        if (newRedistributionPoints[majeure] <= 0) {
+            delete newRedistributionPoints[majeure];
+        }
+    });
+    
+    updateData["flags.alyria.redistributionPoints"] = newRedistributionPoints;
+    
+
+    // **Appliquer les changements**
+    if (Object.keys(updateData).length > 0) {
+        await this.actor.update(updateData);
+
+        ui.notifications.info(`✅ ${totalRedistributed} points redistribués avec succès !`);
+
+        // **Message de chat**
+        ChatMessage.create({
+            user: game.user.id,
+            speaker: ChatMessage.getSpeaker({actor: this.actor}),
+            content: `<h3>📊 Redistribution Effectuée</h3><p>${this.actor.name} a redistribué ${totalRedistributed} points de caractéristiques mineures.</p>`
+        });
+
+        // **Forcer le re-render pour cacher le bouton**
+        this.render(false);
+    }
+}
+
+
+// **HELPER : Labels des stats mineures**
+_getMinorStatLabel(stat) {
+    const labels = {
+        "monde": "Connaissance Monde",
+        "mystique": "Connaissance Mystique", 
+        "nature": "Connaissance Nature",
+        "sacré": "Connaissance Sacrée",
+        "robustesse": "Robustesse",
+        "calme": "Calme",
+        "marchandage": "Marchandage",
+        "persuasion": "Persuasion",
+        "artmusique": "Art & Musique",
+        "commandement": "Commandement",
+        "acrobatie": "Acrobatie",
+        "discretion": "Discrétion",
+        "adresse": "Adresse",
+        "artisanat": "Artisanat",
+        "hasard": "Hasard",
+        "athlétisme": "Athlétisme",
+        "puissance": "Puissance",
+        "intimidation": "Intimidation",
+        "perception": "Perception",
+        "perceptionmagique": "Perception Magique",
+        "medecine": "Médecine",
+        "intuition": "Intuition"
+    };
+    
+    return labels[stat] || stat;
+}
+
 
 }

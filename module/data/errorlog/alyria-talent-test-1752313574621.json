@@ -1,0 +1,58 @@
+{
+  "system": "Alyria",
+  "timestamp": "2025-07-12T09:46:14.620Z",
+  "totalTested": 1,
+  "successful": 1,
+  "errors": 0,
+  "withEffects": 1,
+  "byCategory": {
+    "world-item": {
+      "total": 1,
+      "effective": 1,
+      "errors": 0
+    }
+  },
+  "results": [
+    {
+      "name": "LaTalentueuse Armure  Céleste du Féroce Chevalier Noire",
+      "category": "world-item",
+      "status": "success",
+      "errors": [],
+      "effects": [
+        {
+          "type": "talent-added",
+          "change": "Talent ajouté avec succès"
+        }
+      ],
+      "data": {
+        "description": "Un design menaçant, souvent avec des éléments pointus et une cape fluide, offrant une protection immense et parfois une amélioration des capacités de combat. Portée par des figures sombres et puissantes.",
+        "quantity": 1,
+        "encombrement": 6,
+        "valeurOr": "2.7 PJ",
+        "nom": "Armure",
+        "rarete": "Epic",
+        "typeArmure": "Lourde",
+        "traits": [
+          {
+            "nom": "Féroce",
+            "effet": "Ajoute +3 en Force",
+            "rarete": "Epic"
+          },
+          {
+            "nom": "Céleste",
+            "effet": "Ajoute +3 aux soins",
+            "rarete": "Epic"
+          },
+          {
+            "nom": "Talentueux",
+            "effet": "Octroie un talent à choisir",
+            "rarete": "Epic"
+          }
+        ],
+        "imperfection": [],
+        "bonusArmure": 0,
+        "imperfections": []
+      }
+    }
+  ]
+}

@@ -9,7 +9,7 @@ export const AlyriaArcane = {
             "Il va sans dire qu’ils sont aussi très surveillés et très encadrés dans les académies de magie pour éviter les débordements que cette magie pourrait aisément déclencher."
                     ],
         majeures: +10,
-        mineures: +100,
+        mineures: +110,
         mecanique: [
             "Les Pyromanciens peuvent mettre le feu à leurs ennemis, mais ils sont aussi à même de se brûler eux-mêmes bénéficiant ainsi d’une aura de flamme aux multiples utilités.",
             "Tout feu tout flamme : A chaque fois que vous appliquez 'Brulure' à une entité avec succès vous pouvez aussi vous appliquez 'Brulure' à vous-même. Tant que vous êtes sous l’effet de 'Brulure' vous infligez autant de dégâts supplémentaires avec toutes vos attaques Feu qu’elle ne vous en inflige à la fin du tour. Vous gagnez une résistance Eau et Feu tant que vous êtes brûlé.",
@@ -21,71 +21,71 @@ export const AlyriaArcane = {
             nom: "Brulure au second degré",
             description: "Vous pouvez appliquer deux Brulure sur une même cible et l’effet devient cumulable en dégâts mais pas en durée.",
             niveauJoueur: 1,
-            prerequis: [],
-            effet: { }
+            
           },
           {
             nom: "Spécialisation",
             description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
             niveauJoueur: 2,
             prerequis: [],
-            effet: { }
+            fonction: "repartitionCaracteristiquesMineures",
+            points: 15,
           },
           {
             nom: "Lanceur de sort",
             description: "Octroie 2 points de statistiques majeures à répartir.",
             niveauJoueur: 3,
             prerequis: [],
-            effet: { }
+            fonction: "repartitionCaracteristiquesMajeures",
+            points: 2,
           },
           {
             nom: "Flammes Vengeresses",
             description: "Si vous échouez à appliquer Brulure vous infligez 2 dégâts perce armure à la place.",
             niveauJoueur: 4,
-            prerequis: [],
-            effet: { }
+            
           },
           {
             nom: "Lanceur de sort",
             description: "Octroie 2 points de statistiques majeures à répartir.",
             niveauJoueur: 5,
             prerequis: [],
-            effet: { }
+            fonction: "repartitionCaracteristiquesMajeures",
+            points: 2,
           },
           {
             nom: "Cœur Ardent",
             description: "Vous ne pouvez pas mourir des dégâts provoqués par des attaques Feu ou par l’altération Brulure, vous gardez systématiquement 1 PV.",
             niveauJoueur: 6,
-            prerequis: [],
-            effet: { }
+            
           },
           {
             nom: "Lanceur de sort",
             description: "Octroie 2 points de statistiques majeures à répartir.",
             niveauJoueur: 7,
             prerequis: [],
-            effet: { }
+            fonction: "repartitionCaracteristiquesMajeures",
+            points: 2,
           },
           {
             nom: "Spécialisation",
             description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
             niveauJoueur: 8,
             prerequis: [],
-            effet: { }
+            fonction: "repartitionCaracteristiquesMineures",
+            points: 15,
           },
           {
             nom: "Point de Fusion",
             description: "Tant que vous êtes sous l’effet de \"Tout feu tout flamme\" vous faite fondre les projectiles non élémentaire vous visant, cela réduit leur dégâts de moitié.",
             niveauJoueur: 9,
-            prerequis: [],
-            effet: { }
+            
           },
           {
             nom: "Mer de flammes",
             description: "Si vous infligez des dégâts à trois cibles ou plus (incluant vous-même) à l’aide d’un seul sortilège ce dernier gagne 20% de chances de CC et +2 dégâts",
             niveauJoueur: 10,
-            prerequis: [],
-            effet: { }
+            
           },
             ],
         },
@@ -406,7 +406,7 @@ export const AlyriaArcane = {
             "Dans le monde les Aérothurges ne sont pas légions, la magie du vent est la magie élémentaire la plus difficile à maitriser car elle demande autant puissance que précision lors de l’utilisation de la psyché pour obtenir quelque chose, il existe de fait peu d’étudiant de cette magie dans les académies et encore moins d’expert ou de maîtres de ce domaine."
         ],
         majeures: +10,
-        mineures: +100,
+        mineures: +110,
         mecanique: [
             "Les Aérothurges sont redoutables à longue distance et ne se laissent pas facilement approcher, ils peuvent en plus canaliser l’énergie résiduelle du vent pour utiliser un sortilège terrifiant :",
             "Récolter la Tempête (Réussite automatique) : Ce sort nécessite que 4 sortilèges de la branche Vent ait été lancés avant lui, il remet le compteur à 0 avant sa prochaine utilisation. Une tempête terrible se lève et repousse les ennemis de 10 mètres en infligeant 2 dés 6 dégâts dans la zone. Ce sort ne consomme pas d’action et peut être lancé même hors de son tour de jeu, le DSB ne s’applique pas. 0 PSY"
@@ -417,62 +417,57 @@ export const AlyriaArcane = {
                 nom: "Portée par le vent",
                 description: "Augmente la portée de toutes les attaques à distances de 5 mètres.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 2,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Filer comme le vent",
                 description: "Ajoute 1 cran en vitesse.",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Coup de Vent",
                 description: "A chaque fois qu’une cible vous attaque à distance vous pouvez utiliser 1 PSY pour lui imposer un désavantage sur son attaque.",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Souffle lointain",
                 description: "Si vos sorts touchent à leur portée maximale ils infligent 2 dégâts supplémentaires.",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Enveloppe venteuse",
                 description: "A chaque fois que vous utilisez un sort de vent qui ne consomme pas d’action vous pouvez choisir de vous appliquer Invisible, à chaque fois que vous infliger des dégâts avec un sort de Vent vous pouvez pousser la cible de 5 mètres.",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {
@@ -791,7 +786,7 @@ export const AlyriaArcane = {
             "Les adeptes de la terre sont rares car elle ne répond qu’à ceux qui ont une psyché puissante, capable de la faire se mouvoir, c’est l’élément de prédilection des Orcs et des nains mais c’est aussi généralement plus accessible pour les hommes qui ont naturellement une psyché plus puissante et moins canalisée."
         ],
         majeures: +10,
-        mineures: +100,
+        mineures: +110,
         mecanique: [
             "Le Géomancien est impérial dans l’art de protéger ceux qui l’entoure, l’utilisation de la Terre à des fins défensives peut même se faire de manière passive, sans qu’il n’ait à se concentrer outre mesure.",
             "Pierres flottantes : A chaque fois que vous utilisez un sortilège Novice de la Terre vous donner 1 d’armure à la fin de votre tour à tous les alliés à votre corps à corps. Vous donnez 2 d’armures quand vous utilisez un sort Confirmé et 3 d’armures quand vous utilise un sort Expert. Cet effet n’est pas cumulable et s’enclenche par rapport au sort le plus puissant lancé ce tour."
@@ -802,62 +797,57 @@ export const AlyriaArcane = {
                 nom: "Encroutement terrestre",
                 description: "A chaque fois que vous gagnez de l’armure vous pouvez choisir de gagner 3 PB, mais vous perdez 1 cran en vitesse pendant 2 tours.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
-                niveauJou2: 2,
-                prerequis: [],
-                effet: {}
+                niveauJoueur: 2,
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Invariable",
                 description: "Vous pouvez purger n’importe qu’elle altérations négative en vous infligeant \"Entrave\" irrésistible à la place, ne fonctionne pas si \"Entrave\" est déjà appliquée ou si vous êtes immunisé à \"Entrave\".",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Protecteur terrestre",
                 description: "Les sorts d’armure ciblant un allié à moins de 50% de vie donne 4 PB fixe à la cible en plus de leurs effets.",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Sang de Pierre",
                 description: "Vous ne pouvez plus être malade ou subit les effets de l’alcool ou de la drogue. Vous êtes immunisé au Poison.",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Statue indestructible",
                 description: "Vous pouvez sacrifier un cran en vitesse pour gagner 2 d’armure à chaque début de tour. Si vous êtes resté immobile pendant 2 tours consécutifs vos sortilèges de Terre coûtent 1 PSY de moins à utiliser jusqu’à ce que vous vous déplaciez de nouveau. L’effet est rompu si on vous déplace.",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {
@@ -1176,7 +1166,7 @@ export const AlyriaArcane = {
             "Les pratiquants de cet élément sont souvent un peu fou et agressifs, pour on ne sait qu’elle raisons la foudre à tendance à n’attirer à elle que des personnes imprévisibles avec un goût prononcé pour les actions sensationnelles, cet état de fait n’enlève pourtant rien à la finesse de psyché dont il faut faire preuve pour pouvoir utiliser cet élément."
         ],
         majeures: +10,
-        mineures: +100,
+        mineures: +110,
         mecanique: [
             "Les Foudromanciens sont souvent très vifs, cette rapidité est une bénédiction qui peut en plus être mise à contribution par l’élément foudre pour en tirer le maximum :",
             "A chaque fois que vous vous déplacez de 20 mètres ou plus en un seul tour vous gagnez 1 charge Dynamo.",
@@ -1189,62 +1179,57 @@ export const AlyriaArcane = {
                 nom: "Vif comme l’éclair",
                 description: "Augmente la vitesse d'un cran.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 2,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Sprint électrisant",
                 description: "Le lanceur peut sacrifier 2 PV et utiliser l’action de sprinter sans consommer son action une fois par tour.",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Batterie auxiliaire",
                 description: "Vous obtenez une charge Dynamo à chaque fois que vous dépenser plus de 4 PSY pour lancer un sort Foudre.",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Folie foudroyante",
                 description: "Si vous deviez mourir ou tomber K.O d’une attaque vous pouvez lancer une dernière attaque immédiatement sur votre assaillant avant de mourir. Si cette attaque le tue vous gardez 1 PV.",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Charge minimale",
                 description: "Vos sortilèges n’utilisant qu’un seul dé pour infliger des dégâts font au minimum la moitié de leur dégâts maximum, tout résultat en dessous sera arrondi à la moitié.",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {
@@ -1564,7 +1549,7 @@ export const AlyriaArcane = {
             "Alyria regorge de pratiquants de cet élément, la plupart des corps médicaux militaires en possèdent plusieurs et beaucoup de médecins civils maitrise au moins la base de l’élément eau, pourtant sa pratique nécessite beaucoup de finesse et un contrôle absolument parfait de sa psyché, cela en fait une branche très pratiquée par les femmes qui ont naturellement plus de facilité dans ce domaine mais cela exclu aussi les Orcs ou les nains qui ont beaucoup de mal à pratiquer avec cet élément."
         ],
         majeures: +10,
-        mineures: +100,
+        mineures: +110,
         mecanique: [
             "Les Hydromanciens sont des soigneurs exceptionnels, non content de pouvoir garder toute une équipe d’aventuriers suicidaires en vie ils peuvent même tirer profit de l’excédent de soin qu’ils produisent.",
             "Pellicule aquatique : A chaque fois que vous lancer un sort de soin qui devait rendre plus de PV que les PV maximum de la cible vous générer 1 PB tous les 2 PV excédentaires rendus. Cet effet peut avoir lieu une seule fois par allié et par tour, pour un maximum de 6 PB d’un seul coup."
@@ -1575,62 +1560,57 @@ export const AlyriaArcane = {
                 nom: "Guérisseur",
                 description: "Ajoute un bonus de +1 aux soins. Au niveau 6 ce bonus est doublé.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 2,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Hydratation",
                 description: "Vous purgez tous vos états négatifs à chaque fois qu’un sort Eau vous prend directement pour cible.",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Elément vital",
                 description: "Vous gagnez Invulnérable pour 1 tour et récupérez 8 PV fixe la première fois d’un combat ou vous devriez tomber K.O ou Mort.",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Pellicule épaisse",
                 description: "Le maximum de PB octroyé par la mécanique passe à 10, l’effet de don de PB est cumulable.",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Eau miraculeuse",
                 description: "Si vous soignez un allié Mort de plus de 20 PV d’un seul coup il se retire l’état Mort et revient avec 5 PV.",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {
@@ -1949,7 +1929,7 @@ export const AlyriaArcane = {
             "Car dangereuse elle l’est, le plus grand ennemi des smogomanciens c’est finalement leur propre pouvoir, l’accumulation de vapeur dans le corps de l’utilisateur augmente sa puissance mais peut rapidement le tuer s’il n’y fait pas attention, un bon nombre de jeunes adeptes de cet élément ont fini disloquer après une explosion de vapeur mal maitrisée"
         ],
         majeures: +10,
-        mineures: +100,
+        mineures: +110,
         mecanique: [
             "Chaque utilisation d’un sort de vapeur génère une charge de “Surpression”.",
             "A partir de la deuxième charge, le lanceur perd 1 PV à la fin du tour puis 1 de plus pour chaque charge au-dessus de 2, ces dégâts ne peuvent pas être mitigés.",
@@ -1962,62 +1942,57 @@ export const AlyriaArcane = {
                 nom: "Vapeur Douce",
                 description: "Chaque charge de Surpression augmente aussi les soins des sortilèges Vapeur de 1.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 2,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Enfumage",
                 description: "Si vous possédez plus de 4 charges de Surpression vous infligez Cécité à un ennemi au corps à corps à la fin de votre tour.",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Forme de Vapeur",
                 description: "Hors combat vous pouvez vous changez en vapeur et cela vous permet de vous faufiler par n’importe quelle interstice même très fine. Vous ne pouvez garder la forme de Vapeur que 5 minutes consécutivement avant de reprendre votre forme actuelle et ne pouvait pas relancer cet effet avant la fin de la scène. Sous cette forme vous gagnez +30 en Discrétion.",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Vaporisation",
                 description: "Une fois par combat, si vous prenez une attaque qui doit vous mettre K.O ou vous tuez, vous pouvez utiliser immédiatement l’effet de \"Clone de vapeur\" gratuitement, cet effet génère 2 charges \"Surpression\".",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Encaisser la pression",
                 description: "Vous ne perdez des PV qu’au-delà de la troisième charge à cause de la mécanique. Les dégâts de la mécanique ne peuvent jamais vous tuer ou vous faire tomber K.O",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {
@@ -2336,7 +2311,7 @@ export const AlyriaArcane = {
             "Néanmoins la contrepartie est rude et les utilisateurs de cette magie ne peuvent pas utiliser la lumière de manière offensive sans utiliser sa version \"douce\" de temps à autres sous peine que leur propre pouvoir les carbonise sur place, l’inverse est aussi parfaitement vrai et utiliser la Lumière est surtout une question d’équilibre."
         ],
         majeures: +10,
-        mineures: +100,
+        mineures: +110,
         mecanique: [
             "À chaque utilisation d’un sort de soin, le lanceur génère une charge de Bénédiction. À contrario, à chaque utilisation d’un sort offensif, il se voit attribuer une charge de Châtiment. Les charges se cumulent à mesure que le combat avance et disparaissent une fois ce dernier terminé. Avec ces charges, trois états sont possibles :",
             "Bénédiction > Châtiment : le lanceur est béni par la lumière et devient miséricordieux pour ses alliés, augmente de 2 tous les soins prodigués par les sorts lumière.",
@@ -2350,62 +2325,57 @@ export const AlyriaArcane = {
                 nom: "Luminescence",
                 description: "Vous brillez d’une lueur faible en permanence, ce qui vous permet d’y voir même dans le noir. Cette lumière peut être rendue indétectable pour tout le monde sauf vous.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 2,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Sainteté",
                 description: "Vous gagnez un avantage sur vos jets de Persuader/Tromper face à des personnages d’alignement Bon. Vous inspirez naturellement confiance.",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Eblouissant",
                 description: "A chaque fois que vous encaisser une attaque qui vous inflige des dégâts sur vos PV au corps à corps vous pouvez appliquer Cécité à l’assaillant.",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Affronter le Mal",
                 description: "Augmente le DSB de 1 lors d’un affrontement face à au moins un ennemi d’alignement Mauvais. Si vous affrontez plus de 4 ennemis de cet alignement vous doublez ce bonus.",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Châtié et Béni",
                 description: "Double le bonus de soin et de dégât octroyé par la mécanique.",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {
@@ -2725,7 +2695,7 @@ export const AlyriaArcane = {
             "La magie des dragons n’est aussi pas faites pour le soutien et les mages qui l’utilise sont de redoutables machines de guerre mais ne peuvent apporter aucune aide à leurs équipiers, il faudra donc les entourer avec des mages plus orienter sur le soutient des troupes et les laisser s’adonner à la destruction comme ils excellent à le faire."
         ],
         majeures: +10,
-        mineures: +100,
+        mineures: +110,
         mecanique: [
             "Les utilisateurs de cet élément sont soumis à ”l’Ascension draconique”.",
             "Le lanceur, au début du combat, ne peut lancer qu’un sort Novice, puis Confirmé, puis Expert, puis Maître. S’il ne lance pas un sort inférieur, il ne peut lancer un sort de niveau supérieur.",
@@ -2738,62 +2708,57 @@ export const AlyriaArcane = {
                 nom: "Ascensionniste",
                 description: "Quand la mécanique est sur Confirmé l’utilisateur gagne +1 DSB, il gagne +1 DSB à chaque palier supplémentaire.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 2,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Dragon menaçant",
                 description: "Vous gagnez un avantage sur tous vos jets d’Intimidation. Octroie +10 en Intimidation.",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Ecaille impénétrable",
                 description: "Tant que vous avez des PB vous êtes insensible aux dégâts perce armure et les dégâts vous sont infligés normalement.",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Déchainement",
                 description: "Si vous utilisez deux fois le même sortilège consécutivement celui-ci coute 1 PSY de moins et a +20% de chances de CC.",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Véritable Dragon",
                 description: "Vous pouvez vous transformer en Dragon pendant 1 heure et obtenez 90 dans toutes les statistiques mineures dans cette forme. La transformation ne peut se faire qu’une fois par jour et enclenche systématiquement la surcharge psychique.",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {
@@ -3125,62 +3090,57 @@ export const AlyriaArcane = {
                 nom: "Psyché Vitale",
                 description: "Permet au lanceur de payer ses sorts avec sa PSY ou ses PV quels qu’ils soient, de plus les sorts chaos peuvent être lancé avec un mélange de PSY et de PV du moment que le montant total nécessaire au lancement du sort est réglé",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 2,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Occultisme",
                 description: "Octroie +10 en connaissance mystique et sacrée. Permet de parler la langue Ancienne.",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Cœur noir",
                 description: "Les actions mauvaises ou cruelles apaisent votre personnage et augmente tout dégâts de 1 pour le prochain combat. Le bonus est limité à 3 dégâts maximum.",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Chaos résurgent",
                 description: "Une fois par combat vous pouvez annuler une attaque qui devez vous tuer ou vous faire tomber K.O, Si vous récupérez tous vos points de vie cet effet se réinitialise et peut s’appliquer à nouveau.",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Afflictions nourrissantes",
                 description: "A chaque fois que vous appliquez une altération d’état vous récupérez 1 PSY.",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {
@@ -3509,62 +3469,57 @@ export const AlyriaArcane = {
                 nom: "Protectionnisme",
                 description: "Octroie un bonus de 1 aux boucliers prodigués. Au niveau 6 ce bonus est doublé.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 2,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Métal robuste",
                 description: "Octroie +15 en Robustesse et un avantage dans cette statistique.",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Bouclier salvateur",
                 description: "L’effet de \"Bouclier Vanish\" se déploie automatiquement et gratuitement sur un allié recevant des PB alors qu’il reste moins de 25% de ses PV.",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Formation solide",
                 description: "Octroie l’immunité à deux altérations d’états au choix lors de l’obtention de ce passif.",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Invincible",
                 description: "Si vous devez mourir ou tombez K.O, une fois par combat, vous devenez Invulnérable pendant 1 tour avant d’encaisser les dégâts.",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {
@@ -3896,62 +3851,57 @@ export const AlyriaArcane = {
                 nom: "Ensablement",
                 description: "Vous appliquez \"Entrave\" à tous les ennemis à votre corps à corps à la fin de votre tour.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 2,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Adepte désertique",
                 description: "Octroie une résistance au Feu. Votre personnage n’est pas incommodé par la chaleur.",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Voile de Sable",
                 description: "Les attaques à distance touchant au-delà de 20 mètres ne peuvent pas vous prendre pour cible si vous avez utilisé un sortilège de Sable ce tour.",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Sable résiduel",
                 description: "A chaque fois que vous utilisez 3 résidus ou plus d’un seul coup vous gagnez 2 d’armure pendant 1 tour.",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Désertification inéluctable",
                 description: "A chaque fois que vous utilisez 3 résidus ou plus d'un seul coup vous en regagnez 1 et augmentez vos dégâts de 2 pendant 1 tour.",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {
@@ -4281,62 +4231,57 @@ export const AlyriaArcane = {
                 nom: "Support technique",
                 description: "Octroie 2 PB supplémentaire pendant 1 tour à tous les alliés possédant des PB sur le terrain au début de votre tour, y compris vous-même.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 2,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Magie et Machinerie",
                 description: "Octroie +10 en connaissance mystique et en Artisanat. Augmente vos dégâts de 2 contre des Machines.",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Mémoire Vive",
                 description: "Ajoute votre meilleure statistique majeure à l’intelligence pour un jet de connaissance.",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Machine-Humanoïde",
                 description: "Octroie 4 PB fixe au début d’un combat et quand vos PV tombe sous la barre des 25% une fois par combat.",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Ingénieur Machiniste",
                 description: "Augmente de 1 votre maximum d’invocations simultanées. Les invocations de la branche gagnent toutes 1 d’armure et 2 aux dégâts.",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {
@@ -4670,62 +4615,57 @@ export const AlyriaArcane = {
                 nom: "Accumulateur",
                 description: "Permet de posséder une charge supplémentaire. Posséder 3 charges Soleil augmente vos dégâts de 1, 3 charges Tempêtes augmentent votre taux de critique de 10% et 3 charges Orage augmentent votre vitesse de 1 cran.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 2,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Climat rigoureux",
                 description: "Les sortilèges n’infligeant pas de dégâts et ne soignant pas infligent désormais 2 dégâts fixes aux ennemis et soignent 2 PV fixe aux alliés",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Aléas tolérable",
                 description: "Le personnage obtient un avantage sur ses jets de survie, de connaissance nature, de connaissance monde, de robustesse, de perception, de perception magique, de médecine et d’intuition si le climat est hostile",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Paroxysme",
                 description: "Double le bonus d’ \"Accumulateur\" si vous ne possédez pas ce passif vous ignorez cet effet et le débloquez à la place.",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Catastrophe naturelle",
                 description: "Lorsque l’un des sortilèges Climat touche plus de 4 entités à la fois le lanceur récupère 3 PV et augmente les dégâts de sa prochaine attaque de 3.",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {
@@ -5056,62 +4996,57 @@ export const AlyriaArcane = {
                 nom: "Gelure dramatique",
                 description: "Permet d’appliquer deux Engelures et d’en cumuler les dégâts mais pas la durée.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 2,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Adorateur Hivernal",
                 description: "Octroie une résistance à l’Eau et une immunité à Engelure.",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Froid appréciable",
                 description: "Octroie un avantage à tous les jets de statistiques mineures liées à la Dextérité ou à la Sagesse tant que le climat est froid ou juste après l’utilisation d’un sort de Glace.",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Froid matinal",
                 description: "Le personnage démarre les combats avec deux charges de \"Froid Mordant\", il peut utiliser un sortilège à 2 PSY ou moins gratuitement et sans consommer d’action lors de son premier tour.",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Dévoreur de Neige",
                 description: "A chaque fois que vous appliquez \"Engelure\" vous récupérez 2 PV.",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {
@@ -5441,62 +5376,57 @@ export const AlyriaArcane = {
                 nom: "Allié de la Nature",
                 description: "Octroie +20 en connaissance nature et permet de parler la langue Animale.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 2,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Senteur agréable",
                 description: "Octroie un avantage sur vos jets de Persuader/Tromper et de Marchandage si vous avez utilisé un sort Plante récemment.",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Liaison tellurique",
                 description: "A chaque fois que le lanceur rend des PV à une cible à moins de 50% de sa vie maximale il récupère 1 PSY.",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Sève toxique",
                 description: "Applique \"Poison\" à l’assaillant à chaque fois qu’on vous attaque au corps à corps.",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Pollen de rajeunissement",
                 description: "A chaque fois que vous rendez de la PSY à un allié vous lui rendez 2 PSY fixe supplémentaire.",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {
@@ -5826,62 +5756,57 @@ export const AlyriaArcane = {
                 nom: "Aux origines de la magie",
                 description: "Octroie +10 en connaissance mystique et sacré.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 2,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Ressources mentales",
                 description: "Octroie 10% de réussite à vos jets de sauvegarde de Sagesse. De plus, si vous possédez moins de 5 PSY restant vous pouvez récupérer 1 dé 4 PSY, 2 fois par combat maximum..",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Préparation adéquate",
                 description: "Vous démarrez chaque combat avec 2 charges Primo ou une charge Secundo.",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Rechargement de secours",
                 description: "Octroie une charge Tertio OU deux charges Secundo OU trois charges Primo lorsque vous tombez à moins de 25% de vos PV max une fois par combat.",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Flot psychique",
                 description: "A chaque fois que vous utilisez une charge ou plus vous récupérez 1 PSY.",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {
@@ -6181,62 +6106,57 @@ export const AlyriaArcane = {
                 nom: "Affaiblissement de psyché",
                 description: "Augmente votre taux de blocage de 10% et votre armure de 1 à chaque fois que l’attaque qui vous cible consomme de la PSY.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 2,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Neutralisation",
                 description: "Hors combat vous pouvez enchanter un objet pour qu’il génère une bulle d’anti-magie empêchant quiconque est en contact direct avec l’objet d’utiliser la psyché. Cet objet ne peut pas neutraliser complètement des cibles plus puissantes que vous.",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Négativité",
                 description: "Lorsque vous passer sous les 50% de PV max vous infligez Silence à tous les ennemis au corps à corps. Cet effet ne peux se reproduire que si vous avez récupérez tous vos PV entre deux enclenchement.",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Résistance magique",
                 description: "Vous gagnez une résistance à un élément de votre choix. Vous gagnez une immunité à une altération de votre choix.",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Faiblesse au vide",
                 description: "Si la cible n’a plus de PSY tous les dégâts que vous devez infliger à la PSY le sont directement sur les PV. Vous gagnez aussi un bonus de +2 dégâts face à ces cibles.",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {
@@ -6566,62 +6486,57 @@ export const AlyriaArcane = {
                 nom: "Accélérateur dimensionnel",
                 description: "Augmente la vitesse d’un cran.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 2,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Dimension de poche",
                 description: "Octroie un objet qui permet d’accéder à une dimension d’une vingtaine de mètres carré dans laquelle on peut stocker des objets mais rien de vivant.",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Esquive facilitée",
                 description: "Augmente le taux de blocage de 10%, si vous ne prenez aucun dégât sur les PV après une attaque vous poussez l’assaillant ou vous-même de 5 mètres.",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Spatio-Bunker",
                 description: "Si une attaque doit vous mettre K.O ou vous tuez vous vous isolé dans une autre dimension spéciale et impénétrable pour y échapper et annuler tous les dégâts et les effets de l’attaque. Cela peut aussi fonctionner pour éviter un péril hors combat. Une fois par combat ou par scène.",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Portail de voyageur",
                 description: "Permet de créer un portail qui ramène à un lieu déjà visité où qu’il soit. Néanmoins cela consomme toute la PSY du lanceur et ne pourra pas être réutilisé avant 3 jours.",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {
@@ -6950,62 +6865,57 @@ export const AlyriaArcane = {
                 nom: "Arrêt d’Urgence",
                 description: "Vous pouvez arrêter le temps lors d’une situation critique ce qui vous permet de réaliser des actions réflexes sans malus et de faire plus de chose en très peu de temps que n’importe qui d’autre.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 2,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 3,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Rembobinage",
                 description: "A chaque fois que vous vous déplacez vous pouvez choisir, à la fin de votre tour, de revenir à votre position initiale. Cet effet permet aussi de retourner là ou vous étiez il y a 5 minutes instantanément hors combat mais pas plusieurs fois d’affilé.",
                 niveauJoueur: 4,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 5,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Connaissance d’autre temps",
                 description: "Octroie +5 en connaissance Monde, Mystique et Sacré. Donne un avantage sur des connaissances à obtenir venant du passé ou du futur.",
                 niveauJoueur: 6,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "Lanceur de sort",
                 description: "Octroie 2 points de statistiques majeures à répartir.",
                 niveauJoueur: 7,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMajeures",
+                points: 2,
             }, {
                 nom: "Spécialisation",
                 description: "Octroie 15 points de statistiques mineures à répartir. Donne un avantage lors des jets dans une statistique mineure choisie.",
                 niveauJoueur: 8,
-                prerequis: [],
-                effet: {}
+                fonction: "repartitionCaracteristiquesMineures",
+                points: 15,
             }, {
                 nom: "Rattrapage",
                 description: "Si vous, ou un membre de votre équipe loupe un jet vous pouvez relancer le dé. Une fois par allié et par scène ou par combat.",
                 niveauJoueur: 9,
-                prerequis: [],
-                effet: {}
+                
             }, {
                 nom: "L’heure tourne",
                 description: "A chaque fois que vous compléter un cycle de tour Tic puis Tac (ou inversement) vous augmentez votre DSB de 1 pour le reste du combat.",
                 niveauJoueur: 10,
-                prerequis: [],
-                effet: {}
+                
             }]
         },
         sortArcane: {

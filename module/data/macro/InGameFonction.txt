@@ -1,0 +1,621 @@
+if (effet.conditionMonoCible(actor)) {
+  // Appliquer le bonus si il n'y a personne dans un rayon de 10m
+}
+
+<!-- À placer dans le formulaire de la fiche d’acteur -->
+<div class="alyria-sorts-selection">
+  <h3>Sorts à choisir ({{system.nbSortsAChoisir}})</h3>
+  <ul>
+    {{#each system.sortsDisponibles as |sort|}}
+      <li>
+        <label>
+          <input type="checkbox" name="sortsChoisis" value="{{sort.id}}" 
+            {{#if (includes ../system.sortsChoisis sort.id)}}checked{{/if}} />
+          {{sort.nom}}
+        </label>
+      </li>
+    {{/each}}
+  </ul>
+<div>
+
+// ================================
+// MACRO DE CHECK-UP DES TALENTS (CORRIGÉE) - STRUCTURE DETECTÉE
+// ================================
+
+(async function() {
+    console.log("🔍 === DÉBUT DU CHECK-UP DES TALENTS ===");
+    
+    let rapport = {
+        talents: {
+            generaux: { total: 0, fonctionnels: 0, defaillants: [] },
+            voies: { total: 0, fonctionnels: 0, defaillants: [] },
+            arcanes: { total: 0, fonctionnels: 0, defaillants: [] },
+            historiques: { total: 0, fonctionnels: 0, defaillants: [] }
+        },
+        fonctions: {
+            disponibles: [],
+            manquantes: []
+        },
+        erreurs: []
+    };
+
+    // ================================
+    // 1. VÉRIFICATION DES MODULES DE TALENTS
+    // ================================
+    
+    console.log("📚 Vérification des modules de talents...");
+    
+    let talentStatistique, talentCombat, talentUtilitaire, talentCreation;
+    let AlyriaVoies, AlyriaArcane, TalentFonctions;
+    
+    try {
+        // Import des talents généraux
+        const talentsModule = await import('/systems/alyria/module/data/talents.js');
+        talentStatistique = talentsModule.talentStatistique;
+        talentCombat = talentsModule.talentCombat;
+        talentUtilitaire = talentsModule.talentUtilitaire;
+        talentCreation = talentsModule.talentCreation;
+        
+        // Import des voies et arcanes
+        AlyriaVoies = (await import('/systems/alyria/module/data/AlyriaVoies.js')).AlyriaVoies;
+        AlyriaArcane = (await import('/systems/alyria/module/data/AlyriaArcanes.js')).AlyriaArcane;
+        
+        // Import des fonctions de talents
+        TalentFonctions = (await import('/systems/alyria/module/data/talentFonctions.js')).TalentFonctions;
+        
+        console.log("✅ Modules importés avec succès");
+        
+        // Debug: Afficher la structure des voies et arcanes
+        console.log("🔍 Debug AlyriaVoies:", AlyriaVoies);
+        console.log("🔍 Debug AlyriaArcane:", AlyriaArcane);
+        
+    } catch (error) {
+        console.error("❌ Erreur lors de l'import des modules:", error);
+        rapport.erreurs.push(`Erreur d'import: ${error.message}`);
+    }
+
+    // ================================
+    // 2. VÉRIFICATION DES TALENTS GÉNÉRAUX
+    // ================================
+    
+    console.log("🎯 Vérification des talents généraux...");
+    
+    // Talents Statistiques
+    if (talentStatistique) {
+        for (const [key, talent] of Object.entries(talentStatistique)) {
+            rapport.talents.generaux.total++;
+            
+            const check = verifierTalent(talent, key, 'statistique');
+            if (check.fonctionnel) {
+                rapport.talents.generaux.fonctionnels++;
+            } else {
+                rapport.talents.generaux.defaillants.push({
+                    nom: talent.nom || key,
+                    type: 'Statistique',
+                    problemes: check.problemes
+                });
+            }
+        }
+    }
+    
+    // Talents Combat
+    if (talentCombat) {
+        for (const [key, talent] of Object.entries(talentCombat)) {
+            rapport.talents.generaux.total++;
+            
+            const check = verifierTalent(talent, key, 'combat');
+            if (check.fonctionnel) {
+                rapport.talents.generaux.fonctionnels++;
+            } else {
+                rapport.talents.generaux.defaillants.push({
+                    nom: talent.nom || key,
+                    type: 'Combat',
+                    problemes: check.problemes
+                });
+            }
+        }
+    }
+    
+    // Talents Utilitaires
+    if (talentUtilitaire) {
+        for (const [key, talent] of Object.entries(talentUtilitaire)) {
+            rapport.talents.generaux.total++;
+            
+            const check = verifierTalent(talent, key, 'utilitaire');
+            if (check.fonctionnel) {
+                rapport.talents.generaux.fonctionnels++;
+            } else {
+                rapport.talents.generaux.defaillants.push({
+                    nom: talent.nom || key,
+                    type: 'Utilitaire',
+                    problemes: check.problemes
+                });
+            }
+        }
+    }
+    
+    // Talents Historiques
+    if (talentCreation?.talentHistorique?.talents) {
+        for (const talent of talentCreation.talentHistorique.talents) {
+            rapport.talents.historiques.total++;
+            
+            const check = verifierTalent(talent, talent.nom, 'historique');
+            if (check.fonctionnel) {
+                rapport.talents.historiques.fonctionnels++;
+            } else {
+                rapport.talents.historiques.defaillants.push({
+                    nom: talent.nom,
+                    type: 'Historique',
+                    problemes: check.problemes
+                });
+            }
+        }
+    }
+
+    // ================================
+    // 3. VÉRIFICATION DES TALENTS DE VOIES (CORRIGÉE)
+    // ================================
+    
+    console.log("⚔️ Vérification des talents de voies...");
+    
+    if (AlyriaVoies) {
+        console.log(`🔍 Nombre de voies trouvées: ${Object.keys(AlyriaVoies).length}`);
+        
+        for (const [voieKey, voie] of Object.entries(AlyriaVoies)) {
+            console.log(`🔍 Analyse de la voie: ${voieKey}`, voie);
+            
+            // Chercher dans talentVoie.talents (structure détectée)
+            if (voie.talentVoie && voie.talentVoie.talents && Array.isArray(voie.talentVoie.talents)) {
+                const talents = voie.talentVoie.talents;
+                console.log(`✅ Structure talentVoie.talents trouvée pour ${voieKey}: ${talents.length} talents`);
+                
+                for (const talent of talents) {
+                    if (talent && typeof talent === 'object') {
+                        rapport.talents.voies.total++;
+                        
+                        const check = verifierTalent(talent, `${voieKey}`, 'voie');
+                        if (check.fonctionnel) {
+                            rapport.talents.voies.fonctionnels++;
+                        } else {
+                            rapport.talents.voies.defaillants.push({
+                                nom: talent.nom || 'Talent sans nom',
+                                type: `Voie ${voie.nom || voieKey}`,
+                                problemes: check.problemes
+                            });
+                        }
+                    }
+                }
+            }
+            // Structure alternative avec niveaux
+            else if (voie.talentVoie && typeof voie.talentVoie === 'object') {
+                console.log(`🔍 Recherche dans les niveaux de talentVoie pour ${voieKey}:`, voie.talentVoie);
+                
+                for (const [niveauKey, niveauData] of Object.entries(voie.talentVoie)) {
+                    if (niveauData && Array.isArray(niveauData.talents)) {
+                        console.log(`✅ Talents trouvés dans ${voieKey}.talentVoie.${niveauKey}: ${niveauData.talents.length} talents`);
+                        
+                        for (const talent of niveauData.talents) {
+                            if (talent && typeof talent === 'object') {
+                                rapport.talents.voies.total++;
+                                
+                                const check = verifierTalent(talent, `${voieKey}.${niveauKey}`, 'voie');
+                                if (check.fonctionnel) {
+                                    rapport.talents.voies.fonctionnels++;
+                                } else {
+                                    rapport.talents.voies.defaillants.push({
+                                        nom: talent.nom || 'Talent sans nom',
+                                        type: `Voie ${voie.nom || voieKey} (${niveauKey})`,
+                                        problemes: check.problemes
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                console.log(`⚠️ Aucune structure de talents trouvée pour la voie: ${voieKey}`);
+            }
+        }
+    }
+
+    // ================================
+    // 4. VÉRIFICATION DES TALENTS D'ARCANES (CORRIGÉE)
+    // ================================
+    
+    console.log("🔮 Vérification des talents d'arcanes...");
+    
+    if (AlyriaArcane) {
+        console.log(`🔍 Nombre d'arcanes trouvés: ${Object.keys(AlyriaArcane).length}`);
+        
+        for (const [arcaneKey, arcane] of Object.entries(AlyriaArcane)) {
+            console.log(`🔍 Analyse de l'arcane: ${arcaneKey}`, arcane);
+            
+            // Chercher dans talentArcane.talents (structure détectée dans les logs)
+            if (arcane.talentArcane && arcane.talentArcane.talents && Array.isArray(arcane.talentArcane.talents)) {
+                const talents = arcane.talentArcane.talents;
+                console.log(`✅ Structure talentArcane.talents trouvée pour ${arcaneKey}: ${talents.length} talents`);
+                
+                for (const talent of talents) {
+                    if (talent && typeof talent === 'object') {
+                        rapport.talents.arcanes.total++;
+                        
+                        const check = verifierTalent(talent, `${arcaneKey}`, 'arcane');
+                        if (check.fonctionnel) {
+                            rapport.talents.arcanes.fonctionnels++;
+                        } else {
+                            rapport.talents.arcanes.defaillants.push({
+                                nom: talent.nom || 'Talent sans nom',
+                                type: `Arcane ${arcane.nom || arcaneKey}`,
+                                problemes: check.problemes
+                            });
+                        }
+                    }
+                }
+            }
+            // Structure alternative avec niveaux
+            else if (arcane.talentArcane && typeof arcane.talentArcane === 'object') {
+                console.log(`🔍 Recherche dans les niveaux de talentArcane pour ${arcaneKey}:`, arcane.talentArcane);
+                
+                for (const [niveauKey, niveauData] of Object.entries(arcane.talentArcane)) {
+                    if (niveauData && Array.isArray(niveauData.talents)) {
+                        console.log(`✅ Talents trouvés dans ${arcaneKey}.talentArcane.${niveauKey}: ${niveauData.talents.length} talents`);
+                        
+                        for (const talent of niveauData.talents) {
+                            if (talent && typeof talent === 'object') {
+                                rapport.talents.arcanes.total++;
+                                
+                                const check = verifierTalent(talent, `${arcaneKey}.${niveauKey}`, 'arcane');
+                                if (check.fonctionnel) {
+                                    rapport.talents.arcanes.fonctionnels++;
+                                } else {
+                                    rapport.talents.arcanes.defaillants.push({
+                                        nom: talent.nom || 'Talent sans nom',
+                                        type: `Arcane ${arcane.nom || arcaneKey} (${niveauKey})`,
+                                        problemes: check.problemes
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                console.log(`⚠️ Aucune structure de talents trouvée pour l'arcane: ${arcaneKey}`);
+            }
+        }
+    }
+
+    // ================================
+    // 5. VÉRIFICATION DES FONCTIONS DE TALENTS
+    // ================================
+    
+    console.log("🔧 Vérification des fonctions de talents...");
+    
+    const fonctionsAttendues = [
+        'ajoutDirectCaracteristiques',
+        'ajoutDirectCaracteristique',
+        'repartitionCaracteristiquesMajeures',
+        'repartitionCaracteristiquesMineures',
+        'repartitionCaracteristiquesMineurs',
+        'bonusDirectPlusConditionnel',
+        'bonusIndirectCaracteristique',
+        'bonusIndirectCaracteristiques',
+        'jetAvecBonusSituationnel'
+    ];
+    
+    if (TalentFonctions) {
+        for (const fonction of fonctionsAttendues) {
+            if (typeof TalentFonctions[fonction] === 'function') {
+                rapport.fonctions.disponibles.push(fonction);
+            } else {
+                rapport.fonctions.manquantes.push(fonction);
+            }
+        }
+    } else {
+        rapport.fonctions.manquantes = [...fonctionsAttendues];
+        rapport.erreurs.push("Module TalentFonctions non disponible");
+    }
+
+    // ================================
+    // 6. GÉNÉRATION DU RAPPORT
+    // ================================
+    
+    console.log("📊 Génération du rapport...");
+    console.log("📊 Rapport final:", rapport);
+    
+    const html = genererRapportHTML(rapport);
+    
+    // Affichage du dialogue
+    new Dialog({
+        title: "🔍 Check-up des Talents - Diagnostic Complet",
+        content: html,
+        render: (dialogHtml) => {
+            // Ajouter les événements pour les boutons d'expansion
+            dialogHtml.find('.expand-btn').on('click', function() {
+                const target = $(this).data('target');
+                const section = dialogHtml.find(`#${target}`);
+                const icon = $(this).find('i');
+                
+                if (section.hasClass('collapsed')) {
+                    section.removeClass('collapsed');
+                    icon.removeClass('fa-chevron-right').addClass('fa-chevron-down');
+                } else {
+                    section.addClass('collapsed');
+                    icon.removeClass('fa-chevron-down').addClass('fa-chevron-right');
+                }
+            });
+            
+            // Boutons de test
+            dialogHtml.find('.test-fonction-btn').on('click', async function() {
+                const fonction = $(this).data('fonction');
+                await testerFonction(fonction);
+            });
+        },
+        buttons: {
+            export: {
+                icon: '<i class="fas fa-download"></i>',
+                label: "Exporter le rapport",
+                callback: () => exporterRapport(rapport)
+            },
+            repair: {
+                icon: '<i class="fas fa-wrench"></i>',
+                label: "Tenter des réparations",
+                callback: () => tentativeReparation(rapport)
+            },
+            close: {
+                icon: '<i class="fas fa-times"></i>',
+                label: "Fermer"
+            }
+        }
+    }, {
+        width: 800,
+        height: 700,
+        resizable: true
+    }).render(true);
+
+    console.log("✅ === CHECK-UP DES TALENTS TERMINÉ ===");
+
+    // ================================
+    // FONCTIONS UTILITAIRES
+    // ================================
+
+    function verifierTalent(talent, key, type) {
+        const problemes = [];
+        let fonctionnel = true;
+
+        // Vérifications de base
+        if (!talent.nom) {
+            problemes.push("Nom manquant");
+            fonctionnel = false;
+        }
+
+        if (!talent.description && !talent.effet && !talent.effets) {
+            problemes.push("Description/effet manquant");
+            fonctionnel = false;
+        }
+
+        // Vérifications spécifiques selon le type
+        if (type === 'historique') {
+            if (!talent.effect && !talent.effets) {
+                problemes.push("Propriété 'effect' ou 'effets' manquante");
+                fonctionnel = false;
+            }
+        }
+
+        // Vérifications des fonctions
+        if (talent.fonction) {
+            if (TalentFonctions && typeof TalentFonctions[talent.fonction] !== 'function') {
+                problemes.push(`Fonction '${talent.fonction}' non trouvée dans TalentFonctions`);
+                fonctionnel = false;
+            }
+            
+            // Vérification de la cohérence entre fonction et effets
+            if (talent.fonction === 'ajoutDirectCaracteristique' && !talent.effets) {
+                problemes.push("Fonction ajoutDirectCaracteristique mais pas d'effets définis");
+                fonctionnel = false;
+            }
+        }
+
+        // Vérifications des effets structurés
+        if (talent.effets) {
+            if (talent.effets.majeure && typeof talent.effets.majeure !== 'object') {
+                problemes.push("Structure 'effets.majeure' invalide");
+                fonctionnel = false;
+            }
+            
+            if (talent.effets.mineure && typeof talent.effets.mineure !== 'object') {
+                problemes.push("Structure 'effets.mineure' invalide");
+                fonctionnel = false;
+            }
+        }
+
+        return { fonctionnel, problemes };
+    }
+
+    function genererRapportHTML(rapport) {
+        const totalTalents = rapport.talents.generaux.total + rapport.talents.voies.total + 
+                           rapport.talents.arcanes.total + rapport.talents.historiques.total;
+        const totalFonctionnels = rapport.talents.generaux.fonctionnels + rapport.talents.voies.fonctionnels + 
+                                 rapport.talents.arcanes.fonctionnels + rapport.talents.historiques.fonctionnels;
+        
+        const tauxReussite = totalTalents > 0 ? Math.round((totalFonctionnels / totalTalents) * 100) : 0;
+        
+        return `
+            <div class="talent-checkup-rapport">
+                <style>
+                    .talent-checkup-rapport { font-family: Arial, sans-serif; font-size: 14px; }
+                    .summary { background: linear-gradient(135deg, #e3f2fd, #f3e5f5); padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+                    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 15px 0; }
+                    .stat-card { background: white; padding: 10px; border-radius: 5px; text-align: center; border: 1px solid #ddd; }
+                    .stat-number { font-size: 24px; font-weight: bold; margin-bottom: 5px; }
+                    .stat-label { font-size: 12px; color: #666; }
+                    .success { color: #4CAF50; }
+                    .warning { color: #FF9800; }
+                    .error { color: #f44336; }
+                    .section { margin-bottom: 20px; border: 1px solid #ddd; border-radius: 5px; }
+                    .section-header { background: #f5f5f5; padding: 10px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+                    .section-content { padding: 15px; }
+                    .collapsed { display: none; }
+                    .problem-list { max-height: 200px; overflow-y: auto; }
+                    .problem-item { background: rgba(244, 67, 54, 0.1); padding: 8px; margin: 5px 0; border-radius: 3px; border-left: 3px solid #f44336; }
+                    .function-item { background: rgba(76, 175, 80, 0.1); padding: 8px; margin: 5px 0; border-radius: 3px; border-left: 3px solid #4CAF50; }
+                    .missing-function { background: rgba(244, 67, 54, 0.1); border-left-color: #f44336; }
+                    .test-btn { background: #2196F3; color: white; border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer; margin-left: 10px; }
+                    .progress-bar { background: #e0e0e0; height: 20px; border-radius: 10px; overflow: hidden; margin: 10px 0; }
+                    .progress-fill { height: 100%; transition: width 0.3s ease; }
+                </style>
+                
+                <div class="summary">
+                    <h2>📊 Résumé du Diagnostic</h2>
+                    <div class="progress-bar">
+                        <div class="progress-fill ${tauxReussite >= 80 ? 'success' : tauxReussite >= 60 ? 'warning' : 'error'}" 
+                             style="width: ${tauxReussite}%; background: ${tauxReussite >= 80 ? '#4CAF50' : tauxReussite >= 60 ? '#FF9800' : '#f44336'};">
+                        </div>
+                    </div>
+                    <p><strong>Taux de réussite global : ${tauxReussite}%</strong> (${totalFonctionnels}/${totalTalents} talents fonctionnels)</p>
+                </div>
+
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="stat-number success">${rapport.talents.generaux.fonctionnels}</div>
+                        <div class="stat-label">Talents Généraux OK</div>
+                        <div class="stat-label">(${rapport.talents.generaux.total} total)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number ${rapport.talents.voies.fonctionnels === rapport.talents.voies.total ? 'success' : 'warning'}">${rapport.talents.voies.fonctionnels}</div>
+                        <div class="stat-label">Talents Voies OK</div>
+                        <div class="stat-label">(${rapport.talents.voies.total} total)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number ${rapport.talents.arcanes.fonctionnels === rapport.talents.arcanes.total ? 'success' : 'warning'}">${rapport.talents.arcanes.fonctionnels}</div>
+                        <div class="stat-label">Talents Arcanes OK</div>
+                        <div class="stat-label">(${rapport.talents.arcanes.total} total)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number ${rapport.talents.historiques.fonctionnels === rapport.talents.historiques.total ? 'success' : 'warning'}">${rapport.talents.historiques.fonctionnels}</div>
+                        <div class="stat-label">Talents Historiques OK</div>
+                        <div class="stat-label">(${rapport.talents.historiques.total} total)</div>
+                    </div>
+                </div>
+
+                ${genererSectionProblemes('Talents Généraux', rapport.talents.generaux.defaillants)}
+                ${genererSectionProblemes('Talents de Voies', rapport.talents.voies.defaillants)}
+                ${genererSectionProblemes('Talents d\'Arcanes', rapport.talents.arcanes.defaillants)}
+                ${genererSectionProblemes('Talents Historiques', rapport.talents.historiques.defaillants)}
+                ${genererSectionFonctions(rapport.fonctions)}
+                ${rapport.erreurs.length > 0 ? genererSectionErreurs(rapport.erreurs) : ''}
+            </div>
+        `;
+    }
+
+    function genererSectionProblemes(titre, problemes) {
+        if (problemes.length === 0) {
+            return `
+                <div class="section">
+                    <div class="section-header">
+                        <span><strong>${titre}</strong> <span class="success">✅ Aucun problème détecté</span></span>
+                    </div>
+                </div>
+            `;
+        }
+
+        const problemesHtml = problemes.map(p => `
+            <div class="problem-item">
+                <strong>${p.nom}</strong> (${p.type})<br>
+                <small>${p.problemes.join(', ')}</small>
+            </div>
+        `).join('');
+
+        return `
+            <div class="section">
+                <div class="section-header expand-btn" data-target="section-${titre.replace(/\s+/g, '-')}">
+                    <span><strong>${titre}</strong> <span class="error">⚠️ ${problemes.length} problème(s)</span></span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="section-content collapsed" id="section-${titre.replace(/\s+/g, '-')}">
+                    <div class="problem-list">${problemesHtml}</div>
+                </div>
+            </div>
+        `;
+    }
+
+    function genererSectionFonctions(fonctions) {
+        const functionsHtml = fonctions.disponibles.map(f => `
+            <div class="function-item">
+                ✅ ${f} 
+                <button class="test-btn test-fonction-btn" data-fonction="${f}">Tester</button>
+            </div>
+        `).join('');
+
+        const missingHtml = fonctions.manquantes.map(f => `
+            <div class="function-item missing-function">❌ ${f} (manquante)</div>
+        `).join('');
+
+        return `
+            <div class="section">
+                <div class="section-header expand-btn" data-target="section-fonctions">
+                    <span><strong>Fonctions de Talents</strong> ${fonctions.manquantes.length === 0 ? '<span class="success">✅ Toutes disponibles</span>' : `<span class="error">⚠️ ${fonctions.manquantes.length} manquante(s)</span>`}</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="section-content collapsed" id="section-fonctions">
+                    <h4>Fonctions Disponibles (${fonctions.disponibles.length}):</h4>
+                    ${functionsHtml}
+                    ${fonctions.manquantes.length > 0 ? `<h4>Fonctions Manquantes (${fonctions.manquantes.length}):</h4>${missingHtml}` : ''}
+                </div>
+            </div>
+        `;
+    }
+
+    function genererSectionErreurs(erreurs) {
+        const erreursHtml = erreurs.map(e => `<div class="problem-item">${e}</div>`).join('');
+        
+        return `
+            <div class="section">
+                <div class="section-header expand-btn" data-target="section-erreurs">
+                    <span><strong>Erreurs Système</strong> <span class="error">❌ ${erreurs.length} erreur(s)</span></span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="section-content collapsed" id="section-erreurs">
+                    ${erreursHtml}
+                </div>
+            </div>
+        `;
+    }
+
+    async function testerFonction(nomFonction) {
+        try {
+            console.log(`🧪 Test de la fonction: ${nomFonction}`);
+            
+            if (TalentFonctions && TalentFonctions[nomFonction]) {
+                ui.notifications.info(`✅ Fonction ${nomFonction} est accessible et callable`);
+                console.log(`✅ Fonction ${nomFonction} testée avec succès`);
+            } else {
+                ui.notifications.error(`❌ Fonction ${nomFonction} non trouvée`);
+            }
+            
+        } catch (error) {
+            console.error(`❌ Erreur lors du test de ${nomFonction}:`, error);
+            ui.notifications.error(`❌ Erreur lors du test: ${error.message}`);
+        }
+    }
+
+    function exporterRapport(rapport) {
+        const json = JSON.stringify(rapport, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `alyria-talents-checkup-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        
+        URL.revokeObjectURL(url);
+        ui.notifications.info("📄 Rapport exporté avec succès");
+    }
+
+    function tentativeReparation(rapport) {
+        ui.notifications.info("🔧 Fonctionnalité de réparation en développement...");
+    }
+
+})();

@@ -1,0 +1,1186 @@
+/**
+ * Macro de Test des Talents - Système Alyria
+ * Crée un acteur fictif et teste l'application de tous les talents
+ */
+
+// **MACRO DE TEST CORRIGÉE - Version complète**
+class AlytriaTalentTester {
+    constructor() {
+        this.testResults = [];
+        this.actor = null;
+        this.talents = [];
+        this.loadedModules = {};
+    }
+
+    async runTests() {
+        ui.notifications.info("Début des tests des talents Alyria...");
+        
+        try {
+            await this.loadRequiredModules();
+            await this.diagnoseSystem();
+            await this.createTestActor();
+            await this.getAllAlytriaTalents();
+            
+            console.log(`🎯 Total talents trouvés: ${this.talents.length}`);
+            
+            if (this.talents.length === 0) {
+                this.displayDiagnosticResults();
+                return;
+            }
+            
+            for (let talent of this.talents) {
+                await this.testTalent(talent);
+            }
+            
+            this.displayResults();
+            await this.cleanup();
+        } catch (error) {
+            console.error("❌ Erreur dans runTests:", error);
+            ui.notifications.error("Erreur lors des tests des talents !");
+        }
+    }
+
+    // **NOUVEAU : Charger les modules requis**
+    async loadRequiredModules() {
+        console.log("📦 Chargement des modules de données...");
+        
+        try {
+            const modules = await Promise.all([
+                import('/systems/alyria/module/data/AlyriaRace.js'),
+                import('/systems/alyria/module/data/AlyriaVoies.js'), 
+                import('/systems/alyria/module/data/AlyriaArcanes.js'),
+                import('/systems/alyria/module/data/talents.js')
+            ]);
+            
+            this.loadedModules.AlyriaRaces = modules[0].AlyriaRaces;
+            this.loadedModules.AlyriaVoies = modules[1].AlyriaVoies;
+            this.loadedModules.AlyriaArcane = modules[2].AlyriaArcane;
+            this.loadedModules.talentStatistique = modules[3].talentStatistique;
+            this.loadedModules.talentCombat = modules[3].talentCombat;
+            this.loadedModules.talentUtilitaire = modules[3].talentUtilitaire;
+            this.loadedModules.talentCreation = modules[3].talentCreation;
+            
+            window.AlyriaRaces = this.loadedModules.AlyriaRaces;
+            window.AlyriaVoies = this.loadedModules.AlyriaVoies;
+            window.AlyriaArcane = this.loadedModules.AlyriaArcane;
+            window.talentStatistique = this.loadedModules.talentStatistique;
+            window.talentCombat = this.loadedModules.talentCombat;
+            window.talentUtilitaire = this.loadedModules.talentUtilitaire;
+            window.talentCreation = this.loadedModules.talentCreation;
+            
+            console.log("✅ Modules chargés avec succès");
+            
+        } catch (error) {
+            console.error("❌ Erreur lors du chargement des modules:", error);
+            throw new Error(`Impossible de charger les modules de données: ${error.message}`);
+        }
+    }
+
+    async diagnoseSystem() {
+        console.log("🔍 === DIAGNOSTIC DU SYSTÈME ALYRIA ===");
+        console.log("📂 AlyriaRaces disponible:", !!this.loadedModules.AlyriaRaces);
+        console.log("📂 AlyriaVoies disponible:", !!this.loadedModules.AlyriaVoies);
+        console.log("📂 AlyriaArcane disponible:", !!this.loadedModules.AlyriaArcane);
+        console.log("📂 talentStatistique disponible:", !!this.loadedModules.talentStatistique);
+        console.log("📂 talentCombat disponible:", !!this.loadedModules.talentCombat);
+        console.log("📂 talentUtilitaire disponible:", !!this.loadedModules.talentUtilitaire);
+        console.log("📂 talentCreation disponible:", !!this.loadedModules.talentCreation);
+    }
+
+    getValidActorTypes() {
+        try {
+            if (CONFIG?.Actor?.typeLabels) {
+                return Object.keys(CONFIG.Actor.typeLabels);
+            }
+            
+            if (game?.system?.template?.Actor?.types) {
+                return game.system.template.Actor.types;
+            }
+            
+            if (game?.system?.model?.Actor) {
+                return Object.keys(game.system.model.Actor);
+            }
+            
+            return ["Joueur", "PNJ", "Monstre", "Bête", "base"];
+        } catch (error) {
+            console.warn("⚠️ Impossible de récupérer les types d'acteurs:", error);
+            return ["Joueur", "PNJ", "Monstre", "Bête", "base"];
+        }
+    }
+
+    async createTestActor() {
+        const validActorTypes = this.getValidActorTypes();
+        console.log("📋 Types d'acteurs valides:", validActorTypes);
+        
+        let actorType = "Joueur";
+        if (!validActorTypes.includes("Joueur")) {
+            actorType = validActorTypes.find(type => 
+                type.toLowerCase().includes("joueur") || 
+                type.toLowerCase().includes("character") ||
+                type.toLowerCase().includes("pc")
+            ) || validActorTypes[0];
+        }
+        
+        console.log(`🎭 Utilisation du type d'acteur: ${actorType}`);
+        
+        const actorData = {
+            name: "Test Alyria",
+            type: actorType,
+            system: {
+                majeures: {
+                    force: { creation: 10, repartition: 5, equipement: 0, talents: 0, bonus: 0, totale: 15 },
+                    dexterite: { creation: 10, repartition: 5, equipement: 0, talents: 0, bonus: 0, totale: 15 },
+                    constitution: { creation: 10, repartition: 5, equipement: 0, talents: 0, bonus: 0, totale: 15 },
+                    intelligence: { creation: 10, repartition: 5, equipement: 0, talents: 0, bonus: 0, totale: 15 },
+                    sagesse: { creation: 10, repartition: 5, equipement: 0, talents: 0, bonus: 0, totale: 15 },
+                    charisme: { creation: 10, repartition: 5, equipement: 0, talents: 0, bonus: 0, totale: 15 },
+                    defense: { creation: 10, repartition: 5, equipement: 0, talents: 0, bonus: 0, totale: 15 },
+                    chance: { creation: 10, repartition: 5, equipement: 0, talents: 0, bonus: 0, totale: 15 }
+                },
+                mineures: {
+                    connaissanceMonde: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    connaissanceNature: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    connaissanceSacree: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    connaissanceMystique: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    robustesse: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    calme: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    marchandage: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    persuaderTromper: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    artMusique: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    commandement: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    acrobatie: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    discretion: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    adresse: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    artisanat: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    hasard: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    athletisme: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    puissance: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    intimidation: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    perception: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    perceptionMagique: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    medecine: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    intuition: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 },
+                    survie: { creation: 10, repartition: 0, equipement: 0, talents: 0, bonus: 0, majeureAssocie: 0, totale: 10 }
+                },
+                talents: [],
+                niveauJoueur: 5,
+                pointsDeVie: { max: 50, actuels: 50 },
+                pointsPsyque: { max: 30, actuels: 30 },
+                race: "humainOccidental",
+                voiesArcane: { type1: "voie", key1: "guerrier" }
+            }
+        };
+        
+        try {
+            this.actor = await Actor.create(actorData);
+            console.log("✅ Acteur de test créé:", this.actor?.name);
+        } catch (error) {
+            console.error("❌ Erreur création acteur:", error);
+            throw new Error(`Impossible de créer l'acteur de test: ${error.message}`);
+        }
+    }
+
+    async getAllAlytriaTalents() {
+        this.talents = [];
+        console.log("🔍 Recherche des talents...");
+        
+        // **1. TALENTS DE RACE**
+        if (this.loadedModules.AlyriaRaces) {
+            Object.entries(this.loadedModules.AlyriaRaces).forEach(([raceKey, race]) => {
+                if (race.talentRace) {
+                    this.talents.push({
+                        id: `race:${raceKey}:${race.talentRace.nom}`,
+                        name: race.talentRace.nom,
+                        type: "talent-race",
+                        data: race.talentRace,
+                        category: "race",
+                        source: `Race ${race.nom}`
+                    });
+                }
+            });
+            console.log(`✅ Talents de race trouvés: ${Object.keys(this.loadedModules.AlyriaRaces).length}`);
+        }
+
+        // **2. TALENTS STATISTIQUES**
+        if (this.loadedModules.talentStatistique) {
+            Object.entries(this.loadedModules.talentStatistique).forEach(([key, talent]) => {
+                this.talents.push({
+                    id: `statistique:${key}`,
+                    name: talent.nom,
+                    type: "talent-statistique", 
+                    data: talent,
+                    category: "statistique",
+                    source: "Talents Statistiques"
+                });
+            });
+            console.log(`✅ Talents statistiques trouvés: ${Object.keys(this.loadedModules.talentStatistique).length}`);
+        }
+
+        // **3. TALENTS DE COMBAT**
+        if (this.loadedModules.talentCombat) {
+            Object.entries(this.loadedModules.talentCombat).forEach(([key, talent]) => {
+                this.talents.push({
+                    id: `combat:${key}`,
+                    name: talent.nom,
+                    type: "talent-combat",
+                    data: talent,
+                    category: "combat", 
+                    source: "Talents de Combat"
+                });
+            });
+            console.log(`✅ Talents de combat trouvés: ${Object.keys(this.loadedModules.talentCombat).length}`);
+        }
+
+        // **4. TALENTS UTILITAIRES**
+        if (this.loadedModules.talentUtilitaire) {
+            Object.entries(this.loadedModules.talentUtilitaire).forEach(([key, talent]) => {
+                this.talents.push({
+                    id: `utilitaire:${key}`,
+                    name: talent.nom,
+                    type: "talent-utilitaire",
+                    data: talent,
+                    category: "utilitaire",
+                    source: "Talents Utilitaires"
+                });
+            });
+            console.log(`✅ Talents utilitaires trouvés: ${Object.keys(this.loadedModules.talentUtilitaire).length}`);
+        }
+
+        // **5. TALENTS HISTORIQUES**
+        if (this.loadedModules.talentCreation?.talentHistorique?.talents) {
+            this.loadedModules.talentCreation.talentHistorique.talents.forEach(talent => {
+                this.talents.push({
+                    id: `historique:${talent.nom}`,
+                    name: talent.nom,
+                    type: "talent-historique",
+                    data: talent,
+                    category: "historique",
+                    source: "Talents Historiques"
+                });
+            });
+            console.log(`✅ Talents historiques trouvés: ${this.loadedModules.talentCreation.talentHistorique.talents.length}`);
+        }
+
+        // **6. TALENTS DE VOIES**
+        if (this.loadedModules.AlyriaVoies) {
+            Object.entries(this.loadedModules.AlyriaVoies).forEach(([voieKey, voie]) => {
+                if (voie.talentVoie?.talents && Array.isArray(voie.talentVoie.talents)) {
+                    voie.talentVoie.talents.forEach((talent, index) => {
+                        this.talents.push({
+                            id: `voie:${voieKey}:${index}`,
+                            name: talent.nom || `Talent ${index + 1}`,
+                            type: "talent-voie",
+                            data: talent,
+                            category: "voie",
+                            source: `Voie ${voie.nom}`
+                        });
+                    });
+                }
+            });
+            console.log(`✅ Talents de voies chargés`);
+        }
+
+        // **7. TALENTS D'ARCANES**
+        if (this.loadedModules.AlyriaArcane) {
+            Object.entries(this.loadedModules.AlyriaArcane).forEach(([arcaneKey, arcane]) => {
+                if (arcane.talentArcane?.talents && Array.isArray(arcane.talentArcane.talents)) {
+                    arcane.talentArcane.talents.forEach((talent, index) => {
+                        this.talents.push({
+                            id: `arcane:${arcaneKey}:${index}`,
+                            name: talent.nom || `Talent ${index + 1}`,
+                            type: "talent-arcane",
+                            data: talent,
+                            category: "arcane",
+                            source: `Arcane ${arcane.nom}`
+                        });
+                    });
+                }
+            });
+            console.log(`✅ Talents d'arcanes chargés`);
+        }
+
+        console.log(`📊 Total talents collectés: ${this.talents.length}`);
+    }
+
+    async testTalent(talent) {
+        const testResult = {
+            name: talent.name,
+            category: talent.category,
+            status: "unknown",
+            errors: [],
+            effects: [],
+            diagnostics: [],
+            nonFunctionalReasons: [], // **NOUVEAU : Raisons spécifiques**
+            data: talent.data
+        };
+
+        try {
+            console.log(`🧪 Test: ${talent.name} (${talent.category})`);
+            
+            const initialState = this.captureActorState();
+            
+            this.diagnoseTalentStructure(talent, testResult);
+            
+            await this.simulateTalentApplication(talent);
+            
+            const afterState = this.captureActorState();
+            
+            const realChanges = this.compareStatesStrict(initialState, afterState);
+            testResult.effects = realChanges;
+            
+            this.determineFinalStatus(testResult, talent);
+            
+            await this.cleanupTalentEffects();
+            
+        } catch (error) {
+            testResult.status = "error";
+            testResult.errors.push(error.message);
+            console.error(`❌ Erreur test ${talent.name}:`, error);
+        }
+
+        this.testResults.push(testResult);
+    }
+
+    // **MÉTHODE MANQUANTE : captureActorState**
+    captureActorState() {
+        return {
+            majeures: foundry.utils.deepClone(this.actor.system.majeures),
+            mineures: foundry.utils.deepClone(this.actor.system.mineures),
+            talents: [...(this.actor.system.talents || [])],
+            pointsDeVie: this.actor.system.pointsDeVie.max,
+            pointsPsyque: this.actor.system.pointsPsyque.max
+        };
+    }
+
+    diagnoseTalentStructure(talent, testResult) {
+        const data = talent.data;
+        
+        if (!data || Object.keys(data).length === 0) {
+            testResult.diagnostics.push("❌ Talent vide ou sans données");
+            return;
+        }
+        
+        if (!data.nom && !talent.name) {
+            testResult.diagnostics.push("⚠️ Talent sans nom");
+        }
+        
+        if (!data.fonction && !data.effets && !data.effect) {
+            testResult.diagnostics.push("❌ Talent sans fonction, effets ou effect définis");
+        }
+        
+        if (data.fonction) {
+            testResult.diagnostics.push(`✅ Fonction détectée: ${data.fonction}`);
+        }
+        
+        if (data.effets) {
+            testResult.diagnostics.push(`✅ Effets détectés: ${JSON.stringify(data.effets).substring(0, 100)}...`);
+        }
+        
+        if (data.effect) {
+            testResult.diagnostics.push(`✅ Effect détecté: ${data.effect.substring(0, 100)}...`);
+        }
+    }
+
+    compareStatesStrict(before, after) {
+        const changes = [];
+        
+        Object.keys(before.majeures).forEach(stat => {
+            const beforeVal = before.majeures[stat].totale;
+            const afterVal = after.majeures[stat].totale;
+            const beforeTalents = before.majeures[stat].talents || 0;
+            const afterTalents = after.majeures[stat].talents || 0;
+            
+            if (beforeVal !== afterVal && (afterTalents > beforeTalents)) {
+                changes.push({
+                    type: "majeure",
+                    stat: stat,
+                    before: beforeVal,
+                    after: afterVal,
+                    change: afterVal - beforeVal,
+                    real: true
+                });
+            }
+        });
+
+        Object.keys(before.mineures).forEach(stat => {
+            const beforeVal = before.mineures[stat]?.totale || before.mineures[stat];
+            const afterVal = after.mineures[stat]?.totale || after.mineures[stat];
+            const beforeTalents = before.mineures[stat]?.talents || 0;
+            const afterTalents = after.mineures[stat]?.talents || 0;
+            
+            if (beforeVal !== afterVal && (afterTalents > beforeTalents)) {
+                changes.push({
+                    type: "mineure",
+                    stat: stat,
+                    before: beforeVal,
+                    after: afterVal,
+                    change: afterVal - beforeVal,
+                    real: true
+                });
+            }
+        });
+        
+        if (before.pointsDeVie !== after.pointsDeVie) {
+            changes.push({
+                type: "points-de-vie",
+                before: before.pointsDeVie,
+                after: after.pointsDeVie,
+                change: after.pointsDeVie - before.pointsDeVie,
+                real: true
+            });
+        }
+        
+        if (before.pointsPsyque !== after.pointsPsyque) {
+            changes.push({
+                type: "points-psyche",
+                before: before.pointsPsyque,
+                after: after.pointsPsyque,
+                change: after.pointsPsyque - before.pointsPsyque,
+                real: true
+            });
+        }
+        
+        return changes;
+    }
+
+    // **MÉTHODE AMÉLIORÉE : Diagnostic des raisons de non-fonctionnement**
+    determineFinalStatus(testResult, talent) {
+        const hasRealEffects = testResult.effects.some(e => e.real);
+        const hasErrors = testResult.errors.length > 0;
+        const hasFunction = talent.data?.fonction;
+        const hasEffects = talent.data?.effets;
+        const hasEffect = talent.data?.effect;
+        
+        if (hasErrors) {
+            testResult.status = "error";
+        } else if (hasRealEffects) {
+            testResult.status = "functional";
+        } else if (hasFunction || hasEffects || hasEffect) {
+            testResult.status = "non-functional";
+            
+            // **NOUVEAU : Analyse détaillée des raisons**
+            this.analyzeNonFunctionalReasons(testResult, talent);
+            
+        } else {
+            testResult.status = "empty";
+            testResult.diagnostics.push("❌ Talent vide ou mal défini");
+        }
+    }
+
+    // **NOUVELLE MÉTHODE : Analyse des raisons de non-fonctionnement**
+    analyzeNonFunctionalReasons(testResult, talent) {
+        const data = talent.data;
+        
+        if (data.fonction) {
+            switch (data.fonction) {
+                case "bonusIndirectCaracteristique":
+                    testResult.nonFunctionalReasons.push("🔧 Fonction 'bonusIndirectCaracteristique' : Cette fonction nécessite une implémentation spéciale dans le système pour gérer les bonus indirects.");
+                    break;
+                    
+                case "modificateurConditionnelCaracteristique":
+                    testResult.nonFunctionalReasons.push("🔧 Fonction 'modificateurConditionnelCaracteristique' : Cette fonction nécessite une logique conditionnelle qui n'est pas simulée dans ce test.");
+                    break;
+                    
+                case "competenceSpeciale":
+                    testResult.nonFunctionalReasons.push("🔧 Fonction 'competenceSpeciale' : Cette fonction crée des capacités spéciales qui ne modifient pas directement les statistiques.");
+                    break;
+                    
+                case "bonusDirectPlusConditionnel":
+                    testResult.nonFunctionalReasons.push("🔧 Fonction 'bonusDirectPlusConditionnel' : Cette fonction combine bonus direct et conditionnel - seule la partie directe est testée.");
+                    break;
+                    
+                default:
+                    testResult.nonFunctionalReasons.push(`🔧 Fonction '${data.fonction}' : Fonction non reconnue ou non implémentée dans le testeur.`);
+            }
+        }
+        
+        if (data.effets && typeof data.effets === 'string') {
+            testResult.nonFunctionalReasons.push("📝 Effets en texte : Les effets sont décrits en texte libre et ne peuvent pas être appliqués automatiquement.");
+        }
+        
+        if (data.effect && typeof data.effect === 'string') {
+            if (!data.effect.includes("+") || !data.effect.includes("en")) {
+                testResult.nonFunctionalReasons.push("📝 Effect descriptif : L'effet est descriptif et ne contient pas de bonus numériques analysables.");
+            }
+        }
+        
+        if (data.effets && typeof data.effets === 'object') {
+            // Vérifier les noms de statistiques
+            if (data.effets.mineure || data.effets.mineures) {
+                const mineureData = data.effets.mineure || data.effets.mineures;
+                Object.keys(mineureData).forEach(stat => {
+                    const statMapping = {
+                        "Artisanat": "artisanat",
+                        "Robustesse": "robustesse", 
+                        "Medecine": "medecine",
+                        "Calme": "calme",
+                        "Marchandage": "marchandage",
+                        "Persuadertromper": "persuaderTromper",
+                        "Artmusique": "artMusique",
+                        "Monde": "connaissanceMonde",
+                        "Discretion": "discretion",
+                        "Adresse": "adresse",
+                        "Mystique": "connaissanceMystique",
+                        "Perceptionmagique": "perceptionMagique",
+                        "Connaissancenature": "connaissanceNature",
+                        "Survie": "survie",
+                        "Intimidation": "intimidation",
+                        "Sacrée": "connaissanceSacree",
+                        "Mondes": "connaissanceMonde",
+                        "Persuasion": "persuaderTromper"
+                    };
+                    
+                    const correctStat = statMapping[stat] || stat.toLowerCase();
+                    
+                    if (!this.actor.system.mineures[correctStat]) {
+                        testResult.nonFunctionalReasons.push(`📊 Statistique inconnue : '${stat}' ne correspond à aucune statistique mineure de l'acteur.`);
+                    }
+                });
+            }
+            
+            if (data.effets.majeure || data.effets.majeures) {
+                const majeureData = data.effets.majeure || data.effets.majeures;
+                Object.keys(majeureData).forEach(stat => {
+                    const statLower = stat.toLowerCase();
+                    if (!this.actor.system.majeures[statLower]) {
+                        testResult.nonFunctionalReasons.push(`📊 Statistique inconnue : '${stat}' ne correspond à aucune statistique majeure de l'acteur.`);
+                    }
+                });
+            }
+        }
+        
+        // Vérifier les talents de voies avec effets spéciaux
+        if (talent.category === "voie" && data.effets) {
+            const specialEffects = Object.keys(data.effets).filter(key => 
+                !['bonus_force', 'bonus_dexterite', 'bonus_constitution', 'bonus_intelligence', 
+                  'bonus_sagesse', 'bonus_charisme', 'bonus_defense', 'bonus_chance'].includes(key) &&
+                !['majeures', 'majeure', 'mineures', 'mineure'].includes(key)
+            );
+            
+            if (specialEffects.length > 0) {
+                testResult.nonFunctionalReasons.push(`🎭 Effets spéciaux de voie : Les effets ${specialEffects.join(', ')} ne sont pas des bonus de statistiques standards.`);
+            }
+        }
+        
+        if (testResult.nonFunctionalReasons.length === 0) {
+            testResult.nonFunctionalReasons.push("❓ Raison inconnue : Le talent semble correctement défini mais ne produit pas d'effet mesurable dans ce test.");
+        }
+    }
+
+    async simulateTalentApplication(talent) {
+        const talentData = talent.data;
+        
+        if (talentData.fonction) {
+            await this.applyTalentFunction(talentData);
+        }
+        
+        if (talentData.effets) {
+            await this.applyDirectEffects(talentData.effets);
+        }
+
+        if (talent.category === "historique" && talentData.effect) {
+            await this.applyHistoricalEffect(talentData.effect);
+        }
+        
+        if (talent.category === "voie" && talentData.effets) {
+            await this.applyVoieEffects(talentData.effets);
+        }
+    }
+
+    // **MÉTHODE MANQUANTE : applyTalentFunction**
+    async applyTalentFunction(talentData) {
+        console.log(`🔧 Application fonction: ${talentData.fonction} pour ${talentData.nom}`);
+        
+        try {
+            switch (talentData.fonction) {
+                case "ajoutDirectCaracteristique":
+                case "ajoutDirectCaracteristiques":
+                    if (talentData.effets) {
+                        await this.applyDirectEffects(talentData.effets);
+                    }
+                    break;
+                    
+                case "repartitionCaracteristiquesMajeures":
+                    console.log(`📝 Simule répartition majeures (${talentData.points || 2} points)`);
+                    const updateMajeure = {
+                        "system.majeures.force.talents": (this.actor.system.majeures.force.talents || 0) + 1,
+                        "system.majeures.force.totale": (this.actor.system.majeures.force.totale || 0) + 1
+                    };
+                    await this.actor.update(updateMajeure);
+                    break;
+                    
+                case "repartitionCaracteristiquesMineures":
+                    console.log(`📝 Simule répartition mineures (${talentData.points || 15} points)`);
+                    const updateMineure = {};
+                    if (this.actor.system.mineures.perception) {
+                        updateMineure["system.mineures.perception.talents"] = 
+                            (this.actor.system.mineures.perception.talents || 0) + 5;
+                        updateMineure["system.mineures.perception.totale"] = 
+                            (this.actor.system.mineures.perception.totale || 0) + 5;
+                    }
+                    await this.actor.update(updateMineure);
+                    break;
+                    
+                // **NOUVEAU CAS : ajoutMajeureAuxMineures**
+                case "ajoutMajeureAuxMineures":
+                    console.log(`📝 Simule ajout majeure aux mineures: ${talentData.nom}`);
+                    
+                    // Récupérer les paramètres du talent
+                    const parametres = talentData.parametres || {};
+                    const { majeureSource, cibleType, cibleMineure, cibleCategorie } = parametres;
+                    
+                    if (!majeureSource) {
+                        console.log(`⚠️ Paramètre manquant: majeureSource pour ${talentData.nom}`);
+                        break;
+                    }
+                    
+                    // Simuler l'application
+                    const majeureValue = this.actor.system.majeures?.[majeureSource]?.totale || 0;
+                    let mineuresConcernees = [];
+                    
+                    if (cibleType === "specifique" && cibleMineure) {
+                        mineuresConcernees = [cibleMineure];
+                    } else if (cibleType === "categorie" && cibleCategorie) {
+                        // Utiliser le mapping des catégories CORRIGÉ
+                        const categoriesMapping = {
+                            "defense": ["robustesse", "calme"],
+                            "charisme": ["marchandage", "persuasion", "artMusique", "commandement"], // CORRIGÉ
+                            "dexterite": ["acrobatie", "discretion", "adresse", "artisanat"],
+                            "force": ["puissance", "intimidation", "athletisme"],
+                            "sagesse": ["perception", "perceptionMagique", "medecine", "intuition"],
+                            "chance": ["hasard"],
+                            "intelligence": ["Monde", "Mystique", "Nature", "Sacree"],
+                            "constitution": []
+                        };
+                        mineuresConcernees = categoriesMapping[cibleCategorie.toLowerCase()] || [];
+                    }
+                    
+                    if (mineuresConcernees.length > 0 && majeureValue > 0) {
+                        const updateMajeureAuxMineures = {};
+                        mineuresConcernees.forEach(mineure => {
+                            if (this.actor.system.mineures[mineure]) {
+                                const currentTalents = this.actor.system.mineures[mineure].talents || 0;
+                                updateMajeureAuxMineures[`system.mineures.${mineure}.talents`] = currentTalents + majeureValue;
+                            }
+                        });
+                        
+                        if (Object.keys(updateMajeureAuxMineures).length > 0) {
+                            await this.actor.update(updateMajeureAuxMineures);
+                            console.log(`✅ Simulé: +${majeureValue} de ${majeureSource} ajouté à ${mineuresConcernees.join(', ')}`);
+                        }
+                    } else {
+                        console.log(`⚠️ Simulation impossible: mineures=${mineuresConcernees.length}, majeureValue=${majeureValue}`);
+                    }
+                    break;
+                    
+                case "bonusIndirectCaracteristique":
+                    console.log(`📝 Simule bonus indirect: ${talentData.nom}`);
+                    break;
+                    
+                case "modificateurConditionnelCaracteristique":
+                    console.log(`📝 Simule modificateur conditionnel: ${talentData.nom}`);
+                    break;
+                    
+                case "competenceSpeciale":
+                    console.log(`📝 Simule compétence spéciale: ${talentData.nom}`);
+                    break;
+                    
+                default:
+                    console.log(`📝 Fonction non reconnue: ${talentData.fonction}`);
+            }
+        } catch (error) {
+            console.error(`❌ Erreur fonction ${talentData.fonction}:`, error);
+        }
+    }
+
+    // **MÉTHODE MANQUANTE : applyDirectEffects**
+    async applyDirectEffects(effets) {
+        const updateData = {};
+        
+        if (effets.majeure || effets.majeures) {
+            const majeureData = effets.majeure || effets.majeures;
+            Object.entries(majeureData).forEach(([stat, value]) => {
+                const statLower = stat.toLowerCase();
+                if (this.actor.system.majeures[statLower]) {
+                    const currentTalents = this.actor.system.majeures[statLower].talents || 0;
+                    const currentTotal = this.actor.system.majeures[statLower].totale || 0;
+                    
+                    updateData[`system.majeures.${statLower}.talents`] = currentTalents + value;
+                    updateData[`system.majeures.${statLower}.totale`] = currentTotal + value;
+                }
+            });
+        }
+
+        if (effets.mineure || effets.mineures) {
+            const mineureData = effets.mineure || effets.mineures;
+            Object.entries(mineureData).forEach(([stat, value]) => {
+                const statMapping = {
+                    "Artisanat": "artisanat",
+                    "Robustesse": "robustesse", 
+                    "Medecine": "medecine",
+                    "Calme": "calme",
+                    "Marchandage": "marchandage",
+                    "Persuadertromper": "persuaderTromper",
+                    "Artmusique": "artMusique",
+                    "Monde": "connaissanceMonde",
+                    "Discretion": "discretion",
+                    "Adresse": "adresse",
+                    "Mystique": "connaissanceMystique",
+                    "Perceptionmagique": "perceptionMagique",
+                    "Connaissancenature": "connaissanceNature",
+                    "Survie": "survie",
+                    "Intimidation": "intimidation",
+                    "Sacrée": "connaissanceSacree",
+                    "Mondes": "connaissanceMonde",
+                    "Persuasion": "persuaderTromper"
+                };
+                
+                const correctStat = statMapping[stat] || stat.toLowerCase();
+                
+                if (this.actor.system.mineures[correctStat]) {
+                    const currentTalents = this.actor.system.mineures[correctStat].talents || 0;
+                    const currentTotal = this.actor.system.mineures[correctStat].totale || 0;
+                    
+                    updateData[`system.mineures.${correctStat}.talents`] = currentTalents + value;
+                    updateData[`system.mineures.${correctStat}.totale`] = currentTotal + value;
+                }
+            });
+        }
+        
+        if (effets.pointsDeVie) {
+            const currentMax = this.actor.system.pointsDeVie.max || 0;
+            updateData[`system.pointsDeVie.max`] = currentMax + effets.pointsDeVie;
+        }
+        
+        if (effets.pointsPsyque) {
+            const currentMax = this.actor.system.pointsPsyque.max || 0;
+            updateData[`system.pointsPsyque.max`] = currentMax + effets.pointsPsyque;
+        }
+        
+        if (Object.keys(updateData).length > 0) {
+            await this.actor.update(updateData);
+        }
+    }
+
+    // **MÉTHODE MANQUANTE : applyHistoricalEffect**
+    async applyHistoricalEffect(effect) {
+        const updateData = {};
+        
+        if (effect.includes("+") && effect.includes("en")) {
+            const regex = /\+(\d+) en (\w+)/g;
+            let match;
+            while ((match = regex.exec(effect)) !== null) {
+                const value = parseInt(match[1]);
+                const stat = match[2].toLowerCase();
+                
+                if (this.actor.system.mineures[stat] !== undefined) {
+                    const currentTalents = this.actor.system.mineures[stat].talents || 0;
+                    const currentTotal = this.actor.system.mineures[stat].totale || 0;
+                    
+                    updateData[`system.mineures.${stat}.talents`] = currentTalents + value;
+                    updateData[`system.mineures.${stat}.totale`] = currentTotal + value;
+                }
+            }
+        }
+        
+        if (Object.keys(updateData).length > 0) {
+            await this.actor.update(updateData);
+        }
+    }
+
+    // **MÉTHODE MANQUANTE : applyVoieEffects**
+    async applyVoieEffects(effets) {
+        const updateData = {};
+        
+        if (effets.bonus_force) {
+            updateData["system.majeures.force.talents"] = 
+                (this.actor.system.majeures.force.talents || 0) + effets.bonus_force;
+            updateData["system.majeures.force.totale"] = 
+                (this.actor.system.majeures.force.totale || 0) + effets.bonus_force;
+        }
+        
+        if (effets.bonus_dexterite) {
+            updateData["system.majeures.dexterite.talents"] = 
+                (this.actor.system.majeures.dexterite.talents || 0) + effets.bonus_dexterite;
+            updateData["system.majeures.dexterite.totale"] = 
+                (this.actor.system.majeures.dexterite.totale || 0) + effets.bonus_dexterite;
+        }
+        
+        if (Object.keys(updateData).length > 0) {
+            await this.actor.update(updateData);
+        }
+    }
+
+    // **MÉTHODE MANQUANTE : cleanupTalentEffects**
+    async cleanupTalentEffects() {
+        const updateData = {};
+        
+        Object.keys(this.actor.system.majeures).forEach(stat => {
+            updateData[`system.majeures.${stat}.talents`] = 0;
+            updateData[`system.majeures.${stat}.totale`] = 
+                this.actor.system.majeures[stat].creation + 
+                this.actor.system.majeures[stat].repartition + 
+                this.actor.system.majeures[stat].equipement + 
+                this.actor.system.majeures[stat].bonus;
+        });
+
+        Object.keys(this.actor.system.mineures).forEach(stat => {
+            if (this.actor.system.mineures[stat]?.creation !== undefined) {
+                updateData[`system.mineures.${stat}.talents`] = 0;
+                updateData[`system.mineures.${stat}.totale`] = 
+                    this.actor.system.mineures[stat].creation + 
+                    this.actor.system.mineures[stat].repartition + 
+                    this.actor.system.mineures[stat].equipement + 
+                    this.actor.system.mineures[stat].bonus +
+                    this.actor.system.mineures[stat].majeureAssocie;
+            }
+        });
+        
+        updateData["system.talents"] = [];
+        updateData["system.pointsDeVie.max"] = 50;
+        updateData["system.pointsPsyque.max"] = 30;
+        
+        await this.actor.update(updateData);
+    }
+
+    // **MÉTHODE COMPLÈTEMENT REFAITE : Affichage amélioré avec menus déroulants**
+    displayResults() {
+        const functionalCount = this.testResults.filter(r => r.status === "functional").length;
+        const nonFunctionalCount = this.testResults.filter(r => r.status === "non-functional").length;
+        const errorCount = this.testResults.filter(r => r.status === "error").length;
+        const emptyCount = this.testResults.filter(r => r.status === "empty").length;
+
+        let html = `
+        <div style="max-height: 700px; overflow-y: auto; font-family: Arial, sans-serif;">
+            <h2 style="color: #4a90e2; text-align: center; margin-bottom: 20px;">🔍 Diagnostic Complet des Talents Alyria</h2>
+            
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; margin: 15px 0; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                <h3 style="margin: 0 0 15px 0; text-align: center;">📊 Résumé Global</h3>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 15px;">
+                    <div style="text-align: center; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                        <div style="font-size: 24px; font-weight: bold;">${this.testResults.length}</div>
+                        <div style="font-size: 14px;">Talents testés</div>
+                    </div>
+                    <div style="text-align: center; padding: 10px; background: rgba(76, 175, 80, 0.3); border-radius: 8px;">
+                        <div style="font-size: 24px; font-weight: bold; color: #4CAF50;">${functionalCount}</div>
+                        <div style="font-size: 14px;">✅ Fonctionnels</div>
+                    </div>
+                    <div style="text-align: center; padding: 10px; background: rgba(255, 152, 0, 0.3); border-radius: 8px;">
+                        <div style="font-size: 24px; font-weight: bold; color: #FF9800;">${nonFunctionalCount}</div>
+                        <div style="font-size: 14px;">⚠️ Non-fonctionnels</div>
+                    </div>
+                    <div style="text-align: center; padding: 10px; background: rgba(244, 67, 54, 0.3); border-radius: 8px;">
+                        <div style="font-size: 24px; font-weight: bold; color: #F44336;">${errorCount + emptyCount}</div>
+                        <div style="font-size: 14px;">❌ Erreurs/Vides</div>
+                    </div>
+                </div>
+                <div style="text-align: center; padding: 10px; background: rgba(255,255,255,0.2); border-radius: 8px;">
+                    <div style="font-size: 18px; font-weight: bold;">Taux de Fonctionnalité : ${(functionalCount / this.testResults.length * 100).toFixed(1)}%</div>
+                </div>
+            </div>
+        `;
+
+        // Grouper par catégorie
+        const byCategory = this.testResults.reduce((acc, result) => {
+            if (!acc[result.category]) acc[result.category] = [];
+            acc[result.category].push(result);
+            return acc;
+        }, {});
+
+        // Affichage par catégorie avec tous les talents en menus déroulants
+        Object.entries(byCategory).forEach(([category, talents]) => {
+            const functional = talents.filter(t => t.status === "functional").length;
+            const nonFunctional = talents.filter(t => t.status === "non-functional").length;
+            const errors = talents.filter(t => t.status === "error").length;
+            const empty = talents.filter(t => t.status === "empty").length;
+            
+            const categoryColor = {
+                "race": "#e74c3c",
+                "statistique": "#f39c12",
+                "combat": "#e67e22", 
+                "utilitaire": "#27ae60",
+                "historique": "#8e44ad",
+                "voie": "#9b59b6",
+                "arcane": "#3498db"
+            };
+            
+            html += `
+            <details style="margin: 15px 0; border: 2px solid ${categoryColor[category] || '#95a5a6'}; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <summary style="cursor: pointer; padding: 15px; background: ${categoryColor[category] || '#95a5a6'}; color: white; font-weight: bold; font-size: 16px; border-radius: 10px 10px 0 0; user-select: none;">
+                    📂 ${category.toUpperCase()} - ${talents.length} talents 
+                    (✅${functional} ⚠️${nonFunctional} ❌${errors + empty})
+                </summary>
+                <div style="padding: 15px; background: #f8f9fa;">
+                    <div style="margin-bottom: 15px; padding: 10px; background: white; border-radius: 8px; border-left: 4px solid ${categoryColor[category]};">
+                        <strong>Détail de la catégorie :</strong><br>
+                        <span style="color: #4CAF50;">✅ Fonctionnels: ${functional}</span> | 
+                        <span style="color: #FF9800;">⚠️ Non-fonctionnels: ${nonFunctional}</span> | 
+                        <span style="color: #F44336;">❌ Erreurs: ${errors}</span> | 
+                        <span style="color: #9E9E9E;">🔳 Vides: ${empty}</span>
+                        <div style="margin-top: 5px; font-weight: bold;">
+                            Taux de succès: ${talents.length > 0 ? (functional / talents.length * 100).toFixed(1) : 0}%
+                        </div>
+                    </div>
+            `;
+            
+            // **AFFICHER TOUS LES TALENTS EN MENU DÉROULANT**
+            talents.forEach(talent => {
+                const statusIcon = {
+                    "functional": "✅",
+                    "non-functional": "⚠️", 
+                    "error": "❌",
+                    "empty": "🔳"
+                }[talent.status];
+                
+                const statusColor = {
+                    "functional": "#4CAF50",
+                    "non-functional": "#FF9800",
+                    "error": "#F44336",
+                    "empty": "#9E9E9E"
+                }[talent.status];
+                
+                const statusLabel = {
+                    "functional": "FONCTIONNEL",
+                    "non-functional": "NON-FONCTIONNEL",
+                    "error": "ERREUR",
+                    "empty": "VIDE"
+                }[talent.status];
+                
+                html += `
+                <details style="margin: 8px 0; border: 1px solid #dee2e6; border-radius: 8px; background: white;">
+                    <summary style="cursor: pointer; padding: 12px; background: ${statusColor}22; font-weight: bold; color: ${statusColor}; border-radius: 7px; user-select: none; transition: background-color 0.2s;">
+                        ${statusIcon} ${talent.name || 'Talent sans nom'} - ${statusLabel}
+                    </summary>
+                    <div style="padding: 15px; background: white; border-top: 1px solid #dee2e6;">
+                `;
+                
+                // **DIAGNOSTIC SPÉCIFIQUE PAR TYPE**
+                if (talent.status === "non-functional" && talent.nonFunctionalReasons?.length > 0) {
+                    html += `
+                        <div style="margin: 10px 0; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 6px;">
+                            <strong style="color: #856404;">🔍 Pourquoi ce talent ne fonctionne pas :</strong>
+                            <ul style="margin: 8px 0 0 0; padding-left: 20px; color: #856404;">
+                                ${talent.nonFunctionalReasons.map(reason => `<li style="margin: 4px 0;">${reason}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+                
+                // **DIAGNOSTICS TECHNIQUES**
+                if (talent.diagnostics.length > 0) {
+                    html += `
+                        <div style="margin: 10px 0;">
+                            <strong style="color: #2196F3;">🔧 Analyse technique :</strong>
+                            <ul style="margin: 5px 0; padding-left: 20px; font-size: 14px;">
+                                ${talent.diagnostics.map(diag => `<li style="margin: 3px 0;">${diag}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+                
+                // **EFFETS MESURÉS**
+                if (talent.effects.length > 0) {
+                    html += `
+                        <div style="margin: 10px 0; padding: 10px; background: #d4edda; border-left: 4px solid #28a745; border-radius: 6px;">
+                            <strong style="color: #155724;">🎯 Effets appliqués avec succès :</strong>
+                            <ul style="margin: 5px 0; padding-left: 20px; color: #155724;">
+                                ${talent.effects.map(effect => `
+                                    <li style="margin: 3px 0;">
+                                        <strong>${effect.type}:</strong> 
+                                        ${effect.stat || 'N/A'} 
+                                        ${effect.change ? `<span style="font-weight: bold; color: #28a745;">(${effect.change > 0 ? '+' : ''}${effect.change})</span>` : ''}
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    `;
+                } else if (talent.status === "functional") {
+                    html += `<div style="color: #28a745; font-weight: bold; margin: 10px 0;">✅ Talent fonctionnel sans modification de statistiques mesurables</div>`;
+                } else if (talent.status !== "empty") {
+                    html += `<div style="color: #dc3545; margin: 10px 0;">⚠️ Aucun effet mesurable détecté</div>`;
+                }
+                
+                // **ERREURS**
+                if (talent.errors.length > 0) {
+                    html += `
+                        <div style="margin: 10px 0; padding: 10px; background: #f8d7da; border-left: 4px solid #dc3545; border-radius: 6px;">
+                            <strong style="color: #721c24;">❌ Erreurs rencontrées :</strong>
+                            <ul style="margin: 5px 0; padding-left: 20px; color: #721c24;">
+                                ${talent.errors.map(error => `<li style="margin: 3px 0;">${error}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+                
+                // **DONNÉES BRUTES DU TALENT**
+                html += `
+                    <details style="margin: 10px 0; border: 1px solid #e9ecef; border-radius: 6px;">
+                        <summary style="cursor: pointer; padding: 8px; background: #f8f9fa; font-size: 14px; user-select: none;">
+                            📋 Données brutes du talent
+                        </summary>
+                        <div style="padding: 10px; background: #ffffff; font-family: monospace; font-size: 12px; max-height: 200px; overflow-y: auto;">
+                `;
+                
+                if (talent.data?.fonction) {
+                    html += `<p><strong>Fonction:</strong> <code>${talent.data.fonction}</code></p>`;
+                }
+                if (talent.data?.effets) {
+                    html += `<p><strong>Effets:</strong> <pre style="background: #f1f3f4; padding: 8px; border-radius: 4px; font-size: 11px; white-space: pre-wrap;">${JSON.stringify(talent.data.effets, null, 2)}</pre></p>`;
+                }
+                if (talent.data?.effect) {
+                    html += `<p><strong>Effect:</strong> <code>${talent.data.effect}</code></p>`;
+                }
+                if (talent.data?.description) {
+                    html += `<p><strong>Description:</strong> ${talent.data.description}</p>`;
+                }
+                if (talent.data?.prerequis) {
+                    html += `<p><strong>Prérequis:</strong> ${talent.data.prerequis}</p>`;
+                }
+                
+                html += `
+                        </div>
+                    </details>
+                `;
+                
+                html += `
+                    </div>
+                </details>
+                `;
+            });
+            
+            html += `
+                </div>
+            </details>
+            `;
+        });
+
+        // **RÉSUMÉ FINAL AVEC RECOMMANDATIONS**
+        html += `
+            <div style="margin-top: 25px; padding: 20px; background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%); border-radius: 12px; color: white; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                <h4 style="margin: 0 0 15px 0; text-align: center;">🚨 Résumé et Recommandations</h4>
+                <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                    <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+                        <li><strong>${nonFunctionalCount}</strong> talents définis mais non-fonctionnels (nécessitent une implémentation)</li>
+                        <li><strong>${errorCount}</strong> talents génèrent des erreurs (problèmes de structure)</li>
+                        <li><strong>${emptyCount}</strong> talents vides ou mal définis (nécessitent une révision)</li>
+                        <li><strong>${functionalCount}</strong> talents fonctionnent correctement (${(functionalCount / this.testResults.length * 100).toFixed(1)}%)</li>
+                    </ul>
+                </div>
+                <div style="text-align: center; font-weight: bold; font-size: 16px;">
+                    🎯 Priorité : Implémenter les fonctions manquantes pour les talents non-fonctionnels
+                </div>
+            </div>
+        </div>`;
+
+        new Dialog({
+            title: "🔍 Diagnostic Complet des Talents Alyria",
+            content: html,
+            buttons: {
+                export: {
+                    icon: '<i class="fas fa-download"></i>',
+                    label: "Exporter Diagnostic",
+                    callback: () => this.exportResults()
+                },
+                close: {
+                    icon: '<i class="fas fa-times"></i>',
+                    label: "Fermer"
+                }
+            },
+            default: "close"
+        }, {
+            width: 1000,
+            height: 800,
+            resizable: true
+        }).render(true);
+    }
+
+    displayDiagnosticResults() {
+        const html = `
+        <div style="max-height: 600px; overflow-y: auto; font-family: Arial, sans-serif;">
+            <h2 style="color: #e74c3c;">🔍 Diagnostic - Aucun Talent Trouvé</h2>
+            
+            <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                <h3 style="color: #856404; margin: 0 0 10px 0;">⚠️ Problème détecté</h3>
+                <p>La macro n'a trouvé aucun talent dans le système Alyria. Cela peut être dû à :</p>
+                <ul>
+                    <li>Les modules de talents ne sont pas chargés correctement</li>
+                    <li>Les objets globaux ne sont pas disponibles</li>
+                    <li>Une erreur de configuration du système</li>
+                </ul>
+            </div>
+        </div>`;
+
+        new Dialog({
+            title: "🔍 Diagnostic - Système de Talents Alyria",
+            content: html,
+            buttons: {
+                close: {
+                    icon: '<i class="fas fa-times"></i>',
+                    label: "Fermer"
+                }
+            },
+            default: "close"
+        }).render(true);
+    }
+
+    exportResults() {
+        const data = {
+            system: "Alyria",
+            timestamp: new Date().toISOString(),
+            totalTested: this.testResults.length,
+            functional: this.testResults.filter(r => r.status === "functional").length,
+            nonFunctional: this.testResults.filter(r => r.status === "non-functional").length,
+            errors: this.testResults.filter(r => r.status === "error").length,
+            empty: this.testResults.filter(r => r.status === "empty").length,
+            byCategory: this.testResults.reduce((acc, result) => {
+                if (!acc[result.category]) acc[result.category] = {
+                    total: 0,
+                    functional: 0,
+                    nonFunctional: 0,
+                    errors: 0,
+                    empty: 0
+                };
+                acc[result.category].total++;
+                if (result.status === "functional") acc[result.category].functional++;
+                if (result.status === "non-functional") acc[result.category].nonFunctional++;
+                if (result.status === "error") acc[result.category].errors++;
+                if (result.status === "empty") acc[result.category].empty++;
+                return acc;
+            }, {}),
+            results: this.testResults
+        };
+
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `alyria-talent-test-${Date.now()}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        
+        ui.notifications.info("Résultats exportés !");
+    }
+
+    async cleanup() {
+        try {
+            if (this.actor) {
+                await this.actor.delete();
+                console.log("🧹 Acteur de test supprimé");
+            }
+        } catch (error) {
+            console.error("❌ Erreur lors du nettoyage:", error);
+        }
+    }
+}
+
+// **EXÉCUTION**
+(async () => {
+    const tester = new AlytriaTalentTester();
+    try {
+        await tester.runTests();
+        ui.notifications.info("Diagnostic des talents terminé !");
+    } catch (error) {
+        console.error("Erreur lors du diagnostic:", error);
+        ui.notifications.error(`Erreur lors du diagnostic: ${error.message}`);
+    }
+})();

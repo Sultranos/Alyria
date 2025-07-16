@@ -10,8 +10,13 @@ export const AlyriaRaces = {
     ],
     talentRace: {
       nom: "Supériorité intellectuelle",
-      effet:
-        "Lors d’un jet de Persuader/Tromper contre une race non-elfique vous ajouter votre valeur de SAGESSE ou INTELLIGENCE à votre statistique."
+      effet:"Lors d’un jet de Persuader/Tromper contre une race non-elfique vous ajouter votre valeur de SAGESSE ou INTELLIGENCE à votre statistique.",
+      fonction: "ajoutMajeureAuxMineures",
+      parametres: {
+        majeureSource: "sagesse",
+        cibleType: "specifique",
+        cibleMineure: "persuasion"
+    }
     },
     competenceRace: {
       nom: "Canon de verre",
@@ -62,9 +67,15 @@ export const AlyriaRaces = {
     ],
     talentRace: {
       nom: "Vie en nature",
-      effet:
-        "Ajoute +10 dans les statistiques mineures basées sur la sagesse et la dextérité si vous êtes dans un milieu forestier ou arboré."
-    },
+      effet: "Vous avez grandi dans la nuture et vous avez appris à vous y adapter, vous gagnez +10 dans toutes les statistiques mineures basées sur la sagesse et la dextérité lorsque vous êtes dans un milieu naturel.",
+      fonction: "bonusIndirectCaracteristiques",
+      effets: {
+        bonus: { 
+          caracteristique: "sagesse, dexterite",
+          bonusConditionnel: 10,
+          condition: "en milieu forestier ou arboré",
+          description: "Ajoute +10 dans les statistiques mineures basées sur la sagesse et la dextérité si vous êtes dans un milieu forestier ou arboré.",
+      }}},
     competenceRace: {
       nom: "Précision naturelle (Réussite automatique)",
       effet:
@@ -423,7 +434,9 @@ export const AlyriaRaces = {
     ],
     talentRace: {
       nom: "Doigts d'Or :",
-      effet: "Vous obtenez l'avantage sur vos jets d'artisanat. Vous pouvez réaliser de petites réparations simples sans avoir à faire de jet."
+      effet: "Vous obtenez l'avantage sur vos jets d'artisanat. Vous pouvez réaliser de petites réparations simples sans avoir à faire de jet.",
+      fonction: "bonusDirectPlusConditionnel",
+      
     },
     competenceRace: {
       nom: "Né de la forge :",

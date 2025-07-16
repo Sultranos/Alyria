@@ -1,0 +1,39 @@
+{
+  "talents": {
+    "generaux": {
+      "total": 73,
+      "fonctionnels": 73,
+      "defaillants": []
+    },
+    "voies": {
+      "total": 0,
+      "fonctionnels": 0,
+      "defaillants": []
+    },
+    "arcanes": {
+      "total": 0,
+      "fonctionnels": 0,
+      "defaillants": []
+    },
+    "historiques": {
+      "total": 25,
+      "fonctionnels": 25,
+      "defaillants": []
+    }
+  },
+  "fonctions": {
+    "disponibles": [
+      "ajoutDirectCaracteristiques",
+      "ajoutDirectCaracteristique",
+      "repartitionCaracteristiquesMajeures",
+      "repartitionCaracteristiquesMineures",
+      "repartitionCaracteristiquesMineurs",
+      "bonusDirectPlusConditionnel",
+      "bonusIndirectCaracteristique",
+      "bonusIndirectCaracteristiques",
+      "jetAvecBonusSituationnel"
+    ],
+    "manquantes": []
+  },
+  "erreurs": []
+}

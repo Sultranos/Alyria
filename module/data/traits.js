@@ -47,6 +47,7 @@ export const TRAITS = [
   { name: "Joli", effet: "Ajoute +1 en Charisme", rarete: "Rare" },
   { name: "Solide", effet: "Ajoute +1 en Défense", rarete: "Rare" },
   { name: "Chanceux", effet: "Ajoute +1 en Chance", rarete: "Rare" },
+  { name: "Robuste", effet: "Ajoute +1 en constitution", rarete: "Rare" },
   { name: "Doué", effet: "Ajoute +10 dans une statistique mineure choisie", rarete: "Rare" },
   { name: "Furieux", effet: "Ajoute +2 aux dégâts de l’arme", rarete: "Rare" },
   { name: "Vicieux", effet: "Sur un CC applique une altération d’état choisie, ajoute +5% de chance de CC.", rarete: "Rare" },
@@ -72,7 +73,6 @@ export const TRAITS = [
   { name: "Chasseur", effet: "Octroie +15% de chance de touche et +10% de CC sur un type d’ennemi précis", rarete: "Rare" },
   { name: "Lumineux", effet: "Produit une lumière équivalente à celle d’une torche", rarete: "Rare" },
   { name: "Certain", effet: "Réduit les dégâts maximaux de l’arme de 4 les dégâts deviennent fixes", rarete: "Rare" },
-  { name: "Robuste", effet: "Ajoute +1 en constitution", rarete: "Rare" },
   { name: "Ecraseur", effet: "Ignore 2 de l’armure adverse avant calcul des dégâts", rarete: "Rare" },
   { name: "Virulent", effet: "Réduit les dégâts de l’arme de 4 elle applique au choix Brulure, Poison, Engelure ou Hémorragie", rarete: "Rare" },
   { name: "Retour", effet: "L’arme peut être lancée jusqu’à 15 mètres sans changer de catégorie. Elle revient ensuite dans les mains du lanceur", rarete: "Rare" },
@@ -139,6 +139,7 @@ export const TRAITS = [
   { name: "Chuchoteur", effet: "L’utilisateur maitrise une langue supplémentaire, octroie l’avantage sur les jets de statistiques mineures liées à l’intelligence dans un contexte défini.", rarete: "Epic" },
   { name: "Polymorphe", effet: "La catégorie de l’arme ainsi que sa statistique de touche peut être choisie à chaque fois qu’elle est utilisée. De plus, ce trait devient n’importe quel autre trait rare ou inférieur choisi lors de l’utilisation de l’arme.", rarete: "Epic" },
   { name: "Surchargé", effet: "Une fois par combat, vous doublez le dé de dégâts de l’arme", rarete: "Epic" },
+  // --- Rarete: Legendaire ---
   { name: "Acrobatique", effet: "Ajoute +2 en Dextérité", rarete: "Legendaire" },
   { name: "Ingénieux", effet: "Ajoute +2 en Sagesse", rarete: "Legendaire" },
   { name: "Puissant", effet: "Ajoute +2 en Force", rarete: "Legendaire" },
@@ -184,7 +185,7 @@ export const TRAIT_ARMURE = [
     // --- Rarete: Commune ---
     { nom: "Habile", effet: "Ajoute +1 en Dextérité", rarete: "Commune" },
     { nom: "Perspicace", effet: "Ajoute +1 en Sagesse", rarete: "Commune" },
-    { nom: "Costaud", effet: "Ajoute +1 en Force", rarete: "Commune" },
+    { nom: "Balourd", effet: "Ajoute +1 en Force", rarete: "Commune" },
     { nom: "Joli", effet: "Ajoute +1 en Charisme", rarete: "Commune" },
     { nom: "Solide", effet: "Ajoute +1 en Défense", rarete: "Commune" },
     { nom: "Chanceux", effet: "Ajoute +1 en Chance", rarete: "Commune" },

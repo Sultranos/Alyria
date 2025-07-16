@@ -1,7 +1,3 @@
-const toucheForce = "Chance de touche en Force";
-const toucheDexterite = "Chance de touche en Dexterité";
-const toucheCharisme = "Chance de touche en Charisme";
-const toucheSagesse = "Chance de touche en Sagesse";
 
 
 export const AlyriaVoies = {
@@ -68,8 +64,8 @@ guerrier: {
             image: "",
             description: "Ajoute +1 en Force et 10 en Puissance.",
             niveauJoueur: 1,
-            prerequis: [],
-            effet: { force: +1, Puissance: +10 }
+            fonction: "ajoutDirectCaracteristique",
+            effets: { force: 1, Puissance: 10 }
           },
           {
             nom: "Samouraï Déshonoré",
@@ -77,15 +73,15 @@ guerrier: {
             description: "Vous pouvez choisir un des sorts Novice de la Monovoie de Samouraï. Utilisez le comme il est indiqué, vous pouvez aussi choisir un passif de niveau 2 ou moins avec cet effet.",
             niveauJoueur: 2,
             prerequis: ["Guerrier Puissant"],
-            effet: "choixSortNoviceSamourai", // Ceci est une valeur textuelle, à interpréter par votre logique de jeu
+            effets: "choixSortNovice:Samourai",
           },
           {
             nom: "Brute en Mêlée",
             image: "",
             description: "Ajoute +1 dégâts avec les armes de type ’’Mêlée’’.",
             niveauJoueur: 3,
-            prerequis: [], // Prerequis "Charge puissante" n'était pas défini dans les talents précédents, j'ai mis un tableau vide
-            effet: { bonusDegatsMelee: 1 } // Renommé pour être spécifique aux armes de mêlée
+            fonction: "ajoutDirectCaracteristique",
+            effets: { bonusDegatsMelee: 1 } 
           },
           {
             nom: "Paladin de Pacotille",
@@ -93,15 +89,16 @@ guerrier: {
             description: "Vous pouvez choisir un des sorts Novice de la Monovoie de Paladin. Utilisez le comme il est indiqué, vous pouvez aussi choisir un passif de niveau 2 ou moins avec cet effet.",
             niveauJoueur: 4,
             prerequis: ["Brute en Mêlée"],
-            effet: "choixSortNovicePaladin",
+            effets: "choixSortNovice:Paladin",
           },
           {
             nom: "Guerrier Véloce",
             image: "",
-            description: "Ajoute +1 en Dextérité et +10 en acrobatie.",
+            description: "Ajoute +1 en dexterite et +10 en acrobatie.",
             niveauJoueur: 5,
-            prerequis: ["Paladin de Pacotille"],
-            effet: { dexterite: 1, Acrobatie: 10 }
+            fonction: "ajoutDirectCaracteristique",
+            effets: {majeures: { dexterite: 1}, 
+                    mineures: { acrobatie: 10 }}
           },
           {
             nom: "Pugiliste Petits Bras",
@@ -109,15 +106,16 @@ guerrier: {
             description: "Vous pouvez choisir un des sorts Novice de la Monovoie de Pugiliste. Utilisez le comme il est indiqué, vous pouvez aussi choisir un passif de niveau 2 ou moins avec cet effet.",
             niveauJoueur: 6,
             prerequis: ["Guerrier Véloce"],
-            effet: "choixSortNovicePugiliste",
+            effets: "choixSortNovice:Pugiliste",
           },
           {
             nom: "Guerrier Solide",
             image: "",
-            description: "Ajoute +1 en Constitution et +10 en Robustesse.",
+            description: "Ajoute +1 en Constitution et +10 en robustesse.",
             niveauJoueur: 7,
-            prerequis: ["Pugiliste Petits Bras"],
-            effet: { constitution: 1, Robustesse: 10 }
+            fonction: "ajoutDirectCaracteristique",
+            effets: { majeures: {constitution: 1},
+                     mineures: { robustesse: 10 }}
           },
           {
             nom: "Roublard des Bas Quartiers",
@@ -125,24 +123,23 @@ guerrier: {
             description: "Vous pouvez choisir un des sorts Novice de la Monovoie de Roublard. Utilisez le comme il est indiqué, vous pouvez aussi choisir un passif de niveau 2 ou moins avec cet effet.",
             niveauJoueur: 8,
             prerequis: ["Guerrier Solide"],
-            effet: "choixSortNoviceRoublard",
+            effets: "choixSortNovice:Roublard",
           },
           {
             nom: "Expert du Maniement",
             image: "",
             description: "Choisissez une catégorie entre Perforant, Tranchant et Contondant, vous gagnez + 2 dégâts et + 10 % de chances de toucher avec les armes de ce type.",
             niveauJoueur: 9,
-            prerequis: ["Roublard des Bas Quartiers"],
-            // L'effet doit être géré par une logique de choix de type d'arme au moment de l'application
-            effet: { bonusDegatsTypeChoisi: 2, ChancesDeToucherTypeChoisi: 10 } 
+            
           },
           {
             nom: "Guerrier Prudent",
             image: "",
             description: "Ajoute +1 en Défense. Il gagne 3 PB au début de chaque combat et la même somme lorsqu’il tombe sous les 50 % de vie, ce bonus est modifié par votre bonus bouclier.",
             niveauJoueur: 10,
-            prerequis: ["Expert du Maniement"],
-            effet: { defense: 1, PointBouclierInit: 3, PointBouclierSous50Pourcent: 3 }
+            fonction: "ajoutDirectCaracteristique",
+            effets: { defense: 1 }
+            
           }
         ],
     },
@@ -158,7 +155,7 @@ guerrier: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { bonusDegats: 0, ignoreArmure: true, ignoreBouclier: true, armeTypeRequis: "Contondant" },
+                effets: { bonusDegats: 0, ignoreArmure: true, ignoreBouclier: true, armeTypeRequis: "Contondant" },
             },
             {
                 nom: "Fente Verticale",
@@ -169,7 +166,7 @@ guerrier: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { bonusDegatsFixe: "1d4", appliqueHemorragie: true, armeTypeRequis: "Tranchant" },
+                effets: { bonusDegatsFixe: "1d4", appliqueHemorragie: true, armeTypeRequis: "Tranchant" },
             },
             {
                 nom: "Charge",
@@ -180,7 +177,7 @@ guerrier: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "force",
-                effet: { mouvement: 15, degatsArme: true, pousseContondant: true, traversePerforant: true, armeTypeRequis: ["Contondant", "Perforant"] },
+                effets: { mouvement: 15, degatsArme: true, pousseContondant: true, traversePerforant: true, armeTypeRequis: ["Contondant", "Perforant"] },
             },
             {
                 nom: "Frappe Retenue",
@@ -191,7 +188,7 @@ guerrier: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: { bonusDegatsFixe: "1d4", neTuePas: true, appliqueEffetSelonArme: { Contondant: "Sonné", Tranchant: "Terreur", Perforant: "Cécité" } },
+                effets: { bonusDegatsFixe: "1d4", neTuePas: true, appliqueEffetSelonArme: { Contondant: "Sonné", Tranchant: "Terreur", Perforant: "Cécité" } },
             },
             {
                 nom: "Frappe Circulaire",
@@ -202,7 +199,7 @@ guerrier: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsArme: true, armeTypeRequis: ["Tranchant", "Contondant"], typeArmeCategorieRequis: "Mélée" },
+                effets: { degatsArme: true, armeTypeRequis: ["Tranchant", "Contondant"], typeArmeCategorieRequis: "Mélée" },
             },
             {
                 nom: "Ouverture de garde",
@@ -213,7 +210,7 @@ guerrier: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: { degatsArme: true, ignoreBlocage: true, ignoreArmure: true, ignorePB: true, appliqueHemorragie: true, armeTypeRequis: ["Tranchant", "Perforant"] },
+                effets: { degatsArme: true, ignoreBlocage: true, ignoreArmure: true, ignorePB: true, appliqueHemorragie: true, armeTypeRequis: ["Tranchant", "Perforant"] },
             },
             {
                 nom: "Embrochement",
@@ -224,7 +221,7 @@ guerrier: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsArme: true, bonusDegatsParEnnemi: "1d4", armeTypeRequis: ["Tranchant", "Perforant"] },
+                effets: { degatsArme: true, bonusDegatsParEnnemi: "1d4", armeTypeRequis: ["Tranchant", "Perforant"] },
             },
             {
                 nom: "Abreuvement de sang",
@@ -235,7 +232,7 @@ guerrier: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: { degatsArme: true, siHemorragieRecupPV: 4, supprimeHemorragie: true, armeTypeRequis: "Tranchant" },
+                effets: { degatsArme: true, siHemorragieRecupPV: 4, supprimeHemorragie: true, armeTypeRequis: "Tranchant" },
             },
             {
                 nom: "Lancer Puissant",
@@ -246,7 +243,7 @@ guerrier: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: { degatsArme: true, retourArmeAuto: true },
+                effets: { degatsArme: true, retourArmeAuto: true },
             },
             {
                 nom: "Viser les jambes",
@@ -257,7 +254,7 @@ guerrier: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: { degatsArme: true, supprimeTalentVolant: true, appliqueEntrave: true, armeTypeRequis: "Perforant" },
+                effets: { degatsArme: true, supprimeTalentVolant: true, appliqueEntrave: true, armeTypeRequis: "Perforant" },
             },
             {
                 nom: "Swing de géant",
@@ -268,7 +265,7 @@ guerrier: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsArme: true, recul: 10, reculGrandEnnemis: 5, armeTypeRequis: "Contondant" },
+                effets: { degatsArme: true, recul: 10, reculGrandEnnemis: 5, armeTypeRequis: "Contondant" },
             },
             {
                 nom: "Garde réflexe",
@@ -279,7 +276,7 @@ guerrier: {
                 Distance: 0,
                 Action: "aucune", // Non consommée, s'active après une attaque
                 Touche: "automatique",
-                effet: { jetBlocageAvantage: true, apresAttaque: true },
+                effets: { jetBlocageAvantage: true, apresAttaque: true },
             }
         ],
         sortConfirme: [
@@ -292,7 +289,7 @@ guerrier: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "force",
-                effet: { mouvementBond: true, degatsArmePlusFixe: 2, armeTypeRequis: ["Contondant", "Tranchant"] },
+                effets: { mouvementBond: true, degatsArmePlusFixe: 2, armeTypeRequis: ["Contondant", "Tranchant"] },
             },
             {
                 nom: "Priorité à la Défense",
@@ -303,7 +300,7 @@ guerrier: {
                 Distance: 0,
                 Action: "aucune", // Ne consomme pas d'action
                 Touche: "automatique",
-                effet: { bonusBlocage: 20, bonusArmure: 2, malusDegats: -2, duree: "jusqu_revele" },
+                effets: { bonusBlocage: 20, bonusArmure: 2, malusDegats: -2, duree: "jusqu_revele" },
             },
             {
                 nom: "Estocade Fatale",
@@ -314,7 +311,7 @@ guerrier: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: { degatsArmeMultiplies: 2, ignoreResistances: true, armeTypeRequis: "Perforant" },
+                effets: { degatsArmeMultiplies: 2, ignoreResistances: true, armeTypeRequis: "Perforant" },
             },
             {
                 nom: "Main libre",
@@ -325,7 +322,7 @@ guerrier: {
                 Distance: 0,
                 Action: "aucune", // Ne consomme pas d'action
                 Touche: "automatique",
-                effet: { utiliseConsommableSansAction: true, armeMainsRequis: 1, apresAttaqueReussie: true },
+                effets: { utiliseConsommableSansAction: true, armeMainsRequis: 1, apresAttaqueReussie: true },
             },
             {
                 nom: "Dégommage à la Masse",
@@ -336,7 +333,7 @@ guerrier: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsArmeMultiplies: 2, annuleDefensesCible: true, dureeAnnulationDefenses: "finProchainTourGuerrier", armeTypeRequis: "Contondant" },
+                effets: { degatsArmeMultiplies: 2, annuleDefensesCible: true, dureeAnnulationDefenses: "finProchainTourGuerrier", armeTypeRequis: "Contondant" },
             },
             {
                 nom: "Coup de pommeau",
@@ -347,7 +344,7 @@ guerrier: {
                 Distance: 0,
                 Action: "aucune", // Pas d'action consommée (réaction à attaque réussie)
                 Touche: "force",
-                effet: { bonusDegatsFixe: "1d4", nonBloquable: true, armeMainsRequis: 2, apresAttaqueReussie: true },
+                effets: { bonusDegatsFixe: "1d4", nonBloquable: true, armeMainsRequis: 2, apresAttaqueReussie: true },
             },
             {
                 nom: "Invitation malicieuse",
@@ -358,7 +355,7 @@ guerrier: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: { finiTour: true, blocageAvantageSiAttaqueCC: true, gagneActionSiBlocageReussi: true, uneFoisParCibleCombat: true, armeTypeRequis: ["Tranchant", "Perforant"] },
+                effets: { finiTour: true, blocageAvantageSiAttaqueCC: true, gagneActionSiBlocageReussi: true, uneFoisParCibleCombat: true, armeTypeRequis: ["Tranchant", "Perforant"] },
             },
             {
                 nom: "Décapitation",
@@ -369,7 +366,7 @@ guerrier: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsArmeMultiplies: 2, siTueRecupPB: 3, siTueAppliqueTerreurZone: true, armeTypeRequis: "Tranchant" },
+                effets: { degatsArmeMultiplies: 2, siTueRecupPB: 3, siTueAppliqueTerreurZone: true, armeTypeRequis: "Tranchant" },
             },
             {
                 nom: "Prise en bout",
@@ -380,7 +377,7 @@ guerrier: {
                 Distance: 5, // Portée augmentée
                 Action: "consommée",
                 Touche: "dexterite/force",
-                effet: { degatsArme: true, bonusPortee: 5, attaquesOpportunitesPorteeAugmentee: true, armeTypeRequis: ["Contondant", "Perforant"] },
+                effets: { degatsArme: true, bonusPortee: 5, attaquesOpportunitesPorteeAugmentee: true, armeTypeRequis: ["Contondant", "Perforant"] },
             }
         ],
         sortExpert: [
@@ -393,7 +390,7 @@ guerrier: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsArmeMultipliesCible: 3, degatsZoneFixe: "1d6", appliqueEntraveZone: true, armeTypeRequis: "Contondant" },
+                effets: { degatsArmeMultipliesCible: 3, degatsZoneFixe: "1d6", appliqueEntraveZone: true, armeTypeRequis: "Contondant" },
             },
             {
                 nom: "Posture du Guerrier",
@@ -404,7 +401,7 @@ guerrier: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: { bonusArmure: 2, bonusBlocage: 20, bonusToucher: 10, bonusDegats: 2, contreAttaqueFixe: "1d6", dureeTours: 2 },
+                effets: { bonusArmure: 2, bonusBlocage: 20, bonusToucher: 10, bonusDegats: 2, contreAttaqueFixe: "1d6", dureeTours: 2 },
             },
             {
                 nom: "Averse de Percée",
@@ -415,7 +412,7 @@ guerrier: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: { degatsArmeMultiplies: 3, ignoreDefensesEtResistances: true, repositionnementLibre: true, pasAttaqueOpportunite: true, armeTypeRequis: "Perforant" },
+                effets: { degatsArmeMultiplies: 3, ignoreDefensesEtResistances: true, repositionnementLibre: true, pasAttaqueOpportunite: true, armeTypeRequis: "Perforant" },
             },
             {
                 nom: "Triple menace",
@@ -426,7 +423,7 @@ guerrier: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force/dexterite",
-                effet: { necessite3TypesArmes: true, attaqueParTypeArme: true, enclencheBonusMecanique: true },
+                effets: { necessite3TypesArmes: true, attaqueParTypeArme: true, enclencheBonusMecanique: true },
             },
             {
                 nom: "Atomisation totale",
@@ -437,7 +434,7 @@ guerrier: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsFixe: "3d6 + 6", siTueAppliqueCeciteTerreurZone: true, armeMainsRequis: 2 },
+                effets: { degatsFixe: "3d6 + 6", siTueAppliqueCeciteTerreurZone: true, armeMainsRequis: 2 },
             },
             {
                 nom: "Taille démentielle",
@@ -448,7 +445,7 @@ guerrier: {
                 Distance: 25,
                 Action: "consommée",
                 Touche: "force/dexterite",
-                effet: { degatsArmeMultiplies: 3, armeTypeRequis: "Tranchant" },
+                effets: { degatsArmeMultiplies: 3, armeTypeRequis: "Tranchant" },
             },
             {
                 nom: "Gestes parfaits",
@@ -459,7 +456,7 @@ guerrier: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: { deplacementApresAttaque: 5, bonusBlocage: 10, bonusToucher: 10, bonusCC: 10, duree: "jusqu_revele_ou_arme2mains", armeMainsRequis: 1 },
+                effets: { deplacementApresAttaque: 5, bonusBlocage: 10, bonusToucher: 10, bonusCC: 10, duree: "jusqu_revele_ou_arme2mains", armeMainsRequis: 1 },
             },
             {
                 nom: "Guerre éclair",
@@ -470,7 +467,7 @@ guerrier: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: { pasDefense: true, armureResistanceAnnulees: true, faiblesseTousElements: true, bonusVitesseCran: 1, bonusToucher: 20, tousCoupsCritiques: true, actionSupplementaire: true, coutSortsMoins1Psy: true, uneFoisEviteKOouMort: true, irrevocacle: true },
+                effets: { pasDefense: true, armureResistanceAnnulees: true, faiblesseTousElements: true, bonusVitesseCran: 1, bonusToucher: 20, tousCoupsCritiques: true, actionSupplementaire: true, coutSortsMoins1Psy: true, uneFoisEviteKOouMort: true, irrevocacle: true },
             }
         ],
         sortMaitre: [
@@ -483,7 +480,7 @@ guerrier: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: { dureeTours: 2, appliquePostureGuerrierAllies: true, insensibleAttaquesOpportunitesAllies: true, bonusVitesseCranAllies: 1, bonusPBAllies: 6, siTueRecupPVFixe: "1d10" },
+                effets: { dureeTours: 2, appliquePostureGuerrierAllies: true, insensibleAttaquesOpportunitesAllies: true, bonusVitesseCranAllies: 1, bonusPBAllies: 6, siTueRecupPVFixe: "1d10" },
             }
         ] 
     },
@@ -533,9 +530,9 @@ pugiliste: {
     mecanique: [
         "Le Pugiliste suit la Voie du Poing obligatoirement, ce passif et son effet ne peut être ignoré d'aucune manière :",
         "Voie du Poing : Ne peut pas utiliser d’arme, en contrepartie les attaques à mains nues font 1 dé 6 +1 dégâts. +1 dégât supplémentaire tous les 2 niveaux du Pugiliste.",
-        "Ceux qui suivent cette voie doivent être fort et rapide, Quand ils utilisent leur dextérité et leur force en simultané ils sont invincible :",
-        "Voler comme un papillon et frapper comme une abeille : Lorsque vous utilisez un sort de force APRES avoir utilisé un sort de Dextérité vous infligez 1 dé 4 dégâts fixe supplémentaire sur ce sort, si vous utilisez un sort de Dextérité APRES un sort de Force vous gagnez 1 cran en vitesse et 10% de chance de toucher pour 1 tour.",
-        "Les sorts ayant \"Réussite automatique\" ne sont pas considérés comme des sorts de Force ou de Dextérité. Les attaques à mains nues quant à elle sont considérées comme des sorts de Force Ou de Dextérité pour le fonctionnement de la mécanique."
+        "Ceux qui suivent cette voie doivent être fort et rapide, Quand ils utilisent leur dexterite et leur force en simultané ils sont invincible :",
+        "Voler comme un papillon et frapper comme une abeille : Lorsque vous utilisez un sort de force APRES avoir utilisé un sort de dexterite vous infligez 1 dé 4 dégâts fixe supplémentaire sur ce sort, si vous utilisez un sort de dexterite APRES un sort de Force vous gagnez 1 cran en vitesse et 10% de chance de toucher pour 1 tour.",
+        "Les sorts ayant \"Réussite automatique\" ne sont pas considérés comme des sorts de Force ou de dexterite. Les attaques à mains nues quant à elle sont considérées comme des sorts de Force Ou de dexterite pour le fonctionnement de la mécanique."
     ],
     talentVoie: {
         niveauJoueur: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -543,18 +540,18 @@ pugiliste: {
             {
                 nom: "Vivacité Naturelle",
                 image: "",
-                description: "Ajoute +1 en Dextérité et +1 cran en Vitesse le premier tour d’un combat et à chaque fois que vous tuez un ennemi.",
+                description: "Ajoute +1 en dexterite et +1 cran en Vitesse le premier tour d’un combat et à chaque fois que vous tuez un ennemi.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: { dexterite: 1, bonusVitesseCran: 1, condition: "premierTourCombatOuTueEnnemi" }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: {dexterite: 1} }
             },
             {
                 nom: "Maîtrise des Arts Martiaux",
                 image: "",
-                description: "Ajoute +1 en Force OU en Dextérité. Chaque attaque à mains nues peuvent infliger ”Sonné” sur un coup critique.",
+                description: "Ajoute +1 en Force OU en dexterite. Chaque attaque à mains nues peuvent infliger ”Sonné” sur un coup critique.",
                 niveauJoueur: 2,
-                prerequis: ["Vivacité Naturelle"],
-                effet: { choixStat: ["force", "dexterite"], critiqueMainsNuesAppliqueSonne: true }
+                fonction: "bonusIndirectCaracteristique",
+                parametres: { majeures:{ stat: ["force", "dexterite"], points: 1} }
             },
             {
                 nom: "Bagarreur",
@@ -562,7 +559,6 @@ pugiliste: {
                 description: "Lorsque qu’un ennemi vous inflige des dégâts au corps-à-corps, vous lui faites subir 2 dégâts fixes.",
                 niveauJoueur: 3,
                 prerequis: ["Maîtrise des Arts Martiaux"],
-                effet: { degatsFixeContreAttaque: 2, condition: "degatsRecusCC" }
             },
             {
                 nom: "Manœuvre d’Approche",
@@ -570,55 +566,57 @@ pugiliste: {
                 description: "Lorsque vous subissez une attaque d’un ennemi situé à plus de 20 mètres, vous augmentez votre vitesse de 1 cran pour le prochain tour. Effet non cumulable.",
                 niveauJoueur: 4,
                 prerequis: ["Bagarreur"],
-                effet: { bonusVitesseCran: 1, condition: "attaqueSubieDistance", distance: 20, cumulable: false }
             },
             {
                 nom: "Phalange brutale",
                 image: "",
                 description: "Ajoute +1 en Force. Bonus de +20 en puissance pour détruire des objets.",
                 niveauJoueur: 5,
-                prerequis: ["Manœuvre d’Approche"],
-                effet: { force: 1, bonusPuissanceDestructionObjets: 20 }
+                fonction: "bonusDirectPlusConditionnel",
+                parametres: { 
+                    bonus: { majeures: { force: 1} },
+                    caracteristique: "puissance",
+                    bonusConditionnel: 20,
+                    condition: "Detruire les Objets" ,
+                    description: "Bonus de +20 en puissance pour détruire des objets." 
+                    },
             },
             {
                 nom: "Résistance de la Brute",
                 image: "",
-                description: "Ajoute +1 en Constitution et +10 en Robustesse. Si vous avez moins de 25% de PV restants, vous gagnez 2 PB modifié par votre bonus de bouclier. Une seule fois par combat.",
+                description: "Ajoute +1 en Constitution et +10 en robustesse. Si vous avez moins de 25% de PV restants, vous gagnez 2 PB modifié par votre bonus de bouclier. Une seule fois par combat.",
                 niveauJoueur: 6,
-                prerequis: ["Phalange brutale"],
-                effet: { constitution: 1, Robustesse: 10, bonusPB: 2, condition: "moinsDe25PourcentPV", uneFoisParCombat: true }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { constitution: 1}, mineures: {robustesse: 10}},
             },
             {
                 nom: "Combat à la loyale",
                 image: "",
                 description: "Vous gagnez +2 aux dégâts et à l’armure si vous affrontez un ennemi sans avoir aucune autre entité à moins de 10 mètres de lui ou de vous.",
                 niveauJoueur: 7,
-                prerequis: ["Résistance de la Brute"],
-                effet: { bonusDegats: 2, bonusArmure: 2, condition: "ennemiSeulProche" }
             },
             {
                 nom: "Vigilance totale",
                 image: "",
                 description: "Si on vous a appliqué une altération d’état avec succès vous y devenez Immunisé pendant 3 tours, cet effet est cumulable sur autant d’altérations que possible mais ça ne vous guérit pas de l’effet de celle qui vous a était appliqué.",
                 niveauJoueur: 8,
-                prerequis: ["Combat à la loyale"],
-                effet: { immuniteAltérationEtat: true, dureeImmunite: 3, cumulable: true, neGueritPas: true }
             },
             {
                 nom: "Souplesse du Luchador",
                 image: "",
-                description: "Ajoute +1 en Dextérité et +10 en Acrobatie. Si vous avez moins de 25% de PV restants, vous augmentez votre taux de blocage de 20%.",
+                description: "Ajoute +1 en dexterite et +10 en acrobatie. Si vous avez moins de 25% de PV restants, vous augmentez votre taux de blocage de 20%.",
                 niveauJoueur: 9,
                 prerequis: ["Vigilance totale"],
-                effet: { dexterite: 1, Acrobatie: 10, bonusBlocage: 20, condition: "moinsDe25PourcentPV" }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { 
+                    majeures: {dexterite: 1}, 
+                    mineures: {acrobatie: 10}}
             },
             {
                 nom: "Voler comme un Dragon et frapper comme un Troll",
                 image: "",
                 description: "Le bonus de \"Voler comme un papillon et frapper comme une abeille\" est doublé.",
                 niveauJoueur: 10,
-                prerequis: ["Souplesse du Luchador"],
-                effet: { doubleBonusMecanique: "Voler comme un papillon et frapper comme une abeille" }
             }
         ],
     },
@@ -634,7 +632,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsFixe: "1d6", ignoreBouclier: true, ignoreResistances: true, ignoreArmure: true },
+                effets: { degatsFixe: "1d6", ignoreBouclier: true, ignoreResistances: true, ignoreArmure: true },
             },
             {
                 nom: "High Kick",
@@ -645,7 +643,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsFixe: "1d6 + 2", recul: 5, siBloqueReculAppliqueSonne: true },
+                effets: { degatsFixe: "1d6 + 2", recul: 5, siBloqueReculAppliqueSonne: true },
             },
             {
                 nom: "Poing Souple",
@@ -656,7 +654,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: { degatsPV: "1d4", degatsPSY: "1d4", siPasPsyDegatsPV: "2d4" },
+                effets: { degatsPV: "1d4", degatsPSY: "1d4", siPasPsyDegatsPV: "2d4" },
             },
             {
                 nom: "Jab surprise",
@@ -667,7 +665,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "conditionnelle_aucune", // Action consommée si lancé normalement, aucune si réaction
                 Touche: "dexterite",
-                effet: { degatsFixe: "1d6", nonBloquable: true, reactCCEnnemi: true },
+                effets: { degatsFixe: "1d6", nonBloquable: true, reactCCEnnemi: true },
             },
             {
                 nom: "Clé de Bras",
@@ -678,7 +676,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "dexterite", // Peut être une touche, ou une réussite automatique selon le système de grappling
-                effet: { appliqueEntraveCibleEtLanceur: true, irresistible: true, degatsParTourCible: 2, rompreALaVolonte: true },
+                effets: { appliqueEntraveCibleEtLanceur: true, irresistible: true, degatsParTourCible: 2, rompreALaVolonte: true },
             },
             {
                 nom: "Rien qu’une Egratignure",
@@ -689,7 +687,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: { degatsReduitsProchaineAttaque: 1 },
+                effets: { degatsReduitsProchaineAttaque: 1 },
             },
             {
                 nom: "Rafale de Poings",
@@ -700,7 +698,7 @@ pugiliste: {
                 Distance: 0, // Cône part du lanceur
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsFixe: "1d6" },
+                effets: { degatsFixe: "1d6" },
             },
             {
                 nom: "Crochet destructeur",
@@ -711,7 +709,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsFixe: "1d6 + 1", appliqueSonne: true, doubleBonusMecanique: true },
+                effets: { degatsFixe: "1d6 + 1", appliqueSonne: true, doubleBonusMecanique: true },
             },
             {
                 nom: "Full Mount",
@@ -722,7 +720,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique", // Ou jet de saisie
-                effet: { appliqueEntrave: true, siEntraveReussieSortGratuit: 3, siEntraveRateAttaqueMainsNues: true },
+                effets: { appliqueEntrave: true, siEntraveReussieSortGratuit: 3, siEntraveRateAttaqueMainsNues: true },
             },
             {
                 nom: "Musculature saillante",
@@ -733,7 +731,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: { bonusArmure: 1, bonusBlocage: 10, malusVitesseCran: 1, duree: "jusqu_revele" },
+                effets: { bonusArmure: 1, bonusBlocage: 10, malusVitesseCran: 1, duree: "jusqu_revele" },
             },
             {
                 nom: "Running Bulldog",
@@ -744,7 +742,7 @@ pugiliste: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: { degatsFixe: "1d6", rapprochementCC: true },
+                effets: { degatsFixe: "1d6", rapprochementCC: true },
             },
             {
                 nom: "Hurricanrana",
@@ -755,7 +753,7 @@ pugiliste: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: { rapprochement: 10, degatsFixe: "1d6 + 1", repousse: 10 },
+                effets: { rapprochement: 10, degatsFixe: "1d6 + 1", repousse: 10 },
             }
         ],
         sortConfirme: [
@@ -768,7 +766,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: { degatsFixe: "1d8 + 1", teleporteCibleSymetriquement: true },
+                effets: { degatsFixe: "1d8 + 1", teleporteCibleSymetriquement: true },
             },
             {
                 nom: "Descente du Coude",
@@ -779,7 +777,7 @@ pugiliste: {
                 Distance: 0, // Portée du saut à définir si nécessaire
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: { degatsFixe: "1d10", doubleDegatsSiEtat: ["Entrave", "Sonné", "Sommeil"] },
+                effets: { degatsFixe: "1d10", doubleDegatsSiEtat: ["Entrave", "Sonné", "Sommeil"] },
             },
             {
                 nom: "Powerbomb",
@@ -790,7 +788,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsCible: "2d6", degatsZoneFixe: "1d6" },
+                effets: { degatsCible: "2d6", degatsZoneFixe: "1d6" },
             },
             {
                 nom: "Bastion du Muscle",
@@ -801,7 +799,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: { bonusArmure: 2, bonusBlocage: 10, resistanceElementChoisi: true, malusVitesseCran: 1, duree: "jusqu_revele" },
+                effets: { bonusArmure: 2, bonusBlocage: 10, resistanceElementChoisi: true, malusVitesseCran: 1, duree: "jusqu_revele" },
             },
             {
                 nom: "Frappe sprintée",
@@ -812,7 +810,7 @@ pugiliste: {
                 Distance: 0, // Dégâts en fin de déplacement
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: { vitesseSprint: true, purgeEtatsDeplacement: true, degatsFixeFinDeplacement: "1d8" },
+                effets: { vitesseSprint: true, purgeEtatsDeplacement: true, degatsFixeFinDeplacement: "1d8" },
             },
             {
                 nom: "Dropkick",
@@ -823,7 +821,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsFixe: "1d8 + 2", recul: 15, siToucheEntiteOuBordAppliqueSonne: true },
+                effets: { degatsFixe: "1d8 + 2", recul: 15, siToucheEntiteOuBordAppliqueSonne: true },
             },
             {
                 nom: "Coup de Boule",
@@ -834,7 +832,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsLanceur: { pv: 3, appliqueSonne: true }, degatsCible: "2d8", appliqueSonneCible: true },
+                effets: { degatsLanceur: { pv: 3, appliqueSonne: true }, degatsCible: "2d8", appliqueSonneCible: true },
             },
             {
                 nom: "Hurlement des Poings",
@@ -845,7 +843,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: { appliqueTerreurZone: true, bonusDegats: 2, bonusToucher: 10, dureeTours: 2, uneFoisParTour: true },
+                effets: { appliqueTerreurZone: true, bonusDegats: 2, bonusToucher: 10, dureeTours: 2, uneFoisParTour: true },
             },
             {
                 nom: "Uppercut fulgurant",
@@ -856,7 +854,7 @@ pugiliste: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: { rapprochement: 10, degatsFixe: "1d6", envoieEnLair: true, appliqueSonneIrresistible: true, considereVolant: true, degatsRetombe: "1d6", neSoulevePasLourd: true },
+                effets: { rapprochement: 10, degatsFixe: "1d6", envoieEnLair: true, appliqueSonneIrresistible: true, considereVolant: true, degatsRetombe: "1d6", neSoulevePasLourd: true },
             }
         ],
         sortExpert: [
@@ -869,7 +867,7 @@ pugiliste: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: { deplacementLigne: 15, degatsFixeChemin: "1d8 + 4", appliqueEntraveChemin: true, siAllieCaseArriveeRetourAvecDegats: "1d6" },
+                effets: { deplacementLigne: 15, degatsFixeChemin: "1d8 + 4", appliqueEntraveChemin: true, siAllieCaseArriveeRetourAvecDegats: "1d6" },
             },
             {
                 nom: "Poing Final",
@@ -879,8 +877,8 @@ pugiliste: {
                 Zone: 0,
                 Distance: 0,
                 Action: "consommée",
-                Touche: "automatique", // Ou jet de touche selon votre système
-                effet: { degatsVariablePSY: "1d4", siPlusDe30DegatsMalusPVLanceur: 8, uneFoisParCombat: true },
+                Touche: "automatique", // Ou jet de touche selon votre systè me
+                effets: { degatsVariablePSY: "1d4", siPlusDe30DegatsMalusPVLanceur: 8, uneFoisParCombat: true },
             },
             {
                 nom: "Coup Spécial",
@@ -891,7 +889,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: { appliqueBrulure: true, appliqueEntrave: true, degatsFixe: "3d6 + 4", siTueProchaineAttaqueCoutPsyReduit: 0.5, tempsRechargeTours: 2 },
+                effets: { appliqueBrulure: true, appliqueEntrave: true, degatsFixe: "3d6 + 4", siTueProchaineAttaqueCoutPsyReduit: 0.5, tempsRechargeTours: 2 },
             },
             {
                 nom: "Fracas Frontal",
@@ -902,7 +900,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsVariable: "Xd4", conditionDegatsVariable: "nbAttaquesOuSortsPugiliste", siDegatsPlusDe20AppliqueFolie: true, siDegatsPlusDe40AppliqueFolieIrresistible: true },
+                effets: { degatsVariable: "Xd4", conditionDegatsVariable: "nbAttaquesOuSortsPugiliste", siDegatsPlusDe20AppliqueFolie: true, siDegatsPlusDe40AppliqueFolieIrresistible: true },
             },
             {
                 nom: "Brise-nuque",
@@ -913,7 +911,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsFixe: "2d6", bonusDegatsSiAllieCC: "1d6", siPasseSous25PourcentPVMortInstantanee: true, exceptionMonstres: true },
+                effets: { degatsFixe: "2d6", bonusDegatsSiAllieCC: "1d6", siPasseSous25PourcentPVMortInstantanee: true, exceptionMonstres: true },
             },
             {
                 nom: "Enfer du Muscle",
@@ -924,7 +922,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: { attaquesMainsNuesEtSortsAppliquentBrulure: true, appliqueTerreurSiAttaqueCCSansDegats: true, bonusPB: 4, duree: "jusqu_revele" },
+                effets: { attaquesMainsNuesEtSortsAppliquentBrulure: true, appliqueTerreurSiAttaqueCCSansDegats: true, bonusPB: 4, duree: "jusqu_revele" },
             },
             {
                 nom: "Second souffle",
@@ -935,7 +933,7 @@ pugiliste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: { conditionPVouPSYFaible: true, recupPV: "1d8", recupPSY: "1d8", tempsRechargeTours: 2 },
+                effets: { conditionPVouPSYFaible: true, recupPV: "1d8", recupPSY: "1d8", tempsRechargeTours: 2 },
             },
             {
                 nom: "Atterrissage Fracassant",
@@ -946,7 +944,7 @@ pugiliste: {
                 Distance: 25,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: { degatsFixe: "2d6", appliqueEntraveZone: true },
+                effets: { degatsFixe: "2d6", appliqueEntraveZone: true },
             }
         ],
         sortMaitre: [
@@ -959,7 +957,7 @@ pugiliste: {
                 Distance: "illimitée", // "où qu'elle soit"
                 Action: "consommée",
                 Touche: "force/dexterite",
-                effet: { degatsFixe: "4d8", degatsPsyMoitiePV: true, si0PVou0PSYMeurt: true },
+                effets: { degatsFixe: "4d8", degatsPsyMoitiePV: true, si0PVou0PSYMeurt: true },
             }
         ]
     },
@@ -1028,24 +1026,21 @@ changeForme: {
                 description: "Vous pouvez vous changer en n’importe quel être vivant de taille moyenne ou inférieure hors Humanoïde, cela vous coûte 2 PSY si vous utilisez une transformation qui est différente de celle que vous avez choisie pour chaque voie. La transformation est réussie automatiquement et vous possédez les mêmes caractéristiques physiques que la créature dans laquelle vous vous changer, tout en gardant votre intelligence et vos capacités mentales intacte.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
-                    coutPSY: 2,
-                    typeTransformation: "nonHumanoide",
-                    tailleMax: "moyenne",
-                    reussiteAutomatique: true,
-                    gardeIntellect: true
-                }
+                
             },
             {
                 nom: "Polyvalence",
                 image: "",
                 description: "Vous donne +1 points de statistique majeure à répartir, ainsi que 10 point de statistique mineure.",
                 niveauJoueur: 2,
-                prerequis: ["Métamorphe habile"],
-                effet: {
-                    pointsStatMajeure: 1,
-                    pointsStatMineure: 10
+                fonction: "bonusIndirectCaracteristique",
+                parametres : {
+                    majeures: {
+                        stats:["Force","dexterite", "constitution", "intelligence", "charisme", "sagesse", "defense", "chance"],
+                        points: 1},
+                    mineures: 10
                 }
+              
             },
             {
                 nom: "Accro de la Métamorphose",
@@ -1053,23 +1048,21 @@ changeForme: {
                 description: "Lorsque vous changez de forme alors que vous étiez dans une autre forme, vos sorts coûtent -1 PSY et infligent +1 dégât pour le tour en cours. Cet effet n’est pas cumulable.",
                 niveauJoueur: 3,
                 prerequis: ["Polyvalence"],
-                effet: {
-                    coutSortsReduit: 1,
-                    degatsSortsBonus: 1,
-                    condition: "changementDeFormeMultiple",
-                    nonCumulable: true
-                }
+                
             },
             {
                 nom: "Polyvalence",
                 image: "",
                 description: "Vous donne +1 points de statistique majeure à répartir, ainsi que 10 point de statistique mineure.",
                 niveauJoueur: 4,
-                prerequis: ["Accro de la Métamorphose"],
-                effet: {
-                    pointsStatMajeure: 1,
-                    pointsStatMineure: 10
+                fonction: "bonusIndirectCaracteristique",
+                parametres : {
+                    majeures: {
+                        stats:["Force","dexterite", "constitution", "intelligence", "charisme", "sagesse", "defense", "chance"],
+                        points: 1},
+                    mineures: 10
                 }
+                
             },
             {
                 nom: "Sosie parfait",
@@ -1077,13 +1070,7 @@ changeForme: {
                 description: "Vous pouvez vous changer en une créature Humanoïde que vous avez déjà rencontré, cela coutera 3 PSY pour réussir la transformation mais elle se fera automatiquement. Vous gardez vos propres souvenirs et vos capacités mentale en étant transformé et n’avait en aucun cas accès à ceux de la cible. Vous avez en revanche toutes les caractéristiques physiques que vous avez pu observer au détail près.",
                 niveauJoueur: 5,
                 prerequis: ["Polyvalence"],
-                effet: {
-                    coutPSY: 3,
-                    typeTransformation: "humanoideRencontre",
-                    reussiteAutomatique: true,
-                    gardeMemoireEtMental: true,
-                    copiePhysiqueDetaillee: true
-                }
+                
             },
             {
                 nom: "Adaptabilité du Change-Forme",
@@ -1091,10 +1078,7 @@ changeForme: {
                 description: "Lors de l’utilisation d’une transformation, l’utilisateur gagne aussi +2 DSB sur tous les sorts qui frappent sur le même élément que sa forme.",
                 niveauJoueur: 6,
                 prerequis: ["Sosie parfait"],
-                effet: {
-                    bonusDSB: 2,
-                    condition: "transformationElementaire"
-                }
+               
             },
             {
                 nom: "Métamorphose en chaine",
@@ -1102,21 +1086,19 @@ changeForme: {
                 description: "Si vous avez changez de forme deux fois dans le même tour de jeu ou en moins de 5 minutes hors combat vous gagnez un avantage sur votre prochain jet de dé.",
                 niveauJoueur: 7,
                 prerequis: ["Adaptabilité du Change-Forme"],
-                effet: {
-                    avantageProchainJet: true,
-                    condition: "deuxChangementsFormeRapides"
-                }
+                
             },
             {
                 nom: "Polyvalence",
                 image: "",
                 description: "Vous donne +1 points de statistique majeure à répartie, ainsi que 10 point de statistique mineure.",
                 niveauJoueur: 8,
-                prerequis: ["Métamorphose en chaine"],
-                effet: {
-                    pointsStatMajeure: 1,
-                    pointsStatMineure: 10
+                fonction: "bonusIndirectCaracteristique",
+                parametres : {
+                    majeures: 1,
+                    mineures: 10
                 }
+                
             },
             {
                 nom: "Voie du Moi",
@@ -1124,12 +1106,7 @@ changeForme: {
                 description: "En forme de base, sans transformation, vous gagnez un bonus de +5 dans toutes les statistiques mineures, ce bonus est doublé si vous avez changé de forme récemment (dans les 10 dernières minutes).",
                 niveauJoueur: 9,
                 prerequis: ["Polyvalence"],
-                effet: {
-                    bonusStatMineures: 5,
-                    condition: "formeDeBase",
-                    doubleBonusSiChangementRecent: true,
-                    dureeRecent: 10
-                }
+               
             },
             {
                 nom: "Clone indiscernable",
@@ -1137,14 +1114,7 @@ changeForme: {
                 description: "Vous pouvez vous changez en n’importe quelle créature et obtenez les mêmes statistiques qu’elles, vous avez aussi accès à ses souvenirs et sa conscience, néanmoins lorsque vous le faite vous alertez la cible de ce sort et elle saura que vous l’avez copiée. Cette transformation est particulièrement pénible pour le Change-Forme, elle coutera 6 PSY et vous devrait faire vos jets avec un désavantage tant que vous maintenez cette forme.",
                 niveauJoueur: 10,
                 prerequis: ["Voie du Moi"],
-                effet: {
-                    coutPSY: 6,
-                    typeTransformation: "touteCreature",
-                    copieStats: true,
-                    accesSouvenirsEtConscience: true,
-                    alerteCible: true,
-                    desavantageJets: true
-                }
+               
             }
         ],
     },
@@ -1161,7 +1131,7 @@ changeForme: {
                 Action: "consommée",
                 Touche: "sagesse",
                 conditionForme: "eau",
-                effet: {
+                effets: {
                     soinInitial: "1d6",
                     ricochetSoin: "1d4",
                     distanceRicochet: 15
@@ -1177,7 +1147,7 @@ changeForme: {
                 Action: "consommée",
                 Touche: "force",
                 conditionForme: "terre",
-                effet: {
+                effets: {
                     degatsFixe: "1d4 + 3",
                     typeDegats: "terre",
                     appliqueEntrave: true,
@@ -1194,7 +1164,7 @@ changeForme: {
                 Action: "aucune",
                 Touche: "sagesse",
                 conditionForme: "feu",
-                effet: {
+                effets: {
                     bonusVitesseCran: 1,
                     insensibleAttaquesOpportunites: true,
                     dureeTours: 2,
@@ -1211,7 +1181,7 @@ changeForme: {
                 Action: "aucune",
                 Touche: "dexterite",
                 conditionForme: "vent",
-                effet: {
+                effets: {
                     repousse: 5,
                     degatsSiDoubleUtilisation: "1d6",
                     immuniteTemporaireSouffle: true
@@ -1227,7 +1197,7 @@ changeForme: {
                 Action: "consommée",
                 Touche: "dexterite",
                 conditionForme: "foudre",
-                effet: {
+                effets: {
                     degatsFixe: "1d10",
                     typeDegats: "foudre",
                     bonusDegatsSiDegatsEauRecents: 0.5
@@ -1242,7 +1212,7 @@ changeForme: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     paumeGratuiteUneFoisParTour: true,
                     degatsSansAugmentation: true,
                     dureeTours: 2,
@@ -1259,7 +1229,7 @@ changeForme: {
                 Action: "consommée",
                 Touche: "force",
                 conditionForme: "eau",
-                effet: {
+                effets: {
                     degatsEnnemi: "1d6 + 2",
                     pousseEnnemi: 10,
                     typeDegats: "eau",
@@ -1277,7 +1247,7 @@ changeForme: {
                 Action: "consommée",
                 Touche: "dexterite",
                 conditionForme: "terre",
-                effet: {
+                effets: {
                     degatsFixe: "1d6 + 3",
                     typeDegats: "terre",
                     siBloqueAnnulePBArmureEtBlocage: true,
@@ -1294,7 +1264,7 @@ changeForme: {
                 Action: "consommée",
                 Touche: "charisme",
                 conditionForme: "feu",
-                effet: {
+                effets: {
                     degatsFeuParAlteration: "1d4",
                     bonusDegatsAlliesParAlteration: 2,
                     dureeBonusAllies: 1,
@@ -1312,7 +1282,7 @@ changeForme: {
                 Action: "consommée",
                 Touche: "sagesse",
                 conditionForme: "vent",
-                effet: {
+                effets: {
                     appliquePoison: true,
                     degatsFixe: "1d4",
                     typeDegats: "vent"
@@ -1328,7 +1298,7 @@ changeForme: {
                 Action: "aucune",
                 Touche: "charisme",
                 conditionForme: "foudre",
-                effet: {
+                effets: {
                     teleportationLibre: true,
                     ignoreEffetsDeplacement: true,
                     extensionPorteeParPsy: 5
@@ -1343,7 +1313,7 @@ changeForme: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     bloqueChangementForme: true,
                     bonusDSB: 2,
                     bonusToucher: 10,
@@ -1364,7 +1334,7 @@ changeForme: {
                 Action: "consommée",
                 Touche: "dexterite",
                 conditionForme: "foudre",
-                effet: {
+                effets: {
                     traverseEntites: true,
                     degatsFixe: "1d12",
                     typeDegats: "foudre"
@@ -1380,7 +1350,7 @@ changeForme: {
                 Action: "aucune",
                 Touche: "dexterite",
                 conditionForme: "terre",
-                effet: {
+                effets: {
                     reductionDegats: 2,
                     bonusBlocage: 20,
                     reculAdversaireCC: 5,
@@ -1398,7 +1368,7 @@ changeForme: {
                 Action: "conditionnelle_aucune", // Action consommée si > 50%, aucune si < 50%
                 Touche: "sagesse",
                 conditionForme: "eau",
-                effet: {
+                effets: {
                     soinInitial: "1d8",
                     soinSupplementaireSiPVFaible: "1d4",
                     coutZeroSiPVFaible: true
@@ -1414,7 +1384,7 @@ changeForme: {
                 Action: "consommée",
                 Touche: "dexterite",
                 conditionForme: "vent",
-                effet: {
+                effets: {
                     deplacement: 10,
                     degatsFixe: "2d6",
                     perceArmure: true
@@ -1430,7 +1400,7 @@ changeForme: {
                 Action: "consommée",
                 Touche: "charisme",
                 conditionForme: "foudre",
-                effet: {
+                effets: {
                     degatsEntreeChamp: 2,
                     typeDegats: "foudre",
                     bonusDSBApplique: true,
@@ -1449,7 +1419,7 @@ changeForme: {
                 Action: "aucune",
                 Touche: "force",
                 conditionForme: "terre",
-                effet: {
+                effets: {
                     bonusArmure: 2,
                     bonusPB: 4,
                     dureeTours: 2
@@ -1465,7 +1435,7 @@ changeForme: {
                 Action: "consommée",
                 Touche: "force",
                 conditionForme: "eau",
-                effet: {
+                effets: {
                     projetteAllie: true,
                     soinAllie: "1d10",
                     repousseZone: 5
@@ -1481,7 +1451,7 @@ changeForme: {
                 Action: "aucune",
                 Touche: "sagesse",
                 conditionForme: "vent",
-                effet: {
+                effets: {
                     siVolantBonusVitesseCran: 1,
                     bonusDegatsDistance: 2,
                     conditionDistance: 15,
@@ -1498,7 +1468,7 @@ changeForme: {
                 Action: "aucune",
                 Touche: "charisme",
                 conditionForme: "feu",
-                effet: {
+                effets: {
                     appliqueBrulureZone: true,
                     siBrulureDejaActiveRelanceEtDegats: "1d6",
                     coutMaintenanceParTour: 2
@@ -1516,7 +1486,7 @@ changeForme: {
                 Action: "consommée",
                 Touche: "sagesse",
                 conditionForme: "feu",
-                effet: {
+                effets: {
                     degatsFixe: "1d6 + 2",
                     typeDegats: "feu",
                     appliqueEntraveIrresistibleSiBrulure: true
@@ -1532,7 +1502,7 @@ changeForme: {
                 Action: "consommée",
                 Touche: "dexterite",
                 conditionForme: "foudre",
-                effet: {
+                effets: {
                     degatsFixe: "1d12",
                     typeDegats: "foudre",
                     appliqueCeciteZone: true,
@@ -1550,7 +1520,7 @@ changeForme: {
                 Action: "consommée",
                 Touche: "force",
                 conditionForme: "eau",
-                effet: {
+                effets: {
                     degatsEnnemis: "2d4",
                     typeDegats: "eau",
                     soinAllies: "2d4",
@@ -1568,7 +1538,7 @@ changeForme: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     doubleBonusVoiesElementaires: true,
                     bonusToucher: 10,
                     bonusCC: 10,
@@ -1586,7 +1556,7 @@ changeForme: {
                 Action: "consommée",
                 Touche: "charisme",
                 conditionForme: "feu",
-                effet: {
+                effets: {
                     degatsFixeDebutTour: "1d8 + 2",
                     typeDegats: "feu",
                     appliqueBrulureIrresistible: true,
@@ -1603,7 +1573,7 @@ changeForme: {
                 Action: "consommée",
                 Touche: "dexterite",
                 conditionForme: "vent",
-                effet: {
+                effets: {
                     degatsFixe: "2d8",
                     typeDegats: "vent",
                     perceArmure: true,
@@ -1621,7 +1591,7 @@ changeForme: {
                 Action: "consommée",
                 Touche: "force",
                 conditionForme: "terre",
-                effet: {
+                effets: {
                     degatsFixe: "1d6 + 6",
                     appliqueEntrave: true
                 }
@@ -1635,7 +1605,7 @@ changeForme: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     choixDeuxVoiesSimultanees: true,
                     gardeBonusEtSorts: true,
                     dureeTours: 2,
@@ -1653,7 +1623,7 @@ changeForme: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "force/dexterite/sagesse/charisme",
-                effet: {
+                effets: {
                     appliqueTerreurSiAttaque: true,
                     coutSortsReduit: 1,
                     choixElementSorts: true,
@@ -1714,7 +1684,7 @@ berseker: {
         "Moins de 50% PV Max restant : Ajoute 2 aux dégâts, 5% de chances de toucher, 10% de blocage et 1 d’armure",
         "Moins de 25% de PV Max restant : Ajoute 3 aux dégâts, 10% de chances de toucher, 20% de blocage, 1 d’armure et un cran en vitesse.",
         "1 PV restant : Ajoute 4 aux dégâts, 20% de chances de toucher, 40% de blocage, 2 d’armure, un cran en vitesse et une action supplémentaire.",
-        "De plus les sorts du Berseker peuvent se lancer en payant le cout en PV plutôt qu’en PSY."
+        "De plus les sorts du Berseker peuvent  se lancer en payant le cout en PV plutôt qu’en PSY.",
     ],
     talentVoie: {
         niveauJoueur: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -1725,15 +1695,15 @@ berseker: {
                 description: "Ajoute +1 en constitution aux niveaux 2, 4, 6, 8, et 10 du Berseker.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: { bonusConstitutionAuxNiveaux: [2, 4, 6, 8, 10] }
+                effets: { bonusConstitutionAuxNiveaux: [2, 4, 6, 8, 10] }
             },
             {
                 nom: "Encaisseur Chevronné",
                 image: "",
-                description: "Ajoute +1 en Défense OU en Force. Ajoute +10 en Robustesse.",
+                description: "Ajoute +1 en Défense OU en Force. Ajoute +10 en robustesse.",
                 niveauJoueur: 2,
                 prerequis: ["Sang Bouillant"],
-                effet: { choixStat: ["defense", "force"], bonusRobustesse: 10 }
+                effets: { choixStat: ["defense", "force"], bonusrobustesse: 10 }
             },
             {
                 nom: "Bain de Sang",
@@ -1741,15 +1711,17 @@ berseker: {
                 description: "Si un ennemi est achevé à votre corps-à-corps, de n’importe quelle manière, vous regagnez 1 PV (+1 par niveaux du Berserker).",
                 niveauJoueur: 3,
                 prerequis: ["Encaisseur Chevronné"],
-                effet: { recuperationPVAchevementCC: true, bonusPVParNiveau: 1 }
+                effets: { recuperationPVAchevementCC: true, bonusPVParNiveau: 1 }
             },
             {
                 nom: "Concentration de Bataille",
                 image: "",
                 description: "Ajoute +1 en Force OU en Sagesse.",
                 niveauJoueur: 4,
-                prerequis: ["Bain de Sang"],
-                effet: { choixStat: ["force", "sagesse"] }
+                fonction: "bonusIndirectCaracteristique",
+                parametre: {
+                    majeures: ["force", "sagesse"], 
+                    points: 1,  }
             },
             {
                 nom: "Psyché Sanguine",
@@ -1757,15 +1729,15 @@ berseker: {
                 description: "Si vous deviez tombez à 0 PV alors qu’il vous reste de la PSY vous convertissez la totalité de votre psyché restante en PB pour absorber l’attaque. Une fois par combat ou scène.",
                 niveauJoueur: 5,
                 prerequis: ["Concentration de Bataille"],
-                effet: { conversionPsyEnPB: true, condition: "tombeA0PVAvecPSY", uneFoisParCombatOuScene: true }
             },
             {
                 nom: "Bestialité",
                 image: "",
                 description: "Permet de parler le langage Animal, ajoute +10 en Puissance.",
                 niveauJoueur: 6,
-                prerequis: ["Psyché Sanguine"],
-                effet: { langageAnimal: true, bonusPuissance: 10 }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { mineures: { puissance: 10 } },
+
             },
             {
                 nom: "Frappez Moi !",
@@ -1773,7 +1745,6 @@ berseker: {
                 description: "Si vous infligez des dégâts à un ennemi, il subira le ciblage sur vous pendant son prochain tour.",
                 niveauJoueur: 7,
                 prerequis: ["Bestialité"],
-                effet: { ciblageSurSoi: true, condition: "infligeDegats", dureeCiblage: "prochainTourEnnemi" }
             },
             {
                 nom: "Intuable",
@@ -1781,7 +1752,6 @@ berseker: {
                 description: "Si le lanceur devait mourir il garde 1 PV et joue un tour supplémentaire avant de tomber K.O. Cet effet s’applique si l’effet de \"Psyché Sanguine\" ne suffit pas où si vous n’avez plus de PSY. Une fois par combat ou scène.",
                 niveauJoueur: 8,
                 prerequis: ["Frappez Moi !"],
-                effet: { garde1PVApresMort: true, joueTourSupplementaire: true, uneFoisParCombatOuScene: true, condition: "echecPsySanguineOuPlusDePsy" }
             },
             {
                 nom: "Sang Pur",
@@ -1789,7 +1759,6 @@ berseker: {
                 description: "Immunité à ”Poison”. Vous ne pouvez pas être drogué ou empoisonné.",
                 niveauJoueur: 9,
                 prerequis: ["Intuable"],
-                effet: { immunitePoison: true, immuniteDrogue: true }
             },
             {
                 nom: "Furie maîtrisée",
@@ -1797,7 +1766,6 @@ berseker: {
                 description: "Vous obtenez un avantage lors de tous vos jets de sauvegarde de Sagesse, si vous devez subir Folie vous y êtes immunisé et gagnez une action supplémentaire à votre prochain tour.",
                 niveauJoueur: 10,
                 prerequis: ["Sang Pur"],
-                effet: { avantageJetSauvegardeSagesse: true, immuniteFolie: true, actionSupplementaireSiFolie: true }
             }
         ],
     },
@@ -1814,7 +1782,7 @@ berseker: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsArmeMultiplies: 2, degatsRecusArmeEnnemi: true }
+                effets: { degatsArmeMultiplies: 2, degatsRecusArmeEnnemi: true }
             },
             {
                 nom: "Douleur Exquise",
@@ -1826,7 +1794,7 @@ berseker: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: { recupPsyParDegatSubi: 1, degatsSubisAugmentes: 1, duree: "jusqu_revele_volonte" }
+                effets: { recupPsyParDegatSubi: 1, degatsSubisAugmentes: 1, duree: "jusqu_revele_volonte" }
             },
             {
                 nom: "Sang-sationnel",
@@ -1838,7 +1806,7 @@ berseker: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsFixe: "1d6", declencheCiblage: true }
+                effets: { degatsFixe: "1d6", declencheCiblage: true }
             },
             {
                 nom: "Aspect de Buvard",
@@ -1850,7 +1818,7 @@ berseker: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: { recupPVDegatsInfliges: 0.5, dureeTours: 1, coutMaintenanceParTour: 2 }
+                effets: { recupPVDegatsInfliges: 0.5, dureeTours: 1, coutMaintenanceParTour: 2 }
             },
             {
                 nom: "Force primaire",
@@ -1862,7 +1830,7 @@ berseker: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     avantageJetsMineursForceHorsCombat: true,
                     pousseApresDegats: 5,
                     dureePousse: 2
@@ -1878,7 +1846,7 @@ berseker: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsArme: true, appliqueHemorragie: true, siDejaHemorragieIrresistible: true }
+                effets: { degatsArme: true, appliqueHemorragie: true, siDejaHemorragieIrresistible: true }
             },
             {
                 nom: "Folie Sanguinaire",
@@ -1890,7 +1858,7 @@ berseker: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "force",
-                effet: { appliqueFolieIrresistibleSoi: true, tousDegatsCritiques: true, dureeTours: 1 }
+                effets: { appliqueFolieIrresistibleSoi: true, tousDegatsCritiques: true, dureeTours: 1 }
             },
             {
                 nom: "Sang pour Sang",
@@ -1902,7 +1870,7 @@ berseker: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsFixe: "1d6 + 4", appliqueHemorragie: true, degatsSubisParLanceurSiTouche: 2 }
+                effets: { degatsFixe: "1d6 + 4", appliqueHemorragie: true, degatsSubisParLanceurSiTouche: 2 }
             },
             {
                 nom: "Aspect de la Bête",
@@ -1914,7 +1882,7 @@ berseker: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "force",
-                effet: { ignoreDefenses: true, appliqueHemorragie: true, dureeTours: 1, coutMaintenanceParTour: 2 }
+                effets: { ignoreDefenses: true, appliqueHemorragie: true, dureeTours: 1, coutMaintenanceParTour: 2 }
             },
             {
                 nom: "Eclaboussure",
@@ -1926,7 +1894,7 @@ berseker: {
                 Distance: 0,
                 Action: "conditionnelle_aucune", // Consommée si lancé normalement, aucune si réaction
                 Touche: "sagesse",
-                effet: { dureeTours: 2, appliqueCeciteSiDegatsSubis: true, avantageJetToucheSiCeciteAppliquee: true, reactionApresDegats: true }
+                effets: { dureeTours: 2, appliqueCeciteSiDegatsSubis: true, avantageJetToucheSiCeciteAppliquee: true, reactionApresDegats: true }
             },
             {
                 nom: "Banque de sang",
@@ -1938,7 +1906,7 @@ berseker: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: { supprimeHemorragieTerrain: true, recupPV: "1d4", perdAlterationNegativeParSupprimee: true }
+                effets: { supprimeHemorragieTerrain: true, recupPV: "1d4", perdAlterationNegativeParSupprimee: true }
             },
             {
                 nom: "Anémie",
@@ -1950,7 +1918,7 @@ berseker: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: { cibleHemorragieRequise: true, doubleDureeHemorragie: true, doublePuissanceHemorragie: true, desavantageJetsTouches: true }
+                effets: { cibleHemorragieRequise: true, doubleDureeHemorragie: true, doublePuissanceHemorragie: true, desavantageJetsTouches: true }
             }
         ],
         sortConfirme: [
@@ -1964,7 +1932,7 @@ berseker: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "force",
-                effet: { prochaineAttaqueFrappeFaiblesse: true, duree: "prochaineAttaqueCC" }
+                effets: { prochaineAttaqueFrappeFaiblesse: true, duree: "prochaineAttaqueCC" }
             },
             {
                 nom: "Sang Toxique",
@@ -1976,7 +1944,7 @@ berseker: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: { coutMaintenancePVParTour: 1, appliquePoisonSurAttaqueCCSubie: true, duree: "jusqu_revele" }
+                effets: { coutMaintenancePVParTour: 1, appliquePoisonSurAttaqueCCSubie: true, duree: "jusqu_revele" }
             },
             {
                 nom: "Geyser de Sang",
@@ -1988,7 +1956,7 @@ berseker: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: { projetteEnnemis: 10, degatsFixe: "1d8" }
+                effets: { projetteEnnemis: 10, degatsFixe: "1d8" }
             },
             {
                 nom: "Don du Sang",
@@ -2000,7 +1968,7 @@ berseker: {
                 Distance: 0, // Cible alliée au CC
                 Action: "consommée",
                 Touche: "automatique",
-                effet: { donnePVAAllie: 10, degatsSubisAllie: 2, dureeDegatsAllieTours: 2 }
+                effets: { donnePVAAllie: 10, degatsSubisAllie: 2, dureeDegatsAllieTours: 2 }
             },
             {
                 nom: "Sang-Ctification",
@@ -2012,7 +1980,7 @@ berseker: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: { recupPVParTourZone: "1d4", dureeTours: 2 }
+                effets: { recupPVParTourZone: "1d4", dureeTours: 2 }
             },
             {
                 nom: "Plaie Béante",
@@ -2024,7 +1992,7 @@ berseker: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { appliqueHemorragieDoubleDureePuissance: true, degatsFixe: "1d6", bonusDegatsSiImmunise: "1d6" }
+                effets: { appliqueHemorragieDoubleDureePuissance: true, degatsFixe: "1d6", bonusDegatsSiImmunise: "1d6" }
             },
             {
                 nom: "Soif de Sang",
@@ -2036,7 +2004,7 @@ berseker: {
                 Distance: 20,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: { appliqueCiblageSurSoiZone: true, degatsRecusAugmentesParCibles: 2, degatsInfligesAugmentes: 2, dureeTours: 2 }
+                effets: { appliqueCiblageSurSoiZone: true, degatsRecusAugmentesParCibles: 2, degatsInfligesAugmentes: 2, dureeTours: 2 }
             },
             {
                 nom: "Sang Bouillonnant",
@@ -2048,7 +2016,7 @@ berseker: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "force",
-                effet: { bonusBlocage: 20, bonusArmure: 1, resistanceFeu: true, immuniteBrulure: true, dureeTours: 2 }
+                effets: { bonusBlocage: 20, bonusArmure: 1, resistanceFeu: true, immuniteBrulure: true, dureeTours: 2 }
             },
             {
                 nom: "Eviscération Sanguinaire",
@@ -2060,7 +2028,7 @@ berseker: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsFixe: "1d6 + 1", chaineCible: true, maxCibles: 3, recupPVParCible: 2 }
+                effets: { degatsFixe: "1d6 + 1", chaineCible: true, maxCibles: 3, recupPVParCible: 2 }
             }
         ],
         sortExpert: [
@@ -2074,7 +2042,7 @@ berseker: {
                 Distance: 25,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: { degatsFixe: "3d6 + 6", appliqueHemorragieIrresistible: true }
+                effets: { degatsFixe: "3d6 + 6", appliqueHemorragieIrresistible: true }
             },
             {
                 nom: "Sang Froid",
@@ -2086,7 +2054,7 @@ berseker: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: { degatsFixe: "1d8 + 2", appliqueEngelure: true, resistanceEau: true, immuniteEngelure: true, dureeTours: 2 }
+                effets: { degatsFixe: "1d8 + 2", appliqueEngelure: true, resistanceEau: true, immuniteEngelure: true, dureeTours: 2 }
             },
             {
                 nom: "Sacrifice Ultime",
@@ -2098,7 +2066,7 @@ berseker: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: { degatsVariablePV: "2d6", degatsBonusParPVSacrifie: true }
+                effets: { degatsVariablePV: "2d6", degatsBonusParPVSacrifie: true }
             },
             {
                 nom: "Leucémie fulgurante",
@@ -2110,7 +2078,7 @@ berseker: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: { transformeHemorragieEnPoison: true, siImmunisePoisonHemorragiePersiste: true, dissipeSurSoiEtAllies: true }
+                effets: { transformeHemorragieEnPoison: true, siImmunisePoisonHemorragiePersiste: true, dissipeSurSoiEtAllies: true }
             },
             {
                 nom: "Déchaînement Bestial",
@@ -2122,7 +2090,7 @@ berseker: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "force",
-                effet: { appliqueTerreurZone: true, degatsFixe: "6d4" }
+                effets: { appliqueTerreurZone: true, degatsFixe: "6d4" }
             },
             {
                 nom: "Sang Rancune",
@@ -2134,7 +2102,7 @@ berseker: {
                 Distance: 15,
                 Action: "aucune",
                 Touche: "force",
-                effet: { reactionApresDegatsSubis: true, degatsFixe: "1d8 + 2", retourALaPosition: true }
+                effets: { reactionApresDegatsSubis: true, degatsFixe: "1d8 + 2", retourALaPosition: true }
             },
             {
                 nom: "Aspect du Dieu du Sang",
@@ -2146,7 +2114,7 @@ berseker: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse/force",
-                effet: {
+                effets: {
                     cumuleBonusAspectBeteBuvard: true,
                     appliqueTerreurParAttaque: true,
                     reductionCoutSortsPsy: 2,
@@ -2163,7 +2131,7 @@ berseker: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: { appliqueHemorragieSiDegatsSubis: true, dureeTours: 2, bonusActionSiPlusDe3Hemorragies: true, dureeBonusAction: 2 }
+                effets: { appliqueHemorragieSiDegatsSubis: true, dureeTours: 2, bonusActionSiPlusDe3Hemorragies: true, dureeBonusAction: 2 }
             }
         ],
         sortMaitre: [
@@ -2177,7 +2145,7 @@ berseker: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force/sagesse",
-                effet: {
+                effets: {
                     immuniseAlterationsEtat: true,
                     immuniseKOouMort: true,
                     doubleBonusMecaniqueVoie: true,
@@ -2245,36 +2213,22 @@ paladin: {
                 description: "Le Paladin peut augmenter son taux de blocage à 100% pour 1 tour. Utilisable 1 fois par combat.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
-                    blocage100Pourcent: true,
-                    dureeTours: 1,
-                    utilisationsParCombat: 1
-                }
+                
             },
             {
                 nom: "Ferveur Secourable",
                 image: "",
-                description: "Ajoute +1 en Défense et +10 en Robustesse et en connaissance sacré.",
+                description: "Ajoute +1 en Défense et +10 en robustesse et en connaissance sacré.",
                 niveauJoueur: 2,
-                prerequis: ["Blocage Parfait"],
-                effet: {
-                    bonusDefense: 1,
-                    bonusRobustesse: 10,
-                    bonusConnaissanceSacree: 10
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { defense: 1 }, mineures: { robustesse: 10, sacre: 10 } },
+                
             },
             {
                 nom: "Habilité au Bouclier",
                 image: "",
-                description: "Si vous tenez une arme secondaire de type Bouclier, vous gagnez +5% de chances de toucher et +5% de taux de blocage. Ajoute aussi un avantage à vos jets de Robustesse si vous portez un bouclier.",
+                description: "Si vous tenez une arme secondaire de type Bouclier, vous gagnez +5% de chances de toucher et +5% de taux de blocage. Ajoute aussi un avantage à vos jets de robustesse si vous portez un bouclier.",
                 niveauJoueur: 3,
-                prerequis: ["Ferveur Secourable"],
-                effet: {
-                    conditionBouclier: true,
-                    bonusChanceToucher: 5,
-                    bonusTauxBlocage: 5,
-                    avantageRobustesseAvecBouclier: true
-                }
             },
             {
                 nom: "Fervent Protecteur",
@@ -2282,34 +2236,29 @@ paladin: {
                 description: "Ajoute +1 aux soins. Blocage Parfait peut s’utiliser 2 fois par combat.",
                 niveauJoueur: 4,
                 prerequis: ["Habilité au Bouclier"],
-                effet: {
-                    bonusSoins: 1,
-                    blocageParfaitUtilisations: 2
-                }
+               
             },
             {
                 nom: "Corps Saint",
                 image: "",
                 description: "Ajoute +1 en Constitution et en Défense. Donne l’immunité aux maladies et octroie un avantage pour éviter de se faire empoisonner.",
                 niveauJoueur: 5,
-                prerequis: ["Fervent Protecteur"],
-                effet: {
-                    bonusConstitution: 1,
-                    bonusDefense: 1,
-                    immuniteMaladies: true,
-                    avantageContrePoison: true
-                }
+               fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { constitution: 1, defense: 1 }}
             },
             {
                 nom: "Théologien",
                 image: "",
                 description: "Permet de parler la langue Ancienne. Ajoute un avantage lors des jets de connaissance sacré.",
                 niveauJoueur: 6,
-                prerequis: ["Corps Saint"],
-                effet: {
-                    parleLangueAncienne: true,
-                    avantageConnaissanceSacree: true
+                fonction: "bonusDirectPlusConditionnel",
+                effets: { 
+                    caracteristique: "sacree",
+                    bonusConditionnel: "Avantage",
+                    condition: "connaissance sacré",
+                    description: "Vos Connaissances Sacrée rayoinne au milieux des tavernes et des temples.",
                 }
+
             },
             {
                 nom: "Chevalier Saint",
@@ -2317,10 +2266,7 @@ paladin: {
                 description: "Immunité à ‘’Chaos’’. Ajoute 1 dé 6 dégâts fixe si vous frappez un monstre Mort-Vivant ou Extra-Planaire.",
                 niveauJoueur: 7,
                 prerequis: ["Théologien"],
-                effet: {
-                    immuniteChaos: true,
-                    bonusDegatsContreMortsVivantsExtraPlanaires: "1d6"
-                }
+                
             },
             {
                 nom: "Béni",
@@ -2328,21 +2274,15 @@ paladin: {
                 description: "Le Paladin gagne 1 dé 4 PB fixe à chaque début de tour.",
                 niveauJoueur: 8,
                 prerequis: ["Chevalier Saint"],
-                effet: {
-                    gainPBDebutTour: "1d4"
-                }
+               
             },
             {
                 nom: "Esprit Saint",
                 image: "",
                 description: "Ajoute +1 en Intelligence et en Charisme. Ajoute Immunité à ‘’Terreur’’.",
                 niveauJoueur: 9,
-                prerequis: ["Béni"],
-                effet: {
-                    bonusIntelligence: 1,
-                    bonusCharisme: 1,
-                    immuniteTerreur: true
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { intelligence: 1, charisme: 1 }},
             },
             {
                 nom: "Ultime Rempart",
@@ -2350,14 +2290,7 @@ paladin: {
                 description: "Si le Paladin est seul au combat avec au moins un des membres du groupe ayant était mis K.O ou Mort, il gagne +3 d’armure, +3 aux dégâts, +20% de CC, +10 PB et un avantage sur tous ses jets de sauvegarde.",
                 niveauJoueur: 10,
                 prerequis: ["Esprit Saint"],
-                effet: {
-                    conditionSeulAvecAlliesHorsCombat: true,
-                    bonusArmure: 3,
-                    bonusDegats: 3,
-                    bonusCC: 20,
-                    bonusPB: 10,
-                    avantageTousJetsSauvegarde: true
-                }
+                
             }
         ],
     },
@@ -2373,7 +2306,7 @@ paladin: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     bonusTauxBlocage: 20,
                     malusVitesseCran: 1,
                     bloqueAttaquesOpportunites: true,
@@ -2389,7 +2322,7 @@ paladin: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     repousse: 5,
                     degatsFixe: "1d6"
                 }
@@ -2403,7 +2336,7 @@ paladin: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     declencheCiblageSurSoi: true
                 }
             },
@@ -2416,7 +2349,7 @@ paladin: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     deplacementLigneAllie: true,
                     soinSiCCAllie: "1d6"
                 }
@@ -2430,7 +2363,7 @@ paladin: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "force",
-                effet: {
+                effets: {
                     bonusPB: 6,
                     immuniteEntrave: true,
                     malusDegats: 2,
@@ -2446,7 +2379,7 @@ paladin: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     soinFixe: "1d4",
                     uneFoisParTour: true
                 }
@@ -2460,7 +2393,7 @@ paladin: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     degatsFixe: "1d6 + 3",
                     doubleDegatsContreMortsVivantsExtraPlanaires: true
                 }
@@ -2474,7 +2407,7 @@ paladin: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "force",
-                effet: {
+                effets: {
                     divisionDegatsDistance: 0.5,
                     cibleSoiEtAlliesCC: true,
                     dureeTours: 1
@@ -2489,7 +2422,7 @@ paladin: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     elementChoisiAuDeblocage: true,
                     degatsArme: true,
                     degatsElementSerment: true
@@ -2504,7 +2437,7 @@ paladin: {
                 Distance: 0, // Cible alliée au CC
                 Action: "aucune",
                 Touche: "force",
-                effet: {
+                effets: {
                     partageArmurePB: true,
                     dureeTours: 1
                 }
@@ -2518,7 +2451,7 @@ paladin: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     bonusBlocage: 20,
                     bonusArmure: 2,
                     duree: "jusqu_revele_par_autre_aura"
@@ -2533,7 +2466,7 @@ paladin: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     degatsParSortPSYEnnemi: "1d4",
                     doubleDegatsContreMortsVivantsExtraPlanaires: true,
                     duree: "jusqu_revele_par_autre_aura"
@@ -2550,7 +2483,7 @@ paladin: {
                 Distance: 15,
                 Action: "aucune",
                 Touche: "force",
-                effet: {
+                effets: {
                     echangePlaceAvecAllie: true,
                     encaisseDegatsPlaceAllie: true,
                     infligeDegatsBloquesALAssaillant: true,
@@ -2566,7 +2499,7 @@ paladin: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     defendPlaceAllies: true,
                     subitDegatsALeurPlace: true,
                     dureeTours: 1
@@ -2581,7 +2514,7 @@ paladin: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     appliqueTerreur: true,
                     degatsFixe: "1d8 + 2",
                     bonusHorsCombat: {
@@ -2600,7 +2533,7 @@ paladin: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "force",
-                effet: {
+                effets: {
                     conditionAllieCC: true,
                     bonusArmureParAllieCC: 2,
                     bonusBlocageParAllieCC: 10,
@@ -2616,7 +2549,7 @@ paladin: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     soinZone: "1d6 + 2"
                 }
             },
@@ -2629,7 +2562,7 @@ paladin: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     conditionBouclierEnMain: true,
                     degatsFixe: "1d6 + 2",
                     repousse: 10,
@@ -2645,7 +2578,7 @@ paladin: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     avantageJetsSauvegarde: true,
                     bonusJetsSauvegarde: 20,
                     duree: "jusqu_revele_par_autre_aura"
@@ -2660,7 +2593,7 @@ paladin: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     degatsFixe: "1d8",
                     appliqueSilence: true,
                     doubleDegatsContreMortsVivantsExtraPlanaires: true
@@ -2675,7 +2608,7 @@ paladin: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     devientImmobile: true,
                     resistanceTousElements: true,
                     duree: "jusqu_revele_volonte"
@@ -2692,7 +2625,7 @@ paladin: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     defenseDevientZero: true,
                     bonusBlocageDevientBonusToucher: true,
                     armureDevientBonusDegats: true,
@@ -2708,7 +2641,7 @@ paladin: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     bonusArmure: 2,
                     bonusTauxBlocage: 20,
                     bonusPB: 8,
@@ -2724,7 +2657,7 @@ paladin: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     avantageJetsTouche: true,
                     bonusCC: 10,
                     duree: "jusqu_revele_par_autre_aura"
@@ -2739,7 +2672,7 @@ paladin: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "force",
-                effet: {
+                effets: {
                     choixElementResistance: true,
                     resistanceJusquFinCombatOuRevocation: true,
                     peutInclureNeutre: true
@@ -2754,10 +2687,10 @@ paladin: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     rendInvulnerableAllies: true,
                     dureeTours: 1,
-                    soinFinEffet: "1d6 + 2"
+                    soinFinEffets: "1d6 + 2"
                 }
             },
             {
@@ -2769,7 +2702,7 @@ paladin: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     degatsFixe: "3d6",
                     bonusDegatsContreMortsVivantsExtraPlanaires: "2d6",
                     supprimeTousBonusCible: true,
@@ -2785,7 +2718,7 @@ paladin: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     doubleEffetSerment: true,
                     dureeTours: 2
                 }
@@ -2799,7 +2732,7 @@ paladin: {
                 Distance: 0,
                 Action: "consomme_action_prochain_tour",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     reactionKOouMortAllie: true,
                     echangePlaceAvecAllie: true,
                     encaisseCoupFinalPlaceAllie: true,
@@ -2817,7 +2750,7 @@ paladin: {
                 Distance: 10, // Rayon pour alliés bénéficiaires des auras
                 Action: "aucune",
                 Touche: "force/charisme",
-                effet: {
+                effets: {
                     cumuleToutesAuras: true,
                     bonusAvantageJetsTouche: true,
                     bonusCC: 10,
@@ -2880,7 +2813,7 @@ moine: {
     },
     mecanique: [
         "En tant que Moine vous vous liez à une Arcane élémentaire au choix. Si vous choisissez une Arcane fusionnée vous choisissez une faiblesse et une résistance.",
-        "Le moine obtiendra des sorts liés à cet élément grâce à ses passifs ou actifs. Si vous avez choisi cette Arcane en plus de votre voie lors de la création du personnage vous y débloquez tout de même les sorts en plus du déblocage normal.",
+        "Le moine obtiendra des sorts liés à cet élément grâce à ses talentVoie ou actifs. Si vous avez choisi cette Arcane en plus de votre voie lors de la création du personnage vous y débloquez tout de même les sorts en plus du déblocage normal.",
         "Voie de l’Eau : Le lanceur se transforme en une créature (ou un hybride) d’affinité aquatique. Il obtient les faiblesses et les résistances de l'élément Eau, gagne +2 aux soins et ses attaques à mains nues deviennent : Paume Aquatique (Réussite automatique) : Recouvre les paumes de l’utilisateur d’eau pour frapper une cible pour 1 dé 4 dégâts Eau ou soigner un allié du même montant. 1 PSY",
         "Voie de la Foudre : Le lanceur se transforme en une créature (ou un hybride) d’affinité foudre. Il obtient les faiblesses et la résistance de l’élément Foudre. Il obtient un cran de Vitesse supplémentaire dans cette forme. Ses attaques à mains nues deviennent : Paume de Foudre (Réussite automatique) : Déchaîne la rage de l’éclair dans ses poings. Inflige 1 dé 8 dégâts Foudre. 1 PSY",
         "Voie de la Terre : Le lanceur se transforme en une créature (ou un hybride) d’affinité terre. Il obtient les faiblesses et la résistance de l’élément Terre, il obtient +2 d’Armure sous cette forme. Ses attaques à mains nues deviennent : Paume de Pierre (Réussite automatique) : Frappe un adversaire pour 1 dé 4 dégâts, vous gagnez 3 PB en utilisant cette attaque. 1 PSY",
@@ -2896,7 +2829,7 @@ moine: {
                 description: "Les Moines gagnent +1 aux dégâts et +5 % de chance de toucher avec les armes de type Contondant.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
+                effets: {
                     bonusDegats: 1,
                     bonusChanceToucher: 5,
                     conditionArmeType: "Contondant"
@@ -2908,21 +2841,15 @@ moine: {
                 description: "Vous obtenez 1 sort Novice dans l’élément d’affiliation du Moine. Vous en débloquez un autre au niveau 4 du Moine.",
                 niveauJoueur: 2,
                 prerequis: ["Expert en Frappe"],
-                effet: {
-                    gainSortNoviceAffiliation: 1,
-                    gainSortNoviceAffiliationNiveau4: true
-                }
+               
             },
             {
                 nom: "Entrainement Spirituel",
                 image: "",
                 description: "Ajoute +1 en Intelligence et en Sagesse.",
                 niveauJoueur: 3,
-                prerequis: ["Monastère Affilié"],
-                effet: {
-                    bonusIntelligence: 1,
-                    bonusSagesse: 1
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { intelligence: 1, sagesse: 1 }},
             },
             {
                 nom: "Affiliation Monacale",
@@ -2930,11 +2857,7 @@ moine: {
                 description: "Le Moine gagne +5% aux chances de toucher et +1 DSB avec toutes les compétences de l'Arcane choisie par l'affiliation du moine. Ce bonus double au niveau 8 du Moine.",
                 niveauJoueur: 4,
                 prerequis: ["Entrainement Spirituel"],
-                effet: {
-                    bonusChanceToucherArcane: 5,
-                    bonusDSBArcane: 1,
-                    doubleBonusNiveau8: true
-                }
+                
             },
             {
                 nom: "Temple Affiliée",
@@ -2942,21 +2865,15 @@ moine: {
                 description: "Vous obtenez 1 sort Confirmé dans l’élément de l’affiliation du moine. Vous en débloquez un autre au niveau 7 du Moine.",
                 niveauJoueur: 5,
                 prerequis: ["Affiliation Monacale"],
-                effet: {
-                    gainSortConfirmeAffiliation: 1,
-                    gainSortConfirmeAffiliationNiveau7: true
-                }
+                
             },
             {
                 nom: "Entrainement Physique",
                 image: "",
                 description: "Ajoute +1 en Constitution et en Force.",
                 niveauJoueur: 6,
-                prerequis: ["Temple Affiliée"],
-                effet: {
-                    bonusConstitution: 1,
-                    bonusForce: 1
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { constitution: 1, force: 1 }},
             },
             {
                 nom: "Affiliation d’arme",
@@ -2964,9 +2881,7 @@ moine: {
                 description: "Votre arme et vos attaques à mains nues peuvent frapper sur l’élément de la résistance offerte par votre affiliation plutôt que sur celui de base.",
                 niveauJoueur: 7,
                 prerequis: ["Entrainement Physique"],
-                effet: {
-                    attaquesFrappentElementResistanceAffiliation: true
-                }
+                
             },
             {
                 nom: "Harmonie Spirituelle",
@@ -2974,7 +2889,7 @@ moine: {
                 description: "La méditation ouvre la voie de l’élévation de l’esprit. Ajoute +1 en Sagesse. Octroie un avantage sur vos jets de Statistiques mineures liées à la Sagesse.",
                 niveauJoueur: 8,
                 prerequis: ["Affiliation d’arme"],
-                effet: {
+                effets: {
                     bonusSagesse: 1,
                     avantageJetsMineursSagesse: true
                 }
@@ -2984,12 +2899,8 @@ moine: {
                 image: "",
                 description: "Ajoute +1 en Intelligence. Si vous possédez moins de 30% de votre vie max, vous devenez résistant à tous les éléments (sauf Neutre).",
                 niveauJoueur: 9,
-                prerequis: ["Harmonie Spirituelle"],
-                effet: {
-                    bonusIntelligence: 1,
-                    resistanceTousElementsSiPVFaible: true,
-                    seuilPV: 0.30
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { intelligence: 1 }},
             },
             {
                 nom: "Cathédrale affiliée",
@@ -2997,7 +2908,7 @@ moine: {
                 description: "Vous obtenez 2 sorts Expert dans l’élément de l’affiliation du moine.",
                 niveauJoueur: 10,
                 prerequis: ["Djinn élémentaire"],
-                effet: {
+                effets: {
                     gainSortExpertAffiliation: 2
                 }
             }
@@ -3015,7 +2926,7 @@ moine: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     degatsFixe: "1d6",
                     pousse: 5
                 }
@@ -3029,7 +2940,7 @@ moine: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     degatsFixe: "1d6 + 2",
                     appliqueSonne: true
                 }
@@ -3043,7 +2954,7 @@ moine: {
                 Distance: 0,
                 Action: "aucune", // Réaction
                 Touche: "force",
-                effet: {
+                effets: {
                     bonusTauxBlocage: 20,
                     renvoieDegatsBloques: true,
                     condition: "avantReceptionDegats"
@@ -3058,7 +2969,7 @@ moine: {
                 Distance: 0, // Téléportation
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     teleportationIsolement: true,
                     bonusStatsMineuresHorsCombat: 10,
                     conditionHorsCombat: "seulPendantScene"
@@ -3073,7 +2984,7 @@ moine: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     bonusVitesseCran: 1,
                     ignoreAttaquesOpportunites: true,
                     coutMaintenanceParTour: 2,
@@ -3089,7 +3000,7 @@ moine: {
                 Distance: 0, // Cible alliée au CC
                 Action: "aucune",
                 Touche: "sagesse/force",
-                effet: {
+                effets: {
                     designeDisciple: true,
                     repercutionSoinsEtAugmentations: 0.5,
                     unSeulDisciple: true,
@@ -3105,7 +3016,7 @@ moine: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     prochaineAttaqueDegatsElementChoisi: true
                 }
             },
@@ -3118,7 +3029,7 @@ moine: {
                 Distance: 0, // Rayon à définir si nécessaire
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     soinAlliesZone: "1d6",
                     appliqueCeciteEnnemisZone: true
                 }
@@ -3132,7 +3043,7 @@ moine: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sauvegarde_force",
-                effet: {
+                effets: {
                     reussite: { recupPV: "1d6", bonusDegats: 2, bonusChanceToucher: 10, dureeTours: 2 },
                     echec: { bonusBlocage: 10, avantageJetsSauvegarde: true, dureeTours: 2 }
                 }
@@ -3146,7 +3057,7 @@ moine: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     conditionPasBonusTemporaires: true,
                     avantageLancerSortAugmentation: true,
                     sortGratuitEtSansAction: true
@@ -3161,7 +3072,7 @@ moine: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     degatsFixe: "1d6",
                     conditionFaiblesseElement: true,
                     degatsDoubleAuLieuDe150: true // Pour spécifier le comportement de dégâts sur faiblesse
@@ -3176,7 +3087,7 @@ moine: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     degatsFixe: "1d6 + 3",
                     appliqueSommeil: true
                 }
@@ -3192,7 +3103,7 @@ moine: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     gueritEtatsNocifs: true,
                     recupPVParEffetSupprime: 5
                 }
@@ -3206,7 +3117,7 @@ moine: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     soinAlliesZone: "1d6",
                     soinBonusSiCC: "1d8 + 2"
                 }
@@ -3220,7 +3131,7 @@ moine: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     soinFixe: "1d6 + 3"
                 }
             },
@@ -3233,7 +3144,7 @@ moine: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     armeContondanteRequise: true,
                     degatsArmeMultiplies: 2,
                     appliqueSonne: true
@@ -3248,7 +3159,7 @@ moine: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     degatsFixe: "1d8 + 1",
                     appliqueSonne: true,
                     pousseAleatoire: 5,
@@ -3264,7 +3175,7 @@ moine: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     retireAlterationsNegatives: true,
                     bonusHorsCombat: {
                         coutPSYReduit: 2,
@@ -3281,7 +3192,7 @@ moine: {
                 Distance: 0,
                 Action: "consommée_reaction",
                 Touche: "sauvegarde_pire_stat",
-                effet: {
+                effets: {
                     condition: "apresAttaqueMoiOuAllie",
                     echec: { perdActionEtDeplacement: true, dureeTours: 2 },
                     reussite: { appliqueCeciteIrresistible: true, dureeTours: 2 }
@@ -3296,7 +3207,7 @@ moine: {
                 Distance: 0,
                 Action: "aucune", // Réaction
                 Touche: "automatique",
-                effet: {
+                effets: {
                     condition: "apresApplicationAlterationEtat",
                     annuleAlteration: true,
                     soinEtPBParApplication: { pv: "1d4", pb: 2 }
@@ -3311,7 +3222,7 @@ moine: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     degatsFixe: "1d10",
                     doubleDegatsSurFaiblesse: true
                 }
@@ -3327,7 +3238,7 @@ moine: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     choixElement: true,
                     gagneFaiblessesResistancesElement: true,
                     attaquesFrappentElement: true,
@@ -3336,16 +3247,16 @@ moine: {
                 }
             },
             {
-                nom: "Robustesse de l’Ermite",
+                nom: "robustesse de l’Ermite",
                 image: "",
                 description: "Le lanceur gagne un avantage sur tous ses jets de sauvegarde, autant de points d’armure qu’il a de bonus aux dégâts et une résistance dans un élément de son choix. Cet effet est révoqué automatiquement si un allié se trouve à moins de 10 mètres du lanceur. Ce sort ne consomme pas d’action.",
                 Psy: 6,
                 Zone: 0,
                 Distance: 0,
                 Action: "aucune",
-                Touche: "force",
-                effet: {
-                    avantageJetsSauvegarde: true,
+                Touche: "force ",
+                effets: {
+                    avantageJesSauvegarde: true,
                     bonusArmureEgaleBonusDegats: true,
                     resistanceElementChoisi: true,
                     revequeSiAllieProche: 10
@@ -3360,7 +3271,7 @@ moine: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     resistanceAlliesChoisie: true,
                     faiblesseEnnemisChoisie: true,
                     dureeTours: 1
@@ -3375,7 +3286,7 @@ moine: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     degatsFixe: "3d6",
                     pousse: 25,
                     siToucheAutreEntite: { degatsMoitie: true, appliqueSonneAuxDeux: true }
@@ -3390,7 +3301,7 @@ moine: {
                 Distance: 20,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     armeContondanteRequise: true,
                     catapulteEnnemi: true,
                     degatsFixe: "2d8",
@@ -3406,7 +3317,7 @@ moine: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     devientToutSortArcaneAffiliee: true,
                     coutPSYSupplementaire: 2
                 }
@@ -3420,7 +3331,7 @@ moine: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     armeModifieeParDSB: true,
                     frappeElementChoisi: true,
                     recupPVMoitieDegats: true,
@@ -3438,7 +3349,7 @@ moine: {
                 Distance: 0, // Rayon à définir si nécessaire
                 Action: "canalisation",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     alliesNePeuventPasMourirOuKO: true,
                     garde1PV: true,
                     moineImmobileEtInactif: true,
@@ -3457,7 +3368,7 @@ moine: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "sagesse/force",
-                effet: {
+                effets: {
                     empecheKOouMortAllies: true,
                     avantageJetsToucheAllies: true,
                     annuleApplicationAlterationEtat: true,
@@ -3524,7 +3435,7 @@ roublard: {
                 description: "Le roublard est immunisé aux attaques d’opportunités adverses.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
+                effets: {
                     immuniseAttaquesOpportunitesAdverses: true
                 }
             },
@@ -3533,30 +3444,30 @@ roublard: {
                 image: "",
                 description: "Ajoute +1 en Chance. Bonus de hasard de +20 lors d’une situation délicate.",
                 niveauJoueur: 2,
-                prerequis: ["Prudence Combative"],
-                effet: {
-                    bonusChance: 1,
-                    bonusHasardDelicat: 20
+                fonction: "bonusDirectPlusConditionnel",
+                effets: { 
+                    bonus: { majeures : {chance: 1}},
+                    caracteristique: "Hasard",
+                    bonusConditionnel: 20,
+                    condition: "Situation Delicate",
+                    description: "Bonus de hasard de +20 lors d’une situation délicate.",
                 }
             },
             {
                 nom: "Loi de la Rue",
                 image: "",
-                description: "Ajoute +1 en Dextérité. Vous gagnez un avantage pour réussir vos jets de sauvegarde de dextérité.",
+                description: "Ajoute +1 en dexterite. Vous gagnez un avantage pour réussir vos jets de sauvegarde de dexterite.",
                 niveauJoueur: 3,
-                prerequis: ["Provocation de Chance"],
-                effet: {
-                    bonusDexterite: 1,
-                    avantageJetSauvegardeDexterite: true
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { dexterite: 1 }},
             },
             {
                 nom: "Manipulateur",
                 image: "",
-                description: "Le Roublard parle beaucoup et bien, il obtient toujours ce qu’il veut d’une manière ou d’une autre. Ajoute le bonus de Dextérité au Charisme pour un jet de Persuader/Tromper.",
+                description: "Le Roublard parle beaucoup et bien, il obtient toujours ce qu’il veut d’une manière ou d’une autre. Ajoute le bonus de dexterite au Charisme pour un jet de Persuader/Tromper.",
                 niveauJoueur: 4,
                 prerequis: ["Loi de la Rue"],
-                effet: {
+                effets: {
                     bonusDexteriteAuCharismePourPersuader: true
                 }
             },
@@ -3566,7 +3477,7 @@ roublard: {
                 description: "Les adversaires doivent faire leurs jets de sauvegarde avec un désavantage quand le roublard leur applique une altération d’état.",
                 niveauJoueur: 5,
                 prerequis: ["Manipulateur"],
-                effet: {
+                effets: {
                     desavantageJetsSauvegardeAlteration: true
                 }
             },
@@ -3575,33 +3486,24 @@ roublard: {
                 image: "",
                 description: "Ajoute +1 en Chance. Si vous faite 2 coup critiques consécutifs le prochain jet sera obligatoirement un coup critique.",
                 niveauJoueur: 6,
-                prerequis: ["Sadique"],
-                effet: {
-                    bonusChance: 1,
-                    critiqueObligatoireApresDeuxConsécutifs: true
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { chance: 1 }},
             },
             {
                 nom: "Menace Fantôme",
                 image: "",
-                description: "Ajoute + 1 en Dextérité. Le Roublard frappe toujours au pire moment pour l’ennemi. Ajoute + 2 dégâts aux attaques qui ciblent un ennemi qui a un allié au corps-à-corps.",
+                description: "Ajoute + 1 en dexterite. Le Roublard frappe toujours au pire moment pour l’ennemi. Ajoute + 2 dégâts aux attaques qui ciblent un ennemi qui a un allié au corps-à-corps.",
                 niveauJoueur: 7,
-                prerequis: ["Loi des séries"],
-                effet: {
-                    bonusDexterite: 1,
-                    bonusDegatsCibleAvecAllieCC: 2
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { dexterite: 1 }},
             },
             {
                 nom: "Charisme Malveillant",
                 image: "",
                 description: "Ajoute + 1 en Charisme. Si le Roublard trompe quelqu’un il gagne 1 Entourloupe supplémentaire.",
                 niveauJoueur: 8,
-                prerequis: ["Menace Fantôme"],
-                effet: {
-                    bonusCharisme: 1,
-                    genereEntourloupeSupplementaireSiTrompe: true
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { charisme: 1 }},
             },
             {
                 nom: "Exploitation des Faiblesses",
@@ -3609,7 +3511,7 @@ roublard: {
                 description: "Lorsque vous frappez un ennemi qui est sous l’effet d’une altération d’état négatif, vous infligez +2 dégâts.",
                 niveauJoueur: 9,
                 prerequis: ["Charisme Malveillant"],
-                effet: {
+                effets: {
                     bonusDegatsContreAlterationNegative: 2
                 }
             },
@@ -3619,7 +3521,7 @@ roublard: {
                 description: "Le Roublard peut utiliser des Entourloupes pour réduire de 1 le coût en PSY et augmenté son DSB de 1, par Entourloupe utilisée, lors du lancement d'un sort .",
                 niveauJoueur: 10,
                 prerequis: ["Exploitation des Faiblesses"],
-                effet: {
+                effets: {
                     reduitCoutPsyEtAugmenteDSBParEntourloupe: true
                 }
             }
@@ -3637,7 +3539,7 @@ roublard: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     genereEntourloupe: 1,
                     reduitBlocageArmureCibleZero: true,
                     duree: "une_attaque_meme_tour"
@@ -3652,7 +3554,7 @@ roublard: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     invocation: true,
                     pvBombe: 5,
                     degatsBonusParTour: 3,
@@ -3669,7 +3571,7 @@ roublard: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     reculLanceur: 5,
                     reculAdversaire: 5,
                     utilisationsParTour: 1
@@ -3684,7 +3586,7 @@ roublard: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     degatsFixe: "1d4",
                     perceArmure: true,
                     appliquePoison: 2
@@ -3700,7 +3602,7 @@ roublard: {
                 Distance: 0,
                 Action: "reaction", // Ne consomme pas d'action
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     degatsArmeAvantAttaque: true,
                     siDegatsPVDesavantageJetToucheCible: true
                 }
@@ -3714,7 +3616,7 @@ roublard: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     appliqueCharme: true,
                     charmeIrresistibleSiAlterationNegativeActive: true
                 }
@@ -3728,7 +3630,7 @@ roublard: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     genereEntourloupe: 2,
                     entreEtatKO: true,
                     dureeTours: 1,
@@ -3745,7 +3647,7 @@ roublard: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     genereEntourloupe: 1,
                     degatsArme: true,
                     appliqueEntrave: true
@@ -3760,7 +3662,7 @@ roublard: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     doubleTauxBlocage: true,
                     dureeTours: 1,
                     siBloqueAppliqueEntrave: true
@@ -3776,7 +3678,7 @@ roublard: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     degatsFixe: "1d4",
                     poisonIrresistibleVariable: true // X est le nombre d'Entourloupes
                 }
@@ -3790,7 +3692,7 @@ roublard: {
                 Distance: 25,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     genereEntourloupe: 1,
                     cibleAutomatiqueSurLanceur: true,
                     siReuseAppliqueFolieIrresistible: true,
@@ -3807,7 +3709,7 @@ roublard: {
                 Distance: 15, // Téléportation
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     teleportationIgnoreEffets: true,
                     attireLignes: 10,
                     degatsExplosion: "2d4",
@@ -3826,7 +3728,7 @@ roublard: {
                 Distance: 0, // Cible alliée au CC
                 Action: "aucune",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     conditionAllieFrappeCibleCC: true,
                     ajouteDSBAuxDegatsAllie: true,
                     siAcheveBonusDegatsFinCombat: 1,
@@ -3842,7 +3744,7 @@ roublard: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     genereEntourloupe: 1,
                     degatsArme: true,
                     appliqueCecite: true
@@ -3857,7 +3759,7 @@ roublard: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     deplacement: 15,
                     degatsFixeZonePendantDeplacement: "1d6",
                     rayonDegats: 10
@@ -3873,7 +3775,7 @@ roublard: {
                 Distance: 10,
                 Action: "aucune",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     cibleAllieOuSoi: true,
                     cibleAutomatiqueEnnemisVersCible: true,
                     dureeCiblageBase: 1,
@@ -3889,7 +3791,7 @@ roublard: {
                 Distance: 10,
                 Action: "aucune",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     genereEntourloupe: 2,
                     devientInvisibleSiPasEnnemiProche: true,
                     nonCiblable: true,
@@ -3906,7 +3808,7 @@ roublard: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     genereEntourloupe: 1,
                     degatsArme: true,
                     appliqueHemorragie: true
@@ -3922,7 +3824,7 @@ roublard: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     degatsFixe: "1d12",
                     bonusCCPremiereUtilisation: 50,
                     reductionBonusCCParUtilisation: 10
@@ -3937,7 +3839,7 @@ roublard: {
                 Distance: 0,
                 Action: "canalisation",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     nePeutAgir: true,
                     peutSeDeplacer: true,
                     genereEntourloupeParTourCanalisation: 1,
@@ -3954,7 +3856,7 @@ roublard: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "dexterite/charisme",
-                effet: {
+                effets: {
                     reinitialiseDureeAlterationsNonDegats: true,
                     doubleDegatsAlterationsInfligeantes: true,
                     nonCumulable: true
@@ -3971,7 +3873,7 @@ roublard: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     genereEntourloupe: 1,
                     degatsArme: true,
                     appliqueSonne: true
@@ -3986,7 +3888,7 @@ roublard: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     genereEntourloupe: 1,
                     degatsArme: true,
                     appliqueBrulure: true
@@ -4001,7 +3903,7 @@ roublard: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     genereEntourloupe: 3,
                     degatsFixe: "2d6 + 2",
                     perceArmure: true,
@@ -4017,7 +3919,7 @@ roublard: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     genereEntourloupe: 3,
                     appliqueSilence: true,
                     appliqueBrulure: true,
@@ -4038,7 +3940,7 @@ roublard: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite/charisme",
-                effet: {
+                effets: {
                     degatsFixeVariable: "Xd6"
                 }
             },
@@ -4051,7 +3953,7 @@ roublard: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     bonusTauxBlocage: 30,
                     dureeTours: 2,
                     alterationsNegativesImmuables: true
@@ -4067,7 +3969,7 @@ roublard: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     degatsFixe: "1d10",
                     degatsArme: true,
                     perceArmureTousDegats: true,
@@ -4085,7 +3987,7 @@ roublard: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     degatsFixe: "2d6",
                     doubleTauxCritiquePourAttaque: true,
                     siCritiqueBonusDegatsParAlteration: "1d6", // Remplace la multiplication habituelle des CC
@@ -4096,14 +3998,14 @@ roublard: {
             {
                 nom: "Prince des Magouilles",
                 image: "",
-                description: "Consomme 10 Entourloupes. Le lanceur devient l’élu(e) du Roi des Magouilles, l’autre nom du Dieu Mazul. Les deux prochaines attaques seront automatiquement des coups critiques, chaque attaque applique maintenant les altérations de manière irrésistible, si l’ennemi est immunisé à l’altération il prend 1 dé 6 dégâts fixe à la place. Le Roublard gagne également la possibilité d’annuler une attaque le visant directement par tour. La forme du Prince des Magouilles permet en outre de faire vos jets de charisme sur votre dextérité et inversement, hors combat elle octroie un avantage sur tous les jets pendant 1 scène. La forme dure 2 tours et peut être prolongé pour 5 Entourloupes par tour supplémentaire. Coût PSY: 5.",
+                description: "Consomme 10 Entourloupes. Le lanceur devient l’élu(e) du Roi des Magouilles, l’autre nom du Dieu Mazul. Les deux prochaines attaques seront automatiquement des coups critiques, chaque attaque applique maintenant les altérations de manière irrésistible, si l’ennemi est immunisé à l’altération il prend 1 dé 6 dégâts fixe à la place. Le Roublard gagne également la possibilité d’annuler une attaque le visant directement par tour. La forme du Prince des Magouilles permet en outre de faire vos jets de charisme sur votre dexterite et inversement, hors combat elle octroie un avantage sur tous les jets pendant 1 scène. La forme dure 2 tours et peut être prolongé pour 5 Entourloupes par tour supplémentaire. Coût PSY: 5.",
                 Psy: 5, // Coût PSY fixé à 5
                 consommeEntourloupe: 10,
                 Zone: 0,
                 Distance: 0,
                 Action: "consommée",
                 Touche: "charisme/dexterite",
-                effet: {
+                effets: {
                     deuxProchainesAttaquesCritiquesAuto: true,
                     alterationsIrresistibles: true,
                     degatsFixeSiImmuniseAlteration: "1d6",
@@ -4177,11 +4079,8 @@ samourai: {
                 image: "",
                 description: "Ajoute +1 en Charisme. Les jets de ciblage lancé sur un seul ennemi réussissent automatiquement.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {
-                    bonusCharisme: 1,
-                    jetCiblageMonoCibleAutoReussi: true
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { charisme: 1 }},
             },
             {
                 nom: "Fuite Honteuse",
@@ -4189,7 +4088,7 @@ samourai: {
                 description: "Si un ennemi engagé au corps-à-corps avec vous veut frapper un allié, vous pouvez lui faire subir une attaque d’opportunité comme si il essayait de s’enfuir.",
                 niveauJoueur: 2,
                 prerequis: ["Honorable"],
-                effet: {
+                effets: {
                     attaqueOpportuniteSiEnnemiFrappeAllieCC: true
                 }
             },
@@ -4199,7 +4098,7 @@ samourai: {
                 description: "Lors d’un jet de ciblage sur une seule cible vous ajoutez +2 dégâts et 10% de chances de CC à toute vos attaques tant que la cible est sous ciblage.",
                 niveauJoueur: 3,
                 prerequis: ["Fuite Honteuse"],
-                effet: {
+                effets: {
                     bonusDegatsCiblage: 2,
                     bonusCCCiblage: 10
                 }
@@ -4210,7 +4109,7 @@ samourai: {
                 description: "+5 % aux chances de toucher avec les armes de catégorie “Tranchant” +1 au dégât avec celle-ci.",
                 niveauJoueur: 4,
                 prerequis: ["Provocation en Duel"],
-                effet: {
+                effets: {
                     bonusChanceToucherTranchant: 5,
                     bonusDegatsTranchant: 1
                 }
@@ -4220,23 +4119,16 @@ samourai: {
                 image: "",
                 description: "Ajoute +2 en Défense. Octroie un avantage sur un jet hors combat pour éviter de subir une attaque de la part d’une autre entité.",
                 niveauJoueur: 5,
-                prerequis: ["Vivre par l’Epée"],
-                effet: {
-                    bonusDefense: 2,
-                    avantageJetHorsCombatEviterAttaque: true
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { defense: 2 }},
             },
             {
                 nom: "Préparation au Combat",
                 image: "",
-                description: "Ajoute +1 en Défense et en Dextérité. Le Samouraï est insensible aux jets de ciblages.",
+                description: "Ajoute +1 en Défense et en dexterite. Le Samouraï est insensible aux jets de ciblages.",
                 niveauJoueur: 6,
-                prerequis: ["Expert de la Parade"],
-                effet: {
-                    bonusDefense: 1,
-                    bonusDexterite: 1,
-                    immuniseJetsCiblage: true
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { defense: 1, dexterite: 1 }},
             },
             {
                 nom: "Les Temps de Guerre entraînent des Hommes Forts",
@@ -4244,7 +4136,7 @@ samourai: {
                 description: "Lorsque vous tombez sous les 50% de PV restant, vous gagnez +2 dégâts et +10% de chances de CC.",
                 niveauJoueur: 7,
                 prerequis: ["Préparation au Combat"],
-                effet: {
+                effets: {
                     conditionPVFaible: true,
                     bonusDegats: 2,
                     bonusCC: 10
@@ -4256,7 +4148,7 @@ samourai: {
                 description: "Si un ennemi n’a pas reçu d’attaque pendant 2 tours, vous vous téléportez immédiatement à ses côtés et lui infligez les dégâts d’une attaque à l’arme en main. Utilisable 1 fois par combat.",
                 niveauJoueur: 8,
                 prerequis: ["Les Temps de Guerre entraînent des Hommes Forts"],
-                effet: {
+                effets: {
                     teleportationAttaqueEnnemiInactif: true,
                     dureeInactiviteEnnemi: 2,
                     degatsArme: true,
@@ -4269,7 +4161,7 @@ samourai: {
                 description: "Lorsque vous tuez un ennemi, vous gagnez +2 dégâts pour le reste du combat.",
                 niveauJoueur: 9,
                 prerequis: ["Les Temps de Paix entraînent des Hommes Faibles"],
-                effet: {
+                effets: {
                     bonusDegatsApresMortEnnemi: 2,
                     duree: "resteCombat"
                 }
@@ -4280,7 +4172,7 @@ samourai: {
                 description: "Octroie une Immunité à toutes les altérations d’état liées au Charisme.",
                 niveauJoueur: 10,
                 prerequis: ["Achèvement Rituel"],
-                effet: {
+                effets: {
                     immuniteAlterationsCharisme: true
                 }
             }
@@ -4297,13 +4189,9 @@ samourai: {
                 Zone: 0,
                 Distance: 0,
                 Action: "consommée",
-                Touche: "dexterite",
+                Touche: "dexterite ",
                 conditionArmeType: "Tranchant",
-                effet: {
-                    degatsArme: true,
-                    bonusCC: 10,
-                    appliqueHemorragie: true
-                }
+                
             },
             {
                 nom: "Zone Dangereuse",
@@ -4314,7 +4202,7 @@ samourai: {
                 Distance: 10,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     degatsArmeEntreeZone: true,
                     dureeTours: 2,
                     uneFoisParCibleParTour: true
@@ -4329,7 +4217,7 @@ samourai: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     degatsFixe: "1d6 + 1",
                     perceArmure: true,
                     teleportationSymmetrique: true
@@ -4344,7 +4232,7 @@ samourai: {
                 Distance: 0,
                 Action: "consommée_et_deplacement",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     bonusDegatsSortsEtArmeTranchante: 2,
                     bonusCCSortsEtArmeTranchante: 15,
                     duree: "jusqu_revele"
@@ -4359,7 +4247,7 @@ samourai: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     degatsFixe: "1d6 + 2",
                     appliqueSonne: true
                 }
@@ -4373,7 +4261,7 @@ samourai: {
                 Distance: 0,
                 Action: "reaction",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     bonusTauxBlocage: 30,
                     renvoieDegatsBloques: true,
                     duree: "prochaineAttaqueSubie"
@@ -4388,7 +4276,7 @@ samourai: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     condition: "apresAttaqueCCRatee",
                     degatsFixe: "1d4",
                     nonBloquable: true
@@ -4403,7 +4291,7 @@ samourai: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     immuniseDesavantage: true,
                     bonusJetsSauvegardes: 20,
                     bonusChanceToucher: 10,
@@ -4422,7 +4310,7 @@ samourai: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "sauvegarde_charisme",
-                effet: {
+                effets: {
                     reussite: { avanceVersSamourai: 5, desavantageTousJets: true, dureeDesavantage: "prochainTour" },
                     echec: { avanceJusquCCC: true, subitCiblage: true },
                     utilisationsParCible: 1
@@ -4437,7 +4325,7 @@ samourai: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     degatsFixe: 6,
                     siTueBonusDegatsFinCombat: 1,
                     appliqueTerreurZone: true
@@ -4452,7 +4340,7 @@ samourai: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     degatsFixeEnnemisTerreur: "1d8",
                     retireTerreur: true,
                     desavantageTousJetsProchainTour: true
@@ -4467,7 +4355,7 @@ samourai: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse/dexterite",
-                effet: {
+                effets: {
                     bonusVitesseCran: 1,
                     actionSupplementaire: true,
                     dureeTours: 2,
@@ -4485,7 +4373,7 @@ samourai: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     appliqueTerreur: true,
                     degatsFixe: "1d8 + 2",
                     siTueAppliqueTerreurAllies: true
@@ -4500,7 +4388,7 @@ samourai: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     bonusBlocage: 20,
                     bonusPB: 4,
                     bonusArmure: 2,
@@ -4518,7 +4406,7 @@ samourai: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     bonusVitesseCran: 1,
                     immuniseAttaquesOpportunites: true,
                     immuniseEntraveEngelure: true,
@@ -4534,7 +4422,7 @@ samourai: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse/dexterite",
-                effet: {
+                effets: {
                     armeModifieeParDSB: true,
                     bonusCCSortsEtAttaques: 20,
                     dureeTours: 2,
@@ -4550,7 +4438,7 @@ samourai: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     conditionEnnemiCC: true,
                     bloqueAttaquesSortsDistance: true,
                     conditionDeblocage: "capaciteUtiliseeAvecSucces",
@@ -4566,7 +4454,7 @@ samourai: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     degatsFixe: "2d6",
                     perceArmure: true,
                     ignoreResistances: true,
@@ -4582,7 +4470,7 @@ samourai: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     conditionAucunBonusMecanique: true,
                     etatDeshonore: true,
                     alterationsSoignentAuLieuDeBlesser: true,
@@ -4601,7 +4489,7 @@ samourai: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     nbProjectiles: 6,
                     degatsProjectile: "1d4",
                     degatsReduitsSiMemeCible: true,
@@ -4618,7 +4506,7 @@ samourai: {
                 Action: "consommée",
                 Touche: "dexterite",
                 conditionArmeType: "Tranchant",
-                effet: {
+                effets: {
                     degatsArmeMultiplies: 2,
                     appliqueEntrave: true,
                     appliqueHemorragie: true
@@ -4635,7 +4523,7 @@ samourai: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     degatsFixe: "2d6 + 6",
                     bonusCCPremiereUtilisation: 25
                 }
@@ -4649,7 +4537,7 @@ samourai: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     doubleEffetMecaniqueVoie: true,
                     dureeTours: 2,
                     coutMaintenanceParTour: 2
@@ -4664,7 +4552,7 @@ samourai: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     appliqueEffetDeshonoreAEnnemi: true,
                     alterationsEtatInchangees: true,
                     dureeTours: 2,
@@ -4680,7 +4568,7 @@ samourai: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     invocation: true,
                     pvShogun: 15,
                     pbShogun: 6,
@@ -4701,7 +4589,7 @@ samourai: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     degatsInitiaux: 1,
                     degatsParActionEnnemi: "1d8",
                     degatsParDeplacementVolontaireEnnemi: "1d4",
@@ -4717,7 +4605,7 @@ samourai: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse/dexterite",
-                effet: {
+                effets: {
                     bonusJetsSauvegarde: 20,
                     bonusTauxBlocage: 20,
                     bonusArmure: 2,
@@ -4735,7 +4623,7 @@ samourai: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     degatsInitiaux: "1d12",
                     disparaitPendantUnTour: true,
                     invulnerable: true,
@@ -4754,7 +4642,7 @@ samourai: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     revientAPVApresKOouMort: 5,
                     bonusPVetPBsiDuelHonorable: { pv: 10, pb: 10 },
                     coutDoubleSiRelance: true
@@ -4771,7 +4659,7 @@ samourai: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse/dexterite",
-                effet: {
+                effets: {
                     degatsFixe: "2d8",
                     doubleDegatsSiDuelHonorable: true,
                     rejoueTourImmediatement: true,
@@ -4836,10 +4724,9 @@ cuisinier: {
                 image: "",
                 description: "Ajoute +1 en Force et +10 en Calme.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {
-                    bonusForce: 1,
-                    bonusCalme: 10
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures:{ Force: 1},
+                         mineures: { Calme: 10}
                 }
             },
             {
@@ -4848,7 +4735,7 @@ cuisinier: {
                 description: "À la fin du combat vous et tous vos alliés regagnent automatiquement 2 PV et 2 PSY. (+1 PV / PSY par niveau du cuisinier).",
                 niveauJoueur: 2,
                 prerequis: ["Habitué du Coup de Rush"],
-                effet: {
+                effets: {
                     regenerationFinCombatPV: 2,
                     regenerationFinCombatPSY: 2,
                     bonusParNiveau: { pv: 1, psy: 1 }
@@ -4857,13 +4744,11 @@ cuisinier: {
             {
                 nom: "Bedaine Rembourrée",
                 image: "",
-                description: "Ajoute +1 en Constitution et +10 en Robustesse.",
+                description: "Ajoute +1 en Constitution et +10 en robustesse.",
                 niveauJoueur: 3,
-                prerequis: ["Escalope Revigorante"],
-                effet: {
-                    bonusConstitution: 1,
-                    bonusRobustesse: 10
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures:{ Constitution: 1},
+                            mineures: { robustesse: 10 }}
             },
             {
                 nom: "Sacoche de Cuisine",
@@ -4871,7 +4756,7 @@ cuisinier: {
                 description: "Ajoute +5 places d’inventaire. Ajoute +1 aux soins prodigués.",
                 niveauJoueur: 4,
                 prerequis: ["Bedaine Rembourrée"],
-                effet: {
+                effets: {
                     bonusPlacesInventaire: 5,
                     bonusSoinsProdigues: 1
                 }
@@ -4881,23 +4766,21 @@ cuisinier: {
                 image: "",
                 description: "Le sort Parfum de Cuisson affecte maintenant tous les ennemis sur le terrain. Le ciblage ne dure cependant qu’1 tour. Si vous ne possédez pas ce sort vous ignorez cet effet et vous gagnez la possibilité d’utiliser ce sort à la place.",
                 niveauJoueur: 5,
-                prerequis: ["Sacoche de Cuisine"],
-                effet: {
-                    parfumCuissonAffecteTousEnnemis: true,
-                    dureeCiblageParfumCuisson: 1,
-                    obtientSortParfumCuisson: true
-                }
+                
             },
             {
                 nom: "Sucrerie",
                 image: "",
                 description: "Ajoute +1 en Charisme. Bonus de 15 en Marchandage et Persuader/tromper avec tous les personnages d’alignement Neutre ou Bon.",
                 niveauJoueur: 6,
-                prerequis: ["Parfum d’Exotisme"],
-                effet: {
-                    bonusCharisme: 1,
-                    bonusMarchandagePersuasionAlignement: 15
-                }
+                fonction: "bonusDirectPlusConditionnel",
+                parametres: {
+                    majeures: { Charisme: 1 },
+                    caracteristique: ["marchandage", "persuasion"],
+                    bonusConditionnel: 15,
+                    condition: "PnJ alignement Neutre Ou Bon",
+                    description: "Bonus de 15 en Marchandage et Persuader/tromper avec tous les personnages d’alignement Neutre ou Bon."
+                },
             },
             {
                 nom: "Estomac d'Acier",
@@ -4905,7 +4788,7 @@ cuisinier: {
                 description: "Immunité à “Poison“. “Restauration rapide” soigne maintenant “Poison“, “Brûlure“ et “Engelure“ sur la cible. Si vous ne possédez pas le sortilège, vous ignorez le dernier effet et vous obtenez le sortilège à la place.",
                 niveauJoueur: 7,
                 prerequis: ["Sucrerie"],
-                effet: {
+                effets: {
                     immunitePoison: true,
                     restaurationRapideSoigneAlterations: ["Poison", "Brulure", "Engelure"],
                     obtientSortRestaurationRapide: true
@@ -4916,24 +4799,21 @@ cuisinier: {
                 image: "",
                 description: "Ajoute +1 en Sagesse OU en Force et octroie un avantage lors de tous les jets concernant la cuisine. Immunité à ‘’Sommeil’’.",
                 niveauJoueur: 8,
-                prerequis: ["Estomac d'Acier"],
-                effet: {
-                    bonusSagesseOuForce: 1,
-                    avantageJetsCuisine: true,
-                    immuniteSommeil: true
-                }
+                fonction: "bonusDirectPlusConditionnel",
+                parametres: {
+                    majeures: { stat:["Sagesse", "Force"], valeur: 1 },
+                    caracteristique: "artisanat",
+                    bonusConditionnel: 10,
+                    condition: "Jet Concernant la Cuisine",
+                    description: "Vos connaissance culinaire n'ont d'égal que la taille de votre salière. Octroie un avantage lors de tous les jets concernant la cuisine."}
             },
             {
                 nom: "Au Fourneau",
                 image: "",
                 description: "Ajoute +1 en Constitution et octroie une résistance au Feu et une immunité à ‘‘Brûlure’’.",
                 niveauJoueur: 9,
-                prerequis: ["Haut Gastronome"],
-                effet: {
-                    bonusConstitution: 1,
-                    resistanceFeu: true,
-                    immuniteBrulure: true
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures:{ Constitution: 1},}
             },
             {
                 nom: "Spécialiste en Gastronomie Locale",
@@ -4941,10 +4821,7 @@ cuisinier: {
                 description: "Tous les sorts commençant par ‘’Spécialité’’ voient leurs soins et dégâts augmentés de 1 dé 4. Si vous n’en possédez aucun, vous ignorez cet effet et en choisissez deux pour les ajouter à vos sortilèges.",
                 niveauJoueur: 10,
                 prerequis: ["Au Fourneau"],
-                effet: {
-                    bonusSoinsDegatsSpecialite: "1d4",
-                    obtientDeuxSortsSpecialite: true
-                }
+               
             }
         ],
     },
@@ -4961,7 +4838,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "charisme",
                 typeSort: "Service",
-                effet: {
+                effets: {
                     ennemi: {
                         degatsFixe: "1d4",
                         appliqueBrulure: true
@@ -4982,7 +4859,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "charisme",
                 typeSort: "Service",
-                effet: {
+                effets: {
                     ennemi: {
                         appliqueSommeil: true,
                         degatsFixe: "1d4"
@@ -5002,7 +4879,7 @@ cuisinier: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     horsCombat: {
                         soinsPVPSY: "1d6",
                         uneFoisParJour: true
@@ -5023,7 +4900,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "charisme",
                 typeSort: "Service",
-                effet: {
+                effets: {
                     invocation: true,
                     pvInvocation: 8,
                     soigneAllieProcheParTour: "1d6",
@@ -5041,7 +4918,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "force",
                 typeSort: "Preparation",
-                effet: {
+                effets: {
                     degatsFixe: "1d6",
                     appliquePoison: true
                 }
@@ -5056,7 +4933,7 @@ cuisinier: {
                 Action: "aucune",
                 Touche: "dexterite",
                 typeSort: "Preparation",
-                effet: {
+                effets: {
                     bonusChanceToucher: 10,
                     dureeTours: 2,
                     cible: "soi_ou_allieCC"
@@ -5072,7 +4949,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "charisme",
                 typeSort: "Service",
-                effet: {
+                effets: {
                     ennemi: {
                         degatsFixe: "1d4",
                         appliqueTerreur: true
@@ -5093,7 +4970,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "force",
                 typeSort: "Preparation",
-                effet: {
+                effets: {
                     degatsFixe: "1d6 + 3",
                     secondeUtilisation: { appliqueEntrave: true },
                     troisiemeUtilisation: { appliqueSonne: true }
@@ -5109,7 +4986,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "dexterite",
                 typeSort: "Preparation",
-                effet: {
+                effets: {
                     degatsFixe: "1d6 + 1",
                     degatsType: "Feu",
                     appliqueBrulure: true,
@@ -5130,7 +5007,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "dexterite",
                 typeSort: "Preparation",
-                effet: {
+                effets: {
                     conditionApresServiceReussi: true,
                     genereChargePreparationSupplementaire: 1
                 }
@@ -5145,7 +5022,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "charisme",
                 typeSort: "Service_ou_Preparation",
-                effet: {
+                effets: {
                     enPreparation: {
                         avantageProchainService: true,
                         reductionCoutProchainService: 2
@@ -5166,7 +5043,7 @@ cuisinier: {
                 Action: "canalisation",
                 Touche: "force",
                 typeSort: "Preparation",
-                effet: {
+                effets: {
                     coutMaintenanceParTour: 1,
                     genereChargePreparationParTour: true,
                     degatsMultipliesParToursCanalises: "1d6",
@@ -5188,7 +5065,7 @@ cuisinier: {
                 Action: "aucune",
                 Touche: "dexterite",
                 typeSort: "Service_ou_Preparation",
-                effet: {
+                effets: {
                     soinsFixe: "1d6",
                     utilisableUneFoisParAllieEtParTour: true
                 }
@@ -5203,7 +5080,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "dexterite",
                 typeSort: "Preparation",
-                effet: {
+                effets: {
                     degatsFixe: "1d6",
                     degatsType: "Feu",
                     appliqueBrulure: true,
@@ -5220,7 +5097,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "charisme",
                 typeSort: "Service",
-                effet: {
+                effets: {
                     ennemi: {
                         degatsFixe: "1d6 + 1",
                         appliqueSonne: true
@@ -5241,7 +5118,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "charisme",
                 typeSort: "Service",
-                effet: {
+                effets: {
                     ennemi: {
                         degatsFixe: "1d8 + 1",
                         appliquePoison: true
@@ -5262,7 +5139,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "force",
                 typeSort: "Preparation",
-                effet: {
+                effets: {
                     appliqueCeciteEntites: true,
                     degatsEnnemis: "1d6 + 2"
                 }
@@ -5277,7 +5154,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "charisme",
                 typeSort: "Service",
-                effet: {
+                effets: {
                     ennemi: {
                         degatsFixe: "1d8",
                         appliqueSommeil: true
@@ -5298,7 +5175,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "charisme",
                 typeSort: "Preparation",
-                effet: {
+                effets: {
                     declencheCiblageSurSoiOuAlliePourCertainesCreatures: true
                 }
             },
@@ -5312,7 +5189,7 @@ cuisinier: {
                 Action: "aucune",
                 Touche: "force",
                 typeSort: "Preparation",
-                effet: {
+                effets: {
                     prochainServiceModifieAlterationChoisie: true
                 }
             },
@@ -5326,7 +5203,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "charisme",
                 typeSort: "Service",
-                effet: {
+                effets: {
                     nbBouchees: 3,
                     degatsOuSoins: "2d4",
                     deplacementObligatoireEnnemiVersBouchee: true,
@@ -5346,7 +5223,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "charisme",
                 typeSort: "Service",
-                effet: {
+                effets: {
                     attireAllie: true,
                     gueritAlterationChoisie: true,
                     soinsFixe: "1d8",
@@ -5364,7 +5241,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "charisme",
                 typeSort: "Service",
-                effet: {
+                effets: {
                     ennemi: {
                         degatsFixe: "1d10 + 2",
                         appliqueCecite: true
@@ -5385,7 +5262,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "dexterite",
                 typeSort: "Preparation",
-                effet: {
+                effets: {
                     degatsFixe: "2d6",
                     appliqueCecite: true,
                     prochainServiceAugmenteDSBAllie: 2,
@@ -5402,7 +5279,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "force",
                 typeSort: "Preparation",
-                effet: {
+                effets: {
                     degatsFixe: "2d8",
                     siEnnemiMeurt: {
                         soinsProchainServiceAugmentes: 50
@@ -5419,7 +5296,7 @@ cuisinier: {
                 Action: "aucune",
                 Touche: "dexterite",
                 typeSort: "Preparation",
-                effet: {
+                effets: {
                     prochainServiceAppliqueCharmeIrresistible: true,
                     finCharmeCiblageSurAllieChoisi: true
                 }
@@ -5434,7 +5311,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "charisme",
                 typeSort: "Service",
-                effet: {
+                effets: {
                     ennemi: {
                         degatsFixe: "1d8",
                         appliqueCharme: true
@@ -5455,7 +5332,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "charisme/force/dexterite",
                 typeSort: "Preparation",
-                effet: {
+                effets: {
                     nbInvocations: 3,
                     pvInvocation: 10,
                     degatsInvocation: "1d4",
@@ -5472,7 +5349,7 @@ cuisinier: {
                 Action: "consommée",
                 Touche: "charisme",
                 typeSort: "Service",
-                effet: {
+                effets: {
                     soinsAllies: "1d12",
                     retireDeuxAlterationsNegatives: true,
                     degatsEnnemis: "1d12",
@@ -5490,7 +5367,7 @@ cuisinier: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     transformationZoneNourriture: true,
                     ennemisPerdentPVParTour: "1d6",
                     ennemisMortsDeviennentGolemsNourriture: true,
@@ -5561,7 +5438,7 @@ alchimiste: {
             description: "Une fois ce sort possédé l’alchimiste peut enregistrer la recette d’une potion en sa possession en la détruisant. Une fois la recette acquise l’alchimiste peut lancer ce sort quand il est en milieu autre qu’urbain, cela lui permet de fabriquez une ou plusieurs potions qu’il a dans ses recettes connues, au bon vouloir du MJ. En milieu urbain et en présence de marchand ce sort peut être lancé pour obtenir le double de potion pour le même prix. Ce sort n’a aucune utilité en combat et échoue automatiquement s’il est lancé.",
             Psy: 2,
             Touche: "sagesse/dexterite",
-            effet: {
+            effets: {
                 enregistreRecetteEnDetruisantPotion: true,
                 fabricationHorsUrbainSelonMJ: true,
                 doublePotionEnUrbainAvecMarchand: true,
@@ -5578,114 +5455,86 @@ alchimiste: {
                 description: "Les potions n’infligeant pas de dégâts inflige 1 dé 4 dégâts fixes ou soigne désormais 1 dé 4 PV fixes par niveau de rareté.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
-                    potionsNonDegatsInfligentOuSoignent: "1d4 par niveau de rareté"
-                }
+                
             },
             {
                 nom: "Sacoche à Potion",
                 image: "",
-                description: "Octroie + 5 places d'inventaire. L’alchimiste peut lancer ses potions jusqu’à 20 mètres sur un jet de touche de dextérité réussi.",
+                description: "Octroie + 5 places d'inventaire. L’alchimiste peut lancer ses potions jusqu’à 20 mètres sur un jet de touche de dexterite réussi.",
                 niveauJoueur: 2,
                 prerequis: ["Mixture modifiée"],
-                effet: {
-                    bonusPlacesInventaire: 5,
-                    lancerPotionsDistance: 20,
-                    jetToucheDexterite: true
-                }
+                
             },
             {
                 nom: "Naturaliste",
                 image: "",
                 description: "Ajoute +1 en Intelligence. Permet de parler la langue Animal, le lancement du sort 'Cueillette' se fait avec avantage.",
                 niveauJoueur: 3,
-                prerequis: ["Sacoche à Potion"],
-                effet: {
-                    bonusIntelligence: 1,
-                    parleLangueAnimal: true,
-                    avantageCueillette: true
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { intelligence: 1 } },
+                    
+                
             },
             {
                 nom: "Laborantin",
                 image: "",
                 description: "Ajoute +1 en Sagesse. Vous gagnez un bonus de 20 lors de n’importe quel jet concernant des potions ou des breuvages.",
                 niveauJoueur: 4,
-                prerequis: ["Naturaliste"],
-                effet: {
-                    bonusSagesse: 1,
-                    bonusJetPotionsBreuvages: 20
-                }
+               fonction: "bonusDirectPlusConditionnel",
+                    bonus: { majeures: { sagesse: 1 }},
+                    caracteristique: "artisanat",
+                        bonusConditionnel: 20,
+                        condition: "jets concernant potions ou breuvages",
+                        description: "Vos connaissances en alchimie vous permettent de mieux manipuler les potions et breuvages, [Eau + Aclcool + Anis] !"
             },
             {
                 nom: "Connaissances Botaniques Avancées",
                 image: "",
                 description: "Ajoute +1 en Intelligence. Vous gagnez un bonus de 2 dégâts permanent contre les ennemis de type Plante. Vous gagnez un avantage sur tous vos jets de connaissances nature.",
                 niveauJoueur: 5,
-                prerequis: ["Laborantin"],
-                effet: {
-                    bonusIntelligence: 1,
-                    bonusDegatsContrePlante: 2,
-                    avantageJetsConnaissanceNature: true
-                }
+                fonction: "bonusDirectPlusConditionnel",
+                    bonus: { majeures: { intelligence: 1 }},
+                    caracteristique: "nature",
+                    bonusConditionnel: "avantage",
+                    condition: "jets de connaissances nature",
+                    description: "Vos connaissances en botanique vous permettent de mieux comprendre les plantes et leurs effets"
             },
             {
                 nom: "Testeur Volontaire",
                 image: "",
-                description: "Ajoute +1 en Constitution. Vous choisissez une altération d’état lors de l’obtention de ce passif, vous y êtes désormais immunisé (sauf K.O., Mort et Invulnérable). Vous gagnez +10 en Robustesse.",
+                description: "Ajoute +1 en Constitution. Vous choisissez une altération d’état lors de l’obtention de ce passif, vous y êtes désormais immunisé (sauf K.O., Mort et Invulnérable). Vous gagnez +10 en robustesse.",
                 niveauJoueur: 6,
-                prerequis: ["Connaissances Botaniques Avancées"],
-                effet: {
-                    bonusConstitution: 1,
-                    immuniteAlterationChoisie: true,
-                    bonusRobustesse: 10
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { constitution: 1 }, mineures: { robustesse: 10 }},
             },
             {
                 nom: "Décoction",
                 image: "",
                 description: "Vous pouvez détruire une potion dans votre inventaire pour la remplacer par une potion de votre choix de même valeur ou de valeur inférieure. Vous obtenez un avantage pour tous les jets concernant des potions ou des breuvages.",
                 niveauJoueur: 7,
-                prerequis: ["Testeur Volontaire"],
-                effet: {
-                    detruirePotionPourRemplacer: true,
-                    avantageJetsPotionsBreuvages: true
-                }
+                
             },
             {
                 nom: "Fabrique à Potion",
                 image: "",
                 description: "Vous pouvez simplement fabriquer une potion sans avoir besoin d’un marchand, pour ce faire vous sacrifier la moitié du prix habituel de la potion.",
                 niveauJoueur: 8,
-                prerequis: ["Décoction"],
-                effet: {
-                    fabriquePotionSansMarchand: true,
-                    coutFabricationDemiPrix: true
-                }
+                
             },
             {
                 nom: "Expert en breuvage",
                 image: "",
                 description: "Vous ne pouvez plus subir aucun effet négatif venant d’une potion ou d’un breuvage, y compris de l’alcool. Les potions et breuvage que vous fabriquez sont indétectables et votre DSB s’ajoute à leur dégâts ou soin.",
                 niveauJoueur: 9,
-                prerequis: ["Fabrique à Potion"],
-                effet: {
-                    immuniteEffetsNegatifsPotionsBreuvages: true,
-                    potionsIndetectables: true,
-                    dsbAjouteAuxDegatsSoinsPotions: true
-                }
+                
             },
             {
                 nom: "Maître Alchimiste",
                 image: "",
                 description: "Ajoute +1 en Intelligence, et +1 en Sagesse. À chaque fois que vous fabriquez une potion vous en créez une autre de même rareté de façon aléatoire.",
                 niveauJoueur: 10,
-                prerequis: ["Expert en breuvage"],
-                effet: {
-                    bonusIntelligence: 1,
-                    bonusSagesse: 1,
-                    creePotionAleatoireSupplementaireEnFabrication: true
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { intelligence: 1, sagesse: 1 }},
             }
         ],
     },
@@ -5701,7 +5550,7 @@ alchimiste: {
                 Distance: 15,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     degatsFixe: "1d4",
                     siEffetNegatifAppliquePoison: true,
                     utilisableUneFoisParEnnemiParTour: true
@@ -5716,7 +5565,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     degatsFixe: "1d4",
                     appliqueCecite: true,
                     invisibiliteLanceur: 1
@@ -5731,7 +5580,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     prochainePotionDegatsPerceArmure: "1d6"
                 }
             },
@@ -5744,7 +5593,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     doubleDureeEffetsNegatifsCible: true,
                     jetSauvegardeSagesse: true
                 }
@@ -5758,7 +5607,7 @@ alchimiste: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     repousseEnnemi: 10,
                     degatsFixe: "1d6"
                 }
@@ -5772,7 +5621,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     prochaineAlterationDureEternellement: true,
                     jetSauvegardeDebutTourPourRetirer: true,
                     uneSeuleAlterationAffecteeALaFois: true
@@ -5787,7 +5636,7 @@ alchimiste: {
                 Distance: 25,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     lanceDeuxPotionsIdentiques: true,
                     uneSeulePotionConsommee: true,
                     pasDAutresPotionsCeTour: true
@@ -5802,7 +5651,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     cibleNePeutRecevoirAmeliorationSoins: true,
                     empecheInvocation: true,
                     jetSauvegardeStatistiquePlusHauteDesavantage: true
@@ -5817,7 +5666,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     horsCombat: {
                         bonusDeuxMineures: 20,
                         malusDeuxAutresMineures: 20
@@ -5831,13 +5680,13 @@ alchimiste: {
             {
                 nom: "Flasque d’huile",
                 image: "",
-                description: "Le lanceur crée une zone en brisant une potion remplie de mixture huileuse au sol. Si une entité marche dans la zone elle doit faire un jet de sauvegarde de Dextérité si elle loupe elle glisse et subit 1 dé 6 dégâts et Sonné, si elle réussit elle voit tout de même sa vitesse réduite d’un cran.",
+                description: "Le lanceur crée une zone en brisant une potion remplie de mixture huileuse au sol. Si une entité marche dans la zone elle doit faire un jet de sauvegarde de dexterite si elle loupe elle glisse et subit 1 dé 6 dégâts et Sonné, si elle réussit elle voit tout de même sa vitesse réduite d’un cran.",
                 Psy: 3,
                 Zone: "zone",
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     creeZoneHuileuse: true,
                     jetSauvegardeDexterite: true,
                     siEchecDegatsEtSonne: "1d6",
@@ -5853,7 +5702,7 @@ alchimiste: {
                 Distance: 40,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     lancePotionTresLoin: true
                 }
             },
@@ -5866,11 +5715,11 @@ alchimiste: {
                 Distance: 15,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     conditionPVMoinsMoitie: true,
                     empecheMortAllie: 1,
                     garde1PV: true,
-                    regagnePVFinEffet: "1d4"
+                    regagnePVFinEffets: "1d4"
                 }
             }
         ],
@@ -5884,7 +5733,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     appliqueEffetPotionAuProchainCoupCC: true,
                     neConsommePasPotion: true,
                     degatsSubisReduitsDeMoitie: true
@@ -5899,7 +5748,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     lanceD12PourAlterationAleatoire: true,
                     degatsFixe: "1d6"
                 }
@@ -5913,7 +5762,7 @@ alchimiste: {
                 Distance: 20,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     degatsEffetsDoublesPourAlterationsDegatsSoins: true,
                     dureeAutresAlterationsDoubles: true,
                     effetNormalSiJetSauvegardeReussi: true
@@ -5928,7 +5777,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     purgesEtatNocif: true,
                     gagneDeuxPotionsRaresAvecCetEtat: true,
                     utilisableUneFoisParTour: true
@@ -5943,7 +5792,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     conditionLancePotionTourPrecedent: true,
                     reutilisePotionPrecedenteSansConsommer: true,
                     coutSupplementaireSiRelance: 1
@@ -5958,7 +5807,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     donnePotionAdversaireCC: true,
                     infligeEffetPotionChoisie: true,
                     appliqueCecite: true,
@@ -5975,7 +5824,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     horsCombat: {
                         faitOublierDerniereHeure: true
                     },
@@ -5995,7 +5844,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     conditionRienNeSePerdEtRienNeSeCree: true,
                     transformeCibleEnMouton: 1,
                     pvMouton: 6,
@@ -6012,7 +5861,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     conditionAuMoinsUneAlterationEtat: true,
                     purgesToutesAlterationsEtat: true,
                     degatsParAlterationSupprimee: "1d4",
@@ -6031,7 +5880,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     effetPotionDansZoneEnCroix: true,
                     siEnnemiAuCentreDegatsEtSonne: "1d8"
                 }
@@ -6045,7 +5894,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     appliqueDeuxAlterationsNegativesChoix: true,
                     doubleDureeEtDegatsAlterations: true,
                     degatsFixe: "1d8 + 2"
@@ -6060,7 +5909,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "canalisation",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     dureeCanalisationMin: 1,
                     effetsPotionDoublesParTourCanalise: true,
                     lancementAutomatiqueApresDeuxTours: true,
@@ -6078,7 +5927,7 @@ alchimiste: {
                 Distance: 20,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     transformeMatiereSolideNonVivante: true,
                     soumisApprobationMJ: true,
                     exemplesCombat: ["rendreInutilisableArme", "changerSolPourEntrave"]
@@ -6093,7 +5942,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     appliqueEffetPotionATousEnnemisOuAllies: true
                 }
             },
@@ -6106,7 +5955,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     augmenteRaretePotion: 1,
                     augmenteDeuxCransAvecCoutPsy: 2,
                     utilisableHorsCombatUneFoisParJour: true
@@ -6121,7 +5970,7 @@ alchimiste: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     potionAppliqueEffetsATroisCibles: true,
                     siPasNouvelleCibleFrappeAncienne: true,
                     echoueSiUneSeuleEntite: true
@@ -6136,7 +5985,7 @@ alchimiste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     dureeTours: 2,
                     remplacePotionBonusParAttaqueSupplementaire: true,
                     bonusVitesse: 1,
@@ -6158,11 +6007,11 @@ alchimiste: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse/dexterite",
-                effet: {
+                effets: {
                     utilisePotionsSansConsommer: true,
                     utiliseTousSortsAlchimisteNonAppris: true,
                     dureeJusquA6SortsOuPotionsUtilises: true,
-                    sortsGratuitsPendantEffet: true
+                    sortsGratuitsPendantEffets: true
                 }
             }
         ]
@@ -6215,23 +6064,23 @@ erudit: {
         "L’érudition déclenche certains effets spéciaux après avoir atteint certains paliers, elle revient à 0 à la fin d’un combat. Les paliers atteints donnent leur effet même si un palier plus élevé a été atteint.",
         {
             palier: 5,
-            effet: "Augmente les chances de toucher de tous les alliés de 5%"
+            effets: "Augmente les chances de toucher de tous les alliés de 5%"
         },
         {
             palier: 10,
-            effet: "Réduit le coût en PSY des sorts d’érudit de 1."
+            effets: "Réduit le coût en PSY des sorts d’érudit de 1."
         },
         {
             palier: 20,
-            effet: "Augmente les chances de toucher et le taux de critique de tous les alliés de 5%."
+            effets: "Augmente les chances de toucher et le taux de critique de tous les alliés de 5%."
         },
         {
             palier: 30,
-            effet: "Réduit le coût en PSY des sorts des alliés de 1."
+            effets: "Réduit le coût en PSY des sorts des alliés de 1."
         },
         {
             palier: 40,
-            effet: "Permet d’utiliser le sort 'Savoir Ancestral'."
+            effets: "Permet d’utiliser le sort 'Savoir Ancestral'."
         },
         {
             nom: "Savoir Ancestral",
@@ -6249,11 +6098,10 @@ erudit: {
                 description: "Ajoute +1 en Charisme. Permet de parler une deuxième langue. Au niveau 6 de l’Érudit vous apprenez une troisième langue supplémentaire.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
-                    bonusCharisme: 1,
-                    deuxiemeLangue: true,
-                    troisiemeLangueNiveau6: true
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: {
+                    majeures: { charisme: 1 },
+                },
             },
             {
                 nom: "Magicien Théoricien",
@@ -6261,7 +6109,7 @@ erudit: {
                 description: "Octroie un sort Novice de n’importe quelle Arcane aux niveaux 2, 4, 7 et 9.",
                 niveauJoueur: 2,
                 prerequis: ["Linguiste"],
-                effet: {
+                effets: {
                     sortNoviceArcaneNiveaux: [2, 4, 7, 9]
                 }
             },
@@ -6271,9 +6119,17 @@ erudit: {
                 description: "Ajoute +1 en Intelligence. Vous gagnez un bonus de 20 dans n'importe quelle 'connaissance' si le jet concerne un ouvrage quelconque.",
                 niveauJoueur: 3,
                 prerequis: ["Magicien Théoricien"],
-                effet: {
-                    bonusIntelligence: 1,
-                    bonusConnaissanceOuvrage: 20
+                fonction: "bonusDirectPlusConditionnel",
+                effets: {
+                    bonus: {
+                        majeures: { intelligence: 1 }
+                    },
+                    bonusConditionnel: {
+                        caracteristique: "monde, sacré, mystique, nature",
+                        bonus: 20,
+                        condition: "le jet concerne un ouvrage quelconque.",
+                        description: "Vous gagnez un bonus de 20 dans n'importe quelle 'connaissance'"
+                    }
                 }
             },
             {
@@ -6282,85 +6138,67 @@ erudit: {
                 description: "Ajoute +1 en Intelligence et en Sagesse. Vous ne pouvez plus subir de désavantage lors d’un jet de statistiques mineures basées sur l'intelligence.",
                 niveauJoueur: 4,
                 prerequis: ["Bibliothécaire"],
-                effet: {
-                    bonusIntelligence: 1,
-                    bonusSagesse: 1,
-                    pasDesavantageJetMineuresIntelligence: true
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: {
+                    majeures: { intelligence: 1, sagesse: 1 }
+                    },
+                    
             },
             {
                 nom: "Détecteur de Psyché",
                 image: "",
-                description: "Ajoute +1 en Sagesse. Bonus de 20 en perception magique lors d’une tentative de détection ou d’identification de sortilège.",
+                description: "Ajoute +1 en Sagesse. Bonus de 20 en perception magique lors d'une tentative de détection ou d'identification de sortilège.",
                 niveauJoueur: 5,
                 prerequis: ["Cerveau imperturbable"],
-                effet: {
-                    bonusSagesse: 1,
-                    bonusPerceptionMagique: 20
+                fonction: "bonusDirectPlusConditionnel",
+                effets: {
+                    bonus: {
+                        majeures: { sagesse: 1 }
+                    },
+                    bonusConditionnel: {
+                        caracteristique: "perceptionMagique",
+                        bonus: 20,
+                        condition: "Lors d'une tentative de détection ou d'identification de sortilège",
+                        description: "Bonus de 20% en perception magique pour détecter ou identifier des sortilèges"
+                    }
                 }
-            },
+            },  
             {
                 nom: "Bulle d’Étudiant",
                 image: "",
                 description: "Ajoute +1 en Sagesse. Permet de relancer un jet de touche Sagesse une fois par combat et donne 5% aux chances de CC des jets de sagesse.",
                 niveauJoueur: 6,
                 prerequis: ["Détecteur de Psyché"],
-                effet: {
-                    bonusSagesse: 1,
-                    relanceJetToucheSagesseParCombat: true,
-                    chanceCCSagesse: 5
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { Sagesse: 1 }
             },
             {
                 nom: "Grimoire Ancestral",
                 image: "",
                 description: "Ce sort modifie l’invocation de Grimoire Magique. Elle possède désormais 3 PV et 12 PSY et coûte 6 PSY à utiliser. Le grimoire peut lancer les sorts à leurs coûts originels. Si vous ne possédez pas le sort vous ignorez l’effet et débloquez le sort à la place.",
                 niveauJoueur: 7,
-                prerequis: ["Bulle d’Étudiant"],
-                effet: {
-                    modifieGrimoireMagique: true,
-                    grimmoirePV: 3,
-                    grimmoirePSY: 12,
-                    grimmoireCoutUtilisation: 6,
-                    grimmoireLanceSortsCoutsOriginels: true,
-                    siPasSortDebloque: true
-                }
+                
             },
             {
                 nom: "Connaissances Approfondies",
                 image: "",
                 description: "Modifie le sort Connaissances Utiles en doublant le nombre de PSY récupéré. Si vous ne possédez pas ce sort vous ignorez cet effet et débloquez le sort à la place.",
                 niveauJoueur: 8,
-                prerequis: ["Grimoire Ancestral"],
-                effet: {
-                    modifieConnaissancesUtiles: true,
-                    doublePsyRecupere: true,
-                    siPasSortDebloque: true
-                }
+                
             },
             {
                 nom: "Spécialiste en Espèce Rare",
                 image: "",
                 description: "Lors de l’obtention de ce sort, vous choisissez deux types parmi les suivants : Morts-Vivants, Extra-planaire, Humanoïde, Élémentaire, Bête, Homme-bête, Machine, Plante. Tous les ennemis de ce type subissent +2 dégâts de toutes les attaques de la part de tous les alliés tant que l’Érudit est sur le terrain.",
                 niveauJoueur: 9,
-                prerequis: ["Connaissances Approfondies"],
-                effet: {
-                    choixDeuxTypesEnnemis: true,
-                    bonusDegatsTousAlliesContreTypesChoisis: 2,
-                    tantQueEruditSurTerrain: true
-                }
+                
             },
             {
                 nom: "Puits de Connaissances",
                 image: "",
                 description: "En combat, vous récupérez 1 PSY à chaque fin de tour. Vous pouvez réussir automatiquement un jet de sagesse ou d’intelligence hors combat, une fois par scène.",
                 niveauJoueur: 10,
-                prerequis: ["Spécialiste en Espèce Rare"],
-                effet: {
-                    recuperePsyFinTourCombat: 1,
-                    reussiteAutomatiqueJetSagesseIntelligenceHorsCombat: true,
-                    uneFoisParSceneHorsCombat: true
-                }
+                
             }
         ],
     },
@@ -6376,7 +6214,7 @@ erudit: {
                 Distance: 25,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     identifieEnnemi: true,
                     degatsEnnemiAugmentes: "moitie_DSB_arrondi_inferieur",
                     dureeTours: 2,
@@ -6392,7 +6230,7 @@ erudit: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     infligeSommeilIrresistible: true,
                     siImmuniseSommeilAlorsEntrave: true
                 }
@@ -6405,9 +6243,9 @@ erudit: {
                 Zone: 0,
                 Distance: 15,
                 Action: "aucune",
-                Touche: "sagesse",
-                effet: {
-                    obtientInformationEnnemi: true,
+                Touche: "sagesse ",
+                effets: {
+                    obtientInforationEnnemi: true,
                     attaquantRecuperePSY: "1_pour_6_degats"
                 }
             },
@@ -6420,7 +6258,7 @@ erudit: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     boostDegatsAllie: 100,
                     pourUneAttaque: true
                 }
@@ -6434,7 +6272,7 @@ erudit: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     invocation: {
                         nom: "Grimoire Magique",
                         PV: 2,
@@ -6456,8 +6294,8 @@ erudit: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
-                    prochaineAttaqueCibleZeroDegatsEffet: true,
+                effets: {
+                    prochaineAttaqueCibleZeroDegatsEffets: true,
                     pasUtilisableDeuxToursDeSuite: true
                 }
             },
@@ -6470,7 +6308,7 @@ erudit: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     genere3ChargesEruditionSiInfoEnnemi: true,
                     attaqueContreCibleRendPSY: "1d4",
                     dureeTours: 1,
@@ -6486,7 +6324,7 @@ erudit: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     horsCombat: {
                         bonusD20JetStatistiquesMineures: true,
                         nonCumulable: true
@@ -6505,7 +6343,7 @@ erudit: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     bonusD4JetDegatsAllie: true,
                     dureeTours: 1,
                     nonCumulable: true
@@ -6519,9 +6357,9 @@ erudit: {
                 Zone: 0,
                 Distance: 0,
                 Action: "aucune",
-                Touche: "automatique",
-                effet: {
-                    bonusDegatsParTranche5Erudition: 1,
+                Touche: "automatique ",
+                effets: {
+                    bonusDegatsParTrnche5Erudition: 1,
                     siCibleTueEffetResteUneAttaque: true
                 }
             },
@@ -6534,7 +6372,7 @@ erudit: {
                 Distance: 0,
                 Action: "conditionnelle",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     conditionSubirAttaqueOuAttaqueOpportunite: true,
                     degatsFixe: "1d4",
                     appliqueSonne: true,
@@ -6550,7 +6388,7 @@ erudit: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     gagneChargesErudition: 5,
                     subitEntraveIrresistible: true,
                     nePeutPasAgirCeTour: true
@@ -6567,7 +6405,7 @@ erudit: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     obtientInformationEnnemi: true,
                     prochaineAttaqueIgnoreArmuresBoucliers: true,
                     nePeutEtreEsquiveOuBloque: true
@@ -6582,7 +6420,7 @@ erudit: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     tousEnnemisSubissentSommeilIrresistible: true,
                     prochaineAttaqueSurSommeilAugmentee: 50
                 }
@@ -6596,7 +6434,7 @@ erudit: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     appliqueSilenceATousEnnemisZone: true,
                     prochaineAttaqueNonBlocable: true
                 }
@@ -6610,7 +6448,7 @@ erudit: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     invocation: {
                         nom: "Bibliothèque ravageuse",
                         PV: 16,
@@ -6633,7 +6471,7 @@ erudit: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     alliés: {
                         bonusD6Degats: true,
                         ouBonusD20JetSauvegardeTouche: true
@@ -6650,7 +6488,7 @@ erudit: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     bonusD6JetDegatsAllies: true,
                     nombreAlliesMax: 2,
                     dureeTours: 1
@@ -6665,7 +6503,7 @@ erudit: {
                 Distance: 0,
                 Action: "conditionnelle",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     conditionCibleSortPsy: true,
                     annuleEffetsSort: true,
                     apprendSort: true,
@@ -6682,7 +6520,7 @@ erudit: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     horsCombat: {
                         avantageJetStatistiquesMineuresAllie: true,
                         dureeHeures: 1
@@ -6702,7 +6540,7 @@ erudit: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     choixStatistiqueMajeure: true,
                     bonusD10JetStatistiqueOuMineuresAssociees: true,
                     enCombatPermanentNonCumulable: true,
@@ -6720,7 +6558,7 @@ erudit: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     conditionToutesInformationsEnnemi: true,
                     ennemiFaibleTousElements: true,
                     blocageArmureBoucliersReduitsZero: true,
@@ -6736,7 +6574,7 @@ erudit: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     obtientFicheBestiaire: true,
                     prochaineAttaqueDegatsDoubles: true,
                     ignoreArmureBoucliers: true
@@ -6751,7 +6589,7 @@ erudit: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     devientDernierSortOuAttaqueCible: true,
                     gardeCoutActuel: true
                 }
@@ -6765,7 +6603,7 @@ erudit: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     jetSauvegardeSagesseDesavantage: true,
                     siEchecDegatsParChargeErudition: 1,
                     siReussiteDemiDegats: true
@@ -6780,7 +6618,7 @@ erudit: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     conditionInfosSurCible: true,
                     cibleSubitDegatsCommeFaiblesse: true,
                     bonusDegatsTousJets: "1d4",
@@ -6796,7 +6634,7 @@ erudit: {
                 Distance: 0,
                 Action: "preparation",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     prepareUnTour: true,
                     octroieActionSupplementaireAllies: true,
                     moitieDegatsGenerentChargesErudition: true
@@ -6811,7 +6649,7 @@ erudit: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     dureeTours: 2,
                     partageStatistiquesAlliesEtLanceur: true,
                     utiliseMeilleureStatistiquePourJets: true,
@@ -6827,7 +6665,7 @@ erudit: {
                 Distance: 0,
                 Action: "conditionnelle",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     conditionJetRate: true,
                     jetConsideredReussi: true,
                     echecCritiqueDevientCoupCritique: true
@@ -6844,14 +6682,14 @@ erudit: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     dureeTours: 2,
                     obtientInvulnerable: true,
                     regagnePSY: "2d20",
                     peutJouerDeuxActions: true,
                     reussiteAutomatiqueJetsSauvegarde: true,
                     prendFormeAuraDemon: true,
-                    banniAutrePlanFinEffet: 1,
+                    banniAutrePlanFinEffets: 1,
                     revientAvecZeroPSY: true
                 }
             }
@@ -6912,43 +6750,40 @@ baroudeur: {
                 image: "",
                 description: "Ajoute +5 places d'inventaire et ajoute +1 en Force.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {
-                    bonusInventaire: 5,
-                    bonusForce: 1
-                }
+                
             },
             {
                 nom: "Tout Terrain",
                 image: "",
-                description: "Ajoute +1 en Dextérité, octroie un bonus de +15 en acrobatie pour se faufiler ou escalader.",
+                description: "Ajoute +1 en dexterite, octroie un bonus de +15 en acrobatie pour se faufiler ou escalader.",
                 niveauJoueur: 2,
-                prerequis: ["Transporteur"],
-                effet: {
-                    bonusDexterite: 1,
-                    bonusAcrobatie: 15
-                }
+                fonction: "bonusDirectPlusConditionnel",
+                bonus: {
+                    majeures: { dexterite: 1 }},
+                    caracteristique: "acrobatie",
+                    bonusConditionnel: 15,
+                    condition: "pour se faufiler ou escalader",
+                    description: "Bonus de +15 en acrobatie pour se faufiler ou escalader"
             },
             {
                 nom: "Marcheur Véloce",
                 image: "",
                 description: "Immunité à ‘’Entrave’’. Si vous appliquez ‘’Entrave’’ à un ennemi, vous lui infligez l’équivalent de la moitié de votre bonus DSB en dégâts supplémentaires.",
                 niveauJoueur: 3,
-                prerequis: ["Tout Terrain"],
-                effet: {
-                    immuniteEntrave: true,
-                    degatsSupplementairesSiEntrave: "moitie_DSB"
-                }
+                
             },
             {
                 nom: "Connu Partout",
                 image: "",
                 description: "Ajoute +1 en Charisme. Bonus de 10 dans toutes les statistiques liées au charisme lors d’une discussion visant à obtenir des informations sur un lieu.",
                 niveauJoueur: 4,
-                prerequis: ["Marcheur Véloce"],
-                effet: {
-                    bonusCharisme: 1,
-                    bonusStatistiquesCharismeInfosLieu: 10
+                fonction: "bonusDirectPlusConditionnel",
+                bonus: {
+                    majeures: { charisme: 1 },
+                    caracteristique: "persuasion",
+                    bonusConditionnel: 10,
+                    condition: "lors d’une discussion visant à obtenir des informations sur un lieu",
+                    description: "Bonus de 10 dans toutes les statistiques liées au charisme lors d’une discussion visant à obtenir des informations sur un lieu"
                 }
             },
             {
@@ -6957,7 +6792,7 @@ baroudeur: {
                 description: "Immunité à ‘’Engelure’’. Lorsque vous faites un CC pour toucher avec votre arme, vous appliquez ‘’Engelure’’.",
                 niveauJoueur: 5,
                 prerequis: ["Connu Partout"],
-                effet: {
+                effets: {
                     immuniteEngelure: true,
                     appliqueEngelureSurCC: true
                 }
@@ -6967,20 +6802,16 @@ baroudeur: {
                 image: "",
                 description: "Ajoute +1 en Charisme. Permet de parler deux langues supplémentaires (sauf Ancien).",
                 niveauJoueur: 6,
-                prerequis: ["Vadrouilleur de Banquise"],
-                effet: {
-                    bonusCharisme: 1,
-                    deuxLanguesSupplementaires: true,
-                    saufAncien: true
-                }
+                faonction: "ajoutDirectCaracteristique",
+                effets: { charisme: 1 },
             },
             {
                 nom: "Infatigable",
                 image: "",
-                description: "Le personnage ne ressent pas la fatigue, il ne peut plus être victime de désavantage lors d’un jet de statistiques liées à la Dextérité, à la Défense ou à la Force. Il n'a besoin que de 4 heures de sommeil.",
+                description: "Le personnage ne ressent pas la fatigue, il ne peut plus être victime de désavantage lors d’un jet de statistiques liées à la dexterite, à la Défense ou à la Force. Il n'a besoin que de 4 heures de sommeil.",
                 niveauJoueur: 7,
                 prerequis: ["Polyglotte"],
-                effet: {
+                effets: {
                     immuniteFatigue: true,
                     pasDesavantageJetsDexDefenseForce: true,
                     sommeilReduit: 4
@@ -6992,7 +6823,7 @@ baroudeur: {
                 description: "Ajoute 10 places d’inventaire et +1 en Force.",
                 niveauJoueur: 8,
                 prerequis: ["Infatigable"],
-                effet: {
+                effets: {
                     bonusInventaire: 10,
                     bonusForce: 1
                 }
@@ -7000,28 +6831,16 @@ baroudeur: {
             {
                 nom: "Voyageur Chevronné",
                 image: "",
-                description: "À chaque fois que vous appliquez 'Entrave' l’ennemi doit réussir son jet de sauvegarde avec un désavantage. Ajoute +1 en Dextérité ou en Charisme ou en Force.",
+                description: "À chaque fois que vous appliquez 'Entrave' l’ennemi doit réussir son jet de sauvegarde avec un désavantage. Ajoute +1 en dexterite ou en Charisme ou en Force.",
                 niveauJoueur: 9,
-                prerequis: ["Barda Infini"],
-                effet: {
-                    desavantageJetSauvegardeEntrave: true,
-                    bonusDexOuChaOuFor: 1
-                }
+               
             },
             {
                 nom: "L’important n’est pas la Destination",
                 image: "",
                 description: "Accorde un bonus permanent de +10% de chances de toucher et +2 dégât au Baroudeur s’il a deux alliés ou plus à moins de 10 mètres, les alliés gagnent +2 d'armure et 10% de blocage si le baroudeur est à moins de 10 mètres.",
                 niveauJoueur: 10,
-                prerequis: ["Voyageur Chevronné"],
-                effet: {
-                    bonusToucherBaroudeur: 10,
-                    bonusDegatsBaroudeur: 2,
-                    conditionDeuxAlliesProximite: true,
-                    alliésGainArmure: 2,
-                    alliésGainBlocage: 10,
-                    conditionBaroudeurProximite: true
-                }
+                
             }
         ],
     },
@@ -7037,7 +6856,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     doubleDeplacement: true,
                     nonCumulable: true
                 }
@@ -7051,7 +6870,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     appliqueEntrave: true,
                     degatsFixe: "1d6"
                 }
@@ -7065,7 +6884,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     augmenteVitesse: true,
                     dureeTours: 2,
                     immuniseDeplacementLimites: true,
@@ -7081,7 +6900,7 @@ baroudeur: {
                 Distance: 20,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     utiliseConsommableADistance: true,
                     teleportationSurCible: true,
                     ignoreEntraveEngelureAttaquesOpportunites: true
@@ -7096,7 +6915,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     entiteSuitDeplacement: true,
                     subitAttaquesOpportunitesEtEffetsNegatifs: true,
                     uneFoisParSource: true
@@ -7111,7 +6930,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "conditionnelle",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     horsCombat: true,
                     recupereObjetSiJetHasardReussi: true,
                     neFonctionnePasEpiqueLegendaire: true,
@@ -7127,7 +6946,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     dureeTours: 1,
                     utiliseEffetPassifMalDesTransports: true,
                     siBougeEnnemi2CasesOuMoinsApplique1Poison: true,
@@ -7143,7 +6962,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     conditionCibleImmobileOuBloquee: true,
                     siAlliePurgeEffetsDeplacement: true,
                     siEnnemiDegatsFixe: "2d4"
@@ -7158,7 +6977,7 @@ baroudeur: {
                 Distance: 15,
                 Action: "conditionnelle",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     conditionTombeA0PV: true,
                     ignoreEffetAttaque: true,
                     devientInvisible: 1,
@@ -7174,7 +6993,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "force",
-                effet: {
+                effets: {
                     creeTraineeNoire: true,
                     degatsFixe: "1d4",
                     appliqueEntrave: true,
@@ -7190,7 +7009,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     horsCombat: {
                         avantageJetsConnaissanceLieux: true
                     },
@@ -7209,7 +7028,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     projeteCible: 15,
                     degatsFixe: "1d6"
                 }
@@ -7225,7 +7044,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     bonusBlocage: 20,
                     dureeTours: 2,
                     relanceBlocageRate: true
@@ -7240,7 +7059,7 @@ baroudeur: {
                 Distance: 40,
                 Action: "aucune",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     recuperePVArriveeCase: "1d6",
                     augmenteDegatsProchaineAttaque: "1d6",
                     doubleEffetSiAtteintCeTour: true
@@ -7255,7 +7074,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     teleportationVersAllie: true,
                     ignoreEffetsDeplacementLimitesAttaquesOpportunites: true,
                     pasAdjacentEnnemi: true,
@@ -7271,7 +7090,7 @@ baroudeur: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     chargeLigneDroite: true,
                     entitesDecalees: true,
                     appliqueEntrave: true,
@@ -7291,7 +7110,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     allieDeplacementEgalLanceur: true,
                     allieGainBlocage: 10,
                     surEnnemiAppliqueEntrave: true,
@@ -7307,7 +7126,7 @@ baroudeur: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     deplacementInverseEnnemi: true,
                     degatsParCaseParcourue: "1d4",
                     siPercuteEntiteSonne: true
@@ -7322,7 +7141,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "canalisation",
                 Touche: "force",
-                effet: {
+                effets: {
                     canalisationUnTour: true,
                     cibleCC: true,
                     cibleVitesseAugmentee: true,
@@ -7345,7 +7164,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     appliqueEntraveIrresistible: true,
                     perdVol: true,
                     siImmuniseEntraveDegatsFixe: "2d4",
@@ -7362,7 +7181,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     cibleLanceurUniquement: true,
                     gagnePVParCaseTraversee: 1,
                     dureeTours: 2
@@ -7379,7 +7198,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     appliqueEntraveATousEnnemisZone: true,
                     degatsFixe: "1d8 + 4"
                 }
@@ -7393,7 +7212,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     declencheCiblageEnnemisZone: true,
                     ennemisSuiventDeplacementBaroudeur: true,
                     dureeTours: 2,
@@ -7410,7 +7229,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     cibleCC: true,
                     entiteSuitDeplacement: true,
                     subitAttaquesOpportunitesEtEffetsNegatifs: true,
@@ -7427,7 +7246,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     retourPositionInitiale: true,
                     degatsParCaseParcourue: "1d4",
                     siAllieSoignePVParCaseParcourue: "1d4"
@@ -7442,7 +7261,7 @@ baroudeur: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     degatsX: true,
                     coutAugmenteParUtilisation: 3,
                     calculX: "places_inventaire_occupees/2_arrondi_superieur"
@@ -7457,7 +7276,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     bougeToutesCibles: 10,
                     siCibleAllies: {
                         guerisAlterationsNegatives: true,
@@ -7480,7 +7299,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     bonusArmure: 2,
                     bonusBlocage: 20,
                     resistanceTousElements: true,
@@ -7495,13 +7314,13 @@ baroudeur: {
                 Zone: 0,
                 Distance: 0,
                 Action: "consommée",
-                Touche: "charisme",
-                effet: {
-                    resteDormantJusquAKOOuMort: true,
+                Touche: "charisme ",
+                effets: {
+                    resteDormantJsquAKOOuMort: true,
                     recuperePVPSYCapacites: true,
                     devientMortVivant: true,
                     combatAuxCotesLanceur: 2,
-                    reprendEtatNormalFinEffet: true,
+                    reprendEtatNormalFinEffets: true,
                     amePartieDefinitivement: true,
                     empecheResurrection: true
                 }
@@ -7517,7 +7336,7 @@ baroudeur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite/force/charisme",
-                effet: {
+                effets: {
                     dureeTours: 2,
                     sortsActifs: ["Résilience de Baroudeur", "Promenade revigorante", "Maladie des transports", "Itinéraire noir"],
                     reductionCoutSortsBaroudeur: 2
@@ -7608,7 +7427,7 @@ forgeron: {
                 description: "Ajoute +1 en Constitution et +5 places d'inventaire.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
+                effets: {
                     bonusConstitution: 1,
                     bonusInventaire: 5
                 }
@@ -7618,114 +7437,82 @@ forgeron: {
                 image: "",
                 description: "Ajoute +10 en Artisanat, lors d’un jet pour réparer ou détruire quelque chose on ajoute +10 dans la statistique souhaitée.",
                 niveauJoueur: 2,
-                prerequis: ["Fort-geron"],
-                effet: {
-                    bonusArtisanat: 10,
-                    bonusReparerDetruire: 10
-                }
+                fonction: "bonusDirectPlusConditionnel",
+                bonus: { mineures :{ artisanat: 10 } },
+                caracteristique: "artisanat",
+                bonusConditionnel: 10,
+                condition: "reparer Ou Detruire Quelque Chose",
+                description: "Ajoute +10 en Artisanat, lors d’un jet pour réparer ou détruire quelque chose on ajoute +10 dans la statistique souhaitée.",
             },
             {
                 nom: "Amélioration d’arme",
                 image: "",
                 description: "Hors combat, le Forgeron peut ajuster une arme, principale ou secondaire, afin d’augmenter les dégâts qu’elle fait de +1, cet effet dure un combat et nécessite un long moment calme pour être appliqué. Au niveau 5 ce bonus est porté à +2 et au niveau 9 à +3, l’effet n’est pas cumulable sur une seule personne mais peut concerner autant de personnes en simultané que voulu.",
                 niveauJoueur: 3,
-                prerequis: ["Polyvalence artisanale"],
-                effet: {
-                    horsCombat: true,
-                    bonusDegatsArme: 1,
-                    dureeCombat: true,
-                    necessiteMomentCalme: true,
-                    bonusNiveau5: 2,
-                    bonusNiveau9: 3,
-                    nonCumulableUnePersonne: true,
-                    peutConcernerPlusieursPersonnes: true
-                }
+                
             },
             {
                 nom: "Arme Entretenue",
                 image: "",
                 description: "Ajoute +1 en Force et 1 en Défense.",
                 niveauJoueur: 4,
-                prerequis: ["Amélioration d’arme"],
-                effet: {
-                    bonusForce: 1,
-                    bonusDefense: 1
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { force: 1, defense: 1 } },
             },
             {
                 nom: "Fin Connaisseur",
                 image: "",
                 description: "Ajoute +1 en Défense. Lorsqu’un butin doit vous faire récupérer une arme principale ou secondaire, vous pouvez ajouter un trait positif d'une rareté inférieure à celle de l'objet en plus gratuitement.",
                 niveauJoueur: 5,
-                prerequis: ["Arme Entretenue"],
-                effet: {
-                    bonusDefense: 1,
-                    ajouteTraitPositifGratuitButin: true
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { defense: 1 } },
             },
             {
                 nom: "Expert en Armement",
                 image: "",
                 description: "Obtient un bonus de 30 en marchandage lors de la vente et de l'achat d'armes principales ou secondaires et d’armure. Si le marchand n’est pas lui-même un forgeron vous obtenez en plus en avantage.",
                 niveauJoueur: 6,
-                prerequis: ["Fin Connaisseur"],
-                effet: {
-                    bonusMarchandageArmesArmures: 30,
-                    avantageSiMarchandPasForgeron: true
-                }
+                fonction: "bonusDirectPlusConditionnel",
+                bonus: { mineures: { marchandage: 0 } },
+                caracteristique: "marchandage",
+                bonusConditionnel: 30,
+                condition: "vente Ou Achat Arme Principale Ou Secondaire Ou Armure",
+                description: "Obtient un bonus de 30 en marchandage lors de la vente et de l'achat d'armes principales ou secondaires et d’armure. Si le marchand n’est pas lui-même un forgeron vous obtenez en plus en avantage.",
             },
             {
                 nom: "Réarmement",
                 image: "",
                 description: "Vous pouvez sacrifier une arme (secondaire ou principale) de votre inventaire. Lancez 1 dé 6. Sur 2 ou moins, elle se transforme en une autre arme commune aléatoire. Sur 3 à 5, elle se transforme en une autre arme rare aléatoire, sur 6 elle se transforme en une autre arme épique. Les armes obtenues via cet effet ont toutes le trait 'Doré' en plus de leurs autres traits et ne peuvent pas être ciblées à nouveau par l’effet.",
                 niveauJoueur: 7,
-                prerequis: ["Expert en Armement"],
-                effet: {
-                    sacrificeArmeInventaire: true,
-                    transformationArme: true,
-                    resultatDe: {
-                        "1-2": "armeCommuneAleatoire",
-                        "3-5": "armeRareAleatoire",
-                        "6": "armeEpiqueAleatoire"
-                    },
-                    armesObtenuesTraitDore: true,
-                    nonCiblable: true
-                }
+                
             },
             {
                 nom: "Solide et Fiable",
                 image: "",
                 description: "Ajoute +1 en Force et en Constitution. Octroie un bonus de +30 lors d'un jet de connaissance lié à une arme ou une armure.",
                 niveauJoueur: 8,
-                prerequis: ["Réarmement"],
-                effet: {
-                    bonusForce: 1,
-                    bonusConstitution: 1,
-                    bonusConnaissanceArmeArmure: 30
-                }
+                fonction: "bonusDirectPlusConditionnel",
+                bonus: { majeures: { force: 1, constitution: 1 } },
+                caracteristique: ["monde", "mystique", "sacré"],
+                bonusConditionnel: 30,
+                condition: "connaissance Arme Ou Armure",
+                description: "Octroie un bonus de +30 lors d'un jet de connaissance lié à une arme ou une armure."
             },
             {
                 nom: "Chaleur de la Forge",
                 image: "",
-                description: "Octroie une Immunité à Brûlure et une résistance au Feu. Augmente la Robustesse de +10.",
+                description: "Octroie une Immunité à Brûlure et une résistance au Feu. Augmente la robustesse de +10.",
                 niveauJoueur: 9,
-                prerequis: ["Solide et Fiable"],
-                effet: {
-                    immuniteBrulure: true,
-                    resistanceFeu: true,
-                    bonusRobustesse: 10
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { mineures: { robustesse: 10 } },
+                
             },
             {
                 nom: "Maître Artisan",
                 image: "",
                 description: "Tous les jets concernant une armure ou une arme se font avec avantage. En combat, si un bonus lié à un sort de forgeron modifie l’arme en main, tous les jets de touche se feront avec un avantage.",
                 niveauJoueur: 10,
-                prerequis: ["Chaleur de la Forge"],
-                effet: {
-                    avantageJetsArmureArme: true,
-                    enCombatAvantageJetsToucheSiArmeModifieeParSortForgeron: true
-                }
+                
             }
         ],
     },
@@ -7741,7 +7528,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     attrapeEnnemiCC: true,
                     degatsFixe: "1d6 + 1",
                     appliqueEntrave: true
@@ -7756,7 +7543,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     degatsFeu: "1d6",
                     appliqueBrulure: true
                 }
@@ -7770,7 +7557,7 @@ forgeron: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "force",
-                effet: {
+                effets: {
                     bonusDegatsSupplementaires: "1d4",
                     dureeTours: 2,
                     nonCumulable: true
@@ -7784,9 +7571,9 @@ forgeron: {
                 Zone: 0,
                 Distance: 0,
                 Action: "aucune",
-                Touche: "automatique",
-                effet: {
-                    malusDegatsEnnemi: 1,
+                Touche: "automatique ",
+                effets: {
+                    malusDegatsEnnem: 1,
                     malusChancesToucherEnnemi: 10,
                     dureeJusquaRevocationOuReutilisation: true
                 }
@@ -7800,7 +7587,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     jetSauvegardeForce: true,
                     siReussiteDegatsFeu: "1d4",
                     siReussiteBrulure: true,
@@ -7817,7 +7604,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     degatsFeu: "1d6 + 3",
                     appliqueBrulure: true,
                     siDejaBrulureFaibleAuFeu: true
@@ -7832,7 +7619,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     invocation: {
                         nom: "Golem de Forge",
                         PV: 8,
@@ -7853,7 +7640,7 @@ forgeron: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "force",
-                effet: {
+                effets: {
                     conditionCibleBouclier: true,
                     bonusArmure: 1,
                     bonusTauxBlocage: 10,
@@ -7869,7 +7656,7 @@ forgeron: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "force",
-                effet: {
+                effets: {
                     transformationArmeAleatoireMemeRarete: true,
                     jetToucheArmeInitiale: true,
                     reprendFormeInitialeApres1Tour: true,
@@ -7886,7 +7673,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     genereRebutSupplementaire: true,
                     sacrifieDeplacement: true,
                     pasEffetSiDeplacementUtilise: true
@@ -7901,7 +7688,7 @@ forgeron: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "force",
-                effet: {
+                effets: {
                     bonusChancesToucher: 10,
                     bonusCoupCritique: 10,
                     dureeTours: 2
@@ -7916,7 +7703,7 @@ forgeron: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     cibleArmeTranchante: true,
                     infligeHemorragieSiTouche: true,
                     dureeFinCombat: true
@@ -7933,11 +7720,11 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     briseArmureBoucliers: true,
                     armurePBEgauxZero: true,
                     dureeTours: 1,
-                    infligeDegatsArmeApresEffet: true
+                    infligeDegatsArmeApresEffets: true
                 }
             },
             {
@@ -7949,7 +7736,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     degatsEau: "1d4",
                     subitEngelure: true,
                     siSousBrulureDisparaitTripleDegatsEtSonne: true
@@ -7964,7 +7751,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     reduitArmureZero: true,
                     dureeTours: 2,
                     degatsFeu: "2d6",
@@ -7981,7 +7768,7 @@ forgeron: {
                 Action: "aucune",
                 Touche: "force",
                 coutRebut: 1,
-                effet: {
+                effets: {
                     cibleArmeContondante: true,
                     ignoreArmurePB: true,
                     dureeResteCombat: true
@@ -7996,7 +7783,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     bonusArmure: 2,
                     bonusBlocage: 20,
                     dureeTours: 2,
@@ -8012,7 +7799,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     fragiliseArmeCible: true,
                     armeBriseraProchaineUtilisation: true,
                     inutilisableTours: 2,
@@ -8029,7 +7816,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     copieArme: true,
                     plusFragile: true,
                     briseApres2Utilisations: true,
@@ -8045,7 +7832,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     invocation: {
                         nom: "Haut Fourneau",
                         PV: 15,
@@ -8069,7 +7856,7 @@ forgeron: {
                 Touche: "force",
                 coutRebut: 1,
                 neCreePasRebut: true,
-                effet: {
+                effets: {
                     transformationArmeAleatoireRareteSuperieure: true,
                     saufLegendaire: true,
                     jetToucheArmeInitiale: true,
@@ -8089,7 +7876,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     octroiePBDoublePVPerdus: true,
                     allieNePeutMourirProchaineAttaque: true,
                     garde1PVMinimum: true
@@ -8104,7 +7891,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     transformationArmeLegendaireAleatoire: true,
                     jetToucheArmeInitiale: true,
                     reprendFormeInitialeApres1Tour: true,
@@ -8120,7 +7907,7 @@ forgeron: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "force",
-                effet: {
+                effets: {
                     alliésGainArmure: 2,
                     alliésGainDegats: 2,
                     ennemisPerdentArmure: 2,
@@ -8137,7 +7924,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     devientElementaireFlamme: true,
                     immuniteFeuBrulure: true,
                     faiblesseEau: true,
@@ -8157,7 +7944,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     invocationArmePuissante: true,
                     degatsFixe: "3d8",
                     elementChoisi: true,
@@ -8176,7 +7963,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     invocationArmurePuissante: true,
                     octroieInvulnerable: true,
                     gueritEffetsNegatifs: true,
@@ -8193,7 +7980,7 @@ forgeron: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     sacrifieTousRebuts: true,
                     degatsX: "x_rebuts_sacrifies_d6",
                     siCibleMeurtRecupereTiersRebuts: true
@@ -8208,7 +7995,7 @@ forgeron: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     cibleArmePerforante: true,
                     armeInfluencéeDSBUtilisateur: true,
                     dureeFinCombat: true
@@ -8225,7 +8012,7 @@ forgeron: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "force",
-                effet: {
+                effets: {
                     invocationMarteauOroun: true,
                     degatsFixe: "3d8",
                     alliésEtLanceurRefonteLegendaire: true,
@@ -8297,7 +8084,7 @@ barde: {
                 description: "Ajoute +1 en Charisme et +10 en Art et Musique.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
+                effets: {
                     bonusCharisme: 1,
                     bonusArtMusique: 10
                 }
@@ -8308,7 +8095,7 @@ barde: {
                 description: "Si le Barde est équipé d’une arme qui est un instrument. Il gagne +1 aux soins et aux dégâts.",
                 niveauJoueur: 2,
                 prerequis: ["Charismatique"],
-                effet: {
+                effets: {
                     conditionInstrumentEquipe: true,
                     bonusSoins: 1,
                     bonusDegats: 1
@@ -8320,7 +8107,7 @@ barde: {
                 description: "Double la valeur du charisme du barde lors d'un jet de ciblage sur lui-même.",
                 niveauJoueur: 3,
                 prerequis: ["Musicien Émérite"],
-                effet: {
+                effets: {
                     doubleCharismeJetCiblageSurSoi: true
                 }
             },
@@ -8330,7 +8117,7 @@ barde: {
                 description: "Ajoute +1 en Charisme. Ajoute un bonus de +10 dans les statistiques liées au charisme avec un personnage de la même race que le barde.",
                 niveauJoueur: 4,
                 prerequis: ["Tête d’Affiche"],
-                effet: {
+                effets: {
                     bonusCharisme: 1,
                     bonusStatsCharismeMemeRace: 10
                 }
@@ -8341,7 +8128,7 @@ barde: {
                 description: "Choisissez un allié au moment de l’acquisition de ce sort (cela peut être une invocation). Lorsque l’allié est à moins de 10 mètres du Barde, ce dernier gagne +1 aux soins et dégâts.",
                 niveauJoueur: 5,
                 prerequis: ["Célébrité"],
-                effet: {
+                effets: {
                     choixAllie: true,
                     conditionAllieProche: true,
                     bonusSoins: 1,
@@ -8354,7 +8141,7 @@ barde: {
                 description: "Ajoute +1 en Charisme. Le Barde immunise ses alliés et lui-même à 'Charme'.",
                 niveauJoueur: 6,
                 prerequis: ["Fan Numéro 1"],
-                effet: {
+                effets: {
                     bonusCharisme: 1,
                     immuniseAlliesEtSoiCharme: true
                 }
@@ -8365,7 +8152,7 @@ barde: {
                 description: "Permet de parler 2 langues supplémentaires (sauf Animal et Ancien). Ajoute +10 dans toutes les statistiques liées au charisme lors d'une discussion amicale.",
                 niveauJoueur: 7,
                 prerequis: ["Charmant"],
-                effet: {
+                effets: {
                     deuxLanguesSupplementaires: true,
                     saufAnimalAncien: true,
                     bonusStatsCharismeDiscussionAmicale: 10
@@ -8377,7 +8164,7 @@ barde: {
                 description: "Immunité à ‘’Terreur’’. Si un effet doit vous appliquer ‘’Terreur’’, vous augmentez vos dégâts et soins de +2 pour un tour.",
                 niveauJoueur: 8,
                 prerequis: ["Star Internationale"],
-                effet: {
+                effets: {
                     immuniteTerreur: true,
                     siAppliqueTerreurBonusDegatsSoins: 2,
                     dureeBonus: 1
@@ -8389,7 +8176,7 @@ barde: {
                 description: "Ajoute +2 en Charisme. Cela vous permet aussi de dépasser le palier de 30 en charisme de la répartition. Au-delà du trentième point obtenu en Charisme le Barde gagne +1 PSY et PV à chaque point obtenu.",
                 niveauJoueur: 9,
                 prerequis: ["Habitué des Scènes"],
-                effet: {
+                effets: {
                     bonusCharisme: 2,
                     depassePalierCharisme: true,
                     gainPSYPVParPointCharismeAuDela30: true
@@ -8401,7 +8188,7 @@ barde: {
                 description: "Octroie un avantage sur tous les jets basés sur les statistiques mineures liées au charisme. Si le barde loupe un jet de charisme pur il peut relancer le dé une fois par combat et garde le résultat obtenu.",
                 niveauJoueur: 10,
                 prerequis: ["Monstre Charismatique"],
-                effet: {
+                effets: {
                     avantageJetsMineuresCharisme: true,
                     relanceJetCharismeRateParCombat: true
                 }
@@ -8421,7 +8208,7 @@ barde: {
                 Action: "aucune",
                 Touche: "charisme",
                 categorie: "Répétition",
-                effet: {
+                effets: {
                     bonusDSBProchainSortBarde: 3,
                     tempsRechargeTours: 1
                 }
@@ -8436,7 +8223,7 @@ barde: {
                 Action: "consommée",
                 Touche: "charisme",
                 categorie: "Ouverture",
-                effet: {
+                effets: {
                     soinsFixe: "1d6"
                 }
             },
@@ -8450,7 +8237,7 @@ barde: {
                 Action: "aucune",
                 Touche: "charisme",
                 categorie: "Climax",
-                effet: {
+                effets: {
                     degatsInfligesAugmentes: 2,
                     dureeTours: 1,
                     coutMaintenanceParTour: 1,
@@ -8467,7 +8254,7 @@ barde: {
                 Action: "aucune",
                 Touche: "charisme",
                 categorie: "Répétition",
-                effet: {
+                effets: {
                     augmenteDegatsSubisEnnemis: 1,
                     ouAugmenteDegatsAllies: 1,
                     dureeTours: 2,
@@ -8484,7 +8271,7 @@ barde: {
                 Action: "consommée",
                 Touche: "automatique",
                 categorie: "Répétition_Ouverture_Climax",
-                effet: {
+                effets: {
                     soinsSoiOuAllieCC: "1d4"
                 }
             },
@@ -8498,7 +8285,7 @@ barde: {
                 Action: "aucune",
                 Touche: "charisme/sagesse",
                 categorie: "Climax",
-                effet: {
+                effets: {
                     prochainsDegatsAnnules: true,
                     coutDemiDegatsAnnules: true
                 }
@@ -8513,7 +8300,7 @@ barde: {
                 Action: "consommée",
                 Touche: "automatique",
                 categorie: "Final",
-                effet: {
+                effets: {
                     repeteDernierSort: true,
                     coutPsySupplementaire: 2,
                     sortConsidereFinal: true,
@@ -8530,7 +8317,7 @@ barde: {
                 Action: "consommée",
                 Touche: "charisme/dexterite",
                 categorie: "Répétition",
-                effet: {
+                effets: {
                     avanceLigneDroite: true,
                     entitesRepoussees: true,
                     siNePeutPasAlorsSonne: true,
@@ -8551,7 +8338,7 @@ barde: {
                 Action: "consommée",
                 Touche: "charisme",
                 categorie: "Climax",
-                effet: {
+                effets: {
                     immuniteAlterationsEtat: true,
                     dureeTours: 1,
                     alterationSubieParLanceurAuLieuDeCible: true
@@ -8567,7 +8354,7 @@ barde: {
                 Action: "aucune",
                 Touche: "charisme",
                 categorie: "Final",
-                effet: {
+                effets: {
                     entreEtatMort: 1,
                     immuniteDegatsMalusEffets: true,
                     purgeEffets: true,
@@ -8586,7 +8373,7 @@ barde: {
                 Action: "consommée",
                 Touche: "charisme",
                 categorie: "Ouverture",
-                effet: {
+                effets: {
                     degatsFixe: "1d6",
                     appliquePoisonCreaturesVivantes: true,
                     doubleDegatsMortsVivantsEnnemis: true,
@@ -8603,7 +8390,7 @@ barde: {
                 Action: "aucune",
                 Touche: "automatique",
                 categorie: "Répétition",
-                effet: {
+                effets: {
                     ennemisNeVoientQueLanceur: true,
                     siFrappeAutreAppliqueCecite: true,
                     siFrappeLanceurAttaqueOpportunite: true
@@ -8621,7 +8408,7 @@ barde: {
                 Action: "consommée",
                 Touche: "charisme",
                 categorie: "Ouverture",
-                effet: {
+                effets: {
                     invocationMurSon: true,
                     largeurMur: 15,
                     diviseDegatsProjectiles: 0.5,
@@ -8639,7 +8426,7 @@ barde: {
                 Action: "consommée",
                 Touche: "charisme",
                 categorie: "Final",
-                effet: {
+                effets: {
                     appliqueTerreur: true,
                     appliqueEngelure: true,
                     degatsFixe: "1d4",
@@ -8656,7 +8443,7 @@ barde: {
                 Action: "aucune",
                 Touche: "charisme",
                 categorie: "Répétition",
-                effet: {
+                effets: {
                     reduitDegatsSubisAllies: 1,
                     augmenteSoinsSortsLanceur: 1,
                     dureeTours: 2,
@@ -8673,7 +8460,7 @@ barde: {
                 Action: "aucune",
                 Touche: "charisme",
                 categorie: "Ouverture",
-                effet: {
+                effets: {
                     bonusDegats: 2,
                     bonusArmure: 2,
                     dureeTours: 2,
@@ -8691,7 +8478,7 @@ barde: {
                 Action: "consommée",
                 Touche: "force/charisme",
                 categorie: "Climax",
-                effet: {
+                effets: {
                     degatsFixe: "2d6",
                     appliqueSonne: true
                 }
@@ -8706,7 +8493,7 @@ barde: {
                 Action: "consommée",
                 Touche: "charisme",
                 categorie: "Ouverture",
-                effet: {
+                effets: {
                     desavantageJetEnnemiProche: true,
                     dureeTours: 2,
                     siEchecAppliqueTerreur: true
@@ -8722,7 +8509,7 @@ barde: {
                 Action: "consommée",
                 Touche: "charisme",
                 categorie: "Final",
-                effet: {
+                effets: {
                     degatsFixe: "2d8",
                     appliqueBrulureCibleEtBarde: true,
                     siBrulureReussieSurBardeEnnemisSubissentTerreur: true
@@ -8738,7 +8525,7 @@ barde: {
                 Action: "consommée",
                 Touche: "charisme",
                 categorie: "Ouverture",
-                effet: {
+                effets: {
                     appliqueSonne: true,
                     siResisteAppliqueFolieIrresistible: true,
                     desavantageTousJetsDebutTourNormal: true
@@ -8754,7 +8541,7 @@ barde: {
                 Action: "aucune",
                 Touche: "automatique",
                 categorie: "Répétition",
-                effet: {
+                effets: {
                     alliePeutDiviserCoutPsyCompetence: true,
                     conditionJetArtMusiqueReussi: true,
                     dureeJusquaJetArtMusiqueRate: true
@@ -8772,7 +8559,7 @@ barde: {
                 Action: "consommée",
                 Touche: "charisme",
                 categorie: "Climax",
-                effet: {
+                effets: {
                     bonusPB: 6,
                     bonusArmure: 1,
                     bonusChancesBloquer: 20,
@@ -8789,7 +8576,7 @@ barde: {
                 Action: "consommée",
                 Touche: "charisme",
                 categorie: "Ouverture",
-                effet: {
+                effets: {
                     appliqueSonneIrresistible: true,
                     dureeSonne: 1,
                     degatsFixesIrresistibles: 8,
@@ -8807,7 +8594,7 @@ barde: {
                 Action: "consommée",
                 Touche: "automatique",
                 categorie: "Répétition_Ouverture_Climax_Final",
-                effet: {
+                effets: {
                     degatsOuSoinsMultipliesParSortsCategories: "1d8",
                     reinitialiseCompteursUtilisation: true
                 }
@@ -8822,7 +8609,7 @@ barde: {
                 Action: "consommée",
                 Touche: "charisme",
                 categorie: "Ouverture",
-                effet: {
+                effets: {
                     cibleAutomatiqueSurBarde: true,
                     appliqueSilence: true,
                     degatsFixe: "2d6"
@@ -8838,7 +8625,7 @@ barde: {
                 Action: "aucune",
                 Touche: "charisme",
                 categorie: "Répétition",
-                effet: {
+                effets: {
                     cumuleVoixSopranoBaryton: true,
                     sortsBardesAlliesRetirentAlterationsCharismeSagesse: true,
                     sortsBardesEnnemisAppliquentSilence: true,
@@ -8856,7 +8643,7 @@ barde: {
                 Action: "consommée",
                 Touche: "charisme",
                 categorie: "Climax",
-                effet: {
+                effets: {
                     immuniteKOEtMort: true,
                     dureeTours: 1,
                     annuleDegatsNegatifsGarde1PV: true,
@@ -8874,7 +8661,7 @@ barde: {
                 Action: "consommée",
                 Touche: "charisme",
                 categorie: "Final",
-                effet: {
+                effets: {
                     appliqueEntraveEnnemisZone: true,
                     dureeTours: 2,
                     degatsFixe: "2d6"
@@ -8890,7 +8677,7 @@ barde: {
                 Action: "consommée",
                 Touche: "charisme",
                 categorie: "Final",
-                effet: {
+                effets: {
                     appliqueSonne: true,
                     puisCecite: true,
                     puisSilence: true,
@@ -8909,7 +8696,7 @@ barde: {
                 Action: "aucune",
                 Touche: "charisme",
                 categorie: "Final",
-                effet: {
+                effets: {
                     allieChoisi: true,
                     doubleBonusBardeAllie: true,
                     attaquesArmeAppliquentCharme: true,
@@ -8965,7 +8752,7 @@ voleur: {
         intuition: 10
     },
     mecanique: [
-        "Le voleur peut utiliser ses sorts pour voler des objets à des cibles même en combat, quand un sort stipule qu’il y a un vol d’objet, l’adversaire doit faire un jet de sauvegarde sur sa dextérité, s’il le réussit le vol n’a pas lieu.",
+        "Le voleur peut utiliser ses sorts pour voler des objets à des cibles même en combat, quand un sort stipule qu’il y a un vol d’objet, l’adversaire doit faire un jet de sauvegarde sur sa dexterite, s’il le réussit le vol n’a pas lieu.",
         "Le voleur peut aussi utiliser le sort suivant :",
         "Main du Voleur (Réussite automatique) : 'Invocation' Invoque une main qui possède 4 PV. Elle ne peut être utilisée que pour interagir avec des objets peu lourds et voler des petits objets. La main du voleur est Invisible en permanence et ses jets pour s’emparer d’un objet se font sur la statistique d’Adresse du Voleur. En combat elle peut aussi voler des objets et a une vitesse Rapide.",
         "2 PSY"
@@ -8979,7 +8766,7 @@ voleur: {
                 description: "Si vous utilisez une arme volée lors du combat ou de la scène en cours (de n’importe quelle manière), vous ajoutez votre DSB aux dégâts de l’arme. Cette amélioration ne se cumule pas si vous ajoutez déjà votre DSB à une compétence.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
+                effets: {
                     ajouteDSBAuxDegatsArmeVolee: true,
                     nonCumulableSiDSBDejaAjoute: true
                 }
@@ -8987,10 +8774,10 @@ voleur: {
             {
                 nom: "Discrétion",
                 image: "",
-                description: "Ajoute +1 en Dextérité et +10 en Discrétion. La Dextérité du Voleur est ajoutée deux fois à sa discrétion s’il est dans l’ombre ou la nuit.",
+                description: "Ajoute +1 en dexterite et +10 en Discrétion. La dexterite du Voleur est ajoutée deux fois à sa discrétion s’il est dans l’ombre ou la nuit.",
                 niveauJoueur: 2,
                 prerequis: ["Attachement Matériel"],
-                effet: {
+                effets: {
                     bonusDexterite: 1,
                     bonusDiscretion: 10,
                     dexteriteDoubleeDiscretionOmbreNuit: true
@@ -8999,10 +8786,10 @@ voleur: {
             {
                 nom: "Crochetage",
                 image: "",
-                description: "Ajoute +1 en Dextérité. Ajoute +20 à tous les jets pour ouvrir des portes, des coffres, des serrures ou qui concerne des mécanismes.",
+                description: "Ajoute +1 en dexterite. Ajoute +20 à tous les jets pour ouvrir des portes, des coffres, des serrures ou qui concerne des mécanismes.",
                 niveauJoueur: 3,
                 prerequis: ["Discrétion"],
-                effet: {
+                effets: {
                     bonusDexterite: 1,
                     bonusCrochetageMecanismes: 20
                 }
@@ -9010,10 +8797,10 @@ voleur: {
             {
                 nom: "Faire les Poches",
                 image: "",
-                description: "Ajoute +1 en Dextérité et +15 en Adresse.",
+                description: "Ajoute +1 en dexterite et +15 en Adresse.",
                 niveauJoueur: 4,
                 prerequis: ["Crochetage"],
-                effet: {
+                effets: {
                     bonusDexterite: 1,
                     bonusAdresse: 15
                 }
@@ -9024,7 +8811,7 @@ voleur: {
                 description: "Le voleur peut cacher un équipement de son choix, il ne sera jamais enlevé même lors d’une fouille. Le voleur voit les dégâts de sa première attaque du combat doublée.",
                 niveauJoueur: 5,
                 prerequis: ["Faire les Poches"],
-                effet: {
+                effets: {
                     cacherEquipementNonEnlevable: true,
                     degatsPremiereAttaqueDoubles: true
                 }
@@ -9032,10 +8819,10 @@ voleur: {
             {
                 nom: "Discret comme une Ombre",
                 image: "",
-                description: "Ajoute +1 en Dextérité OU en Sagesse. Octroie Invisible au début du combat vous empêchant donc d’être ciblé.",
+                description: "Ajoute +1 en dexterite OU en Sagesse. Octroie Invisible au début du combat vous empêchant donc d’être ciblé.",
                 niveauJoueur: 6,
                 prerequis: ["Rien dans la Manche"],
-                effet: {
+                effets: {
                     bonusDexteriteOuSagesse: 1,
                     invisibleDebutCombat: true,
                     immuniseCiblage: true
@@ -9044,10 +8831,10 @@ voleur: {
             {
                 nom: "Amour du risque",
                 image: "",
-                description: "Ajoute +1 en Chance, les jets de statistiques mineures liées à la chance se font en ajoutant la dextérité du Voleur en situation critique.",
+                description: "Ajoute +1 en Chance, les jets de statistiques mineures liées à la chance se font en ajoutant la dexterite du Voleur en situation critique.",
                 niveauJoueur: 7,
                 prerequis: ["Discret comme une Ombre"],
-                effet: {
+                effets: {
                     bonusChance: 1,
                     chanceDexteriteAjouteeJetsChanceCritique: true
                 }
@@ -9058,7 +8845,7 @@ voleur: {
                 description: "Ajoute +1 en Charisme. Ajoute +20 en Persuader/Tromper pour faire diversion ou attirer l'attention.",
                 niveauJoueur: 8,
                 prerequis: ["Amour du risque"],
-                effet: {
+                effets: {
                     bonusCharisme: 1,
                     bonusPersuaderTromperDiversion: 20
                 }
@@ -9069,7 +8856,7 @@ voleur: {
                 description: "Ajoute 10% de CC avec tous les sorts de la voie du voleur, le taux de critique des statistiques mineures basées sur le charisme devient 10%. Si vous vous faites attraper pour un vol vous avez avantage pour un jet de Persuader/Tromper pour vous sortir de cette situation, cet effet est utilisable une fois par scène.",
                 niveauJoueur: 9,
                 prerequis: ["Diversion Appropriée"],
-                effet: {
+                effets: {
                     bonusCCSortsVoleur: 10,
                     tauxCritiqueStatsCharisme: 10,
                     avantageJetPersuaderTromperVol: true,
@@ -9079,10 +8866,10 @@ voleur: {
             {
                 nom: "Roi des Voleurs",
                 image: "",
-                description: "Ajoute 10% de chance de toucher avec tous les sorts de la voie du voleur, le taux de critique des statistiques mineures basées sur la dextérité devient 10%.",
+                description: "Ajoute 10% de chance de toucher avec tous les sorts de la voie du voleur, le taux de critique des statistiques mineures basées sur la dexterite devient 10%.",
                 niveauJoueur: 10,
                 prerequis: ["Roi des Baratineurs"],
-                effet: {
+                effets: {
                     bonusChanceToucherSortsVoleur: 10,
                     tauxCritiqueStatsDexterite: 10
                 }
@@ -9101,7 +8888,7 @@ voleur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     voleArmeEnnemiOuAllie: true,
                     infligeDegatsImmediatement: true,
                     armeRetourneProprietaire: true
@@ -9116,7 +8903,7 @@ voleur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     appliqueCecite: true,
                     degatsFixe: "1d4",
                     voleurDevientInvisible: true,
@@ -9133,7 +8920,7 @@ voleur: {
                 Distance: 10,
                 Action: "aucune",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     voleurPrendPlaceCible: true,
                     cibleDecale: 5
                 }
@@ -9147,7 +8934,7 @@ voleur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     voleEquipementDefinitivement: true,
                     siVolReussitCiblageSurVoleur: true
                 }
@@ -9162,7 +8949,7 @@ voleur: {
                 Action: "aucune",
                 Touche: "charisme",
                 conditions: ["ennemiTenteCiblageSurAllie"],
-                effet: {
+                effets: {
                     annuleCiblageEnnemi: true,
                     declencheCiblageEquipe: true,
                     obligeEnnemiAttaquerAllieChoisi: true
@@ -9178,7 +8965,7 @@ voleur: {
                 Action: "aucune",
                 Touche: "sagesse",
                 conditions: ["lanceDebutTour", "consommeToutDeplacement"],
-                effet: {
+                effets: {
                     prochainVolObjetObligatoire: true,
                     ignoreJetSauvegardeAdverse: true
                 }
@@ -9193,7 +8980,7 @@ voleur: {
                 Action: "consommée",
                 Touche: "dexterite",
                 conditions: ["ennemiAvecAllieCAC"],
-                effet: {
+                effets: {
                     derobeObjetEtAttaque: true,
                     siAttaqueToucheAllieAttaqueArme: true
                 }
@@ -9207,7 +8994,7 @@ voleur: {
                 Distance: 30,
                 Action: "aucune",
                 Touche: "adresse",
-                effet: {
+                effets: {
                     volePetitObjetSansDeplacement: true,
                     telekinesie: true,
                     jetAdresse: true,
@@ -9223,7 +9010,7 @@ voleur: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     reculerIgnorantAttaquesOpportuniteEffetsDeplacementAlterations: true,
                     siEnnemiCACAppliqueEntraveEngelure: true
                 }
@@ -9231,13 +9018,13 @@ voleur: {
             {
                 nom: "Code du Voleur",
                 image: "",
-                description: "Hors combat ce sort donne un bonus de +15 à toutes les statistiques liées au Charisme au Voleur pour des jets avec des voleurs, des brigands, des bandits, des recéleurs ou d’autres personnes malhonnêtes. En combat il vous immunise contre toute tentative de vol et octroie un malus au jet de sauvegarde de dextérité d’un adversaire ciblé. Ce sort ne consomme pas d’action.",
+                description: "Hors combat ce sort donne un bonus de +15 à toutes les statistiques liées au Charisme au Voleur pour des jets avec des voleurs, des brigands, des bandits, des recéleurs ou d’autres personnes malhonnêtes. En combat il vous immunise contre toute tentative de vol et octroie un malus au jet de sauvegarde de dexterite d’un adversaire ciblé. Ce sort ne consomme pas d’action.",
                 Psy: 2,
                 Zone: 0,
                 Distance: 0,
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     horsCombatBonusCharismeAvecMalhonnetes: 15,
                     combatImmuniseContreVol: true,
                     malusJetSauvegardeDexteriteAdversaireCible: true
@@ -9252,7 +9039,7 @@ voleur: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     horsCombatAvantagePersuaderTromperSiPrisVol: true,
                     combatAnnuleCiblageOuDeclencheCiblageApresVol: true
                 }
@@ -9266,7 +9053,7 @@ voleur: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     derobeObjetSpectacle: true,
                     jetSauvegardeCharismeAdversaire: true,
                     cibleSubitSilenceEntrave: true
@@ -9277,13 +9064,13 @@ voleur: {
             {
                 nom: "Œil du Voleur",
                 image: "",
-                description: "En combat, ce sort ajoute +10% aux chances de toucher et au CC pendant 2 tours. Hors combat, permet de doubler la valeur de la dextérité du voleur pour un jet de perception ou permet de donner la valeur de dextérité du voleur à un allié en plus de la sienne lors d'un jet de perception. Ne consomme pas d’action.",
+                description: "En combat, ce sort ajoute +10% aux chances de toucher et au CC pendant 2 tours. Hors combat, permet de doubler la valeur de la dexterite du voleur pour un jet de perception ou permet de donner la valeur de dexterite du voleur à un allié en plus de la sienne lors d'un jet de perception. Ne consomme pas d’action.",
                 Psy: 3,
                 Zone: 0,
                 Distance: 0,
                 Action: "aucune",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     combatBonusChanceToucherCC: 10,
                     dureeCombatTours: 2,
                     horsCombatDoubleDexteritePerception: true,
@@ -9299,7 +9086,7 @@ voleur: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     avanceLigneDroite: true,
                     degatsFixe: "1d8",
                     reculeCible: 5,
@@ -9315,7 +9102,7 @@ voleur: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     voleAlterationEtat: true,
                     appliqueAlterationArmeVoleur: true,
                     cibleRetireAlteration: true,
@@ -9331,7 +9118,7 @@ voleur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     degatsFixe: "1d6 + 3",
                     doubleDegatsSiDejaVole: true,
                     tauxCritique50SiObjetAppartientCible: true
@@ -9346,7 +9133,7 @@ voleur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     cibleSubitCiblageSurVoleur: true,
                     dureeCiblage: 1,
                     degatsAlliesAugmentesSurCible: 50
@@ -9361,7 +9148,7 @@ voleur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     prendControleInvocationEnnemi: true,
                     combatPourVoleurCommeCharme: true,
                     nePeutSeSoustraireEffetSaufDesinvocation: true
@@ -9377,7 +9164,7 @@ voleur: {
                 Action: "consommée",
                 Touche: "sagesse",
                 conditions: ["adversaireUtiliseCapaciteCoutantPSY"],
-                effet: {
+                effets: {
                     voleCapaciteAdversaire: true,
                     voleurPeutUtiliserCapacite: true,
                     cibleNePeutPlusUtiliserCapacite: true
@@ -9392,7 +9179,7 @@ voleur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     voleObjetSansJetSauvegarde: true,
                     infligeDegatsArme: true,
                     appliqueTerreur: true,
@@ -9409,7 +9196,7 @@ voleur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse",
-                effet: {
+                effets: {
                     creationDoubleInvisible: true,
                     pvDouble: 8,
                     doublePossedeSortsArmeVoleur: true
@@ -9426,7 +9213,7 @@ voleur: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     emprunteStatistiquesCible: true,
                     dureeTours: 2,
                     inclutBonusDegatsResistancesFaiblesses: true,
@@ -9444,7 +9231,7 @@ voleur: {
                 Action: "consommée",
                 Touche: "sagesse",
                 conditions: ["ennemiDansPortee", "pasEnnemiAttacheLourdGrand"],
-                effet: {
+                effets: {
                     pousseAdversaireDansPortail: true,
                     horsDuJeuInvulnerableIncapableDuree: 1,
                     revientAuDebutTourVoleur: true,
@@ -9460,7 +9247,7 @@ voleur: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     voleObjetATousEnnemis: true,
                     degatsPerceArmure: "1d10",
                     siRecupereDeuxObjetsOuPlusGainCCTaux: 20,
@@ -9476,7 +9263,7 @@ voleur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "sagesse/charisme",
-                effet: {
+                effets: {
                     sEmpareAmeCible: true,
                     degatsFixe: "4d6",
                     moitieDegatsSiReussitJetSagesse: true,
@@ -9492,7 +9279,7 @@ voleur: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     voleArmeEnnemi: true,
                     designeAutreEnnemi: true,
                     ennemiVoleSubitCharmeIrresistible: true,
@@ -9510,7 +9297,7 @@ voleur: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     voleMeilleureStatistiqueToucheEnnemi: true,
                     peutUtiliserStatsVolees: true,
                     dureeTours: 2
@@ -9525,7 +9312,7 @@ voleur: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     octroieMeilleureStatistiqueVoleurAllies: true,
                     alliésPeuventUtiliserStatsVoleur: true,
                     siVolerAuxRichesActifDonneStatsVolees: true,
@@ -9542,7 +9329,7 @@ voleur: {
                 Action: "aucune",
                 Touche: "sagesse",
                 conditions: ["volerAuxRichesEtDonnerAuxPauvresActifs"],
-                effet: {
+                effets: {
                     integreStatistiquesVoleesDefinitivement: true,
                     gainDSBCCParEcartStats: true,
                     dureeTours: 2
@@ -9559,7 +9346,7 @@ voleur: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "sagesse/charisme/dexterite",
-                effet: {
+                effets: {
                     nuitNoireBrouillardDense: true,
                     ennemisSubissentCecite: true,
                     alliesObtiennentInvisibleDebutTour: true,
@@ -9619,7 +9406,7 @@ marchand: {
     mecanique: [
         "Le marchand débute la partie avec 1 PP quoi qu’il arrive et peu importe la situation. Il peut utiliser une quantité d’argent pour augmenter l’effet de certains de ses sorts il peut aussi s’en servir pour augmenter certaines de ses propres caractéristiques :",
         "Petit Magot : Utilise 100 PO, octroie une augmentation de +10 dans une caractéristique mineure liée au charisme (effet non cumulable), déclenche l’effet de certains sorts.",
-        "Beau Magot : Utilise 10 PP, octroie une augmentation de +20 dans une caractéristique mineure liée au charisme ou à la dextérité (effet non cumulable), déclenche l’effet de certains sorts.",
+        "Beau Magot : Utilise 10 PP, octroie une augmentation de +20 dans une caractéristique mineure liée au charisme ou à la dexterite (effet non cumulable), déclenche l’effet de certains sorts.",
         "Prodigieux Magot : Utilise 1 PJ, octroie une augmentation de +30 dans n’importe quelle statistique mineure (effet non cumulable), déclenche l’effet de certain sort.",
         "Le marchand peut aussi utiliser le sort suivant :",
         "Avarice (DEX) : Inflige le dé de dégâts de l'arme en main. Vous récupérez l’équivalent de Petit Magot en PO à la fin du combat. Si vous êtes niveau 5 ou plus vous récupérez l’équivalent de Beau Magot à la place. Si vous êtes niveau 9 et plus vous récupérez Prodigieux Magot.",
@@ -9634,7 +9421,7 @@ marchand: {
                 description: "Ajoute +1 en Charisme. Vous permet de faire un jet de marchandage à la place de l’un des membres du groupe même s’il vient de le louper.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
+                effets: {
                     bonusCharisme: 1,
                     jetMarchandageALaPlaceDuGroupe: true
                 }
@@ -9645,7 +9432,7 @@ marchand: {
                 description: "Ajoute +1 en Charisme. Permet de parler une langue supplémentaire (sauf ancien et animal).",
                 niveauJoueur: 2,
                 prerequis: ["Laissez moi Négocier"],
-                effet: {
+                effets: {
                     bonusCharisme: 1,
                     langueSupplementaire: true
                 }
@@ -9656,7 +9443,7 @@ marchand: {
                 description: "Le marchand double son Charisme lors d’un jet de marchandage.",
                 niveauJoueur: 3,
                 prerequis: ["Polyglotte"],
-                effet: {
+                effets: {
                     doubleCharismeJetMarchandage: true
                 }
             },
@@ -9666,7 +9453,7 @@ marchand: {
                 description: "Lors d’un jet de vente vous gonflez la valeur d’un objet, double le prix de vente obtenu après le jet de marchandage. Utilisable 1 fois par scène.",
                 niveauJoueur: 4,
                 prerequis: ["Marchandage Aberrant"],
-                effet: {
+                effets: {
                     doublePrixVenteApresMarchandage: true,
                     utilisableFoisParScene: 1
                 }
@@ -9677,7 +9464,7 @@ marchand: {
                 description: "Peuh ! C’est tout ? Ça ne vaut rien ! Le marchand peut relancer un butin aléatoire. Utilisable 1 fois par butin.",
                 niveauJoueur: 5,
                 prerequis: ["Promotion Déguisée"],
-                effet: {
+                effets: {
                     relanceButinAleatoire: true,
                     utilisableFoisParButin: 1
                 }
@@ -9688,7 +9475,7 @@ marchand: {
                 description: "Le marchand parle souvent et beaucoup. Ajoute +1 Charisme. Permet de relancer un jet de Persuader/Tromper ou de Marchandage une fois par scène.",
                 niveauJoueur: 6,
                 prerequis: ["Camelote"],
-                effet: {
+                effets: {
                     bonusCharisme: 1,
                     relanceJetPersuaderTromperOuMarchandage: true,
                     uneFoisParScene: true
@@ -9700,7 +9487,7 @@ marchand: {
                 description: "Ajoute +10 places d’inventaire. Si vous avez deux fois le même objet, il ne prend qu’une seule place.",
                 niveauJoueur: 7,
                 prerequis: ["Négociateur"],
-                effet: {
+                effets: {
                     bonusInventaire: 10,
                     deuxMemeObjetUnePlace: true
                 }
@@ -9708,10 +9495,10 @@ marchand: {
             {
                 nom: "Réévaluation Attentive",
                 image: "",
-                description: "Ajoute +1 en Dextérité, permet de relancer un trait positif ou une imperfection sur un équipement obtenu lors d'un butin. Une fois par butin.",
+                description: "Ajoute +1 en dexterite, permet de relancer un trait positif ou une imperfection sur un équipement obtenu lors d'un butin. Une fois par butin.",
                 niveauJoueur: 8,
                 prerequis: ["Roulotte Itinérante"],
-                effet: {
+                effets: {
                     bonusDexterite: 1,
                     relanceTraitOuImperfectionButin: true,
                     uneFoisParButin: true
@@ -9720,10 +9507,10 @@ marchand: {
             {
                 nom: "Marketing international",
                 image: "",
-                description: "Ajoute +1 en Charisme OU en Dextérité, permet de parler deux langues supplémentaires (Sauf Animal).",
+                description: "Ajoute +1 en Charisme OU en dexterite, permet de parler deux langues supplémentaires (Sauf Animal).",
                 niveauJoueur: 9,
                 prerequis: ["Réévaluation Attentive"],
-                effet: {
+                effets: {
                     bonusCharismeOuDexterite: 1,
                     deuxLanguesSupplementaires: true
                 }
@@ -9734,7 +9521,7 @@ marchand: {
                 description: "Votre taux de coup critique sur vos jets de marchandage devient la moitié de votre statistique de marchandage. Si vous faites un coup critique en marchandant vous vendez l'objet au double du prix initial ou l'achetez à moitié prix.",
                 niveauJoueur: 10,
                 prerequis: ["Marketing international"],
-                effet: {
+                effets: {
                     tauxCCCritiqueMarchandage: "moitie_marchandage",
                     CCMarchandageDoublePrixVenteOuMoitiePrixAchat: true
                 }
@@ -9754,7 +9541,7 @@ marchand: {
                 Action: "consommée",
                 Touche: "charisme",
                 conditions: ["Humanoïdes"],
-                effet: {
+                effets: {
                     appliqueCharme: true,
                 },
                 magotEffects: {
@@ -9781,7 +9568,7 @@ marchand: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     echangeArmes: true,
                     degatsNouvelleArme: true
                 },
@@ -9803,7 +9590,7 @@ marchand: {
                 Action: "consommée",
                 Touche: "charisme",
                 conditions: ["utiliseMagot"],
-                effet: {
+                effets: {
                     horsCombatBonusStatsMarchand: 10,
                     dureeCombatTours: 1,
                     dureeHorsCombatScenes: 1
@@ -9843,7 +9630,7 @@ marchand: {
                 Action: "aucune",
                 Touche: "charisme",
                 conditions: ["sacrifieMagot"],
-                effet: {
+                effets: {
                     gainMagot: true,
                     dureeTours: 2
                 }
@@ -9857,7 +9644,7 @@ marchand: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     degatsFixe: "1d4",
                     appliqueFolie: true
                 },
@@ -9878,7 +9665,7 @@ marchand: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     soinsFixe: "1d4"
                 },
                 magotEffects: {
@@ -9904,7 +9691,7 @@ marchand: {
                 Action: "consommée",
                 Touche: "dexterite",
                 conditions: ["sacrifiePetitMagot"],
-                effet: {
+                effets: {
                     degatsVariable: "Xd2",
                     siMaxMagotAppliqueCharme: true,
                     tempsRechargeTours: 1
@@ -9920,7 +9707,7 @@ marchand: {
                 Action: "aucune",
                 Touche: "automatique",
                 conditions: ["utiliseMagot", "uneFoisParCombat", "cibleLanceur"],
-                effet: {
+                effets: {
                     bonusPourResteCombat: true
                 },
                 magotEffects: {
@@ -9954,7 +9741,7 @@ marchand: {
                 Action: "consommée",
                 Touche: "automatique",
                 conditions: ["uneFoisParCombat"],
-                effet: {
+                effets: {
                     gainPetitMagot: 2,
                     recupereMagotSiPlusDeTroisUtilises: true
                 }
@@ -9968,7 +9755,7 @@ marchand: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     voleEffetAmelioration: true,
                     reinitialiseDuree: true
                 },
@@ -9976,7 +9763,7 @@ marchand: {
                     petitMagot: {
                         image: "",        
                         description: "La cible conserve l’effet actif.",
-                        cibleConserveEffet: true
+                        cibleConserveEffets: true
                     }
                 }
             },
@@ -9989,7 +9776,7 @@ marchand: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     degatsFixe: "1d6 + 3"
                 },
                 magotEffects: {
@@ -10009,7 +9796,7 @@ marchand: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     allieEncaisseMoitieDegats: true,
                     degatsInamortissables: true
                 },
@@ -10033,7 +9820,7 @@ marchand: {
                 Action: "consommée",
                 Touche: "dexterite",
                 conditions: ["sacrifieBeauMagot"],
-                effet: {
+                effets: {
                     degatsVariable: "Xd4",
                     siMaxMagotAppliqueCharme: true,
                     tempsRechargeTours: 1
@@ -10048,7 +9835,7 @@ marchand: {
                 Distance: 10,
                 Action: "aucune",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     horsCombatLanceALaPlaceJetMarchandage: true,
                     combatCiblageSurCibleDesginee: true
                 },
@@ -10069,7 +9856,7 @@ marchand: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     invocationCoffreDimensionnel: true,
                     pvCoffre: 10,
                     armureCoffre: 4,
@@ -10087,7 +9874,7 @@ marchand: {
                 Distance: 15,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     teleportationCACEnnemi: true,
                     degatsFixe: "1d8",
                     appliqueCharmeSiMoins50PV: true,
@@ -10123,7 +9910,7 @@ marchand: {
                 Action: "consommée",
                 Touche: "dexterite",
                 conditions: ["utiliseMagot"],
-                effet: {
+                effets: {
                     dependDeMagotUtilise: true
                 },
                 magotEffects: {
@@ -10157,7 +9944,7 @@ marchand: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     degatsFixe: "1d8",
                     appliqueEntrave: true,
                     siCibleMeurtStatueOrGainMagot: true,
@@ -10181,7 +9968,7 @@ marchand: {
                 Action: "consommée",
                 Touche: "charisme",
                 conditions: ["coutBeauMagot"],
-                effet: {
+                effets: {
                     octroieActionSupplementaireProchainTour: true
                 }
             },
@@ -10195,7 +9982,7 @@ marchand: {
                 Action: "aucune",
                 Touche: "dexterite",
                 conditions: ["apresUtilisationMagot"],
-                effet: {
+                effets: {
                     augmenteDSBArmureParNiveauMagot: true,
                     dureeTours: 2
                 }
@@ -10209,7 +9996,7 @@ marchand: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     devientInvisible: true,
                     dureeTours: 2,
                     redevientVisibleSiAttaque: true,
@@ -10235,7 +10022,7 @@ marchand: {
                 Distance: 10,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     degatsFixe: "1d6",
                     attireEnnemisHorsZone: 10,
                     appliqueEntrave: true,
@@ -10260,12 +10047,12 @@ marchand: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     soinsFixe: "1d4",
                     retireAlterationsNegatives: true,
                     appliqueCharmeIrresistible: true,
                     reappliqueAlterationsDoubleDureePuissance: true,
-                    degatsFinEffet: "2d6"
+                    degatsFinEffets: "2d6"
                 },
                 magotEffects: {
                     petitMagot: {
@@ -10292,7 +10079,7 @@ marchand: {
                 Action: "consommée",
                 Touche: "automatique",
                 conditions: ["perteMagotDebutTour"],
-                effet: {
+                effets: {
                     nePeutPlusUtiliserPSY: true,
                     attaquesArmeEffetAvariceSansPSY: true,
                     dureeTours: 1,
@@ -10339,7 +10126,7 @@ marchand: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "charisme",
-                effet: {
+                effets: {
                     horsCombatBoutiqueItinerante: true,
                     combatFaireApparaitreObjet: true,
                     objetGardeSiNonConsommable: true,
@@ -10355,7 +10142,7 @@ marchand: {
                 Distance: "tout_le_terrain",
                 Action: "consommée",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     teleportationOuFaireVenirCible: true
                 },
                 magotEffects: {
@@ -10380,7 +10167,7 @@ marchand: {
                 Distance: 0,
                 Action: "aucune",
                 Touche: "dexterite",
-                effet: {
+                effets: {
                     ciblageJusquaTroisEntites: true,
                     cibleMarqueeDuree: 3,
                     jetToucheAvantageAvecMagotSurCibleMarquee: true,
@@ -10399,7 +10186,7 @@ marchand: {
                 Action: "consommée",
                 Touche: "dexterite",
                 conditions: ["depenseHuitMagotsOuPlus"],
-                effet: {
+                effets: {
                     degatsFixe: "4d8",
                     lanceurSubitSonneIrresistible: true,
                     tempsRechargeTours: 3,
@@ -10424,7 +10211,7 @@ marchand: {
                 Action: "consommée",
                 Touche: "charisme",
                 conditions: ["ennemiMoins25PV"],
-                effet: {
+                effets: {
                     appliqueCharmeIrresistible: true,
                     recupereTouteVieEtCapacites: true,
                     charmeEternel: true,
@@ -10455,7 +10242,7 @@ marchand: {
                 Distance: 0,
                 Action: "consommée",
                 Touche: "charisme/dexterite",
-                effet: {
+                effets: {
                     transformeZoneMarcheAmbulant: true,
                     appliqueFolieIrresistible: true,
                     alterationEtatAleatoireDebutTour: true,
@@ -10464,7 +10251,7 @@ marchand: {
                     achatsPrennentTourDeJeu: true,
                     bonusMalusAlliesMisEnCommun: true,
                     dureeTours: 2,
-                    degatsFinEffet: "4d4"
+                    degatsFinEffets: "4d4"
                 }
             }
         ]
@@ -10515,60 +10302,66 @@ danseur: {
     mecanique: [
         "Changement de Rythme : À chaque fois qu’un sort de la voie du Danseur est utilisé le Danseur peut sacrifier 1 cran de vitesse en plus de son coût initial. S’il le fait il diminue donc sa vitesse de 1 cran mais peut faire bouger UNE cible du sort de 5 mètres, si le sort fait déjà bouger une cible il peut augmenter la distance de 5 mètres supplémentaire."
     ],
-    passifs: {
+    talentVoie: {
         niveau: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         talents: [
             {
                 nom: "Danseur étoile",
                 image: "",
-                description: "Ajoute +1 en Dextérité et +10 en Art et Musique.",
+                description: "Ajoute +1 en dexterite et +10 en Art et Musique.",
                 niveau: 1,
-                effet: {
-                    bonusDexterite: 1,
-                    bonusArtMusique: 10
-                }
+               fonction: "ajoutDirectCaracteristique",
+                effets: {majeures: { dexterite: 1 }, mineures: { artmusique: 10 } }
             },
             {
                 nom: "Danseur vedette",
                 image: "",
-                description: "Ajoute +1 en Charisme OU Dextérité, et +10 en Connaissance Monde, vous obtenez un avantage sur vos jets de ciblage.",
+                description: "Ajoute +1 en Charisme OU dexterite, et +10 en Connaissance Monde, vous obtenez un avantage sur vos jets de ciblage.",
                 niveau: 2,
-                effet: {
-                    bonusCharismeOuDexterite: 1,
-                    bonusConnaissanceMonde: 10,
-                    avantageJetsCiblage: true
-                }
+                fonction: "bonusIndirectCaracteristique",
+                parametres: {
+                    majeures: {
+                        stats: ["charisme", "dexterite"],
+                    points: 1,},
+                    mineures:{ 
+                        stats:["monde"],
+                        points: 10,}}
             },
             {
                 nom: "Forte Fièvre",
                 image: "",
                 description: "Modifie le sort 'Fièvre du disco', l’effet s’applique à CHAQUE déplacement hors du tour de jeu de la cible. Si vous ne possédez pas ce sort vous ignorez cet effet et débloquez le sort.",
                 niveau: 3,
-                effet: {
-                    modifieFievreDuDisco: true,
-                    effetSAppliqueChaqueDeplacementHorsTour: true,
-                    debloqueFievreDuDiscoSiNonPossede: true
-                }
+                
             },
             {
                 nom: "Danseur infatigable",
                 image: "",
-                description: "Ajoute +1 en Force OU Dextérité, et +10 en Athlétisme, vous êtes immunisé à Entrave.",
+                description: "Ajoute +1 en Force OU dexterite, et +10 en Athlétisme, vous êtes immunisé à Entrave.",
                 niveau: 4,
-                effet: {
-                    bonusForceOuDexterite: 1,
-                    bonusAthletisme: 10,
-                    immuniseEntrave: true
-                }
+                fonction: "bonusIndirectCaracteristique",
+                parametres: {
+                    majeures: {
+                        stats: ["force", "dexterite"],
+                        points: 1},
+                    mineures: {
+                        stats: ["athletisme"],
+                        points: 10}
+                    }
             },
             {
                 nom: "Performeur",
                 image: "",
                 description: "Ajoute +1 en Charisme OU Force. Le Danseur obtient un avantage sur ses jets d’Art et Musique.",
                 niveau: 5,
-                effet: {
-                    bonusCharismeOuForce: 1,
-                    avantageJetsArtMusique: true
+                fonction: "bonusIndirectCaracteristique",
+                parametres: {
+                    majeures: {
+                        stats: ["charisme", "force"],
+                        points: 1},
+                    mineures: {
+                        stats: ["artmusique"],
+                        points: 10}
                 }
             },
             {
@@ -10576,50 +10369,35 @@ danseur: {
                 image: "",
                 description: "Donne l’immunité à Charme, tous les sorts de Danseur coûtant plus de 5 PSY appliquent aussi Silence en plus de leurs effets.",
                 niveau: 6,
-                effet: {
-                    immuniteCharme: true,
-                    sortsDanseurCoutPlus5PSYAppliquentSilence: true
-                }
+                
             },
             {
                 nom: "Entrer dans la Danse",
                 image: "",
                 description: "Les alliés peuvent utiliser un sort de que le Danseur vient d’utiliser pendant leur tour de jeu, dans ce cas il n’effectuera que la moitié des dégâts ou des soins possibles mais gardera tous ses effets et consommera autant de PSY.",
                 niveau: 7,
-                effet: {
-                    alliésPeuventUtiliserSortDanseur: true,
-                    moitieDegatsSoins: true,
-                    gardeEffetsEtCoutPSY: true
-                }
+                
             },
             {
                 nom: "Phénomène de la scène",
                 image: "",
                 description: "Le Danseur gagne +1 DSB à chaque tour ou une compétence de la voie du danseur est utilisée dans le combat.",
                 niveau: 8,
-                effet: {
-                    gainDSBTourSiCompetenceDanseurUtilisee: 1
-                }
+               
             },
             {
                 nom: "Gala de clôture inoubliable",
                 image: "",
                 description: "Le sort 'Ballet de clôture' inflige également 1 dé 6 dégâts par sort de danse utilisé avant son lancement à tous les ennemis. Si vous ne possédez pas ce sort vous le débloquez à la place et ignorez cet effet.",
                 niveau: 9,
-                effet: {
-                    balletClotureInfligeDegatsParSortDanseUtilise: "1d6",
-                    debloqueBalletClotureSiNonPossede: true
-                }
+               
             },
             {
                 nom: "Chorégraphe Professionnel",
                 image: "",
                 description: "Après l’utilisation d’un sort de la voie du Danseur vous pouvez bouger toutes les entités à votre corps à corps de 5 mètres dans la direction voulue. Si un allié bouge de cette manière il gagne le même bonus que vous octroie 'Phénomène de la scène' pendant un tour.",
                 niveau: 10,
-                effet: {
-                    apresSortDanseurBougeEntitesCAC: 5,
-                    siAllieBougeGagneBonusPhenomeneScene: true
-                }
+               
             }
         ]
     },
@@ -10656,7 +10434,7 @@ danseur: {
                 psy: 3,
                 action: "aucune",
                 duree: 2,
-                effet: {
+                effets: {
                     augmenteVitesse: 1,
                     ignoreAttaquesOpportunite: true,
                     ignoreEffetsLimitationDeplacement: true
@@ -10699,7 +10477,7 @@ danseur: {
                 psy: 4,
                 action: "aucune",
                 duree: 2,
-                effet: {
+                effets: {
                     augmenteTauxBlocage: 20,
                     siBlocageReussiDeplaceSansAttaqueOpportunite: 5
                 },
@@ -10709,11 +10487,11 @@ danseur: {
             {
                 nom: "Mauvais Tempo",
                 image: "",
-                description: "Vous désignez une cible, à chaque fois qu’elle se déplace elle doit faire un jet de sauvegarde de Dextérité avec avantage, si elle le loupe elle subit Entrave irrésistible. Cet effet dure 2 tours.",
+                description: "Vous désignez une cible, à chaque fois qu’elle se déplace elle doit faire un jet de sauvegarde de dexterite avec avantage, si elle le loupe elle subit Entrave irrésistible. Cet effet dure 2 tours.",
                 psy: 2,
                 portee: "cible",
                 duree: 2,
-                effet: {
+                effets: {
                     cibleJetSauvegardeDexteriteAvantageDeplacement: true,
                     siRateSubitEntraveIrresistible: true
                 },
@@ -10727,7 +10505,7 @@ danseur: {
                 portee: "CAC",
                 action: "aucune",
                 duree: 2,
-                effet: {
+                effets: {
                     retireAlterationEtatSagesse: true,
                     immuniseAlterationsEtatSagesse: true
                 },
@@ -10742,7 +10520,7 @@ danseur: {
                 action: "aucune",
                 duree: 3,
                 degats: "1d4",
-                effet: {
+                effets: {
                     frenesieEnnemis: true,
                     degatsDeplacementHorsTour: true,
                     occurrenceUneFoisParTour: true
@@ -10768,7 +10546,7 @@ danseur: {
                 description: "Vous augmentez votre vitesse de 1 cran, cet effet coûte 1 PSY de plus par tour pour être maintenu. Ce sort ne consomme pas d’action.",
                 psy: 1,
                 action: "aucune",
-                effet: {
+                effets: {
                     augmenteVitesse: 1,
                     coutMaintenancePSY: 1
                 },
@@ -10793,10 +10571,6 @@ danseur: {
                 psy: 2,
                 portee: "cible",
                 action: "aucune",
-                effet: {
-                    adversaireNePeutSeDefendre: true,
-                    pointsBouclierTombentAZero: true
-                },
                 touche: "DEX"
             },
             {
@@ -10810,7 +10584,7 @@ danseur: {
                     chaine: true
                 },
                 degats: "1d4",
-                effet: {
+                effets: {
                     degatsParCibleTouchee: true
                 },
                 touche: "CHA"
@@ -10821,7 +10595,7 @@ danseur: {
                 description: "Le lanceur se lance dans une danse gobeline interminable et impossible à prédire, il gagne +20% en blocage et +2 d’armure. S’il fait un blocage pendant l’effet de ce sort il inflige 1 dé 6 dégâts à la cible bloquée et la déplace de 5 mètres. Ce sort dure 2 tours.",
                 psy: 5,
                 duree: 2,
-                effet: {
+                effets: {
                     gainBlocage: 20,
                     gainArmure: 2,
                     siBlocageInfligeDegats: "1d6",
@@ -10838,7 +10612,7 @@ danseur: {
                 deplacement: {
                     avecCible: 10
                 },
-                effet: {
+                effets: {
                     siEnnemi: {
                         degats: "1d6+2",
                         type_degats: "Feu",
@@ -10896,7 +10670,7 @@ danseur: {
                 psy: 5,
                 duree: 2,
                 action: "aucune",
-                effet: {
+                effets: {
                     devientVolant: true
                 },
                 touche: "CHA"
@@ -10907,7 +10681,7 @@ danseur: {
                 description: "Le Danseur exécute des pas entrecoupés de blocages comme un robot défaillant, la prochaine attaque encaissée sera totalement annulée et, s’il aurait dû subir des dégâts, le lanceur gagne 1 cran en vitesse. Ce sort ne consomme pas d’action.",
                 psy: 4,
                 action: "aucune",
-                effet: {
+                effets: {
                     prochaineAttaqueEncaisseeAnnulee: true,
                     siDegatsSubisGainVitesse: 1
                 },
@@ -10955,7 +10729,7 @@ danseur: {
                 portee: "tout_le_terrain",
                 action: "aucune",
                 conditions: ["uneFoisParCombat"],
-                effet: {
+                effets: {
                     forceEnnemisSuivrePas: true,
                     prochaineCapaciteDanseurEffetsDoubles: true,
                     lanceurSonneIrresistibleTourSuivant: true
@@ -10978,7 +10752,7 @@ danseur: {
                 description: "Pendant 2 tours le lanceur peut traverser les entités lors de ses déplacements, s’il en traverse un ennemi il lui inflige Terreur et 1 dé 4 dégâts, cet effet ne peut se produire qu’une fois par tour et par cible.",
                 psy: 5,
                 duree: 2,
-                effet: {
+                effets: {
                     peutTraverserEntites: true,
                     siTraverseEnnemi: {
                         alt_etat: "Terreur",
@@ -11012,7 +10786,7 @@ danseur: {
                 portee: 15,
                 degats: "1d8",
                 degats_type: "PV et PSY",
-                effet: {
+                effets: {
                     perteChancesBlocages: true,
                     armureDSBReduitsAZero: true,
                     desavantageJetsSauvegardeTouche: true,
@@ -11028,7 +10802,7 @@ danseur: {
                 psy: 7,
                 duree: 2,
                 portee: "CAC",
-                effet: {
+                effets: {
                     lanceurEtAlliesCACGainDSB: 2,
                     gainChanceToucher: 10,
                     deplaceCiblesFrappees: 5
@@ -11038,7 +10812,7 @@ danseur: {
             {
                 nom: "Limbo endiablé",
                 image: "",
-                description: "Une barre enflammée apparaît et descend petit à petit le lanceur et une cible à son corps à corps doivent consécutivement faire des jets de sauvegarde de Dextérité à tour de rôle pour passer en dessous jusqu’à ce que l’un rate, le danseur les fait avec avantage et sa cible avec désavantage. Si le danseur rate il subit 1 dé 6 dégâts mais devient enragé et gagne une action supplémentaire pour 2 tours, si la cible rate elle se fait carbonisée par la barre et subit 2 dé 6 + 4 dégâts et Brûlure irrésistible.",
+                description: "Une barre enflammée apparaît et descend petit à petit le lanceur et une cible à son corps à corps doivent consécutivement faire des jets de sauvegarde de dexterite à tour de rôle pour passer en dessous jusqu’à ce que l’un rate, le danseur les fait avec avantage et sa cible avec désavantage. Si le danseur rate il subit 1 dé 6 dégâts mais devient enragé et gagne une action supplémentaire pour 2 tours, si la cible rate elle se fait carbonisée par la barre et subit 2 dé 6 + 4 dégâts et Brûlure irrésistible.",
                 psy: 7,
                 portee: "CAC",
                 jet_sauvegarde: {
@@ -11069,7 +10843,7 @@ danseur: {
                 duree: 2,
                 action: "aucune",
                 conditions: ["uneFoisParCombat"],
-                effet: {
+                effets: {
                     creationCopieSexeOppose: true,
                     memeStatistiques: true,
                     invocationAutonome: true,
@@ -11145,7 +10919,7 @@ dresseur: {
         "Les créatures invoquées, si elles sont normalement intelligentes, ne pourront pas savoir quelque chose qu’elles ne savaient pas originellement lors de leur capture.",
         "Si le dresseur invoque une créature ayant exactement le même niveau que lui elle devra lancer 1 dé 6 à chaque fois qu’elle souhaite faire une action, si elle fait 6 elle ne fera rien du tout."
     ],
-    passifs: {
+    talentVoie: {
         niveau: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         talents: [
             {
@@ -11153,58 +10927,38 @@ dresseur: {
                 image: "",
                 description: "Le dresseur choisit à chaque début de combat entre : Ajoute +1 DSB et +1 d’armure au dresseur s’il possède plusieurs invocations sur le terrain OU Le dresseur gagne +1 d’armure et +1 DSB si une et une seule invocation est présente sur le terrain.",
                 niveau: 1,
-                effet: {
-                    choixDebutCombat: true,
-                    option1: {
-                        conditions: "plusieursInvocationsTerrain",
-                        bonusDSB: 1,
-                        bonusArmure: 1
-                    },
-                    option2: {
-                        conditions: "uneSeuleInvocationTerrain",
-                        bonusArmure: 1,
-                        bonusDSB: 1
-                    }
-                }
+               
             },
             {
                 nom: "Dresseur réputé",
                 image: "",
                 description: "Ajoute +1 en charisme, ajoute +10 en connaissance monde.",
                 niveau: 2,
-                effet: {
-                    bonusCharisme: 1,
-                    bonusConnaissanceMonde: 10
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeure: {charisme: 1}, mineure: {Monde: 10 }}
             },
             {
                 nom: "Adepte de l’auto-dressage",
                 image: "",
-                description: "Ajoute +1 en Dextérité, en Sagesse et en Force.",
+                description: "Ajoute +1 en dexterite, en Sagesse et en Force.",
                 niveau: 3,
-                effet: {
-                    bonusDexterite: 1,
-                    bonusSagesse: 1,
-                    bonusForce: 1
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeure: {dexterite: 1, Sagesse: 1, Force: 1 } }
             },
             {
                 nom: "Ordre clair",
                 image: "",
                 description: "Ajoute +1 en charisme, si un sortilège modifie les statistiques d’une créature elle ne peut qu’obéir au dresseur même quand elle a le même niveau que lui.",
                 niveau: 4,
-                effet: {
-                    bonusCharisme: 1,
-                    obéissanceInvocationsModifiees: true,
-                    ignoreNiveauIdentique: true
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeure: {charisme: 1} },
             },
             {
                 nom: "Humaniste",
                 image: "",
                 description: "Si le sort Dressage d’Humanoïde est utilisé il soignera la cible de 3 PV fixe par tour en plus de son effet. Si vous ne possédez pas ce sort vous ignorez cet effet et débloquez ce sort à la place.",
                 niveau: 5,
-                effet: {
+                effets: {
                     siDressageHumanoideUtilise: {
                         soigneCible: 3,
                         typeSoin: "PV fixe par tour"
@@ -11215,19 +10969,23 @@ dresseur: {
             {
                 nom: "Ethique du Dresseur",
                 image: "",
-                description: "Ajoute +1 en Sagesse OU Dextérité, si un sortilège modifie les statistiques d’un allié qui n’est pas considéré comme une invocation il modifie aussi celle du dresseur.",
+                description: "Ajoute +1 en Sagesse OU dexterite, si un sortilège modifie les statistiques d’un allié qui n’est pas considéré comme une invocation il modifie aussi celle du dresseur.",
                 niveau: 6,
-                effet: {
-                    bonusSagesseOuDexterite: 1,
-                    siSortModifieStatsAllieNonInvocationModifieAussiDresseur: true
-                }
+                fonction: "bonusIndirectCaracteristique",
+                parametre: {
+                    majeures: {
+                        stats: ["Sagesse", "dexterite"],
+                        points: 1
+                        }
+                },
+                
             },
             {
                 nom: "Pro de l’élevage",
                 image: "",
                 description: "Double le bonus octroyé par élevage sélectif",
                 niveau: 7,
-                effet: {
+                effets: {
                     doubleBonusElevageSelectif: true
                 }
             },
@@ -11236,35 +10994,21 @@ dresseur: {
                 image: "",
                 description: "Si une invocation finit son tour au corps à corps du Dresseur elle regagne 4 PV fixe.",
                 niveau: 8,
-                effet: {
-                    invocationCACDresseurFinTour: {
-                        gainPV: 4,
-                        typeGain: "PV fixe"
-                    }
-                }
+                
             },
             {
                 nom: "Une vie pour le maître",
                 image: "",
                 description: "Si le dresseur doit mourir il peut sacrifier une de ses invocations à la place même si celle-ci n’est pas sur le terrain, celle-ci ne pourra plus jamais être ré-invoquée. Cet effet peut être utilisé jusqu’à ce que le dresseur ne possède plus aucune invocation.",
                 niveau: 9,
-                effet: {
-                    sacrifieInvocationPourEviterMort: true,
-                    invocationNePeutPlusEtreReInvoquee: true,
-                    utilisableJusquaPlusDInvocation: true
-                }
+                
             },
             {
                 nom: "Chouchou du Maître",
                 image: "",
                 description: "Le Dresseur choisit une invocation parmi celle qu’il a de disponible au moment de l’obtention de ce passif. Elle devient sa favorite et le sort 'Asservissement' sera gratuit pour la lancer, tous les sorts de Dresseur la visant coûteront 1 PSY de moins à utiliser. Le Dresseur peut aussi choisir un Humanoïde au moment de l’obtention de ce passif.",
                 niveau: 10,
-                effet: {
-                    choixInvocationFavorite: true,
-                    asservissementGratuitPourFavorite: true,
-                    sortsDresseurVisantFavoriteCoutPSYMoins: 1,
-                    choixHumanoideFavorite: true
-                }
+                
             }
         ]
     },
@@ -11277,7 +11021,7 @@ dresseur: {
                 psy: 2,
                 portee: "cible",
                 duree: 2,
-                effet: {
+                effets: {
                     gainDegats: 2,
                     gainVitesse: 1,
                     conditionsCiblage: "creatures_invoquees",
@@ -11294,7 +11038,7 @@ dresseur: {
                 deplacement: {
                     invocation: 10
                 },
-                effet: {
+                effets: {
                     siToucheEnnemiInfligeDegatsAttaqueBasique: true,
                     peutCiblerAllie: true,
                     coutDoubleSiAllie: true
@@ -11318,7 +11062,7 @@ dresseur: {
                 portee: "invocation",
                 action: "aucune",
                 zone: 15,
-                effet: {
+                effets: {
                     creeCopiesInvocation: 2,
                     copiesDisparaissentAuMoindreDegat: true,
                     consideresCommeVraiesCibles: true,
@@ -11333,7 +11077,7 @@ dresseur: {
                 psy: 3,
                 portee: "tout_le_terrain",
                 duree: "fin_combat_ou_conditions_non_remplies",
-                effet: {
+                effets: {
                     siUneInvocationEtPlusDe10M: {
                         avantageJetsTouche: true,
                         bonusDSB: 2,
@@ -11350,7 +11094,7 @@ dresseur: {
                 psy: 2,
                 action: "aucune",
                 portee: "allié",
-                effet: {
+                effets: {
                     immuniteAlterationsEtatSagesse: true,
                     siCibleInvocationGainCC: 20
                 },
@@ -11363,7 +11107,7 @@ dresseur: {
                 psy: 2,
                 portee: "zone",
                 alt_etat: "Terreur",
-                effet: {
+                effets: {
                     retireTerreurAlliesInvocations: true,
                     invocationsAllieesGainPB: 2
                 },
@@ -11377,7 +11121,7 @@ dresseur: {
                 portee: "invocation",
                 soin: "1d6",
                 gainPB: 2,
-                effet: {
+                effets: {
                     peutCiblerAllie: true,
                     coutSupplementaireSiAllie: 1
                 },
@@ -11390,7 +11134,7 @@ dresseur: {
                 psy: 2,
                 portee: "cible",
                 alt_etat: "Entrave irrésistible",
-                effet: {
+                effets: {
                     siCibleInvocationGainPB: 4,
                     dureePB: 1
                 },
@@ -11403,7 +11147,7 @@ dresseur: {
                 psy: 3,
                 portee: "tout_le_terrain",
                 duree: "fin_combat_ou_conditions_non_remplies",
-                effet: {
+                effets: {
                     siPlusDeDeuxMemeInvocation: {
                         avantageJetBlocage: true,
                         bonusArmure: 2
@@ -11418,7 +11162,7 @@ dresseur: {
                 description: "Le dresseur prend grand soin d’une invocation au corps à corps, elle devient tape à l’œil et déclenchera le ciblage sur tous les ennemis à son corps à corps pour les deux prochains tours. Ce sort soigne aussi 1 dé 8 PV.",
                 psy: 3,
                 portee: "CAC_invocation",
-                effet: {
+                effets: {
                     invocationTapeAOeil: true,
                     declencheCiblageEnnemisCACInvocation: true,
                     dureeCiblage: 2,
@@ -11433,7 +11177,7 @@ dresseur: {
                 psy: 3,
                 portee: "invocation",
                 duree: 2,
-                effet: {
+                effets: {
                     postureDefensive: true,
                     gainBlocage: 20,
                     gainPB: 4,
@@ -11472,7 +11216,7 @@ dresseur: {
                 effet_temporel: {
                     invocationSubitDegatsALaPlaceDresseur: true
                 },
-                effet: {
+                effets: {
                     peutCiblerAllie: true,
                     coutSupplementaireSiAllie: 2
                 },
@@ -11486,7 +11230,7 @@ dresseur: {
                 portee: "allié",
                 action: "aucune",
                 duree: "fin_combat_ou_revocation",
-                effet: {
+                effets: {
                     alliéConsidereInvocation: true,
                     sortsCiblantPasPlusCher: true,
                     pasDAutresInvocations: true,
@@ -11503,7 +11247,7 @@ dresseur: {
                 alt_etat: "Entrave irrésistible et infinie",
                 degats_impact: "1d6+2",
                 degats_fin_tour: 3,
-                effet: {
+                effets: {
                     lanceurSubitEntraveAussi: true,
                     lanceurPeutRompreEntrave: true,
                     cibleJetSauvegardeForceAPartirTour2: true
@@ -11516,7 +11260,7 @@ dresseur: {
                 description: "L’invocation ciblée par ce sort sera la cible de tous les ennemis pendant 1 tour, ils ne pourront attaquer aucune autre cible, sauf si l’invocation désignée meurt.",
                 psy: 5,
                 portee: "invocation",
-                effet: {
+                effets: {
                     invocationCibleDeTousEnnemis: true,
                     ennemisNePeuventAttaquerAutreCible: true,
                     finEffetSiInvocationMeurt: true
@@ -11530,7 +11274,7 @@ dresseur: {
                 description: "Le lanceur gagne +1 cran en vitesse et 20% de chances de blocage, il peut aussi se déplacer de 5 mètres dans n’importe quelle direction après avoir bloqué un coup. Cet effet dure 2 tours.",
                 psy: 4,
                 duree: 2,
-                effet: {
+                effets: {
                     gainVitesse: 1,
                     gainChanceBlocage: 20,
                     deplacementApresBlocage: 5
@@ -11545,7 +11289,7 @@ dresseur: {
                 portee: "tout_le_terrain",
                 action: "aucune",
                 duree: 2,
-                effet: {
+                effets: {
                     dresseurUtiliseStatsInvocation: true,
                     invocationUtiliseStatsDresseur: true,
                     cibleUneSeuleInvocation: true
@@ -11559,7 +11303,7 @@ dresseur: {
                 psy: 4,
                 portee: "tout_le_terrain",
                 conditions: ["invocationMeurt"],
-                effet: {
+                effets: {
                     ressusciteInvocation: true,
                     recuperePVMax: 50,
                     coutSupplementaireParUtilisation: 2
@@ -11572,7 +11316,7 @@ dresseur: {
                 description: "Ordonne à la cible de s’éloigner, elle reculera de 10 mètres et ne pourra plus se tenir au corps à corps du Dresseur pendant 2 tours. Si elle est coincée et obligée de rester au corps à corps elle subit 1 dé 10 dégâts fixes à chaque fin de tour. Sur une invocation ce sort augmente sa vitesse d’un cran et la portée de toutes ses attaques de 5 mètres.",
                 psy: 3,
                 portee: "cible",
-                effet: {
+                effets: {
                     reculCible: 10,
                     nePeutPlusCACDresseur: true,
                     dureeCAC: 2,
@@ -11593,7 +11337,7 @@ dresseur: {
                 psy: 6,
                 portee: "invocation",
                 duree: 2,
-                effet: {
+                effets: {
                     invocationPerdPVMaxFinTour: 50,
                     doubleDSB: true,
                     gainChanceToucher: 20,
@@ -11615,7 +11359,7 @@ dresseur: {
                 },
                 degats: "2d8",
                 alt_etat: "choisi_par_lanceur",
-                effet: {
+                effets: {
                     siAllieSousDressageHumanoide: {
                         infligeDegatsArmeEnMain: true
                     }
@@ -11630,7 +11374,7 @@ dresseur: {
                 portee: "invocation",
                 duree: 3,
                 conditions: ["uneFoisParCombat"],
-                effet: {
+                effets: {
                     tantQueInvocationEnVieNePeutPasTomberKO: true,
                     gardePV: 1,
                     bonusAffectentLesDeux: true
@@ -11657,7 +11401,7 @@ dresseur: {
                 psy: 5,
                 portee: "tout_le_terrain",
                 duree: 2,
-                effet: {
+                effets: {
                     invocationsInfligentAltEtatChoisie: true,
                     siCibleEnnemi: {
                         infligeAltEtatIrresistible: true,
@@ -11678,7 +11422,7 @@ dresseur: {
                 psy: 5,
                 portee: "monstre",
                 conditions: ["monstreDeuxNiveauxEcart"],
-                effet: {
+                effets: {
                     ajouteAuxInvocations: true,
                     retireCampAdversaire: true,
                     uneFoisParCombat: true
@@ -11692,7 +11436,7 @@ dresseur: {
                 psy: 4,
                 portee: "cible",
                 duree: 1,
-                effet: {
+                effets: {
                     jetToucheDesavantage: true,
                     infligeMoitieDegats: true,
                     siInvocation: {
@@ -11708,7 +11452,7 @@ dresseur: {
                 description: "''Tout le terrain'' Le lanceur fusionne deux invocations sur le terrain, elles ne deviennent qu’une seule entité, capable d’utiliser tous les sorts et les capacités des deux monstres en simultané. Elle possède les statistiques les plus avantageuses dans chaque catégorie et le cumul des PV et de la PSY restante des deux au moment de la fusion. Quand cette créature attaque elle inflige 'Terreur' en plus de l’effet de son sort.",
                 psy: 7,
                 portee: "tout_le_terrain",
-                effet: {
+                effets: {
                     fusionneDeuxInvocations: true,
                     nouvelleEntite: true,
                     utiliseSortsCapacitesDesDeux: true,
@@ -11727,7 +11471,7 @@ dresseur: {
                 psy: 18,
                 duree: 2,
                 action: "aucune",
-                effet: {
+                effets: {
                     fusionneAvecInvocations: true,
                     invocationsPresentesMeurent: true,
                     recupereCapacitesInvocations: true,
@@ -11756,7 +11500,7 @@ prestidigitateur: {
         "Les chapeaux ne sont pas considérés comme des menaces et ne seront pas ciblés directement par un ennemi. En revanche, si un sortilège a été lancé par un chapeau magique alors les ennemis intelligents pourront se mettre à les détruire.",
         "Les chapeaux magiques fonctionnent également hors combat et ont une durée de vie de 30 minutes."
     ],
-    passifs: {
+    talentVoie: {
         niveau: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         talents: [
             {
@@ -11764,119 +11508,83 @@ prestidigitateur: {
                 image: "",
                 description: "Vous pouvez faire un jet d’Art et Musique pour exécuter un petit tour de magie qui permet de captiver l’attention, d’impressionner quelqu’un ou de faire diversion selon la situation. Cela peut être un tour de carte, faire disparaître ou apparaître un petit objet ou un petit animal, ou tout autre tour de magie de faible envergure.",
                 niveau: 1,
-                effet: {
-                    jetArtMusique: true,
-                    petitsToursMagie: true,
-                    captiverAttention: true,
-                    impressionner: true,
-                    faireDiversion: true
-                }
+                
             },
             {
                 nom: "Professionnel de la scène",
                 image: "",
-                description: "Ajoute +1 en Charisme et en Dextérité. Ajoute +20 en Art et Musique. Vous avez l’avantage sur vos jets de statistiques mineures si vous êtes sur une scène devant un public.",
+                description: "Ajoute +1 en Charisme et en dexterite. Ajoute +20 en Art et Musique. Vous avez l’avantage sur vos jets de statistiques mineures si vous êtes sur une scène devant un public.",
                 niveau: 2,
-                effet: {
-                    bonusCharisme: 1,
-                    bonusDexterite: 1,
-                    bonusArtMusique: 20,
-                    avantageJetsStatsMineuresSurSceneAvecPublic: true
-                }
+                fonction: "bonusDirectPlusConditionnel",
+                bonus: { majeures: { Charisme: 1, dexterite: 1 }, mineures: { ArtMusique: 20 } },
+                caracteristique: "artMusique",
+                bonusConditionnel: "avantage",
+                condition: "sur Scene Devant Public",
+                descriptionCondition: "Vous avez l’avantage sur vos jets de statistiques mineures si vous êtes sur une scène devant un public."
+
             },
             {
                 nom: "Disparition surprise",
                 image: "",
                 description: "Une fois par combat ou par scène, vous pouvez éviter totalement une attaque de zone en vous téléportant sur un chapeau magique hors de la zone ciblée. Cet effet ne peut pas être utilisé si vous êtes entravé ou dans l’impossibilité de vous téléporter, il ne peut avoir lieu que si vous avez un chapeau magique posé quelque part.",
                 niveau: 3,
-                effet: {
-                    uneFoisParCombatOuScene: true,
-                    eviteAttaqueZone: true,
-                    teleportationSurChapeauMagiqueHorsZone: true,
-                    conditionsUtilisation: "nonEntraveOuImpossibiliteTeleporter, chapeauMagiquePresent"
-                }
+                
             },
             {
                 nom: "Supercherie",
                 image: "",
                 description: "Vous êtes très doué pour repérer les tricheries ou les manipulations, vous gagnez un avantage en calme face à quelqu’un qui cache quelque chose ou qui essaye de vous tromper. Vous maîtrisez vous-même cet art bien sûr et ajoutez +10 en Persuader/Tromper et en Adresse.",
                 niveau: 4,
-                effet: {
-                    avantageCalmeFaceTromperie: true,
-                    bonusPersuaderTromper: 10,
-                    bonusAdresse: 10
-                }
+                fonction: "bonusDirectPlusConditionnel",
+                bonus: { mineures: { Persuasion: 10, Adresse: 10 } },
+                caracteristique: "calme",
+                bonusConditionnel: "avantage",
+                condition: "face a Quelqu'un Qui Cache Quelque Chose Ou Qui Essaye de Tromper",
+                descriptionCondition: "Vous gagnez un avantage en calme face à quelqu’un qui cache quelque chose ou qui essaye de vous tromper."
             },
             {
                 nom: "Personnalité captivante",
                 image: "",
                 description: "Vous êtes toujours le premier à vous faire remarquer. En combat vous avez l’avantage pour tous les jets de ciblages. Hors combat vous pouvez capter l’attention d’une foule ou faire diversion avec avantage.",
                 niveau: 5,
-                effet: {
-                    avantageJetsCiblagesCombat: true,
-                    capterAttentionFouleOuDiversionAvecAvantageHorsCombat: true
-                }
+                
             },
             {
                 nom: "Véritable magicien",
                 image: "",
                 description: "Ajoute +2 en Intelligence ainsi que +10 en Connaissance mystique et en perception magique.",
                 niveau: 6,
-                effet: {
-                    bonusIntelligence: 2,
-                    bonusConnaissanceMystique: 10,
-                    bonusPerceptionMagique: 10
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { Intelligence: 2 }, mineure: { Mystique: 10, PerceptionMagique: 10 } },
             },
             {
                 nom: "Chapelier",
                 image: "",
                 description: "Vous gagnez +1 au DSB pour chaque chapeau magique présent dans un rayon de 100 mètres de vous. Cet effet ne s’applique qu’en combat.",
                 niveau: 7,
-                effet: {
-                    bonusDSBParChapeauMagique: 1,
-                    rayonChapeau: 100,
-                    appliqueUniquementEnCombat: true
-                }
+                
             },
             {
                 nom: "Ventriloquie imitatrice",
                 image: "",
                 description: "Vous pouvez vous exprimer sans bouger les lèvres, personne ne peut précisément déterminer la source de la parole et vous pouvez imiter à la perfection la voix de quelqu’un d’autres que vous avez déjà entendu avec cet effet.",
                 niveau: 8,
-                effet: {
-                    parlerSansBougerLevres: true,
-                    sourceParoleIndeterminable: true,
-                    imiterVoixParfaitement: true
-                }
+                
             },
             {
                 nom: "Grand illusionniste",
                 image: "",
-                description: "Ajoute +1 en Charisme et en Dextérité. A chaque fois que vous faites un tour de magie ou utilisez un sortilège de la voie hors combat vous récupérez 1 PSY. Effet limité à 2 fois par scène.",
+                description: "Ajoute +1 en Charisme et en dexterite. A chaque fois que vous faites un tour de magie ou utilisez un sortilège de la voie hors combat vous récupérez 1 PSY. Effet limité à 2 fois par scène.",
                 niveau: 9,
-                effet: {
-                    bonusCharisme: 1,
-                    bonusDexterite: 1,
-                    recuperePSYApresTourMagieOuSortHorsCombat: 1,
-                    limiteParScene: 2
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { Charisme: 1, dexterite: 1 } },
             },
             {
                 nom: "Public conquis",
                 image: "",
                 description: "Après avoir exécuté un sortilège coûtant 6 PSY ou plus vous appliquez 'Charme' à l’ennemi le plus proche. Hors combat ne fonctionne que si vous avez utilisé votre propre psyché pour lancer le sort et applique 'Charme' à toute l’assistance pendant 30 minutes.",
                 niveau: 10,
-                effet: {
-                    apresSort6PSYOuPlus: {
-                        appliqueCharmeEnnemiProche: true
-                    },
-                    horsCombat: {
-                        conditions: "utiliseProprePsyche",
-                        appliqueCharmeAssistance: true,
-                        duree: 30
-                    }
-                }
+               
             }
         ]
     },
@@ -11900,7 +11608,7 @@ prestidigitateur: {
                 psy: 3,
                 portee: 15,
                 alt_etat: "Entrave irrésistible",
-                effet: {
+                effets: {
                     nePeutPlusFaireAction: true,
                     jetForcePourSeDegager: true,
                     liberationAutomatiqueSiAttaque: true,
@@ -11915,7 +11623,7 @@ prestidigitateur: {
                 psy: 2,
                 portee: "n_importe_ou_chapeau",
                 action: "aucune",
-                effet: {
+                effets: {
                     chapeauDetruit: true,
                     nEnclenchePasMecanique: true,
                     limiteParTour: 2
@@ -11928,7 +11636,7 @@ prestidigitateur: {
                 description: "Vous faites apparaître une arme de petite taille sortie de votre manche au moment d’une attaque au corps à corps avec votre arme. Inflige les dégâts de cette arme cachée en plus de vos dégâts d’arme et ajoute votre DSB au total. Les dégâts de l’arme cachée et du DSB ne sont pas réduits par le blocage.",
                 psy: 4,
                 portee: "CAC_arme",
-                effet: {
+                effets: {
                     faitApparaitreArmePetiteTaille: true,
                     degatsArmeCacheeEnPlusDegatsArme: true,
                     ajouteDSBTotal: true,
@@ -11943,7 +11651,7 @@ prestidigitateur: {
                 psy: 2,
                 portee: "CAC",
                 degats: "x d2",
-                effet: {
+                effets: {
                     xEstNbSortsVoieLancesCombat: true,
                     reinitialiseCompteur: true,
                     action: "aucune"
@@ -11966,7 +11674,7 @@ prestidigitateur: {
                 description: "Vous profitez d’un grand rideau pour vous changer instantanément, vous pouvez optez pour n’importe quelle tenue mais celle-ci ne peut pas être une armure et reste purement cosmétique. Ce sort n’a normalement pas d’effet particulier en combat, mais le MJ peut en décider autrement. Ne consomme pas d’action.",
                 psy: 2,
                 action: "aucune",
-                effet: {
+                effets: {
                     changementTenueInstantane: true,
                     tenueNonArmure: true,
                     purementCosmetique: true,
@@ -11981,7 +11689,7 @@ prestidigitateur: {
                 psy: 4,
                 action: "aucune",
                 conditions: ["subitAttaqueArmeMelee"],
-                effet: {
+                effets: {
                     attaqueAucunDegat: true,
                     armeAdversaireAttacheeCape: true,
                     depossedeAdversaireArme: true
@@ -11995,7 +11703,7 @@ prestidigitateur: {
                 psy: 3,
                 portee: 15,
                 degats: "1d6+2",
-                effet: {
+                effets: {
                     poseChapeauMagiqueEnPlusMecanique: true,
                     origineChapeauMagiquePossible: true
                 },
@@ -12008,7 +11716,7 @@ prestidigitateur: {
                 psy: 3,
                 portee: 10,
                 duree: 2,
-                effet: {
+                effets: {
                     hypnotiseEnnemiEnPoulet: true,
                     jetSauvegardeCharismePourEviter: true,
                     relanceChaqueTourPourRompre: true
@@ -12021,7 +11729,7 @@ prestidigitateur: {
                 description: "Vous vous enfermez dans un coffre magique et devenez invulnérable pour 1 tour, vous pouvez en sortir pendant le tour de n’importe quelle cible qui se tiendrait à son corps à corps pour l’enfermer à l’intérieur à votre place et lui infligez 1 dé 6 +2 dégâts et Sonné pour 1 tour.",
                 psy: 4,
                 duree: 1,
-                effet: {
+                effets: {
                     devientInvulnerable: true,
                     peutSortirPourEnfermerCibleCAC: true,
                     infligeDegats: "1d6+2",
@@ -12036,7 +11744,7 @@ prestidigitateur: {
                 description: "Vous êtes immunisé à Entrave pendant le reste du combat. Hors combat ce sort permet de se libérer de n’importe quel type de lien ou menotte et permet d’ouvrir les cages ou les prisons non magiques. Ce sort ne consomme pas d’action.",
                 psy: 2,
                 action: "aucune",
-                effet: {
+                effets: {
                     immuniseAEntraveResteCombat: true,
                     horsCombat: {
                         libereDeLiensMenottes: true,
@@ -12059,7 +11767,7 @@ prestidigitateur: {
                     pv: 14,
                     capacite: "utiliseTeleportoChapeauGratuitementSansDetruire"
                 },
-                effet: {
+                effets: {
                     siCACAvecLanceur: {
                         avantageSortsPrestidigitateur: true,
                         ajouteDegatsAuxSortsInfligeantDegats: "1d4"
@@ -12073,7 +11781,7 @@ prestidigitateur: {
                 description: "Vous enfermez une entité au corps à corps dans une boite que vous sciez en deux. Si c’est un ennemi il subit 2 dé 6 dégâts et 'Hémorragie' et sautera son prochain tour de jeu pour se réassembler magiquement. Si c’est un allié il est séparé en deux versions de lui-même possédant la moitié de ses statistiques et de sa taille chacune, il peut jouer les deux entités l’une après l’autre. Après deux tours il fusionne en une seule entité.",
                 psy: 5,
                 portee: "CAC",
-                effet: {
+                effets: {
                     siEnnemi: {
                         degats: "2d6",
                         alt_etat: "Hémorragie",
@@ -12096,7 +11804,7 @@ prestidigitateur: {
                 psy: 4,
                 duree: 2,
                 action: "aucune",
-                effet: {
+                effets: {
                     passeATraversObstaclesEntitesCombat: true,
                     horsCombat: {
                         passeATraversSurface: true,
@@ -12111,7 +11819,7 @@ prestidigitateur: {
                 description: "Ce sort reste dormant jusqu’à ce que vous subissiez une attaque à distance sous forme de projectile. Juste avant de vous toucher vous enveloppez les projectiles dans votre cape et ceux-ci réapparaissent pour toucher l’ennemi qui les a envoyés. Ce sort annule tous dégâts que vous deviez subir et les renvoient à l’assaillant à la place.",
                 psy: 5,
                 conditions: ["subitAttaqueDistanceProjectile"],
-                effet: {
+                effets: {
                     annuleDegatsSubis: true,
                     renvoieDegatsAssaillant: true
                 },
@@ -12126,7 +11834,7 @@ prestidigitateur: {
                 degats: "1d8",
                 alt_etat: "desavantageJetsAttaquesDistance",
                 dureeAltEtat: 1,
-                effet: {
+                effets: {
                     siCC: {
                         oiseauxSontCorbeaux: true,
                         degatsMaximaux: true,
@@ -12143,7 +11851,7 @@ prestidigitateur: {
                 psy: 4,
                 portee: "tout_le_terrain",
                 nbCiblesMax: 4,
-                effet: {
+                effets: {
                     enfermeSousPotsMagiques: true,
                     melangeEntites: true,
                     echangentPlaceSelonDesirs: true
@@ -12158,7 +11866,7 @@ prestidigitateur: {
                 action: "aucune",
                 dureeCombat: 2,
                 dureeHorsCombat: 20,
-                effet: {
+                effets: {
                     devientVolantCombat: true,
                     leviteHorsCombat: true,
                     pasVol: true,
@@ -12186,13 +11894,7 @@ prestidigitateur: {
                 description: "Rassemble tous les chapeaux magiques dans le vôtre qui grossit en conséquence et voit sa masse drastiquement augmentée. Vous frappez alors un ennemi en l’écrasant avec et il subit x dé 6 dégâts ou X est le nombre de chapeaux magiques sur le terrain au moment du lancement de ce sort. Les chapeaux sont tous détruits à l’utilisation de ce sort. Si ce sort inflige plus de 20 points de dégâts l’ennemi subit également 'Sonné'.",
                 psy: 6,
                 degats: "x d6",
-                effet: {
-                    xEstNbChapeauxMagiques: true,
-                    chapeauxDetruits: true,
-                    siDegatsPlus20: {
-                        alt_etat: "Sonné"
-                    }
-                },
+                
                 touche: "automatique"
             }
         ],
@@ -12204,7 +11906,7 @@ prestidigitateur: {
                 psy: 5,
                 tailleCibleMax: 10,
                 dureeCombat: 2,
-                effet: {
+                effets: {
                     appliqueInvisible: true,
                     invisibleJusquaDegats: true,
                     peutCiblerSupplementaire: true,
@@ -12221,7 +11923,7 @@ prestidigitateur: {
                 portee: 10,
                 dureeCombat: 2,
                 dureeHorsCombat: 60,
-                effet: {
+                effets: {
                     confusionMentale: true,
                     irreversible: true,
                     nonReApplicableMemeCible: true
@@ -12236,7 +11938,7 @@ prestidigitateur: {
                 portee: "zone",
                 degats: "3d6",
                 alt_etat: "Hémorragie",
-                effet: {
+                effets: {
                     pasDeDegatsAuxAllies: true,
                     siAllieDansZone: {
                         effetPlusImpressionnant: true,
@@ -12253,7 +11955,7 @@ prestidigitateur: {
                 description: "Ce sort inflige 1 dégât pour chaque PSY utilisée par le prestidigitateur pendant le combat, on ajoute également 1 dégât par chapeau magique présent au lancement de ce sort. La cible du sort disparaît en s’effondrant sur elle-même et il n’en reste rien si elle meurt de cette attaque. Les dégâts de ce sort sont perce-armure, ignorent les résistances et ne sont pas blocables. Une utilisation par combat.",
                 psy: 8,
                 degats: "1 par PSY + 1 par chapeau magique",
-                effet: {
+                effets: {
                     cibleDisparaitSiMeurt: true,
                     degatsPerceArmure: true,
                     ignoreResistances: true,
@@ -12270,7 +11972,7 @@ prestidigitateur: {
                 action: "aucune",
                 conditions: ["apresSortPrestidigitateurDegats"],
                 duree: 1,
-                effet: {
+                effets: {
                     infligeDesavantageTousJetsCible: true,
                     limiteParTour: 1
                 },
@@ -12283,7 +11985,7 @@ prestidigitateur: {
                 psy: 6,
                 portee: 25,
                 dureeCible: 1,
-                effet: {
+                effets: {
                     echangePlaceAvecCible: true,
                     cibleDisparaitInexplicablement: true,
                     cibleInvulnerableEtSonneIrresistible: true,
@@ -12300,7 +12002,7 @@ prestidigitateur: {
                 psy: 3,
                 action: "aucune",
                 duree: 2,
-                effet: {
+                effets: {
                     allieGagneTeleportoChapeau: true,
                     allieUtiliseCommePrestidigitateur: true,
                     nEnclenchePasMecanique: true
@@ -12314,7 +12016,7 @@ prestidigitateur: {
                 psy: 6,
                 action: "aucune",
                 duree: 2,
-                effet: {
+                effets: {
                     creeGrandeScene: true,
                     sortsMoinsPSYSurScene: 2,
                     uneFoisParTour: {
@@ -12335,7 +12037,7 @@ prestidigitateur: {
                 portee: "tout_le_terrain",
                 action: "aucune",
                 duree: 2,
-                effet: {
+                effets: {
                     effetMagieDuSpectacleSurToutLeTerrain: true,
                     octroieChapeauPassATousAllies: true,
                     chapeauxMagiquesCrachentBrouillard: true,
@@ -12419,35 +12121,27 @@ cartomancien: {
                 image: "",
                 description: "Ajoute +1 en Chance. Bonus +20 au hasard en situation critique ou lors d'un jeu de hasard.",
                 niveauJoueur: 1,
-                prerequis: [],
-                effet: {
-                    bonus_chance: 1,
-                    bonus_hasard: 20,
-                    condition_hasard: "situation critique ou jeu de hasard"
-                }
+                fonction: "bonusDirectPlusConditionnel",
+                bonus: { majeure: { Chance: 1 } },
+                caracteristique: "Hasard",
+                bonusConditionnel: 20,
+                condition: "situation Critique Ou Jeu de Hasard",
+                description: "Bonus +20 au hasard en situation critique ou lors d'un jeu de hasard."
             },
             {
                 nom: "Destinée Magnifique",
                 image: "",
-                description: "Ajoute +1 en Dextérité et en Charisme. Vous ignorez les tentatives de ciblage adverse, car votre destin vous appartient.",
+                description: "Ajoute +1 en dexterite et en Charisme. Vous ignorez les tentatives de ciblage adverse, car votre destin vous appartient.",
                 niveauJoueur: 2,
-                prerequis: ["Chance Insolente"],
-                effet: {
-                    bonus_dexterite: 1,
-                    bonus_charisme: 1,
-                    ignore_ciblage_adverse: true
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeure: { dexterite: 1, Charisme: 1 } },
             },
             {
                 nom: "Bonne Aventure",
                 image: "",
                 description: "Lors d'un butin aléatoire, le Cartomancien tire une carte. Si c’est une reine ou un roi, il peut trouver un équipement supplémentaire.",
                 niveauJoueur: 3,
-                prerequis: ["Destinée Magnifique"],
-                effet: {
-                    butin_aleatoire_tire_carte: true,
-                    si_reine_ou_roi_equipement_supplementaire: true
-                }
+                
             },
             {
                 nom: "Prédiction",
@@ -12455,14 +12149,7 @@ cartomancien: {
                 description: "Quitte ou double devient : si vous faites 1 ou 2, vous ne subissez rien. Si vous faites 6, vous prenez le double de dégâts. Sinon rien ne se passe. Si vous ne possédez pas ce sort vous ignorez l’effet et le débloquez à la place.",
                 niveauJoueur: 4,
                 prerequis: ["Bonne Aventure"],
-                effet: {
-                    modification_quitte_ou_double: {
-                        resultat_1_ou_2: "aucun_degat",
-                        resultat_6: "double_degats",
-                        sinon: "rien"
-                    },
-                    debloque_sort: "Quitte ou Double"
-                }
+                
             },
             {
                 nom: "Tricherie",
@@ -12470,23 +12157,15 @@ cartomancien: {
                 description: "Le sort 'Lancer de Carte' Permet désormais de tirer deux cartes mais vous n’en gardez qu’une seule pour appliquer son effet et celle qui n’est pas retenue ne compte pas pour les effets de combinaison.",
                 niveauJoueur: 5,
                 prerequis: ["Prédiction"],
-                effet: {
-                    lancer_de_carte_tire_deux_cartes: true,
-                    garde_une_seule_carte: true,
-                    carte_non_retenue_pas_combinaison: true
-                }
+               
             },
             {
                 nom: "Bonne Etoile",
                 image: "",
                 description: "Ajoute +2 en Chance. Si vous devez mourir d’une attaque, vous encaissez avec 1 PV et subissez ''Sommeil'' à la place. Utilisable 1 fois par combat.",
                 niveauJoueur: 6,
-                prerequis: ["Tricherie"],
-                effet: {
-                    bonus_chance: 2,
-                    encaisse_1_pv_et_sommeil_si_mort: true,
-                    utilisation_par_combat: 1
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeure: { Chance: 2 } },
             },
             {
                 nom: "Mains sur le Destin",
@@ -12494,10 +12173,7 @@ cartomancien: {
                 description: "Immunité à ''Charme'' et ''Silence''.",
                 niveauJoueur: 7,
                 prerequis: ["Bonne Etoile"],
-                effet: {
-                    immunite_charme: true,
-                    immunite_silence: true
-                }
+                
             },
             {
                 nom: "Maître des Cartes",
@@ -12505,12 +12181,7 @@ cartomancien: {
                 description: "Les effets des cartes sont doublés. Si vous avez déjà un effet doublé vous le triplez et le sort octroie +10% de chances de CC pendant l’effet de la carte. La carte Joker octroie une résistance élémentaire au choix pendant un tour en plus que son effet.",
                 niveauJoueur: 8,
                 prerequis: ["Mains sur le Destin"],
-                effet: {
-                    effets_cartes_doubles: true,
-                    si_deja_double_triple: true,
-                    bonus_cc_pendant_effet_carte: 10,
-                    joker_resistance_elementaire_en_plus: true
-                }
+                
             },
             {
                 nom: "Astrologue",
@@ -12518,11 +12189,12 @@ cartomancien: {
                 description: "Ajoute +1 en Intelligence. Bonus de +30 en connaissance sacrée, monde et mystique pour tout ce qui concerne les cartes, les astres et la Divinité Scélenis.",
                 niveauJoueur: 9,
                 prerequis: ["Maître des Cartes"],
-                effet: {
-                    bonus_intelligence: 1,
-                    bonus_connaissance_sacre_monde_mystique: 30,
-                    concerne: "cartes, astres et Divinité Scélenis"
-                }
+                fonction: "bonusDirectPlusConditionnel",
+                bonus: { majeure: { Intelligence: 1 }},
+                caracteristique: ["Sacrée", "Monde", "Mystique"],
+                bonusConditionnel: 30,
+                condition: "cartes, astres et Divinité Scélenis",
+                description: "Bonus de +30 en connaissance sacrée, monde et mystique pour tout ce qui concerne les cartes, les astres et la Divinité Scélenis." 
             },
             {
                 nom: "Chance Infinie",
@@ -12530,10 +12202,7 @@ cartomancien: {
                 description: "Si vous avez plus de 50% de chances de CC lors de la réalisation d’une attaque, vous transformez votre chance d’EC en échec simple. Vous gagnez aussi un avantage lors de tous vos jets de hasard et d'intuition.",
                 niveauJoueur: 10,
                 prerequis: ["Astrologue"],
-                effet: {
-                    si_plus_50_cc_echec_critique_echec_simple: true,
-                    avantage_jets_hasard_intuition: true
-                }
+                
             }
         ]
     },
@@ -12549,7 +12218,7 @@ cartomancien: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     resultat_de_1: "aucun_degat",
                     resultat_de_6: "double_degats",
                     autre_resultat: "rien"
@@ -12564,7 +12233,7 @@ cartomancien: {
                 Distance: "mêlée",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     degats: "1d6+3"
                 }
             },
@@ -12577,7 +12246,7 @@ cartomancien: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     echec_critique_devient_normal: true,
                     bonus_blocage: 20,
                     duree_tours: 1
@@ -12592,9 +12261,9 @@ cartomancien: {
                 Distance: "25m",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     partage_effets_cartes_avec_allie: true,
-                    duree_effet: "jusqu'a_mort_cible_ou_reutilisation"
+                    duree_effets: "jusqu'a_mort_cible_ou_reutilisation"
                 }
             },
             {
@@ -12606,7 +12275,7 @@ cartomancien: {
                 Distance: "mêlée", // Spécifié comme CAC dans l'énoncé de l'exercice pour Ratage Total, donc supposé pour cet effet aussi
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     adversaire_tire_carte: true,
                     effets_et_duree_doubles_en_malus: true,
                     degats: "1d6+1",
@@ -12622,7 +12291,7 @@ cartomancien: {
                 Distance: "0m",
                 Action: "maintenir",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     tire_carte_supplementaire_lancer_de_carte: true,
                     garde_une_seule_pour_effets_combinaisons: true,
                     cout_maintien_psy_par_tour: 1,
@@ -12638,7 +12307,7 @@ cartomancien: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     bonus_cc_ec: 10,
                     duree_tours: 3,
                     cumulable_max: 2
@@ -12653,9 +12322,9 @@ cartomancien: {
                 Distance: "25m",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     cible_subit_effet_negatif_cartes_piochees: true,
-                    duree_effet: "jusqu'a_mort_cible_ou_reutilisation"
+                    duree_effets: "jusqu'a_mort_cible_ou_reutilisation"
                 }
             },
             {
@@ -12667,7 +12336,7 @@ cartomancien: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     taux_cc_diminue_a_0: true,
                     taux_ec_augmente_de_20: true,
                     duree_tours: 2,
@@ -12683,7 +12352,7 @@ cartomancien: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     relance_jet_de_rate: true,
                     garde_resultat_meme_si_pire: true,
                     pas_deux_fois_meme_jet: true,
@@ -12699,7 +12368,7 @@ cartomancien: {
                 Distance: "15m",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     si_derniere_carte_reine_ou_valet: "soigne_1d6+2_pv",
                     si_derniere_carte_as_ou_roi: "inflige_1d6+2_degats"
                 }
@@ -12713,7 +12382,7 @@ cartomancien: {
                 Distance: "personnel",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     degats: "1d6",
                     tire_carte_par_ennemi_touche: true
                 }
@@ -12729,7 +12398,7 @@ cartomancien: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     tire_2_cartes: true,
                     applique_2_effets: true,
                     si_une_as_duree_2_tours: true,
@@ -12746,7 +12415,7 @@ cartomancien: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     reapplique_effet_carte_tour_precedent: true,
                     compte_tirage_carte_normal: true,
                     utilisation_par_tour: 1
@@ -12761,7 +12430,7 @@ cartomancien: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     tire_carte: true,
                     effet_carte_combinaison_double: true,
                     duree_tours: 2,
@@ -12777,7 +12446,7 @@ cartomancien: {
                 Distance: "mêlée", // Non spécifié, supposé CAC
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     condition_effets_cartes_actifs: true,
                     adversaire_lance_1d6: true,
                     si_resultat_carte_active: "2d6+4_degats",
@@ -12793,7 +12462,7 @@ cartomancien: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     condition_joker_pioché_ce_combat: true,
                     degats: "X_d6",
                     x_est_nb_jokers_pioches: true,
@@ -12809,7 +12478,7 @@ cartomancien: {
                 Distance: "30m",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     condition_4_cartes_piochees_aucune_combinaison: true,
                     choix_declencher_combinaison: "duree_effet_doubles",
                     choix_degats: "X_d2",
@@ -12825,7 +12494,7 @@ cartomancien: {
                 Distance: "mêlée", // Non spécifié, supposé CAC
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     degats: "1d6+1",
                     applique_charme: true,
                     si_cc_deuxieme_charme: true
@@ -12840,7 +12509,7 @@ cartomancien: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     si_prochaine_cible_ko_ou_mort: "bonus_cc_10_toucher_10_dsb_1_fin_combat",
                     si_cible_allie: "revient_vie_1_pv_apres_ko",
                     si_cible_ennemi_non_premier_ko_degats: "1d8",
@@ -12856,7 +12525,7 @@ cartomancien: {
                 Distance: "0m",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     type_invocation: "fée_ou_petit_elementaire_croupier",
                     pv_invocation: 8,
                     resistance_elementaire_invocation: "choisie",
@@ -12876,7 +12545,7 @@ cartomancien: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     choisit_carte: true,
                     double_effets_carte_combinaison: true,
                     compte_tirage_carte: true,
@@ -12892,7 +12561,7 @@ cartomancien: {
                 Distance: "0m",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     choisit_carte: true,
                     effet_quadruple_permanent: true,
                     pas_augmentation_autre_sorte: true,
@@ -12908,7 +12577,7 @@ cartomancien: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     pioche_6_cartes: true,
                     effets_combinaisons_doubles: true,
                     duree_infinie: true,
@@ -12926,7 +12595,7 @@ cartomancien: {
                 Distance: "illimitée",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     effets_cartes_combinaison_appliques_alliés: true,
                     duree_tours: 1
                 }
@@ -12940,7 +12609,7 @@ cartomancien: {
                 Distance: "15m",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     condition_apres_cc: true,
                     transfert_moitie_taux_critique_allie: true,
                     utilisation_par_tour: 1
@@ -12955,7 +12624,7 @@ cartomancien: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     lance_hors_tour_de_jeu: true,
                     obtient_tour_supplementaire: true,
                     debut_tour_pioche_deux_cartes: true,
@@ -12971,7 +12640,7 @@ cartomancien: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     invulnerable: true,
                     cc_automatique_sorts_reussis: true,
                     effets_augmentation_malus_sur_autre_cible_duree_plus_1_tour: true,
@@ -12987,7 +12656,7 @@ cartomancien: {
                 Distance: "mêlée", // Non spécifié
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     lance_1d2: true,
                     si_resultat_1_degats_adversaire: "4d8",
                     si_resultat_2_degats_lanceur: "2d8",
@@ -13005,7 +12674,7 @@ cartomancien: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "CHA/DEX",
-                effet: {
+                effets: {
                     duree_tours: 2,
                     ne_peut_plus_rater_jet: true,
                     ec_deviennent_cc: true,
@@ -13043,13 +12712,13 @@ invocateur: {
         mystique: 20, // Connaissance mystique (INT)
         sacré: 0, // Connaissance sacré (INT)
         nature: 10, // Connaissance nature (INT)
-        robustesse: 0, // Robustesse (DEF)
+        robustesse: 0, // robustesse (DEF)
         calme: 10, // Calme (DEF)
         marchandage: 0, // Marchandage (CHA)
         persuasion: 0, // Persuader/Tromper (CHA)
         artmusique: 0, // Art et Musique (CHA)
         commandement: 30, // Commandement (CHA)
-        acrobatie: 0, // Acrobatie (DEX)
+        acrobatie: 0, // acrobatie (DEX)
         discretion: 10, // Discrétion (DEX)
         adresse: 0, // Adresse (DEX)
         artisanat: 0, // Artisanat (DEX)
@@ -13069,7 +12738,7 @@ invocateur: {
         "Les invocations possèdent la meilleure statistique de touche de l’Invocateur, ses chances de coup critique et ses statistiques mineures. Tout le reste des statistiques sont soit précisées dans le sort d'invocation, soit celle de base prévue par les règles générales d'invocation.",
         "Les Invocations restent en place jusqu’à ce qu’elles meurent, ou que l’invocateur utilise un sort pour les tuer, elles ne peuvent pas être rappelées autrement. De ce fait une invocation peut continuer de suivre son invocateur même hors combat et être déjà présente sur le terrain quand un combat s’enclenche."
     ],
-    passifs: {
+    talentVoie: {
         niveauJoueur: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         talents: [
             {
@@ -13078,116 +12747,79 @@ invocateur: {
                 description: "Ajoute +1 en Sagesse. Augmente de 5% vos chances de toucher tant qu’une de vos invocations est sur le terrain. Ce bonus est porté à 10% au niveau 5 de l’invocateur.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
-                    bonus_sagesse: 1,
-                    bonus_chance_toucher_si_invocation_terrain: "5%",
-                    bonus_chance_toucher_n5: "10%"
-                }
+                
             },
             {
                 nom: "Lâcheté Pratique",
                 image: "",
-                description: "Ajoute +1 en Défense. Bonus de +10 en Acrobatie.",
+                description: "Ajoute +1 en Défense. Bonus de +10 en acrobatie.",
                 niveauJoueur: 2,
-                prerequis: ["Focalisation Tranquille"],
-                effet: {
-                    bonus_defense: 1,
-                    bonus_acrobatie: 10
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { defense: 1}, mineures: { acrobatie: 10 }},
             },
             {
                 nom: "Donneur d’Ordre",
                 image: "",
                 description: "Ajoute +1 en Charisme. Bonus de +10 en Commandement.",
                 niveauJoueur: 3,
-                prerequis: ["Lâcheté Pratique"],
-                effet: {
-                    bonus_charisme: 1,
-                    bonus_commandement: 10
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { charisme: 1 }, mineures: { commandement: 10 }}
             },
             {
                 nom: "Spécialiste de la planque",
                 image: "",
                 description: "Ajoute +1 en Charisme OU en Défense. L’Invocateur ne peut pas être ciblé avec un jet de ciblage.",
                 niveauJoueur: 4,
-                prerequis: ["Donneur d’Ordre"],
-                effet: {
-                    bonus_charisme_ou_defense: 1,
-                    immunite_jet_ciblage: true
-                }
+                parametres: {
+                    choix: {
+                        type: "majeures",
+                        stats: ["CHARISME", "DEFENSE"], 
+                        points: 1
+                 }
+            },
             },
             {
                 nom: "Convocation Ferme",
                 image: "",
                 description: "Les invocations peuvent encaisser les coups à la place de l’invocateur si elles sont à son corps-à-corps. L’inverse est aussi possible. Si une invocation encaisse un coup à la place de son utilisateur elle meurt, peu importe combien elle avait de PV.",
                 niveauJoueur: 5,
-                prerequis: ["Spécialiste de la planque"],
-                effet: {
-                    invocations_peuvent_encaisser_degats_place_invocateur_cac: true,
-                    invocateur_peut_encaisser_degats_place_invocation: true,
-                    invocation_meurt_si_encaisse_coup_place_utilisateur: true
-                }
+                
             },
             {
                 nom: "Armée disciplinée",
                 image: "",
                 description: "Si vous avez 3 invocations ou plus sur le terrain sous votre contrôle vous gagnez un avantage sur tous vos jets de blocage, de plus votre taux de blocage est partagé avec les invocations à votre corps à corps.",
                 niveauJoueur: 6,
-                prerequis: ["Convocation Ferme"],
-                effet: {
-                    avantage_jets_blocage_si_3_invocations_ou_plus: true,
-                    partage_taux_blocage_avec_invocations_cac: true
-                }
+                
             },
             {
                 nom: "Lien Explosif",
                 image: "",
                 description: "Quand une de vos invocations meurt, elle explose en infligeant 1 dé 8 dégâts fixes à tous les ennemis à son corps à corps.",
                 niveauJoueur: 7,
-                prerequis: ["Armée disciplinée"],
-                effet: {
-                    invocation_explosion_a_mort: {
-                        degats: "1d8",
-                        zone: "cac_ennemis"
-                    }
-                }
+                
             },
             {
                 nom: "Minions dévoués",
                 image: "",
                 description: "Ajoute +1 en Défense. Si vous encaissez un coup qui devait vous faire tomber K.O. et que vous avez une invocation sur le terrain, échangez de place avec l’invocation et détruisez celle-ci. Vous ne subirez aucun dégât de l’attaque.",
                 niveauJoueur: 8,
-                prerequis: ["Lien Explosif"],
-                effet: {
-                    bonus_defense: 1,
-                    echange_place_avec_invocation_si_ko: true,
-                    invocation_detruite_echange: true,
-                    aucun_degat_subi_lors_echange_ko: true
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { defense: 1 }},
             },
             {
                 nom: "Réserve Inépuisable",
                 image: "",
                 description: "L’invocateur peut sacrifier une invocation alliée à moins de 15 mètres, il récupère la moitié des PV restants de l’invocation en PSY. Cet effet ne peut être utilisé qu’une fois par combat et ne consomme pas d’action.",
                 niveauJoueur: 9,
-                prerequis: ["Minions dévoués"],
-                effet: {
-                    sacrifie_invocation_alliee_recupere_moitie_pv_en_psy: true,
-                    limite_une_fois_par_combat: true,
-                    action_aucune: true
-                }
+                
             },
             {
                 nom: "Roi des Invocateurs",
                 image: "",
                 description: "L’invocateur ne peut subir aucun dégât ni aucune altération de statut de la part d’invocations adverses. Ses invocations infligent le double de dégâts sur des invocations adverses.",
                 niveauJoueur: 10,
-                prerequis: ["Réserve Inépuisable"],
-                effet: {
-                    immunite_degats_alterations_invocations_adversaires: true,
-                    invocations_double_degats_sur_invocations_adversaires: true
-                }
+                
             }
         ]
     },
@@ -13233,7 +12865,7 @@ invocateur: {
                         bonus_stat_mineure: "+30 dans une catégorie de statistique mineure choisie"
                     }
                 ],
-                effet: {
+                effets: {
                     bonus_stat_mineure_hors_combat_selon_palier: true,
                     action_aucune_si_palier_2_ou_moins: true
                 }
@@ -13281,7 +12913,7 @@ invocateur: {
                         blocage: "10%"
                     }
                 ],
-                effet: {
+                effets: {
                     action_aucune_si_palier_1_ou_moins: true
                 }
             },
@@ -13321,7 +12953,7 @@ invocateur: {
                         vitesse: "normale"
                     }
                 ],
-                effet: {
+                effets: {
                     ne_peut_pas_attaquer: true,
                     peut_bloquer_encaisser_place_allies_cac: true,
                     action_aucune_si_palier_1_ou_moins: true
@@ -13337,7 +12969,7 @@ invocateur: {
                 Distance: "25m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats_invocation_ennemie: "2d6",
                     tue_invocation_alliee_rend_cout_psy: true
                 }
@@ -13352,7 +12984,7 @@ invocateur: {
                 Distance: "mêlée", // Non spécifié, supposé être autour du lanceur
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     applique_terreur: true,
                     degats: "1d4"
                 }
@@ -13367,7 +12999,7 @@ invocateur: {
                 Distance: "distance",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     teleporte_cible_au_cac: true
                 }
             },
@@ -13381,7 +13013,7 @@ invocateur: {
                 Distance: "mêlée", // Non spécifié, supposé être autour du lanceur
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d6+1",
                     applique_chaos: true
                 }
@@ -13396,7 +13028,7 @@ invocateur: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d6+2",
                     pousse_cible_5m: true
                 }
@@ -13411,7 +13043,7 @@ invocateur: {
                 Distance: "illimitée",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     teleporte_invocation_au_cac: true
                 }
             },
@@ -13425,7 +13057,7 @@ invocateur: {
                 Distance: "0m",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     invisible: true,
                     duree_tours: 2,
                     ne_peut_pas_etre_cible_directement: true,
@@ -13443,7 +13075,7 @@ invocateur: {
                 Distance: "mêlée", // Non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     dsb_taux_critique_stat_touche_mis_en_commun: true,
                     utilisation_meilleure_statistique: true,
                     duree_tours: "1 (2 si invocation)",
@@ -13460,7 +13092,7 @@ invocateur: {
                 Distance: "10m",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     invocation_declenche_ciblage_automatique_2_ennemis: true
                 }
             }
@@ -13505,7 +13137,7 @@ invocateur: {
                         chance_cc: "40%"
                     }
                 ],
-                effet: {
+                effets: {
                     action_aucune_si_palier_1_ou_moins: true
                 }
             },
@@ -13545,7 +13177,7 @@ invocateur: {
                         vitesse: "normale"
                     }
                 ],
-                effet: {
+                effets: {
                     n_inflige_pas_degats: true,
                     donne_surplus_soin_en_pb_si_pv_pleins: true,
                     action_aucune_si_palier_1_ou_moins: true
@@ -13590,7 +13222,7 @@ invocateur: {
                         chance_cc: "60%"
                     }
                 ],
-                effet: {
+                effets: {
                     invisible_a_invocation_et_debut_tour: true,
                     cout_2_psy_moins_si_utilise_pour_lancer: true
                 }
@@ -13605,7 +13237,7 @@ invocateur: {
                 Distance: "mêlée", // Non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     taux_blocage_armure_mis_en_commun: true,
                     utilisation_meilleure_statistique: true,
                     peut_prendre_degats_place_autre_peu_importe_distance: true,
@@ -13623,11 +13255,11 @@ invocateur: {
                 Distance: "15m",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     applique_charme: true,
                     teleporte_cible_a_place_coffre: true,
                     degats: "1d8",
-                    disparait_apres_effet: true
+                    disparait_apres_effets: true
                 }
             },
             {
@@ -13640,7 +13272,7 @@ invocateur: {
                 Distance: "25m",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     octroie_pb: 6,
                     soigne_pv: "1d4",
                     pb_persistent_fin_combat_si_non_utilises: true
@@ -13656,7 +13288,7 @@ invocateur: {
                 Distance: "mêlée", // Non spécifié
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     reste_dormant_sur_cible: true,
                     cible_doit_etre_invocation: true,
                     invocation_resuscite_si_meurt_avec_6_pv: true,
@@ -13673,7 +13305,7 @@ invocateur: {
                 Distance: "mêlée", // Non spécifié, supposé être autour du lanceur
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d6+1",
                     type_degats: "perce_armure",
                     applique_poison: 2
@@ -13689,7 +13321,7 @@ invocateur: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     augmente_limite_max_invocation_de_1: true,
                     cumulable_une_seule_fois: true,
                     dure_tout_le_combat: true
@@ -13721,7 +13353,7 @@ invocateur: {
                         duree_tours_sur_terrain: 2
                     }
                 ],
-                effet: {
+                effets: {
                     limite_palier_3_seulement: true
                 }
             },
@@ -13761,7 +13393,7 @@ invocateur: {
                         vitesse: "normale"
                     }
                 ],
-                effet: {
+                effets: {
                     meurt_si_plus_psy: true,
                     action_aucune_si_palier_1_ou_moins: true
                 }
@@ -13805,7 +13437,7 @@ invocateur: {
                         vitesse: "normale"
                     }
                 ],
-                effet: {
+                effets: {
                     ne_fait_pas_degats: true,
                     action_aucune_si_palier_1_ou_moins: true
                 }
@@ -13820,7 +13452,7 @@ invocateur: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     limite_max_invocation_devient_6: true,
                     dure_tout_le_combat: true
                 }
@@ -13835,7 +13467,7 @@ invocateur: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     degats: "2d8",
                     si_cible_meurt_tous_autres_ennemis_appliquent_terreur: true
                 }
@@ -13850,7 +13482,7 @@ invocateur: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     degats_ennemis: "1d10",
                     applique_poison_irresistible: 2,
                     si_ennemi_moins_25_pv_et_applique_poison_correctement_meurt: true
@@ -13866,7 +13498,7 @@ invocateur: {
                 Distance: "0m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     perd_possibilite_invoquer: true,
                     augmente_dsb_3: true,
                     sorts_invocateur_degats_infligent_1d6_supplementaire: true,
@@ -13887,7 +13519,7 @@ invocateur: {
                 Distance: "devant_lanceur",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d10+2",
                     type_degats: "feu",
                     applique_brulure: true
@@ -13905,7 +13537,7 @@ invocateur: {
                 Distance: "15m",
                 Action: "standard",
                 Touche: "CHA/SAG",
-                effet: {
+                effets: {
                     sorts_invocation_cout_3_psy_moins: true,
                     sorts_invocation_ne_consomment_pas_action: true,
                     invocations_bonus_dsb_2: true,
@@ -13940,13 +13572,13 @@ elementariste: {
         mystique: 20, // Connaissance mystique (INT)
         sacré: 0, // Connaissance sacré (INT)
         nature: 0, // Connaissance nature (INT)
-        robustesse: 10, // Robustesse (DEF)
+        robustesse: 10, // robustesse (DEF)
         calme: 5, // Calme (DEF)
         marchandage: 0, // Marchandage (CHA)
         persuasion: 0, // Persuader/Tromper (CHA)
         artmusique: 0, // Art et Musique (CHA)
         commandement: 0, // Commandement (CHA)
-        acrobatie: 0, // Acrobatie (DEX)
+        acrobatie: 0, // acrobatie (DEX)
         discretion: 0, // Discrétion (DEX)
         adresse: 0, // Adresse (DEX)
         artisanat: 0, // Artisanat (DEX)
@@ -13974,14 +13606,14 @@ elementariste: {
             Distance: "N/A", // non spécifié, supposé être de zone autour du lanceur
             Action: "standard", // non spécifié
             Touche: "automatique",
-            effet: {
+            effets: {
                 consomme_charges_5_elements: true,
                 degats: "1d8+2",
                 frappe_automatiquement_faiblesse: true
             }
         }
     ],
-    passifs: {
+    talentVoie: {
         niveauJoueur: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         talents: [
             {
@@ -13990,7 +13622,7 @@ elementariste: {
                 description: "Vous octroie +1 dégât et +5% de chances de toucher à chaque fois que vous infligez des dégâts dans un élément différent que les précédents dégâts que vous avez infligés.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
+                effets: {
                     bonus_degats: 1,
                     bonus_chance_toucher: "5%",
                     condition: "si_degats_element_different_precedent"
@@ -14002,7 +13634,7 @@ elementariste: {
                 description: "Vous gagnez trois sorts Novices, chacun dans une Arcane élémentaire différente.",
                 niveauJoueur: 2,
                 prerequis: ["Variance"],
-                effet: {
+                effets: {
                     gain_sorts_novices_3_arcanes_differentes: true
                 }
             },
@@ -14011,82 +13643,67 @@ elementariste: {
                 image: "",
                 description: "Ajoute +1 dans deux statistiques majeures.",
                 niveauJoueur: 3,
-                prerequis: ["Touche à Tout"],
-                effet: {
-                    bonus_stats_majeures: 2 // +1 dans deux stats majeures
-                }
+                fonction: "repartitionCaracteristiquesMajeures",
+                parametres: {
+                    pointsToDistribute: 1,}
+                
             },
             {
                 nom: "Spécialiste en sortilège",
                 image: "",
                 description: "Octroie un avantage lors d’un jet de perception magique pour déterminer la nature d’un sort.",
                 niveauJoueur: 4,
-                prerequis: ["Adaptabilité"],
-                effet: {
-                    avantage_jet_perception_magique_nature_sort: true
-                }
+                fonction: "jetAvecBonusSituationnel",
+                parametres: {
+                    caracteristique: "perceptionmagique",
+                    bonus: "avantage",
+                    condition: "determine nature sort",
+                    description: "Vous etes un Spécialiste en sortilège, vous savez les repérer au premier coup d'oeil"},
+
             },
             {
                 nom: "Confirmé Elémentaire",
                 image: "",
                 description: "Vous gagnez deux sorts Confirmés dans deux Arcanes élémentaires différentes.",
                 niveauJoueur: 5,
-                prerequis: ["Spécialiste en sortilège"],
-                effet: {
-                    gain_sorts_confirmes_2_arcanes_differentes: true
-                }
+                
             },
             {
                 nom: "Variance vénérable",
                 image: "",
                 description: "Double le bonus du passif ''Variance''.",
                 niveauJoueur: 6,
-                prerequis: ["Confirmé Elémentaire"],
-                effet: {
-                    double_bonus_variance: true
-                }
+                
             },
             {
                 nom: "Résilience Absolue",
                 image: "",
                 description: "Ajoute une Résistance à l’élément de votre choix.",
                 niveauJoueur: 7,
-                prerequis: ["Variance vénérable"],
-                effet: {
-                    ajoute_resistance_element_choisi: true
-                }
+                
             },
             {
                 nom: "Adaptabilité", // Nom du passif identique au niveau 3, mais effet potentiellement différent ou cumulatif
                 image: "",
                 description: "Ajoute +1 dans deux statistiques majeures.",
                 niveauJoueur: 8,
-                prerequis: ["Résilience Absolue"],
-                effet: {
-                    bonus_stats_majeures: 2 // +1 dans deux stats majeures
-                }
+                fonction: "repartitionCaracteristiquesMajeures",
+                parametres: {
+                    pointsToDistribute: 1,}
             },
             {
                 nom: "Préférence Elémentaire",
                 image: "",
                 description: "Vous pouvez choisir un élément quand vous le souhaitez au cours d’un combat ou d’une scène, tous vos sorts peuvent désormais être modifiés pour frapper dans cet élément, vous perdez 2 dégâts avec tous les autres éléments. Cet effet ne peut pas être annulé une fois enclenché.",
                 niveauJoueur: 9,
-                prerequis: ["Adaptabilité"],
-                effet: {
-                    choix_element_frappe_sorts: true,
-                    malus_degats_autres_elements: -2,
-                    effet_irrevocable: true
-                }
+                
             },
             {
                 nom: "Maîtrise Elémentaire Totale",
                 image: "",
                 description: "Vous choisissez deux sorts de Maître parmi celui de cette voie et ceux des 5 Arcanes élémentaires. Vous les apprenez tous les deux à la place de celui que vous débloquez au niveau 10.",
                 niveauJoueur: 10,
-                prerequis: ["Préférence Elémentaire"],
-                effet: {
-                    choix_2_sorts_maitre_parmi_voie_et_5_arcanes_elementaires: true
-                }
+                
             }
         ]
     },
@@ -14103,7 +13720,7 @@ elementariste: {
                 Distance: "N/A", // non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d6",
                     element_choix: ["terre", "feu"],
                     effet_tour_suivant_feu: "brulure",
@@ -14120,7 +13737,7 @@ elementariste: {
                 Distance: "mêlée", // non spécifié
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: 1,
                     degats_tous_5_elements: true,
                     detecte_faiblesse_resistance: true,
@@ -14137,7 +13754,7 @@ elementariste: {
                 Distance: "N/A", // non spécifié
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6",
                     element_choix: ["terre", "vent"]
                 }
@@ -14152,7 +13769,7 @@ elementariste: {
                 Distance: "distance",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d6",
                     element_choix: ["foudre", "feu"],
                     applique_brulure: true,
@@ -14169,7 +13786,7 @@ elementariste: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6+3",
                     type_degats: "perce_armure",
                     element_choix: ["eau", "vent"]
@@ -14185,7 +13802,7 @@ elementariste: {
                 Distance: "30m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d6+1",
                     element_choix: ["feu", "eau"],
                     applique_brulure_irresistible_si_sort_eau_prochain_tour: true
@@ -14201,7 +13818,7 @@ elementariste: {
                 Distance: "mêlée", // non spécifié
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6+1",
                     element_choix: ["vent", "foudre"],
                     effet_tour_suivant_foudre: "cecite",
@@ -14218,7 +13835,7 @@ elementariste: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     prochaine_attaque_impregnee_element_subi: true,
                     genere_charge_element: true
                 }
@@ -14233,7 +13850,7 @@ elementariste: {
                 Distance: "N/A", // non spécifié
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d4",
                     element_choix: ["eau", "terre"],
                     applique_entrave: true,
@@ -14250,7 +13867,7 @@ elementariste: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     change_element_prochaine_attaque_arme_au_choix: true
                 }
             },
@@ -14264,7 +13881,7 @@ elementariste: {
                 Distance: "0m",
                 Action: "action_mouvement_consommés",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     rend_psy_fixe_par_tour_maintenu: "1d4",
                     genere_2_charges_elementaires_au_choix_par_tour_maintenu: true,
                     declenche_folie_psychique_si_hors_combat_deux_fois_affile: true
@@ -14280,13 +13897,13 @@ elementariste: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     consomme_3_charges_meme_element: true,
                     octroie_resistance_element_pendant_3_tours: true
                 }
             }
         ],
-        sortConfirmé: [
+        sortConfirme: [
             {
                 nom: "Résistance Adaptative",
                 image: "",
@@ -14297,7 +13914,7 @@ elementariste: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     gain_resistance_element_prochaine_attaque_subie: true,
                     duree_resistance: "2 tours",
                     ne_fonctionne_pas_avec_neutre: true
@@ -14313,7 +13930,7 @@ elementariste: {
                 Distance: "N/A", // non spécifié
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     repousse_ennemis_5m: true,
                     degats: "1d6+1",
                     applique_entrave: true,
@@ -14330,7 +13947,7 @@ elementariste: {
                 Distance: "rayon",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "x_d4", // x = nombre de charges
                     consomme_toutes_charges: true,
                     frappe_element_charge_majoritaire: true
@@ -14346,7 +13963,7 @@ elementariste: {
                 Distance: "15m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     duree_tours: 2,
                     mur_intangible: true,
                     degats_ennemis_si_marche_dedans: "1d6",
@@ -14366,7 +13983,7 @@ elementariste: {
                 Distance: "CAC",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     vole_resistance_ennemi: true,
                     gain_resistance_2_tours: true,
                     cible_perd_resistance: true,
@@ -14383,7 +14000,7 @@ elementariste: {
                 Distance: "CAC",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     consomme_3_charges_meme_element: true,
                     octroie_faiblesse_element_consomme_3_tours: true
                 }
@@ -14398,7 +14015,7 @@ elementariste: {
                 Distance: "N/A", // non spécifié
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d8+2",
                     element_choix: ["terre", "foudre"],
                     alliés_gagnent_volant_1_tour: true
@@ -14414,7 +14031,7 @@ elementariste: {
                 Distance: "N/A", // non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d6+2",
                     element_choix: ["vent", "foudre"],
                     applique_terreur: true
@@ -14430,7 +14047,7 @@ elementariste: {
                 Distance: "50m",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "2d6",
                     type_degats: "perce_armure",
                     element_choix: ["vent", "terre"]
@@ -14448,7 +14065,7 @@ elementariste: {
                 Distance: "mêlée", // non spécifié
                 Action: "standard",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     necessite_6_charges_elementaires: true,
                     degats: "5d4",
                     chaque_de_frappe_element_different: true,
@@ -14466,7 +14083,7 @@ elementariste: {
                 Distance: "N/A", // non spécifié
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats_explosion: "2d6",
                     element_choix_explosion: ["feu", "terre"],
                     vagues_portee: "10m",
@@ -14485,7 +14102,7 @@ elementariste: {
                 Distance: "40m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "3d6",
                     reduit_armure_pb_a_0_avant_degats: true,
                     duree_reduction_1_tour: true,
@@ -14503,7 +14120,7 @@ elementariste: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats_ennemis_pluie: "1d8",
                     element_choix_pluie: ["feu", "eau"],
                     soigne_allies: "1d8",
@@ -14521,7 +14138,7 @@ elementariste: {
                 Distance: "CAC",
                 Action: "aucune",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     octroie_resistance_allie: true,
                     duree_resistance_2_tours: true
                 }
@@ -14536,7 +14153,7 @@ elementariste: {
                 Distance: "20m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     partage_faiblesses_entre_deux_cibles: true,
                     duree_partage_2_tours: true
                 }
@@ -14551,7 +14168,7 @@ elementariste: {
                 Distance: "10m",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats_air: "1d6",
                     element_air: "vent",
                     degats_empalement: "1d4+4",
@@ -14573,7 +14190,7 @@ elementariste: {
                 Distance: "mêlée", // Supposé si pas précisé
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     pv_elementaire: 14,
                     vitesse_normale: true,
                     soigne_si_degats_de_son_element: true,
@@ -14599,7 +14216,7 @@ elementariste: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "SAG/FOR",
-                effet: {
+                effets: {
                     transforme_resistance_en_immunite: true,
                     transforme_faiblesse_en_neutralite: true,
                     sorts_meme_element_cout_2_psy_moins: true,
@@ -14634,13 +14251,13 @@ mage: {
         mystique: 30, // Connaissance mystique (INT)
         sacré: 10, // Connaissance sacré (INT)
         nature: 0, // Connaissance nature (INT)
-        robustesse: 0, // Robustesse (DEF)
+        robustesse: 0, // robustesse (DEF)
         calme: 0, // Calme (DEF)
         marchandage: 0, // Marchandage (CHA)
         persuasion: 20, // Persuader/Tromper (CHA)
         artmusique: 0, // Art et Musique (CHA)
         commandement: 10, // Commandement (CHA)
-        acrobatie: 0, // Acrobatie (DEX)
+        acrobatie: 0, // acrobatie (DEX)
         discretion: 0, // Discrétion (DEX)
         adresse: 0, // Adresse (DEX)
         artisanat: 0, // Artisanat (DEX)
@@ -14667,7 +14284,7 @@ mage: {
                 description: "Ajoute +1 en Intelligence aux niveaux 2, 4, 6, 8 et 10 du mage.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
+                effets: {
                     bonus_intelligence_niveaux_specifiques: [2, 4, 6, 8, 10]
                 }
             },
@@ -14677,7 +14294,7 @@ mage: {
                 description: "Permet de parler une langue supplémentaire, sauf Animal et Ancien. Ajoute +15 lors d'un jet de connaissance sur l’Histoire.",
                 niveauJoueur: 2,
                 prerequis: ["Puits de Psyché"],
-                effet: {
+                effets: {
                     parle_langue_supplementaire_sauf_animal_ancien: true,
                     bonus_jet_connaissance_histoire: 15
                 }
@@ -14688,7 +14305,7 @@ mage: {
                 description: "Si vous achevez un ennemi avec un sort, la moitié de son coût est rendue.",
                 niveauJoueur: 3,
                 prerequis: ["Grand Lecteur"],
-                effet: {
+                effets: {
                     recupere_moitie_cout_sort_si_ennemi_acheve: true
                 }
             },
@@ -14698,7 +14315,7 @@ mage: {
                 description: "Le sort Frappe ésotérique vole désormais la totalité des PV et PSY infligés à l’adversaire pour les rendre au lanceur du sort. Si vous ne possédez pas ce sort vous ignorez cet effet et le débloquez à la place.",
                 niveauJoueur: 4,
                 prerequis: ["Récupération Rapide"],
-                effet: {
+                effets: {
                     frappe_esoterique_vole_pv_psy: true,
                     debloque_frappe_esoterique_si_non_possede: true
                 }
@@ -14709,7 +14326,7 @@ mage: {
                 description: "Permet de parler une langue supplémentaire, sauf Animal. Ajoute +10 aux statistiques liées au charisme lors d’un jet face à une personne non-noble ou non-magicienne.",
                 niveauJoueur: 5,
                 prerequis: ["Nourrissage Esotérique"],
-                effet: {
+                effets: {
                     parle_langue_supplementaire_sauf_animal: true,
                     bonus_charisme_face_non_noble_non_magicien: 10
                 }
@@ -14720,7 +14337,7 @@ mage: {
                 description: "Ajoute +1 en Sagesse et +10 en Perception magique.",
                 niveauJoueur: 6,
                 prerequis: ["Prestance Magique"],
-                effet: {
+                effets: {
                     bonus_sagesse: 1,
                     bonus_perception_magique: 10
                 }
@@ -14731,7 +14348,7 @@ mage: {
                 description: "Le sort Barrière Magique bloque maintenant toutes les attaques qui veulent passer à travers et fait 5 mètres de plus. Si vous ne possédez pas ce sort vous ignorez cet effet et le débloquez à la place.",
                 niveauJoueur: 7,
                 prerequis: ["Focalisation du Mage"],
-                effet: {
+                effets: {
                     barriere_magique_bloque_toutes_attaques: true,
                     barriere_magique_plus_5m: true,
                     debloque_barriere_magique_si_non_possede: true
@@ -14743,7 +14360,7 @@ mage: {
                 description: "Tous les sorts se lançant sur la sagesse voient leurs dégâts augmentés de 1. Les dégâts de ces sorts sont augmentés de 50% quand ils touchent des PB.",
                 niveauJoueur: 8,
                 prerequis: ["Barrière Renforcée"],
-                effet: {
+                effets: {
                     sorts_sagesse_degats_augmentes_de_1: true,
                     degats_sorts_sagesse_augmentes_50_sur_pb: true
                 }
@@ -14754,7 +14371,7 @@ mage: {
                 description: "Tous les sorts infligeant des dégâts sur la PSY voient ce type de dégâts augmentés de 2.",
                 niveauJoueur: 9,
                 prerequis: ["Surpuissance Magique"],
-                effet: {
+                effets: {
                     sorts_degats_psy_augmentes_de_2: true
                 }
             },
@@ -14764,7 +14381,7 @@ mage: {
                 description: "Vous pouvez sélectionner un sort Expert ou Maître que vous possédez, celui-ci devient votre sort fétiche et à chaque fois qu’il est utilisé vous pouvez choisir entre : le sort coûte moitié moins de PSY OU le sort compte deux fois votre DSB. En revanche ce sort possède désormais un temps de recharge de 2 tours si cet effet a été utilisé.",
                 niveauJoueur: 10,
                 prerequis: ["Destructeur Magique"],
-                effet: {
+                effets: {
                     selectionne_sort_expert_maitre_fetichise: true,
                     choix_cout_psy_divise_par_2_ou_dsb_double: true,
                     temps_recharge_2_tours_si_effet_utilise: true
@@ -14785,7 +14402,7 @@ mage: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     prochain_sort_cout_psy_divise_par_2: true
                 }
             },
@@ -14799,7 +14416,7 @@ mage: {
                 Distance: "15m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats_fixes_egaux_psy_depensee: true
                 }
             },
@@ -14813,7 +14430,7 @@ mage: {
                 Distance: "projectile", // Non spécifié, supposé être à distance
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats_pv: "1d4",
                     degats_psy: "1d4",
                     recupere_moitie_degats_psy_infliges: true
@@ -14829,7 +14446,7 @@ mage: {
                 Distance: "20m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d6+1",
                     applique_silence: true
                 }
@@ -14844,7 +14461,7 @@ mage: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     prochain_coup_subi_degats_sur_psy_au_lieu_pv: true
                 }
             },
@@ -14858,7 +14475,7 @@ mage: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     bonus_reussite_jets_sauvegarde_sagesse: 30,
                     bonus_pb: 6,
                     duree_tours: 2,
@@ -14875,7 +14492,7 @@ mage: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     sacrifie_deplacement_action: true,
                     recupere_4_psy_par_tour_canalisation: true,
                     canalyse_rompue_si_attaque: true
@@ -14891,7 +14508,7 @@ mage: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     reduit_cout_sorts_1_psy: true,
                     augmente_chance_toucher_sorts_5: true,
                     duree_jusqu_a_autre_forme_fin_combat_ou_revocation: true
@@ -14907,7 +14524,7 @@ mage: {
                 Distance: "10m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     ponctionne_psy_si_sort_lance_proximite: true,
                     montant_ponctionne_3_ou_cout_sort: true,
                     duree_tours: 1
@@ -14923,7 +14540,7 @@ mage: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     convertit_pv_en_psy: true,
                     cout_0: true
                 }
@@ -14938,7 +14555,7 @@ mage: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d6+2",
                     repousse_5m: true,
                     si_surcharge_psy_enclenchee_applique_silence: true
@@ -14954,7 +14571,7 @@ mage: {
                 Distance: "mêlée", // Non spécifié, supposé être autour du lanceur
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d6",
                     si_forme_active_degats_supplementaires_par_ennemi: 2
                 }
@@ -14971,7 +14588,7 @@ mage: {
                 Distance: "15m_long",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     recule_ennemi_sur_mur: true,
                     encaisse_attaques_elementaires: true,
                     pv_mur: 14
@@ -14987,7 +14604,7 @@ mage: {
                 Distance: "mêlée", // Non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats_psy: "2d4",
                     si_psy_negatif_degats_pv_a_la_place: true,
                     recupere_3_psy_par_ennemi_touche: true
@@ -15003,7 +14620,7 @@ mage: {
                 Distance: "CAC",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     transfert_psy_vers_allie: "2d4"
                 }
             },
@@ -15017,7 +14634,7 @@ mage: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d8+2",
                     type_degats: "perce_armure"
                 }
@@ -15032,7 +14649,7 @@ mage: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     augmente_cout_psy_sorts_1: true,
                     augmente_degats_sorts_2: true,
                     augmente_chance_critique_sorts_10: true,
@@ -15050,7 +14667,7 @@ mage: {
                 Distance: "mêlée", // Non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats_psy_moitie_derniers_degats_pv_subis: true,
                     si_cible_psy_a_0_applique_sommeil_irresistible: true
                 }
@@ -15065,7 +14682,7 @@ mage: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     bonus_chance_toucher_sorts_sagesse: 10,
                     bonus_chance_critique_sorts_sagesse: 10,
                     bonus_degats_sorts_sagesse: 2,
@@ -15082,7 +14699,7 @@ mage: {
                 Distance: "20m",
                 Action: "standard",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     type_invocation: "glouton_psy",
                     immunise_degats_autres_que_psy: true,
                     psy_glouton: 6,
@@ -15103,7 +14720,7 @@ mage: {
                 Distance: "mêlée", // Non spécifié
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     psy_cible_consideree_0_pour_1_tour: true,
                     cible_insensible_sorts_coutant_psy: true
                 }
@@ -15120,7 +14737,7 @@ mage: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats_pv: "2d6",
                     degats_psy: "2d6",
                     applique_sonne: true
@@ -15136,7 +14753,7 @@ mage: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats_ennemis: "1d6+1",
                     applique_silence_ennemis: true,
                     recupere_psy_allies: "1d4"
@@ -15152,7 +14769,7 @@ mage: {
                 Distance: "0m",
                 Action: "standard",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     condition_moins_de_4_psy: true,
                     recupere_psy: "4d4"
                 }
@@ -15167,7 +14784,7 @@ mage: {
                 Distance: "25m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats_egaux_difference_psy_max_restante: true,
                     si_tue_cible_recupere_moitie_degats_psy: true
                 }
@@ -15182,7 +14799,7 @@ mage: {
                 Distance: "mêlée", // Non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats_psy: "2d6+2",
                     recupere_moitie_degats_psy: true,
                     si_cible_pas_assez_psy_double_degats_restants_sur_pv: true
@@ -15198,7 +14815,7 @@ mage: {
                 Distance: "0m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     lance_sort_sagesse_de_n_importe_quelle_arcane: true,
                     sort_lance_cout_2_psy_plus: true,
                     sort_lance_pas_action: true,
@@ -15215,7 +14832,7 @@ mage: {
                 Distance: "0m",
                 Action: "standard",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     lance_surcharge_psychique: true,
                     degats_surcharge_psy_sur_psy_lanceur: true,
                     si_pas_psy_degats_doubles_sur_pv: true
@@ -15231,7 +14848,7 @@ mage: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     applique_etat_chaos_avec_sorts: true,
                     armure: 2,
                     blocage: 10,
@@ -15251,7 +14868,7 @@ mage: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     psy_pv_interchangeables: true,
                     recupere_1d6_pv_ou_psy_fin_tour: true,
                     augmente_vitesse_un_cran: true,
@@ -15285,13 +14902,13 @@ chaman: {
         mystique: 5, // Connaissance mystique (INT)
         sacré: 5, // Connaissance sacré (INT)
         nature: 30, // Connaissance nature (INT)
-        robustesse: 0, // Robustesse (DEF)
+        robustesse: 0, // robustesse (DEF)
         calme: 5, // Calme (DEF)
         marchandage: 0, // Marchandage (CHA)
         persuasion: 0, // Persuader/Tromper (CHA)
         artmusique: 0, // Art et Musique (CHA)
         commandement: 0, // Commandement (CHA)
-        acrobatie: 0, // Acrobatie (DEX)
+        acrobatie: 0, // acrobatie (DEX)
         discretion: 10, // Discrétion (DEX)
         adresse: 0, // Adresse (DEX)
         artisanat: 0, // Artisanat (DEX)
@@ -15310,16 +14927,16 @@ chaman: {
         "Esprit Végétal : Ajoute +1 aux soins et aux boucliers, augmente le taux de blocage et la réussite des jets de sauvegarde de 15%.",
         "Esprit Animal : Ajoute +2 aux dégâts, augmente le taux de critique et les chances de toucher de 10%."
     ],
-    passifs: {
+    talentVoie: {
         niveauJoueur: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         talents: [
             {
                 nom: "Naturaliste",
                 image: "",
-                description: "Ajoute +1 aux soins et +1 en Dextérité.",
+                description: "Ajoute +1 aux soins et +1 en dexterite.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
+                effets: {
                     bonus_soins: 1,
                     bonus_dexterite: 1
                 }
@@ -15330,7 +14947,7 @@ chaman: {
                 description: "Ajoute +1 en Charisme. Permet de parler le langage Animal. Ajoute un bonus de 20 en statistique liée au charisme lors d’une discussion avec une bête.",
                 niveauJoueur: 2,
                 prerequis: ["Naturaliste"],
-                effet: {
+                effets: {
                     bonus_charisme: 1,
                     langage_animal: true,
                     bonus_charisme_discussion_bete: 20
@@ -15342,17 +14959,17 @@ chaman: {
                 description: "Permet d’apprendre un sort de niveau Novice de l'Arcane Plante et de s’en servir quand bon vous semble.",
                 niveauJoueur: 3,
                 prerequis: ["Amis de la Forêt"],
-                effet: {
+                effets: {
                     gain_sort_novice_arcane_plante: true
                 }
             },
             {
                 nom: "Sentience Naturelle",
                 image: "",
-                description: "Ajoute +1 en Sagesse et en Dextérité. Vous gagnez +10 aux jets de connaissances sur la faune et la flore.",
+                description: "Ajoute +1 en Sagesse et en dexterite. Vous gagnez +10 aux jets de connaissances sur la faune et la flore.",
                 niveauJoueur: 4,
                 prerequis: ["Novice des Plantes"],
-                effet: {
+                effets: {
                     bonus_sagesse: 1,
                     bonus_dexterite: 1,
                     bonus_connaissance_faune_flore: 10
@@ -15364,7 +14981,7 @@ chaman: {
                 description: "Donne un avantage à tous les jets de statistiques mineures en survie, connaissance nature, perception, perception magique, médecine, acrobatie, athlétisme, calme et adresse tant que vous êtes en forêt.",
                 niveauJoueur: 5,
                 prerequis: ["Sentience Naturelle"],
-                effet: {
+                effets: {
                     avantage_jets_mineures_en_foret: ["survie", "connaissance nature", "perception", "perception magique", "medecine", "acrobatie", "athletisme", "calme", "adresse"]
                 }
             },
@@ -15374,7 +14991,7 @@ chaman: {
                 description: "Permet d’apprendre un sort de niveau Confirmé de l'Arcane Plante et de s’en servir quand bon vous semble.",
                 niveauJoueur: 6,
                 prerequis: ["Forestier"],
-                effet: {
+                effets: {
                     gain_sort_confirme_arcane_plante: true
                 }
             },
@@ -15384,7 +15001,7 @@ chaman: {
                 description: "Ajoute +2 aux soins sur une cible à moins de 50% de vie maximale. Ajoute +1 en Intelligence.",
                 niveauJoueur: 7,
                 prerequis: ["Confirmé des Plantes"],
-                effet: {
+                effets: {
                     bonus_soins_cible_moins_50_pv: 2,
                     bonus_intelligence: 1
                 }
@@ -15395,7 +15012,7 @@ chaman: {
                 description: "Lorsque le Chaman doit mourir ou tomber K.O, il entre dans la terre et peut choisir n’importe quel endroit sur la carte de bataille, il ressort à cet endroit avec 1 PV et 4 PB. Cet effet ne s’enclenche qu’une fois par combat.",
                 niveauJoueur: 8,
                 prerequis: ["Guide Spirituel"],
-                effet: {
+                effets: {
                     teleportation_sauvetage_ko_mort: true,
                     pv_apres_sauvetage: 1,
                     pb_apres_sauvetage: 4,
@@ -15405,11 +15022,11 @@ chaman: {
             {
                 nom: "Esprit ancestraux",
                 image: "",
-                description: "Double les bonus passifs des Esprits.",
+                description: "Double les bonus talentVoie des Esprits.",
                 niveauJoueur: 9,
                 prerequis: ["Repiquage rapide"],
-                effet: {
-                    double_bonus_esprits_passifs: true
+                effets: {
+                    double_bonus_esprits_talentVoie: true
                 }
             },
             {
@@ -15418,7 +15035,7 @@ chaman: {
                 description: "Tous les sorts de la voie du chaman coûtent 1 PSY de moins à lancer, Immunité à ''Poison''.",
                 niveauJoueur: 10,
                 prerequis: ["Esprit ancestraux"],
-                effet: {
+                effets: {
                     reduction_cout_sorts_chaman: 1,
                     immunite_poison: true
                 }
@@ -15438,7 +15055,7 @@ chaman: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     augmente_armure: 3,
                     rend_indéplaçable: true,
                     duree_1_tour: true
@@ -15454,7 +15071,7 @@ chaman: {
                 Distance: "illimitée",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     reduit_cout_prochain_sort_allie: 1,
                     utilise_psy_chaman: true
                 }
@@ -15469,7 +15086,7 @@ chaman: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     applique_entrave_irresistible: true,
                     soigne_pv_fixes_par_tour: 3
                 }
@@ -15485,7 +15102,7 @@ chaman: {
                 Action: "standard",
                 Touche: "CHA",
                 prerequis_esprit: "Animal",
-                effet: {
+                effets: {
                     transformation_loup_alpha: true,
                     garde_stats_et_sorts_chaman: true,
                     ne_peut_pas_changer_esprit_transforme: true,
@@ -15504,7 +15121,7 @@ chaman: {
                 Distance: "10m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     soigne_pv: "1d6"
                 }
             },
@@ -15519,7 +15136,7 @@ chaman: {
                 Action: "aucune",
                 Touche: "CHA",
                 prerequis_esprit: "Animal",
-                effet: {
+                effets: {
                     bonus_degats_par_tour: 1,
                     bonus_chance_toucher_par_tour: "5%",
                     condition: "maintien_esprit_animal_actif",
@@ -15536,7 +15153,7 @@ chaman: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     entre_etat_sommeil: true,
                     duree_sommeil: "2 tours",
                     recupere_psy_pv_fin_tour_sommeil: 4,
@@ -15555,7 +15172,7 @@ chaman: {
                 Action: "standard",
                 Touche: "CHA",
                 prerequis_esprit: "Végétal",
-                effet: {
+                effets: {
                     transformation_pollueuse: true,
                     garde_stats_et_sorts_chaman: true,
                     ne_peut_pas_changer_esprit_transforme: true,
@@ -15575,7 +15192,7 @@ chaman: {
                 Distance: "15m",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     deplacement_15m: true,
                     repousse_cible: true,
                     degats_percussion: "1d6+2",
@@ -15592,7 +15209,7 @@ chaman: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     repousse_5m: true,
                     degats: "1d6+2"
                 }
@@ -15608,7 +15225,7 @@ chaman: {
                 Action: "aucune",
                 Touche: "CHA",
                 prerequis_esprit: "Végétal",
-                effet: {
+                effets: {
                     rend_pv_fixes_alliés_par_tour: "1d6",
                     immunise_entrave_poison_alliés: true,
                     effet_interrompu_si_changement_esprit: true
@@ -15624,14 +15241,14 @@ chaman: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats: "1d6",
                     applique_hemorragie_ou_poison: true,
                     cc_triple_poison_ou_double_hemorragie: true
                 }
             }
         ],
-        sortConfirmé: [
+        sortConfirme: [
             {
                 nom: "Remède d’Herboriste",
                 image: "",
@@ -15642,7 +15259,7 @@ chaman: {
                 Distance: "25m",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     soigne_pv: "1d8",
                     guerit_poison_brulure_cecite: true
                 }
@@ -15657,7 +15274,7 @@ chaman: {
                 Distance: "CAC",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     prochaine_utilisation_psy_allie_utilise_chaman: true,
                     soigne_allie: "1d4"
                 }
@@ -15672,7 +15289,7 @@ chaman: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     bloque_50_degats_initiaux: true,
                     duree_1_tour: true,
                     cout_par_cible_supplementaire: 2,
@@ -15689,8 +15306,8 @@ chaman: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
-                    lance_1d4_pour_effet: true,
+                effets: {
+                    lance_1d4_pour_effets: true,
                     effet_1: "poison",
                     effet_2: "sommeil",
                     effet_3: "charme",
@@ -15708,7 +15325,7 @@ chaman: {
                 Distance: "mêlée",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats: "1d6+2",
                     sequence_alterations: ["sonne_tour1", "sommeil_tour2", "cecite_tour3"],
                     degats_si_etat_evite: "1d4_pv_fixes_supplémentaires"
@@ -15725,7 +15342,7 @@ chaman: {
                 Action: "standard",
                 Touche: "SAG/DEX",
                 prerequis_esprit: "actif",
-                effet: {
+                effets: {
                     invoque_esprit_inactif: true,
                     pv_invocation: 12,
                     vitesse_rapide: true,
@@ -15758,7 +15375,7 @@ chaman: {
                 Action: "standard",
                 Touche: "CHA",
                 prerequis_esprit: "Végétal",
-                effet: {
+                effets: {
                     transformation_guerrier_ecorce: true,
                     garde_stats_et_sorts_chaman: true,
                     ne_peut_pas_changer_esprit_transforme: true,
@@ -15778,7 +15395,7 @@ chaman: {
                 Action: "standard",
                 Touche: "CHA",
                 prerequis_esprit: "Animal",
-                effet: {
+                effets: {
                     transformation_mordegivre: true,
                     garde_stats_et_sorts_chaman: true,
                     ne_peut_pas_changer_esprit_transforme: true,
@@ -15797,7 +15414,7 @@ chaman: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     regain_pv_fixes_debut_tour: 4,
                     duree_3_tours: true
                 }
@@ -15815,7 +15432,7 @@ chaman: {
                 Action: "standard",
                 Touche: "CHA",
                 prerequis_esprit: "Animal",
-                effet: {
+                effets: {
                     applique_terreur_tous_ennemis: true,
                     degats: "1d8+4"
                 }
@@ -15831,7 +15448,7 @@ chaman: {
                 Action: "standard",
                 Touche: "CHA",
                 prerequis_esprit: "Animal",
-                effet: {
+                effets: {
                     transformation_trio_volcanique: true,
                     garde_stats_et_sorts_chaman: true,
                     ne_peut_pas_changer_esprit_transforme: true,
@@ -15851,7 +15468,7 @@ chaman: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     deux_esprits_cohabitent_2_tours: true,
                     tue_invocations_chaman: true,
                     empeche_invocation: true
@@ -15868,7 +15485,7 @@ chaman: {
                 Action: "standard",
                 Touche: "CHA",
                 prerequis_esprit: "Végétal",
-                effet: {
+                effets: {
                     transformation_moissonneur: true,
                     garde_stats_et_sorts_chaman: true,
                     ne_peut_pas_changer_esprit_transforme: true,
@@ -15889,7 +15506,7 @@ chaman: {
                 Action: "standard",
                 Touche: "DEX/SAG",
                 prerequis_esprit: "Végétal",
-                effet: {
+                effets: {
                     soigne_pv: "3d6",
                     rend_invulnerable_1_tour: true,
                     peut_reanimer_allie_mort: true
@@ -15905,7 +15522,7 @@ chaman: {
                 Distance: "0m",
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     gain_1_action_supplementaire_ce_tour: true,
                     augmente_degats: 2
                 }
@@ -15920,7 +15537,7 @@ chaman: {
                 Distance: "CAC",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     gain_armure: 4,
                     gain_blocage: "30%",
                     gain_pb: 6,
@@ -15938,7 +15555,7 @@ chaman: {
                 Action: "standard",
                 Touche: "DEX/SAG",
                 prerequis_esprit: "actif",
-                effet: {
+                effets: {
                     invoque_esprit_actif_forme_antique: true,
                     chaman_perd_esprit_actif_tant_que_invocation_presente: true,
                     forme_animale_antique: {
@@ -15975,7 +15592,7 @@ chaman: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "CHA/DEX/SAG",
-                effet: {
+                effets: {
                     invoque_fleur_de_mort_antique: true,
                     duree_3_tours: true,
                     pv_invocation: 30,
@@ -16012,13 +15629,13 @@ pretre: {
         mystique: 5, // Connaissance mystique (INT)
         sacré: 30, // Connaissance sacré (INT)
         nature: 0, // Connaissance nature (INT)
-        robustesse: 0, // Robustesse (DEF)
+        robustesse: 0, // robustesse (DEF)
         calme: 0, // Calme (DEF)
         marchandage: 0, // Marchandage (CHA)
         persuasion: 10, // Persuader/Tromper (CHA)
         artmusique: 0, // Art et Musique (CHA)
         commandement: 10, // Commandement (CHA)
-        acrobatie: 0, // Acrobatie (DEX)
+        acrobatie: 0, // acrobatie (DEX)
         discretion: 0, // Discrétion (DEX)
         adresse: 0, // Adresse (DEX)
         artisanat: 0, // Artisanat (DEX)
@@ -16039,7 +15656,7 @@ pretre: {
         "1 PV restant : Ajoute 4 aux soins, 30% de chances de toucher et de CC pour le sortilège de soin.",
         "Si un sortilège doit viser plusieurs cibles le bonus s’applique en fonction de la cible dans l’état le plus grave."
     ],
-    passifs: {
+    talentVoie: {
         niveauJoueur: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         talents: [
             {
@@ -16048,7 +15665,7 @@ pretre: {
                 description: "Ajoute +1 aux soins prodigués, soigner un allié K.O. lui donne 3 PB fixes pour 1 tour.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
+                effets: {
                     bonus_soins: 1,
                     pb_allie_ko: 3,
                     duree_pb_1_tour: true
@@ -16060,7 +15677,7 @@ pretre: {
                 description: "Ajoute +1 en Intelligence. Ajoute la connaissance d’une langue autre qu’Ancien et Animal.",
                 niveauJoueur: 2,
                 prerequis: ["Piété"],
-                effet: {
+                effets: {
                     bonus_intelligence: 1,
                     connaissance_langue_suppl: true
                 }
@@ -16071,7 +15688,7 @@ pretre: {
                 description: "Vous obtenez 1 sort Novice dans une Arcane choisie.",
                 niveauJoueur: 3,
                 prerequis: ["Evangéliste"],
-                effet: {
+                effets: {
                     gain_sort_novice_arcane: true
                 }
             },
@@ -16081,7 +15698,7 @@ pretre: {
                 description: "Ajoute +1 en Sagesse. Ajoute bonus de 20 pour des jets en rapports avec des rituels religieux quels qu’ils soient.",
                 niveauJoueur: 4,
                 prerequis: ["Monastère Affilié"],
-                effet: {
+                effets: {
                     bonus_sagesse: 1,
                     bonus_jets_rituels_religieux: 20
                 }
@@ -16092,7 +15709,7 @@ pretre: {
                 description: "Vous obtenez 1 sort Confirmé dans une Arcane, si vous avez déjà choisi un sort grâce à 'Monastère affilié' vous le choisissez obligatoirement dans la même arcane.",
                 niveauJoueur: 5,
                 prerequis: ["Ritualiste"],
-                effet: {
+                effets: {
                     gain_sort_confirme_arcane: true,
                     meme_arcane_si_monastere_affilie: true
                 }
@@ -16103,7 +15720,7 @@ pretre: {
                 description: "Ajoute +1 en Intelligence et en Charisme. Ajoute un bonus de +20 en Persuader/Tromper face à quelqu’un qui n’est pas d’alignement BON.",
                 niveauJoueur: 6,
                 prerequis: ["Temple Affilié"],
-                effet: {
+                effets: {
                     bonus_intelligence: 1,
                     bonus_charisme: 1,
                     bonus_persuader_tromper_non_bon: 20
@@ -16115,7 +15732,7 @@ pretre: {
                 description: "Vous obtenez 1 sort Expert dans une Arcane, si vous avez déjà choisi un sort grâce à 'Monastère affilié' ou 'Temple affilié' vous le choisissez obligatoirement dans la même arcane.",
                 niveauJoueur: 7,
                 prerequis: ["Faveur Papale"],
-                effet: {
+                effets: {
                     gain_sort_expert_arcane: true,
                     meme_arcane_si_monastere_ou_temple_affilie: true
                 }
@@ -16126,7 +15743,7 @@ pretre: {
                 description: "Permet de parler la langue Ancien et ajoute +1 en Intelligence.",
                 niveauJoueur: 8,
                 prerequis: ["Cathédrale affiliée"],
-                effet: {
+                effets: {
                     parle_ancien: true,
                     bonus_intelligence: 1
                 }
@@ -16137,7 +15754,7 @@ pretre: {
                 description: "Immunité à ”Terreur” et ”Chaos”.",
                 niveauJoueur: 9,
                 prerequis: ["Ecclésiastique"],
-                effet: {
+                effets: {
                     immunite_terreur: true,
                     immunite_chaos: true
                 }
@@ -16148,7 +15765,7 @@ pretre: {
                 description: "Triple le bonus du passif 'Piété'.",
                 niveauJoueur: 10,
                 prerequis: ["Foi Inexpugnable"],
-                effet: {
+                effets: {
                     triple_bonus_piete: true
                 }
             }
@@ -16167,7 +15784,7 @@ pretre: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     soigne_pv: "1d4",
                     max_2_fois_par_cible_par_tour: true
                 }
@@ -16182,7 +15799,7 @@ pretre: {
                 Distance: "personnel",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     soigne_pv_alliés: "1d4",
                     octroie_pb_alliés: 2
                 }
@@ -16197,7 +15814,7 @@ pretre: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d6+3",
                     double_degats_mort_vivant_extra_planaire: true
                 }
@@ -16212,7 +15829,7 @@ pretre: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     applique_sommeil_irresistible: true,
                     soigne_pv_debut_tour_sommeil: "1d8",
                     duree_sommeil: "2 tours",
@@ -16229,7 +15846,7 @@ pretre: {
                 Distance: "contact",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     bonus_degats_prochaine_attaque: 2,
                     bonus_chance_cc_prochaine_attaque: "20%",
                     soigne_pv_allié: "1d4"
@@ -16245,7 +15862,7 @@ pretre: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d6+2",
                     soigne_allie_proche_si_tue_cible: "1d6"
                 }
@@ -16260,7 +15877,7 @@ pretre: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     purge_alterations_negatives: true,
                     immunite_alterations_negatives_1_tour: true
                 }
@@ -16275,7 +15892,7 @@ pretre: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats_ennemis: "1d6+1",
                     applique_cecite_ennemis: true,
                     immunise_lanceur_alliés: true
@@ -16291,7 +15908,7 @@ pretre: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     soigne_pv_alliés: "1d6"
                 }
             },
@@ -16305,7 +15922,7 @@ pretre: {
                 Distance: "illimitée",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     cible_subit_1_degat_suppl_attaques_alliees: true,
                     duree_jusqua_mort_cible: true,
                     non_cumulable_sur_autre_cible: true,
@@ -16322,7 +15939,7 @@ pretre: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "canalisation",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     soigne_pv_par_tour_canalisation: "1d6",
                     retire_alteration_negative_par_tour: true,
                     rupture_si_degats_ou_cible_hors_portee: true
@@ -16338,14 +15955,14 @@ pretre: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     soigne_pv: "1d6",
                     bonus_degats_1_tour: 2,
                     hors_combat_double_recuperation_repas: true
                 }
             }
         ],
-        sortConfirmé: [
+        sortConfirme: [
             {
                 nom: "Unique Vérité",
                 image: "",
@@ -16356,7 +15973,7 @@ pretre: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     applique_charme: true,
                     duree_jusqua_reussite_sauvegarde: true,
                     degats_fixes_debut_tour_charme: "1d6"
@@ -16372,7 +15989,7 @@ pretre: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     etat_regeneration: true,
                     soigne_3_pv_fixe_si_degats_pv: true,
                     duree_3_tours: true
@@ -16388,7 +16005,7 @@ pretre: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     guerit_toutes_alterations_negatives: true,
                     rend_pv_par_alteration_supprimee: "1d4"
                 }
@@ -16403,7 +16020,7 @@ pretre: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d6+1",
                     applique_engelure: true,
                     attire_10m_vers_utilisateur: true,
@@ -16421,9 +16038,9 @@ pretre: {
                 Action: "standard",
                 Touche: "CHA",
                 prerequis: "moins_50_pv_allie",
-                effet: {
+                effets: {
                     rend_invulnerable_1_tour: true,
-                    soigne_pv_fin_effet: "1d10"
+                    soigne_pv_fin_effets: "1d10"
                 }
             },
             {
@@ -16436,7 +16053,7 @@ pretre: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     invoque_livre_saint: true,
                     pb_livre: 10,
                     pv_livre: 1,
@@ -16455,7 +16072,7 @@ pretre: {
                 Distance: "25m",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     degats: "1d6",
                     applique_silence: true
                 }
@@ -16471,7 +16088,7 @@ pretre: {
                 Action: "standard",
                 Touche: "CHA",
                 prerequis: "cible_designation_infidele",
-                effet: {
+                effets: {
                     degats_feu: "X d8",
                     X_est_cumul_designation_infidele: true
                 }
@@ -16486,7 +16103,7 @@ pretre: {
                 Distance: "personnel",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     soigne_pv: "1d6+3",
                     augmente_taux_blocage: "30%",
                     augmente_reussite_jets_sauvegarde: "30%",
@@ -16505,9 +16122,9 @@ pretre: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     rend_invulnerable_toutes_entites_1_tour: true,
-                    soigne_alliés_fin_effet: "2d6"
+                    soigne_alliés_fin_effets: "2d6"
                 }
             },
             {
@@ -16520,7 +16137,7 @@ pretre: {
                 Distance: "personnel",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     soigne_pv: "2d6+2",
                     resistance_tous_elements_ou_neutre: true,
                     duree_2_tours: true
@@ -16537,12 +16154,12 @@ pretre: {
                 Action: "standard",
                 Touche: "SAG",
                 prerequis: "cible_designation_infidele",
-                effet: {
+                effets: {
                     applique_entrave_irresistible: true,
                     cible_perd_actions: true,
                     enfermee_tombe_invulnerable: true,
                     duree_2_tours: true,
-                    degats_fin_effet: "2d6"
+                    degats_fin_effets: "2d6"
                 }
             },
             {
@@ -16555,7 +16172,7 @@ pretre: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     cible_devient_apotre: true,
                     recuperation_pv_fixes_debut_tour_apotre: "Xd4",
                     bonus_dsb_armure_apotre: "X",
@@ -16575,7 +16192,7 @@ pretre: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     retire_ko_mort_alliés: true,
                     reviennent_a_0_pv: true,
                     gain_pb_4_1_tour: true,
@@ -16592,7 +16209,7 @@ pretre: {
                 Distance: "illimitée",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     octroie_pb_20_1_tour: true,
                     peut_etre_lance_hors_tour: true
                 }
@@ -16607,7 +16224,7 @@ pretre: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     resurrection_incarnation_divine: true,
                     recupere_tous_pv_psy: true,
                     gain_2_actions_par_tour: true,
@@ -16616,7 +16233,7 @@ pretre: {
                     duree_1_tour: true,
                     cout_maintien_psy_par_tour: 6,
                     pas_deux_fois_meme_allie_par_combat: true,
-                    tombe_0_pv_et_ko_fin_effet: true
+                    tombe_0_pv_et_ko_fin_effets: true
                 }
             },
             {
@@ -16629,7 +16246,7 @@ pretre: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     octroie_pb_alliés: 6,
                     soigne_pv_alliés: "2d6",
                     degats_ennemis_egaux_soins_alliés: true
@@ -16647,7 +16264,7 @@ pretre: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "CHA/SAG",
-                effet: {
+                effets: {
                     sanctifie_zone_2_tours: true,
                     alliés_ne_peuvent_pas_mourir_ko_survivent_1_pv: true,
                     immunise_toutes_alterations_negatives_alliés: true,
@@ -16681,13 +16298,13 @@ cultiste: {
         mystique: 10, // Connaissance mystique (INT)
         sacré: 5, // Connaissance sacré (INT)
         nature: 0, // Connaissance nature (INT)
-        robustesse: 0, // Robustesse (DEF)
+        robustesse: 0, // robustesse (DEF)
         calme: 0, // Calme (DEF)
         marchandage: 0, // Marchandage (CHA)
         persuasion: 30, // Persuader/Tromper (CHA)
         artmusique: 0, // Art et Musique (CHA)
         commandement: 0, // Commandement (CHA)
-        acrobatie: 0, // Acrobatie (DEX)
+        acrobatie: 0, // acrobatie (DEX)
         discretion: 15, // Discrétion (DEX)
         adresse: 5, // Adresse (DEX)
         artisanat: 0, // Artisanat (DEX)
@@ -16711,7 +16328,7 @@ cultiste: {
         "Cinquième Sacrifice et au-delà : +5 aux dégâts, +25% de chances de toucher et de CC, Immunité à toutes les altérations d’états basées sur la Sagesse ou le Charisme, une action supplémentaire par tour. Armure réduite à néant, impossibilité de bloquer, désavantage sur tous les jets de sauvegarde est le lanceur est automatiquement dans l’État 'Folie' permanent et même s’il y est immunisé. État Chaos pendant 2 tours pour le lanceur, les soins qui s’appliquent au lanceur sont réduits de 50%.",
         "Ces bonus et malus se réinitialisent à chaque fin de combat ou de scène."
     ],
-    passifs: {
+    talentVoie: {
         niveauJoueur: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         talents: [
             {
@@ -16720,7 +16337,7 @@ cultiste: {
                 description: "Vous pouvez choisir un sort Novice de l'Arcane Chaos.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
+                effets: {
                     choix_sort_novice_chaos: true
                 }
             },
@@ -16730,7 +16347,7 @@ cultiste: {
                 description: "Ajoute +1 en Constitution. Ajoute 2 PB fixe lors de l'application de l'état Chaos sur le cultiste.",
                 niveauJoueur: 2,
                 prerequis: ["Novice du Chaos"],
-                effet: {
+                effets: {
                     bonus_constitution: 1,
                     pb_fixe_chaos: 2
                 }
@@ -16741,7 +16358,7 @@ cultiste: {
                 description: "Ajoute +1 en Force. L’intimidation se fait en ajoutant votre Force à la statistique Charisme.",
                 niveauJoueur: 3,
                 prerequis: ["Baigné de Chaos"],
-                effet: {
+                effets: {
                     bonus_force: 1,
                     intimidation_force_charisme: true
                 }
@@ -16752,7 +16369,7 @@ cultiste: {
                 description: "Vous pouvez choisir deux sorts Novice OU un sort Confirmé de l'Arcane Chaos.",
                 niveauJoueur: 4,
                 prerequis: ["Domination Chaotique"],
-                effet: {
+                effets: {
                     choix_deux_sorts_novice_ou_un_confirme_chaos: true
                 }
             },
@@ -16762,7 +16379,7 @@ cultiste: {
                 description: "Si le cultiste doit mourir d’une attaque, il la renvoie complètement et garde 1 PV et devient Invulnérable pour 1 tour. (1 fois par combat).",
                 niveauJoueur: 5,
                 prerequis: ["Confirmé du Chaos"],
-                effet: {
+                effets: {
                     renvoie_attaque_mortelle_garde_1pv_invulnerable_1_tour: true,
                     une_fois_par_combat: true
                 }
@@ -16773,7 +16390,7 @@ cultiste: {
                 description: "Ajoute +1 en Intelligence et en Sagesse. Le jet de perception magique se fait en ajoutant votre Intelligence à la statistique de Sagesse.",
                 niveauJoueur: 6,
                 prerequis: ["Non-Mort"],
-                effet: {
+                effets: {
                     bonus_intelligence: 1,
                     bonus_sagesse: 1,
                     perception_magique_intelligence_sagesse: true
@@ -16785,7 +16402,7 @@ cultiste: {
                 description: "Vous pouvez choisir deux sorts Confirmé OU un sort Expert de l'Arcane Chaos.",
                 niveauJoueur: 7,
                 prerequis: ["Erudition Chaotique"],
-                effet: {
+                effets: {
                     choix_deux_sorts_confirme_ou_un_expert_chaos: true
                 }
             },
@@ -16795,7 +16412,7 @@ cultiste: {
                 description: "Ajoute +1 en Force et en Sagesse. Quand vous utilisez vos PV pour lancer un sort, cela vous rend 1 PSY par tranche de 4 PV utilisés.",
                 niveauJoueur: 8,
                 prerequis: ["Expert du Chaos"],
-                effet: {
+                effets: {
                     bonus_force: 1,
                     bonus_sagesse: 1,
                     recupere_psy_par_pv_utilise: "1 PSY par 4 PV"
@@ -16807,7 +16424,7 @@ cultiste: {
                 description: "Tous les sorts appliquant l’état ‘’Chaos’’ ou ‘’Cécité’’ infligent 2 dégâts supplémentaires.",
                 niveauJoueur: 9,
                 prerequis: ["Pacte de l’Âme"],
-                effet: {
+                effets: {
                     bonus_degats_sorts_chaos_cecite: 2
                 }
             },
@@ -16817,7 +16434,7 @@ cultiste: {
                 description: "Les états ‘’Chaos’’ et ‘’Cécité’’ sont appliqués 2 tours au lieu d’un.",
                 niveauJoueur: 10,
                 prerequis: ["Cultiste Suprême"],
-                effet: {
+                effets: {
                     duree_chaos_cecite_2_tours: true
                 }
             }
@@ -16836,7 +16453,7 @@ cultiste: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6",
                     applique_cecite: true
                 },
@@ -16844,7 +16461,7 @@ cultiste: {
                     image: "",    
                     description: "Les adversaires subissant 'Cécité' s’appliquent aussi 'Chaos', ceux qui ne se l’appliquent pas subissent 1 dé 4 dégâts fixes supplémentaires.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         si_cecite_applique_alors_chaos: true,
                         degats_fixes_suppl_si_pas_cecite: "1d4"
                     }
@@ -16860,7 +16477,7 @@ cultiste: {
                 Distance: "illimitée", // Non spécifié, à déterminer
                 Action: "canalisation",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     degats_par_tour_canalisation: "Xd8",
                     declenchement_immediat_si_degats: true,
                     interdictions_deplacement_esquive_blocage: true,
@@ -16870,7 +16487,7 @@ cultiste: {
                     image: "",    
                     description: "Vous gagnez 3 PB lors du lancement du sort et 2 PB fixe à chaque tour de canalisation. Vous ne vous faites interrompre que si vous subissez des dégâts sur vos PV.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         gain_pb_lancement: 3,
                         gain_pb_par_tour_canalisation: 2,
                         interruption_seulement_si_degats_pv: true
@@ -16887,7 +16504,7 @@ cultiste: {
                 Distance: "30m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     soigne_pv: "1d6",
                     hors_combat_lumiere_invisible: true
                 },
@@ -16895,7 +16512,7 @@ cultiste: {
                     image: "",    
                     description: "La portée du sort devient 100 mètres. Si le lanceur est dans l’état 'Chaos' il applique également 'Chaos'.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         portee_100m: true,
                         applique_chaos_si_lanceur_chaos: true
                     }
@@ -16911,7 +16528,7 @@ cultiste: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     desavantage_jets_sauvegarde_1_tour: true,
                     non_cumulable_mais_plusieurs_cibles: true
                 },
@@ -16919,7 +16536,7 @@ cultiste: {
                     image: "",    
                     description: "Ce sort peut cibler un allié et lui octroie un avantage sur tous ses jets de sauvegarde ainsi que 2 PB pendant 2 tours.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         cible_allie_avantage_jets_sauvegarde_2_pb_2_tours: true
                     }
                 }
@@ -16934,7 +16551,7 @@ cultiste: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     redescend_palier_mecanique: true,
                     recupere_psy_par_palier: 2,
                     lance_avec_pv_pas_enclenche_mecanique: true,
@@ -16952,7 +16569,7 @@ cultiste: {
                 Distance: "15m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     soin_fixe_par_attaque: 2,
                     duree_1_tour: true,
                     cout_maintien_psy_par_tour: 1,
@@ -16962,7 +16579,7 @@ cultiste: {
                     image: "",    
                     description: "Ajoute 2 PB en plus de la première régénération à chaque tour.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         gain_pb_supplementaire_regeneration_par_tour: 2
                     }
                 }
@@ -16977,14 +16594,14 @@ cultiste: {
                 Distance: "10m",
                 Action: "aucune",
                 Touche: "SAG/FOR",
-                effet: {
+                effets: {
                     applique_chaos: true
                 },
                 pacte_noir: {
                     image: "",    
                     description: "Inflige 1 dé 4 dégâts fixe supplémentaire à la cible si 'Chaos' s’applique, si l’altération ne s’applique pas vous appliquez 'Cécité' de manière irrésistible.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         degats_fixes_suppl_si_chaos_applique: "1d4",
                         applique_cecite_irresistible_si_pas_chaos: true
                     }
@@ -17000,7 +16617,7 @@ cultiste: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6+2",
                     applique_chaos: true
                 },
@@ -17008,7 +16625,7 @@ cultiste: {
                     image: "",    
                     description: "Inflige 1 dé 4 dégâts fixe supplémentaire à la cible si 'Chaos' s’applique, si l’altération ne s’applique pas vous appliquez 'Cécité' de manière irrésistible.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         degats_fixes_suppl_si_chaos_applique: "1d4",
                         applique_cecite_irresistible_si_pas_chaos: true
                     }
@@ -17024,7 +16641,7 @@ cultiste: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     applique_entrave_toutes_entites: true,
                     soigne_pv_alliés_zone: "1d8"
                 },
@@ -17032,7 +16649,7 @@ cultiste: {
                     image: "",    
                     description: "Inflige 1 dé 8 dégâts aux ennemis dans la zone. Si le lanceur est dans l’état 'Chaos' ce sort voit ses dégâts et ses soins inversés.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         degats_ennemis_zone: "1d8",
                         inversion_degats_soins_si_lanceur_chaos: true
                     }
@@ -17048,7 +16665,7 @@ cultiste: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     recupere_pv_toutes_entites: "1d4",
                     gain_pb_alliés: 2
                 },
@@ -17056,7 +16673,7 @@ cultiste: {
                     image: "",    
                     description: "Si le lanceur est dans l’état 'Chaos' ce sort ne cible plus que les ennemis et octroie le double de PB aux alliés. Sinon les soins du sort sont doublés uniquement sur les alliés.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         cible_ennemis_double_pb_alliés_si_lanceur_chaos: true,
                         soins_doubles_alliés_sinon: true
                     }
@@ -17072,7 +16689,7 @@ cultiste: {
                 Distance: "15m",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats_par_entite_traversee: "1d6+2",
                     avance_case_libre_si_occupee_degats_suppl: true
                 },
@@ -17080,7 +16697,7 @@ cultiste: {
                     image: "",    
                     description: "Le cultiste récupère 2 PV par cible touchée.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         recupere_pv_par_cible_touchee: 2
                     }
                 }
@@ -17095,7 +16712,7 @@ cultiste: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6+3",
                     si_ennemi_chaos_retire_et_degats_suppl: "1d6",
                     si_lanceur_chaos_soigne_et_inflige_moitie_soins: true
@@ -17104,14 +16721,14 @@ cultiste: {
                     image: "",    
                     description: "Ce sort inflige 1 dé 6 dégâts à toutes les cibles au corps à corps de la première et applique 'Cécité' en plus de son effet.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         degats_zone_cac_premiere_cible: "1d6",
                         applique_cecite: true
                     }
                 }
             }
         ],
-        sortConfirmé: [
+        sortConfirme: [
             {
                 nom: "Trou Noir",
                 image: "",
@@ -17122,7 +16739,7 @@ cultiste: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     dissipe_projectiles_sorts_elementaires_10m: true,
                     duree_2_tours: true,
                     affecte_lanceur_et_alliés: true
@@ -17131,7 +16748,7 @@ cultiste: {
                     image: "",    
                     description: "Les projectiles alliés ne sont plus annulés par le sort.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         projectiles_alliés_non_annules: true
                     }
                 }
@@ -17146,7 +16763,7 @@ cultiste: {
                 Distance: "personnel",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     cree_zone_nuit_noire: true,
                     applique_cecite_toutes_cibles: true,
                     degats_toutes_cibles_y_compris_alliés: "1d6+1"
@@ -17155,7 +16772,7 @@ cultiste: {
                     image: "",    
                     description: "Ce sort n’infligent plus de dégâts aux alliés et inflige 1 dé 6 dégâts supplémentaire.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         pas_de_degats_alliés: true,
                         degats_suppl: "1d6"
                     }
@@ -17171,17 +16788,17 @@ cultiste: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6+3",
                     applique_entrave: true,
                     applique_chaos_tour_suivant: true,
-                    applique_cecite_fin_effet: true
+                    applique_cecite_fin_effets: true
                 },
                 pacte_noir: {
                     image: "",    
                     description: "Toutes les altérations sont appliquées de manière Irrésistible.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         alterations_irresistibles: true
                     }
                 }
@@ -17196,7 +16813,7 @@ cultiste: {
                 Distance: "15m",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     sacrifie_pv_rend_psy: true,
                     pas_plus_de_deux_fois_meme_cible_par_tour: true
                 },
@@ -17204,7 +16821,7 @@ cultiste: {
                     image: "",    
                     description: "Si le cultiste est dans l’état 'Chaos' il subit 1 dé 4 dégâts fixe en lançant ce sort.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         degats_fixes_si_lanceur_chaos: "1d4"
                     }
                 }
@@ -17219,7 +16836,7 @@ cultiste: {
                 Distance: "personnel",
                 Action: "standard",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     invoque_noirceur: true,
                     stats_capacites_bestiaire: true,
                     bonus_dsb_degats_invocateur: true,
@@ -17232,7 +16849,7 @@ cultiste: {
                     image: "",    
                     description: "Le Noirceur obtient 4 PB fixe et 2 d’armure lors de son invocation.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         pb_fixe_noirceur: 4,
                         armure_noirceur: 2
                     }
@@ -17248,7 +16865,7 @@ cultiste: {
                 Distance: "10m",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6+2",
                     applique_chaos: true,
                     mort_instantanee_si_moins_25_pv_apres_calcul: true
@@ -17257,7 +16874,7 @@ cultiste: {
                     image: "",    
                     description: "Si le lanceur est dans l’état 'Chaos' il s'inflige 4 dégâts fixes en lançant ce sort.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         degats_fixes_si_lanceur_chaos: 4
                     }
                 }
@@ -17272,7 +16889,7 @@ cultiste: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6+1",
                     double_degats_si_moins_25_pv_max: true,
                     triple_degats_plus_25_cc_si_1_pv: true
@@ -17281,7 +16898,7 @@ cultiste: {
                     image: "",    
                     description: "Applique l’état 'Chaos' irrésistible au lanceur avant ou après le lancement de ce sort.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         applique_chaos_irresistible_lanceur: true
                     }
                 }
@@ -17296,7 +16913,7 @@ cultiste: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     allié_attaque_immediatement_sans_action: true,
                     soigne_pv: "1d6",
                     gain_pb: 2
@@ -17305,7 +16922,7 @@ cultiste: {
                     image: "",    
                     description: "L’allié peut jouer un tour de jeu complet immédiatement au lieu de juste une attaque.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         allié_joue_tour_complet: true
                     }
                 }
@@ -17320,7 +16937,7 @@ cultiste: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     soigne_pv: "1d8",
                     octroie_pb: 2,
                     attaques_infligent_terreur_prochain_tour: true
@@ -17329,7 +16946,7 @@ cultiste: {
                     image: "",    
                     description: "Les attaques de l’allié infligent 1 dé 4 dégâts fixes supplémentaires.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         degats_fixes_suppl_attaques_allié: "1d4"
                     }
                 }
@@ -17346,7 +16963,7 @@ cultiste: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     annule_effets_negatifs_mecanique_classe_1_tour: true
                 },
                 pacte_noir: null // Ce sort n'a pas de Pacte Noir
@@ -17361,7 +16978,7 @@ cultiste: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     soigne_pv: "2d6",
                     octroie_pb: 4,
                     armure: 2,
@@ -17372,7 +16989,7 @@ cultiste: {
                     image: "",    
                     description: "Les bonus deviennent des malus si le lanceur a l’état 'Chaos', l’effet est prolongé de 1 tour.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         bonus_deviennent_malus_si_lanceur_chaos: true,
                         duree_prolongee_1_tour: true
                     }
@@ -17388,7 +17005,7 @@ cultiste: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats_toutes_cibles: "1d10",
                     applique_cecite: true,
                     recupere_pv_par_cecite_appliquee: 2
@@ -17397,7 +17014,7 @@ cultiste: {
                     image: "",    
                     description: "Les dégâts de ce sort deviennent perce armure, si vous échouez à appliquer 'Cécité' vous appliquez 'Entrave' à la place",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         degats_perce_armure: true,
                         applique_entrave_si_echec_cecite: true
                     }
@@ -17413,7 +17030,7 @@ cultiste: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "FOR/SAG",
-                effet: {
+                effets: {
                     retire_chaos_cecite_terreur_toutes_entites: true,
                     recupere_pv_par_chaos_retire: "1d4",
                     recupere_psy_par_cecite_retiree: "1d4",
@@ -17424,7 +17041,7 @@ cultiste: {
                     image: "",    
                     description: "Ce sort ne consomme plus d’action. Si le lanceur de ce sort retire plus de 3 altérations avec celui-ci il monte automatiquement d’un palier dans la mécanique, en plus de celui octroyé par ce pacte Noir.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         pas_de_consommation_action: true,
                         monte_palier_mecanique_si_plus_de_3_alterations: true
                     }
@@ -17440,7 +17057,7 @@ cultiste: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     recupere_pv_pb_perdus_tour_prochain_tour: true,
                     effet_meme_si_mort_ko: true,
                     applique_chaos_irresistible: true,
@@ -17450,7 +17067,7 @@ cultiste: {
                     image: "",    
                     description: "Vous renvoyez la totalité des dégâts que vous avez subis à une cible au corps à corps.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         renvoie_degats_subis_cible_cac: true
                     }
                 }
@@ -17465,7 +17082,7 @@ cultiste: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "3d8",
                     applique_terreur: true,
                     si_terreur_reussie_tous_ennemis_appliquent_chaos: true
@@ -17474,7 +17091,7 @@ cultiste: {
                     image: "",    
                     description: "Ce sort ne consomme plus d’action.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         pas_de_consommation_action: true
                     }
                 }
@@ -17489,7 +17106,7 @@ cultiste: {
                 Distance: "illimitée",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     octroie_pb_20_1_tour: true,
                     degats_explosion_fin_effet_egaux_pb_perdus: true,
                     applique_chaos_cible: true,
@@ -17499,7 +17116,7 @@ cultiste: {
                     image: "",    
                     description: "Le Bouclier dévore tous ceux qui le touchent et les renvoie à leur position de départ du combat.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         renvoie_ennemis_position_depart_si_touchent: true
                     }
                 }
@@ -17514,7 +17131,7 @@ cultiste: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     applique_chaos_terreur_cecite_irresistible: true,
                     desavantage_jets_si_un_effet_actif: true,
                     tente_fuir_ou_se_suicider_si_moins_25_pv: true,
@@ -17524,7 +17141,7 @@ cultiste: {
                     image: "",    
                     description: "Ce sort inflige ou soigne 2 dés 8, selon le choix du lanceur, lors de son lancement.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         inflige_ou_soigne_2d8: true
                     }
                 }
@@ -17541,7 +17158,7 @@ cultiste: {
                 Distance: "personnel",
                 Action: "standard",
                 Touche: "SAG/FOR",
-                effet: {
+                effets: {
                     transcende_condition_mortel: true,
                     mecanique_sans_effets_negatifs: true,
                     pactes_noirs_sans_pv_mais_comptent_mecanique: true,
@@ -17554,7 +17171,7 @@ cultiste: {
                     image: "",    
                     description: "Vous sacrifiez tous vos PV restants, n’en gardant qu’un seul. Si vous prenez des dégâts pendant l’effet vous pouvez les encaisser sur la PSY plutôt que sur les PV. Vous pouvez annuler les dégâts d’une attaque à chaque tour.",
                     cout_pv_suppl: 2,
-                    effet: {
+                    effets: {
                         sacrifie_tous_pv_garde_1: true,
                         degats_sur_psy_si_subis: true,
                         annule_degats_une_attaque_par_tour: true
@@ -17587,13 +17204,13 @@ magicka: {
         mystique: 10, // Connaissance mystique (INT)
         sacré: 0, // Connaissance sacré (INT)
         nature: 0, // Connaissance nature (INT)
-        robustesse: 0, // Robustesse (DEF)
+        robustesse: 0, // robustesse (DEF)
         calme: 5, // Calme (DEF)
         marchandage: 0, // Marchandage (CHA)
         persuasion: 10, // Persuader/Tromper (CHA)
         artmusique: 15, // Art et Musique (CHA)
         commandement: 10, // Commandement (CHA)
-        acrobatie: 5, // Acrobatie (DEX)
+        acrobatie: 5, // acrobatie (DEX)
         discretion: 0, // Discrétion (DEX)
         adresse: 0, // Adresse (DEX)
         artisanat: 0, // Artisanat (DEX)
@@ -17609,13 +17226,13 @@ magicka: {
     mecanique: [
         "Les Magicka peuvent recourir à des transformations qui modifient leurs caractéristiques et leur permet d’être plus forte dans un domaine au détriment d’un autre.",
         "Magicka Transformation ! (réussite automatique) : Vous pouvez vous transformer en une des quatre formes de Magicka, la transformation peut créer un changement visuel léger sur votre personnage :",
-        "- Forme rapide : +1 cran de vitesse et +15% de chances de toucher et aux jets de sauvegarde basés sur la dextérité. En contrepartie vous subissez 2 dégâts en plus de toutes les attaques. Octroie +10 dans toutes les statistiques mineures basées sur la dextérité.",
+        "- Forme rapide : +1 cran de vitesse et +15% de chances de toucher et aux jets de sauvegarde basés sur la dexterite. En contrepartie vous subissez 2 dégâts en plus de toutes les attaques. Octroie +10 dans toutes les statistiques mineures basées sur la dexterite.",
         "- Forme brutale : +2 aux dégâts, 15% de CC et aux jets de sauvegarde basés sur la Force. En contrepartie vous perdez 20% de chance de bloquer et -2 à l’armure. Octroie +10 dans toutes les statistiques mineures basées sur la Force.",
         "- Forme bastion : +1 d’armure et +20% aux chances de bloquer et à tous les jets de sauvegarde. En contrepartie vous perdez un cran en vitesse et ne pouvez plus utiliser d’attaque qui ont une portée supérieure à 15 mètres. Octroie +10 dans toutes les statistiques mineures basées sur la Défense.",
         "- Forme sage : Toutes vos attaques coûtent 1 PSY de moins et gagnent +5 mètres de portée. En contrepartie vous ne pouvez plus effectuer de jets de sauvegarde. Octroie +10 dans toutes les statistiques mineures basées sur la Sagesse.",
         "Ce sort ne consomme pas d’action, le changement de forme peut intervenir n’importe quand dans le tour de jeu. Hors combat changer de forme prend quelques dizaines de secondes et ne peut donc pas intervenir en réflexe. Coût: 1 PSY"
     ],
-    passifs: {
+    talentVoie: {
         niveauJoueur: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         talents: [
             {
@@ -17624,17 +17241,17 @@ magicka: {
                 description: "Vous donne 2 points de statistiques à répartir.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
+                effets: {
                     points_statistiques_a_repartir: 2
-                }
+                 }
             },
             {
                 nom: "Magicka Haste",
                 image: "",
-                description: "Ajoute +1 en Dextérité. Vous pouvez choisir une transformation au tout début du combat avant même le placement. Cette forme est gratuite.",
+                description: "Ajoute +1 en dexterite. Vous pouvez choisir une transformation au tout début du combat avant même le placement. Cette forme est gratuite.",
                 niveauJoueur: 2,
                 prerequis: ["Magicka Training"],
-                effet: {
+                effets: {
                     bonus_dexterite: 1,
                     choix_transformation_gratuite_debut_combat: true
                 }
@@ -17645,7 +17262,7 @@ magicka: {
                 description: "Ajoute +1 en Charisme, la forme de base de la Magicka octroie +10 dans toutes les statistiques mineures liées au charisme.",
                 niveauJoueur: 3,
                 prerequis: ["Magicka Haste"],
-                effet: {
+                effets: {
                     bonus_charisme: 1,
                     forme_base_bonus_charisme_mineures: 10
                 }
@@ -17656,7 +17273,7 @@ magicka: {
                 description: "Lors d’un changement de forme vous pouvez doubler les effets positifs et négatifs de la transformation, le sort de transformation coûte alors le double.",
                 niveauJoueur: 4,
                 prerequis: ["Worldwide Magicka"],
-                effet: {
+                effets: {
                     double_effets_transformation_cout_double: true
                 }
             },
@@ -17666,7 +17283,7 @@ magicka: {
                 description: "Au début de votre tour, vous pouvez désigner un allié, il sera alors considéré comme une 'Magicka' jusqu’au début de votre prochain tour et pourra utiliser l'effet de la mécanique même si ce n'est pas sa voie.",
                 niveauJoueur: 5,
                 prerequis: ["Perfect Transformation !"],
-                effet: {
+                effets: {
                     allié_consideré_magicka_utilise_mecanique: true
                 }
             },
@@ -17676,7 +17293,7 @@ magicka: {
                 description: "Ajoute +1 en Défense, une fois par combat si une attaque devait vous tuer ou vous faire tomber K.O vous gardez 1 PV et récupérez 1 dé 6 PV fixe instantanément.",
                 niveauJoueur: 6,
                 prerequis: ["Leader Magicka"],
-                effet: {
+                effets: {
                     bonus_defense: 1,
                     garde_1pv_recupere_1d6_si_mort_ko_une_fois_par_combat: true
                 }
@@ -17687,7 +17304,7 @@ magicka: {
                 description: "Vous pouvez changer de forme même hors de votre tour de jeu, y compris en utilisant l’effet de 'Perfect Transformation !'. Hors combat vous changez de forme instantanément.",
                 niveauJoueur: 7,
                 prerequis: ["Last Hope"],
-                effet: {
+                effets: {
                     changement_forme_hors_tour_y_compris_perfect: true,
                     changement_forme_instantane_hors_combat: true
                 }
@@ -17698,7 +17315,7 @@ magicka: {
                 description: "Ajoute +1 en Sagesse, permet de parler la langue Ancien.",
                 niveauJoueur: 8,
                 prerequis: ["Overdrive Transformation !"],
-                effet: {
+                effets: {
                     bonus_sagesse: 1,
                     parle_langue_ancien: true
                 }
@@ -17709,7 +17326,7 @@ magicka: {
                 description: "Ajoute +1 en Force, en forme brutale la Magicka peut soulever ou détruire des objets très massifs.",
                 niveauJoueur: 9,
                 prerequis: ["Ancestral Magicka"],
-                effet: {
+                effets: {
                     bonus_force: 1,
                     forme_brutale_souleve_detruit_objets_massifs: true
                 }
@@ -17720,7 +17337,7 @@ magicka: {
                 description: "À chaque fois que vous, ou une Magicka tuez ou mettez K.O un ennemi dans le combat toutes les Magicka récupèrent 1 dé 6 PV et gagnent +1 DSB pour le reste du combat. Ce passif ne s’enclenche qu’une fois par ennemi tué même si d’autres Magicka le possèdent aussi.",
                 niveauJoueur: 10,
                 prerequis: ["Strongest Magicka"],
-                effet: {
+                effets: {
                     recupere_1d6_pv_et_gain_1_dsb_par_ennemi_tue_ko: true,
                     une_fois_par_ennemi_tue_ko: true
                 }
@@ -17740,7 +17357,7 @@ magicka: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6+2",
                     repousse_5m: true
                 }
@@ -17755,7 +17372,7 @@ magicka: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     invoque_esprit_magique: true,
                     taille_tres_petite: true,
                     vitesse_normale: true,
@@ -17775,7 +17392,7 @@ magicka: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     deplacement_5m_prochaine_attaque_recue: true,
                     evite_degats_si_hors_portee: true
                 }
@@ -17790,7 +17407,7 @@ magicka: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     octroie_pb_2_tous_alliés: true,
                     degats_prochaine_attaque_reduit_de_4_1_tour: true,
                     soigne_1d4_pv_sur_magicka: true
@@ -17806,7 +17423,7 @@ magicka: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6+1",
                     applique_charme: true,
                     degats_fixes_suppl_si_pas_charme: "1d4"
@@ -17822,7 +17439,7 @@ magicka: {
                 Distance: "30m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     soigne_pv: "1d6",
                     retire_cecite_chaos: true,
                     si_cible_magicka_octroie_2pb_lanceur_cible: true
@@ -17838,7 +17455,7 @@ magicka: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats_cible_initiale: "1d6+1",
                     degats_fixes_zone_cac: 3,
                     magicka_soignent_plutot_que_subir_degats_zone: true
@@ -17854,7 +17471,7 @@ magicka: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     sur_ennemi_applique_charme_et_consideré_magicka: true,
                     sur_allié_ignore_attaque_mortelle_ou_ko: true,
                     si_cible_magicka_effet_lanceur_aussi: true
@@ -17870,7 +17487,7 @@ magicka: {
                 Distance: "10m",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     teleportation_10m_ignore_attaques_opportunites_etats_deplacement: true,
                     degats_ennemis_autour_arrivee: "1d6+1",
                     teleportation_suppl_10m: true,
@@ -17887,7 +17504,7 @@ magicka: {
                 Distance: "40m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     soins_alliés_zone: "1d4",
                     degats_ennemis_zone: "1d4",
                     soins_degats_doubles_si_magicka_dans_zone: true
@@ -17903,8 +17520,8 @@ magicka: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
-                    immunite_charme_et_retire_effet: true,
+                effets: {
+                    immunite_charme_et_retire_effets: true,
                     gain_armure: 2,
                     gain_chance_bloquer: "20%",
                     duree_2_tours: true,
@@ -17921,12 +17538,12 @@ magicka: {
                 Distance: "40m",
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats_perce_armure: "1d4"
                 }
             }
         ],
-        sortConfirmé: [
+        sortConfirme: [
             {
                 nom: "Candy Gummi Jar",
                 image: "",
@@ -17937,7 +17554,7 @@ magicka: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     invoque_jarre_bonbon: true,
                     donne_friandises_bonus_degats_cc_1_tour: true,
                     sur_magicka_soigne_1d4_pv: true
@@ -17953,7 +17570,7 @@ magicka: {
                 Distance: "30m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     soigne_pv: "2d4",
                     supprime_un_effet_negatif: true,
                     si_cible_magicka_soigne_2d6_et_supprime_tous_effets_negatifs: true
@@ -17969,7 +17586,7 @@ magicka: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "2d6",
                     flash_lumineux_applique_cecite_autour_impact: true,
                     applique_cecite_ennemis_cac_autres_magicka: true
@@ -17985,7 +17602,7 @@ magicka: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     allié_consideré_magicka_acces_mecanique: true,
                     effet_prolongeable_1_psy_par_tour: true
                 }
@@ -18000,7 +17617,7 @@ magicka: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     augmente_vitesse_tous_alliés: true,
                     avantage_jets_sauvegarde: true,
                     magicka_avantage_jets_blocage: true,
@@ -18018,7 +17635,7 @@ magicka: {
                 Distance: "30m",
                 Action: "charge",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     degats_apres_charge: "2d8",
                     annulation_si_perte_pv_pendant_charge_remboursement_psy: true,
                     charge_illimitee_degats_suppl_par_tour: "1d8",
@@ -18035,7 +17652,7 @@ magicka: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats: "3d4",
                     peut_cibler_jusqu_a_3_cibles_partage_degats: true,
                     si_autre_magicka_dans_zone_explosion_peluche_degats_brulure: true
@@ -18051,7 +17668,7 @@ magicka: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6+4",
                     applique_entrave_irresistible: true,
                     degats_fixes_suppl_par_magicka_cac_cible: "1d6"
@@ -18067,7 +17684,7 @@ magicka: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     declenche_ciblage_sur_lanceur_tous_ennemis: true,
                     autres_magicka_gain_2_degats_suppl_sur_cibles: true
                 }
@@ -18084,7 +17701,7 @@ magicka: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats_tous_ennemis_cac: "1d10",
                     applique_sonne: true,
                     si_autre_magicka_cac_replique_attaque_1d10: true
@@ -18100,7 +17717,7 @@ magicka: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     ennemis_subissent_silence_cecite_entrave_irresistible_1_tour: true,
                     alliés_gain_2_degats_suppl_par_effet_negatif_cible: true,
                     autres_magicka_purgent_effets_negatifs_soignent_4pv_par_effet_supprime: true
@@ -18116,7 +17733,7 @@ magicka: {
                 Distance: "25m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats_zone_impact: "2d8",
                     applique_sonne: true,
                     touche_allié_ennemi_pas_autres_magicka: true
@@ -18132,7 +17749,7 @@ magicka: {
                 Distance: "20m",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     avance_ligne_droite_20m_traverse_entites: true,
                     case_arrivee_libre_ou_magicka: true,
                     degats_ennemis_traverses: "2d6",
@@ -18150,7 +17767,7 @@ magicka: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     teleporte_toutes_magicka_cac_lanceur: true,
                     soigne_pv_tous_alliés: "1d8+2 par magicka",
                     purge_tous_effets_negatifs: true
@@ -18166,7 +17783,7 @@ magicka: {
                 Distance: "mêlée", // Non spécifié, à déterminer
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "3d4+2",
                     desavantage_tous_jets_cible_1_tour: true,
                     si_cible_meurt_magicka_gagnent_avantage_tous_jets_1_tour: true
@@ -18182,7 +17799,7 @@ magicka: {
                 Distance: "25m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     teleporte_toutes_magicka_cac_lanceur: true,
                     degats_par_magicka: "1d10",
                     ignore_blocage_armures_boucliers: true
@@ -18198,7 +17815,7 @@ magicka: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     rejoint_allié_plus_proche_traverse_entites_ignore_effets_deplacement_attaques_opportunites: true,
                     soigne_allié: "1d6",
                     repete_jusqu_a_tous_alliés_soignes: true,
@@ -18218,7 +17835,7 @@ magicka: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     bonus_doubles_4_formes_sans_malus: true,
                     changement_apparence_magicka: true,
                     tous_alliés_consideres_magicka_pendant_duree: true,
@@ -18251,13 +17868,13 @@ enchanteur: {
         mystique: 20, // Connaissance mystique (INT)
         sacré: 10, // Connaissance sacré (INT)
         nature: 0, // Connaissance nature (INT)
-        robustesse: 0, // Robustesse (DEF)
+        robustesse: 0, // robustesse (DEF)
         calme: 0, // Calme (DEF)
         marchandage: 0, // Marchandage (CHA)
         persuasion: 5, // Persuader/Tromper (CHA)
         artmusique: 5, // Art et Musique (CHA)
         commandement: 0, // Commandement (CHA)
-        acrobatie: 0, // Acrobatie (DEX)
+        acrobatie: 0, // acrobatie (DEX)
         discretion: 0, // Discrétion (DEX)
         adresse: 10, // Adresse (DEX)
         artisanat: 25, // Artisanat (DEX)
@@ -18275,7 +17892,7 @@ enchanteur: {
         "Enchantement (Réussite automatique) : Vous pouvez enchanter un objet avec un trait positif commun. L’effet obtenu est permanent, un objet ne peut être enchanté qu’une seule fois et l’enchantement ne peut pas être retiré sauf par une capacité qui l’autorise. Le MJ pourra accorder l’utilisation de ce sort ou non. Enchanter un objet prend quelques minutes hors combat, et ne peut pas être utilisé en combat ou dans l'urgence. Coût: 4 PSY",
         "Chaque objet enchanté que possède le groupe de l’Enchanteur augmente passivement la jauge de surcharge locale de 1 mais ne peut jamais enclencher la surcharge automatiquement. Si la folie psychique s’enclenche cette augmentation passive n’a plus lieu pendant la scène."
     ],
-    passifs: {
+    talentVoie: {
         niveauJoueur: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         talents: [
             {
@@ -18284,10 +17901,8 @@ enchanteur: {
                 description: "Ajoute +1 en Sagesse et en Intelligence, l’enchanteur peut parler une langue supplémentaire.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
-                    bonus_sagesse: 1,
-                    bonus_intelligence: 1,
-                    parle_langue_suppl: true
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { sagesse: 1, intelligence: 1 },
                 }
             },
             {
@@ -18296,11 +17911,14 @@ enchanteur: {
                 description: "Ajoute +1 en Charisme et en Sagesse, octroie +20 en marchandage pour vendre un objet enchanté par le personnage.",
                 niveauJoueur: 2,
                 prerequis: ["Calligraphie magique"],
-                effet: {
-                    bonus_charisme: 1,
-                    bonus_sagesse: 1,
-                    bonus_marchandage_vente_objet_enchante: 20
-                }
+                fonction: "bonusDirectPlusConditionnel",
+                effets: {
+                    bonus: { majeures: { charisme: 1, sagesse: 1 } },
+                    caracteristique: "marchandage",
+                    bonusConditionnel: 20,
+                    condition: "marchandage pour vendre un objet enchanté par le personnage" ,
+                    description: "Bonus de +20 en marchandage pour vendre un objet enchanté par le personnage." 
+                    },
             },
             {
                 nom: "Apprenti enchanteur",
@@ -18308,10 +17926,8 @@ enchanteur: {
                 description: "Le sort 'Enchantement' peut désormais appliquer un trait positif rare, il peut aussi cibler directement des êtres vivants non intelligents en leur appliquant un effet de moyenne valeur ou une imperfection.",
                 niveauJoueur: 3,
                 prerequis: ["Enchanteur prolifique"],
-                effet: {
-                    enchantement_applique_trait_rare: true,
-                    cible_etres_vivants_non_intelligents_effet_ou_imperfection: true
-                }
+                
+                
             },
             {
                 nom: "Chaîne d’enchantement",
@@ -18319,10 +17935,8 @@ enchanteur: {
                 description: "Ajoute +1 en Sagesse, les sorts contenant le mot 'enchantement' coûtent tous 1 PSY de moins à utiliser.",
                 niveauJoueur: 4,
                 prerequis: ["Apprenti enchanteur"],
-                effet: {
-                    bonus_sagesse: 1,
-                    sorts_enchantement_cout_reduit_1_psy: true
-                }
+                fonction: "ajoutDirectCaracteristique",
+                effets: { majeures: { sagesse: 1 } },
             },
             {
                 nom: "Bio-sculpteur",
@@ -18330,10 +17944,7 @@ enchanteur: {
                 description: "L’enchanteur peut appliquer ses enchantements sur des êtres vivants quels qu’ils soient, il applique un trait positif commun statistique uniquement mais cumulable avec des modifications d’enchantement d’équipement.",
                 niveauJoueur: 5,
                 prerequis: ["Chaîne d’enchantement"],
-                effet: {
-                    applique_enchantements_etres_vivants: true,
-                    applique_trait_positif_commun_statistique_cumulable: true
-                }
+                
             },
             {
                 nom: "Enchanteur intellectuel",
@@ -18341,7 +17952,7 @@ enchanteur: {
                 description: "Ajoute +1 en Sagesse et en Intelligence, l’enchanteur gagne un avantage sur ses jets de connaissance mystique, ou lors d'un jet concernant un enchantement.",
                 niveauJoueur: 6,
                 prerequis: ["Bio-sculpteur"],
-                effet: {
+                effets: {
                     bonus_sagesse: 1,
                     bonus_intelligence: 1,
                     avantage_jets_connaissance_mystique_ou_enchantement: true
@@ -18353,7 +17964,7 @@ enchanteur: {
                 description: "Le sort 'Enchantement' peut désormais appliquer un trait positif Épique. L’enchanteur peut aussi écrire quelque chose et un effet ou une imperfection s’appliquera lorsqu’une cible lira ce qu’il y a d’écrit plutôt que d’enchanter directement sur un objet.",
                 niveauJoueur: 7,
                 prerequis: ["Enchanteur intellectuel"],
-                effet: {
+                effets: {
                     enchantement_applique_trait_epique: true,
                     ecrit_effet_ou_imperfection_s_applique_en_lisant: true
                 }
@@ -18364,7 +17975,7 @@ enchanteur: {
                 description: "S’enclenche si le lanceur possède au moins trois objets enchantés sur lui, ceux-ci perturbent la psyché environnante et le lanceur applique alors 'Silence' à son corps à corps de manière passive à chaque fois qu’il débute son tour.",
                 niveauJoueur: 8,
                 prerequis: ["Enchanteur confirmé"],
-                effet: {
+                effets: {
                     si_3_objets_enchantés_applique_silence_cac_passif_debut_tour: true
                 }
             },
@@ -18374,7 +17985,7 @@ enchanteur: {
                 description: "Augmente de 1 tour la durée de tous les sorts possédant le mot Enchantement.",
                 niveauJoueur: 9,
                 prerequis: ["Barda enchanté"],
-                effet: {
+                effets: {
                     augmente_duree_sorts_enchantement_1_tour: true
                 }
             },
@@ -18384,7 +17995,7 @@ enchanteur: {
                 description: "Le sort 'Enchantement' peut désormais appliquer un trait positif légendaire.",
                 niveauJoueur: 10,
                 prerequis: ["Enchantement longue durée"],
-                effet: {
+                effets: {
                     enchantement_applique_trait_legendaire: true
                 }
             }
@@ -18403,7 +18014,7 @@ enchanteur: {
                 Distance: "distance", // À définir si non spécifié
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     gain_armure: 2,
                     gain_chance_bloquer: "10%",
                     duree_2_tours: true
@@ -18419,7 +18030,7 @@ enchanteur: {
                 Distance: "CAC",
                 Action: "aucune",
                 Touche: "CHA/SAG",
-                effet: {
+                effets: {
                     applique_alteration_etat_cac: true,
                     degats_si_echec_application: "1d4"
                 }
@@ -18434,7 +18045,7 @@ enchanteur: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     immunite_deplacement_contre_gre: true,
                     resistance_neutre_si_pas_deplacement: true,
                     duree_1_tour: true
@@ -18450,7 +18061,7 @@ enchanteur: {
                 Distance: "30m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     pose_4_runes: true,
                     desavantage_tous_jets_ennemis_sur_rune_1_tour: true,
                     effet_duree_non_cumulable: true
@@ -18466,7 +18077,7 @@ enchanteur: {
                 Distance: "CAC",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     cree_rune_consciente: true,
                     invisible_invulnerable: true,
                     deplacement_15m_par_tour_mouvement_cavalier: true,
@@ -18485,7 +18096,7 @@ enchanteur: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     avantage_tous_jets_2_tours: true,
                     duree_5_minutes_hors_combat: true
                 }
@@ -18500,7 +18111,7 @@ enchanteur: {
                 Distance: "10m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     pose_rune_au_sol: true,
                     prochaine_entite_sur_case_subit_silence_et_1d4_degats: true
                 }
@@ -18515,7 +18126,7 @@ enchanteur: {
                 Distance: "distance", // À définir si non spécifié
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     annule_bonus_temporaire_adversaire_distance: true,
                     supprime_enchantement_hors_combat: true
                 }
@@ -18530,7 +18141,7 @@ enchanteur: {
                 Distance: "15m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     pose_2_runes: true,
                     pousse_cible_sur_rune_5m_direction_voulue: true,
                     degats_perce_armure: "1d4"
@@ -18546,7 +18157,7 @@ enchanteur: {
                 Distance: "40m",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     octroie_10_statistique_mineure: true,
                     invisible_peut_etre_lance_en_reflexe: true,
                     double_triple_effet_cout_double_triple: true
@@ -18562,7 +18173,7 @@ enchanteur: {
                 Distance: "10m_puis_25m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     invoque_2_runes_teleportation: true,
                     teleporte_entite_sur_l_autre_rune_si_case_libre: true,
                     disparait_apres_3_tours: true,
@@ -18580,13 +18191,13 @@ enchanteur: {
                 Distance: "distance", // À définir si non spécifié
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     soigne_1d6_pv_fixes_debut_tour: true,
                     duree_2_tours: true
                 }
             }
         ],
-        sortConfirmé: [
+        sortConfirme: [
             {
                 nom: "Enchantement de mobilité",
                 image: "",
@@ -18597,7 +18208,7 @@ enchanteur: {
                 Distance: "20m",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     gain_vitesse_2_crans: true,
                     duree_2_tours: true
                 }
@@ -18612,7 +18223,7 @@ enchanteur: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     gain_3_degats: true,
                     duree_2_tours: true
                 }
@@ -18627,7 +18238,7 @@ enchanteur: {
                 Distance: "30m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     pose_2_runes: true,
                     applique_entrave_et_1d6_degats_si_sur_case: true,
                     degats_doubles_si_resistance_entrave: true
@@ -18643,7 +18254,7 @@ enchanteur: {
                 Distance: "30m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     pose_2_runes: true,
                     degats_feu_si_sur_case: "2d4+2"
                 }
@@ -18658,7 +18269,7 @@ enchanteur: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     immunite_alterations_negatives_1_tour: true,
                     purge_tous_effets_negatifs_alliés: true
                 }
@@ -18673,7 +18284,7 @@ enchanteur: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     degats_basés_sur_runes_enchantements_actifs: true,
                     temps_recharge_2_tours: true,
                     ne_prend_pas_en_compte_runes_pays_enchante: true
@@ -18689,7 +18300,7 @@ enchanteur: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     inverse_effet_sort_enchantement_connu_applique_ennemi_2_tours: true
                 }
             },
@@ -18703,7 +18314,7 @@ enchanteur: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     annule_prochaine_attaque_subie: true
                 }
             },
@@ -18717,7 +18328,7 @@ enchanteur: {
                 Distance: "20m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     pose_4_runes_rayon_20m: true,
                     degats_terre_fixes: "1d4",
                     applique_2_poisons: true
@@ -18735,7 +18346,7 @@ enchanteur: {
                 Distance: "distance", // À définir si non spécifié
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     gain_30_pourcent_chance_cc: true,
                     duree_2_tours: true
                 }
@@ -18750,7 +18361,7 @@ enchanteur: {
                 Distance: "30m",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     chance_toucher_bloquer_jets_sauvegarde_augmentes_20_pourcent: true,
                     duree_2_tours: true
                 }
@@ -18765,9 +18376,9 @@ enchanteur: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     cible_ne_peut_pas_etre_tuee_ko_1_tour: true,
-                    revient_50_pourcent_pv_max_fin_effet: true
+                    revient_50_pourcent_pv_max_fin_effets: true
                 }
             },
             {
@@ -18780,7 +18391,7 @@ enchanteur: {
                 Distance: "plus_de_10m_d_ennemis",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     pose_rune_loin_ennemis: true,
                     degats_foudre_si_sur_rune: "2d10"
                 }
@@ -18795,7 +18406,7 @@ enchanteur: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     hors_combat_avantage_jets_charisme_cout_3_psy: true,
                     en_combat_applique_silence_entrave_3_poisons_irresistibles_cac: true
                 }
@@ -18810,7 +18421,7 @@ enchanteur: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     choisit_effets_sorts_rune_novice_confirme: true,
                     pose_4_runes_differentes_ou_il_le_desire: true
                 }
@@ -18825,7 +18436,7 @@ enchanteur: {
                 Distance: "50m",
                 Action: "standard",
                 Touche: "CHA/SAG",
-                effet: {
+                effets: {
                     choisit_plusieurs_sorts_enchantement_novice_confirme: true,
                     double_effets_applique_sur_cible_1_tour: true,
                     cout_cumul_sorts_choisis_plus_2_psy: true
@@ -18841,7 +18452,7 @@ enchanteur: {
                 Distance: "plus_de_10m_d_alliés",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     pose_rune_loin_alliés: true,
                     soigne_pv_si_sur_rune: "2d6+4"
                 }
@@ -18858,7 +18469,7 @@ enchanteur: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "CHA/SAG",
-                effet: {
+                effets: {
                     toutes_cases_terrain_deviennent_runes: true,
                     degats_fixes_ennemis: "1d2",
                     soigne_alliés_meme_montant: true,
@@ -18900,7 +18511,7 @@ sorciere: {
             cout: "3 PSY"
         }
     ],
-    passifs: {
+    talentVoie: {
         niveauJoueur: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         talents: [
             {
@@ -18909,7 +18520,7 @@ sorciere: {
                 description: "Octroie +1 en Charisme et en Intelligence. Ajoute +10 en Intimidation et en Connaissance mystique.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
+                effets: {
                     bonus_caracteristiques: {
                         charisme: 1,
                         intelligence: 1
@@ -18926,7 +18537,7 @@ sorciere: {
                 description: "Vous gagnez un bonus de 20% de chances de réussir un sort possédant \"Rituel\" dans son nom si vous avez infligé une altération d’état négative à une entité pendant le tour en cours ou le précédent.",
                 niveauJoueur: 2,
                 prerequis: ["Ricaneuse sinistre"],
-                effet: {
+                effets: {
                     bonus_reussite_sort_rituel: "20%",
                     condition_alteration_etat_negative: true
                 }
@@ -18937,7 +18548,7 @@ sorciere: {
                 description: "Vous parlez l’Ancien, vous pouvez lancer un puissant rituel qui prend 2 heures de temps à lancer et permet de poser 3 questions à une âme tuée récemment. Ce rituel coûte 6 PSY irréductible et ne peut pas profiter de la psyché naturelle.",
                 niveauJoueur: 3,
                 prerequis: ["Rituels interdits"],
-                effet: {
+                effets: {
                     parle_ancien: true,
                     rituel_poser_questions_ames_tuees: {
                         duree: "2 heures",
@@ -18952,7 +18563,7 @@ sorciere: {
                 description: "Ajoute +2 en Sagesse, si vous devez mourir une entité de l’au-delà vous ramène à votre corps et vous regagnez 1 PV et obtenez \"Invulnérable\" pendant 1 tour. Une fois par semaine.",
                 niveauJoueur: 4,
                 prerequis: ["Parler à l’au-delà"],
-                effet: {
+                effets: {
                     bonus_caracteristique: {
                         sagesse: 2
                     },
@@ -18969,7 +18580,7 @@ sorciere: {
                 description: "Vous choisissez jusqu’à 3 de vos invocations, celles-ci obtiennent un bonus de PV égal à votre DSB et un bonus de dégâts égal à la moitié de votre DSB. Vous parlez le langage Animal.",
                 niveauJoueur: 5,
                 prerequis: ["Connaissance des anciens pactes"],
-                effet: {
+                effets: {
                     bonus_invocations: {
                         pv_egal_dsb: true,
                         degats_moitie_dsb: true
@@ -18983,7 +18594,7 @@ sorciere: {
                 description: "Le chaudron peut désormais tuer des invocations même ennemies si elles possèdent moins de 10 PV restants. S’il tue une invocation adverse son prochain effet est joué trois fois.",
                 niveauJoueur: 6,
                 prerequis: ["Familière des familiers"],
-                effet: {
+                effets: {
                     chaudron_tue_invocations_ennemies_moins_10pv: true,
                     si_tue_invocation_adverse_prochain_effet_x3: true
                 }
@@ -18994,7 +18605,7 @@ sorciere: {
                 description: "Ajoute +2 en Intelligence, Octroie un avantage sur vos jets de Charisme sauf face à d’autres mages ou connaisseurs en magie.",
                 niveauJoueur: 7,
                 prerequis: ["Nourrir le chaudron"],
-                effet: {
+                effets: {
                     bonus_caracteristique: {
                         intelligence: 2
                     },
@@ -19007,7 +18618,7 @@ sorciere: {
                 description: "À chaque fois que vous devez appliquer au moins 2 Poisons vous en appliquez 1 de manière irrésistible. Vous regagnez des PV plutôt que d’en perdre si vous subissez Poison.",
                 niveauJoueur: 8,
                 prerequis: ["Sorcière mythique"],
-                effet: {
+                effets: {
                     applique_1_poison_irresistible_si_au_moins_2_poisons: true,
                     regagne_pv_si_subit_poison: true
                 }
@@ -19018,7 +18629,7 @@ sorciere: {
                 description: "Si le chaudron doit mourir d’une attaque il se téléporte à côté de la sorcière gratuitement et conserve 1 PV, cet effet ne s’active qu’une fois par occurrence du Chaudron. Vous pouvez lancer des sorts possédant le mot \"Rituel\" en ayant votre chaudron comme point de départ, où qu’il soit sur le terrain.",
                 niveauJoueur: 9,
                 prerequis: ["Empoisonneuse"],
-                effet: {
+                effets: {
                     chaudron_teleporte_si_mort_garde_1pv: true,
                     lance_sorts_rituel_depuis_chaudron_partout_terrain: true
                 }
@@ -19029,7 +18640,7 @@ sorciere: {
                 description: "Chaque rituel réussi pendant un combat augmente votre DSB de 2 jusqu’à un maximum de 6.",
                 niveauJoueur: 10,
                 prerequis: ["Chaudron maudit"],
-                effet: {
+                effets: {
                     bonus_dsb_par_rituel_reussi: {
                         valeur: 2,
                         max: 6
@@ -19052,7 +18663,7 @@ sorciere: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats_ennemis: "1d4",
                     applique_poison_ennemis: true,
                     invoque_crapauds_apres_touche: true,
@@ -19075,7 +18686,7 @@ sorciere: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     devient_invisible: true,
                     augmente_vitesse_1_cran_1_tour_ou_jusqua_attaque: true,
                     prochaine_attaque_cac_degats_plus_50_pourcent_si_sort_invisibilite: true
@@ -19091,7 +18702,7 @@ sorciere: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     degats_si_pas_de_gre: "1d4",
                     applique_poison_si_pas_de_gre: true,
                     applique_3_poisons_si_convainc_sans_force: true
@@ -19108,7 +18719,7 @@ sorciere: {
                 Action: "standard",
                 Touche: "CHA",
                 prerequis_sort: "allié_au_corps_a_corps",
-                effet: {
+                effets: {
                     attaques_allié_lanceur_appliquent_poison: true,
                     degats_suppl_1d4: true,
                     duree_1_tour_prolongeable_1psy: true
@@ -19124,7 +18735,7 @@ sorciere: {
                 Distance: "personnel",
                 Action: "réflexe",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     attaque_rejouee_desavantage: true,
                     si_reussit_lanceur_gagne_2_armure_pour_calcul_degats: true
                 }
@@ -19139,7 +18750,7 @@ sorciere: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     cree_3_citrouilles: true,
                     stats_citrouilles: {
                         pv: 2,
@@ -19158,7 +18769,7 @@ sorciere: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     stats_oiseau: {
                         volant: true,
                         pv: 6,
@@ -19179,7 +18790,7 @@ sorciere: {
                 Distance: "illimitée", // À définir si non spécifié
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     lance_apres_echec_ennemi: true,
                     declenche_ciblage_sur_lanceur: true,
                     applique_desavantage_tous_jets_ennemi_1_tour: true,
@@ -19197,7 +18808,7 @@ sorciere: {
                 Distance: "40m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     malus_20_pourcent_jets_touche_sauvegarde_blocage: true,
                     duree_1_tour_prolongeable_1psy_par_tour: true
                 }
@@ -19212,7 +18823,7 @@ sorciere: {
                 Distance: "personnel",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     applique_cecite_dans_brouillard: true,
                     empeche_ciblage_attaques_distance_dans_nuage: true,
                     subit_poison_fin_tour_si_dans_nuage: true,
@@ -19229,7 +18840,7 @@ sorciere: {
                 Distance: "15m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     teleporte_chaudron_a_cote_cible: true,
                     si_cible_petite_ou_inferieure_degats: "1d8 (Brûlure et Poison)",
                     sinon_degats: "1d4 (Brûlure)"
@@ -19246,7 +18857,7 @@ sorciere: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     invoque_miroir: true,
                     cible_au_hasard_parmi_ennemis: true,
                     attaques_sur_cible_degats_plus_1d4_jusqu_hors_combat: true,
@@ -19258,7 +18869,7 @@ sorciere: {
                 }
             }
         ],
-        sortConfirmé: [
+        sortConfirme: [
             {
                 nom: "Balai magique",
                 type: "Invocation",
@@ -19270,7 +18881,7 @@ sorciere: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     invoque_balai_magique: true,
                     chevauchable_par_sorciere_seulement: true,
                     lanceur_et_balai_entite_unique_chevauché: {
@@ -19296,7 +18907,7 @@ sorciere: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d10",
                     applique_terreur_entrave: true,
                     duree_1_tour_ou_prolongeable_2psy_par_tour: true
@@ -19312,7 +18923,7 @@ sorciere: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     inflige_terreur_ennemis: true,
                     si_resistent_subissent_folie_irresistible: true,
                     ennemis_subissent_desavantage_tous_jets_1_tour_apres_reprise_esprits: true
@@ -19329,11 +18940,11 @@ sorciere: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     desavantage_jets_sagesse_charisme: true,
                     subit_folie_ou_brulure_debut_tour_choix_sorciere: true,
                     duree_tout_combat_ou_1_jour_hors_combat: true,
-                    ame_damnee_si_meurt_pendant_effet: true
+                    ame_damnee_si_meurt_pendant_effets: true
                 }
             },
             {
@@ -19347,7 +18958,7 @@ sorciere: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     stats_chat_noir: {
                         vitesse: "Rapide",
                         pv: 9,
@@ -19367,7 +18978,7 @@ sorciere: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     soins_1d4_pv_fixes_par_sucrerie_mangee: true,
                     max_2_sucreries_par_tour: true,
                     duree_2_tours: true,
@@ -19387,7 +18998,7 @@ sorciere: {
                 Action: "standard",
                 Touche: "SAG",
                 prerequis_sort: "touche_cac_au_moins_une_fois_combat",
-                effet: {
+                effets: {
                     inflige_1d6_degats_fixes_irréductibles_par_aiguille: true,
                     ne_consomme_pas_action: true,
                     poupée_disparait_si_cible_meurt: true,
@@ -19405,7 +19016,7 @@ sorciere: {
                 Action: "standard",
                 Touche: "CHA",
                 prerequis_sort: "crapaud_sur_terrain",
-                effet: {
+                effets: {
                     convainc_ennemi_embrasser_crapaud: true,
                     jet_1d2_resultat: {
                         un: "cible_devient_crapaud_pas_attaquer_1_tour",
@@ -19423,7 +19034,7 @@ sorciere: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     duree_jusqu_revocation_ou_fin_combat: true,
                     chaudron_tombe_sur_case_occupee_teleportation_cac: true,
                     degats_fixes_1d8_et_sonne_entite_sur_case: true,
@@ -19443,7 +19054,7 @@ sorciere: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     stats_cabane: {
                         vitesse: "Lente",
                         pv: 20,
@@ -19464,7 +19075,7 @@ sorciere: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     option_mal_adversaire: {
                         degats: "2d8 (perce armure)",
                         subit_terreur: true
@@ -19485,7 +19096,7 @@ sorciere: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     inflige_4_poisons: true,
                     degats: "1d10",
                     repousse_10_metres: true
@@ -19501,7 +19112,7 @@ sorciere: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "SAG/CHA",
-                effet: {
+                effets: {
                     si_lance_charisme: {
                         subit_folie_irresistible_2_tours: true,
                         desavantage_si_doit_toucher_allié: true
@@ -19523,7 +19134,7 @@ sorciere: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     transforme_cible_en_crapaud_1_tour: true,
                     stats_crapaud: {
                         pv: 4,
@@ -19546,7 +19157,7 @@ sorciere: {
                 Distance: "tout_le_terrain",
                 Action: "canalisation_1_tour",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "2d6 + 3 * DSB",
                     ignore_resistances_blocage: true,
                     pas_pb: true,
@@ -19562,20 +19173,9 @@ sorciere: {
                 PV: "N/A",
                 Zone: "invocation",
                 Distance: "mêlée", // À définir si non spécifié
-                Action: "standard",
+                Action: "standard ",
                 Touche: "CHA",
-                effet: {
-                    invoque_livre: true,
-                    capacite_lancer_sorts_sorciere_confirme_ou_moins_sauf_invocations: true,
-                    stats_livre: {
-                        pv: 1,
-                        pb: 15,
-                        dsb: 4,
-                        vitesse: "Rapide",
-                        psy_infinie: true
-                    },
-                    lanceur_perd_2pv_fixes_irréductibles_par_sort_reussi_par_livre: true
-                }
+                
             },
             {
                 nom: "Chaudron-Monde",
@@ -19587,7 +19187,7 @@ sorciere: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     chaudron_devient_immense_2_tours: true,
                     occupe_4_cases: true,
                     pv_max_armure_multiplies_3: true,
@@ -19607,7 +19207,7 @@ sorciere: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "SAG, CHA",
-                effet: {
+                effets: {
                     invocations_gratuites_2_tours: true,
                     limite_invocation_plus_1: true,
                     joue_invocation_par_tour_sans_action: true,
@@ -19637,7 +19237,7 @@ demencien: {
         folie_douce: [], // Contenu à ajouter selon les effets spécifiques de la table
         folie_furieuse: [] // Contenu à ajouter selon les effets spécifiques de la table
     },
-    passifs: {
+    talentVoie: {
         niveauJoueur: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         talents: [
             {
@@ -19646,10 +19246,7 @@ demencien: {
                 description: "Vous gagnez 3 points que vous répartissez aléatoirement dans vos statistiques majeures. Vous gagnez également 30 points de statistiques mineures que vous pouvez choisir de répartir vous-même ou aléatoirement.",
                 niveauJoueur: 1,
                 prerequis: [],
-                effet: {
-                    bonus_stats_majeures_aleatoire: 3,
-                    bonus_stats_mineures_choix_ou_aleatoire: 30
-                }
+               
             },
             {
                 nom: "Délire ésotérique",
@@ -19657,7 +19254,7 @@ demencien: {
                 description: "Vous pouvez parler une langue supplémentaire, vous pouvez aussi baragouiner dans une langue inconnue et quand même vous faire comprendre sur un jet de Persuader/Tromper réussi pour dialoguer avec quelqu’un ou quelque chose dont vous ne maîtrisez pas la langue.",
                 niveauJoueur: 2,
                 prerequis: ["Imprévisible"],
-                effet: {
+                effets: {
                     parle_langue_suppl: true,
                     baragouine_langue_inconnue_compris_jet_persuader_tromper: true
                 }
@@ -19668,7 +19265,7 @@ demencien: {
                 description: "À chaque fois que vous lancez le dé sur une table de Folie vous regagnez au choix 1 PV ou 1 PSY. Maximum trois fois par tour.",
                 niveauJoueur: 3,
                 prerequis: ["Délire ésotérique"],
-                effet: {
+                effets: {
                     regagne_1pv_ou_1psy_par_jet_table_folie: true,
                     max_3_fois_par_tour: true
                 }
@@ -19679,7 +19276,7 @@ demencien: {
                 description: "Vous gagnez +1 au DSB pour chaque entité dans l’état Folie sur le terrain.",
                 niveauJoueur: 4,
                 prerequis: ["Dé-raisonnable"],
-                effet: {
+                effets: {
                     bonus_ds_par_entite_folie_terrain: 1
                 }
             },
@@ -19689,7 +19286,7 @@ demencien: {
                 description: "Lorsqu’un effet de folie doit s’appliquer vous pouvez payer 3 PSY et lancer 1 dé 100 : sur un chiffre pair l’effet est doublé (ou renforcé s’il n’a pas de valeur précise), sur un chiffre impair il est annulé.",
                 niveauJoueur: 5,
                 prerequis: ["Folie meurtrière"],
-                effet: {
+                effets: {
                     payer_3psy_lance_1d100_effet_folie: true,
                     pair_effet_double_renforce: true,
                     impair_effet_annule: true
@@ -19701,10 +19298,7 @@ demencien: {
                 description: "Vous gagnez 3 points que vous répartissez aléatoirement dans vos statistiques majeures. Vous gagnez également 30 points de statistiques mineures que vous pouvez choisir de répartir vous-même ou aléatoirement.",
                 niveauJoueur: 6,
                 prerequis: ["Coup de folie"],
-                effet: {
-                    bonus_stats_majeures_aleatoire: 3,
-                    bonus_stats_mineures_choix_ou_aleatoire: 30
-                }
+               
             },
             {
                 nom: "Insanité",
@@ -19712,7 +19306,7 @@ demencien: {
                 description: "Vous pouvez payer 2 PSY quand un dégât ou un soin d’une table de Folie s’applique. Vous ajoutez votre DSB au calcul.",
                 niveauJoueur: 7,
                 prerequis: ["Imprévisible"],
-                effet: {
+                effets: {
                     payer_2psy_ajout_dsb_degats_soins_table_folie: true
                 }
             },
@@ -19722,7 +19316,7 @@ demencien: {
                 description: "Si vous échouez un jet de statistique mineure vous pouvez payer 2 PSY et le relancer avec l’avantage. Un même jet ne peut pas être la cible de cet effet deux fois.",
                 niveauJoueur: 8,
                 prerequis: ["Insanité"],
-                effet: {
+                effets: {
                     echec_jet_stat_mineure_payer_2psy_relance_avantage: true,
                     pas_cible_deux_fois_meme_jet: true
                 }
@@ -19733,7 +19327,7 @@ demencien: {
                 description: "Vos sortilèges de Démence imposent tous un désavantage sur les jets de sauvegardes ou de blocage à leurs cibles.",
                 niveauJoueur: 9,
                 prerequis: ["Lucidité improbable"],
-                effet: {
+                effets: {
                     sorts_demence_imposent_desavantage_jets_sauvegarde_blocage: true
                 }
             },
@@ -19743,10 +19337,7 @@ demencien: {
                 description: "Une fois par combat ou par scène vous pouvez choisir vous-même un effet d’une table et l’appliquer. Cependant l’effet appliqué de cette manière est capricieux, on lancera 1 dé 100 et plus le score sera élevé et plus l’effet sera amoindri, inversement plus on est proche de 1 et plus l’effet est renforcé.",
                 niveauJoueur: 10,
                 prerequis: ["Magie absurde"],
-                effet: {
-                    une_fois_par_combat_ou_scene_choisit_effet_table_folie: true,
-                    effet_capricieux_selon_1d100_plus_eleve_amoindri_plus_proche_1_renforce: true
-                }
+               
             }
         ]
     },
@@ -19763,10 +19354,7 @@ demencien: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
-                    applique_folie_2_tours: true,
-                    degats_fixes_non_reductibles_si_resiste: "1d6"
-                }
+               
             },
             {
                 nom: "Ambiance surchargée",
@@ -19778,7 +19366,7 @@ demencien: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     diminue_palier_surcharge_locale_2: true,
                     maintenable_1psy_par_tour: true,
                     effet_ne_compte_pas_surcharge_locale: true,
@@ -19795,7 +19383,7 @@ demencien: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6+1",
                     ne_peut_pas_etre_bloquée: true,
                     passe_outre_resistances: true
@@ -19804,14 +19392,14 @@ demencien: {
             {
                 nom: "Détraquement psychique",
                 image: "",
-                description: "Au lancement de ce sort vous lancez également 1 dé 4, le résultat définit le type de touche utilisé pour lancer ce sort : 1 = Force, 2 = Dextérité, 3 = Sagesse et 4 = Charisme. Ce sort déclenche un effet de la folie psychique, vous lancez sur la table et appliquez immédiatement l’effet.",
+                description: "Au lancement de ce sort vous lancez également 1 dé 4, le résultat définit le type de touche utilisé pour lancer ce sort : 1 = Force, 2 = dexterite, 3 = Sagesse et 4 = Charisme. Ce sort déclenche un effet de la folie psychique, vous lancez sur la table et appliquez immédiatement l’effet.",
                 Psy: 3,
                 PV: "N/A",
                 Zone: "variable",
                 Distance: "variable",
                 Action: "standard",
                 Touche: "aléatoire",
-                effet: {
+                effets: {
                     jet_1d4_pour_type_touche: true,
                     declenche_effet_folie_psychique: true
                 }
@@ -19826,7 +19414,7 @@ demencien: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     desavantage_tous_jets_prochain_tour: true,
                     si_echec_jet_subit_folie: true
                 }
@@ -19841,7 +19429,7 @@ demencien: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     cout_double_surcharge_locale: true,
                     une_seule_fois_par_tour: true
                 }
@@ -19856,7 +19444,7 @@ demencien: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "DEX/FOR/SAG/CHA",
-                effet: {
+                effets: {
                     degats_par_score_touche_superieur: "1d4",
                     frappe_faiblesse_cible_si_score_inferieur_tous_scores_touche: true
                 }
@@ -19871,7 +19459,7 @@ demencien: {
                 Distance: "10m",
                 Action: "standard",
                 Touche: "CHA/SAG",
-                effet: {
+                effets: {
                     applique_folie_toutes_entites_et_lanceur_rayon_10m: true,
                     degats_fixes_irréductibles_si_resiste: "1d4"
                 }
@@ -19886,7 +19474,7 @@ demencien: {
                 Distance: "portée", // À définir si non spécifié
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     vitesse_doublée_2_tours: true,
                     subit_folie_si_deplacement_hors_base: true
                 }
@@ -19899,30 +19487,22 @@ demencien: {
                 PV: "N/A",
                 Zone: "cible_unique",
                 Distance: "CAC",
-                Action: "standard",
-                Touche: "DEX/FOR",
-                effet: {
-                    degats_cible: "1d10",
-                    moitie_degats_lanceur: true,
-                    si_degats_lanceur_plus_4_ne_subit_rien: true
-                }
+                Action: "standard ",
+                Touche: "DEX, FOR",
+               
             },
             {
                 nom: "Fou à lier",
                 image: "",
-                description: "Ce sort se lance sur la Dextérité s’il est lancé au corps à corps et sur la Sagesse s’il est lancé à distance. Vous appliquez \"Folie\" à la cible, que l’application réussisse ou échoue vous ligotez la cible qui subit \"Entrave\" et vous lui infligez 1 dé 6 dégâts.",
+                description: "Ce sort se lance sur la dexterite s’il est lancé au corps à corps et sur la Sagesse s’il est lancé à distance. Vous appliquez \"Folie\" à la cible, que l’application réussisse ou échoue vous ligotez la cible qui subit \"Entrave\" et vous lui infligez 1 dé 6 dégâts.",
                 Psy: 3,
                 PV: "N/A",
                 Zone: "cible_unique",
                 Distance: "CAC/distance",
                 Action: "standard",
                 Touche: "DEX/SAG",
-                effet: {
-                    touche_dex_cac_sagesse_distance: true,
-                    applique_folie: true,
-                    ligote_cible_subit_entrave: true,
-                    degats: "1d6"
-                }
+               
+                
             },
             {
                 nom: "Esquive absurde",
@@ -19934,13 +19514,13 @@ demencien: {
                 Distance: "personnel",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     esquive_prochaine_occurrence_degats: true,
                     si_attaque_mortelle_inflige_folie_irresistible_attaquant: true
                 }
             }
         ],
-        sortConfirmé: [
+        sortConfirme: [
             {
                 nom: "Rire fou",
                 image: "",
@@ -19951,7 +19531,7 @@ demencien: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     applique_terreur_tous_ennemis: true,
                     ennemis_qui_resistent_ciblent_automatiquement_lanceur: true
                 }
@@ -19966,7 +19546,7 @@ demencien: {
                 Distance: "tout_terrain",
                 Action: "aucune",
                 Touche: "FOR/CHA",
-                effet: {
+                effets: {
                     tous_sorts_et_effets_tables_folie_s_appliquent_uniquement_cible: true,
                     duree_1_tour_rallongeable_2psy_par_tour: true
                 }
@@ -19974,14 +19554,14 @@ demencien: {
             {
                 nom: "Démarche extravagante",
                 image: "",
-                description: "Vous vous déplacez imprévisiblement, vous devenez insensible aux attaques d’opportunité et aux altérations d’états basés sur la Dextérité pendant 3 tours. Si une attaque basée sur la dextérité vous cible elle devra être réalisée avec un désavantage.",
+                description: "Vous vous déplacez imprévisiblement, vous devenez insensible aux attaques d’opportunité et aux altérations d’états basés sur la dexterite pendant 3 tours. Si une attaque basée sur la dexterite vous cible elle devra être réalisée avec un désavantage.",
                 Psy: 4,
                 PV: "N/A",
                 Zone: "personnel",
                 Distance: "personnel",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     insensible_attaques_opportunite_alterations_etat_dex_3_tours: true,
                     attaques_dex_sur_lanceur_desavantage: true
                 }
@@ -19996,7 +19576,7 @@ demencien: {
                 Distance: "illimitée",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     retire_folie_toutes_entites_terrain: true,
                     si_toutes_entites_folie_lance_3des_table_folie_psychique: true,
                     ne_declenche_pas_lancer_table_folie_douce: true,
@@ -20013,7 +19593,7 @@ demencien: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "SAG/CHA",
-                effet: {
+                effets: {
                     cible_uniquement_entite_sous_folie: true,
                     applique_charme_irresistible_2_tours: true,
                     degats_fin_charme: "2d4"
@@ -20029,7 +19609,7 @@ demencien: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     immunite_alterations_etat_sagesse_charisme_3_tours: true,
                     gain_10_pourcent_chance_blocage_touche: true,
                     si_cible_lanceur_peut_changer_cible_prochain_effet_folie_furieuse: true
@@ -20045,7 +19625,7 @@ demencien: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats_des_armes_possession: true,
                     degats_1d2_par_emplacement_inventaire_non_arme: true,
                     si_echec_detruit_moitie_objets: true,
@@ -20055,14 +19635,14 @@ demencien: {
             {
                 nom: "Ancrage psychique",
                 image: "",
-                description: "Au lancement de ce sort vous lancez également 1 dé 4, le résultat définit le type de touche utilisé pour lancer ce sort : 1 = Force, 2 = Dextérité, 3 = Sagesse et 4 = Charisme. Ce sort fixe la valeur de la surcharge locale à 4 pour le reste du combat ou pour 2 heures hors combat. Ne consomme pas d’action.",
+                description: "Au lancement de ce sort vous lancez également 1 dé 4, le résultat définit le type de touche utilisé pour lancer ce sort : 1 = Force, 2 = dexterite, 3 = Sagesse et 4 = Charisme. Ce sort fixe la valeur de la surcharge locale à 4 pour le reste du combat ou pour 2 heures hors combat. Ne consomme pas d’action.",
                 Psy: 3,
                 PV: "N/A",
                 Zone: "locale",
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "aléatoire",
-                effet: {
+                effets: {
                     jet_1d4_pour_type_touche: true,
                     fixe_surcharge_locale_a_4: true
                 }
@@ -20077,7 +19657,7 @@ demencien: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "SAG/FOR",
-                effet: {
+                effets: {
                     touche_force_si_centre_sagesse_sinon: true,
                     applique_folie_irresistible_toutes_entites_zone: true,
                     lance_de_folie_douce_si_allié_entre: true,
@@ -20092,14 +19672,14 @@ demencien: {
             {
                 nom: "Sérénité affolante",
                 image: "",
-                description: "Au lancement de ce sort vous lancez également 1 dé 4, le résultat définit le type de touche utilisé pour lancer ce sort : 1 = Force, 2 = Dextérité, 3 = Sagesse et 4 = Charisme. Pendant 2 tours vous pouvez relancer un dé deux fois par tour si le résultat ne vous convient pas. Cet effet peut être prolongé pour 3 PSY par tour supplémentaire.",
+                description: "Au lancement de ce sort vous lancez également 1 dé 4, le résultat définit le type de touche utilisé pour lancer ce sort : 1 = Force, 2 = dexterite, 3 = Sagesse et 4 = Charisme. Pendant 2 tours vous pouvez relancer un dé deux fois par tour si le résultat ne vous convient pas. Cet effet peut être prolongé pour 3 PSY par tour supplémentaire.",
                 Psy: 4,
                 PV: "N/A",
                 Zone: "personnel",
                 Distance: "personnel",
                 Action: "standard",
                 Touche: "aléatoire",
-                effet: {
+                effets: {
                     jet_1d4_pour_type_touche: true,
                     peut_relancer_un_de_deux_fois_par_tour_2_tours: true,
                     prolongeable_3psy_par_tour: true
@@ -20115,7 +19695,7 @@ demencien: {
                 Distance: "illimitée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "SAG/DEX",
-                effet: {
+                effets: {
                     couts_psy_reduits_2_vous_et_alliés_2_tours: true,
                     surcharge_locale_fixee_a_12: true,
                     prend_pas_sur_autres_effets_surcharge: true
@@ -20131,7 +19711,7 @@ demencien: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "3d6+6",
                     repousse_20_metres: true
                 }
@@ -20146,7 +19726,7 @@ demencien: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     applique_terreur_folie_irresistibles_toutes_entites_terrain: true,
                     alliés_peuvent_repliquer_pour_moitie_cout: true,
                     alliés_infligent_1d8_degats_par_allié_ennemis_au_lieu_etats: true,
@@ -20163,7 +19743,7 @@ demencien: {
                 Distance: "portée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "CHA/FOR",
-                effet: {
+                effets: {
                     sorts_alliés_ennemis_vous_ciblent_forcement: true,
                     effets_tables_folie_vous_ciblent_obligatoirement: true,
                     ne_peut_pas_mourir_garde_1pv: true,
@@ -20179,13 +19759,9 @@ demencien: {
                 PV: "N/A",
                 Zone: "cible_unique",
                 Distance: "mêlée", // À définir si non spécifié
-                Action: "standard",
+                Action: "standard ",
                 Touche: "SAG",
-                effet: {
-                    degats_1d2_par_de_lance_tables_folie: true,
-                    si_plus_20_degats_subit_folie_irresistible_2_tours: true,
-                    compte_des_lances_reinitialise: true
-                }
+                
             },
             {
                 nom: "Troubles imprévisibles",
@@ -20197,29 +19773,19 @@ demencien: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
-                    teleportation_10m_en_plus_deplacement_classique: true,
-                    immunise_attaques_opportunites: true,
-                    avantage_jets_blocage: true,
-                    duree_2_tours: true
-                }
+                
             },
             {
                 nom: "Accueillir la folie",
                 image: "",
-                description: "Au lancement de ce sort vous lancez également 1 dé 4, le résultat définit le type de touche utilisé pour lancer ce sort : 1 = Force, 2 = Dextérité, 3 = Sagesse et 4 = Charisme. À chaque début de tour vous lancez un dé sur la table de folie psychique. Cet effet dure jusqu’à sa révocation ou la fin du combat. Hors combat ce sort enclenche également un jet de folie instantané.",
+                description: "Au lancement de ce sort vous lancez également 1 dé 4, le résultat définit le type de touche utilisé pour lancer ce sort : 1 = Force, 2 = dexterite, 3 = Sagesse et 4 = Charisme. À chaque début de tour vous lancez un dé sur la table de folie psychique. Cet effet dure jusqu’à sa révocation ou la fin du combat. Hors combat ce sort enclenche également un jet de folie instantané.",
                 Psy: 5,
                 PV: "N/A",
                 Zone: "personnel",
                 Distance: "personnel",
                 Action: "standard",
                 Touche: "aléatoire",
-                effet: {
-                    jet_1d4_pour_type_touche: true,
-                    lance_de_table_folie_psychique_debut_tour: true,
-                    duree_jusqu_revocation_ou_fin_combat: true,
-                    hors_combat_jet_folie_instantane: true
-                }
+                
             }
         ],
         sortMaitre: [
@@ -20233,7 +19799,7 @@ demencien: {
                 Distance: "illimitée",
                 Action: "standard",
                 Touche: "SAG/DEX/FOR/CHA",
-                effet: {
+                effets: {
                     lance_1de_par_table_folie_choisit_cibles: true,
                     choisit_cibles_effets_tables_folie_2_tours: true,
                     fin_sort_toutes_entites_subissent_folie: true,
@@ -20267,13 +19833,13 @@ chasseur: {
         mystique: 0, // Connaissance mystique (INT)
         sacré: 0, // Connaissance sacré (INT)
         nature: 25, // Connaissance nature (INT)
-        robustesse: 5, // Robustesse (DEF)
+        robustesse: 5, // robustesse (DEF)
         calme: 0, // Calme (DEF)
         marchandage: 0, // Marchandage (CHA)
         persuasion: 0, // Persuader/Tromper (CHA)
         artmusique: 0, // Art et Musique (CHA)
         commandement: 0, // Commandement (CHA)
-        acrobatie: 5, // Acrobatie (DEX)
+        acrobatie: 5, // acrobatie (DEX)
         discretion: 15, // Discrétion (DEX)
         adresse: 10, // Adresse (DEX)
         artisanat: 5, // Artisanat (DEX)
@@ -20286,7 +19852,7 @@ chasseur: {
         perceptionmagique: 0, // Perception magique (SAG)
         intuition: 0 // Intuition (SAG)
     },
-    sortileges_et_passifs: {
+    sortileges_et_talentVoie: {
         mecanique: {
             nom: "Proie",
             image: "",            
@@ -20295,16 +19861,16 @@ chasseur: {
             Touche: "DEX",
             effet_suppl: "En plus de cet effet ce sort octroie un avantage au chasseur pour repérer et suivre discrètement une cible marquée hors combat."
         },
-        passifs: {
+        talentVoie: {
             niveauJoueur: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
             talents: [
                 {
                     nom: "Uni avec la Nature",
                     image: "",    
-                    description: "Permet de parler le langage animal. Ajoute +1 en Dextérité et en Sagesse.",
+                    description: "Permet de parler le langage animal. Ajoute +1 en dexterite et en Sagesse.",
                     niveauJoueur: 1,
                     prerequis: [],
-                    effet: {
+                    effets: {
                         parle_langage_animal: true,
                         bonus_dexterite: 1,
                         bonus_sagesse: 1
@@ -20313,10 +19879,10 @@ chasseur: {
                 {
                     nom: "Traqueur Aguerri",
                     image: "",    
-                    description: "Ajoute +1 en Dextérité. Ajoute un bonus de +15 à tous les jets relatifs à une traque ou pour suivre une piste.",
+                    description: "Ajoute +1 en dexterite. Ajoute un bonus de +15 à tous les jets relatifs à une traque ou pour suivre une piste.",
                     niveauJoueur: 2,
                     prerequis: ["Uni avec la Nature"],
-                    effet: {
+                    effets: {
                         bonus_dexterite: 1,
                         bonus_jets_traque_piste: 15
                     }
@@ -20327,7 +19893,7 @@ chasseur: {
                     description: "Ajoute +5 mètres de portée pour toutes les attaques et sorts à distance, inflige +1 dégâts avec les armes de la catégorie distance.",
                     niveauJoueur: 3,
                     prerequis: ["Traqueur Aguerri"],
-                    effet: {
+                    effets: {
                         portee_plus_5m_attaques_sorts_distance: true,
                         bonus_degats_armes_distance: 1
                     }
@@ -20338,7 +19904,7 @@ chasseur: {
                     description: "Immunité à ‘’Entrave’’. Ajoute +1 en Force.",
                     niveauJoueur: 4,
                     prerequis: ["Expert de la Traque"],
-                    effet: {
+                    effets: {
                         immunite_entrave: true,
                         bonus_force: 1
                     }
@@ -20346,10 +19912,10 @@ chasseur: {
                 {
                     nom: "Vie en Nature",
                     image: "",    
-                    description: "Octroie un avantage à toutes les statistiques dépendantes de la dextérité et de la sagesse lorsque vous êtes dans un des milieux sauvages suivants : montagneux, forestier ou marécageux.",
+                    description: "Octroie un avantage à toutes les statistiques dépendantes de la dexterite et de la sagesse lorsque vous êtes dans un des milieux sauvages suivants : montagneux, forestier ou marécageux.",
                     niveauJoueur: 5,
                     prerequis: ["Traqueur Infatigable"],
-                    effet: {
+                    effets: {
                         avantage_stats_dexterite_sagesse_milieux_sauvages: true
                     }
                 },
@@ -20359,7 +19925,7 @@ chasseur: {
                     description: "Ajoute +1 en Force. Augmente vos chances de toucher de 15% sur des ennemis de taille grande ou supérieure.",
                     niveauJoueur: 6,
                     prerequis: ["Vie en Nature"],
-                    effet: {
+                    effets: {
                         bonus_force: 1,
                         chance_toucher_plus_15_pourcent_ennemis_grande_taille: true
                     }
@@ -20367,10 +19933,10 @@ chasseur: {
                 {
                     nom: "Vision sans Faille",
                     image: "",    
-                    description: "Immunité à ‘’Cécité’’. Ajoute +1 en Dextérité et en Sagesse.",
+                    description: "Immunité à ‘’Cécité’’. Ajoute +1 en dexterite et en Sagesse.",
                     niveauJoueur: 7,
                     prerequis: ["Chasse au Gros Gibier"],
-                    effet: {
+                    effets: {
                         immunite_cecite: true,
                         bonus_dexterite: 1,
                         bonus_sagesse: 1
@@ -20382,17 +19948,17 @@ chasseur: {
                     description: "Le sort \"Proie\" octroie ses bonus à tous les alliés du chasseur mais pas les invocations.",
                     niveauJoueur: 8,
                     prerequis: ["Vision sans Faille"],
-                    effet: {
+                    effets: {
                         sort_proie_bonus_tous_alliés_sauf_invocations: true
                     }
                 },
                 {
                     nom: "Sens Aiguisés",
                     image: "",    
-                    description: "Ajoute +1 en Dextérité et en Sagesse. Octroie un avantage aux jets de Perception et Perception magique.",
+                    description: "Ajoute +1 en dexterite et en Sagesse. Octroie un avantage aux jets de Perception et Perception magique.",
                     niveauJoueur: 9,
                     prerequis: ["Chasse en groupe"],
-                    effet: {
+                    effets: {
                         bonus_dexterite: 1,
                         bonus_sagesse: 1,
                         avantage_jets_perception_perception_magique: true
@@ -20404,7 +19970,7 @@ chasseur: {
                     description: "Lorsque vous frappez une cible sous Entrave, Sonné ou Sommeil, ou si vous frappez une cible à plus de 20 mètres vous augmentez votre taux de CC de 20% et vos dégâts de 2.",
                     niveauJoueur: 10,
                     prerequis: ["Sens Aiguisés"],
-                    effet: {
+                    effets: {
                         bonus_cc_20_degats_2_si_cible_entrave_sonne_sommeil_ou_plus_20m: true
                     }
                 }
@@ -20424,7 +19990,7 @@ chasseur: {
                 Distance: "15m",
                 Action: "aucune",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d4",
                     bouge_cible_5m: true
                 }
@@ -20439,7 +20005,7 @@ chasseur: {
                 Distance: "30m",
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     detecte_faiblesse_elementaire: true,
                     cout_sort_rendu_si_pas_faiblesse: true
                 }
@@ -20454,7 +20020,7 @@ chasseur: {
                 Distance: "40m",
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     maintient_distance_cible_si_deplacement: true,
                     instantane_hors_tour: true,
                     interrompt_si_chasseur_touche_cible: true,
@@ -20471,7 +20037,7 @@ chasseur: {
                 Distance: "20m",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     pose_deux_pieges_invisibles: true,
                     degats_fixes: "1d6",
                     applique_entrave: true
@@ -20487,7 +20053,7 @@ chasseur: {
                 Distance: "25m",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6+3",
                     jet_sauvegarde_sagesse: true,
                     si_echec_sauvegarde_avantage_jets_touche_prochain_tour: true
@@ -20503,7 +20069,7 @@ chasseur: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6+1",
                     applique_hemorragie: true
                 }
@@ -20518,7 +20084,7 @@ chasseur: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     soigne_pv: "1d6"
                 }
             },
@@ -20533,7 +20099,7 @@ chasseur: {
                 Action: "standard",
                 Touche: "DEX",
                 prerequis_sort: "arme_distance",
-                effet: {
+                effets: {
                     degats_arme: true,
                     applique_entrave: true
                 }
@@ -20549,7 +20115,7 @@ chasseur: {
                 Action: "standard",
                 Touche: "DEX",
                 prerequis_sort: "arme_distance",
-                effet: {
+                effets: {
                     degats_arme_perce_armure: true,
                     ignore_boucliers: true
                 }
@@ -20564,7 +20130,7 @@ chasseur: {
                 Distance: "illimitée",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     choix_type_ennemi_non_humanoide: true,
                     degats_plus_1d4_avec_sorts_chasseur: true,
                     gain_1_dsb_fin_combat_si_ennemi_meurt: true,
@@ -20581,7 +20147,7 @@ chasseur: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     devient_invisible_1_tour: true,
                     ne_peut_pas_s_appliquer_deux_tours_de_suite: true
                 }
@@ -20597,13 +20163,13 @@ chasseur: {
                 Action: "standard",
                 Touche: "SAG",
                 prerequis_sort: "arme_distance",
-                effet: {
+                effets: {
                     degats_arme: true,
                     applique_sommeil: true
                 }
             }
         ],
-        sortConfirmé: [
+        sortConfirme: [
             {
                 nom: "Compagnon Traqueur",
                 type: "Invocation",
@@ -20615,7 +20181,7 @@ chasseur: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "DEX/SAG",
-                effet: {
+                effets: {
                     stats_compagnon: {
                         vitesse: "Très Rapide",
                         pv: 8,
@@ -20636,7 +20202,7 @@ chasseur: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d6",
                     applique_terreur: true,
                     bouge_ennemi_10m_choix_lanceur: true
@@ -20652,7 +20218,7 @@ chasseur: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats: "1d8+1",
                     devient_invisible_1_tour: true,
                     ne_peut_pas_etre_cible: true
@@ -20669,7 +20235,7 @@ chasseur: {
                 Action: "standard",
                 Touche: "FOR",
                 prerequis_sort: "cible_proie_designee",
-                effet: {
+                effets: {
                     teleportation_contact_cible: true,
                     degats: "2d4+4",
                     applique_entrave_sommeil_ou_sonne_au_choix: true,
@@ -20686,7 +20252,7 @@ chasseur: {
                 Distance: "10m",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     lanceur_alliés_avancent_10m_vers_cible: true,
                     attaquent_tous_degats_arme_ou_base: true,
                     non_modifie_par_dsb: true,
@@ -20703,7 +20269,7 @@ chasseur: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "2d6",
                     si_ne_tue_pas_cible_subit_cecite_irresistible: true,
                     si_tue_cible_prochaine_utilisation_proie_gratuite: true
@@ -20720,7 +20286,7 @@ chasseur: {
                 Action: "aucune",
                 Touche: "automatique",
                 prerequis_sort: "cible_proie_designee",
-                effet: {
+                effets: {
                     bonus_sort_proie_doubles_ce_tour: true,
                     avantage_jets_touche_sur_cible_designee: true
                 }
@@ -20735,7 +20301,7 @@ chasseur: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     soigne_pv: "1d6+3",
                     supprime_brulure_poison_cecite: true
                 }
@@ -20750,7 +20316,7 @@ chasseur: {
                 Distance: "15m",
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     teleporte_contact_ennemi_qui_bouge: true,
                     degats_fixes: "1d6",
                     deplace_librement_15m: true,
@@ -20771,7 +20337,7 @@ chasseur: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "2d6+4",
                     applique_entrave_irresistible: true
                 }
@@ -20787,7 +20353,7 @@ chasseur: {
                 Action: "aucune",
                 Touche: "SAG",
                 prerequis_sort: "cible_proie_designee",
-                effet: {
+                effets: {
                     recupere_2d4_pv_puis_3pv_par_tour: true,
                     ne_peut_pas_mourir_ko_par_degats_non_proie_designee: true,
                     duree_2_tours: true,
@@ -20805,7 +20371,7 @@ chasseur: {
                 Action: "standard",
                 Touche: "SAG",
                 prerequis_sort: "cible_proie_designee",
-                effet: {
+                effets: {
                     teleportation_vers_cible_si_deplacement_plus_10m: true,
                     ignore_effets_deplacement: true,
                     degats_fixes_par_teleportation: "1d8",
@@ -20822,7 +20388,7 @@ chasseur: {
                 Distance: "50m",
                 Action: "standard",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     ne_manque_jamais_cible_ne_peut_pas_bloquer: true,
                     degats: "1d8",
                     recupere_1d4_pv_si_tue_cible: true
@@ -20838,7 +20404,7 @@ chasseur: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats_premiere_frappe: "1d4",
                     teleportation_symmetrique_re_degats: "1d4",
                     deplacement_15m_re_degats: "1d6",
@@ -20855,7 +20421,7 @@ chasseur: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     devient_invisible_2_tours_non_interrompue: true,
                     augmente_chance_cc_touche_10_pourcent: true,
                     degats_plus_2_pendant_invisibilite: true,
@@ -20873,7 +20439,7 @@ chasseur: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     cree_multiples_pieges: true,
                     degats_fixes: "1d6",
                     applique_entrave: true,
@@ -20891,7 +20457,7 @@ chasseur: {
                 Distance: "personnel",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     transformation_predateur: true,
                     gain_vitesse_2_crans: true,
                     gain_20_pourcent_cc: true,
@@ -20916,7 +20482,7 @@ chasseur: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "DEX/SAG/FOR",
-                effet: {
+                effets: {
                     invoque_esprit_chasseresse: true,
                     invulnerable_immunisee_toutes_alterations: true,
                     pas_pv_psy: true,
@@ -20953,13 +20519,13 @@ ninja: {
         mystique: 0, // Connaissance mystique (INT)
         sacré: 0, // Connaissance sacré (INT)
         nature: 0, // Connaissance nature (INT)
-        robustesse: 0, // Robustesse (DEF)
+        robustesse: 0, // robustesse (DEF)
         calme: 0, // Calme (DEF)
         marchandage: 0, // Marchandage (CHA)
         persuasion: 0, // Persuader/Tromper (CHA)
         artmusique: 0, // Art et Musique (CHA)
         commandement: 0, // Commandement (CHA)
-        acrobatie: 30, // Acrobatie (DEX)
+        acrobatie: 30, // acrobatie (DEX)
         discretion: 30, // Discrétion (DEX)
         adresse: 0, // Adresse (DEX)
         artisanat: 0, // Artisanat (DEX)
@@ -20984,7 +20550,7 @@ ninja: {
                     description: "Ajoute +5 % aux chances de toucher et +1 aux dégâts avec les armes de type “jet”.",
                     niveauJoueur: 1,
                     prerequis: [],
-                    effet: {
+                    effets: {
                         bonus_chance_toucher_armes_jet: 5,
                         bonus_degats_armes_jet: 1
                     }
@@ -20992,10 +20558,10 @@ ninja: {
                 {
                     nom: "Comme une Ombre",
                     image: "",    
-                    description: "Ajoute +1 en Dextérité. Le ninja peut porter une attaque embusquée pour déclencher un combat, elle infligera deux fois les dégâts d’une attaque normale il gagne aussi +20 en discrétion.",
+                    description: "Ajoute +1 en dexterite. Le ninja peut porter une attaque embusquée pour déclencher un combat, elle infligera deux fois les dégâts d’une attaque normale il gagne aussi +20 en discrétion.",
                     niveauJoueur: 2,
                     prerequis: ["Lancer Implacable"],
-                    effet: {
+                    effets: {
                         bonus_dexterite: 1,
                         attaque_embuscade_double_degats: true,
                         bonus_discretion: 20
@@ -21007,7 +20573,7 @@ ninja: {
                     description: "Si vous attaquez un ennemi qui a déjà un autre allié engagé au corps-à-corps, vous lui infligerez +2 dégâts avec toutes vos attaques.",
                     niveauJoueur: 3,
                     prerequis: ["Comme une Ombre"],
-                    effet: {
+                    effets: {
                         bonus_degats_si_ennemi_engagé_par_allié: 2
                     }
                 },
@@ -21017,7 +20583,7 @@ ninja: {
                     description: "Le sort Permutation permet d’échanger sa place avec un allié quand le ninja prend des dégâts et c’est l’allié qui subira ainsi les dégâts de l’attaque. L’effet normal du sort peut toujours être utilisé. Si vous ne possédez pas ce sort vous ignorez cet effet et le débloquez à la place.",
                     niveauJoueur: 4,
                     prerequis: ["Assassin"],
-                    effet: {
+                    effets: {
                         permutation_inversee_avec_allié_subit_degats: true,
                         debloque_permutation_si_non_possédé: true
                     }
@@ -21028,7 +20594,7 @@ ninja: {
                     description: "Le ninja devient Invisible et ne peut pas être ciblé par les attaques tant qu’il n’a pas lui-même attaqué au début d'un combat (il peut subir les attaques de zone, mais pas en être la cible). Il obtient aussi Immunité à “Entrave“.",
                     niveauJoueur: 5,
                     prerequis: ["Permutation Inversée"],
-                    effet: {
+                    effets: {
                         devient_invisible_debut_combat_jusqua_attaque: true,
                         immunite_entrave: true
                     }
@@ -21039,7 +20605,7 @@ ninja: {
                     description: "Ajoute +1 en Sagesse. Le Ninja regagne 1 dé 4 PV fixe à chaque fois qu’il élimine une cible.",
                     niveauJoueur: 6,
                     prerequis: ["Invisible"],
-                    effet: {
+                    effets: {
                         bonus_sagesse: 1,
                         recupere_pv_fixes_si_elimine_cible: "1d4"
                     }
@@ -21047,10 +20613,10 @@ ninja: {
                 {
                     nom: "Ninjutsu de Vivacité",
                     image: "",    
-                    description: "Ajoute +2 en Dextérité. Le Ninja gagne 1 cran en Vitesse permanent.",
+                    description: "Ajoute +2 en dexterite. Le Ninja gagne 1 cran en Vitesse permanent.",
                     niveauJoueur: 7,
                     prerequis: ["Ninjutsu de Tueur"],
-                    effet: {
+                    effets: {
                         bonus_dexterite: 2,
                         gain_vitesse_1_cran_permanent: true
                     }
@@ -21061,7 +20627,7 @@ ninja: {
                     description: "Le sort clonage peut invoquer 3 clones au lieu d’un mais coûte 3 PSY supplémentaires dans ce cas. Les dégâts du deuxième et troisième clone équivalent à la moitié de ceux du premier. Si vous ne possédez pas ce sort vous ignorez cet effet et le débloquez à la place.",
                     niveauJoueur: 8,
                     prerequis: ["Ninjutsu de Vivacité"],
-                    effet: {
+                    effets: {
                         clonage_3_clones: true,
                         cout_psy_plus_3_si_3_clones: true,
                         degats_2eme_3eme_clone_moitie_premier: true,
@@ -21074,7 +20640,7 @@ ninja: {
                     description: "Immunité à Charme et Folie.",
                     niveauJoueur: 9,
                     prerequis: ["Multi-Clonage"],
-                    effet: {
+                    effets: {
                         immunite_charme: true,
                         immunite_folie: true
                     }
@@ -21085,7 +20651,7 @@ ninja: {
                     description: "Double les effets de 'Lancer Implacable'. Les sorts de la Voie coûtent 1 PSY de moins à lancer.",
                     niveauJoueur: 10,
                     prerequis: ["Nindô inviolable"],
-                    effet: {
+                    effets: {
                         double_effets_lancer_implacable: true,
                         cout_psy_moins_1_sorts_voie: true
                     }
@@ -21105,7 +20671,7 @@ ninja: {
                 Distance: "30m",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats_arme_plus_2: true,
                     touche_hors_ligne: true
                 }
@@ -21122,9 +20688,9 @@ ninja: {
                 Touche: "SAG",
                 ninjutsu: {
                     nom: "Ninjutsu du Scorpion",
-                    effet: "Inflige Poison irrésistible en plus de l’effet du sort."
+                    effets: "Inflige Poison irrésistible en plus de l’effet du sort."
                 },
-                effet: {
+                effets: {
                     degats: "1d6",
                     applique_entrave: true
                 }
@@ -21139,7 +20705,7 @@ ninja: {
                 Distance: "15m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     echange_place_avec_allié_si_subit_attaque: true,
                     ninja_subit_degats: true
                 }
@@ -21157,9 +20723,9 @@ ninja: {
                 prerequis_sort: "invisible",
                 ninjutsu: {
                     nom: "Ninjutsu d’Ombrageux",
-                    effet: "Ce sort n’a pas besoin que le Ninja soit invisible."
+                    effets: "Ce sort n’a pas besoin que le Ninja soit invisible."
                 },
-                effet: {
+                effets: {
                     bonus_cc_20_pourcent: true,
                     bonus_degats_plus_2_prochaine_attaque: true
                 }
@@ -21174,7 +20740,7 @@ ninja: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats_arme: true,
                     moitie_degats_arme_en_perce_armure: true
                 }
@@ -21189,7 +20755,7 @@ ninja: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "SAG/DEX",
-                effet: {
+                effets: {
                     consomme_ninjutsu_x: true,
                     inflige_x_poison_prochaines_attaques: true
                 }
@@ -21204,7 +20770,7 @@ ninja: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     gain_vitesse_plus_1_1_tour: true
                 }
             },
@@ -21220,9 +20786,9 @@ ninja: {
                 Touche: "SAG",
                 ninjutsu: {
                     nom: "Ninjutsu d’Aveuglement",
-                    effet: "Les ennemis au corps à corps lors du lancement de ce sort subissent Cécité."
+                    effets: "Les ennemis au corps à corps lors du lancement de ce sort subissent Cécité."
                 },
-                effet: {
+                effets: {
                     invisible_1_tour: true,
                     deplacement_instantane_10m_ignore_attaques_opportunite: true,
                     ne_peut_plus_etre_cible_par_attaques: true
@@ -21238,7 +20804,7 @@ ninja: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats_fixes_arme_sur_tous_ennemis_touche: true
                 }
             },
@@ -21254,9 +20820,9 @@ ninja: {
                 Touche: "DEX",
                 ninjutsu: {
                     nom: "Ninjutsu du Vent",
-                    effet: "Octroie 'Volant' pendant l’effet."
+                    effets: "Octroie 'Volant' pendant l’effet."
                 },
-                effet: {
+                effets: {
                     passe_a_travers_entites_ignore_attaques_opportunites: true,
                     duree_2_tours: true
                 }
@@ -21271,7 +20837,7 @@ ninja: {
                 Distance: "personnel",
                 Action: "action_deplacement",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     taux_critique_plus_10_pourcent_fin_combat: true,
                     octroie_1_ninjutsu: true,
                     cumulable_2_fois: true
@@ -21287,13 +20853,13 @@ ninja: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "SAG/DEX",
-                effet: {
+                effets: {
                     consomme_1_ninjutsu: true,
                     deux_prochaines_attaques_appliquent_hemorragie: true
                 }
             }
         ],
-        sortConfirmé: [
+        sortConfirme: [
             {
                 nom: "Multi-Meurtre",
                 image: "",
@@ -21304,7 +20870,7 @@ ninja: {
                 Distance: "CAC_et_15m",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats_cac: "1d8+2",
                     degats_arme_jet_sur_deuxieme_cible: true
                 }
@@ -21319,7 +20885,7 @@ ninja: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     chance_cc_equivalente_chance_toucher: true,
                     degats_arme: true,
                     vise_point_vital: true
@@ -21335,7 +20901,7 @@ ninja: {
                 Distance: "20m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     devient_invisible: true,
                     obtient_faiblesse_resistance_ennemi: true,
                     prochaine_attaque_frappe_faiblesse: true,
@@ -21354,9 +20920,9 @@ ninja: {
                 Touche: "DEX",
                 ninjutsu: {
                     nom: "Ninjutsu de Son",
-                    effet: "Inflige 1 dé 6 dégâts fixes aux ennemis à qui on applique Silence."
+                    effets: "Inflige 1 dé 6 dégâts fixes aux ennemis à qui on applique Silence."
                 },
-                effet: {
+                effets: {
                     degats: "1d10+2",
                     si_tue_cible_applique_silence_ennemis_dans_20m: true
                 }
@@ -21371,7 +20937,7 @@ ninja: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "SAG/DEX",
-                effet: {
+                effets: {
                     consomme_2_ninjutsu: true,
                     prochaine_attaque_critique: true
                 }
@@ -21388,9 +20954,9 @@ ninja: {
                 Touche: "SAG",
                 ninjutsu: {
                     nom: "Ninjutsu de la Brume",
-                    effet: "Le Ninja devient Invisible et peut se téléporter au bord de la zone de ce sort de n’importe quel côté."
+                    effets: "Le Ninja devient Invisible et peut se téléporter au bord de la zone de ce sort de n’importe quel côté."
                 },
-                effet: {
+                effets: {
                     degats: "1d6",
                     applique_charme: true,
                     si_sauvegarde_reussie_applique_entrave_irresistible: true
@@ -21408,9 +20974,9 @@ ninja: {
                 Touche: "DEX",
                 ninjutsu: {
                     nom: "Ninjutsu sanglant",
-                    effet: "Augmente les dégâts de 4."
+                    effets: "Augmente les dégâts de 4."
                 },
-                effet: {
+                effets: {
                     invisible_si_ne_bouge_pas: true,
                     si_ennemi_cac_saute_dessus_inflige_2d6_degats: true,
                     hors_combat_reflexe: true
@@ -21426,7 +20992,7 @@ ninja: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: 1,
                     perce_armure: true,
                     desavantage_tous_jets_cible_2_tours: true
@@ -21442,7 +21008,7 @@ ninja: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "SAG/DEX",
-                effet: {
+                effets: {
                     consomme_1_ninjutsu: true,
                     peut_bondir_10m_une_fois_par_tour_2_tours: true
                 }
@@ -21461,9 +21027,9 @@ ninja: {
                 Touche: "DEX",
                 ninjutsu: {
                     nom: "Ninjutsu du Démon",
-                    effet: "Récupère 6 PV fixes en plus des effets de l’attaque."
+                    effets: "Récupère 6 PV fixes en plus des effets de l’attaque."
                 },
-                effet: {
+                effets: {
                     degats: "2d8+2",
                     applique_terreur_aux_alliés_cible: true,
                     ennemis_terreur_ciblent_ninja_fin_effet_1_tour: true
@@ -21479,7 +21045,7 @@ ninja: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "3d4",
                     applique_2_poisons: true
                 }
@@ -21494,7 +21060,7 @@ ninja: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     cree_copie_utilisateur: true,
                     clone_utilise_meme_prochaine_attaque_sort: true,
                     clone_peut_cibler_different: true,
@@ -21512,7 +21078,7 @@ ninja: {
                 Distance: "30m",
                 Action: "aucune",
                 Touche: "SAG/DEX",
-                effet: {
+                effets: {
                     consomme_3_ninjutsu: true,
                     teleportation_derriere_cible: true,
                     devient_invisible: true,
@@ -21534,9 +21100,9 @@ ninja: {
                 Touche: "DEX",
                 ninjutsu: {
                     nom: "Ninjutsu d’Esprit",
-                    effet: "Si ce sort est lancé alors que la cible a encore trop de PV restant il inflige 3 dé 4 + 4 dégâts sur la PSY adverse à la place."
+                    effets: "Si ce sort est lancé alors que la cible a encore trop de PV restant il inflige 3 dé 4 + 4 dégâts sur la PSY adverse à la place."
                 },
-                effet: {
+                effets: {
                     tue_instantement_ennemi_moins_25_pourcent_pv_max: true,
                     ignore_resistances_mort_ko: true,
                     si_critique_recupere_pv_perdus_cible: true,
@@ -21553,7 +21119,7 @@ ninja: {
                 Distance: "15m",
                 Action: "standard",
                 Touche: "SAG/DEX",
-                effet: {
+                effets: {
                     consomme_3_ninjutsu: true,
                     degats: "1d4",
                     applique_6_poisons_irresistibles: true,
@@ -21573,7 +21139,7 @@ ninja: {
                 Distance: "30m",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats_entites_sur_chemin: "1d6+1",
                     degats_cible: "2d6",
                     si_critique_annule_degats_alliés_applique_hemorragie_ennemis: true
@@ -21591,9 +21157,9 @@ ninja: {
                 Touche: "SAG",
                 ninjutsu: {
                     nom: "Ninjutsu Ténébreux",
-                    effet: "À chaque fois que le Ninja attaque pendant l’effet de ce sort il applique \"Cécité\" et \"Poison\"."
+                    effets: "À chaque fois que le Ninja attaque pendant l’effet de ce sort il applique \"Cécité\" et \"Poison\"."
                 },
-                effet: {
+                effets: {
                     invisibilite_non_rompue_meme_si_attaque_subit_degats: true,
                     dure_tant_que_cc_tue_cible_ne_se_fait_pas_toucher: true,
                     invisibilite_octroie_1_ninjutsu_chaque_tour: true,
@@ -21612,7 +21178,7 @@ ninja: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "aucune",
                 Touche: "SAG/DEX",
-                effet: {
+                effets: {
                     toutes_attaques_sur_cible_critiques_pendant_1_tour: true,
                     degats_plus_1_fin_combat_si_degats_via_alterations_ou_attaques_directes_pv: true,
                     si_cible_inflige_degats_ninja_devient_invisible_1_tour: true,
@@ -21645,13 +21211,13 @@ pistolero: {
         mystique: 0, // Connaissance mystique (INT)
         sacré: 0, // Connaissance sacré (INT)
         nature: 0, // Connaissance nature (INT)
-        robustesse: 0, // Robustesse (DEF)
+        robustesse: 0, // robustesse (DEF)
         calme: 20, // Calme (DEF)
         marchandage: 0, // Marchandage (CHA)
         persuasion: 10, // Persuader/Tromper (CHA)
         artmusique: 0, // Art et Musique (CHA)
         commandement: 10, // Commandement (CHA)
-        acrobatie: 0, // Acrobatie (DEX)
+        acrobatie: 0, // acrobatie (DEX)
         discretion: 0, // Discrétion (DEX)
         adresse: 10, // Adresse (DEX)
         artisanat: 0, // Artisanat (DEX)
@@ -21664,7 +21230,7 @@ pistolero: {
         perceptionmagique: 0, // Perception magique (SAG)
         intuition: 0 // Intuition (SAG)
     },
-    sortileges_et_passifs: {
+    sortileges_et_talentVoie: {
         mecanique: {
             nom: "Il est midi",
             image: "",            
@@ -21678,15 +21244,15 @@ pistolero: {
             Distance: "30m",
             Action: "standard",
             Touche: "automatique",
-            effet: {
+            effets: {
                 conditions_duel: "arme_distance_obligatoire",
                 fin_si_frappe_autre_cible: "attaque_opportunite",
-                duree_effet: "mort_cible_ou_lanceur_ou_relance_sort",
+                duree_effets: "mort_cible_ou_lanceur_ou_relance_sort",
                 bonus_degats_distance_duel: 2,
                 bonus_chance_toucher_critique_duel: 10
             }
         },
-        passifs: {
+        talentVoie: {
             niveauJoueur: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
             talents: [
                 {
@@ -21695,7 +21261,7 @@ pistolero: {
                     description: "Ajoute +5% de chance de toucher et de coup critique et +1 dégâts à toutes les attaques et sortilèges utilisant une arme à feu.",
                     niveauJoueur: 1,
                     prerequis: [],
-                    effet: {
+                    effets: {
                         bonus_chance_toucher: 5,
                         bonus_chance_critique: 5,
                         bonus_degats: 1,
@@ -21705,10 +21271,10 @@ pistolero: {
                 {
                     nom: "Maniement leste",
                     image: "",    
-                    description: "Ajoute +2 en Dextérité, vous pouvez changer d’arme à tout moment dans le tour.",
+                    description: "Ajoute +2 en dexterite, vous pouvez changer d’arme à tout moment dans le tour.",
                     niveauJoueur: 2,
                     prerequis: ["Professionnel des armes à feu"],
-                    effet: {
+                    effets: {
                         bonus_dexterite: 2,
                         changer_arme_tout_moment_tour: true
                     }
@@ -21719,7 +21285,7 @@ pistolero: {
                     description: "Si vous subissez des dégâts au corps à corps vous pouvez tirer avec un revolver caché, l’attaquant subit alors 1 dé 6 dégâts fixes. Cet effet ne s’applique pas deux tour de suite sur un même ennemi ni plusieurs fois dans le même tour.",
                     niveauJoueur: 3,
                     prerequis: ["Maniement leste"],
-                    effet: {
+                    effets: {
                         contre_attaque_cac: true,
                         degats_fixes: "1d6",
                         restrictions_application: true
@@ -21731,7 +21297,7 @@ pistolero: {
                     description: "Ajoute +2 en Charisme, vous avez avantage à vos jet d’intimidation et de Persuader/Tromper contre les hors la loi, les bandits et les voleurs.",
                     niveauJoueur: 4,
                     prerequis: ["6 coups au ceinturon"],
-                    effet: {
+                    effets: {
                         bonus_charisme: 2,
                         avantage_intimidation_persuader_tromper: "hors_la_loi_bandits_voleurs"
                     }
@@ -21742,7 +21308,7 @@ pistolero: {
                     description: "Ce passif annule le bonus octroyé par 'Il est midi' à la cible du sort.",
                     niveauJoueur: 5,
                     prerequis: ["Sheriff en ville"],
-                    effet: {
+                    effets: {
                         annule_bonus_il_est_midi_cible: true
                     }
                 },
@@ -21752,7 +21318,7 @@ pistolero: {
                     description: "Ajoute +1 en Chance, et octroie l’immunité à 'Cécité'.",
                     niveauJoueur: 6,
                     prerequis: ["Midi à quatorze heure"],
-                    effet: {
+                    effets: {
                         bonus_chance: 1,
                         immunite_cecite: true
                     }
@@ -21763,7 +21329,7 @@ pistolero: {
                     description: "Lorsque le Pistolero tire sur une cible avec son arme il peut faire ricochet son tir et infliger la moitié des dégâts à une autre cible au corps à corps de la première, cet effet n’enclenche pas d’attaque d’opportunité pour la mécanique.",
                     niveauJoueur: 7,
                     prerequis: ["Visée aveugle"],
-                    effet: {
+                    effets: {
                         ricochet_sur_autre_cible_cac: true,
                         degats_moitie: true,
                         pas_attaque_opportunite: true
@@ -21772,10 +21338,10 @@ pistolero: {
                 {
                     nom: "Visée rapide",
                     image: "",    
-                    description: "Ajoute +1 en Dextérité, vous gagnez 1 cran en vitesse lors du premier tour de jeu.",
+                    description: "Ajoute +1 en dexterite, vous gagnez 1 cran en vitesse lors du premier tour de jeu.",
                     niveauJoueur: 8,
                     prerequis: ["Ricochet"],
-                    effet: {
+                    effets: {
                         bonus_dexterite: 1,
                         gain_vitesse_1_cran_premier_tour: true
                     }
@@ -21786,7 +21352,7 @@ pistolero: {
                     description: "Double le bonus de 'Professionnel des armes à feu'. La portée des armes à feu est augmentée de 5 mètres.",
                     niveauJoueur: 9,
                     prerequis: ["Visée rapide"],
-                    effet: {
+                    effets: {
                         double_bonus_professionnel_armes_feu: true,
                         portee_armes_feu_plus_5m: true
                     }
@@ -21797,7 +21363,7 @@ pistolero: {
                     description: "Si la cible désignée par 'Il est Midi' se déplace vous pouvez vous déplacez d’autant sans utiliser votre déplacement afin de maintenir la distance vous séparant actuellement.",
                     niveauJoueur: 10,
                     prerequis: ["Maitre des armes à feu"],
-                    effet: {
+                    effets: {
                         deplacement_suivi_cible_il_est_midi: true,
                         sans_utiliser_deplacement: true
                     }
@@ -21819,7 +21385,7 @@ pistolero: {
                 Action: "aucune_si_premier_tour",
                 Touche: "DEX",
                 prerequis_sort: "arme_distance_a_feu",
-                effet: {
+                effets: {
                     degats: "1d6+2",
                     applique_entrave: true,
                     peut_etre_utilise_en_premier_combat: true,
@@ -21836,7 +21402,7 @@ pistolero: {
                 Distance: "arme",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats: "1d4",
                     critique_plus_20_pourcent: true,
                     degats_maximises_sur_critique: true
@@ -21851,7 +21417,7 @@ pistolero: {
                 Zone: "personnel",
                 Distance: "N/A",
                 Action: "aucune",
-                effet: {
+                effets: {
                     duree_2_tours: true,
                     degats_fixes_supplementaires_1d6_par_tir_distance: true
                 }
@@ -21866,7 +21432,7 @@ pistolero: {
                 Distance: "N/A",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     degats_arme_element_choisi_prochaine_attaque: true
                 }
             },
@@ -21880,7 +21446,7 @@ pistolero: {
                 Distance: "mêlée", // Ou portée de l'arme si applicable
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats: "1d6+1"
                 }
             },
@@ -21894,7 +21460,7 @@ pistolero: {
                 Distance: "arme",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats: "1d6",
                     sauvegarde_force_pour_lacher_arme: true,
                     cout_action_ramasser_arme: true
@@ -21910,7 +21476,7 @@ pistolero: {
                 Distance: "arme",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats_arme: true,
                     applique_entrave: true,
                     relance_auto_sur_critique: true
@@ -21926,7 +21492,7 @@ pistolero: {
                 Distance: "CAC",
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats: "1d4",
                     recule_cible_5m: true,
                     lanceur_peut_reculer_5m: true
@@ -21942,7 +21508,7 @@ pistolero: {
                 Distance: "variable",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     desavantage_jet_blocage_ennemis_zone: true,
                     degats_fixes_supp_1d4_si_allié_frappe_ennemi_zone: true,
                     duree_2_tours: true,
@@ -21959,7 +21525,7 @@ pistolero: {
                 Distance: "N/A",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     choix_chiffre_1_6: true,
                     xieme_attaque_inflige_x_degats: true,
                     xieme_attaque_plus_10x_pourcent_cc: true
@@ -21975,7 +21541,7 @@ pistolero: {
                 Distance: "arme",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     degats_arme: true,
                     pas_de_bruit_pas_reparable: true,
                     applique_silence: true
@@ -21991,14 +21557,14 @@ pistolero: {
                 Distance: "arme",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     cible_automatique: true,
                     degats_arme: true,
                     prochain_tir_critique_si_cible_meurt: true
                 }
             }
         ],
-        sortConfirmé: [
+        sortConfirme: [
             {
                 nom: "Dans le mille",
                 image: "",
@@ -22009,7 +21575,7 @@ pistolero: {
                 Distance: "25m",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats_arme_plus_3: true,
                     perce_armure: true,
                     ignore_boucliers: true,
@@ -22026,7 +21592,7 @@ pistolero: {
                 Distance: "illimité", // Ou limitée par le terrain
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     declenche_tir_si_ennemi_deplace_ligne_colonne: true,
                     degats: "1d8",
                     duree_3_tirs: true
@@ -22042,7 +21608,7 @@ pistolero: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats: "2d6",
                     applique_sonne: true
                 }
@@ -22058,7 +21624,7 @@ pistolero: {
                 Distance: "variable", // À définir si non spécifié
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     charme_irresistible_1_tour: true,
                     fonctionne_sur_humanoide_seulement: true,
                     attaque_arme_gratuite_fin_charme: true,
@@ -22068,14 +21634,14 @@ pistolero: {
             {
                 nom: "Tir de déviation",
                 image: "",
-                description: "Pendant 2 tours le Pistolero peut tirer sur un projectile ou un sort à distance par tour qui le prend pour cible. Il doit réussir un jet de touche avec désavantage sur sa Dextérité. S’il réussit l’attaque est annulée et n’a aucun effet. Ce sort ne consomme pas d’action.",
+                description: "Pendant 2 tours le Pistolero peut tirer sur un projectile ou un sort à distance par tour qui le prend pour cible. Il doit réussir un jet de touche avec désavantage sur sa dexterite. S’il réussit l’attaque est annulée et n’a aucun effet. Ce sort ne consomme pas d’action.",
                 Psy: 4,
                 PV: "N/A",
                 Zone: "personnel",
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     duree_2_tours: true,
                     peut_tirer_sur_projectile_sort_distance_par_tour: true,
                     jet_touche_desavantage_dexterite: true,
@@ -22092,7 +21658,7 @@ pistolero: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     immunise_alterations_etat_2_tours: true,
                     avantage_jets_charisme_hors_combat: true
                 }
@@ -22107,7 +21673,7 @@ pistolero: {
                 Distance: "20m",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     cible_principale_pb_armure_blocage_0_pour_tour: true,
                     autre_cible_degats_1d8_plus_2_non_defendable: true
                 }
@@ -22122,7 +21688,7 @@ pistolero: {
                 Distance: "N/A",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     double_bonus_il_est_midi: true,
                     declenche_ciblage_reciproque: true
                 }
@@ -22137,7 +21703,7 @@ pistolero: {
                 Distance: "variable", // À définir si non spécifié
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     choix_etat_recherche_vif_ou_mort: true,
                     recherche_vif_effets: ["entrave_cecite_attaques_subies", "pv_min_1"],
                     recherche_mort_effets: ["degats_supp_3_attaques_subies", "immunite_alterations_etat"],
@@ -22158,7 +21724,7 @@ pistolero: {
                 Distance: "30m",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats: "3d6",
                     bonus_degats_permanent_plus_1_si_tue: true,
                     cumulable_3_fois: true
@@ -22174,7 +21740,7 @@ pistolero: {
                 Distance: "variable",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     le_bon_soins_boucliers_plus_2: true,
                     la_brute_armure_plus_2_blocage_plus_20_pourcent: true,
                     le_truand_degats_plus_2_cc_plus_20_pourcent: true,
@@ -22192,7 +21758,7 @@ pistolero: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     prochaine_attaque_critique: true
                 }
             },
@@ -22206,7 +21772,7 @@ pistolero: {
                 Distance: "arme",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     lance_1d4_degats_arme_x_fois: true,
                     si_1_plus_50_pourcent_cc: true,
                     si_2_ou_3_vitesse_plus_1_cran: true,
@@ -22223,7 +21789,7 @@ pistolero: {
                 Distance: "variable", // À définir si non spécifié
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     applique_entrave_irresistible: true,
                     applique_3_poisons: true,
                     poisons: true,
@@ -22240,7 +21806,7 @@ pistolero: {
                 Distance: "personnel",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     recupere_2d6_pv: true,
                     obtient_4_pb: true,
                     chance_reussite_sauvegarde_plus_20_pourcent: true
@@ -22256,7 +21822,7 @@ pistolero: {
                 Distance: "arme",
                 Action: "standard",
                 Touche: "CHA",
-                effet: {
+                effets: {
                     cible_enrage_2_actions_plus_1_cran_vitesse_prochain_tour: true,
                     degats_fin_tour_cible: "degats_infliges_par_cible_plus_2x_degats_arme",
                     si_critique_3x_degats_arme_plus_aug_cc: true,
@@ -22274,7 +21840,7 @@ pistolero: {
                 Distance: "illimité",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     necessite_jet_hasard_et_touche: true,
                     degats_arme_plus_6_plus_1_alteration: true,
                     si_un_jet_critique_2x_degats_arme_plus_6_plus_2_alterations: true,
@@ -22294,7 +21860,7 @@ pistolero: {
                 Action: "aucune",
                 Touche: "DEX/CHA",
                 prerequis_sort: "cible_sous_effet_il_est_midi",
-                effet: {
+                effets: {
                     degats: "3d8",
                     degats_non_defendables: true,
                     perce_armure: true,
@@ -22330,13 +21896,13 @@ mecanicien: {
         mystique: 0, // Connaissance mystique (INT)
         sacré: 0, // Connaissance sacré (INT)
         nature: 0, // Connaissance nature (INT)
-        robustesse: 15, // Robustesse (DEF)
+        robustesse: 15, // robustesse (DEF)
         calme: 0, // Calme (DEF)
         marchandage: 10, // Marchandage (CHA)
         persuasion: 0, // Persuader/Tromper (CHA)
         artmusique: 0, // Art et Musique (CHA)
         commandement: 0, // Commandement (CHA)
-        acrobatie: 0, // Acrobatie (DEX)
+        acrobatie: 0, // acrobatie (DEX)
         discretion: 0, // Discrétion (DEX)
         adresse: 20, // Adresse (DEX)
         artisanat: 30, // Artisanat (DEX)
@@ -22349,7 +21915,7 @@ mecanicien: {
         perceptionmagique: 0, // Perception magique (SAG)
         intuition: 10 // Intuition (SAG)
     },
-    sortileges_et_passifs: {
+    sortileges_et_talentVoie: {
         mecanique: {
             nom: "Assistant Mécanicien",
             image: "",            
@@ -22367,7 +21933,7 @@ mecanicien: {
             Distance: "personnel",
             Action: "aucune",
             Touche: "automatique",
-            effet: {
+            effets: {
                 taille: "petite_ou_moins",
                 vitesse: "rapide",
                 pv: 8,
@@ -22383,7 +21949,7 @@ mecanicien: {
                 temps_recharge_si_meurt: "1_tour"
             }
         },
-        passifs: {
+        talentVoie: {
             niveauJoueur: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
             talents: [
                 {
@@ -22392,7 +21958,7 @@ mecanicien: {
                     description: "Ajoute +1 en Intelligence. Bonus de +20 aux jets concernant les mécanismes, machines ou pièges.",
                     niveauJoueur: 1,
                     prerequis: [],
-                    effet: {
+                    effets: {
                         bonus_intelligence: 1,
                         bonus_jets_mecanismes_machines_pieges: 20
                     }
@@ -22403,19 +21969,19 @@ mecanicien: {
                     description: "+1 aux dégâts et +5 % aux chances de toucher avec les armes de type “à feu”. Octroie +10 en artisanat.",
                     niveauJoueur: 2,
                     prerequis: ["Spécialiste en mécanique"],
-                    effet: {
+                    effets: {
                         bonus_degats_armes_feu: 1,
                         bonus_chance_toucher_armes_feu: 5,
                         bonus_artisanat: 10
                     }
                 },
                 {
-                    nom: "Robustesse du Mécano",
+                    nom: "robustesse du Mécano",
                     image: "",    
                     description: "Ajoute +1 en Défense. Si vous tombez à 25% de vos PV ou moins vous gagnez 6 PB, utilisable 1 fois par combat.",
                     niveauJoueur: 3,
                     prerequis: ["Connaissance mécanique"],
-                    effet: {
+                    effets: {
                         bonus_defense: 1,
                         gain_6pb_si_moins_25_pv: true,
                         utilisable_1_fois_par_combat: true
@@ -22426,8 +21992,8 @@ mecanicien: {
                     image: "",    
                     description: "Ajoute +1 en Défense et en Sagesse. Vous avez un avantage sur les jets pour fabriquer ou réparer des objets.",
                     niveauJoueur: 4,
-                    prerequis: ["Robustesse du Mécano"],
-                    effet: {
+                    prerequis: ["robustesse du Mécano"],
+                    effets: {
                         bonus_defense: 1,
                         bonus_sagesse: 1,
                         avantage_jets_fabriquer_reparer: true
@@ -22439,7 +22005,7 @@ mecanicien: {
                     description: "Immunité à “Brûlure“. Divise par 2 les dégâts subis par des explosions et octroie la Résistance Feu.",
                     niveauJoueur: 5,
                     prerequis: ["Bricolage"],
-                    effet: {
+                    effets: {
                         immunite_brulure: true,
                         degats_explosions_divises_par_2: true,
                         resistance_feu: true
@@ -22451,7 +22017,7 @@ mecanicien: {
                     description: "Ajoute +1 en Constitution et en Force. Ajoute un bonus de puissance et de robustesse de 10.",
                     niveauJoueur: 6,
                     prerequis: ["Artificier"],
-                    effet: {
+                    effets: {
                         bonus_constitution: 1,
                         bonus_force: 1,
                         bonus_puissance_robustesse: 10
@@ -22463,7 +22029,7 @@ mecanicien: {
                     description: "Double le bonus de 'Connaissance mécanique'. Octroie un avantage sur des jets de savoir concernant des machines ou des mécanismes.",
                     niveauJoueur: 7,
                     prerequis: ["Biscotos du Mécano"],
-                    effet: {
+                    effets: {
                         double_bonus_connaissance_mecanique: true,
                         avantage_jets_savoir_machines_mecanismes: true
                     }
@@ -22474,7 +22040,7 @@ mecanicien: {
                     description: "Ajoute 4 PV et 4 PB à l’Assistant mécanique. Il gagne la possibilité de se téléporter au corps à corps du lanceur à la place de son action.",
                     niveauJoueur: 8,
                     prerequis: ["Encyclopédie mécanique"],
-                    effet: {
+                    effets: {
                         assistant_pv_plus_4: true,
                         assistant_pb_plus_4: true,
                         assistant_peut_teleporter_cac_lanceur: true
@@ -22486,7 +22052,7 @@ mecanicien: {
                     description: "Tous les sorts de piège coûtent 1 PSY de moins et infligent +2 dégâts. Ajoute +1 en Force et en Sagesse.",
                     niveauJoueur: 9,
                     prerequis: ["Assistant d’élite"],
-                    effet: {
+                    effets: {
                         sorts_piege_cout_psy_moins_1: true,
                         sorts_piege_degats_plus_2: true,
                         bonus_force: 1,
@@ -22499,7 +22065,7 @@ mecanicien: {
                     description: "À chaque fin de tour le mécanicien et ses alliés au corps à corps gagnent 4 PB fixes. Si le mécanicien tombe sous la barre des 50% de PV il gagne 8 PB fixes, une seule fois par combat.",
                     niveauJoueur: 10,
                     prerequis: ["Spécialiste des Pièges"],
-                    effet: {
+                    effets: {
                         gain_4pb_fixes_fin_tour_mecano_et_alliés_cac: true,
                         gain_8pb_fixes_si_moins_50_pv_1_fois_par_combat: true
                     }
@@ -22520,7 +22086,7 @@ mecanicien: {
                 Distance: "10m",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d4",
                     applique_entrave: true,
                     piege_detruit_apres_activation: true,
@@ -22537,7 +22103,7 @@ mecanicien: {
                 Distance: "arme",
                 Action: "aucune",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     arme_devient_zone: true,
                     degats_arme_a_tous: true,
                     arme_type_feu: true,
@@ -22554,7 +22120,7 @@ mecanicien: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d6+3",
                     type_degats: "Foudre",
                     applique_sonne: true
@@ -22570,7 +22136,7 @@ mecanicien: {
                 Distance: "CAC",
                 Action: "aucune",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     blocage_double_prochaine_attaque: true,
                     armure_plus_3_prochaine_attaque: true,
                     explosion_degats_cac_1d6: true
@@ -22586,7 +22152,7 @@ mecanicien: {
                 Distance: "CAC",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     arme_degats_plus_2: true,
                     arme_cc_plus_20_pourcent_1_tour: true,
                     non_cumulable: true
@@ -22602,7 +22168,7 @@ mecanicien: {
                 Distance: "CAC",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     octroie_2_pb: true,
                     effet_double_si_moins_25_pv: true
                 }
@@ -22617,7 +22183,7 @@ mecanicien: {
                 Distance: "variable",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d4",
                     applique_charme: true,
                     charme_irresistible_si_echec_sauvegarde: true,
@@ -22634,7 +22200,7 @@ mecanicien: {
                 Distance: "30m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats_arme_perce_armure: true,
                     arme_type_feu: true,
                     persiste_jusqua_autre_amelioration: true
@@ -22650,7 +22216,7 @@ mecanicien: {
                 Distance: "variable", // À définir si non spécifié
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6",
                     applique_brulure: true
                 }
@@ -22665,7 +22231,7 @@ mecanicien: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     copie_consommable_allie_epique_ou_inferieur: true,
                     utilisable_max_1_fois_par_tour: true
                 }
@@ -22680,7 +22246,7 @@ mecanicien: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats_attaques_distance_divises_par_2: true,
                     ennemis_cac_subissent_1d4_degats_foudre_debut_tour: true,
                     duree_2_tours: true
@@ -22696,13 +22262,13 @@ mecanicien: {
                 Distance: "20m",
                 Action: "aucune",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     pose_3_fois_x_pieges: true,
                     degats: "1d2"
                 }
             }
         ],
-        sortConfirmé: [
+        sortConfirme: [
             {
                 nom: "Piège à Fosse",
                 image: "",
@@ -22713,7 +22279,7 @@ mecanicien: {
                 Distance: "variable",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d8+3",
                     doit_passer_action_pour_sortir: true,
                     reste_en_place_jusqua_sortie_entites: true,
@@ -22730,7 +22296,7 @@ mecanicien: {
                 Distance: "10m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     tire_toutes_cibles_rayon_10m: true,
                     degats_arme: true,
                     arme_type_feu: true,
@@ -22747,7 +22313,7 @@ mecanicien: {
                 Distance: "CAC",
                 Action: "aucune",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     deux_fois_degats_arme: true,
                     repousse_10m: true,
                     arme_type_feu: true,
@@ -22764,7 +22330,7 @@ mecanicien: {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     assistant_2_actions_par_tour_2_tours: true,
                     assistant_gain_1_cran_vitesse: true
                 }
@@ -22779,7 +22345,7 @@ mecanicien: {
                 Distance: "15m",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     armure_plus_2: true,
                     chance_bloquer_plus_20_pourcent: true,
                     octroie_2_pb: true,
@@ -22797,7 +22363,7 @@ mecanicien: {
                 Distance: "40m",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d8+1",
                     degats_doubles_sur_ennemis_volant: true
                 }
@@ -22812,7 +22378,7 @@ mecanicien: {
                 Distance: "globale",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     octroie_2_pb_tous_alliés: true,
                     regen_4_pb_automatiquement_une_fois_si_perte_pb: true
                 }
@@ -22827,7 +22393,7 @@ mecanicien: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats_par_tranche_20_puissance: "1d4",
                     applique_sonne_si_puissance_plus_70: true,
                     temps_recharge_1_tour: true
@@ -22843,7 +22409,7 @@ mecanicien: {
                 Distance: "globale",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     retire_tous_pieges_runes_objets_caches: true,
                     retire_murs: true,
                     degats_ennemis_type_machine: "1d10",
@@ -22862,7 +22428,7 @@ mecanicien: {
                 Distance: "10m",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "2d8",
                     type_degats: "Feu",
                     applique_brulure: true,
@@ -22879,7 +22445,7 @@ mecanicien: {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "1d6+2",
                     applique_3_poisons: true,
                     peut_etre_lance_sur_case_occupée_explose_immediatement: true
@@ -22895,7 +22461,7 @@ mecanicien: {
                 Distance: "30m",
                 Action: "aucune",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     deux_fois_degats_arme: true,
                     degats_prennent_faiblesse_adverse: true,
                     arme_type_feu: true,
@@ -22912,7 +22478,7 @@ mecanicien: {
                 Distance: "CAC",
                 Action: "aucune",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     gain_effet_amelioration_confirme_ou_moins: true,
                     gain_6_pb: true,
                     chance_bloquer_plus_20_pourcent: true,
@@ -22930,7 +22496,7 @@ mecanicien: {
                 Distance: "globale",
                 Action: "standard",
                 Touche: "SAG",
-                effet: {
+                effets: {
                     degats: "2d6"
                 }
             },
@@ -22944,7 +22510,7 @@ mecanicien: {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6+3",
                     type_degats: "Feu",
                     applique_brulure: true
@@ -22960,7 +22526,7 @@ mecanicien: {
                 Distance: "globale",
                 Action: "standard",
                 Touche: "FOR/SAG",
-                effet: {
+                effets: {
                     restaure_pb_max_debut_combat_tous_alliés: true,
                     chance_bloquer_plus_20_pourcent_2_tours: true,
                     armure_plus_2_2_tours: true
@@ -22977,7 +22543,7 @@ mecanicien: {
                 Action: "aucune",
                 Touche: "automatique",
                 prerequis_sort: "assistant_present",
-                effet: {
+                effets: {
                     assistant_recupere_pv_pb_double: true,
                     assistant_gain_amelioration_choix_lanceur: true,
                     assistant_bras_arme_1d8_degats: true,
@@ -22998,7 +22564,7 @@ mecanicien: {
                 Distance: "variable",
                 Action: "standard",
                 Touche: "FOR/SAG",
-                effet: {
+                effets: {
                     tourelle_immobile: true,
                     tire_amelioration_une_fois_par_tour_gratuit: true,
                     augmente_portee_ameliorations_15m: true,
@@ -23037,13 +22603,13 @@ rodeur:  {
         mystique: 0, // Connaissance mystique (INT)
         sacré: 0, // Connaissance sacré (INT)
         nature: 0, // Connaissance nature (INT)
-        robustesse: 0, // Robustesse (DEF)
+        robustesse: 0, // robustesse (DEF)
         calme: 10, // Calme (DEF)
         marchandage: 0, // Marchandage (CHA)
         persuasion: 0, // Persuader/Tromper (CHA)
         artmusique: 0, // Art et Musique (CHA)
         commandement: 0, // Commandement (CHA)
-        acrobatie: 10, // Acrobatie (DEX)
+        acrobatie: 10, // acrobatie (DEX)
         discretion: 5, // Discrétion (DEX)
         adresse: 5, // Adresse (DEX)
         artisanat: 0, // Artisanat (DEX)
@@ -23056,7 +22622,7 @@ rodeur:  {
         perceptionmagique: 0, // Perception magique (SAG)
         intuition: 20 // Intuition (SAG)
     },
-    sortileges_et_passifs: {
+    sortileges_et_talentVoie: {
         mecanique: {
             nom: "Portée Infinie",
             image: "",            
@@ -23071,7 +22637,7 @@ rodeur:  {
                 "Lancer une attaque de corps à corps avec le Rôdeur annule la modification de sa portée mais aussi tous les bonus octroyés par la mécanique. Les bonus octroyés par un sort de zone sont les bonus apportés par la cible la plus éloignée."
             ]
         },
-        passifs: {
+        talentVoie: {
             niveauJoueur: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
             talents: [
                 {
@@ -23080,7 +22646,7 @@ rodeur:  {
                     description: "Ajoute +1 aux dégâts et +5% aux chances de toucher avec les armes de type “arc” ou “arbalète”.",
                     niveauJoueur: 1,
                     prerequis: [],
-                    effet: {
+                    effets: {
                         bonus_degats: 1,
                         bonus_chance_toucher: 5,
                         type_arme: ["arc", "arbalete"]
@@ -23089,10 +22655,10 @@ rodeur:  {
                 {
                     nom: "Longue portée",
                     image: "",    
-                    description: "Ajoute +1 en Dextérité. La portée de tous les sorts, objets et effets est augmentée de 5 mètres.",
+                    description: "Ajoute +1 en dexterite. La portée de tous les sorts, objets et effets est augmentée de 5 mètres.",
                     niveauJoueur: 2,
                     prerequis: ["Expert à Distance"],
-                    effet: {
+                    effets: {
                         bonus_dexterite: 1,
                         augmentation_portee_5m: true
                     }
@@ -23100,10 +22666,10 @@ rodeur:  {
                 {
                     nom: "Visée solide",
                     image: "",    
-                    description: "Ajoute +1 en Dextérité et en Force. Le rôdeur peut lancer des attaques de type distance au corps à corps sans subir le désavantage.",
+                    description: "Ajoute +1 en dexterite et en Force. Le rôdeur peut lancer des attaques de type distance au corps à corps sans subir le désavantage.",
                     niveauJoueur: 3,
                     prerequis: ["Longue portée"],
-                    effet: {
+                    effets: {
                         bonus_dexterite: 1,
                         bonus_force: 1,
                         attaque_distance_cac_sans_desavantage: true
@@ -23115,17 +22681,17 @@ rodeur:  {
                     description: "Toutes les attaques du Rôdeur appliquent “Poison“ à la cible.",
                     niveauJoueur: 4,
                     prerequis: ["Visée solide"],
-                    effet: {
+                    effets: {
                         attaques_appliquent_poison: true
                     }
                 },
                 {
                     nom: "Vivacité salvatrice",
                     image: "",    
-                    description: "Ajoute +1 en Dextérité, le Rôdeur peut tirer en réflexe pour se défendre hors combat, ses jets pour esquiver ou encaisser des attaques hors combat se font avec avantage. En combat le Rôdeur gagne 2 crans en vitesse au premier tour de jeu.",
+                    description: "Ajoute +1 en dexterite, le Rôdeur peut tirer en réflexe pour se défendre hors combat, ses jets pour esquiver ou encaisser des attaques hors combat se font avec avantage. En combat le Rôdeur gagne 2 crans en vitesse au premier tour de jeu.",
                     niveauJoueur: 5,
                     prerequis: ["Létalité"],
-                    effet: {
+                    effets: {
                         bonus_dexterite: 1,
                         tir_reflexe_hors_combat: true,
                         jets_esquive_encaissement_avantage_hors_combat: true,
@@ -23138,7 +22704,7 @@ rodeur:  {
                     description: "Ajoute +1 en Constitution et en Force. Si vous tombez sous les 25% de votre vie, vous lancez automatiquement le sort Repli Stratégique et celui-ci ne coûte rien. Utilisable 1 fois par combat.",
                     niveauJoueur: 6,
                     prerequis: ["Vivacité salvatrice"],
-                    effet: {
+                    effets: {
                         bonus_constitution: 1,
                         bonus_force: 1,
                         lance_repli_strategique_si_moins_25_pv_gratuit: true,
@@ -23151,7 +22717,7 @@ rodeur:  {
                     description: "Tous les sorts de Rôdeur infligent +2 dégâts s’ils sont lancés à leur portée maximale.",
                     niveauJoueur: 7,
                     prerequis: ["Expert en Survie"],
-                    effet: {
+                    effets: {
                         bonus_degats_plus_2_si_portee_maximale: true
                     }
                 },
@@ -23161,7 +22727,7 @@ rodeur:  {
                     description: "“Frappe orbitale” inflige +1 dégât tous les 10 mètres parcourus par le tir. Si vous ne possédez pas le sort vous ignorez cet effet et le débloquez à la place. “Expert à distance” double ses bonus.",
                     niveauJoueur: 8,
                     prerequis: ["Repousser les limites"],
-                    effet: {
+                    effets: {
                         frappe_orbitale_plus_1_degat_tous_10m_parcourus: true,
                         debloque_frappe_orbitale_si_non_possede: true,
                         expert_distance_double_bonus: true
@@ -23173,7 +22739,7 @@ rodeur:  {
                     description: "À chaque fois que vous achevez un ennemi, vous gagnez +2 dégâts pour le reste du combat.",
                     niveauJoueur: 9,
                     prerequis: ["Maître Rôdeur"],
-                    effet: {
+                    effets: {
                         gain_degats_plus_2_reste_combat_si_acheve_ennemi: true
                     }
                 },
@@ -23183,7 +22749,7 @@ rodeur:  {
                     description: "Le bonus du sort Létalité est doublé. Si la cible est immunisée au Poison vous lui infligez 'Brûlure' à la place.",
                     niveauJoueur: 10,
                     prerequis: ["Chasseur de Tête"],
-                    effet: {
+                    effets: {
                         double_bonus_letalite: true,
                         si_immunise_poison_inflige_brulure: true
                     }
@@ -23204,7 +22770,7 @@ rodeur:  {
                 Distance: "variable", // Doit être précisé si c'est une attaque à distance normale
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats: "1d4",
                     type_degats: "Foudre",
                     applique_cecité: true
@@ -23220,7 +22786,7 @@ rodeur:  {
                 Distance: "globale",
                 Action: "standard",
                 Touche: "FOR/DEX",
-                effet: {
+                effets: {
                     degats_arme: true,
                     ignore_boucliers_armure: true,
                     delai_1_tour: true
@@ -23236,7 +22802,7 @@ rodeur:  {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     vitesse_plus_1_cran_1_tour: true,
                     deux_actions_1_tour: true
                 }
@@ -23251,7 +22817,7 @@ rodeur:  {
                 Distance: "CAC",
                 Action: "aucune",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d4",
                     repousse_cible_5m: true,
                     repousse_soi_5m_oppose: true
@@ -23267,7 +22833,7 @@ rodeur:  {
                 Distance: "variable",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats_arme: true,
                     si_arc_portee_plus_5m: true,
                     si_arbalete_degats_ignorent_armure: true
@@ -23283,7 +22849,7 @@ rodeur:  {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     augmente_portee_min_max_5m: true,
                     utilisable_une_fois_par_tour: true
                 }
@@ -23298,7 +22864,7 @@ rodeur:  {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6+1",
                     applique_sommeil: true
                 }
@@ -23313,7 +22879,7 @@ rodeur:  {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     chance_cc_plus_20_pourcent_2_tours: true
                 }
             },
@@ -23327,7 +22893,7 @@ rodeur:  {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     invisible_1_tour: true,
                     ne_peut_pas_etre_cible_par_attaques_directes: true,
                     invisibilite_se_rompt_si_attaque_ou_subit_degats: true
@@ -23343,7 +22909,7 @@ rodeur:  {
                 Distance: "15m",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d6+1",
                     type_degats: "Feu",
                     applique_brulure: true
@@ -23359,7 +22925,7 @@ rodeur:  {
                 Distance: "40m",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats: "2d4"
                 }
             },
@@ -23373,13 +22939,13 @@ rodeur:  {
                 Distance: "15m",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     applique_sonne: true,
                     choix_degats_1d6_ou_repousser_10m: true
                 }
             }
         ],
-        sortConfirmé: [
+        sortConfirme: [
             {
                 nom: "Entre les Deux Yeux",
                 image: "",
@@ -23390,7 +22956,7 @@ rodeur:  {
                 Distance: "30m",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats: "1d6+3",
                     tue_instant_si_moins_25_pv: true
                 }
@@ -23405,7 +22971,7 @@ rodeur:  {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats_arme: true,
                     toujours_critique_si_reussite: true,
                     jet_touche_desavantage: true
@@ -23421,7 +22987,7 @@ rodeur:  {
                 Distance: "10m",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     provoque_ennemis_plus_10m: true,
                     jet_ciblage_sur_lui: true,
                     si_ennemi_ciblé_meurt_applique_terreur_autres: true
@@ -23437,7 +23003,7 @@ rodeur:  {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     double_bonus_mecanique_1_tour: true
                 }
             },
@@ -23451,7 +23017,7 @@ rodeur:  {
                 Distance: "10m",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "2d4",
                     type_degats: "Terre",
                     repousse_10m: true
@@ -23467,7 +23033,7 @@ rodeur:  {
                 Distance: "mêlée", // À définir si non spécifié
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats: "1d6+2"
                 }
             },
@@ -23481,7 +23047,7 @@ rodeur:  {
                 Distance: "15m",
                 Action: "aucune",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     teleportation_15m: true,
                     si_ennemi_cac_zone_depart_applique_entrave_cecité: true
                 }
@@ -23496,7 +23062,7 @@ rodeur:  {
                 Distance: "CAC",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     lance_ennemi_15m: true,
                     degats_atterrissage: "1d8"
                 }
@@ -23511,7 +23077,7 @@ rodeur:  {
                 Distance: "40m",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats: "1d6+3",
                     type_degats: "Foudre",
                     perce_armure: true,
@@ -23530,7 +23096,7 @@ rodeur:  {
                 Distance: "variable", // À définir si non spécifié
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats: "8d2",
                     ne_peut_plus_se_deplacer_teleporter_apres_tir: true
                 }
@@ -23545,7 +23111,7 @@ rodeur:  {
                 Distance: "variable", // À définir si non spécifié
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats_arme_deux_fois: true,
                     perce_armure: true,
                     applique_hemorragie: true
@@ -23561,7 +23127,7 @@ rodeur:  {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "automatique",
-                effet: {
+                effets: {
                     enclenche_tous_paliers_mecanique_prochain_tir_plus_20m: true
                 }
             },
@@ -23575,7 +23141,7 @@ rodeur:  {
                 Distance: "variable", // À définir si non spécifié
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats: "1d10+4",
                     repousse_10m: true,
                     applique_entrave_irresistible: true,
@@ -23592,7 +23158,7 @@ rodeur:  {
                 Distance: "50m",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     ne_peut_pas_etre_bloque_interrompu: true,
                     cible_ne_peut_pas_bloquer_esquiver_ni_prendre_degats_a_sa_place: true,
                     degats: "2d6",
@@ -23609,7 +23175,7 @@ rodeur:  {
                 Distance: "15m",
                 Action: "aucune",
                 Touche: "FOR/DEX",
-                effet: {
+                effets: {
                     teleportation_position_tir: true,
                     ignore_effets_entravant_deplacement_attaques_opportunites: true,
                     utilise_tout_deplacement_roamingRogue: true,
@@ -23626,7 +23192,7 @@ rodeur:  {
                 Distance: "globale",
                 Action: "standard",
                 Touche: "DEX",
-                effet: {
+                effets: {
                     degats: "1d8+3",
                     chaque_ennemi_supplementaire_plus_10_pourcent_cc: true
                 }
@@ -23641,7 +23207,7 @@ rodeur:  {
                 Distance: "30m",
                 Action: "standard",
                 Touche: "FOR",
-                effet: {
+                effets: {
                     degats_cible: "3d6+6",
                     degats_ennemis_sur_chemin: "1d6+3",
                     temps_recharge_2_tours: true,
@@ -23660,7 +23226,7 @@ rodeur:  {
                 Distance: "personnel",
                 Action: "aucune",
                 Touche: "FOR/DEX",
-                effet: {
+                effets: {
                     attaques_distance_plus_1_degat_chaque_5m_parcourus_2_tours: true,
                     coups_critiques_perce_armure: true,
                     prolongeable_4_psy_par_tour: true
