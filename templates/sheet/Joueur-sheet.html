@@ -4,13 +4,13 @@
 <header class="sheet-header" data-rank="{{system.rang}}">
     <!-- 1/3 : Photo du joueur -->
     <div class="header-photo-section">
-        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" data-tooltip="{{actor.name}}"/>
     </div>
     
     <!-- 2/3 : Informations avec image de rang en fond -->
     <div class="header-info-section">
         <!-- Chiffre de niveau stylisé (bouton level-up) -->
-        <button type="button" class="level-display-btn" data-action="levelUp" title="Monter de niveau">
+        <button type="button" class="level-display-btn" data-action="levelUp" data-tooltip="Monter de niveau">
             <span class="level-number">{{data.system.niveauJoueur}}</span>
         </button>
         
@@ -76,35 +76,55 @@
             <a class="item" data-tab="mecaniques">Mécaniques</a>
         
 
-<!-- **NOUVEAU : Boutons d'action combat** -->
-            <div class="combat-actions-bar">
-                <button type="button" class="combat-action-btn block-btn {{#unless system.toucheDefense}}disabled{{/unless}}" 
-                        data-action="block" 
-                        {{#unless system.toucheDefense}}disabled{{/unless}}
-                        title="Blocage (Défense: {{system.toucheDefense}}%)">
-                    <img src="systems/alyria/module\data\images\icones\Blocage.png" alt="Blocage" class="combat-icon">
-                    <span class="combat-label">Blocage</span>
-                </button>
+        <!-- **NOUVEAU : Boutons d'action combat** -->
+ <div class="form-group-inline state-header">
+            <button type="button" class="combat-action-btn attack-btn {{#unless system.inventaire.armeEquipee}}disabled{{/unless}}" 
+                    data-action="attack" 
+                    {{#unless system.inventaire.armeEquipee}}disabled{{/unless}}
+                   data-tooltip="Attaque{{#if system.inventaire.armeEquipee}} ({{system.inventaire.armeEquipee.system.touche}} : {{getWeaponToucheValue system}}%){{/if}}">
+                <img src="systems/alyria/module\data\images\icones\Attaque.png" alt="Attaque" class="combat-icon">
                 
-                <button type="button" class="combat-action-btn attack-btn {{#unless system.inventaire.armeEquipee}}disabled{{/unless}}" 
-                        data-action="attack" 
-                        {{#unless system.inventaire.armeEquipee}}disabled{{/unless}}
-                        title="Attaque{{#if system.inventaire.armeEquipee}} ({{system.inventaire.armeEquipee.system.touche}}){{/if}}">
-                    <img src="systems/alyria/module\data\images\icones\Attaque.png" alt="Attaque" class="combat-icon">
-                    <span class="combat-label">Attaque</span>
-                </button>
-            </div>
-               <div class="form-group-inline state-header">
-                   
-                    <button type="button" class="recovery-button" title="Récupération">
-                        <i class="fas fa-flask"></i>
-                    </button>
-                </div>
-     
+            </button>
+            
+            <!-- **NOUVEAU : Bouton Attaque à Mains Nues** -->
+            <button type="button" class="combat-action-btn unarmed-btn" 
+                    data-action="unarmed-attack" 
+                    data-tooltip="Attaque à Mains Nues (Force: {{system.toucheForce}}%)">
+                <img src="systems/alyria/module\data\images\icones\MainsNues.png" alt="Mains Nues" class="combat-icon">
+                
+            </button>
+       </div>
+                <button type="button" class="combat-action-btn block-btn {{#unless system.toucheDefense}}disabled{{/unless}}" 
+                data-action="block" 
+                {{#unless system.toucheDefense}}disabled{{/unless}}
+                data-tooltip="Blocage (Défense: {{system.toucheDefense}}%)">
+            <img src="systems/alyria/module\data\images\icones\Blocage.png" alt="Blocage" class="combat-icon">
+            
+        </button>
+        <!-- **NOUVEAU : Bouton de récupération** -->
+<!-- **AJOUT dans Joueur-sheet.html - Près des boutons de récupération** -->
+
+    <button type="button" class="combat-action-btn recovery-btn" data-action="recovery" data-tooltip="Récupération">
+        <img src="systems/alyria/module/data/images/icones/Recuperation.png" alt="Récupération" class="combat-icon">
+        
+    </button>
+<div class="form-group-inline state-header">
+    <!-- **NOUVEAU : Bouton de redistribution** -->
+    {{#if (gt (_getRedistributionTotal) 0)}}
+        <button type="button" class="redistribute-points-btn" data-tooltip="Redistribuer les points excédentaires">
+            <i class="fas fa-exchange-alt"></i>
+            <span class="redistrib-badge">{{_getRedistributionTotal}}</span>
+        </button>
+                <!-- **NOUVEAU : Bouton de réinitialisation** -->
+        <button type="button" class="reset-button" title="Réinitialiser la fiche">
+            <i class="fas fa-undo"></i>
+        </button>
+    {{/if}}
+
+
+</div>
      
         </nav>
-
-
 
         <div class="sheet-content">
             <!-- Équipement -->
@@ -163,13 +183,13 @@
                             <div class="weapon-compact-actions">
                                 <button type="button" class="weapon-open" 
                                         data-item-id="{{system.inventaire.armeEquipee.id}}" 
-                                        title="Ouvrir la fiche">
+                                        data-tooltip="Ouvrir la fiche">
                                     <i class="fas fa-external-link"></i>
                                 </button>
                                 <button type="button" class="weapon-unequip" 
                                         data-equip-type="armeEquipee"
                                         data-item-id="{{system.inventaire.armeEquipee.id}}" 
-                                        title="Déséquiper">
+                                        data-tooltip="Déséquiper">
                                     <i class="fas fa-times"></i>
                                 </button>
                             </div>
@@ -214,13 +234,13 @@
                                     <div class="weapon-compact-actions">
                                         <button type="button" class="weapon-open" 
                                                 data-item-id="{{system.inventaire.armeSecondaireEquipee.id}}" 
-                                                title="Ouvrir la fiche">
+                                                data-tooltip="Ouvrir la fiche">
                                             <i class="fas fa-external-link"></i>
                                         </button>
                                         <button type="button" class="weapon-unequip" 
                                                 data-equip-type="armeSecondaireEquipee"
                                                 data-item-id="{{system.inventaire.armeSecondaireEquipee.id}}" 
-                                                title="Déséquiper">
+                                                data-tooltip="Déséquiper">
                                             <i class="fas fa-times"></i>
                                         </button>
                                     </div>
@@ -288,12 +308,12 @@
                                 <div class="armor-compact-actions">
                                     <button type="button" class="armor-open" 
                                             data-item-id="{{system.inventaire.armureEquipee.id}}" 
-                                            title="Ouvrir la fiche">
+                                           data-tooltip="Ouvrir la fiche">
                                         <i class="fas fa-external-link"></i>
                                     </button>
                                     <button type="button" class="armor-unequip" 
                                             data-item-id="{{system.inventaire.armureEquipee.id}}" 
-                                            title="Déséquiper">
+                                            data-tooltip="Déséquiper">
                                         <i class="fas fa-times"></i>
                                     </button>
                                 </div>
@@ -363,13 +383,13 @@
                                                 <div class="accessory-compact-actions">
                                                     <button type="button" class="accessory-open" 
                                                             data-item-id="{{system.inventaire.accessoire1.id}}" 
-                                                            title="Ouvrir la fiche">
+                                                            data-tooltip="Ouvrir la fiche">
                                                         <i class="fas fa-external-link"></i>
                                                     </button>
                                                     <button type="button" class="accessory-unequip" 
                                                             data-equip-type="accessoire1"
                                                             data-item-id="{{system.inventaire.accessoire1.id}}" 
-                                                            title="Déséquiper">
+                                                            data-tooltip="Déséquiper">
                                                         <i class="fas fa-times"></i>
                                                     </button>
                                                 </div>
@@ -436,13 +456,13 @@
                                                     <div class="accessory-compact-actions">
                                                         <button type="button" class="accessory-open" 
                                                                 data-item-id="{{system.inventaire.accessoire2.id}}" 
-                                                                title="Ouvrir la fiche">
+                                                               data-tooltip="Ouvrir la fiche">
                                                             <i class="fas fa-external-link"></i>
                                                         </button>
                                                         <button type="button" class="accessory-unequip" 
                                                                 data-equip-type="accessoire2"
                                                                 data-item-id="{{system.inventaire.accessoire2.id}}" 
-                                                                title="Déséquiper">
+                                                                data-tooltip="Déséquiper">
                                                             <i class="fas fa-times"></i>
                                                         </button>
                                                     </div>
@@ -535,20 +555,20 @@
                                         <div class="weapon-compact-actions">
                                             <button type="button" class="weapon-open" 
                                                     data-item-id="{{item.id}}" 
-                                                    title="Ouvrir la fiche">
+                                                    data-tooltip="Ouvrir la fiche">
                                                 <i class="fas fa-external-link"></i>
                                             </button>
                                             {{#unless item.isEquipped}}
                                                 <button type="button" class="item-equip" 
                                                         data-equip-type="arme" 
                                                         data-item-id="{{item.id}}" 
-                                                        title="Équiper">
+                                                        data-tooltip="Équiper">
                                                     <i class="fas fa-hand-rock"></i>
                                                 </button>
                                             {{/unless}}
                                             <button type="button" class="item-remove" 
                                                     data-item-id="{{item.id}}" 
-                                                    title="Supprimer">
+                                                    data-tooltip="Supprimer">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </div>
@@ -603,20 +623,20 @@
                                         <div class="armor-compact-actions">
                                             <button type="button" class="armor-open" 
                                                     data-item-id="{{item.id}}" 
-                                                    title="Ouvrir la fiche">
+                                                    data-tooltip="Ouvrir la fiche">
                                                 <i class="fas fa-external-link"></i>
                                             </button>
                                             {{#unless item.isEquipped}}
                                                 <button type="button" class="item-equip" 
                                                         data-equip-type="armure" 
                                                         data-item-id="{{item.id}}" 
-                                                        title="Équiper">
+                                                        data-tooltip="Équiper">
                                                     <i class="fas fa-shield-alt"></i>
                                                 </button>
                                             {{/unless}}
                                             <button type="button" class="item-remove" 
                                                     data-item-id="{{item.id}}" 
-                                                    title="Supprimer">
+                                                   data-tooltip="Supprimer">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </div>
@@ -672,20 +692,20 @@
                                         <div class="accessory-compact-actions">
                                             <button type="button" class="accessory-open" 
                                                     data-item-id="{{item.id}}" 
-                                                    title="Ouvrir la fiche">
+                                                    data-tooltip="Ouvrir la fiche">
                                                 <i class="fas fa-external-link"></i>
                                             </button>
                                             {{#unless item.isEquipped}}
                                                 <button type="button" class="item-equip" 
                                                         data-equip-type="{{item.type}}"
                                                         data-item-id="{{item.id}}" 
-                                                        title="Équiper">
+                                                        data-tooltip="Équiper">
                                                     <i class="fas fa-ring"></i>
                                                 </button>
                                             {{/unless}}
                                             <button type="button" class="item-remove" 
                                                     data-item-id="{{item.id}}" 
-                                                    title="Supprimer">
+                                                    data-tooltip="Supprimer">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </div>
@@ -717,7 +737,7 @@
                                         <div class="item-compact-actions">
                                             <button type="button" class="item-open" 
                                                     data-item-id="{{item.id}}" 
-                                                    title="Ouvrir la fiche">
+                                                    data-tooltip="Ouvrir la fiche">
                                                 <i class="fas fa-external-link"></i>
                                             </button>
                                             {{#if (eq item.type "accessoire")}}
@@ -725,7 +745,7 @@
                                                     <button type="button" class="item-equip" 
                                                             data-equip-type="{{item.type}}" 
                                                             data-item-id="{{item.id}}" 
-                                                            title="Équiper">
+                                                            data-tooltip="Équiper">
                                                         <i class="fas fa-ring"></i>
                                                     </button>
                                                 {{/unless}}
@@ -759,7 +779,7 @@
 
             <!-- Talents et Passifs -->
             <div class="tab" data-tab="talents-passifs">
-
+                    <h3 class="section-title-highlight"> </h3>
                     <div class="biography-section">
                         
                         <!-- **1. TALENT DE RACE** -->
@@ -771,6 +791,8 @@
                                 </h4>
                                 <div class="bubble-content hidden">
                                     <p>{{selectedRace.competenceRaciale}}</p>
+                                    <p>Effet: {{selectedRace.TalentRace.effet}}</p>
+                                    
                                 </div>
                             </div>
                         {{/if}}
@@ -784,7 +806,8 @@
                                         <i class="fas fa-chevron-down toggle-icon"></i>
                                     </h4>
                                     <div class="bubble-content hidden">
-                                        <p>{{talent.effet}}</p>
+                                       
+                                        <p>Effet: {{talent.effet}}</p>
                                     </div>
                                 </div>
                             {{/if}}
@@ -794,14 +817,21 @@
                         {{#each system.talents as |talent|}}
                             {{#if (and (or (eq talent.source "voie") (eq talent.source "arcane")) (eq talent.niveau 1))}}
                                 <div class="biography-bubble" data-bubble-type="talent-acquired">
-                                    <h4 class="bubble-title">
-                                        {{#if (eq talent.source "voie")}}📿 Voie{{/if}}{{#if (eq talent.source "arcane")}}✨ Arcane{{/if}} (Niveau {{talent.niveau}}) : {{talent.nom}}
-                                        <i class="fas fa-chevron-down toggle-icon"></i>
-                                    </h4>
-                                    <div class="bubble-content hidden">
-                                        <p>{{talent.effet}}</p>
-                                    </div>
+                                <h4 class="bubble-title">
+                                    {{#if (eq talent.source "voie")}}📿 Voie{{/if}}
+                                    {{#if (eq talent.source "arcane")}}✨ Arcane{{/if}}
+                                    {{#if (eq talent.source "historique")}}📜 Historique{{/if}}
+                                    {{#if (eq talent.source "race")}}🧬 Race{{/if}}
+                                    {{#if (eq talent.source "général")}}⭐ Général{{/if}}
+                                    {{#if (eq talent.source "statistique")}}⭐ Statistique{{/if}}
+                                            
+                                    (Niveau {{talent.niveau}}) : {{talent.nom}}
+                                    <i class="fas fa-chevron-down toggle-icon"></i>
+                                </h4>
+                                <div class="bubble-content hidden">
+                                    <p>Effet: {{talent.effet}}</p>
                                 </div>
+                            </div>
                             {{/if}}
                         {{/each}}
 
@@ -810,11 +840,17 @@
                             {{#if (gt talent.niveau 1)}}
                                 <div class="biography-bubble" data-bubble-type="talent-acquired">
                                     <h4 class="bubble-title">
-                                        {{#if (eq talent.source "voie")}}📿 Voie{{/if}}{{#if (eq talent.source "arcane")}}✨ Arcane{{/if}}{{#if (eq talent.source "historique")}}📜 Historique{{/if}} (Niveau {{talent.niveau}}) : {{talent.nom}}
+                                        {{#if (eq talent.source "voie")}}📿 Voie{{/if}}
+                                        {{#if (eq talent.source "arcane")}}✨ Arcane{{/if}}
+                                        {{#if (eq talent.source "historique")}}📜 Historique{{/if}}
+                                        {{#if (eq talent.source "race")}}🧬 Race{{/if}}
+                                        {{#if (eq talent.source "général")}}⭐ Général{{/if}}
+                                        {{#if (eq talent.source "statistique")}}⭐ Statistique{{/if}}
+                                            (Niveau {{talent.niveau}}) : {{talent.nom}}
                                         <i class="fas fa-chevron-down toggle-icon"></i>
                                     </h4>
                                     <div class="bubble-content hidden">
-                                        <p>{{talent.effet}}</p>
+                                        <p>Effet: {{talent.effet}}</p>
                                     </div>
                                 </div>
                             {{/if}}
@@ -902,17 +938,18 @@
 
             <!-- Compétences Mineures -->
             <div class="tab" data-tab="competences-mineures">
-          
+            <h3 class="section-title-highlight"> </h3>
                 <div class="stat-section">
                     <div class="form-group-inline">
                         <ul class="carac-list">
+                            
                             {{#each data.system.mineures as |carac nomCarac|}}
                             <li>
                                 <div class="form-group-inline">
                                     <div class="Dés rollable-dice" data-dice="{{lookup ../system (concat 'touche' (capitalize nomCarac))}}" data-label="{{nomCarac}}">
                                         <label class="carac-label-compact">{{nomCarac}}</label>
                                     </div>
-                                    <!-- **CHANGÉ : Même format que les majeures avec carac-total-large** -->
+                                    
                                     <span class="carac-total-large" 
                                         data-tooltip="{{nomCarac}}: {{this.totale}} ({{this.majeureAssocie}} Majeure + {{this.creation}} création + {{this.repartition}} répartition + {{this.talents}} talents + {{this.equipement}} équipement + {{this.bonus}} bonus)">
                                         {{this.totale}}
@@ -922,6 +959,23 @@
                                         <span class="touche-label"> (Touche: 
                                             <span class="touche-value">{{lookup ../system (concat 'touche' (capitalize nomCarac))}}%</span>
                                         )</span>
+                                    {{/if}}
+                                    
+                                    <!-- **NOUVEAU : Bouton conditionnel direct** -->
+                                    {{#if ../system.conditionalTalentsDisplay}}
+                                        {{#each ../system.conditionalTalentsDisplay as |condTalent|}}
+                                            {{#if (eq condTalent.caracteristique nomCarac)}}
+                                                <button type="button" class="situational-bonus-btn" 
+                                                        data-caracteristique="{{nomCarac}}"
+                                                        data-talent-name="{{condTalent.nom}}"
+                                                        data-bonus="{{condTalent.bonus}}"
+                                                        data-condition="{{condTalent.condition}}"
+                                                        title="{{condTalent.nom}}: +{{condTalent.bonus}} ({{condTalent.condition}})">
+                                                    <i class="fas fa-plus-circle"></i>
+                                                    <span>+{{condTalent.bonus}}</span>
+                                                </button>
+                                            {{/if}}
+                                        {{/each}}
                                     {{/if}}
                                 </div>
                             </li>
@@ -960,7 +1014,7 @@
                         <div class="bubble-content hidden" style="position:relative; overflow:hidden;">
                             {{#if selectedVoie.image}}
                                 <img src="{{selectedVoie.image}}" alt="Image de la voie"
-                                     style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0.18; z-index:0; pointer-events:none;">
+                                     style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0.38; z-index:0; pointer-events:none;">
                             {{/if}}
                             <div style="position:relative; z-index:1;">
                                 {{#each selectedVoie.description as |paragraph|}}
@@ -1082,34 +1136,34 @@
                     <div class="biography-bubble" data-bubble-type="mecanique-2">
                         <h4 class="bubble-title">Mécanique de voie : {{selectedSecondVoie.nom}} (Seconde) <i class="fas fa-chevron-down toggle-icon"></i></h4>
                         <div class="bubble-content hidden">
-                            {{#if selectedSecondVoie.mecanique}}
-                                {{#if selectedSecondVoie.mecanique.length}}
-                                    {{#each selectedSecondVoie.mecanique as |paragraph|}}
-                                        <p>{{paragraph}}</p>
-                                    {{/each}}
-                                {{else}}
-                                    <p>{{selectedSecondVoie.mecanique}}</p> <!-- Si c'est un string simple -->
-                                {{/if}}
+                        {{#if selectedSecondVoie.mecanique}}
+                            {{#if selectedSecondVoie.mecanique.length}}
+                            {{#each selectedSecondVoie.mecanique as |paragraph|}}
+                                <p>{{paragraph}}</p>
+                            {{/each}}
                             {{else}}
-                                <p>Aucune mécanique définie pour cette seconde voie.</p>
+                            <p>{{selectedSecondVoie.mecanique}}</p>
                             {{/if}}
+                        {{else}}
+                            <p>Aucune mécanique définie pour cette seconde voie.</p>
+                        {{/if}}
                         </div>
                     </div>
                     {{else if selectedSecondArcana}}
                     <div class="biography-bubble" data-bubble-type="mecanique-2">
                         <h4 class="bubble-title">Mécanique d'arcane : {{selectedSecondArcana.nom}} (Seconde) <i class="fas fa-chevron-down toggle-icon"></i></h4>
                         <div class="bubble-content hidden">
-                            {{#if selectedSecondArcana.mecanique}}
-                                {{#if selectedSecondArcana.mecanique.length}}
-                                    {{#each selectedSecondArcana.mecanique as |paragraph|}}
-                                        <p>{{paragraph}}</p>
-                                    {{/each}}
-                                {{else}}
-                                    <p>{{selectedSecondArcana.mecanique}}</p> <!-- Si c'est un string simple -->
-                                {{/if}}
+                        {{#if selectedSecondArcana.mecanique}}
+                            {{#if selectedSecondArcana.mecanique.length}}
+                            {{#each selectedSecondArcana.mecanique as |paragraph|}}
+                                <p>{{paragraph}}</p>
+                            {{/each}}
                             {{else}}
-                                <p>Aucune mécanique définie pour cette seconde arcane.</p>
+                            <p>{{selectedSecondArcana.mecanique}}</p>
                             {{/if}}
+                        {{else}}
+                            <p>Aucune mécanique définie pour cette seconde arcane.</p>
+                        {{/if}}
                         </div>
                     </div>
                     {{/if}}
@@ -1151,7 +1205,9 @@
                 </div>
                 <div class="form-group-inline"> 
                     <label class="carac-label-compact"> </label>   
-                    <span class="carac-total-large" data-tooltip="Dégats / Soins / Bouclier: {{_getDSBDetails}}"><strong>{{system.dsb}}</strong></span>
+                    <span class="carac-total-large" data-tooltip="Dégats / Soins / Bouclier: {{_getDSBDetails}}">
+                        <strong>{{system.dsb}}</strong>
+                    </span>
                     <span class="carac-total-large"><strong>{{system.vitesse}}</strong></span>
                 </div>
                 <div class="form-group-inline">
@@ -1437,7 +1493,7 @@
     display: flex;
     gap: 15px;
     justify-content: center;
-    padding: 10px 0;
+    padding: 0px;
     background: rgba(0, 0, 0, 0.05);
     border-radius: 8px;
     margin-bottom: 15px;
@@ -1451,7 +1507,7 @@
     justify-content: center;
     width: 80px;
     height: 80px;
-    background: linear-gradient(145deg, #f0f0f0, #ffffff);
+    
     border: 2px solid #ccc;
     border-radius: 12px;
     cursor: pointer;
@@ -1462,13 +1518,13 @@
 
 .combat-action-btn:hover:not(.disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 2px rgba(0, 0, 0, 0.2);
     border-color: #999;
 }
 
 .combat-action-btn:active:not(.disabled) {
     transform: translateY(0);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
 }
 
 .combat-action-btn.block-btn:not(.disabled) {
@@ -1500,11 +1556,14 @@
 }
 
 .combat-icon {
-    width: 90px;
-    height: 84px;
-    
-    margin-top: 14px;
-    transition: transform 0.2s ease;
+    width: 74px;           /* Réduit la taille pour moins de padding */
+    height: 70px;
+    margin: 0 auto;         /* Centré verticalement */
+    display: block;
+    border: none !important; /* Supprime toute bordure */
+    box-shadow: none !important;
+    background: none !important;
+    padding: 0 !important;  /* Supprime tout padding résiduel */
 }
 
 .combat-action-btn:hover:not(.disabled) .combat-icon {
@@ -1549,5 +1608,67 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     flex-shrink: 0;
 }
+
+.situational-bonus-btn {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    color: white;
+    border: none;
+    padding: 6px 6px;
+    max-height: 36px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(255, 152, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.situational-bonus-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.situational-bonus-btn:hover {
+    background: linear-gradient(135deg, #F57C00, #E65100);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.4);
+}
+
+.situational-bonus-btn:hover::before {
+    left: 100%;
+}
+
+.situational-bonus-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(255, 152, 0, 0.5);
+}
+
+.situational-bonus-btn i {
+    font-size: 11px;
+    color: #FFE0B2;
+}
+
+.situational-bonus-btn span {
+    font-size: 11px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Animation de pulsation pour attirer l'attention */
+.situational-bonus-btn {
+    animation: gentle-pulse 2s infinite;
+}
+
 
 </style>
